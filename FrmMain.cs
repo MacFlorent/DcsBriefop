@@ -28,20 +28,19 @@ namespace DcsBriefop
 
 		private void MizOpen()
 		{
-			string sFilePath = null;
-			using (OpenFileDialog openFileDialog = new OpenFileDialog())
+			using (OpenFileDialog ofd = new OpenFileDialog())
 			{
-				openFileDialog.InitialDirectory = @"d:\projects";
-				openFileDialog.Filter = m_sDcsFileFilter;
-				openFileDialog.RestoreDirectory = true;
+				ofd.InitialDirectory = @"d:\projects";
+				ofd.Filter = m_sDcsFileFilter;
+				ofd.RestoreDirectory = true;
 
-				if (openFileDialog.ShowDialog() == DialogResult.OK)
+				if (ofd.ShowDialog() == DialogResult.OK)
 				{
-					sFilePath = openFileDialog.FileName;
+					m_missionManager = new MissionManager(ofd.FileName);
+					DataToScreen();
+
 				}
 			}
-			m_missionManager = new MissionManager(sFilePath);
-			MizToScreen();
 		}
 
 		private void MizReload()
@@ -50,13 +49,15 @@ namespace DcsBriefop
 				throw new ExceptionDcsBriefop("No mission is currently loaded");
 
 			m_missionManager.MizLoad();
-			MizToScreen();
+			DataToScreen();
 		}
 
 		private void MizSave(string sMizFilePath)
 		{
 			if (m_missionManager is null)
 				throw new ExceptionDcsBriefop("No mission is currently loaded");
+
+			ScreenToData();
 
 			m_missionManager.MizSave(sMizFilePath);
 			MizReload();
@@ -67,23 +68,31 @@ namespace DcsBriefop
 			if (m_missionManager is null)
 				throw new ExceptionDcsBriefop("No mission is currently loaded");
 
-			using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+			using (SaveFileDialog sfd = new SaveFileDialog())
 			{
-				saveFileDialog.InitialDirectory = m_missionManager.MizFileDirectory;
-				saveFileDialog.FileName = m_missionManager.MizFileName;
-				saveFileDialog.Filter = m_sDcsFileFilter;
+				sfd.InitialDirectory = m_missionManager.MizFileDirectory;
+				sfd.FileName = m_missionManager.MizFileName;
+				sfd.Filter = m_sDcsFileFilter;
 
-				if (saveFileDialog.ShowDialog() == DialogResult.OK)
+				if (sfd.ShowDialog() == DialogResult.OK)
 				{
-					MizSave(saveFileDialog.FileName);
+					MizSave(sfd.FileName);
 				}
 			}
 		}
 
-		private void MizToScreen()
+		private void DataToScreen()
 		{
+			StatusStrip.Items.Clear();
+			StatusStrip.Items.Add(m_missionManager.MizFilePath);
+
 			m_ucBriefingContainer.BriefingPack = m_missionManager.BriefingPack;
 			m_ucBriefingContainer.DataToScreen();
+		}
+
+		private void ScreenToData()
+		{
+			m_ucBriefingContainer.ScreenToData();
 		}
 
 		#region Menus
@@ -104,7 +113,7 @@ namespace DcsBriefop
 			tsmiFile.DropDownItems.Add(MenuItem("Open", MenuName.Open));
 			tsmiFile.DropDownItems.Add(MenuItem("Reload", MenuName.Reload));
 			tsmiFile.DropDownItems.Add(MenuItem("Save", MenuName.Save));
-			tsmiFile.DropDownItems.Add(MenuItem("Save as", MenuName.Save));
+			tsmiFile.DropDownItems.Add(MenuItem("Save as", MenuName.SaveAs));
 			tsmiFile.DropDownItems.Add(new ToolStripSeparator());
 			tsmiFile.DropDownItems.Add(MenuItem("Exit", MenuName.Exit));
 			MainMenu.Items.Add(tsmiFile);

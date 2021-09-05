@@ -1,7 +1,7 @@
 ﻿
 namespace DcsBriefop.UcBriefing
 {
-	partial class UcSituation
+	partial class UcPageSituation
 	{
 		/// <summary> 
 		/// Required designer variable.
@@ -71,6 +71,7 @@ namespace DcsBriefop.UcBriefing
 			this.TbTask.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.TbTask.Size = new System.Drawing.Size(659, 128);
 			this.TbTask.TabIndex = 3;
+			this.TbTask.Validated += new System.EventHandler(this.TbTask_Validated);
 			// 
 			// LbTask
 			// 

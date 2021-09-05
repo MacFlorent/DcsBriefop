@@ -126,6 +126,13 @@
     <Compile Include="Briefing\BriefingPackCoalition.cs" />
     <Compile Include="Briefing\BriefingPack.cs" />
     <Compile Include="Briefing\BriefingPageSituation.cs" />
+    <Compile Include="LsonStructure\CustomData.cs" />
+    <Compile Include="UcBriefing\TabPageBriefing.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UcBriefing\UcBaseBriefingPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UcBriefing\UcBriefingPack.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -158,11 +165,11 @@
     <Compile Include="ToolsLson.cs" />
     <Compile Include="ToolsMisc.cs" />
     <Compile Include="Briefing\BriefingWeather.cs" />
-    <Compile Include="UcBriefing\UcSituation.cs">
+    <Compile Include="UcBriefing\UcPageSituation.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UcBriefing\UcSituation.Designer.cs">
-      <DependentUpon>UcSituation.cs</DependentUpon>
+    <Compile Include="UcBriefing\UcPageSituation.Designer.cs">
+      <DependentUpon>UcPageSituation.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
@@ -179,8 +186,8 @@
     <EmbeddedResource Include="UcBriefing\UcBriefingPack.resx">
       <DependentUpon>UcBriefingPack.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UcBriefing\UcSituation.resx">
-      <DependentUpon>UcSituation.cs</DependentUpon>
+    <EmbeddedResource Include="UcBriefing\UcPageSituation.resx">
+      <DependentUpon>UcPageSituation.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Briefing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace DcsBriefop.UcBriefing
@@ -20,38 +21,64 @@ namespace DcsBriefop.UcBriefing
 		{
 			LbSortie.Text = BriefingPack.Sortie;
 
+			CkDisplayRed.Checked = BriefingPack.BriefingPackRed.Displayed;
+			CkDisplayBlue.Checked = BriefingPack.BriefingPackBlue.Displayed;
+			CkDisplayNeutral.Checked = BriefingPack.BriefingPackNeutral.Displayed;
+
 			TcMissionData.TabPages.Clear();
-			DataToScreen_Coalition(BriefingPack.BriefingPackRed, CkDisplayRed);
-			DataToScreen_Coalition(BriefingPack.BriefingPackBlue, CkDisplayBlue);
-			DataToScreen_Coalition(BriefingPack.BriefingPackNeutral, CkDisplayNeutral);
+			DataToScreen_Coalition(BriefingPack.BriefingPackRed);
+			DataToScreen_Coalition(BriefingPack.BriefingPackBlue);
+			DataToScreen_Coalition(BriefingPack.BriefingPackNeutral);
 		}
 
-		private void DataToScreen_Coalition(BriefingPackCoalition bpc, CheckBox ckDisplayed)
+		private void DataToScreen_Coalition(BriefingPackCoalition bpc)
 		{
-			if (bpc.Displayed)
+			if (!bpc.Displayed)
+				return;
+
+			DataToScreen_Page<UcPageSituation>(bpc.BriefingPageSituation);
+		}
+
+		private void DataToScreen_Page<UcT>(BaseBriefingPage bbp) where UcT : UcBaseBriefingPage, new()
+		{
+			UcT uc = null;
+			TabPageBriefing tpb = GetTabPageBriefing(bbp);
+
+			if (tpb is null)
 			{
-				DataToScreen_Situation(bpc);
-				ckDisplayed.Checked = true;
+				uc = new UcT();
+				uc.BriefingPage = bbp;
+				tpb = new TabPageBriefing(uc);
+				TcMissionData.TabPages.Add(tpb);
 			}
 			else
-				ckDisplayed.Checked = false;
+				uc = tpb.UcBriefingPage as UcT;
+
+			uc.DataToScreen();
 		}
 
-		private void DataToScreen_Situation(BriefingPackCoalition bpc)
+		public void ScreenToData()
 		{
-			UcSituation ucs = new UcSituation();
-			ucs.PageSituation = bpc.BriefingPageSituation;
-			ucs.DataToScreen();
+			BriefingPack.BriefingPackRed.Displayed = CkDisplayRed.Checked;
+			BriefingPack.BriefingPackBlue.Displayed = CkDisplayBlue.Checked;
+			BriefingPack.BriefingPackNeutral.Displayed = CkDisplayNeutral.Checked;
 
-			TabPage tpSituation = new TabPage(bpc.BriefingPageSituation.Label);
-			tpSituation.Controls.Clear();
-			tpSituation.Controls.Add(ucs);
-			ucs.Dock = DockStyle.Fill;
-			TcMissionData.TabPages.Add(tpSituation);
+			if (TcMissionData.TabPages[TcMissionData.SelectedIndex] is TabPageBriefing tp)
+			{
+				tp.UcBriefingPage.ScreenToData();
+			}
 		}
 
+		private TabPageBriefing GetTabPageBriefing(BaseBriefingPage bbp)
+		{
+			foreach (TabPageBriefing tpb in TcMissionData.TabPages.OfType<TabPageBriefing>())
+			{
+				if (tpb.UcBriefingPage.BriefingPage.Label == bbp.Label)
+					return tpb;
+			}
 
-		public void SaveMissionManager(MissionManager manager) { }
+			return null;
+		}
 
 		private void CkDisplayCoalition_CheckedChanged(object sender, System.EventArgs e)
 		{
@@ -76,13 +103,9 @@ namespace DcsBriefop.UcBriefing
 
 		private void TcMissionData_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
-			if (sender is TabControl tc && tc.SelectedIndex >= 0)
+			if (sender is TabControl tc && tc.SelectedIndex >= 0 && TcMissionData.TabPages[TcMissionData.SelectedIndex] is TabPageBriefing tp)
 			{
-				TabPage tp = TcMissionData.TabPages[TcMissionData.SelectedIndex];
-				if (tp.Controls.Count == 1 && tp.Controls[0] is UcSituation ucs)
-				{
-					ucs.DataToScreen();
-				}
+				tp.UcBriefingPage.DataToScreen();
 			}
 		}
 	}
