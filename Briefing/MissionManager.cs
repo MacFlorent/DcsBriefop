@@ -1,7 +1,6 @@
 ﻿using LsonLib;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
@@ -28,7 +27,7 @@ namespace DcsBriefop.Briefing
 
 		public LsonStructure.RootMission RootMission { get; private set; }
 		public LsonStructure.RootDictionary RootDictionary { get; private set; }
-		public LsonStructure.CustomData RootCustom { get; private set; }
+		public AdditionalData RootCustom { get; private set; }
 
 		private BriefingPack m_briefingPack;
 		public BriefingPack BriefingPack
@@ -96,13 +95,19 @@ namespace DcsBriefop.Briefing
 
 			if (File.Exists(sCustomFilePath))
 			{
-				RootCustom = JsonConvert.DeserializeObject<LsonStructure.CustomData>(File.ReadAllText(sCustomFilePath));
+				RootCustom = JsonConvert.DeserializeObject<AdditionalData>(File.ReadAllText(sCustomFilePath));
 			}
 			else
 			{
-				RootCustom = new LsonStructure.CustomData();
+				RootCustom = new AdditionalData();
 			}
 
+			if (RootCustom.DisplayRed is null)
+				RootCustom.DisplayRed = !string.IsNullOrEmpty(RootDictionary.RedTask);
+			if (RootCustom.DisplayBlue is null)
+				RootCustom.DisplayBlue = !string.IsNullOrEmpty(RootDictionary.BlueTask);
+			if (RootCustom.DisplayNeutral is null)
+				RootCustom.DisplayNeutral = !string.IsNullOrEmpty(RootDictionary.NeutralTask);
 		}
 
 		public void MizSave(string sFilePath)
@@ -134,6 +139,7 @@ namespace DcsBriefop.Briefing
 			{
 				ReplaceZipEntry(za, DictionaryZipEntryFullName, LsonVars.ToString(RootDictionary.RootLua));
 				ReplaceZipEntry(za, m_missionLuaFileName, LsonVars.ToString(RootMission.RootLua));
+				ReplaceZipEntry(za, m_customLuaFileName, JsonConvert.SerializeObject(RootCustom));
 			}
 		}
 

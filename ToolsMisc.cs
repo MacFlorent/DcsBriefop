@@ -6,21 +6,11 @@ namespace DcsBriefop
 {
 	internal static class ToolsMisc
 	{
-		public static decimal MetersToFeet { get; } = 3.281M;
-		public static decimal MsToKnots { get; } = 1.944M;
-		public static decimal MmHgToHpa { get; } = 1.333M;
-		public static decimal MmHgToInH { get; } = 1 / 25.4M;
-
 		public static void AppendWithSeparator(this StringBuilder sb, string value, string sSeparator)
 		{
 			if (sb.Length > 0)
 				sb.Append(sSeparator);
 			sb.Append(value);
-		}
-
-		public static string GetLuaStringCleaned(string sString)
-		{
-			return sString.Replace("\\\n", "\n");
 		}
 
 		public static float Lerp(this float start, float end, float amount)

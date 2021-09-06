@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace DcsBriefop.UcBriefing
 {
-	internal abstract class UcBaseBriefingPage : UserControl
+	internal class UcBaseBriefingPage : UserControl
 	{
 		public BaseBriefingPage BriefingPage { get; set; }
 
@@ -12,7 +12,7 @@ namespace DcsBriefop.UcBriefing
 			BriefingPage = null;
 		}
 
-		public abstract void DataToScreen();
-		public abstract void ScreenToData();
+		public virtual void DataToScreen() { }
+		public virtual void ScreenToData() { }
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using LsonLib;
+using System;
 using System.Collections.Generic;
 
 namespace DcsBriefop.LsonStructure
@@ -29,20 +30,30 @@ namespace DcsBriefop.LsonStructure
 
 		public override void FromLua()
 		{
-			Sortie = ToolsMisc.GetLuaStringCleaned(m_lsd[LuaNode.Sortie].GetString());
-			Description = ToolsMisc.GetLuaStringCleaned(m_lsd[LuaNode.Description].GetString());
-			RedTask = ToolsMisc.GetLuaStringCleaned(m_lsd[LuaNode.RedTask].GetString());
-			BlueTask = ToolsMisc.GetLuaStringCleaned(m_lsd[LuaNode.BlueTask].GetString());
-			NeutralTask = ToolsMisc.GetLuaStringCleaned(m_lsd[LuaNode.NeutralTask].GetString());
+			Sortie = FromLuaString(m_lsd[LuaNode.Sortie].GetString());
+			Description = FromLuaString(m_lsd[LuaNode.Description].GetString());
+			RedTask = FromLuaString(m_lsd[LuaNode.RedTask].GetString());
+			BlueTask = FromLuaString(m_lsd[LuaNode.BlueTask].GetString());
+			NeutralTask = FromLuaString(m_lsd[LuaNode.NeutralTask].GetString());
 		}
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Sortie] = Sortie;
-			m_lsd[LuaNode.Description] = Description;
-			m_lsd[LuaNode.RedTask] = RedTask;
-			m_lsd[LuaNode.BlueTask] = BlueTask;
-			m_lsd[LuaNode.NeutralTask] = NeutralTask;
+			m_lsd[LuaNode.Sortie] = ToLuaString(Sortie);
+			m_lsd[LuaNode.Description] = ToLuaString(Description);
+			m_lsd[LuaNode.RedTask] = ToLuaString(RedTask);
+			m_lsd[LuaNode.BlueTask] = ToLuaString(BlueTask);
+			m_lsd[LuaNode.NeutralTask] = ToLuaString(NeutralTask);
+		}
+
+		private string FromLuaString(string sString)
+		{
+			return sString.Replace("\\\n", Environment.NewLine);
+		}
+		private string ToLuaString(string sString)
+		{
+			string s = FromLuaString(sString);
+			return s.Replace(Environment.NewLine, "\\\n");
 		}
 	}
 }

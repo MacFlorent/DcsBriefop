@@ -126,7 +126,7 @@
     <Compile Include="Briefing\BriefingPackCoalition.cs" />
     <Compile Include="Briefing\BriefingPack.cs" />
     <Compile Include="Briefing\BriefingPageSituation.cs" />
-    <Compile Include="LsonStructure\CustomData.cs" />
+    <Compile Include="Briefing\AdditionalData.cs" />
     <Compile Include="UcBriefing\TabPageBriefing.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.MasterData;
 using System;
+using System.Text;
 
 namespace DcsBriefop.Briefing
 {
@@ -17,6 +18,7 @@ namespace DcsBriefop.Briefing
 		{
 			get { return Convert.ToInt32(UnitsNet.UnitConverter.Convert(CloudBaseMeter, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot)); }
 		}
+
 		public int VisibilityMeter { get; private set; }
 		public int VisibilityStatuteMile
 		{
@@ -36,7 +38,7 @@ namespace DcsBriefop.Briefing
 			get { return Convert.ToDecimal(UnitsNet.UnitConverter.Convert(QnhMmHg, UnitsNet.Units.PressureUnit.MillimeterOfMercury, UnitsNet.Units.PressureUnit.Hectopascal)); }
 		}
 
-		public int TemperatureCelcius { get; private set; }
+		public decimal TemperatureCelcius { get; private set; }
 		public int TemperatureFarenheit
 		{
 			get { return Convert.ToInt32(UnitsNet.UnitConverter.Convert(TemperatureCelcius, UnitsNet.Units.TemperatureUnit.DegreeCelsius, UnitsNet.Units.TemperatureUnit.DegreeFahrenheit)); }
@@ -52,7 +54,7 @@ namespace DcsBriefop.Briefing
 			LsonStructure.Weather lson = m_manager.RootMission.Weather;
 
 			Preset = null;
-			if (MasterData.WeatherPreset.WeatherPresets.TryGetValue(lson.Cloud.Preset, out MasterData.WeatherPreset wp))
+			if (WeatherPreset.WeatherPresets.TryGetValue(lson.Cloud.Preset, out WeatherPreset wp))
 				Preset = wp;
 
 			WindGround = new BriefingWeatherWind(lson.WindAtGround);
@@ -90,84 +92,62 @@ namespace DcsBriefop.Briefing
 			Dust = lson.Dust;
 
 			QnhMmHg = lson.Qnh;
+			TemperatureCelcius = lson.Temperature;
 		}
 
-		//public override string ToString()
-		//{
-		//	StringBuilder sb = new StringBuilder();
-		//	// wind
-		//	foreach (WeatherWind ww in Winds)
-		//	{
-		//		int iDirectionFromTrue = (ww.DirectionToTrue + 180) % 360;
-		//		int iSpeedKnots = (int)Math.Round(ww.SpeedMs * ToolsMisc.MsToKnots, 0);
-		//		int iAltitudeFeet = (int)Math.Round(ww.AltitudeMeters * ToolsMisc.MetersToFeet, 0);
-		//		sb.AppendWithSeparator($"Wind {iAltitudeFeet} feet : {iDirectionFromTrue}° @ {iSpeedKnots} kt", "\n");
-		//	}
-		//	// visibility and clouds
-		//	int iVisibilityMeters = VisibilityMeters;
-		//	bool bFog = false; bool bPrecipitations = false;
-		//	if (Fog is object && Fog.ThicknessMeters > 100)
-		//	{
-		//		bFog = true;
-		//		if (Fog.VisibilityMeters < iVisibilityMeters)
-		//			iVisibilityMeters = Fog.VisibilityMeters;
-		//	}
+		public override string ToString()
+		{
+			return ToString(Environment.NewLine);
+		}
 
-		//	int iCloudDensityOctas, iCloudBaseMeters;
-		//	if (WeatherCloudPreset.WeatherCloudPresets.TryGetValue(Cloud.PresetName, out WeatherCloudPreset cp))
-		//	{
-		//		iCloudDensityOctas = cp.Density;
-		//		iCloudBaseMeters = Cloud.BaseMeters;
-		//		if (cp.VisibilityMeters is object && cp.VisibilityMeters < iVisibilityMeters)
-		//			iVisibilityMeters = cp.VisibilityMeters.Value;
+		public string ToString(string sNewLine)
+		{
+			StringBuilder sb = new StringBuilder();
+			// wind
+			sb.AppendWithSeparator(ToString_Wind(0, WindGround), sNewLine);
+			sb.AppendWithSeparator(ToString_Wind(2000, Wind2000), sNewLine);
+			sb.AppendWithSeparator(ToString_Wind(8000, Wind8000), sNewLine);
 
-		//		bPrecipitations = cp.Precipitation;
-		//	}
-		//	else
-		//	{
-		//		iCloudDensityOctas = Cloud.Density * 8 / 10; // density in mission editor is on a scale of 10
-		//		iCloudBaseMeters = Cloud.BaseMeters;
-		//		bPrecipitations = Cloud.Precipitations > 0;
-		//	}
+			// visibility and clouds
+			int iVisibilityKilometer = VisibilityMeter / 1000;
+			if (iVisibilityKilometer > 10)
+				iVisibilityKilometer = 10;
 
-		//	int iVisibilityKilometers = iVisibilityMeters / 1000;
-		//	if (iVisibilityKilometers > 10)
-		//		iVisibilityKilometers = 10;
-		//	int iCloudBaseFeet = (int)Math.Round(iCloudBaseMeters * ToolsMisc.MetersToFeet);
-		//	iCloudBaseFeet = (iCloudBaseFeet / 1000) * 1000;
+			sb.AppendWithSeparator($"Visibility {iVisibilityKilometer} kilometers", sNewLine);
+			if (Precipitation)
+				sb.Append(" precipitations");
+			if (Fog)
+				sb.Append(" fog");
+			if (Dust)
+				sb.Append(" dust");
 
-		//	sb.AppendWithSeparator($"Visibility {iVisibilityKilometers} kilometers", "\n");
-		//	if (bPrecipitations)
-		//		sb.Append(" precipitations");
-		//	if (bFog)
-		//		sb.Append(" fog");
-		//	if (Dust)
-		//		sb.Append(" dust");
+			if (CloudDensityOkta <= 0)
+				sb.AppendWithSeparator($"No clouds", sNewLine);
+			else
+			{
+				string sDensity;
+				if (CloudDensityOkta <= 2)
+					sDensity = "Few";
+				else if (CloudDensityOkta <= 4)
+					sDensity = "Scattered";
+				else if (CloudDensityOkta <= 6)
+					sDensity = "Broken";
+				else
+					sDensity = "Overcast";
 
-		//	if (iCloudDensityOctas <= 0 || Cloud.ThicknessMeters < 10)
-		//		sb.AppendWithSeparator($"No clouds", "\n");
-		//	else
-		//	{
-		//		string sDensity;
-		//		if (iCloudDensityOctas <= 2)
-		//			sDensity = "Few";
-		//		else if (iCloudDensityOctas <= 4)
-		//			sDensity = "Scattered";
-		//		else if (iCloudDensityOctas <= 6)
-		//			sDensity = "Broken";
-		//		else
-		//			sDensity = "Overcast";
+				sb.AppendWithSeparator($"{sDensity} clouds at {CloudBaseFoot} feet", sNewLine);
+			}
 
-		//		sb.AppendWithSeparator($"{sDensity} clouds at {iCloudBaseFeet} feet", "\n");
-		//	}
+			//T° and QNH
+			sb.Append($"Temperature {TemperatureCelcius}°C / QNH {QnhHpa} hPa - {QnhInHg} inHg");
 
-		//	//T° and QNH
-		//	int iQnhHpa = (int)Math.Round(QnhMmHg * ToolsMisc.MmHgToHpa);
-		//	decimal dQnhInHg = Math.Round(QnhMmHg * ToolsMisc.MmHgToInH, 2);
-		//	sb.AppendWithSeparator($"Temperature {TemperatureCelcius}°C / QNH {iQnhHpa} hPa - {dQnhInHg} inHg", "\n");
+			return sb.ToString();
+		}
 
-		//	return sb.ToString();
-		//}
+		private string ToString_Wind(int iAltitudeFoot, BriefingWeatherWind ww)
+		{
+			return $"Wind {iAltitudeFoot} feet : {ww.DirectionTrue}° @ {ww.SpeedKnot} kt";
+		}
 	}
 
 	internal class BriefingWeatherWind

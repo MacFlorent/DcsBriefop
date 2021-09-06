@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace DcsBriefop.Briefing
+﻿namespace DcsBriefop.Briefing
 {
 	internal class BriefingPack : BaseBriefing
 	{
@@ -9,7 +7,23 @@ namespace DcsBriefop.Briefing
 			get { return m_manager.RootDictionary.Sortie; }
 		}
 
-		//public Dictionary<string, BriefingPackCoalition> BriefingPackCoalitions { get; private set; }
+		public bool DisplayRed
+		{
+			get { return m_manager.RootCustom.DisplayRed.GetValueOrDefault(); }
+			set { m_manager.RootCustom.DisplayRed = value; }
+		}
+		public bool DisplayBlue
+		{
+			get { return m_manager.RootCustom.DisplayBlue.GetValueOrDefault(); }
+			set { m_manager.RootCustom.DisplayBlue = value; }
+		}
+		public bool DisplayNeutral
+		{
+			get { return m_manager.RootCustom.DisplayNeutral.GetValueOrDefault(); }
+			set { m_manager.RootCustom.DisplayNeutral = value; }
+		}
+
+
 		public BriefingPackCoalition BriefingPackRed { get; private set; }
 		public BriefingPackCoalition BriefingPackBlue { get; private set; }
 		public BriefingPackCoalition BriefingPackNeutral { get; private set; }
@@ -25,11 +39,6 @@ namespace DcsBriefop.Briefing
 			BriefingPackRed = new BriefingPackCoalition(m_manager, MasterData.CoalitionName.Red);
 			BriefingPackBlue = new BriefingPackCoalition(m_manager, MasterData.CoalitionName.Blue);
 			BriefingPackNeutral = new BriefingPackCoalition(m_manager, MasterData.CoalitionName.Neutral);
-
-			//BriefingPackCoalitions = new Dictionary<string, BriefingPackCoalition>();
-			//BriefingPackCoalitions.Add(MasterData.CoalitionName.Red, new BriefingPackCoalition(m_manager, MasterData.CoalitionName.Red));
-			//BriefingPackCoalitions.Add(MasterData.CoalitionName.Blue, new BriefingPackCoalition(m_manager, MasterData.CoalitionName.Blue));
-			//BriefingPackCoalitions.Add(MasterData.CoalitionName.Neutral, new BriefingPackCoalition(m_manager, MasterData.CoalitionName.Neutral));
 		}
 	}
 }

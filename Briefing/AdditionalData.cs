@@ -1,15 +1,12 @@
-﻿using LsonLib;
-using System.Collections.Generic;
-
-namespace DcsBriefop.LsonStructure
+﻿namespace DcsBriefop.Briefing
 {
-	internal class CustomData
+	internal class AdditionalData
 	{
 		public bool? DisplayRed { get; set; }
 		public bool? DisplayBlue { get; set; }
 		public bool? DisplayNeutral { get; set; }
 
-		public CustomData()
+		public AdditionalData()
 		{
 		}
 

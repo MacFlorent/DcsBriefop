@@ -21,21 +21,21 @@ namespace DcsBriefop.UcBriefing
 		{
 			LbSortie.Text = BriefingPack.Sortie;
 
-			CkDisplayRed.Checked = BriefingPack.BriefingPackRed.Displayed;
-			CkDisplayBlue.Checked = BriefingPack.BriefingPackBlue.Displayed;
-			CkDisplayNeutral.Checked = BriefingPack.BriefingPackNeutral.Displayed;
+			CkDisplayRed.Checked = BriefingPack.DisplayRed;
+			CkDisplayBlue.Checked = BriefingPack.DisplayBlue;
+			CkDisplayNeutral.Checked = BriefingPack.DisplayNeutral;
 
 			TcMissionData.TabPages.Clear();
-			DataToScreen_Coalition(BriefingPack.BriefingPackRed);
-			DataToScreen_Coalition(BriefingPack.BriefingPackBlue);
-			DataToScreen_Coalition(BriefingPack.BriefingPackNeutral);
+			if (BriefingPack.DisplayRed)
+				DataToScreen_Coalition(BriefingPack.BriefingPackRed);
+			if (BriefingPack.DisplayBlue)
+				DataToScreen_Coalition(BriefingPack.BriefingPackBlue);
+			if (BriefingPack.DisplayNeutral)
+				DataToScreen_Coalition(BriefingPack.BriefingPackNeutral);
 		}
 
 		private void DataToScreen_Coalition(BriefingPackCoalition bpc)
 		{
-			if (!bpc.Displayed)
-				return;
-
 			DataToScreen_Page<UcPageSituation>(bpc.BriefingPageSituation);
 		}
 
@@ -59,9 +59,9 @@ namespace DcsBriefop.UcBriefing
 
 		public void ScreenToData()
 		{
-			BriefingPack.BriefingPackRed.Displayed = CkDisplayRed.Checked;
-			BriefingPack.BriefingPackBlue.Displayed = CkDisplayBlue.Checked;
-			BriefingPack.BriefingPackNeutral.Displayed = CkDisplayNeutral.Checked;
+			BriefingPack.DisplayRed = CkDisplayRed.Checked;
+			BriefingPack.DisplayBlue = CkDisplayBlue.Checked;
+			BriefingPack.DisplayNeutral = CkDisplayNeutral.Checked;
 
 			if (TcMissionData.TabPages[TcMissionData.SelectedIndex] is TabPageBriefing tp)
 			{
@@ -85,17 +85,20 @@ namespace DcsBriefop.UcBriefing
 			if (sender is CheckBox ck && BriefingPack is object)
 			{
 
-				BriefingPackCoalition bpc = null;
-				if (ck == CkDisplayRed)
-					bpc = BriefingPack.BriefingPackRed;
-				if (ck == CkDisplayBlue)
-					bpc = BriefingPack.BriefingPackBlue;
-				if (ck == CkDisplayNeutral)
-					bpc = BriefingPack.BriefingPackNeutral;
-
-				if (ck.Checked != bpc.Displayed)
+				bool bDisplay = ck.Checked;
+				if (ck == CkDisplayRed && ck.Checked != BriefingPack.DisplayRed)
 				{
-					bpc.Displayed = ck.Checked;
+					BriefingPack.DisplayRed = ck.Checked;
+					DataToScreen();
+				}
+				else if (ck == CkDisplayBlue && ck.Checked != BriefingPack.DisplayBlue)
+				{
+					BriefingPack.DisplayBlue = ck.Checked;
+					DataToScreen();
+				}
+				if (ck == CkDisplayNeutral && ck.Checked != BriefingPack.DisplayNeutral)
+				{
+					BriefingPack.DisplayNeutral = ck.Checked;
 					DataToScreen();
 				}
 			}

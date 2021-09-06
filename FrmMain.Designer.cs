@@ -108,7 +108,7 @@ namespace DcsBriefop
 			this.Controls.Add(this.MainMenu);
 			this.MainMenuStrip = this.MainMenu;
 			this.Name = "FrmMain";
-			this.Text = "Form1";
+			this.Text = "Dcs:BriefOp";
 			this.Load += new System.EventHandler(this.FrmMain_Load);
 			this.SplitContainer.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).EndInit();

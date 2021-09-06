@@ -12,7 +12,7 @@ namespace DcsBriefop
 		private UcBriefingPack m_ucBriefingContainer;
 
 		private string m_sDcsFileFilter = "DCS mission files (*.miz)|*.miz|All files (*.*)|*.*";
-		private string m_sExcelFileFilter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+		//private string m_sExcelFileFilter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
 
 		public FrmMain()
 		{
