@@ -4,7 +4,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 
-namespace DcsBriefop
+namespace DcsBriefop.Tools
 {
 	internal static class ToolsEPPlus
 	{

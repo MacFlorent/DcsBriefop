@@ -1,4 +1,6 @@
-﻿namespace DcsBriefop.Briefing
+﻿using DcsBriefop.MasterData;
+
+namespace DcsBriefop.Briefing
 {
 	internal class BriefingPack : BaseBriefing
 	{
@@ -6,6 +8,8 @@
 		{
 			get { return m_manager.RootDictionary.Sortie; }
 		}
+
+		public Theatre Theatre { get; private set; }
 
 		public bool DisplayRed
 		{
@@ -36,9 +40,11 @@
 
 		private void Initialize()
 		{
-			BriefingPackRed = new BriefingPackCoalition(m_manager, MasterData.CoalitionName.Red);
-			BriefingPackBlue = new BriefingPackCoalition(m_manager, MasterData.CoalitionName.Blue);
-			BriefingPackNeutral = new BriefingPackCoalition(m_manager, MasterData.CoalitionName.Neutral);
+			Theatre = new Theatre(m_manager.RootMission.Theatre);
+
+			BriefingPackRed = new BriefingPackCoalition(m_manager, CoalitionName.Red);
+			BriefingPackBlue = new BriefingPackCoalition(m_manager, CoalitionName.Blue);
+			BriefingPackNeutral = new BriefingPackCoalition(m_manager, CoalitionName.Neutral);
 		}
 	}
 }

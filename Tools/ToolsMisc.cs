@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Text;
 
-namespace DcsBriefop
+namespace DcsBriefop.Tools
 {
 	internal static class ToolsMisc
 	{

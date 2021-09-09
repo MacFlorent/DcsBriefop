@@ -1,6 +1,7 @@
 ﻿using LsonLib;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
@@ -90,8 +91,8 @@ namespace DcsBriefop.Briefing
 				throw new ExceptionDcsBriefop($"Dictionary lua file not found : {sDictionaryFilePath}");
 			}
 
-			RootMission = new LsonStructure.RootMission(LsonVars.Parse(File.ReadAllText(sMissionFilePath)));
-			RootDictionary = new LsonStructure.RootDictionary(LsonVars.Parse(File.ReadAllText(sDictionaryFilePath)));
+			RootMission = new LsonStructure.RootMission(LsonVars.Parse(ReadLuaFileContent(sMissionFilePath)));
+			RootDictionary = new LsonStructure.RootDictionary(LsonVars.Parse(ReadLuaFileContent(sDictionaryFilePath)));
 
 			if (File.Exists(sCustomFilePath))
 			{
@@ -137,8 +138,8 @@ namespace DcsBriefop.Briefing
 
 			using (ZipArchive za = ZipFile.Open(sFilePath, ZipArchiveMode.Update))
 			{
-				ReplaceZipEntry(za, DictionaryZipEntryFullName, LsonVars.ToString(RootDictionary.RootLua));
-				ReplaceZipEntry(za, m_missionLuaFileName, LsonVars.ToString(RootMission.RootLua));
+				ReplaceZipEntry(za, DictionaryZipEntryFullName, LsonRootToCorrectedString(RootDictionary.RootLua));
+				ReplaceZipEntry(za, m_missionLuaFileName, LsonRootToCorrectedString(RootMission.RootLua));
 				ReplaceZipEntry(za, m_customLuaFileName, JsonConvert.SerializeObject(RootCustom));
 			}
 		}
@@ -154,6 +155,25 @@ namespace DcsBriefop.Briefing
 			{
 				writer.Write(sEntryContent);
 			}
+		}
+
+		public static string ReadLuaFileContent(string sFilePath)
+		{
+			string sFileContent = File.ReadAllText(sFilePath);
+			return sFileContent.Replace("\\\n", "\r\n");
+		}
+
+		public static string LsonRootToCorrectedString(Dictionary<string, LsonValue> root)
+		{
+			string s = LsonVars.ToString(root);
+			s = s.Replace("\\r\\n", "\\\n");
+			s = s.Replace("\r\n", "\n");
+			s = s.Replace("\t", "    ");
+			
+			if (s.StartsWith("\n"))
+				s = s.Substring(1, s.Length - 1);
+
+			return s;
 		}
 	}
 }

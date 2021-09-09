@@ -95,6 +95,41 @@ namespace DcsBriefop
 			m_ucBriefingContainer.ScreenToData();
 		}
 
+		private void Test()
+		{
+			SplitContainer.Panel1.Controls.Clear();
+			FlowLayoutPanel f = new FlowLayoutPanel();
+			f.FlowDirection = FlowDirection.LeftToRight;
+			f.Dock = DockStyle.Fill;
+			SplitContainer.Panel1.Controls.Add(f);
+
+			TextBox tb1 = new TextBox();
+			tb1.Multiline = true;
+			tb1.Height = 500;
+			tb1.Width = f.Width;
+			TextBox tb2 = new TextBox();
+			tb2.Multiline = true;
+			tb2.Height = 500;
+			tb2.Width = f.Width;
+			f.Controls.Add(tb1);
+			f.Controls.Add(tb2);
+
+			string sFilePath = @"D:\Projects\dictionary";
+			string s = MissionManager.ReadLuaFileContent(sFilePath);
+			var v = LsonLib.LsonVars.Parse(s);
+
+			LsonLib.LsonDict root = v["dictionary"].GetDict();
+			s = root["DictKey_descriptionText_1"].GetString();
+
+			tb1.Text = s;
+
+			s = MissionManager.LsonRootToCorrectedString(v);
+
+			tb2.Text = s;
+			System.IO.File.WriteAllText(sFilePath + "_mod", s);
+
+		}
+
 		#region Menus
 		private class MenuName
 		{
@@ -102,6 +137,7 @@ namespace DcsBriefop
 			public static readonly string Reload = "Reload";
 			public static readonly string Save = "Save";
 			public static readonly string SaveAs = "SaveAs";
+			public static readonly string Test = "Test";
 			public static readonly string Exit = "Exit";
 		}
 
@@ -114,6 +150,8 @@ namespace DcsBriefop
 			tsmiFile.DropDownItems.Add(MenuItem("Reload", MenuName.Reload));
 			tsmiFile.DropDownItems.Add(MenuItem("Save", MenuName.Save));
 			tsmiFile.DropDownItems.Add(MenuItem("Save as", MenuName.SaveAs));
+			tsmiFile.DropDownItems.Add(new ToolStripSeparator());
+			tsmiFile.DropDownItems.Add(MenuItem("Test", MenuName.Test));
 			tsmiFile.DropDownItems.Add(new ToolStripSeparator());
 			tsmiFile.DropDownItems.Add(MenuItem("Exit", MenuName.Exit));
 			MainMenu.Items.Add(tsmiFile);
@@ -153,6 +191,10 @@ namespace DcsBriefop
 			else if (tsi.Name == MenuName.SaveAs)
 			{
 				MizSaveAs();
+			}
+			else if (tsi.Name == MenuName.Test)
+			{
+				Test();
 			}
 			else if (tsi.Name == MenuName.Exit)
 			{
