@@ -9,7 +9,7 @@ namespace DcsBriefop
 	public partial class FrmMain : Form
 	{
 		private MissionManager m_missionManager;
-		private UcBriefingPack m_ucBriefingContainer;
+		private UcBriefingPack m_ucBriefingPack;
 
 		private string m_sDcsFileFilter = "DCS mission files (*.miz)|*.miz|All files (*.*)|*.*";
 		//private string m_sExcelFileFilter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
@@ -17,13 +17,7 @@ namespace DcsBriefop
 		public FrmMain()
 		{
 			InitializeComponent();
-
 			BuildMenu();
-
-			m_ucBriefingContainer = new UcBriefingPack();
-			m_ucBriefingContainer.Dock = DockStyle.Fill;
-			SplitContainer.Panel1.Controls.Clear();
-			SplitContainer.Panel1.Controls.Add(m_ucBriefingContainer);
 		}
 
 		private void MizOpen()
@@ -83,16 +77,26 @@ namespace DcsBriefop
 
 		private void DataToScreen()
 		{
+			if (m_ucBriefingPack is null)
+			{
+				m_ucBriefingPack = new UcBriefingPack(Map, m_missionManager.BriefingPack);
+				m_ucBriefingPack.Dock = DockStyle.Fill;
+				SplitContainer.Panel1.Controls.Clear();
+				SplitContainer.Panel1.Controls.Add(m_ucBriefingPack);
+			}
+			else
+				m_ucBriefingPack.BriefingPack = m_missionManager.BriefingPack;
+
+
 			StatusStrip.Items.Clear();
 			StatusStrip.Items.Add(m_missionManager.MizFilePath);
-
-			m_ucBriefingContainer.BriefingPack = m_missionManager.BriefingPack;
-			m_ucBriefingContainer.DataToScreen();
+			
+			m_ucBriefingPack.DataToScreen();
 		}
 
 		private void ScreenToData()
 		{
-			m_ucBriefingContainer.ScreenToData();
+			m_ucBriefingPack.ScreenToData();
 		}
 
 		private void Test()

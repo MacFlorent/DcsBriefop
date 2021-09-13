@@ -1,13 +1,13 @@
 ﻿namespace DcsBriefop.MasterData
 {
-	internal static class CoalitionName
+	internal static class CoalitionCode
 	{
 		public static readonly string Blue = "blue";
 		public static readonly string Red = "red";
-		public static readonly string Neutral = "neutral";
+		public static readonly string Neutral = "neutrals";
 	}
 
-	internal static class TheaterName
+	internal static class TheaterCode
 	{
 		public static readonly string PersianGulf = "PersianGulf";
 	}

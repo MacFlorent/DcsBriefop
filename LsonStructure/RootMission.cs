@@ -15,6 +15,7 @@ namespace DcsBriefop.LsonStructure
 			public static readonly string StartTime = "start_time";
 			public static readonly string Theater = "theatre";
 			public static readonly string Weather = "weather";
+			public static readonly string Coalition = "coalition";
 		}
 
 		public Dictionary<string, LsonValue> RootLua { get; private set; }
@@ -22,9 +23,8 @@ namespace DcsBriefop.LsonStructure
 		public DateTime Date { get; set; } // Date is in local timezone
 		public int StartTime { get; set; } // Seconds to add to the mission date
 		public string Theatre { get; set; }
-
 		public Weather Weather { get; set; }
-
+		public List<Coalition> Coalitions { get; set; } = new List<Coalition>();
 
 		public RootMission(LsonDict lsd) : base(lsd) { }
 
@@ -40,6 +40,12 @@ namespace DcsBriefop.LsonStructure
 			Theatre = m_lsd[LuaNode.Theater].GetString();
 
 			Weather = new Weather(m_lsd[LuaNode.Weather].GetDict());
+
+			LsonDict lsdCoalitions = m_lsd[LuaNode.Coalition].GetDict();
+			foreach (LsonValue lsv in lsdCoalitions.Values)
+			{
+				Coalitions.Add(new Coalition(lsv.GetDict()));
+			}
 		}
 
 		public override void ToLua()
@@ -51,6 +57,11 @@ namespace DcsBriefop.LsonStructure
 			m_lsd[LuaNode.Theater] = Theatre;
 
 			Weather.ToLua();
+
+			foreach (Coalition c in Coalitions)
+			{
+				c.ToLua();
+			}
 		}
 	}
 }

@@ -4,16 +4,14 @@ namespace DcsBriefop.UcBriefing
 {
 	internal class TabPageBriefing : TabPage
 	{
-		public UcBaseBriefingPage UcBriefingPage { get; private set; }
+		public UcBaseBriefing UcBriefing { get; private set; }
 
-		public TabPageBriefing(UcBaseBriefingPage uc)
+		public TabPageBriefing(string sText, UcBaseBriefing ucbb) : base(sText)
 		{
-			UcBriefingPage = uc;
-			Text = UcBriefingPage.BriefingPage.Label;
-
+			UcBriefing = ucbb;
 			Controls.Clear();
-			Controls.Add(UcBriefingPage);
-			UcBriefingPage.Dock = DockStyle.Fill;
+			Controls.Add(ucbb);
+			ucbb.Dock = DockStyle.Fill;
 		}
 	}
 }

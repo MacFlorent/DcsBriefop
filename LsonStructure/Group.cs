@@ -126,24 +126,6 @@ namespace DcsBriefop.LsonStructure
 				up.ToLua();
 			}
 		}
-		//public bool IsPlayable()
-		//{
-		//	return Units.Where(u => u.Skill == Skill.Player || u.Skill == Skill.Client).Any();
-		//}
-
-		//public string GetStringUnitTypes()
-		//{
-		//	IEnumerable<string> grouped = Units.GroupBy(u => u.Type).Select(g => g.Key);
-		//	return string.Join(",", grouped);
-		//}
-		//public string GetStringCallsign()
-		//{
-		//	string sCallsign = Units.OfType<UnitPlane>().FirstOrDefault()?.Callsign;
-		//	if (!string.IsNullOrEmpty(sCallsign))
-		//		return sCallsign.Substring(0, sCallsign.Length - 1);
-		//	else
-		//		return null;
-		//}
 	}
 
 	internal class GroupShip : Group

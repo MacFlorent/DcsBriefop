@@ -28,7 +28,7 @@ namespace DcsBriefop.Briefing
 
 		public LsonStructure.RootMission RootMission { get; private set; }
 		public LsonStructure.RootDictionary RootDictionary { get; private set; }
-		public AdditionalData RootCustom { get; private set; }
+		public CustomData RootCustom { get; private set; }
 
 		private BriefingPack m_briefingPack;
 		public BriefingPack BriefingPack
@@ -96,11 +96,11 @@ namespace DcsBriefop.Briefing
 
 			if (File.Exists(sCustomFilePath))
 			{
-				RootCustom = JsonConvert.DeserializeObject<AdditionalData>(File.ReadAllText(sCustomFilePath));
+				RootCustom = JsonConvert.DeserializeObject<CustomData>(File.ReadAllText(sCustomFilePath));
 			}
 			else
 			{
-				RootCustom = new AdditionalData();
+				RootCustom = new CustomData();
 			}
 
 			if (RootCustom.DisplayRed is null)

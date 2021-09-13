@@ -15,7 +15,7 @@ namespace DcsBriefop.LsonStructure
 			public static readonly string Country = "country";
 		}
 
-		public string Name { get; private set; }
+		public string Code { get; private set; }
 		public decimal BullseyeY { get; set; }
 		public decimal BullseyeX { get; set; }
 
@@ -26,7 +26,7 @@ namespace DcsBriefop.LsonStructure
 
 		public override void FromLua()
 		{
-			Name = m_lsd[LuaNode.Name].GetString();
+			Code = m_lsd[LuaNode.Name].GetString();
 
 			BullseyeY = m_lsd[LuaNode.Bullseye][LuaNode.BullseyeY].GetDecimal();
 			BullseyeX = m_lsd[LuaNode.Bullseye][LuaNode.BullseyeX].GetDecimal();
@@ -46,7 +46,7 @@ namespace DcsBriefop.LsonStructure
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Name] = Name;
+			m_lsd[LuaNode.Name] = Code;
 
 			m_lsd[LuaNode.Bullseye][LuaNode.BullseyeY] = BullseyeY;
 			m_lsd[LuaNode.Bullseye][LuaNode.BullseyeX] = BullseyeX;
