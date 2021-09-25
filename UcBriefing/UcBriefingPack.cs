@@ -1,5 +1,7 @@
 ﻿using DcsBriefop.Briefing;
+using GMap.NET;
 using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -84,10 +86,21 @@ namespace DcsBriefop.UcBriefing
 
 		private void TcMissionData_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
-			//if (sender is TabControl tc && tc.SelectedIndex >= 0 && TcMissionData.TabPages[TcMissionData.SelectedIndex] is TabPageBriefing tp)
-			//{
-			//	tp.UcBriefingPage.DataToScreen();
-			//}
+			if (sender is TabControl tc && tc.SelectedIndex >= 0 && TcMissionData.TabPages[TcMissionData.SelectedIndex] is TabPageBriefing tp && tp.UcBriefing is UcBriefingCoalition bc)
+			{
+				Map.Overlays.Clear();
+				GMapOverlay markers = new GMapOverlay("markers");
+				GMapMarker marker = new GMarkerGoogle(
+						new PointLatLng(bc.BriefingCoalition.Bullseye.Latitude.DecimalDegree, bc.BriefingCoalition.Bullseye.Longitude.DecimalDegree),
+						GMarkerGoogleType.orange_dot);
+				markers.Markers.Add(marker);
+				Map.Overlays.Add(markers);
+
+				Map.Position = new PointLatLng(bc.BriefingCoalition.Bullseye.Latitude.DecimalDegree, bc.BriefingCoalition.Bullseye.Longitude.DecimalDegree);
+			}
+
+
+
 		}
 	}
 }

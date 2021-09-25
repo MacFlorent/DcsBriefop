@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Briefing;
 using DcsBriefop.UcBriefing;
+using GMap.NET.WindowsForms;
 using System;
 using System.Windows.Forms;
 
@@ -213,7 +214,9 @@ namespace DcsBriefop
 		{
 			Map.MapProvider = GMap.NET.MapProviders.BingMapProvider.Instance;
 			GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
-			Map.SetPositionByKeywords("Paris, France");
+			//Map.ShowTileGridLines = true;
+			Map.Position = new GMap.NET.PointLatLng(26.1702778, 56.24);
+
 		}
 		#endregion
 	}

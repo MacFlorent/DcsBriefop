@@ -82,7 +82,7 @@ namespace DcsBriefop.LsonStructure
 		//}
 	}
 
-	internal class GroupPlane : Group
+	internal class GroupFlight : Group
 	{
 		private class LuaNode
 		{
@@ -96,7 +96,7 @@ namespace DcsBriefop.LsonStructure
 		public decimal RadioFrequency { get; set; }
 		public int RadioModulation { get; set; }
 
-		public GroupPlane(LsonDict lsd) : base(lsd) { }
+		public GroupFlight(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{

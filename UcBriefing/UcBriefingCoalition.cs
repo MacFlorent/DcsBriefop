@@ -32,9 +32,13 @@ namespace DcsBriefop.UcBriefing
 
 			DgvFlights.Columns["_data"].Visible = false;
 
-			foreach (BriefingFlight bf in BriefingCoalition.Flights)
+			foreach (BriefingFlight bga in BriefingCoalition.GroupAirs)
 			{
-				DgvFlights.Rows.Add(bf.Included, bf.Id, bf.Callsign, bf.Name, bf.UnitTypes, bf.Task, bf.RadioString, bf);
+				DgvFlights.Rows.Add(bga.Included, bga.Id, bga.GetCallsign(), bga.Name, bga.Type, bga.Task, bga.GetRadioString(), bga);
+			}
+			foreach (BriefingShip bgs in BriefingCoalition.GroupShips)
+			{
+				DgvFlights.Rows.Add(bgs.Included, bgs.Id, bgs.UnitName, bgs.Name, bgs.Type, "", bgs.GetRadioString(), bgs);
 			}
 		}
 
@@ -66,7 +70,7 @@ namespace DcsBriefop.UcBriefing
 
 		private void TbBullseyeCoordinates_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
-			Map.Position = new GMap.NET.PointLatLng(BriefingCoalition.Bullseye.Latitude.Degrees, BriefingCoalition.Bullseye.Longitude.Degrees);
+			//Map.Position = new GMap.NET.PointLatLng(BriefingCoalition.Bullseye.Latitude.DecimalDegree, BriefingCoalition.Bullseye.Longitude.DecimalDegree);
 		}
 	}
 }

@@ -9,12 +9,13 @@ namespace DcsBriefop.LsonStructure
 		{
 			public static readonly string Name = "name";
 			public static readonly string Plane = "plane";
+			public static readonly string Helicopter = "helicopter";
 			public static readonly string Ship = "ship";
 			public static readonly string Group = "group";
 		}
 
 		public string Name { get; set; }
-		public List<GroupPlane> GroupPlanes { get; set; } = new List<GroupPlane>();
+		public List<GroupFlight> GroupAirs { get; set; } = new List<GroupFlight>();
 		public List<GroupShip> GroupShips { get; set; } = new List<GroupShip>();
 
 		public Country(LsonDict lsd) : base(lsd) { }
@@ -28,7 +29,16 @@ namespace DcsBriefop.LsonStructure
 				LsonDict lsdGroupPlanes = m_lsd[LuaNode.Plane][LuaNode.Group].GetDict();
 				foreach (LsonValue lsv in lsdGroupPlanes.Values)
 				{
-					GroupPlanes.Add(new GroupPlane(lsv.GetDict()));
+					GroupAirs.Add(new GroupFlight(lsv.GetDict()));
+				}
+			}
+
+			if (m_lsd.ContainsKey(LuaNode.Helicopter))
+			{
+				LsonDict lsdGroupHelicopters = m_lsd[LuaNode.Helicopter][LuaNode.Group].GetDict();
+				foreach (LsonValue lsv in lsdGroupHelicopters.Values)
+				{
+					GroupAirs.Add(new GroupFlight(lsv.GetDict()));
 				}
 			}
 
@@ -46,7 +56,7 @@ namespace DcsBriefop.LsonStructure
 		{
 			m_lsd[LuaNode.Name] = Name;
 
-			foreach (GroupPlane gp in GroupPlanes)
+			foreach (GroupFlight gp in GroupAirs)
 			{
 				gp.ToLua();
 			}

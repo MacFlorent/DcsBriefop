@@ -37,29 +37,30 @@ namespace DcsBriefop.Briefing
 		{
 			get
 			{
-				if (Name == CoalitionCode.Red)
+				if (Name == ElementCoalition.Red)
 					return m_manager.RootDictionary.RedTask;
-				else if (Name == CoalitionCode.Blue)
+				else if (Name == ElementCoalition.Blue)
 					return m_manager.RootDictionary.BlueTask;
-				else if (Name == CoalitionCode.Neutral)
+				else if (Name == ElementCoalition.Neutral)
 					return m_manager.RootDictionary.NeutralTask;
 				else
 					return null;
 			}
 			set
 			{
-				if (Name == CoalitionCode.Red)
+				if (Name == ElementCoalition.Red)
 					m_manager.RootDictionary.RedTask = value;
-				else if (Name == CoalitionCode.Blue)
+				else if (Name == ElementCoalition.Blue)
 					m_manager.RootDictionary.BlueTask = value;
-				else if (Name == CoalitionCode.Neutral)
+				else if (Name == ElementCoalition.Neutral)
 					m_manager.RootDictionary.NeutralTask = value;
 			}
 		}
 
-		public List<BriefingFlight> Flights { get; private set; } = new List<BriefingFlight>();
-				
-				// ships
+		public List<BriefingFlight> GroupAirs { get; private set; } = new List<BriefingFlight>();
+		public List<BriefingShip> GroupShips { get; private set; } = new List<BriefingShip>();
+
+		// ships
 		// planes
 
 
@@ -68,9 +69,16 @@ namespace DcsBriefop.Briefing
 			m_coalition = m_manager.RootMission.Coalitions.Where(c => c.Code == sCoalitionName).FirstOrDefault();
 
 			foreach (Country c in m_coalition.Countries)
-			foreach (GroupPlane gp in c.GroupPlanes)
 			{
-				Flights.Add(new BriefingFlight(m_manager, gp));
+				foreach (GroupFlight ga in c.GroupAirs)
+				{
+					GroupAirs.Add(new BriefingFlight(m_manager, ga));
+				}
+				foreach (GroupShip gs in c.GroupShips)
+				{
+					GroupShips.Add(new BriefingShip(m_manager, gs));
+				}
+
 			}
 		}
 	}

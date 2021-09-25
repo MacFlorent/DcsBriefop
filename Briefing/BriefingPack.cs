@@ -54,9 +54,9 @@ namespace DcsBriefop.Briefing
 		{
 			Theatre = new Theatre(m_manager.RootMission.Theatre);
 			Weather = new BriefingWeather(m_manager);
-			BriefingRed = new BriefingCoalition(m_manager, CoalitionCode.Red);
-			BriefingBlue = new BriefingCoalition(m_manager, CoalitionCode.Blue);
-			BriefingNeutral = new BriefingCoalition(m_manager, CoalitionCode.Neutral);
+			BriefingRed = new BriefingCoalition(m_manager, ElementCoalition.Red);
+			BriefingBlue = new BriefingCoalition(m_manager, ElementCoalition.Blue);
+			BriefingNeutral = new BriefingCoalition(m_manager, ElementCoalition.Neutral);
 		}
 	}
 }

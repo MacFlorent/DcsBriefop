@@ -122,7 +122,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Briefing\BriefingCoalition.cs" />
+    <Compile Include="Briefing\BriefingRoutePoint.cs" />
+    <Compile Include="Briefing\BriefingShip.cs" />
     <Compile Include="Briefing\BriefingFlight.cs" />
+    <Compile Include="Briefing\BriefingGroup.cs" />
     <Compile Include="Briefing\BriefingPack.cs" />
     <Compile Include="Briefing\CustomData.cs" />
     <Compile Include="LsonStructure\Coalition.cs" />

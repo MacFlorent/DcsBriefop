@@ -13,17 +13,17 @@ namespace DcsBriefop.Briefing
 		public CustomDataCoalition Blue { get; set; } = new CustomDataCoalition();
 		public CustomDataCoalition Neutral { get; set; } = new CustomDataCoalition();
 
-		public List<CustomDataFlight> Flights = new List<CustomDataFlight>();
+		public List<CustomDataGroup> Groups = new List<CustomDataGroup>();
 
 		public CustomData() { }
 
 		public CustomDataCoalition GetCoalition(string sCoalitionCode)
 		{
-			if (sCoalitionCode == CoalitionCode.Red)
+			if (sCoalitionCode == ElementCoalition.Red)
 				return Red;
-			else if (sCoalitionCode == CoalitionCode.Blue)
+			else if (sCoalitionCode == ElementCoalition.Blue)
 				return Blue;
-			else if (sCoalitionCode == CoalitionCode.Neutral)
+			else if (sCoalitionCode == ElementCoalition.Neutral)
 				return Neutral;
 			else
 				return null;
@@ -36,7 +36,7 @@ namespace DcsBriefop.Briefing
 		public string BullseyeDescription { get; set; }
 	}
 
-	internal class CustomDataFlight
+	internal class CustomDataGroup
 	{
 		public int Id { get; set; }
 		public bool Included { get; set; }
