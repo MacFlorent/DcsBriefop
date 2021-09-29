@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Briefing;
 using DcsBriefop.UcBriefing;
-using GMap.NET.WindowsForms;
 using System;
 using System.Windows.Forms;
 
@@ -9,18 +8,25 @@ namespace DcsBriefop
 	//http://www.independent-software.com/gmap-net-beginners-tutorial-maps-markers-polygons-routes-updated-for-vs2015-and-gmap1-7.html
 	public partial class FrmMain : Form
 	{
+		#region Fields
 		private MissionManager m_missionManager;
+		private BriefingPack m_briefingPack;
 		private UcBriefingPack m_ucBriefingPack;
+		private UcMap m_ucMap;
 
 		private string m_sDcsFileFilter = "DCS mission files (*.miz)|*.miz|All files (*.*)|*.*";
 		//private string m_sExcelFileFilter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+		#endregion
 
+		#region CTOR
 		public FrmMain()
 		{
 			InitializeComponent();
 			BuildMenu();
 		}
+		#endregion
 
+		#region Methods
 		private void MizOpen()
 		{
 			using (OpenFileDialog ofd = new OpenFileDialog())
@@ -32,6 +38,7 @@ namespace DcsBriefop
 				if (ofd.ShowDialog() == DialogResult.OK)
 				{
 					m_missionManager = new MissionManager(ofd.FileName);
+					m_briefingPack = new BriefingPack(m_missionManager);
 					DataToScreen();
 
 				}
@@ -44,6 +51,7 @@ namespace DcsBriefop
 				throw new ExceptionDcsBriefop("No mission is currently loaded");
 
 			m_missionManager.MizLoad();
+			m_briefingPack = new BriefingPack(m_missionManager);
 			DataToScreen();
 		}
 
@@ -78,20 +86,27 @@ namespace DcsBriefop
 
 		private void DataToScreen()
 		{
+			if (m_ucMap is null)
+			{
+				m_ucMap = new UcMap();
+				m_ucMap.Dock = DockStyle.Fill;
+				SplitContainer.Panel2.Controls.Clear();
+				SplitContainer.Panel2.Controls.Add(m_ucMap);
+			}
+
 			if (m_ucBriefingPack is null)
 			{
-				m_ucBriefingPack = new UcBriefingPack(Map, m_missionManager.BriefingPack);
+				m_ucBriefingPack = new UcBriefingPack(m_ucMap, m_briefingPack);
 				m_ucBriefingPack.Dock = DockStyle.Fill;
 				SplitContainer.Panel1.Controls.Clear();
 				SplitContainer.Panel1.Controls.Add(m_ucBriefingPack);
 			}
 			else
-				m_ucBriefingPack.BriefingPack = m_missionManager.BriefingPack;
-
+				m_ucBriefingPack.BriefingPack = m_briefingPack;
 
 			StatusStrip.Items.Clear();
 			StatusStrip.Items.Add(m_missionManager.MizFilePath);
-			
+
 			m_ucBriefingPack.DataToScreen();
 		}
 
@@ -102,38 +117,39 @@ namespace DcsBriefop
 
 		private void Test()
 		{
-			SplitContainer.Panel1.Controls.Clear();
-			FlowLayoutPanel f = new FlowLayoutPanel();
-			f.FlowDirection = FlowDirection.LeftToRight;
-			f.Dock = DockStyle.Fill;
-			SplitContainer.Panel1.Controls.Add(f);
+			//SplitContainer.Panel1.Controls.Clear();
+			//FlowLayoutPanel f = new FlowLayoutPanel();
+			//f.FlowDirection = FlowDirection.LeftToRight;
+			//f.Dock = DockStyle.Fill;
+			//SplitContainer.Panel1.Controls.Add(f);
 
-			TextBox tb1 = new TextBox();
-			tb1.Multiline = true;
-			tb1.Height = 500;
-			tb1.Width = f.Width;
-			TextBox tb2 = new TextBox();
-			tb2.Multiline = true;
-			tb2.Height = 500;
-			tb2.Width = f.Width;
-			f.Controls.Add(tb1);
-			f.Controls.Add(tb2);
+			//TextBox tb1 = new TextBox();
+			//tb1.Multiline = true;
+			//tb1.Height = 500;
+			//tb1.Width = f.Width;
+			//TextBox tb2 = new TextBox();
+			//tb2.Multiline = true;
+			//tb2.Height = 500;
+			//tb2.Width = f.Width;
+			//f.Controls.Add(tb1);
+			//f.Controls.Add(tb2);
 
-			string sFilePath = @"D:\Projects\dictionary";
-			string s = MissionManager.ReadLuaFileContent(sFilePath);
-			var v = LsonLib.LsonVars.Parse(s);
+			//string sFilePath = @"D:\Projects\dictionary";
+			//string s = MissionManager.ReadLuaFileContent(sFilePath);
+			//var v = LsonLib.LsonVars.Parse(s);
 
-			LsonLib.LsonDict root = v["dictionary"].GetDict();
-			s = root["DictKey_descriptionText_1"].GetString();
+			//LsonLib.LsonDict root = v["dictionary"].GetDict();
+			//s = root["DictKey_descriptionText_1"].GetString();
 
-			tb1.Text = s;
+			//tb1.Text = s;
 
-			s = MissionManager.LsonRootToCorrectedString(v);
+			//s = MissionManager.LsonRootToCorrectedString(v);
 
-			tb2.Text = s;
-			System.IO.File.WriteAllText(sFilePath + "_mod", s);
+			//tb2.Text = s;
+			//System.IO.File.WriteAllText(sFilePath + "_mod", s);
 
 		}
+		#endregion
 
 		#region Menus
 		private class MenuName
@@ -212,11 +228,6 @@ namespace DcsBriefop
 		#region Events
 		private void FrmMain_Load(object sender, EventArgs e)
 		{
-			Map.MapProvider = GMap.NET.MapProviders.BingMapProvider.Instance;
-			GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
-			//Map.ShowTileGridLines = true;
-			Map.Position = new GMap.NET.PointLatLng(26.1702778, 56.24);
-
 		}
 		#endregion
 	}

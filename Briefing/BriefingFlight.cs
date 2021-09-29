@@ -26,7 +26,7 @@ namespace DcsBriefop.Briefing
 			set { GroupFlight.RadioModulation = value; }
 		}
 
-		public BriefingFlight(MissionManager manager, GroupFlight ga) : base(manager, ga) { }
+		public BriefingFlight(BriefingPack bp, GroupFlight ga) : base(bp, ga) { }
 
 		public string GetRadioString()
 		{

@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Briefing;
+﻿using CoordinateSharp;
+using DcsBriefop.Briefing;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
@@ -9,7 +10,7 @@ namespace DcsBriefop.UcBriefing
 {
 	internal partial class UcBriefingPack : UcBaseBriefing
 	{
-		public UcBriefingPack(GMapControl map, BriefingPack bp) : base (map, bp)
+		public UcBriefingPack(UcMap ucMap, BriefingPack bp) : base (ucMap, bp)
 		{
 			InitializeComponent();
 
@@ -28,7 +29,7 @@ namespace DcsBriefop.UcBriefing
 
 			TcMissionData.TabPages.Clear();
 
-			UcBriefingSituation ucbs = new UcBriefingSituation(Map, BriefingPack);
+			UcBriefingSituation ucbs = new UcBriefingSituation(UcMap, BriefingPack);
 			TabPageBriefing tpb = new TabPageBriefing("SITUATION", ucbs);
 			TcMissionData.TabPages.Add(tpb);
 			tpb.UcBriefing.DataToScreen();
@@ -43,7 +44,7 @@ namespace DcsBriefop.UcBriefing
 
 		private void DataToScreen_AddCoalitionTab(BriefingCoalition bc)
 		{
-			UcBriefingCoalition ucbc = new UcBriefingCoalition(Map, BriefingPack, bc);
+			UcBriefingCoalition ucbc = new UcBriefingCoalition(UcMap, BriefingPack, bc);
 			TabPageBriefing tpb = new TabPageBriefing(bc.Name, ucbc);
 			TcMissionData.TabPages.Add(tpb);
 			tpb.UcBriefing.DataToScreen();
@@ -84,23 +85,34 @@ namespace DcsBriefop.UcBriefing
 			}
 		}
 
-		private void TcMissionData_SelectedIndexChanged(object sender, System.EventArgs e)
+		private void DisplayCurrentTabMap()
 		{
-			if (sender is TabControl tc && tc.SelectedIndex >= 0 && TcMissionData.TabPages[TcMissionData.SelectedIndex] is TabPageBriefing tp && tp.UcBriefing is UcBriefingCoalition bc)
+			if (TcMissionData.SelectedIndex >= 0 && TcMissionData.TabPages[TcMissionData.SelectedIndex] is TabPageBriefing tp)
 			{
-				Map.Overlays.Clear();
-				GMapOverlay markers = new GMapOverlay("markers");
-				GMapMarker marker = new GMarkerGoogle(
-						new PointLatLng(bc.BriefingCoalition.Bullseye.Latitude.DecimalDegree, bc.BriefingCoalition.Bullseye.Longitude.DecimalDegree),
-						GMarkerGoogleType.orange_dot);
-				markers.Markers.Add(marker);
-				Map.Overlays.Add(markers);
+				UcMap.ClearOverlays();
+				if (tp.UcBriefing is UcBriefingSituation ucBs)
+				{
+					UcMap.OverlayMain = ucBs.BriefingPack.MapOverlay;
+				}
+				else if (tp.UcBriefing is UcBriefingCoalition ucBc)
+				{
+					UcMap.OverlayMain = ucBc.BriefingCoalition.MapOverlay;
+					UcMap.AddOverlay(ucBc.BriefingPack.MapOverlay);
+				}
 
-				Map.Position = new PointLatLng(bc.BriefingCoalition.Bullseye.Latitude.DecimalDegree, bc.BriefingCoalition.Bullseye.Longitude.DecimalDegree);
+				UcMap.RefreshMap();
+				//Map.Overlays.Remove(Map.Overlays.Where(_gmo => _gmo.Id == "coalition").FirstOrDefault());
+
+				//UcMap.Overlays.Clear();
+				//UcMap.Overlays.Add(bc.BriefingCoalition.MapOverlay);
+				//UcMap.Position = new PointLatLng(bc.BriefingCoalition.Bullseye.Latitude.DecimalDegree, bc.BriefingCoalition.Bullseye.Longitude.DecimalDegree);
 			}
 
+		}
 
-
+		private void TcMissionData_SelectedIndexChanged(object sender, System.EventArgs e)
+		{
+			DisplayCurrentTabMap();
 		}
 	}
 }

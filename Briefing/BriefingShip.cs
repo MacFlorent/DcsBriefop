@@ -34,7 +34,7 @@ namespace DcsBriefop.Briefing
 
 		public string UnitName { get { return MainUnit.Name; } }
 
-		public BriefingShip(MissionManager manager, GroupShip gs) : base(manager, gs) { }
+		public BriefingShip(BriefingPack bp, GroupShip gs) : base(bp, gs) { }
 
 		public string GetRadioString()
 		{

@@ -50,7 +50,6 @@ namespace DcsBriefop.UcBriefing
 			this.TbTask.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.TbTask.Size = new System.Drawing.Size(659, 128);
 			this.TbTask.TabIndex = 3;
-			this.TbTask.Validated += new System.EventHandler(this.TbTask_Validated);
 			// 
 			// LbTask
 			// 
@@ -61,6 +60,7 @@ namespace DcsBriefop.UcBriefing
 			this.LbTask.Size = new System.Drawing.Size(662, 20);
 			this.LbTask.TabIndex = 2;
 			this.LbTask.Text = "Ops";
+			this.LbTask.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// DgvFlights
 			// 
@@ -68,9 +68,9 @@ namespace DcsBriefop.UcBriefing
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.DgvFlights.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DgvFlights.Location = new System.Drawing.Point(3, 340);
+			this.DgvFlights.Location = new System.Drawing.Point(3, 334);
 			this.DgvFlights.Name = "DgvFlights";
-			this.DgvFlights.Size = new System.Drawing.Size(659, 296);
+			this.DgvFlights.Size = new System.Drawing.Size(659, 302);
 			this.DgvFlights.TabIndex = 4;
 			this.DgvFlights.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvFlights_CellDoubleClick);
 			// 
@@ -83,6 +83,7 @@ namespace DcsBriefop.UcBriefing
 			this.LbBullseye.Size = new System.Drawing.Size(662, 24);
 			this.LbBullseye.TabIndex = 5;
 			this.LbBullseye.Text = "Bullseye";
+			this.LbBullseye.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LbFlights
 			// 
@@ -93,20 +94,20 @@ namespace DcsBriefop.UcBriefing
 			this.LbFlights.Size = new System.Drawing.Size(662, 24);
 			this.LbFlights.TabIndex = 6;
 			this.LbFlights.Text = "Flights";
+			this.LbFlights.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// TbBullseyeCoordinates
 			// 
 			this.TbBullseyeCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbBullseyeCoordinates.Location = new System.Drawing.Point(3, 14);
+			this.TbBullseyeCoordinates.Location = new System.Drawing.Point(3, 27);
 			this.TbBullseyeCoordinates.Multiline = true;
 			this.TbBullseyeCoordinates.Name = "TbBullseyeCoordinates";
 			this.TbBullseyeCoordinates.ReadOnly = true;
 			this.TbBullseyeCoordinates.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbBullseyeCoordinates.Size = new System.Drawing.Size(659, 75);
+			this.TbBullseyeCoordinates.Size = new System.Drawing.Size(659, 62);
 			this.TbBullseyeCoordinates.TabIndex = 7;
 			this.TbBullseyeCoordinates.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.TbBullseyeCoordinates.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TbBullseyeCoordinates_MouseDoubleClick);
 			// 
 			// TbBullseyeDescription
 			// 
@@ -121,6 +122,7 @@ namespace DcsBriefop.UcBriefing
 			// 
 			// button1
 			// 
+			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button1.Location = new System.Drawing.Point(6, 637);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(118, 23);

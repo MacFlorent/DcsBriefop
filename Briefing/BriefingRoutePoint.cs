@@ -14,11 +14,11 @@ namespace DcsBriefop.Briefing
 
 		public Coordinate Coordinate
 		{
-			get { return m_manager.BriefingPack.Theatre.GetCoordinate(m_routePoint.Y, m_routePoint.X); }
+			get { return Theatre.GetCoordinate(m_routePoint.Y, m_routePoint.X); }
 		}
 
 
-		public BriefingRoutePoint(MissionManager manager, RoutePoint rp) : base(manager)
+		public BriefingRoutePoint(BriefingPack bp, RoutePoint rp) : base(bp)
 		{
 			m_routePoint = rp;
 		}

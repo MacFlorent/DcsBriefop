@@ -5,7 +5,7 @@ namespace DcsBriefop.UcBriefing
 {
 	internal partial class UcBriefingSituation : UcBaseBriefing
 	{
-		public UcBriefingSituation(GMapControl map, BriefingPack bp) : base(map, bp)
+		public UcBriefingSituation(UcMap ucMap, BriefingPack bp) : base(ucMap, bp)
 		{
 			InitializeComponent();
 		}

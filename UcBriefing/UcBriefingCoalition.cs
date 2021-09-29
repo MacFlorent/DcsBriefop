@@ -8,7 +8,7 @@ namespace DcsBriefop.UcBriefing
 	{
 		public BriefingCoalition BriefingCoalition { get; private set; }
 
-		public UcBriefingCoalition(GMapControl map, BriefingPack bp, BriefingCoalition bc) : base (map, bp)
+		public UcBriefingCoalition(UcMap ucMap, BriefingPack bp, BriefingCoalition bc) : base (ucMap, bp)
 		{
 			InitializeComponent();
 
@@ -48,29 +48,20 @@ namespace DcsBriefop.UcBriefing
 			BriefingCoalition.Task = TbTask.Text;
 		}
 
-		private void DtpDate_Validated(object sender, System.EventArgs e)
-		{
-			//ScreenToData();
-		}
-
-		private void TbSituation_Validated(object sender, System.EventArgs e)
-		{
-			//ScreenToData();
-		}
-
-		private void TbTask_Validated(object sender, System.EventArgs e)
-		{
-			//ScreenToData();
-		}
-
 		private void DgvFlights_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 		{
-			MessageBox.Show("Flight detail - choose included, preset frequencies, additional info, targets for briefing");
-		}
+			//MessageBox.Show("Flight detail - choose included, preset frequencies, additional info, targets for briefing");
+			//UcMap.Overlays.Clear();
+			//if (sender is DataGridView dgv)
+			//{
+			//	object o = dgv.Rows[e.RowIndex].Cells["_data"].Value;
+			//	if (o is BriefingGroup bg)
+			//	{
+			//		UcMap.Overlays.Add(bg.MapOverlay);
+			//		UcMap.Refresh();
+			//	}
+			//}
 
-		private void TbBullseyeCoordinates_MouseDoubleClick(object sender, MouseEventArgs e)
-		{
-			//Map.Position = new GMap.NET.PointLatLng(BriefingCoalition.Bullseye.Latitude.DecimalDegree, BriefingCoalition.Bullseye.Longitude.DecimalDegree);
 		}
 	}
 }

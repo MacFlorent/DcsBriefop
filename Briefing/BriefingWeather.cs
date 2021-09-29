@@ -45,14 +45,14 @@ namespace DcsBriefop.Briefing
 			get { return Convert.ToInt32(UnitsNet.UnitConverter.Convert(TemperatureCelcius, UnitsNet.Units.TemperatureUnit.DegreeCelsius, UnitsNet.Units.TemperatureUnit.DegreeFahrenheit)); }
 		}
 
-		public BriefingWeather(MissionManager manager) : base(manager)
+		public BriefingWeather(BriefingPack bp) : base(bp)
 		{
 			Initialize();
 		}
 
 		private void Initialize()
 		{
-			LsonStructure.Weather lson = m_manager.RootMission.Weather;
+			LsonStructure.Weather lson = RootMission.Weather;
 
 			Preset = null;
 			if (WeatherPreset.WeatherPresets.TryGetValue(lson.Cloud.Preset, out WeatherPreset wp))

@@ -1,62 +1,66 @@
 ﻿using DcsBriefop.MasterData;
+using GMap.NET.WindowsForms;
 using System;
 
 namespace DcsBriefop.Briefing
 {
 	internal class BriefingPack : BaseBriefing
 	{
+		#region Properties
 		public string Sortie
 		{
-			get { return m_manager.RootDictionary.Sortie; }
+			get { return RootDictionary.Sortie; }
 		}
 
 		public string Description
 		{
-			get { return m_manager.RootDictionary.Description; }
-			set { m_manager.RootDictionary.Description = value; }
+			get { return RootDictionary.Description; }
+			set { RootDictionary.Description = value; }
 		}
 
 		public DateTime Date
 		{
-			get { return new DateTime(m_manager.RootMission.Date.Year, m_manager.RootMission.Date.Month, m_manager.RootMission.Date.Day).AddSeconds(m_manager.RootMission.StartTime); }
+			get { return new DateTime(RootMission.Date.Year, RootMission.Date.Month, RootMission.Date.Day).AddSeconds(RootMission.StartTime); }
 			set
 			{
-				m_manager.RootMission.Date = new DateTime(value.Year, value.Month, value.Day);
-				m_manager.RootMission.StartTime = Convert.ToInt32((value - m_manager.RootMission.Date).TotalSeconds);
+				RootMission.Date = new DateTime(value.Year, value.Month, value.Day);
+				RootMission.StartTime = Convert.ToInt32((value - RootMission.Date).TotalSeconds);
 			}
 		}
 
 		public bool DisplayRed
 		{
-			get { return m_manager.RootCustom.DisplayRed.GetValueOrDefault(); }
-			set { m_manager.RootCustom.DisplayRed = value; }
+			get { return RootCustom.DisplayRed.GetValueOrDefault(); }
+			set { RootCustom.DisplayRed = value; }
 		}
 		public bool DisplayBlue
 		{
-			get { return m_manager.RootCustom.DisplayBlue.GetValueOrDefault(); }
-			set { m_manager.RootCustom.DisplayBlue = value; }
+			get { return RootCustom.DisplayBlue.GetValueOrDefault(); }
+			set { RootCustom.DisplayBlue = value; }
 		}
 		public bool DisplayNeutral
 		{
-			get { return m_manager.RootCustom.DisplayNeutral.GetValueOrDefault(); }
-			set { m_manager.RootCustom.DisplayNeutral = value; }
+			get { return RootCustom.DisplayNeutral.GetValueOrDefault(); }
+			set { RootCustom.DisplayNeutral = value; }
 		}
 
-
-		public Theatre Theatre { get; private set; }
 		public BriefingWeather Weather { get; private set; }
 		public BriefingCoalition BriefingRed { get; private set; }
 		public BriefingCoalition BriefingBlue { get; private set; }
 		public BriefingCoalition BriefingNeutral { get; private set; }
 
+		public GMapOverlay MapOverlay { get; private set; }
 
-		public BriefingPack(MissionManager manager) : base(manager)
+		#endregion
+
+		#region CTOR
+		public BriefingPack(MissionManager manager) : base (manager)
 		{
-			Theatre = new Theatre(m_manager.RootMission.Theatre);
-			Weather = new BriefingWeather(m_manager);
-			BriefingRed = new BriefingCoalition(m_manager, ElementCoalition.Red);
-			BriefingBlue = new BriefingCoalition(m_manager, ElementCoalition.Blue);
-			BriefingNeutral = new BriefingCoalition(m_manager, ElementCoalition.Neutral);
+			Weather = new BriefingWeather(this);
+			BriefingRed = new BriefingCoalition(this, ElementCoalition.Red);
+			BriefingBlue = new BriefingCoalition(this, ElementCoalition.Blue);
+			BriefingNeutral = new BriefingCoalition(this, ElementCoalition.Neutral);
 		}
+		#endregion
 	}
 }

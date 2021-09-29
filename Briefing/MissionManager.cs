@@ -30,17 +30,6 @@ namespace DcsBriefop.Briefing
 		public LsonStructure.RootDictionary RootDictionary { get; private set; }
 		public CustomData RootCustom { get; private set; }
 
-		private BriefingPack m_briefingPack;
-		public BriefingPack BriefingPack
-		{
-			get
-			{
-				if (m_briefingPack is null)
-					m_briefingPack = new BriefingPack(this);
-				return m_briefingPack;
-			}
-		}
-
 		public MissionManager(string sMizFilePath)
 		{
 			MizFilePath = sMizFilePath;

@@ -190,6 +190,12 @@
     <Compile Include="UcBriefing\UcBriefingSituation.Designer.cs">
       <DependentUpon>UcBriefingSituation.cs</DependentUpon>
     </Compile>
+    <Compile Include="UcBriefing\UcMap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcBriefing\UcMap.Designer.cs">
+      <DependentUpon>UcMap.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -211,6 +217,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UcBriefing\UcBriefingSituation.resx">
       <DependentUpon>UcBriefingSituation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcBriefing\UcMap.resx">
+      <DependentUpon>UcMap.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

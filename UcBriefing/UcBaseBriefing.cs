@@ -6,7 +6,7 @@ namespace DcsBriefop.UcBriefing
 {
 	internal partial class UcBaseBriefing : UserControl
 	{
-		protected GMapControl Map { get; private set; }
+		protected UcMap UcMap { get; private set; }
 		public BriefingPack BriefingPack { get; set; }
 
 		public UcBaseBriefing()
@@ -14,10 +14,10 @@ namespace DcsBriefop.UcBriefing
 			InitializeComponent();
 		}
 
-		public UcBaseBriefing(GMapControl map, BriefingPack bp)
+		public UcBaseBriefing(UcMap ucMap, BriefingPack bp)
 		{
 			BriefingPack = bp;
-			Map = map;
+			UcMap = ucMap;
 		}
 
 		public virtual void DataToScreen() { }
