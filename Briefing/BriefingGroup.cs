@@ -96,6 +96,7 @@ namespace DcsBriefop.Briefing
 			foreach (BriefingRoutePoint brp in RoutePoints)
 			{
 				PointLatLng p = new PointLatLng(brp.Coordinate.Latitude.DecimalDegree, brp.Coordinate.Longitude.DecimalDegree);
+				MapOverlay.Markers.Add(new GMarkerCross(p));
 				points.Add(p);
 			}
 

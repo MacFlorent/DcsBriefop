@@ -61,6 +61,16 @@ namespace DcsBriefop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bullseye {
+            get {
+                object obj = ResourceManager.GetObject("bullseye", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 2021-08-01 14:24:30.882 INFO    SCRIPTING: Y=-600000.000000,X=-700000.000000,Latitude=19.734252,Longitude=50.561246
         ///2021-08-01 14:24:30.882 INFO    SCRIPTING: Y=-550000.000000,X=-700000.000000,Latitude=19.750741,Longitude=51.035654
         ///2021-08-01 14:24:30.882 INFO    SCRIPTING: Y=-500000.000000,X=-700000.000000,Latitude=19.765984,Longitude=51.510522

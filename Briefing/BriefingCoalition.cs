@@ -1,5 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.LsonStructure;
+using DcsBriefop.Map;
 using DcsBriefop.MasterData;
 using DcsBriefop.Tools;
 using GMap.NET;
@@ -7,6 +8,7 @@ using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace DcsBriefop.Briefing
@@ -15,6 +17,7 @@ namespace DcsBriefop.Briefing
 	{
 		#region Fields
 		private Coalition m_coalition;
+		private CustomDataCoalition m_customDataCoalition;
 		#endregion
 
 		#region Properties
@@ -68,13 +71,20 @@ namespace DcsBriefop.Briefing
 		// ships
 		// planes
 
-		public GMapOverlay MapOverlay { get; private set; }
+		public CustomDataMap MapData
+		{
+			get { return m_customDataCoalition.MapData; }
+			set { m_customDataCoalition.MapData = value; }
+		}
 		#endregion
 
 		#region CTOR
 		public BriefingCoalition(BriefingPack bp, string sCoalitionName) : base(bp)
 		{
 			m_coalition = RootMission.Coalitions.Where(c => c.Code == sCoalitionName).FirstOrDefault();
+			m_customDataCoalition = RootCustom.GetCoalition(sCoalitionName);
+
+			InitializeMapData();
 
 			foreach (Country c in m_coalition.Countries)
 			{
@@ -87,19 +97,31 @@ namespace DcsBriefop.Briefing
 					GroupShips.Add(new BriefingShip(bp, gs));
 				}
 			}
-
-			InitializeMapOverlay();
 		}
 		#endregion
 
 		#region Methods
-		private void InitializeMapOverlay()
+		private void InitializeMapData()
 		{
-			MapOverlay = new GMapOverlay("coalition");
+			if (MapData is null)
+			{
+				MapData = new CustomDataMap();
+				MapData.CenterLatitude = Bullseye.Latitude.DecimalDegree;
+				MapData.CenterLongitude = Bullseye.Longitude.DecimalDegree;
+				MapData.Zoom = 9;
+				MapData.MapOverlayCustom = new GMapOverlay();
+			}
+
+			GMapOverlay gmoStatic = new GMapOverlay();
 			PointLatLng p = new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree);
-			GMapMarker mkBullseye = new GMarkerGoogle(p, GMarkerGoogleType.orange_dot);
+			GMapMarker mkBullseye = new GMarkerGoogle(p, GMarkerGoogleType.red_dot);
+			//GMapMarker mkBullseye = new GMapMarkerWithLabel(p, BullseyeDescription, Properties.Resources.ResourceManager.GetObject("bullseye", Properties.Resources.Culture) as Bitmap);
+			//GMapMarker mkBullseye = new GMapMarkerWithLabel(p, BullseyeDescription, GMarkerGoogleType.red_dot);
 			mkBullseye.ToolTipText = BullseyeDescription;
-			MapOverlay.Markers.Add(mkBullseye);
+			gmoStatic.Markers.Add(mkBullseye);
+
+			MapData.AdditionalMapOverlays.Add(gmoStatic);
+			MapData.AdditionalMapOverlays.Add(RootCustom.MapData.MapOverlayCustom);
 		}
 		#endregion
 	}

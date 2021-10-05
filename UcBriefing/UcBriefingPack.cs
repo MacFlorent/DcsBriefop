@@ -89,23 +89,17 @@ namespace DcsBriefop.UcBriefing
 		{
 			if (TcMissionData.SelectedIndex >= 0 && TcMissionData.TabPages[TcMissionData.SelectedIndex] is TabPageBriefing tp)
 			{
-				UcMap.ClearOverlays();
+				CustomDataMap cdm = null;
 				if (tp.UcBriefing is UcBriefingSituation ucBs)
 				{
-					UcMap.OverlayMain = ucBs.BriefingPack.MapOverlay;
+					cdm = ucBs.BriefingPack.MapData;
 				}
 				else if (tp.UcBriefing is UcBriefingCoalition ucBc)
 				{
-					UcMap.OverlayMain = ucBc.BriefingCoalition.MapOverlay;
-					UcMap.AddOverlay(ucBc.BriefingPack.MapOverlay);
+					cdm = ucBc.BriefingCoalition.MapData;
 				}
 
-				UcMap.RefreshMap();
-				//Map.Overlays.Remove(Map.Overlays.Where(_gmo => _gmo.Id == "coalition").FirstOrDefault());
-
-				//UcMap.Overlays.Clear();
-				//UcMap.Overlays.Add(bc.BriefingCoalition.MapOverlay);
-				//UcMap.Position = new PointLatLng(bc.BriefingCoalition.Bullseye.Latitude.DecimalDegree, bc.BriefingCoalition.Bullseye.Longitude.DecimalDegree);
+				UcMap.SetMapData(cdm);
 			}
 
 		}

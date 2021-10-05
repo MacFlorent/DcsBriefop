@@ -63,5 +63,21 @@ namespace DcsBriefop.UcBriefing
 			//}
 
 		}
+
+		private void DgvFlights_SelectionChanged(object sender, System.EventArgs e)
+		{
+			//if (sender is DataGridView dgv && dgv.SelectedRows.Count > 0)
+			//{
+			//	object o = dgv.SelectedRows[0].Cells["_data"].Value;
+			//	if (o is BriefingGroup bg)
+			//	{
+			//		UcMap.RemoveOverlay("group");
+			//		UcMap.AddOverlay(bg.MapOverlay);
+			//		UcMap.RefreshMap("group");
+			//	}
+			//}
+
+			
+		}
 	}
 }

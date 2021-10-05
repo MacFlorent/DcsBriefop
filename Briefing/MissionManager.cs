@@ -1,5 +1,4 @@
 ﻿using LsonLib;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -85,7 +84,8 @@ namespace DcsBriefop.Briefing
 
 			if (File.Exists(sCustomFilePath))
 			{
-				RootCustom = JsonConvert.DeserializeObject<CustomData>(File.ReadAllText(sCustomFilePath));
+				//RootCustom = JsonConvert.DeserializeObject<CustomData>(File.ReadAllText(sCustomFilePath));
+				//RootCustom = CustomData.DeserializeJson(File.ReadAllText(sCustomFilePath));
 			}
 			else
 			{
@@ -129,7 +129,7 @@ namespace DcsBriefop.Briefing
 			{
 				ReplaceZipEntry(za, DictionaryZipEntryFullName, LsonRootToCorrectedString(RootDictionary.RootLua));
 				ReplaceZipEntry(za, m_missionLuaFileName, LsonRootToCorrectedString(RootMission.RootLua));
-				ReplaceZipEntry(za, m_customLuaFileName, JsonConvert.SerializeObject(RootCustom));
+				//ReplaceZipEntry(za, m_customLuaFileName, RootCustom.SerializeToJson());
 			}
 		}
 

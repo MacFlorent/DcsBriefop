@@ -70,9 +70,11 @@ namespace DcsBriefop.UcBriefing
 			this.DgvFlights.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.DgvFlights.Location = new System.Drawing.Point(3, 334);
 			this.DgvFlights.Name = "DgvFlights";
+			this.DgvFlights.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.DgvFlights.Size = new System.Drawing.Size(659, 302);
 			this.DgvFlights.TabIndex = 4;
 			this.DgvFlights.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvFlights_CellDoubleClick);
+			this.DgvFlights.SelectionChanged += new System.EventHandler(this.DgvFlights_SelectionChanged);
 			// 
 			// LbBullseye
 			// 
