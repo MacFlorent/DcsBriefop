@@ -114,10 +114,7 @@ namespace DcsBriefop.Briefing
 
 			GMapOverlay gmoStatic = new GMapOverlay();
 			PointLatLng p = new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree);
-			GMapMarker mkBullseye = new GMarkerGoogle(p, GMarkerGoogleType.red_dot);
-			//GMapMarker mkBullseye = new GMapMarkerWithLabel(p, BullseyeDescription, Properties.Resources.ResourceManager.GetObject("bullseye", Properties.Resources.Culture) as Bitmap);
-			//GMapMarker mkBullseye = new GMapMarkerWithLabel(p, BullseyeDescription, GMarkerGoogleType.red_dot);
-			mkBullseye.ToolTipText = BullseyeDescription;
+			GMapMarker mkBullseye = new GMarkerBriefop(p, GMarkerBriefopType.Bullseye, BullseyeDescription);
 			gmoStatic.Markers.Add(mkBullseye);
 
 			MapData.AdditionalMapOverlays.Add(gmoStatic);

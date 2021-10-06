@@ -6,6 +6,25 @@
 //using System.Text.Json;
 //using System.Text.Json.Serialization;
 
+		public static CustomData DeserializeJson(string sJson)
+		{
+			JsonSerializerOptions options = new JsonSerializerOptions();
+			options.Converters.Add(new GMarkerGoogleJsonConverter());
+			options.Converters.Add(new GMapOverlayJsonConverter());
+			return JsonSerializer.Deserialize<CustomData>(sJson, options);
+		}
+
+		public string SerializeToJson()
+		{
+			var options = new JsonSerializerOptions();
+			options.Converters.Add(new GMarkerGoogleJsonConverter());
+			options.Converters.Add(new GMapOverlayJsonConverter());
+			options.WriteIndented = true;
+			return JsonSerializer.Serialize(this, options);
+		}
+
+
+
 //namespace DcsBriefop.Tools
 //{
 //	internal static class ToolsJson

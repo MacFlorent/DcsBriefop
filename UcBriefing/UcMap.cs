@@ -1,13 +1,7 @@
 ﻿using DcsBriefop.Briefing;
-using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
-using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Windows.Forms;
 
 //https://stackoverflow.com/questions/9308673/how-to-draw-circle-on-the-map-using-gmap-net-in-c-sharp
@@ -72,7 +66,7 @@ namespace DcsBriefop.UcBriefing
 				double lng = Map.FromLocalToLatLng(e.X, e.Y).Lng;
 
 				PointLatLng p = new PointLatLng(lat, lng);
-				GMapMarker mk = new GMarkerGoogle(p, GMarkerGoogleType.blue_dot);
+				GMarkerBriefop mk = new GMarkerBriefop(p, "test", null);
 				MapData.MapOverlayCustom.Markers.Add(mk);
 			}
 		}
@@ -80,8 +74,8 @@ namespace DcsBriefop.UcBriefing
 		private void BeTestSave_Click(object sender, System.EventArgs e)
 		{
 			//NEWTONSOFT JSON (cannot deserialize arrays)
-			string s = JsonConvert.SerializeObject(MapData, Formatting.Indented, new GMapOverlayJsonConverter(), new GMarkerGoogleJsonConverter());
-			CustomDataMap c = JsonConvert.DeserializeObject<CustomDataMap>(s, new GMapOverlayJsonConverter(), new GMarkerGoogleJsonConverter());
+			//string s = JsonConvert.SerializeObject(MapData, Formatting.Indented, new GMapOverlayJsonConverter(), new GMarkerGoogleJsonConverter());
+			//CustomDataMap c = JsonConvert.DeserializeObject<CustomDataMap>(s, new GMapOverlayJsonConverter(), new GMarkerGoogleJsonConverter());
 
 			//TEXT.JSON
 			//var options = new JsonSerializerOptions();

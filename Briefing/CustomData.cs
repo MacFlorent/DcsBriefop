@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.MasterData;
+using DcsBriefop.Map;
 using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -20,23 +21,16 @@ namespace DcsBriefop.Briefing
 		public List<CustomDataGroup> Groups = new List<CustomDataGroup>();
 
 		public CustomData() { }
-		
-		//public static CustomData DeserializeJson(string sJson)
-		//{
-		//	JsonSerializerOptions options = new JsonSerializerOptions();
-		//	options.Converters.Add(new GMarkerGoogleJsonConverter());
-		//	options.Converters.Add(new GMapOverlayJsonConverter());
-		//	return JsonSerializer.Deserialize<CustomData>(sJson, options);
-		//}
 
-		//public string SerializeToJson()
-		//{
-		//	var options = new JsonSerializerOptions();
-		//	options.Converters.Add(new GMarkerGoogleJsonConverter());
-		//	options.Converters.Add(new GMapOverlayJsonConverter());
-		//	options.WriteIndented = true;
-		//	return JsonSerializer.Serialize(this, options);
-		//}
+		public static CustomData DeserializeJson(string sJson)
+		{
+			return JsonConvert.DeserializeObject<CustomData>(sJson, new GMapOverlayJsonConverter(), new GMarkerBriefopJsonConverter());
+		}
+
+		public string SerializeToJson()
+		{
+			return JsonConvert.SerializeObject(this, Formatting.Indented, new GMapOverlayJsonConverter(), new GMarkerBriefopJsonConverter());
+		}
 
 		public CustomDataCoalition GetCoalition(string sCoalitionCode)
 		{

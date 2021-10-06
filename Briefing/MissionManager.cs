@@ -84,8 +84,7 @@ namespace DcsBriefop.Briefing
 
 			if (File.Exists(sCustomFilePath))
 			{
-				//RootCustom = JsonConvert.DeserializeObject<CustomData>(File.ReadAllText(sCustomFilePath));
-				//RootCustom = CustomData.DeserializeJson(File.ReadAllText(sCustomFilePath));
+				RootCustom = CustomData.DeserializeJson(File.ReadAllText(sCustomFilePath));
 			}
 			else
 			{
@@ -129,7 +128,7 @@ namespace DcsBriefop.Briefing
 			{
 				ReplaceZipEntry(za, DictionaryZipEntryFullName, LsonRootToCorrectedString(RootDictionary.RootLua));
 				ReplaceZipEntry(za, m_missionLuaFileName, LsonRootToCorrectedString(RootMission.RootLua));
-				//ReplaceZipEntry(za, m_customLuaFileName, RootCustom.SerializeToJson());
+				ReplaceZipEntry(za, m_customLuaFileName, RootCustom.SerializeToJson());
 			}
 		}
 
