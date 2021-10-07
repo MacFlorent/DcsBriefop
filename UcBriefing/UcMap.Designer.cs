@@ -31,12 +31,12 @@ namespace DcsBriefop.UcBriefing
 		{
 			this.LbHeader = new System.Windows.Forms.Label();
 			this.PnMapControls = new System.Windows.Forms.Panel();
+			this.BtTestLoad = new System.Windows.Forms.Button();
+			this.BeTestSave = new System.Windows.Forms.Button();
 			this.CkAddMarker = new System.Windows.Forms.CheckBox();
 			this.BtAreaRecall = new System.Windows.Forms.Button();
 			this.BtAreaSet = new System.Windows.Forms.Button();
 			this.Map = new GMap.NET.WindowsForms.GMapControl();
-			this.BeTestSave = new System.Windows.Forms.Button();
-			this.BtTestLoad = new System.Windows.Forms.Button();
 			this.PnMapControls.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -65,6 +65,25 @@ namespace DcsBriefop.UcBriefing
 			this.PnMapControls.Name = "PnMapControls";
 			this.PnMapControls.Size = new System.Drawing.Size(212, 900);
 			this.PnMapControls.TabIndex = 6;
+			// 
+			// BtTestLoad
+			// 
+			this.BtTestLoad.Location = new System.Drawing.Point(39, 468);
+			this.BtTestLoad.Name = "BtTestLoad";
+			this.BtTestLoad.Size = new System.Drawing.Size(134, 23);
+			this.BtTestLoad.TabIndex = 4;
+			this.BtTestLoad.Text = "Test load";
+			this.BtTestLoad.UseVisualStyleBackColor = true;
+			// 
+			// BeTestSave
+			// 
+			this.BeTestSave.Location = new System.Drawing.Point(39, 439);
+			this.BeTestSave.Name = "BeTestSave";
+			this.BeTestSave.Size = new System.Drawing.Size(134, 23);
+			this.BeTestSave.TabIndex = 3;
+			this.BeTestSave.Text = "Test save";
+			this.BeTestSave.UseVisualStyleBackColor = true;
+			this.BeTestSave.Click += new System.EventHandler(this.BeTestSave_Click);
 			// 
 			// CkAddMarker
 			// 
@@ -107,7 +126,7 @@ namespace DcsBriefop.UcBriefing
 			this.Map.GrayScaleMode = false;
 			this.Map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
 			this.Map.LevelsKeepInMemory = 5;
-			this.Map.Location = new System.Drawing.Point(0, 29);
+			this.Map.Location = new System.Drawing.Point(6, 29);
 			this.Map.MarkersEnabled = true;
 			this.Map.MaxZoom = 18;
 			this.Map.MinZoom = 2;
@@ -124,26 +143,12 @@ namespace DcsBriefop.UcBriefing
 			this.Map.Size = new System.Drawing.Size(1105, 900);
 			this.Map.TabIndex = 5;
 			this.Map.Zoom = 13D;
+			this.Map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.Map_OnMarkerClick);
+			this.Map.OnMarkerEnter += new GMap.NET.WindowsForms.MarkerEnter(this.Map_OnMarkerEnter);
+			this.Map.OnMarkerLeave += new GMap.NET.WindowsForms.MarkerLeave(this.Map_OnMarkerLeave);
+			this.Map.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Map_KeyUp);
 			this.Map.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Map_MouseClick);
-			// 
-			// BeTestSave
-			// 
-			this.BeTestSave.Location = new System.Drawing.Point(39, 439);
-			this.BeTestSave.Name = "BeTestSave";
-			this.BeTestSave.Size = new System.Drawing.Size(134, 23);
-			this.BeTestSave.TabIndex = 3;
-			this.BeTestSave.Text = "Test save";
-			this.BeTestSave.UseVisualStyleBackColor = true;
-			this.BeTestSave.Click += new System.EventHandler(this.BeTestSave_Click);
-			// 
-			// BtTestLoad
-			// 
-			this.BtTestLoad.Location = new System.Drawing.Point(39, 468);
-			this.BtTestLoad.Name = "BtTestLoad";
-			this.BtTestLoad.Size = new System.Drawing.Size(134, 23);
-			this.BtTestLoad.TabIndex = 4;
-			this.BtTestLoad.Text = "Test load";
-			this.BtTestLoad.UseVisualStyleBackColor = true;
+			this.Map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Map_MouseMove);
 			// 
 			// UcMap
 			// 

@@ -1,8 +1,10 @@
-﻿using GMap.NET;
+﻿using DcsBriefop.Tools;
+using GMap.NET;
 using GMap.NET.WindowsForms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Runtime.Serialization;
 
 namespace DcsBriefop
@@ -10,6 +12,8 @@ namespace DcsBriefop
 	public static class GMarkerBriefopType
 	{
 		public static readonly string Bullseye = "bullseye";
+		public static readonly string Pin = "pin";
+		public static readonly string Factory = "factory";
 	}
 
 	[Serializable]
@@ -19,6 +23,9 @@ namespace DcsBriefop
 		static readonly string m_sDefaultMarkerType = GMarkerBriefopType.Bullseye;
 
 		private Font m_font = new Font("Arial", 10);
+		private Pen m_penSelected = new Pen(Color.Blue, 1);
+		private Pen m_penMouseOver = new Pen(Color.CadetBlue, 1);
+
 		private Bitmap m_bitmap;
 		public Bitmap Bitmap
 		{
@@ -27,11 +34,17 @@ namespace DcsBriefop
 		}
 
 		public string MarkerType { get; private set; }
+		public Color Color { get; set; }
 		public string Label { get; set; }
 
-		public GMarkerBriefop(PointLatLng p, string sType, string sLabel) : base(p)
+		public bool IsSelected { get; set; } = false;
+		public bool IsHovered { get; set; } = false;
+		
+
+		public GMarkerBriefop(PointLatLng p, string sType, Color color, string sLabel) : base(p)
 		{
 			MarkerType = sType;
+			Color = color;
 			Label = sLabel;
 			LoadBitmap();
 		}
@@ -55,12 +68,17 @@ namespace DcsBriefop
 
 		private void LoadBitmap()
 		{
-			Bitmap = GetBitmapResource();
+			Bitmap = GetBitmapResource().ColorTint(Color);
 
 			if (MarkerType == GMarkerBriefopType.Bullseye)
 			{
 				Size = new Size(32, 32);
 				Offset = new Point(-Size.Width / 2, -Size.Height / 2);
+			}
+			if (MarkerType == GMarkerBriefopType.Pin)
+			{
+				Size = new Size(32, 32);
+				Offset = new Point(-Size.Width / 2, -Size.Height);
 			}
 		}
 
@@ -70,18 +88,19 @@ namespace DcsBriefop
 		{
 			Rectangle rect = new Rectangle(LocalPosition.X, LocalPosition.Y, Size.Width, Size.Height);
 
-			//ColorMap[] colorMap = new ColorMap[1];
-			//colorMap[0] = new ColorMap();
-			//colorMap[0].OldColor = Color.Black;
-			//colorMap[0].NewColor = Color.Blue;
-			//ImageAttributes attr = new ImageAttributes();
-			//attr.SetRemapTable(colorMap);
-			//g.DrawImage(Bitmap, rect, 0, 0, rect.Width, rect.Height, GraphicsUnit.Pixel, attr);
-
 			lock (Bitmap) { g.DrawImage(Bitmap, rect); }
 
 			if (!string.IsNullOrEmpty(Label))
 				g.DrawString(Label, m_font, Brushes.Black, rect.Left, rect.Bottom);
+
+			if (IsSelected)
+			{
+				g.DrawRectangle(m_penSelected, rect);
+			}
+			else if (IsHovered)
+			{
+				g.DrawRectangle(m_penMouseOver, rect);
+			}
 		}
 
 		public override void Dispose()

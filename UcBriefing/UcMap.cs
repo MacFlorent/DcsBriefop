@@ -1,11 +1,13 @@
 ﻿using DcsBriefop.Briefing;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 //https://stackoverflow.com/questions/9308673/how-to-draw-circle-on-the-map-using-gmap-net-in-c-sharp
 //http://www.independent-software.com/gmap-net-beginners-tutorial-maps-markers-polygons-routes-updated-for-vs2015-and-gmap1-7.html
+//https://icon-icons.com/fr/icone/bullseye/73647https://icon-icons.com/fr/icone/bullseye/73647
 
 namespace DcsBriefop.UcBriefing
 {
@@ -21,9 +23,9 @@ namespace DcsBriefop.UcBriefing
 			InitializeComponent();
 
 			Map.MapProvider = GMap.NET.MapProviders.BingMapProvider.Instance;
-			GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
+			GMaps.Instance.Mode = AccessMode.ServerOnly;
 			//Map.ShowTileGridLines = true;
-			Map.Position = new GMap.NET.PointLatLng(26.1702778, 56.24);
+			Map.Position = new PointLatLng(26.1702778, 56.24);
 		}
 		#endregion
 
@@ -39,38 +41,40 @@ namespace DcsBriefop.UcBriefing
 			foreach (GMapOverlay gmo in MapData.AdditionalMapOverlays)
 				Map.Overlays.Add(gmo);
 
-			Map.Position = new GMap.NET.PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
+			Map.Position = new PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
 			Map.Zoom = MapData.Zoom;
+		}
+
+		private void AddMarker(double dLat, double dLng)
+		{
+			PointLatLng p = new PointLatLng(dLat, dLng);
+			MapData.MapOverlayCustom.Markers.Add(new GMarkerBriefop(p, GMarkerBriefopType.Pin, Color.Orange, null));
+			CkAddMarker.Checked = false;
+		}
+
+		private void DeleteMarker(GMarkerBriefop gmb)
+		{
+			if (gmb.Overlay == MapData.MapOverlayCustom)
+			MapData.MapOverlayCustom.Markers.Remove(gmb);
+		}
+
+		private void UnselectMarkers()
+		{
+			foreach (GMarkerBriefop gmb in MapData.MapOverlayCustom.Markers.OfType<GMarkerBriefop>())
+				gmb.IsSelected = false;
+		}
+
+		private GMarkerBriefop GetMarkerMouseOver()
+		{
+			foreach (GMarkerBriefop gmb in MapData.MapOverlayCustom.Markers.OfType<GMarkerBriefop>())
+				if (gmb.IsMouseOver)
+					return gmb;
+
+			return null;
 		}
 		#endregion
 
 		#region Events
-		private void BtAreaSet_Click(object sender, System.EventArgs e)
-		{
-			MapData.CenterLatitude = Map.Position.Lat;
-			MapData.CenterLongitude = Map.Position.Lng;
-			MapData.Zoom = Map.Zoom;
-		}
-
-		private void BtAreaRecall_Click(object sender, System.EventArgs e)
-		{
-			Map.Position = new GMap.NET.PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
-			Map.Zoom = MapData.Zoom;
-		}
-
-		private void Map_MouseClick(object sender, MouseEventArgs e)
-		{
-			if (e.Button == MouseButtons.Left && CkAddMarker.Checked)
-			{
-				double lat = Map.FromLocalToLatLng(e.X, e.Y).Lat;
-				double lng = Map.FromLocalToLatLng(e.X, e.Y).Lng;
-
-				PointLatLng p = new PointLatLng(lat, lng);
-				GMarkerBriefop mk = new GMarkerBriefop(p, "test", null);
-				MapData.MapOverlayCustom.Markers.Add(mk);
-			}
-		}
-
 		private void BeTestSave_Click(object sender, System.EventArgs e)
 		{
 			//NEWTONSOFT JSON (cannot deserialize arrays)
@@ -110,62 +114,74 @@ namespace DcsBriefop.UcBriefing
 			//	var o = (GMapOverlay)formatter.Deserialize(ms);
 			//}
 		}
+
+		private void BtAreaSet_Click(object sender, System.EventArgs e)
+		{
+			MapData.CenterLatitude = Map.Position.Lat;
+			MapData.CenterLongitude = Map.Position.Lng;
+			MapData.Zoom = Map.Zoom;
+		}
+
+		private void BtAreaRecall_Click(object sender, System.EventArgs e)
+		{
+			Map.Position = new PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
+			Map.Zoom = MapData.Zoom;
+		}
+
+		private void Map_MouseClick(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Left)
+			{
+				if (CkAddMarker.Checked)
+					AddMarker(Map.FromLocalToLatLng(e.X, e.Y).Lat, Map.FromLocalToLatLng(e.X, e.Y).Lng);
+				else if (GetMarkerMouseOver() is null)
+					UnselectMarkers();
+			}
+		}
+
+		private void Map_KeyUp(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Delete)
+			{
+				GMarkerBriefop gmb = GetMarkerMouseOver();
+
+				if (gmb is object)
+				{
+					DeleteMarker(gmb);
+				}
+			}
+		}
+
+		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+		{
+			CkAddMarker.Checked = false;
+
+			if (item.Overlay != MapData.MapOverlayCustom)
+				return;
+
+			UnselectMarkers();
+
+			if (item is GMarkerBriefop selectedGmb)
+				selectedGmb.IsSelected = true;
+		}
 		#endregion
 
-		//public void AddOverlay(GMapOverlay gmo)
-		//{
-		//	if (gmo is null || gmo == OverlayMain)
-		//		return;
+		private void Map_OnMarkerEnter(GMapMarker item)
+		{
+			if (item.Overlay == MapData.MapOverlayCustom && item is GMarkerBriefop gmb)
+				gmb.IsHovered = true;
 
-		//	if (Overlays.Contains(gmo))
-		//		return;
+		}
 
-		//	Overlays.Add(gmo);
-		//}
+		private void Map_OnMarkerLeave(GMapMarker item)
+		{
+			if (item is GMarkerBriefop gmb)
+				gmb.IsHovered = false;
+		}
 
-		//public void RemoveOverlay(GMapOverlay gmo)
-		//{
-		//	if (gmo == OverlayMain)
-		//		OverlayMain = null;
+		private void Map_MouseMove(object sender, MouseEventArgs e)
+		{
 
-		//	if (Overlays.Contains(gmo))
-		//		Overlays.Remove(gmo);
-		//}
-
-		//public void RemoveOverlay(string sId)
-		//{
-		//	if (string.IsNullOrEmpty (sId))
-		//		return;
-
-		//	if (OverlayMain is object && OverlayMain.Id == sId)
-		//		OverlayMain = null;
-
-		//	GMapOverlay gmoToRemove = null;
-		//	foreach (GMapOverlay gmo in Overlays)
-		//	{
-		//		if (gmo.Id == sId)
-		//			gmoToRemove = gmo;
-		//	}
-		//	RemoveOverlay(gmoToRemove);
-		//}
-
-		//public void ClearOverlays()
-		//{
-		//	OverlayMain = null;
-		//	Overlays.Clear();
-		//}
-
-		//public void RefreshMap(string sCenterOverlayId)
-		//{
-		//	Map.Overlays.Clear();
-
-		//	if (OverlayMain is object)
-		//		Map.Overlays.Add(OverlayMain);
-
-		//	foreach(GMapOverlay gmo in Overlays)
-		//		Map.Overlays.Add(gmo);
-
-		//	Map.ZoomAndCenterMarkers(sCenterOverlayId);
-		//}
+		}
 	}
 }

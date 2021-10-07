@@ -148,11 +148,12 @@
     <Compile Include="LsonStructure\RouteTask.cs" />
     <Compile Include="LsonStructure\Map.cs" />
     <Compile Include="LsonStructure\Unit.cs" />
-    <Compile Include="Map\GmapMarkerWithLabel.cs" />
     <Compile Include="Map\GMarkerBriefop.cs" />
+    <Compile Include="MasterData\BriefopValue.cs" />
     <Compile Include="MasterData\Theatre.cs" />
     <Compile Include="MasterData\ToolsMasterData.cs" />
     <Compile Include="Map\MapJsonSerializers.cs" />
+    <Compile Include="Tools\ToolsImage.cs" />
     <Compile Include="UcBriefing\TabPageBriefing.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -252,13 +253,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bullseye.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\PointsPersianGulf.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bullseye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\factory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pin.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

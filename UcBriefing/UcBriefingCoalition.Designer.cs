@@ -121,6 +121,7 @@ namespace DcsBriefop.UcBriefing
 			this.TbBullseyeDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.TbBullseyeDescription.Size = new System.Drawing.Size(659, 56);
 			this.TbBullseyeDescription.TabIndex = 8;
+			this.TbBullseyeDescription.Validated += new System.EventHandler(this.TbBullseyeDescription_Validated);
 			// 
 			// button1
 			// 

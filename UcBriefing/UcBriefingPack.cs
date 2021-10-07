@@ -40,6 +40,8 @@ namespace DcsBriefop.UcBriefing
 				DataToScreen_AddCoalitionTab(BriefingPack.BriefingBlue);
 			if (BriefingPack.DisplayNeutral)
 				DataToScreen_AddCoalitionTab(BriefingPack.BriefingNeutral);
+
+			DisplayCurrentTabMap();
 		}
 
 		private void DataToScreen_AddCoalitionTab(BriefingCoalition bc)

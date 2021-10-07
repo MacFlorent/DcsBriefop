@@ -79,5 +79,10 @@ namespace DcsBriefop.UcBriefing
 
 			
 		}
+
+		private void TbBullseyeDescription_Validated(object sender, System.EventArgs e)
+		{
+			BriefingCoalition.BullseyeDescription = TbBullseyeDescription.Text;
+		}
 	}
 }

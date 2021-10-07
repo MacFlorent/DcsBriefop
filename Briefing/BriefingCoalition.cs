@@ -1,11 +1,9 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.LsonStructure;
-using DcsBriefop.Map;
 using DcsBriefop.MasterData;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,6 +16,7 @@ namespace DcsBriefop.Briefing
 		#region Fields
 		private Coalition m_coalition;
 		private CustomDataCoalition m_customDataCoalition;
+		private GMarkerBriefop m_markerkBullseye;
 		#endregion
 
 		#region Properties
@@ -34,7 +33,11 @@ namespace DcsBriefop.Briefing
 		public string BullseyeDescription
 		{
 			get { return RootCustom.GetCoalition(m_coalition.Code)?.BullseyeDescription; }
-			set { RootCustom.GetCoalition(m_coalition.Code).BullseyeDescription = value; }
+			set
+			{
+				RootCustom.GetCoalition(m_coalition.Code).BullseyeDescription = value;
+				m_markerkBullseye.Label = value;
+			}
 		}
 
 		public string Name
@@ -63,6 +66,19 @@ namespace DcsBriefop.Briefing
 					RootDictionary.BlueTask = value;
 				else if (Name == ElementCoalition.Neutral)
 					RootDictionary.NeutralTask = value;
+			}
+		}
+
+		public Color Color
+		{
+			get
+			{
+				if (Name == ElementCoalition.Red)
+					return ElementCoalitionColor.Red;
+				else if (Name == ElementCoalition.Blue)
+					return ElementCoalitionColor.Blue;
+				else
+					return ElementCoalitionColor.Neutral;
 			}
 		}
 
@@ -114,8 +130,8 @@ namespace DcsBriefop.Briefing
 
 			GMapOverlay gmoStatic = new GMapOverlay();
 			PointLatLng p = new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree);
-			GMapMarker mkBullseye = new GMarkerBriefop(p, GMarkerBriefopType.Bullseye, BullseyeDescription);
-			gmoStatic.Markers.Add(mkBullseye);
+			m_markerkBullseye = new GMarkerBriefop(p, GMarkerBriefopType.Bullseye, Color, BullseyeDescription);
+			gmoStatic.Markers.Add(m_markerkBullseye);
 
 			MapData.AdditionalMapOverlays.Add(gmoStatic);
 			MapData.AdditionalMapOverlays.Add(RootCustom.MapData.MapOverlayCustom);
