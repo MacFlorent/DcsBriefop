@@ -1,8 +1,4 @@
-﻿using CoordinateSharp;
-using DcsBriefop.Briefing;
-using GMap.NET;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
+﻿using DcsBriefop.Briefing;
 using System.Linq;
 using System.Windows.Forms;
 

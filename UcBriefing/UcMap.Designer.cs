@@ -31,12 +31,11 @@ namespace DcsBriefop.UcBriefing
 		{
 			this.LbHeader = new System.Windows.Forms.Label();
 			this.PnMapControls = new System.Windows.Forms.Panel();
-			this.BtTestLoad = new System.Windows.Forms.Button();
-			this.BeTestSave = new System.Windows.Forms.Button();
 			this.CkAddMarker = new System.Windows.Forms.CheckBox();
 			this.BtAreaRecall = new System.Windows.Forms.Button();
 			this.BtAreaSet = new System.Windows.Forms.Button();
 			this.Map = new GMap.NET.WindowsForms.GMapControl();
+			this.PnSelectionDetail = new System.Windows.Forms.Panel();
 			this.PnMapControls.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -56,34 +55,14 @@ namespace DcsBriefop.UcBriefing
 			// 
 			this.PnMapControls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.PnMapControls.Controls.Add(this.BtTestLoad);
-			this.PnMapControls.Controls.Add(this.BeTestSave);
+			this.PnMapControls.Controls.Add(this.PnSelectionDetail);
 			this.PnMapControls.Controls.Add(this.CkAddMarker);
 			this.PnMapControls.Controls.Add(this.BtAreaRecall);
 			this.PnMapControls.Controls.Add(this.BtAreaSet);
-			this.PnMapControls.Location = new System.Drawing.Point(1111, 29);
+			this.PnMapControls.Location = new System.Drawing.Point(1088, 29);
 			this.PnMapControls.Name = "PnMapControls";
-			this.PnMapControls.Size = new System.Drawing.Size(212, 900);
+			this.PnMapControls.Size = new System.Drawing.Size(235, 900);
 			this.PnMapControls.TabIndex = 6;
-			// 
-			// BtTestLoad
-			// 
-			this.BtTestLoad.Location = new System.Drawing.Point(39, 468);
-			this.BtTestLoad.Name = "BtTestLoad";
-			this.BtTestLoad.Size = new System.Drawing.Size(134, 23);
-			this.BtTestLoad.TabIndex = 4;
-			this.BtTestLoad.Text = "Test load";
-			this.BtTestLoad.UseVisualStyleBackColor = true;
-			// 
-			// BeTestSave
-			// 
-			this.BeTestSave.Location = new System.Drawing.Point(39, 439);
-			this.BeTestSave.Name = "BeTestSave";
-			this.BeTestSave.Size = new System.Drawing.Size(134, 23);
-			this.BeTestSave.TabIndex = 3;
-			this.BeTestSave.Text = "Test save";
-			this.BeTestSave.UseVisualStyleBackColor = true;
-			this.BeTestSave.Click += new System.EventHandler(this.BeTestSave_Click);
 			// 
 			// CkAddMarker
 			// 
@@ -148,7 +127,19 @@ namespace DcsBriefop.UcBriefing
 			this.Map.OnMarkerLeave += new GMap.NET.WindowsForms.MarkerLeave(this.Map_OnMarkerLeave);
 			this.Map.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Map_KeyUp);
 			this.Map.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Map_MouseClick);
+			this.Map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Map_MouseDown);
 			this.Map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Map_MouseMove);
+			this.Map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Map_MouseUp);
+			// 
+			// PnSelectionDetail
+			// 
+			this.PnSelectionDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.PnSelectionDetail.BackColor = System.Drawing.SystemColors.ControlDark;
+			this.PnSelectionDetail.Location = new System.Drawing.Point(3, 706);
+			this.PnSelectionDetail.Name = "PnSelectionDetail";
+			this.PnSelectionDetail.Size = new System.Drawing.Size(229, 191);
+			this.PnSelectionDetail.TabIndex = 5;
 			// 
 			// UcMap
 			// 
@@ -173,7 +164,6 @@ namespace DcsBriefop.UcBriefing
 		private System.Windows.Forms.Button BtAreaRecall;
 		private System.Windows.Forms.Button BtAreaSet;
 		private System.Windows.Forms.CheckBox CkAddMarker;
-		private System.Windows.Forms.Button BtTestLoad;
-		private System.Windows.Forms.Button BeTestSave;
+		private System.Windows.Forms.Panel PnSelectionDetail;
 	}
 }

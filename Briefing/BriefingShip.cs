@@ -1,5 +1,8 @@
 ﻿using DcsBriefop.LsonStructure;
 using DcsBriefop.MasterData;
+using GMap.NET;
+using GMap.NET.WindowsForms;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DcsBriefop.Briefing
@@ -34,11 +37,23 @@ namespace DcsBriefop.Briefing
 
 		public string UnitName { get { return MainUnit.Name; } }
 
-		public BriefingShip(BriefingPack bp, GroupShip gs) : base(bp, gs) { }
+		#region CTOR
+		public BriefingShip(BriefingPack bp, GroupShip gs, BriefingCoalition bc) : base(bp, gs, bc)
+		{
+			if (BriefingCategory == ElementGroupBriefingCategory.NotSet)
+			{
+				BriefingCategory = ElementGroupBriefingCategory.Point;
+			}
 
+			InitializeMapOverlay();
+		}
+		#endregion
+
+		#region Methods
 		public string GetRadioString()
 		{
 			return ToolsMasterData.GetRadioString(RadioFrequency, RadioModulation);
 		}
+		#endregion
 	}
 }

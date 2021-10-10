@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Briefing;
+using DcsBriefop.MasterData;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Drawing;
@@ -26,6 +27,8 @@ namespace DcsBriefop.UcBriefing
 			GMaps.Instance.Mode = AccessMode.ServerOnly;
 			//Map.ShowTileGridLines = true;
 			Map.Position = new PointLatLng(26.1702778, 56.24);
+			Map.MinZoom = ElementMapValue.MinZoom;
+			Map.MaxZoom = ElementMapValue.MaxZoom;
 		}
 		#endregion
 
@@ -35,6 +38,7 @@ namespace DcsBriefop.UcBriefing
 			MapData = cdm;
 
 			Map.Overlays.Clear();
+			UnselectAll();
 
 			Map.Overlays.Add(MapData.MapOverlayCustom);
 
@@ -58,16 +62,39 @@ namespace DcsBriefop.UcBriefing
 			MapData.MapOverlayCustom.Markers.Remove(gmb);
 		}
 
-		private void UnselectMarkers()
+		private void SelectMarker(GMarkerBriefop gmb)
+		{
+			gmb.IsSelected = true;
+
+			// display detail
+			PnSelectionDetail.Controls.Clear();
+			UcMarkerDetail ucDetail = new UcMarkerDetail(gmb, Map);
+			ucDetail.Dock = DockStyle.Fill;
+			PnSelectionDetail.Controls.Add(ucDetail);
+		}
+
+		private void UnselectAll()
 		{
 			foreach (GMarkerBriefop gmb in MapData.MapOverlayCustom.Markers.OfType<GMarkerBriefop>())
 				gmb.IsSelected = false;
+
+			// hide detail
+			PnSelectionDetail.Controls.Clear();
 		}
 
-		private GMarkerBriefop GetMarkerMouseOver()
+		private GMarkerBriefop GetMarkerHovered()
 		{
 			foreach (GMarkerBriefop gmb in MapData.MapOverlayCustom.Markers.OfType<GMarkerBriefop>())
-				if (gmb.IsMouseOver)
+				if (gmb.IsHovered)
+					return gmb;
+
+			return null;
+		}
+
+		private GMarkerBriefop GetMarkerPressed()
+		{
+			foreach (GMarkerBriefop gmb in MapData.MapOverlayCustom.Markers.OfType<GMarkerBriefop>())
+				if (gmb.IsPressed)
 					return gmb;
 
 			return null;
@@ -75,46 +102,6 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 
 		#region Events
-		private void BeTestSave_Click(object sender, System.EventArgs e)
-		{
-			//NEWTONSOFT JSON (cannot deserialize arrays)
-			//string s = JsonConvert.SerializeObject(MapData, Formatting.Indented, new GMapOverlayJsonConverter(), new GMarkerGoogleJsonConverter());
-			//CustomDataMap c = JsonConvert.DeserializeObject<CustomDataMap>(s, new GMapOverlayJsonConverter(), new GMarkerGoogleJsonConverter());
-
-			//TEXT.JSON
-			//var options = new JsonSerializerOptions();
-			//options.Converters.Add(new GMarkerGoogleJsonConverter());
-			//options.Converters.Add(new GMapOverlayJsonConverter());
-			//options.WriteIndented = true;
-			//string jsonString = JsonSerializer.Serialize(MapData, options);
-			//CustomDataMap cdm = JsonSerializer.Deserialize<CustomDataMap>(jsonString, options);
-
-			// XML (missing default constructor)
-			//string sXml = null;
-			//System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(GMapOverlay));
-			//using (StringWriter textWriter = new StringWriter())
-			//{
-			//	serializer.Serialize(textWriter, MapData.MapOverlayCustom);
-			//	sXml = textWriter.ToString();
-			//}
-
-			//using (StringReader textReader = new StringReader(sXml))
-			//{
-			//	var o = (GMapOverlay)serializer.Deserialize(textReader);
-			//}
-
-			// BINARY (unsafe)
-			//using (var ms = new MemoryStream())
-			//{
-			//	var formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-
-			//	formatter.Serialize(ms, MapData.MapOverlayCustom);
-			//	ms.Position = 0;
-
-			//	var o = (GMapOverlay)formatter.Deserialize(ms);
-			//}
-		}
-
 		private void BtAreaSet_Click(object sender, System.EventArgs e)
 		{
 			MapData.CenterLatitude = Map.Position.Lat;
@@ -128,14 +115,28 @@ namespace DcsBriefop.UcBriefing
 			Map.Zoom = MapData.Zoom;
 		}
 
+		private void Map_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (GetMarkerHovered() is GMarkerBriefop gmbHovered)
+			{
+				gmbHovered.IsPressed = true;
+			}
+		}
+
+		private void Map_MouseUp(object sender, MouseEventArgs e)
+		{
+			foreach (GMarkerBriefop gmb in MapData.MapOverlayCustom.Markers.OfType<GMarkerBriefop>())
+				gmb.IsPressed = false;
+		}
+
 		private void Map_MouseClick(object sender, MouseEventArgs e)
 		{
 			if (e.Button == MouseButtons.Left)
 			{
 				if (CkAddMarker.Checked)
 					AddMarker(Map.FromLocalToLatLng(e.X, e.Y).Lat, Map.FromLocalToLatLng(e.X, e.Y).Lng);
-				else if (GetMarkerMouseOver() is null)
-					UnselectMarkers();
+				else if (GetMarkerHovered() is null)
+					UnselectAll();
 			}
 		}
 
@@ -143,7 +144,7 @@ namespace DcsBriefop.UcBriefing
 		{
 			if (e.KeyCode == Keys.Delete)
 			{
-				GMarkerBriefop gmb = GetMarkerMouseOver();
+				GMarkerBriefop gmb = GetMarkerHovered();
 
 				if (gmb is object)
 				{
@@ -159,10 +160,10 @@ namespace DcsBriefop.UcBriefing
 			if (item.Overlay != MapData.MapOverlayCustom)
 				return;
 
-			UnselectMarkers();
+			UnselectAll();
 
 			if (item is GMarkerBriefop selectedGmb)
-				selectedGmb.IsSelected = true;
+				SelectMarker(selectedGmb);
 		}
 		#endregion
 
@@ -181,7 +182,18 @@ namespace DcsBriefop.UcBriefing
 
 		private void Map_MouseMove(object sender, MouseEventArgs e)
 		{
+			if (e.Button == MouseButtons.Left)
+			{
+				if (GetMarkerPressed() is GMarkerBriefop gmb)
+				{
+					var pnew = Map.FromLocalToLatLng(e.X, e.Y);
+					gmb.Position = pnew;
+				}
 
+				Map.Refresh();
+			}
 		}
+
+
 	}
 }

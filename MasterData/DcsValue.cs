@@ -33,6 +33,11 @@ namespace DcsBriefop.MasterData
 		public static readonly List<string> Supports = new List<string>() { Refueling , Awacs };
 	}
 
+	internal static class ElementRouteTask
+	{
+		public static readonly string ActivateBeacon = "ActivateBeacon";
+		public static readonly string Orbit = "Orbit";
+	}
 
 	internal static class ElementRoutePointType
 	{

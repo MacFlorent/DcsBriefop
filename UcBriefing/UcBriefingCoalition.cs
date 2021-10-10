@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Briefing;
 using GMap.NET.WindowsForms;
+using System;
 using System.Windows.Forms;
 
 namespace DcsBriefop.UcBriefing
@@ -13,6 +14,9 @@ namespace DcsBriefop.UcBriefing
 			InitializeComponent();
 
 			BriefingCoalition = bc;
+
+			DgvFlights.ContextMenuStrip = new ContextMenuStrip();
+			BuildMenu();
 		}
 
 		public override void DataToScreen()
@@ -34,11 +38,11 @@ namespace DcsBriefop.UcBriefing
 
 			foreach (BriefingFlight bga in BriefingCoalition.GroupAirs)
 			{
-				DgvFlights.Rows.Add(bga.Included, bga.Id, bga.GetCallsign(), bga.Name, bga.Type, bga.Task, bga.GetRadioString(), bga);
+				DgvFlights.Rows.Add(bga.BriefingCategory, bga.Id, bga.GetCallsign(), bga.Name, bga.Type, bga.Task, bga.GetRadioString(), bga);
 			}
 			foreach (BriefingShip bgs in BriefingCoalition.GroupShips)
 			{
-				DgvFlights.Rows.Add(bgs.Included, bgs.Id, bgs.UnitName, bgs.Name, bgs.Type, "", bgs.GetRadioString(), bgs);
+				DgvFlights.Rows.Add(bgs.BriefingCategory, bgs.Id, bgs.UnitName, bgs.Name, bgs.Type, "", bgs.GetRadioString(), bgs);
 			}
 		}
 
@@ -47,6 +51,59 @@ namespace DcsBriefop.UcBriefing
 			BriefingCoalition.BullseyeDescription = TbBullseyeDescription.Text;
 			BriefingCoalition.Task = TbTask.Text;
 		}
+
+		public void DisplayMap()
+		{
+			if (DgvFlights.SelectedRows.Count > 0)
+			{
+				object o = DgvFlights.SelectedRows[0].Cells["_data"].Value;
+				if (o is BriefingGroup bg)
+				{
+					UcMap.SetMapData(bg.MapData);
+				}
+			}
+		}
+
+		public void ResetMap()
+		{
+			UcMap.SetMapData(BriefingCoalition.MapData);
+		}
+
+		#region Menus
+		private class MenuName
+		{
+			public static readonly string Map = "Map";
+			public static readonly string ResetMap = "ResetMap";
+		}
+
+		private void BuildMenu()
+		{
+			DgvFlights.ContextMenuStrip.Items.Clear();
+			DgvFlights.ContextMenuStrip.Items.Add(MenuItem("Display map", MenuName.Map));
+			DgvFlights.ContextMenuStrip.Items.Add(MenuItem("Reset map", MenuName.ResetMap));
+		}
+
+		private ToolStripMenuItem MenuItem(string sLabel, string sName)
+		{
+			return new ToolStripMenuItem(sLabel, null, new EventHandler(ToolStripItemClicked), sName);
+		}
+
+		private void ToolStripItemClicked(object sender, EventArgs e)
+		{
+			ToolStripItem tsi = sender as ToolStripItem;
+			if (tsi == null)
+				return;
+
+			if (tsi.Name == MenuName.Map)
+			{
+				DisplayMap();
+			}
+			else if (tsi.Name == MenuName.ResetMap)
+			{
+				ResetMap();
+			}
+		}
+		#endregion
 
 		private void DgvFlights_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 		{

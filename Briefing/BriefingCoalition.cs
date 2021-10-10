@@ -106,11 +106,11 @@ namespace DcsBriefop.Briefing
 			{
 				foreach (GroupFlight ga in c.GroupAirs)
 				{
-					GroupAirs.Add(new BriefingFlight(bp, ga));
+					GroupAirs.Add(new BriefingFlight(bp, ga, this));
 				}
 				foreach (GroupShip gs in c.GroupShips)
 				{
-					GroupShips.Add(new BriefingShip(bp, gs));
+					GroupShips.Add(new BriefingShip(bp, gs, this));
 				}
 			}
 		}
@@ -119,21 +119,21 @@ namespace DcsBriefop.Briefing
 		#region Methods
 		private void InitializeMapData()
 		{
+			GMapOverlay overlayStatic = new GMapOverlay();
+			PointLatLng p = new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree);
+			m_markerkBullseye = new GMarkerBriefop(p, GMarkerBriefopType.Bullseye, Color, BullseyeDescription);
+			overlayStatic.Markers.Add(m_markerkBullseye);
+
 			if (MapData is null)
 			{
 				MapData = new CustomDataMap();
 				MapData.CenterLatitude = Bullseye.Latitude.DecimalDegree;
 				MapData.CenterLongitude = Bullseye.Longitude.DecimalDegree;
-				MapData.Zoom = 9;
+				MapData.Zoom = ElementMapValue.DefaultZoom;
 				MapData.MapOverlayCustom = new GMapOverlay();
 			}
 
-			GMapOverlay gmoStatic = new GMapOverlay();
-			PointLatLng p = new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree);
-			m_markerkBullseye = new GMarkerBriefop(p, GMarkerBriefopType.Bullseye, Color, BullseyeDescription);
-			gmoStatic.Markers.Add(m_markerkBullseye);
-
-			MapData.AdditionalMapOverlays.Add(gmoStatic);
+			MapData.AdditionalMapOverlays.Add(overlayStatic);
 			MapData.AdditionalMapOverlays.Add(RootCustom.MapData.MapOverlayCustom);
 		}
 		#endregion

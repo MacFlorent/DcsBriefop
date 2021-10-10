@@ -154,6 +154,7 @@
     <Compile Include="MasterData\ToolsMasterData.cs" />
     <Compile Include="Map\MapJsonSerializers.cs" />
     <Compile Include="Tools\ToolsImage.cs" />
+    <Compile Include="Tools\ToolsMap.cs" />
     <Compile Include="UcBriefing\TabPageBriefing.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -213,6 +214,12 @@
     <Compile Include="UcBriefing\UcMap.Designer.cs">
       <DependentUpon>UcMap.cs</DependentUpon>
     </Compile>
+    <Compile Include="UcBriefing\UcMarkerDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcBriefing\UcMarkerDetail.Designer.cs">
+      <DependentUpon>UcMarkerDetail.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -237,6 +244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UcBriefing\UcMap.resx">
       <DependentUpon>UcMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcBriefing\UcMarkerDetail.resx">
+      <DependentUpon>UcMarkerDetail.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
