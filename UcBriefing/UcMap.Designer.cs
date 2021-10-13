@@ -29,40 +29,36 @@ namespace DcsBriefop.UcBriefing
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.LbHeader = new System.Windows.Forms.Label();
 			this.PnMapControls = new System.Windows.Forms.Panel();
+			this.PnSelectionDetail = new System.Windows.Forms.Panel();
 			this.CkAddMarker = new System.Windows.Forms.CheckBox();
 			this.BtAreaRecall = new System.Windows.Forms.Button();
 			this.BtAreaSet = new System.Windows.Forms.Button();
 			this.Map = new GMap.NET.WindowsForms.GMapControl();
-			this.PnSelectionDetail = new System.Windows.Forms.Panel();
 			this.PnMapControls.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// LbHeader
-			// 
-			this.LbHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.LbHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.LbHeader.Location = new System.Drawing.Point(3, 0);
-			this.LbHeader.Name = "LbHeader";
-			this.LbHeader.Size = new System.Drawing.Size(1317, 26);
-			this.LbHeader.TabIndex = 7;
-			this.LbHeader.Text = "Map";
-			this.LbHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
 			// PnMapControls
 			// 
-			this.PnMapControls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.PnMapControls.Controls.Add(this.PnSelectionDetail);
 			this.PnMapControls.Controls.Add(this.CkAddMarker);
 			this.PnMapControls.Controls.Add(this.BtAreaRecall);
 			this.PnMapControls.Controls.Add(this.BtAreaSet);
-			this.PnMapControls.Location = new System.Drawing.Point(1088, 29);
+			this.PnMapControls.Dock = System.Windows.Forms.DockStyle.Right;
+			this.PnMapControls.Location = new System.Drawing.Point(1088, 0);
 			this.PnMapControls.Name = "PnMapControls";
-			this.PnMapControls.Size = new System.Drawing.Size(235, 900);
+			this.PnMapControls.Size = new System.Drawing.Size(235, 929);
 			this.PnMapControls.TabIndex = 6;
+			// 
+			// PnSelectionDetail
+			// 
+			this.PnSelectionDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.PnSelectionDetail.BackColor = System.Drawing.SystemColors.ControlDark;
+			this.PnSelectionDetail.Location = new System.Drawing.Point(3, 735);
+			this.PnSelectionDetail.Name = "PnSelectionDetail";
+			this.PnSelectionDetail.Size = new System.Drawing.Size(229, 191);
+			this.PnSelectionDetail.TabIndex = 5;
 			// 
 			// CkAddMarker
 			// 
@@ -96,16 +92,14 @@ namespace DcsBriefop.UcBriefing
 			// 
 			// Map
 			// 
-			this.Map.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.Map.Bearing = 0F;
 			this.Map.CanDragMap = true;
+			this.Map.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.Map.EmptyTileColor = System.Drawing.Color.Navy;
 			this.Map.GrayScaleMode = false;
 			this.Map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
 			this.Map.LevelsKeepInMemory = 5;
-			this.Map.Location = new System.Drawing.Point(6, 29);
+			this.Map.Location = new System.Drawing.Point(0, 0);
 			this.Map.MarkersEnabled = true;
 			this.Map.MaxZoom = 18;
 			this.Map.MinZoom = 2;
@@ -119,7 +113,7 @@ namespace DcsBriefop.UcBriefing
 			this.Map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
 			this.Map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
 			this.Map.ShowTileGridLines = false;
-			this.Map.Size = new System.Drawing.Size(1105, 900);
+			this.Map.Size = new System.Drawing.Size(1088, 929);
 			this.Map.TabIndex = 5;
 			this.Map.Zoom = 13D;
 			this.Map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.Map_OnMarkerClick);
@@ -131,23 +125,12 @@ namespace DcsBriefop.UcBriefing
 			this.Map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Map_MouseMove);
 			this.Map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Map_MouseUp);
 			// 
-			// PnSelectionDetail
-			// 
-			this.PnSelectionDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.PnSelectionDetail.BackColor = System.Drawing.SystemColors.ControlDark;
-			this.PnSelectionDetail.Location = new System.Drawing.Point(3, 706);
-			this.PnSelectionDetail.Name = "PnSelectionDetail";
-			this.PnSelectionDetail.Size = new System.Drawing.Size(229, 191);
-			this.PnSelectionDetail.TabIndex = 5;
-			// 
 			// UcMap
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.LbHeader);
-			this.Controls.Add(this.PnMapControls);
 			this.Controls.Add(this.Map);
+			this.Controls.Add(this.PnMapControls);
 			this.Name = "UcMap";
 			this.Size = new System.Drawing.Size(1323, 929);
 			this.PnMapControls.ResumeLayout(false);
@@ -157,8 +140,6 @@ namespace DcsBriefop.UcBriefing
 		}
 
 		#endregion
-
-		private System.Windows.Forms.Label LbHeader;
 		private System.Windows.Forms.Panel PnMapControls;
 		private GMap.NET.WindowsForms.GMapControl Map;
 		private System.Windows.Forms.Button BtAreaRecall;

@@ -36,13 +36,13 @@ namespace DcsBriefop.UcBriefing
 
 			DgvFlights.Columns["_data"].Visible = false;
 
-			foreach (BriefingFlight bga in BriefingCoalition.GroupAirs)
+			foreach (BriefingFlight bga in BriefingCoalition.GroupFlights)
 			{
-				DgvFlights.Rows.Add(bga.BriefingCategory, bga.Id, bga.GetCallsign(), bga.Name, bga.Type, bga.Task, bga.GetRadioString(), bga);
+				DgvFlights.Rows.Add(bga.BriefingInclusion, bga.Id, bga.GetCallsign(), bga.Name, bga.Type, bga.Task, bga.GetRadioString(), bga);
 			}
 			foreach (BriefingShip bgs in BriefingCoalition.GroupShips)
 			{
-				DgvFlights.Rows.Add(bgs.BriefingCategory, bgs.Id, bgs.UnitName, bgs.Name, bgs.Type, "", bgs.GetRadioString(), bgs);
+				DgvFlights.Rows.Add(bgs.BriefingInclusion, bgs.Id, bgs.UnitName, bgs.Name, bgs.Type, "", bgs.GetRadioString(), bgs);
 			}
 		}
 
@@ -59,7 +59,9 @@ namespace DcsBriefop.UcBriefing
 				object o = DgvFlights.SelectedRows[0].Cells["_data"].Value;
 				if (o is BriefingGroup bg)
 				{
-					UcMap.SetMapData(bg.MapData);
+					//UcMap.SetMapData(bg.MapData);
+					FrmGroupDetail f = new FrmGroupDetail(bg);
+					f.ShowDialog();
 				}
 			}
 		}

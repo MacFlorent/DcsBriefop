@@ -14,14 +14,6 @@ namespace DcsBriefop.MasterData
 		public static readonly int MinZoom = 1;
 		public static readonly int MaxZoom = 18;
 		public static readonly int DefaultZoom = 9;
-	}
-
-	internal static class ElementGroupBriefingCategory
-	{
-		public static readonly int NotSet = -1;
-		public static readonly int Excluded = 0;
-		public static readonly int FullRoute = 1;
-		public static readonly int Orbit = 2;
-		public static readonly int Point = 3;
+		public static readonly string OverlayStatic = "static";
 	}
 }

@@ -1,11 +1,5 @@
 ﻿using DcsBriefop.LsonStructure;
 using DcsBriefop.MasterData;
-using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 
 namespace DcsBriefop.Briefing
@@ -17,6 +11,8 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Properties
+		protected override string DefaultMarker { get; set; } = GMarkerBriefopType.aircraft.ToString();
+		public override string Category { get { return "Flight"; } }
 		public string Type { get { return GroupFlight.Units.FirstOrDefault()?.Type; } }
 
 		public string Task
@@ -39,17 +35,17 @@ namespace DcsBriefop.Briefing
 		#region CTOR
 		public BriefingFlight(BriefingPack bp, GroupFlight ga, BriefingCoalition bc) : base(bp, ga, bc)
 		{
-			if (BriefingCategory == ElementGroupBriefingCategory.NotSet)
+			if (BriefingInclusion == ElementBriefingInclusionId.NotSet)
 			{
 				if (Playable)
-					BriefingCategory = ElementGroupBriefingCategory.FullRoute;
+					BriefingInclusion = ElementBriefingInclusionId.FullRoute;
 				else if (ElementTask.Supports.Contains(Task))
-					BriefingCategory = ElementGroupBriefingCategory.Orbit;
+					BriefingInclusion = ElementBriefingInclusionId.Orbit;
 				else
-					BriefingCategory = ElementGroupBriefingCategory.Point;
+					BriefingInclusion = ElementBriefingInclusionId.Point;
 			}
 
-			InitializeMapOverlay();
+			InitializeMapData();
 		}
 		#endregion
 

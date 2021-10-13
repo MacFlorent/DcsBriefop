@@ -3,7 +3,6 @@ using DcsBriefop.MasterData;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -19,7 +18,10 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Properties
-		public int BriefingCategory
+		protected virtual string DefaultMarker { get; set; } = GMarkerBriefopType.dot.ToString();
+		public virtual string Category { get { return "Group"; } }
+
+		public int BriefingInclusion
 		{
 			get { return m_customDataGroup.BriefingCategory; }
 			set { m_customDataGroup.BriefingCategory = value; }
@@ -63,6 +65,7 @@ namespace DcsBriefop.Briefing
 			if (m_customDataGroup is null)
 			{
 				m_customDataGroup = new CustomDataGroup(Id);
+				RootCustom.Groups.Add(m_customDataGroup);
 			}
 
 			foreach (RoutePoint rp in m_group.RoutePoints)
@@ -73,21 +76,22 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Methods
-		protected void InitializeMapOverlay()
+		protected void InitializeMapData()
 		{
-			GMapOverlay staticOverlay = new GMapOverlay();
-			List<PointLatLng> points = GetListRouteMapPoints();
+			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
+			List<PointLatLng> points = null;
 
-			foreach (PointLatLng p in points)
+			if (BriefingInclusion == ElementBriefingInclusionId.Point)
 			{
-				staticOverlay.Markers.Add(new GMarkerCross(p));
+				points = InitializeMapDataPoint(staticOverlay);
 			}
-
-			if (points.Count >= 1)
+			else if (BriefingInclusion == ElementBriefingInclusionId.Orbit)
 			{
-				GMapRoute route = new GMapRoute(points, "route");
-				route.Stroke = new Pen(m_briefingCoalition.Color, 2);
-				staticOverlay.Routes.Add(route);
+				points = InitializeMapDataOrbit(staticOverlay);
+			}
+			else if(BriefingInclusion == ElementBriefingInclusionId.FullRoute)
+			{
+				points = InitializeMapDataFullRoute(staticOverlay);
 			}
 
 			if (MapData is null)
@@ -114,38 +118,66 @@ namespace DcsBriefop.Briefing
 			MapData.AdditionalMapOverlays.Add(m_briefingCoalition.MapData.MapOverlayCustom);
 		}
 
-		protected List<PointLatLng> GetListRouteMapPoints()
+		private List<PointLatLng> InitializeMapDataPoint(GMapOverlay staticOverlay)
+		{
+			PointLatLng p = new PointLatLng(RoutePoints[0].Coordinate.Latitude.DecimalDegree, RoutePoints[0].Coordinate.Longitude.DecimalDegree);
+			GMarkerBriefop marker = new GMarkerBriefop(p, DefaultMarker, m_briefingCoalition.Color, Name);
+			staticOverlay.Markers.Add(marker);
+
+			return new List<PointLatLng>() { p };
+		}
+
+		private List<PointLatLng> InitializeMapDataOrbit(GMapOverlay staticOverlay)
 		{
 			List<PointLatLng> points = new List<PointLatLng>();
 
-			if (BriefingCategory != ElementGroupBriefingCategory.NotSet && BriefingCategory != ElementGroupBriefingCategory.Excluded && RoutePoints.Count > 0)
+			foreach (BriefingRoutePoint routePoint in RoutePoints)
 			{
-				if (BriefingCategory == ElementGroupBriefingCategory.Point)
+				if (points.Count > 1)
+					break;
+				else if (points.Count <= 0 && routePoint.RouteTasks.Where(_rt => _rt.Id == ElementRouteTask.Orbit).Any())
 				{
-					points.Add(new PointLatLng(RoutePoints[0].Coordinate.Latitude.DecimalDegree, RoutePoints[0].Coordinate.Longitude.DecimalDegree));
+					PointLatLng p = new PointLatLng(routePoint.Coordinate.Latitude.DecimalDegree, routePoint.Coordinate.Longitude.DecimalDegree);
+					GMarkerBriefop marker = new GMarkerBriefop(p, GMarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, Name);
+					staticOverlay.Markers.Add(marker);
+					points.Add(p);
 				}
-				else if (BriefingCategory == ElementGroupBriefingCategory.Orbit)
+				else if (points.Count == 1)
 				{
-					foreach (BriefingRoutePoint brp in RoutePoints)
-					{
-						if (points.Count <= 0 && brp.RouteTasks.Where(_rt => _rt.Action?.Id == ElementRouteTask.Orbit).Any())
-						{
-							points.Add(new PointLatLng(brp.Coordinate.Latitude.DecimalDegree, brp.Coordinate.Longitude.DecimalDegree));
-						}
-						else if (points.Count == 1)
-							points.Add(new PointLatLng(brp.Coordinate.Latitude.DecimalDegree, brp.Coordinate.Longitude.DecimalDegree));
-						else
-							break;
-					}
+					PointLatLng p = new PointLatLng(routePoint.Coordinate.Latitude.DecimalDegree, routePoint.Coordinate.Longitude.DecimalDegree);
+					GMarkerBriefop marker = new GMarkerBriefop(p, GMarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, null);
+					staticOverlay.Markers.Add(marker);
+					points.Add(p);
 				}
-				else if (BriefingCategory == ElementGroupBriefingCategory.FullRoute)
-				{
-					foreach (BriefingRoutePoint brp in RoutePoints)
-					{
-						PointLatLng p = new PointLatLng(brp.Coordinate.Latitude.DecimalDegree, brp.Coordinate.Longitude.DecimalDegree);
-						points.Add(p);
-					}
-				}
+			}
+
+			if (points.Count > 1)
+			{
+				GMapRoute route = new GMapRoute(points, "route");
+				route.Stroke = new Pen(m_briefingCoalition.Color, 2);
+				staticOverlay.Routes.Add(route);
+			}
+
+			return points;
+		}
+
+		private List<PointLatLng> InitializeMapDataFullRoute(GMapOverlay staticOverlay)
+		{
+			List<PointLatLng> points = new List<PointLatLng>();
+
+			foreach (BriefingRoutePoint routePoint in RoutePoints)
+			{
+				PointLatLng p = new PointLatLng(routePoint.Coordinate.Latitude.DecimalDegree, routePoint.Coordinate.Longitude.DecimalDegree);
+				GMarkerBriefop marker = new GMarkerBriefop(p, GMarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, null);
+				staticOverlay.Markers.Add(marker);
+				points.Add(p);
+			}
+
+			if (points.Count > 1)
+			{
+				GMapRoute route = new GMapRoute(points, "route");
+				route.Stroke = new Pen(m_briefingCoalition.Color, 2);
+				staticOverlay.Routes.Add(route);
 			}
 
 			return points;

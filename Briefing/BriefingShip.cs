@@ -1,15 +1,19 @@
 ﻿using DcsBriefop.LsonStructure;
 using DcsBriefop.MasterData;
-using GMap.NET;
-using GMap.NET.WindowsForms;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DcsBriefop.Briefing
 {
 	internal class BriefingShip : BriefingGroup
 	{
+		#region Fields
 		private GroupShip GroupShip { get { return m_group as GroupShip; } }
+		#endregion
+
+		#region Properties
+		protected override string DefaultMarker { get; set; } = GMarkerBriefopType.ship.ToString();
+		public override string Category { get { return "Ship"; } }
+
 		private UnitShip MainUnit
 		{
 			get
@@ -23,7 +27,9 @@ namespace DcsBriefop.Briefing
 		}
 
 		public string Type { get { return MainUnit.Type; } }
-
+		
+		public string UnitName { get { return MainUnit.Name; } }
+		
 		public decimal RadioFrequency
 		{
 			get { return MainUnit.RadioFrequency / 1000000; }
@@ -34,18 +40,17 @@ namespace DcsBriefop.Briefing
 			get { return MainUnit.RadioModulation; }
 			set { MainUnit.RadioModulation = value; }
 		}
-
-		public string UnitName { get { return MainUnit.Name; } }
+		#endregion
 
 		#region CTOR
 		public BriefingShip(BriefingPack bp, GroupShip gs, BriefingCoalition bc) : base(bp, gs, bc)
 		{
-			if (BriefingCategory == ElementGroupBriefingCategory.NotSet)
+			if (BriefingInclusion == ElementBriefingInclusionId.NotSet)
 			{
-				BriefingCategory = ElementGroupBriefingCategory.Point;
+				BriefingInclusion = ElementBriefingInclusionId.Point;
 			}
 
-			InitializeMapOverlay();
+			InitializeMapData();
 		}
 		#endregion
 

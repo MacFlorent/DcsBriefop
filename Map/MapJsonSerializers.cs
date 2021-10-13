@@ -80,8 +80,12 @@ namespace DcsBriefop.Map
 			jo.Add(new JProperty(JsonNode.Latitude, value.Position.Lat));
 			jo.Add(new JProperty(JsonNode.Longitude, value.Position.Lng));
 			jo.Add(new JProperty(JsonNode.MarkerType, value.MarkerType));
-			jo.Add(new JProperty(JsonNode.Color, ColorTranslator.ToHtml(value.Color)));
+			
+			if (value.TintColor is object)
+				jo.Add(new JProperty(JsonNode.Color, ColorTranslator.ToHtml(value.TintColor.Value)));
+			
 			jo.Add(new JProperty(JsonNode.Label, value.Label));
+			
 			jo.WriteTo(writer);
 		}
 
@@ -91,10 +95,14 @@ namespace DcsBriefop.Map
 			double lat = token[JsonNode.Latitude].Value<double>();
 			double lng = token[JsonNode.Longitude].Value<double>();
 			string sMarkerType = token[JsonNode.MarkerType].Value<string>();
-			Color color = ColorTranslator.FromHtml(token[JsonNode.Color].Value<string>());
+
+			Color? tintColor = null;
+			if (token[JsonNode.Color] is object)
+				tintColor = ColorTranslator.FromHtml(token[JsonNode.Color].Value<string>());
+			
 			string sLabel = token[JsonNode.Label].Value<string>();
 
-			return new GMarkerBriefop(new PointLatLng(lat, lng), sMarkerType, color, sLabel);
+			return new GMarkerBriefop(new PointLatLng(lat, lng), sMarkerType, tintColor, sLabel);
 		}
 	}
 }

@@ -4,93 +4,111 @@ using GMap.NET.WindowsForms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
 
 namespace DcsBriefop
 {
-	public static class GMarkerBriefopType
+	public enum GMarkerBriefopType
 	{
-		public static readonly string Bullseye = "bullseye";
-		public static readonly string Pin = "pin";
-		public static readonly string Factory = "factory";
+		aircraft,
+		airport,
+		bullseye,
+		dot,
+		factory,
+		helicopter,
+		pin,
+		ship,
+		tank,
+		triangle
 	}
 
-	public class GMarkerBriefopTemplate
-	{
-		public string MarkerType { get; set; }
-		public Bitmap Bitmap { get; set; }
-		public Size Size { get; set; }
-		public double OffsetWidth { get; set; }
-		public double OffsetHeight { get; set; }
+	//public class GMarkerBriefopTemplate
+	//{
+	//	public string MarkerType { get; set; }
+	//	public Bitmap Bitmap { get; set; }
+	//	public Size Size { get; set; }
+	//	public double OffsetWidth { get; set; }
+	//	public double OffsetHeight { get; set; }
 
-		public override string ToString()
-		{
-			return MarkerType;
-		}
+	//	public override string ToString()
+	//	{
+	//		return MarkerType;
+	//	}
 
-		#region Static data
-		private static readonly string m_sDefaultMarkerType = GMarkerBriefopType.Pin;
-		private static Dictionary<string, Bitmap> m_bitmapCache = new Dictionary<string, Bitmap>();
-		private static Dictionary<string, GMarkerBriefopTemplate> m_templatesList = new Dictionary<string, GMarkerBriefopTemplate>();
+	//	#region Static data
+	//	private static readonly string m_sDefaultMarkerType = GMarkerBriefopType.pin.ToString();
+	//	private static Dictionary<string, Bitmap> m_bitmapCache = new Dictionary<string, Bitmap>();
+	//	private static Dictionary<string, GMarkerBriefopTemplate> m_templatesList = new Dictionary<string, GMarkerBriefopTemplate>();
 
-		static GMarkerBriefopTemplate()
-		{
-			Size defaultSize = new Size(32, 32);
+	//	static GMarkerBriefopTemplate()
+	//	{
+	//		foreach (string sType in Enum.GetValues(typeof(GMarkerBriefopType)).Cast<GMarkerBriefopType>().Select(_e => _e.ToString()))
+	//			AddTemplate(sType);
+	//	}
 
-			AddTemplate(GMarkerBriefopType.Bullseye, defaultSize);
-			AddTemplate(GMarkerBriefopType.Pin, defaultSize, -0.5, -1);
-			AddTemplate(GMarkerBriefopType.Factory, defaultSize);
-		}
+	//	public static void FillCombo(ComboBox cb)
+	//	{
+	//		cb.Items.Clear();
+	//		foreach (GMarkerBriefopTemplate template in m_templatesList.Values)
+	//		{
+	//			cb.Items.Add(template);
+	//		}
+	//	}
 
-		public static void FillCombo(ComboBox cb)
-		{
-			cb.Items.Clear();
-			foreach(GMarkerBriefopTemplate template in m_templatesList.Values)
-			{
-				cb.Items.Add(template);
-			}
-		}
+	//	public static GMarkerBriefopTemplate GetTemplate(string sMarkerType)
+	//	{
+	//		if (!m_templatesList.TryGetValue(sMarkerType, out GMarkerBriefopTemplate template))
+	//		{
+	//			template = m_templatesList[m_sDefaultMarkerType];
+	//		}
 
-		public static GMarkerBriefopTemplate GetTemplate(string sMarkerType)
-		{
-			if (!m_templatesList.TryGetValue(sMarkerType, out GMarkerBriefopTemplate template))
-			{
-				template = m_templatesList[m_sDefaultMarkerType];
-			}
+	//		return template;
+	//	}
 
-			return template;
-		}
+	//	private static void AddTemplate(string sMarkerType)
+	//	{
+	//		Size size = new Size(32, 32);
+	//		double dOffsetWidth = -0.5, dOffsetHeight = -0.5;
 
-		private static void AddTemplate(string sMarkerType, Size size)
-		{
-			AddTemplate(sMarkerType, size, -0.5, -0.5);
-		}
-		private static void AddTemplate(string sMarkerType, Size size, double dOffsetWidth, double dOffsetHeight)
-		{
-			GMarkerBriefopTemplate template = new GMarkerBriefopTemplate()
-			{
-				MarkerType = sMarkerType,
-				Bitmap = GetCachedBitmapResource(sMarkerType),
-				Size = size,
-				OffsetWidth = dOffsetWidth,
-				OffsetHeight = dOffsetHeight
-			};
-			m_templatesList.Add(sMarkerType, template);
-		}
+	//		if (sMarkerType == GMarkerBriefopType.pin.ToString())
+	//		{
+	//			dOffsetWidth = -0.5; dOffsetHeight = -0.95;
+	//		}
+	//		else if (sMarkerType == GMarkerBriefopType.dot.ToString())
+	//		{
+	//			size = new Size(16, 16);
+	//		}
+	//		else if (sMarkerType == GMarkerBriefopType.triangle.ToString())
+	//		{
+	//			size = new Size(16, 16);
+	//		}
 
-		private static Bitmap GetCachedBitmapResource(string sResourceName)
-		{
-			if (!m_bitmapCache.TryGetValue(sResourceName, out Bitmap bmp))
-			{
-				bmp = Properties.Resources.ResourceManager.GetObject(sResourceName, Properties.Resources.Culture) as Bitmap;
-				m_bitmapCache.Add(sResourceName, bmp);
-			}
+	//		GMarkerBriefopTemplate template = new GMarkerBriefopTemplate()
+	//		{
+	//			MarkerType = sMarkerType,
+	//			Bitmap = GetCachedBitmapResource(sMarkerType),
+	//			Size = size,
+	//			OffsetWidth = dOffsetWidth,
+	//			OffsetHeight = dOffsetHeight
+	//		};
+	//		m_templatesList.Add(sMarkerType, template);
 
-			return bmp;
-		}
-		#endregion
-	}
+	//	}
+
+	//	private static Bitmap GetCachedBitmapResource(string sResourceName)
+	//	{
+	//		if (!m_bitmapCache.TryGetValue(sResourceName, out Bitmap bmp))
+	//		{
+	//			bmp = Properties.Resources.ResourceManager.GetObject(sResourceName, Properties.Resources.Culture) as Bitmap;
+	//			m_bitmapCache.Add(sResourceName, bmp);
+	//		}
+
+	//		return bmp;
+	//	}
+	//	#endregion
+	//}
 
 	[Serializable]
 	public class GMarkerBriefop : GMapMarker, ISerializable, IDeserializationCallback
@@ -107,7 +125,7 @@ namespace DcsBriefop
 			get { return m_template?.MarkerType; }
 		}
 
-		public Color Color { get; set; }
+		public Color? TintColor { get; set; }
 
 		public string Label { get; set; }
 
@@ -115,10 +133,10 @@ namespace DcsBriefop
 		public bool IsPressed { get; set; } = false;
 		public bool IsSelected { get; set; } = false;
 
-		public GMarkerBriefop(PointLatLng p, string sMarkerType, Color color, string sLabel) : base(p)
+		public GMarkerBriefop(PointLatLng p, string sMarkerType, Color? tintColor, string sLabel) : base(p)
 		{
 			LoadTemplate(sMarkerType);
-			Color = color;
+			TintColor = tintColor;
 			Label = sLabel;
 			LoadBitmap();
 		}
@@ -132,13 +150,16 @@ namespace DcsBriefop
 
 		public void LoadBitmap()
 		{
-			if (m_bitmap != null)
+			if (m_bitmap != null && m_bitmap != m_template.Bitmap)
 			{
 				m_bitmap.Dispose();
 				m_bitmap = null;
 			}
 
-			m_bitmap = m_template.Bitmap.ColorTint(Color);
+			if (TintColor is object)
+				m_bitmap = m_template.Bitmap.ColorTint(TintColor.Value);
+			else
+				m_bitmap = m_template.Bitmap;
 		}
 
 		public override void OnRender(Graphics g)

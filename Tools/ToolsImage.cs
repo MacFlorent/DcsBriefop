@@ -5,11 +5,11 @@ namespace DcsBriefop.Tools
 {
 	internal static class ToolsImage
 	{
-		public static Bitmap ColorTint(this Bitmap sourceBitmap, Color tint)
+		public static Bitmap ColorTint(this Bitmap sourceBitmap, Color colorTint)
 		{
-			float fRedTint = tint.R / 255f;
-			float fGreenTint = tint.G / 255f;
-			float fBlueTint = tint.B / 255f;
+			float fRedTint = colorTint.R / 255f;
+			float fGreenTint = colorTint.G / 255f;
+			float fBlueTint = colorTint.B / 255f;
 
 			return sourceBitmap.ColorTint(fBlueTint, fGreenTint, fRedTint);
 		}

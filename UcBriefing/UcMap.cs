@@ -52,14 +52,14 @@ namespace DcsBriefop.UcBriefing
 		private void AddMarker(double dLat, double dLng)
 		{
 			PointLatLng p = new PointLatLng(dLat, dLng);
-			MapData.MapOverlayCustom.Markers.Add(new GMarkerBriefop(p, GMarkerBriefopType.Pin, Color.Orange, null));
+			MapData.MapOverlayCustom.Markers.Add(new GMarkerBriefop(p, GMarkerBriefopType.pin.ToString(), Color.Orange, null));
 			CkAddMarker.Checked = false;
 		}
 
 		private void DeleteMarker(GMarkerBriefop gmb)
 		{
 			if (gmb.Overlay == MapData.MapOverlayCustom)
-			MapData.MapOverlayCustom.Markers.Remove(gmb);
+				MapData.MapOverlayCustom.Markers.Remove(gmb);
 		}
 
 		private void SelectMarker(GMarkerBriefop gmb)

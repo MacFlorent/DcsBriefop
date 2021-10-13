@@ -82,7 +82,7 @@ namespace DcsBriefop.Briefing
 			}
 		}
 
-		public List<BriefingFlight> GroupAirs { get; private set; } = new List<BriefingFlight>();
+		public List<BriefingFlight> GroupFlights { get; private set; } = new List<BriefingFlight>();
 		public List<BriefingShip> GroupShips { get; private set; } = new List<BriefingShip>();
 		// ships
 		// planes
@@ -106,23 +106,25 @@ namespace DcsBriefop.Briefing
 			{
 				foreach (GroupFlight ga in c.GroupAirs)
 				{
-					GroupAirs.Add(new BriefingFlight(bp, ga, this));
+					GroupFlights.Add(new BriefingFlight(bp, ga, this));
 				}
 				foreach (GroupShip gs in c.GroupShips)
 				{
 					GroupShips.Add(new BriefingShip(bp, gs, this));
 				}
 			}
+
+			InitializeMapDataChildrenOverlays();
 		}
 		#endregion
 
 		#region Methods
 		private void InitializeMapData()
 		{
-			GMapOverlay overlayStatic = new GMapOverlay();
+			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
 			PointLatLng p = new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree);
-			m_markerkBullseye = new GMarkerBriefop(p, GMarkerBriefopType.Bullseye, Color, BullseyeDescription);
-			overlayStatic.Markers.Add(m_markerkBullseye);
+			m_markerkBullseye = new GMarkerBriefop(p, GMarkerBriefopType.bullseye.ToString(), Color, BullseyeDescription);
+			staticOverlay.Markers.Add(m_markerkBullseye);
 
 			if (MapData is null)
 			{
@@ -133,8 +135,25 @@ namespace DcsBriefop.Briefing
 				MapData.MapOverlayCustom = new GMapOverlay();
 			}
 
-			MapData.AdditionalMapOverlays.Add(overlayStatic);
+			MapData.AdditionalMapOverlays.Add(staticOverlay);
 			MapData.AdditionalMapOverlays.Add(RootCustom.MapData.MapOverlayCustom);
+		}
+
+		private void InitializeMapDataChildrenOverlays()
+		{
+			foreach (BriefingFlight flight in GroupFlights.Where(_f => _f.BriefingInclusion == ElementBriefingInclusionId.Orbit || _f.BriefingInclusion == ElementBriefingInclusionId.Point))
+			{
+				GMapOverlay staticGroupOverlay = flight.MapData.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
+				if (staticGroupOverlay is object)
+					MapData.AdditionalMapOverlays.Add(staticGroupOverlay);
+			}
+			foreach (BriefingShip ship in GroupShips.Where(_s => _s.BriefingInclusion == ElementBriefingInclusionId.Orbit || _s.BriefingInclusion == ElementBriefingInclusionId.Point))
+			{
+				GMapOverlay staticGroupOverlay = ship.MapData.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
+				if (staticGroupOverlay is object)
+					MapData.AdditionalMapOverlays.Add(staticGroupOverlay);
+
+			}
 		}
 		#endregion
 	}
