@@ -11,7 +11,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Properties
-		protected override string DefaultMarker { get; set; } = GMarkerBriefopType.ship.ToString();
+		protected override string DefaultMarker { get; set; } = MarkerBriefopType.ship.ToString();
 		public override string Category { get { return "Ship"; } }
 
 		private UnitShip MainUnit

@@ -39,12 +39,12 @@ namespace DcsBriefop
 			this.LbCategory = new System.Windows.Forms.Label();
 			this.PnMap = new System.Windows.Forms.Panel();
 			this.PnData = new System.Windows.Forms.Panel();
+			this.TbTask = new System.Windows.Forms.TextBox();
+			this.LbTask = new System.Windows.Forms.Label();
 			this.CkLateActivation = new System.Windows.Forms.CheckBox();
 			this.CkPlayable = new System.Windows.Forms.CheckBox();
 			this.LbId = new System.Windows.Forms.Label();
 			this.TbId = new System.Windows.Forms.TextBox();
-			this.TbTask = new System.Windows.Forms.TextBox();
-			this.LbTask = new System.Windows.Forms.Label();
 			this.PnData.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -72,6 +72,7 @@ namespace DcsBriefop
 			this.CbInclusion.Name = "CbInclusion";
 			this.CbInclusion.Size = new System.Drawing.Size(121, 21);
 			this.CbInclusion.TabIndex = 3;
+			this.CbInclusion.Validated += new System.EventHandler(this.CbInclusion_Validated);
 			// 
 			// LbInclusion
 			// 
@@ -146,6 +147,23 @@ namespace DcsBriefop
 			this.PnData.Size = new System.Drawing.Size(717, 115);
 			this.PnData.TabIndex = 10;
 			// 
+			// TbTask
+			// 
+			this.TbTask.Location = new System.Drawing.Point(316, 89);
+			this.TbTask.Name = "TbTask";
+			this.TbTask.ReadOnly = true;
+			this.TbTask.Size = new System.Drawing.Size(100, 20);
+			this.TbTask.TabIndex = 14;
+			// 
+			// LbTask
+			// 
+			this.LbTask.AutoSize = true;
+			this.LbTask.Location = new System.Drawing.Point(245, 92);
+			this.LbTask.Name = "LbTask";
+			this.LbTask.Size = new System.Drawing.Size(31, 13);
+			this.LbTask.TabIndex = 13;
+			this.LbTask.Text = "Task";
+			// 
 			// CkLateActivation
 			// 
 			this.CkLateActivation.AutoSize = true;
@@ -182,23 +200,6 @@ namespace DcsBriefop
 			this.TbId.ReadOnly = true;
 			this.TbId.Size = new System.Drawing.Size(100, 20);
 			this.TbId.TabIndex = 10;
-			// 
-			// TbTask
-			// 
-			this.TbTask.Location = new System.Drawing.Point(316, 89);
-			this.TbTask.Name = "TbTask";
-			this.TbTask.ReadOnly = true;
-			this.TbTask.Size = new System.Drawing.Size(100, 20);
-			this.TbTask.TabIndex = 14;
-			// 
-			// LbTask
-			// 
-			this.LbTask.AutoSize = true;
-			this.LbTask.Location = new System.Drawing.Point(245, 92);
-			this.LbTask.Name = "LbTask";
-			this.LbTask.Size = new System.Drawing.Size(31, 13);
-			this.LbTask.TabIndex = 13;
-			this.LbTask.Text = "Task";
 			// 
 			// FrmGroupDetail
 			// 

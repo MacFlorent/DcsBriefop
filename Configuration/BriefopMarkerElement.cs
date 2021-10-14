@@ -13,27 +13,31 @@ namespace DcsBriefop.Configuration
 			set { this["fileName"] = value; }
 		}
 
-		public int Width
+		[ConfigurationProperty("width")]
+		public int? Width
 		{
-			get { return (int)this["width"]; }
+			get { return this["width"] as int?; }
 			set { this["width"] = value; }
 		}
 
-		public int Height
+		[ConfigurationProperty("height")]
+		public int? Height
 		{
-			get { return (int)this["height"]; }
+			get { return this["height"] as int?; }
 			set { this["height"] = value; }
 		}
 
-		public double OffsetWidth
+		[ConfigurationProperty("offsetWidth")]
+		public double? OffsetWidth
 		{
-			get { return (double)this["offsetWidth"]; }
+			get { return this["offsetWidth"] as double?; }
 			set { this["offsetWidth"] = value; }
 		}
 
-		public double OffsetHeight
+		[ConfigurationProperty("offsetHeight")]
+		public double? OffsetHeight
 		{
-			get { return (double)this["offsetHeight"]; }
+			get { return this["offsetHeight"] as double?; }
 			set { this["offsetHeight"] = value; }
 		}
 

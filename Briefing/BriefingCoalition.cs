@@ -123,7 +123,7 @@ namespace DcsBriefop.Briefing
 		{
 			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
 			PointLatLng p = new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree);
-			m_markerkBullseye = new GMarkerBriefop(p, GMarkerBriefopType.bullseye.ToString(), Color, BullseyeDescription);
+			m_markerkBullseye = new GMarkerBriefop(p, MarkerBriefopType.bullseye.ToString(), Color, BullseyeDescription);
 			staticOverlay.Markers.Add(m_markerkBullseye);
 
 			if (MapData is null)

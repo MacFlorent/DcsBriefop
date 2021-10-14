@@ -151,7 +151,7 @@
     <Compile Include="LsonStructure\RouteTask.cs" />
     <Compile Include="LsonStructure\Map.cs" />
     <Compile Include="LsonStructure\Unit.cs" />
-    <Compile Include="Map\GMarkerBriefopTemplate.cs" />
+    <Compile Include="Map\MarkerBriefopTemplate.cs" />
     <Compile Include="Map\GMarkerBriefop.cs" />
     <Compile Include="MasterData\BriefingInclusion.cs" />
     <Compile Include="MasterData\ElementBriefop.cs" />

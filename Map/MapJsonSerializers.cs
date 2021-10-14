@@ -1,6 +1,5 @@
 ﻿using GMap.NET;
 using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -69,7 +68,7 @@ namespace DcsBriefop.Map
 		{
 			public static readonly string Latitude = "lat";
 			public static readonly string Longitude = "lng";
-			public static readonly string MarkerType = "marker_type";
+			public static readonly string Template = "Template";
 			public static readonly string Label = "label";
 			public static readonly string Color = "color";
 		}
@@ -79,7 +78,7 @@ namespace DcsBriefop.Map
 			JObject jo = new JObject();
 			jo.Add(new JProperty(JsonNode.Latitude, value.Position.Lat));
 			jo.Add(new JProperty(JsonNode.Longitude, value.Position.Lng));
-			jo.Add(new JProperty(JsonNode.MarkerType, value.MarkerType));
+			jo.Add(new JProperty(JsonNode.Template, value.MarkerTemplate));
 			
 			if (value.TintColor is object)
 				jo.Add(new JProperty(JsonNode.Color, ColorTranslator.ToHtml(value.TintColor.Value)));
@@ -94,7 +93,7 @@ namespace DcsBriefop.Map
 			JToken token = JToken.Load(reader);
 			double lat = token[JsonNode.Latitude].Value<double>();
 			double lng = token[JsonNode.Longitude].Value<double>();
-			string sMarkerType = token[JsonNode.MarkerType].Value<string>();
+			string sMarkerType = token[JsonNode.Template].Value<string>();
 
 			Color? tintColor = null;
 			if (token[JsonNode.Color] is object)

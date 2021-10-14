@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace DcsBriefop.MasterData
@@ -28,6 +29,11 @@ namespace DcsBriefop.MasterData
 			m_elements.Add(new BriefingInclusion() { Id = ElementBriefingInclusionId.FullRoute, Label = "Full briefing" });
 			m_elements.Add(new BriefingInclusion() { Id = ElementBriefingInclusionId.Orbit, Label = "Orbit asset" });
 			m_elements.Add(new BriefingInclusion() { Id = ElementBriefingInclusionId.Point, Label = "Point asset" });
+		}
+
+		public static BriefingInclusion GetById(int iId)
+		{
+			return m_elements.Where(_e => _e.Id == iId).FirstOrDefault();
 		}
 
 		public static void FillCombo(ComboBox cb)

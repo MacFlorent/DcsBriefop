@@ -6,7 +6,7 @@ namespace DcsBriefop.Configuration
 	{
 		public BriefopMarkerSection() { }
 
-		[ConfigurationProperty("baseDirectory", DefaultValue = @".\markers", IsRequired = true)]
+		[ConfigurationProperty("baseDirectory", DefaultValue = @".\markers")]
 		public string BaseDirectory
 		{
 			get { return this["baseDirectory"] as string; }
@@ -27,15 +27,16 @@ namespace DcsBriefop.Configuration
 			set { this["defaultHeight"] = value; }
 		}
 
+		[ConfigurationProperty("markerConfigs", IsDefaultCollection = false)]
 		[ConfigurationCollection(typeof(BriefopMarkerCollection), AddItemName = "add")]
-		public BriefopMarkerCollection Markers
+		public BriefopMarkerCollection MarkerConfigs
 		{
-			get { return this["MarkerConfigs"] as BriefopMarkerCollection; }
+			get { return this["markerConfigs"] as BriefopMarkerCollection; }
 		}
 
 		public static BriefopMarkerSection GetMarkerSection()
 		{
-			return ConfigurationManager.GetSection("BriefopMarkers") as BriefopMarkerSection;
+			return ConfigurationManager.GetSection("briefopMarkers") as BriefopMarkerSection;
 		}
 	}
 }

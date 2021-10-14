@@ -18,7 +18,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Properties
-		protected virtual string DefaultMarker { get; set; } = GMarkerBriefopType.dot.ToString();
+		protected virtual string DefaultMarker { get; set; } = MarkerBriefopType.dot.ToString();
 		public virtual string Category { get { return "Group"; } }
 
 		public int BriefingInclusion
@@ -138,14 +138,14 @@ namespace DcsBriefop.Briefing
 				else if (points.Count <= 0 && routePoint.RouteTasks.Where(_rt => _rt.Id == ElementRouteTask.Orbit).Any())
 				{
 					PointLatLng p = new PointLatLng(routePoint.Coordinate.Latitude.DecimalDegree, routePoint.Coordinate.Longitude.DecimalDegree);
-					GMarkerBriefop marker = new GMarkerBriefop(p, GMarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, Name);
+					GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, Name);
 					staticOverlay.Markers.Add(marker);
 					points.Add(p);
 				}
 				else if (points.Count == 1)
 				{
 					PointLatLng p = new PointLatLng(routePoint.Coordinate.Latitude.DecimalDegree, routePoint.Coordinate.Longitude.DecimalDegree);
-					GMarkerBriefop marker = new GMarkerBriefop(p, GMarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, null);
+					GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, null);
 					staticOverlay.Markers.Add(marker);
 					points.Add(p);
 				}
@@ -168,7 +168,7 @@ namespace DcsBriefop.Briefing
 			foreach (BriefingRoutePoint routePoint in RoutePoints)
 			{
 				PointLatLng p = new PointLatLng(routePoint.Coordinate.Latitude.DecimalDegree, routePoint.Coordinate.Longitude.DecimalDegree);
-				GMarkerBriefop marker = new GMarkerBriefop(p, GMarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, null);
+				GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, null);
 				staticOverlay.Markers.Add(marker);
 				points.Add(p);
 			}

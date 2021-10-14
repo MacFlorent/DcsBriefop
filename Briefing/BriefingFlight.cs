@@ -11,7 +11,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Properties
-		protected override string DefaultMarker { get; set; } = GMarkerBriefopType.aircraft.ToString();
+		protected override string DefaultMarker { get; set; } = MarkerBriefopType.aircraft.ToString();
 		public override string Category { get { return "Flight"; } }
 		public string Type { get { return GroupFlight.Units.FirstOrDefault()?.Type; } }
 

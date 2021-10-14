@@ -21,13 +21,13 @@ namespace DcsBriefop.UcBriefing
 			m_marker = marker;
 			m_map = map;
 
-			GMarkerBriefopTemplate.FillCombo(CbMarkerType);
+			MarkerBriefopTemplate.FillCombo(CbMarkerType);
 			DataToScreen();
 		}
 
 		public void DataToScreen()
 		{
-			CbMarkerType.Text = m_marker.MarkerType;
+			CbMarkerType.Text = m_marker.MarkerTemplate;
 			TbLabel.Text = m_marker.Label;
 
 			if (m_marker.TintColor is object)

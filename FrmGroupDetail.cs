@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Briefing;
+using DcsBriefop.MasterData;
 using DcsBriefop.UcBriefing;
 using System.Windows.Forms;
 
@@ -17,10 +18,7 @@ namespace DcsBriefop
 			InitializeComponent();
 			m_group = group;
 
-			CbInclusion.Items.Add("Excluded");
-			CbInclusion.Items.Add("FullRoute");
-			CbInclusion.Items.Add("Orbit");
-			CbInclusion.Items.Add("Point");
+			BriefingInclusion.FillCombo(CbInclusion);
 
 			m_ucMap = new UcMap();
 			m_ucMap.Dock = DockStyle.Fill;
@@ -38,21 +36,29 @@ namespace DcsBriefop
 			TbName.Text = m_group.Name;
 			TbCategory.Text = m_group.Category;
 			TbType.Text = m_group.GetUnitTypes();
+			CkPlayable.Checked = m_group.Playable;
+			CkLateActivation.Checked = m_group.LateActivation;
 			//TbTask.Text = m_group.;
 
-			//if (m_group.BriefingInclusion == ElementBriefingInclusion.Excluded)
+			CbInclusion.SelectedItem = BriefingInclusion.GetById(m_group.BriefingInclusion);
+
 			m_ucMap.SetMapData(m_group.MapData);
 		}
 
 		private void ScreenToData()
 		{
-
+			m_group.BriefingInclusion = (CbInclusion.SelectedItem as BriefingInclusion)?.Id ?? ElementBriefingInclusionId.NotSet;
+			CbInclusion.SelectedItem = BriefingInclusion.GetById(m_group.BriefingInclusion);
 		}
+
+
 		#endregion
 
 		#region Events
+		private void CbInclusion_Validated(object sender, System.EventArgs e)
+		{
+			ScreenToData();
+		}
 		#endregion
-
-
 	}
 }
