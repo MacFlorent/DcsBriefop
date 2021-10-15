@@ -21,6 +21,7 @@ namespace DcsBriefop
 		public FrmMain()
 		{
 			InitializeComponent();
+			this.Icon = Tools.ToolsImage.GetIconResource("icon16");
 			BuildMenu();
 		}
 		#endregion
@@ -81,6 +82,16 @@ namespace DcsBriefop
 					MizSave(sfd.FileName);
 				}
 			}
+		}
+
+		private void GenerateExcel()
+		{
+			if (m_missionManager is null)
+				throw new ExceptionDcsBriefop("No mission is currently loaded");
+
+			ScreenToData();
+
+			m_missionManager.GenerateExcel();
 		}
 
 		private void DataToScreen()
@@ -158,6 +169,7 @@ namespace DcsBriefop
 			public static readonly string Save = "Save";
 			public static readonly string SaveAs = "SaveAs";
 			public static readonly string Test = "Test";
+			public static readonly string GenerateExcel = "GenerateExcel";
 			public static readonly string Exit = "Exit";
 		}
 
@@ -177,6 +189,7 @@ namespace DcsBriefop
 			MainMenu.Items.Add(tsmiFile);
 
 			ToolStripMenuItem tsmiBriefing = MenuItemRoot("Briefing", "Briefing");
+			tsmiBriefing.DropDownItems.Add(MenuItem("Generate Excel", MenuName.GenerateExcel));
 			MainMenu.Items.Add(tsmiBriefing);
 		}
 
@@ -219,6 +232,10 @@ namespace DcsBriefop
 			else if (tsi.Name == MenuName.Exit)
 			{
 				Application.Exit();
+			}
+			else if (tsi.Name == MenuName.GenerateExcel)
+			{
+				GenerateExcel();
 			}
 
 		}

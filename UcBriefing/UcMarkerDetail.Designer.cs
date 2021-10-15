@@ -55,7 +55,7 @@ namespace DcsBriefop.UcBriefing
 			this.TbLabel.Name = "TbLabel";
 			this.TbLabel.Size = new System.Drawing.Size(142, 20);
 			this.TbLabel.TabIndex = 6;
-			this.TbLabel.Validated += new System.EventHandler(this.TbLabel_Validated);
+			this.TbLabel.TextChanged += new System.EventHandler(this.TbLabel_TextChanged);
 			// 
 			// CbMarkerType
 			// 
@@ -66,7 +66,7 @@ namespace DcsBriefop.UcBriefing
 			this.CbMarkerType.Name = "CbMarkerType";
 			this.CbMarkerType.Size = new System.Drawing.Size(142, 21);
 			this.CbMarkerType.TabIndex = 1;
-			this.CbMarkerType.Validated += new System.EventHandler(this.CbMarkerType_Validated);
+			this.CbMarkerType.SelectionChangeCommitted += new System.EventHandler(this.CbMarkerType_SelectionChangeCommitted);
 			// 
 			// LbType
 			// 
@@ -105,8 +105,7 @@ namespace DcsBriefop.UcBriefing
 			this.TbColor.Name = "TbColor";
 			this.TbColor.Size = new System.Drawing.Size(142, 20);
 			this.TbColor.TabIndex = 3;
-			this.TbColor.Validating += new System.ComponentModel.CancelEventHandler(this.TbColor_Validating);
-			this.TbColor.Validated += new System.EventHandler(this.TbColor_Validated);
+			this.TbColor.TextChanged += new System.EventHandler(this.TbColor_TextChanged);
 			// 
 			// UcMarkerDetail
 			// 

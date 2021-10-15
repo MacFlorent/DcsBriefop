@@ -45,9 +45,9 @@ namespace DcsBriefop.Briefing
 		#region CTOR
 		public BriefingShip(BriefingPack bp, GroupShip gs, BriefingCoalition bc) : base(bp, gs, bc)
 		{
-			if (BriefingInclusion == ElementBriefingInclusionId.NotSet)
+			if (BriefingStatus == ElementGroupStatusId.NotSet)
 			{
-				BriefingInclusion = ElementBriefingInclusionId.Point;
+				BriefingStatus = ElementGroupStatusId.Point;
 			}
 
 			InitializeMapData();

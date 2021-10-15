@@ -1,6 +1,9 @@
-﻿using LsonLib;
+﻿using DcsBriefop.Tools;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using LsonLib;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
@@ -8,13 +11,15 @@ namespace DcsBriefop.Briefing
 {
 	internal class MissionManager
 	{
+		#region Fields
 		private readonly string m_dictionnaryLuaFileName = @"l10n\DEFAULT\dictionary";
 		private readonly string m_missionLuaFileName = "mission";
 		private readonly string m_customLuaFileName = "customBriefOp";
 		private string DictionaryZipEntryFullName { get { return m_dictionnaryLuaFileName.Replace(@"\", "/"); } }
 		private string DictionaryFileName { get { return Path.GetFileName(m_dictionnaryLuaFileName); } }
+		#endregion
 
-
+		#region Properties
 		public string MizFilePath { get; set; }
 		public string MizFileDirectory
 		{
@@ -28,13 +33,17 @@ namespace DcsBriefop.Briefing
 		public LsonStructure.RootMission RootMission { get; private set; }
 		public LsonStructure.RootDictionary RootDictionary { get; private set; }
 		public CustomData RootCustom { get; private set; }
+		#endregion
 
+		#region CTOR
 		public MissionManager(string sMizFilePath)
 		{
 			MizFilePath = sMizFilePath;
 			MizLoad();
 		}
+		#endregion
 
+		#region Methods
 		public void MizLoad()
 		{
 			string sMissionFilePath = null, sDictionaryFilePath = null, sCustomFilePath = null;
@@ -79,8 +88,8 @@ namespace DcsBriefop.Briefing
 				throw new ExceptionDcsBriefop($"Dictionary lua file not found : {sDictionaryFilePath}");
 			}
 
-			RootMission = new LsonStructure.RootMission(LsonVars.Parse(ReadLuaFileContent(sMissionFilePath)));
-			RootDictionary = new LsonStructure.RootDictionary(LsonVars.Parse(ReadLuaFileContent(sDictionaryFilePath)));
+			RootMission = new LsonStructure.RootMission(LsonVars.Parse(ToolsLua.ReadLuaFileContent(sMissionFilePath)));
+			RootDictionary = new LsonStructure.RootDictionary(LsonVars.Parse(ToolsLua.ReadLuaFileContent(sDictionaryFilePath)));
 
 			if (File.Exists(sCustomFilePath))
 			{
@@ -126,8 +135,8 @@ namespace DcsBriefop.Briefing
 
 			using (ZipArchive za = ZipFile.Open(sFilePath, ZipArchiveMode.Update))
 			{
-				ReplaceZipEntry(za, DictionaryZipEntryFullName, LsonRootToCorrectedString(RootDictionary.RootLua));
-				ReplaceZipEntry(za, m_missionLuaFileName, LsonRootToCorrectedString(RootMission.RootLua));
+				ReplaceZipEntry(za, DictionaryZipEntryFullName, ToolsLua.LsonRootToCorrectedString(RootDictionary.RootLua));
+				ReplaceZipEntry(za, m_missionLuaFileName, ToolsLua.LsonRootToCorrectedString(RootMission.RootLua));
 				ReplaceZipEntry(za, m_customLuaFileName, RootCustom.SerializeToJson());
 			}
 		}
@@ -145,23 +154,39 @@ namespace DcsBriefop.Briefing
 			}
 		}
 
-		public static string ReadLuaFileContent(string sFilePath)
+		public void GenerateExcel()
 		{
-			string sFileContent = File.ReadAllText(sFilePath);
-			return sFileContent.Replace("\\\n", "\r\n");
-		}
+		//html=>pdf ?
+		//https://github.com/itext/itext7-dotnet
+		//https://html-agility-pack.net/
+					
+			string sExcelPath = MizFileDirectory; //Path.GetTempPath();
+			string sExcelFilePath = Path.Combine(sExcelPath, $"{MizFileName}.xlsx");
+			if (File.Exists(sExcelFilePath))
+				File.Delete(sExcelFilePath);
 
-		public static string LsonRootToCorrectedString(Dictionary<string, LsonValue> root)
-		{
-			string s = LsonVars.ToString(root);
-			s = s.Replace("\\r\\n", "\\\n");
-			s = s.Replace("\r\n", "\n");
-			s = s.Replace("\t", "    ");
-			
-			if (s.StartsWith("\n"))
-				s = s.Substring(1, s.Length - 1);
 
-			return s;
+			using (var package = SpreadsheetDocument.Create(sExcelFilePath, SpreadsheetDocumentType.Workbook))
+			{
+				var workbookPart = package.AddWorkbookPart();
+
+				var workbook = new Workbook();
+				workbook.AddNamespaceDeclaration("r", "http://schemas.openxmlformats.org/officeDocument/2006/relationships");
+				workbookPart.Workbook = workbook;
+
+				var sheets = new Sheets();
+				workbook.Append(sheets);
+
+				// Ajout du premier onglet
+				var sheet = new Sheet() { Name = "Onglet1", SheetId = 1, Id = "rId1" };
+				sheets.Append(sheet);
+				var worksheetPart = workbookPart.AddNewPart<WorksheetPart>("rId1");
+				var worksheet = new Worksheet();
+				var sheetData = new SheetData();
+				worksheet.Append(sheetData);
+				worksheetPart.Worksheet = worksheet;
+			}
 		}
+		#endregion
 	}
 }

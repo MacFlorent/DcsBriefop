@@ -57,7 +57,7 @@ namespace DcsBriefop
 		static MarkerBriefopTemplate()
 		{
 			BriefopMarkerSection configSection = BriefopMarkerSection.GetMarkerSection();
-			
+
 			string sBaseDirectory = configSection.BaseDirectory;
 			if (sBaseDirectory.StartsWith(@".\"))
 				sBaseDirectory = sBaseDirectory.Replace(@".\", $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\");
@@ -124,7 +124,7 @@ namespace DcsBriefop
 				};
 				m_templatesList.Add(template.Name, template);
 			}
-			catch(ExceptionDcsBriefop ex)
+			catch (ExceptionDcsBriefop ex)
 			{
 				Log.Error($"Marker template {sTemplate} was not added");
 				Log.Exception(ex);
@@ -157,10 +157,8 @@ namespace DcsBriefop
 		public static void FillCombo(ComboBox cb)
 		{
 			cb.Items.Clear();
-			foreach (MarkerBriefopTemplate template in m_templatesList.Values)
-			{
-				cb.Items.Add(template);
-			}
+			cb.ValueMember = cb.DisplayMember = "Name";
+			cb.DataSource = m_templatesList.Values.ToList();
 		}
 
 		public static MarkerBriefopTemplate GetTemplate(string sTemplate)
@@ -172,7 +170,7 @@ namespace DcsBriefop
 
 			return template;
 		}
-	
+
 		#endregion
 	}
 }

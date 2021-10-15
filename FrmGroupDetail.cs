@@ -18,7 +18,7 @@ namespace DcsBriefop
 			InitializeComponent();
 			m_group = group;
 
-			BriefingInclusion.FillCombo(CbInclusion);
+			GroupStatus.FillCombo(CbGroupStatus);
 
 			m_ucMap = new UcMap();
 			m_ucMap.Dock = DockStyle.Fill;
@@ -40,22 +40,26 @@ namespace DcsBriefop
 			CkLateActivation.Checked = m_group.LateActivation;
 			//TbTask.Text = m_group.;
 
-			CbInclusion.SelectedItem = BriefingInclusion.GetById(m_group.BriefingInclusion);
+			CbGroupStatus.SelectedItem = GroupStatus.GetById(m_group.BriefingStatus);
 
 			m_ucMap.SetMapData(m_group.MapData);
 		}
 
 		private void ScreenToData()
 		{
-			m_group.BriefingInclusion = (CbInclusion.SelectedItem as BriefingInclusion)?.Id ?? ElementBriefingInclusionId.NotSet;
-			CbInclusion.SelectedItem = BriefingInclusion.GetById(m_group.BriefingInclusion);
+			int iStatus = CbGroupStatus.SelectedValue as int? ?? ElementGroupStatusId.Excluded;
+			if (iStatus != m_group.BriefingStatus)
+			{
+				m_group.BriefingStatus = iStatus;
+				m_group.InitializeMapData();
+			}
 		}
 
 
 		#endregion
 
 		#region Events
-		private void CbInclusion_Validated(object sender, System.EventArgs e)
+		private void CbGroupStatus_SelectionChangeCommitted(object sender, System.EventArgs e)
 		{
 			ScreenToData();
 		}

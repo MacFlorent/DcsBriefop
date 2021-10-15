@@ -21,7 +21,7 @@ namespace DcsBriefop.Briefing
 		protected virtual string DefaultMarker { get; set; } = MarkerBriefopType.dot.ToString();
 		public virtual string Category { get { return "Group"; } }
 
-		public int BriefingInclusion
+		public int BriefingStatus
 		{
 			get { return m_customDataGroup.BriefingCategory; }
 			set { m_customDataGroup.BriefingCategory = value; }
@@ -76,20 +76,24 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Methods
-		protected void InitializeMapData()
+		public void InitializeMapData()
 		{
-			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
-			List<PointLatLng> points = null;
+			GMapOverlay staticOverlay = MapData.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
+			if (staticOverlay is null)
+				staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
 
-			if (BriefingInclusion == ElementBriefingInclusionId.Point)
+			staticOverlay.Clear();
+			List<PointLatLng> points = null;
+			
+			if (BriefingStatus == ElementGroupStatusId.Point)
 			{
 				points = InitializeMapDataPoint(staticOverlay);
 			}
-			else if (BriefingInclusion == ElementBriefingInclusionId.Orbit)
+			else if (BriefingStatus == ElementGroupStatusId.Orbit)
 			{
 				points = InitializeMapDataOrbit(staticOverlay);
 			}
-			else if(BriefingInclusion == ElementBriefingInclusionId.FullRoute)
+			else if(BriefingStatus == ElementGroupStatusId.FullRoute)
 			{
 				points = InitializeMapDataFullRoute(staticOverlay);
 			}

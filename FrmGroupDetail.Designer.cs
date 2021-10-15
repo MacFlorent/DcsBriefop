@@ -31,8 +31,8 @@ namespace DcsBriefop
 		{
 			this.LbName = new System.Windows.Forms.Label();
 			this.TbName = new System.Windows.Forms.TextBox();
-			this.CbInclusion = new System.Windows.Forms.ComboBox();
-			this.LbInclusion = new System.Windows.Forms.Label();
+			this.CbGroupStatus = new System.Windows.Forms.ComboBox();
+			this.LbStatus = new System.Windows.Forms.Label();
 			this.TbType = new System.Windows.Forms.TextBox();
 			this.LbType = new System.Windows.Forms.Label();
 			this.TbCategory = new System.Windows.Forms.TextBox();
@@ -51,7 +51,7 @@ namespace DcsBriefop
 			// LbName
 			// 
 			this.LbName.AutoSize = true;
-			this.LbName.Location = new System.Drawing.Point(29, 31);
+			this.LbName.Location = new System.Drawing.Point(211, 9);
 			this.LbName.Name = "LbName";
 			this.LbName.Size = new System.Drawing.Size(65, 13);
 			this.LbName.TabIndex = 1;
@@ -59,33 +59,33 @@ namespace DcsBriefop
 			// 
 			// TbName
 			// 
-			this.TbName.Location = new System.Drawing.Point(100, 28);
+			this.TbName.Location = new System.Drawing.Point(282, 6);
 			this.TbName.Name = "TbName";
 			this.TbName.ReadOnly = true;
 			this.TbName.Size = new System.Drawing.Size(100, 20);
 			this.TbName.TabIndex = 2;
 			// 
-			// CbInclusion
+			// CbGroupStatus
 			// 
-			this.CbInclusion.FormattingEnabled = true;
-			this.CbInclusion.Location = new System.Drawing.Point(399, 31);
-			this.CbInclusion.Name = "CbInclusion";
-			this.CbInclusion.Size = new System.Drawing.Size(121, 21);
-			this.CbInclusion.TabIndex = 3;
-			this.CbInclusion.Validated += new System.EventHandler(this.CbInclusion_Validated);
+			this.CbGroupStatus.FormattingEnabled = true;
+			this.CbGroupStatus.Location = new System.Drawing.Point(498, 6);
+			this.CbGroupStatus.Name = "CbGroupStatus";
+			this.CbGroupStatus.Size = new System.Drawing.Size(121, 21);
+			this.CbGroupStatus.TabIndex = 3;
+			this.CbGroupStatus.SelectionChangeCommitted += new System.EventHandler(this.CbGroupStatus_SelectionChangeCommitted);
 			// 
-			// LbInclusion
+			// LbStatus
 			// 
-			this.LbInclusion.AutoSize = true;
-			this.LbInclusion.Location = new System.Drawing.Point(307, 35);
-			this.LbInclusion.Name = "LbInclusion";
-			this.LbInclusion.Size = new System.Drawing.Size(86, 13);
-			this.LbInclusion.TabIndex = 4;
-			this.LbInclusion.Text = "Briefing inclusion";
+			this.LbStatus.AutoSize = true;
+			this.LbStatus.Location = new System.Drawing.Point(406, 10);
+			this.LbStatus.Name = "LbStatus";
+			this.LbStatus.Size = new System.Drawing.Size(73, 13);
+			this.LbStatus.TabIndex = 4;
+			this.LbStatus.Text = "Briefing status";
 			// 
 			// TbType
 			// 
-			this.TbType.Location = new System.Drawing.Point(100, 85);
+			this.TbType.Location = new System.Drawing.Point(282, 32);
 			this.TbType.Name = "TbType";
 			this.TbType.ReadOnly = true;
 			this.TbType.Size = new System.Drawing.Size(100, 20);
@@ -94,7 +94,7 @@ namespace DcsBriefop
 			// LbType
 			// 
 			this.LbType.AutoSize = true;
-			this.LbType.Location = new System.Drawing.Point(29, 88);
+			this.LbType.Location = new System.Drawing.Point(211, 35);
 			this.LbType.Name = "LbType";
 			this.LbType.Size = new System.Drawing.Size(31, 13);
 			this.LbType.TabIndex = 5;
@@ -102,7 +102,7 @@ namespace DcsBriefop
 			// 
 			// TbCategory
 			// 
-			this.TbCategory.Location = new System.Drawing.Point(100, 54);
+			this.TbCategory.Location = new System.Drawing.Point(100, 32);
 			this.TbCategory.Name = "TbCategory";
 			this.TbCategory.ReadOnly = true;
 			this.TbCategory.Size = new System.Drawing.Size(100, 20);
@@ -111,7 +111,7 @@ namespace DcsBriefop
 			// LbCategory
 			// 
 			this.LbCategory.AutoSize = true;
-			this.LbCategory.Location = new System.Drawing.Point(29, 57);
+			this.LbCategory.Location = new System.Drawing.Point(29, 35);
 			this.LbCategory.Name = "LbCategory";
 			this.LbCategory.Size = new System.Drawing.Size(49, 13);
 			this.LbCategory.TabIndex = 7;
@@ -138,8 +138,8 @@ namespace DcsBriefop
 			this.PnData.Controls.Add(this.TbCategory);
 			this.PnData.Controls.Add(this.TbName);
 			this.PnData.Controls.Add(this.LbCategory);
-			this.PnData.Controls.Add(this.CbInclusion);
-			this.PnData.Controls.Add(this.LbInclusion);
+			this.PnData.Controls.Add(this.CbGroupStatus);
+			this.PnData.Controls.Add(this.LbStatus);
 			this.PnData.Controls.Add(this.LbType);
 			this.PnData.Dock = System.Windows.Forms.DockStyle.Top;
 			this.PnData.Location = new System.Drawing.Point(0, 0);
@@ -149,7 +149,7 @@ namespace DcsBriefop
 			// 
 			// TbTask
 			// 
-			this.TbTask.Location = new System.Drawing.Point(316, 89);
+			this.TbTask.Location = new System.Drawing.Point(100, 75);
 			this.TbTask.Name = "TbTask";
 			this.TbTask.ReadOnly = true;
 			this.TbTask.Size = new System.Drawing.Size(100, 20);
@@ -158,7 +158,7 @@ namespace DcsBriefop
 			// LbTask
 			// 
 			this.LbTask.AutoSize = true;
-			this.LbTask.Location = new System.Drawing.Point(245, 92);
+			this.LbTask.Location = new System.Drawing.Point(29, 78);
 			this.LbTask.Name = "LbTask";
 			this.LbTask.Size = new System.Drawing.Size(31, 13);
 			this.LbTask.TabIndex = 13;
@@ -167,7 +167,8 @@ namespace DcsBriefop
 			// CkLateActivation
 			// 
 			this.CkLateActivation.AutoSize = true;
-			this.CkLateActivation.Location = new System.Drawing.Point(374, 58);
+			this.CkLateActivation.Enabled = false;
+			this.CkLateActivation.Location = new System.Drawing.Point(499, 36);
 			this.CkLateActivation.Name = "CkLateActivation";
 			this.CkLateActivation.Size = new System.Drawing.Size(96, 17);
 			this.CkLateActivation.TabIndex = 12;
@@ -177,7 +178,8 @@ namespace DcsBriefop
 			// CkPlayable
 			// 
 			this.CkPlayable.AutoSize = true;
-			this.CkPlayable.Location = new System.Drawing.Point(284, 57);
+			this.CkPlayable.Enabled = false;
+			this.CkPlayable.Location = new System.Drawing.Point(409, 35);
 			this.CkPlayable.Name = "CkPlayable";
 			this.CkPlayable.Size = new System.Drawing.Size(66, 17);
 			this.CkPlayable.TabIndex = 11;
@@ -221,8 +223,8 @@ namespace DcsBriefop
 
 		private System.Windows.Forms.Label LbName;
 		private System.Windows.Forms.TextBox TbName;
-		private System.Windows.Forms.ComboBox CbInclusion;
-		private System.Windows.Forms.Label LbInclusion;
+		private System.Windows.Forms.ComboBox CbGroupStatus;
+		private System.Windows.Forms.Label LbStatus;
 		private System.Windows.Forms.TextBox TbType;
 		private System.Windows.Forms.Label LbType;
 		private System.Windows.Forms.TextBox TbCategory;

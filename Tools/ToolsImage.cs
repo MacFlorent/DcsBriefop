@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 
 namespace DcsBriefop.Tools
@@ -53,6 +54,22 @@ namespace DcsBriefop.Tools
 			resultBitmap.UnlockBits(resultData);
 
 			return resultBitmap;
+		}
+
+		public static Icon GetIconResource(string sResource)
+		{
+			Icon ico = null;
+			object oResource = Properties.Resources.ResourceManager.GetObject(sResource, Properties.Resources.Culture);
+			if (oResource is Icon i)
+				ico = i;
+			else if (oResource is Bitmap b)
+			{ 
+				IntPtr icH = b.GetHicon();
+				ico = Icon.FromHandle(icH);
+				//DestroyIcon(icH);
+			}
+
+			return ico;
 		}
 	}
 }

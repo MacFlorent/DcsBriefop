@@ -35,14 +35,14 @@ namespace DcsBriefop.Briefing
 		#region CTOR
 		public BriefingFlight(BriefingPack bp, GroupFlight ga, BriefingCoalition bc) : base(bp, ga, bc)
 		{
-			if (BriefingInclusion == ElementBriefingInclusionId.NotSet)
+			if (BriefingStatus == ElementGroupStatusId.NotSet)
 			{
 				if (Playable)
-					BriefingInclusion = ElementBriefingInclusionId.FullRoute;
+					BriefingStatus = ElementGroupStatusId.FullRoute;
 				else if (ElementTask.Supports.Contains(Task))
-					BriefingInclusion = ElementBriefingInclusionId.Orbit;
+					BriefingStatus = ElementGroupStatusId.Orbit;
 				else
-					BriefingInclusion = ElementBriefingInclusionId.Point;
+					BriefingStatus = ElementGroupStatusId.Point;
 			}
 
 			InitializeMapData();

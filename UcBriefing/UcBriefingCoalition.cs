@@ -1,5 +1,5 @@
 ﻿using DcsBriefop.Briefing;
-using GMap.NET.WindowsForms;
+using DcsBriefop.MasterData;
 using System;
 using System.Windows.Forms;
 
@@ -7,42 +7,50 @@ namespace DcsBriefop.UcBriefing
 {
 	internal partial class UcBriefingCoalition : UcBaseBriefing
 	{
+		#region Properties
 		public BriefingCoalition BriefingCoalition { get; private set; }
+		#endregion
 
+		#region CTOR
 		public UcBriefingCoalition(UcMap ucMap, BriefingPack bp, BriefingCoalition bc) : base (ucMap, bp)
 		{
 			InitializeComponent();
 
 			BriefingCoalition = bc;
 
-			DgvFlights.ContextMenuStrip = new ContextMenuStrip();
+			DgvGroups.ContextMenuStrip = new ContextMenuStrip();
+			DgvGroups.ReadOnly = true;
 			BuildMenu();
 		}
+		#endregion
 
+		#region Methods
 		public override void DataToScreen()
 		{
 			TbBullseyeCoordinates.Text = BriefingCoalition.BullseyeCoordinates;
 			TbBullseyeDescription.Text = BriefingCoalition.BullseyeDescription;
 			TbTask.Text = BriefingCoalition.Task;
 
-			DgvFlights.Columns.Add("included", "Included");
-			DgvFlights.Columns.Add("id", "ID");
-			DgvFlights.Columns.Add("callsign", "Callsign");
-			DgvFlights.Columns.Add("name", "Name");
-			DgvFlights.Columns.Add("type", "Type");
-			DgvFlights.Columns.Add("task", "Task");
-			DgvFlights.Columns.Add("radio", "Radio");
-			DgvFlights.Columns.Add("_data", "");
+			DgvGroups.Columns.Add("status", "Status");
+			DgvGroups.Columns.Add("id", "ID");
+			DgvGroups.Columns.Add("name", "Name");
+			DgvGroups.Columns.Add("callsign", "Callsign");
+			DgvGroups.Columns.Add("type", "Type");
+			DgvGroups.Columns.Add("task", "Task");
+			DgvGroups.Columns.Add("radio", "Radio");
+			DgvGroups.Columns.Add("_data", "");
 
-			DgvFlights.Columns["_data"].Visible = false;
+			DgvGroups.Columns["_data"].Visible = false;
 
-			foreach (BriefingFlight bga in BriefingCoalition.GroupFlights)
+			foreach (BriefingFlight flight in BriefingCoalition.GroupFlights)
 			{
-				DgvFlights.Rows.Add(bga.BriefingInclusion, bga.Id, bga.GetCallsign(), bga.Name, bga.Type, bga.Task, bga.GetRadioString(), bga);
+				RefreshGridRow(flight);
+				//DgvGroups.Rows.Add(bga.BriefingStatus, bga.Id, bga.GetCallsign(), bga.Name, bga.Type, bga.Task, bga.GetRadioString(), bga);
 			}
-			foreach (BriefingShip bgs in BriefingCoalition.GroupShips)
+			foreach (BriefingShip ship in BriefingCoalition.GroupShips)
 			{
-				DgvFlights.Rows.Add(bgs.BriefingInclusion, bgs.Id, bgs.UnitName, bgs.Name, bgs.Type, "", bgs.GetRadioString(), bgs);
+				RefreshGridRow(ship);
+				//DgvGroups.Rows.Add(bgs.BriefingStatus, bgs.Id, bgs.UnitName, bgs.Name, bgs.Type, "", bgs.GetRadioString(), bgs);
 			}
 		}
 
@@ -52,37 +60,69 @@ namespace DcsBriefop.UcBriefing
 			BriefingCoalition.Task = TbTask.Text;
 		}
 
-		public void DisplayMap()
+		private void RefreshGridRow(BriefingGroup group)
 		{
-			if (DgvFlights.SelectedRows.Count > 0)
+			DataGridViewRow dgvr = null;
+			foreach(DataGridViewRow existingRow in DgvGroups.Rows)
 			{
-				object o = DgvFlights.SelectedRows[0].Cells["_data"].Value;
-				if (o is BriefingGroup bg)
+				if (existingRow.Cells["_data"].Value == group)
 				{
-					//UcMap.SetMapData(bg.MapData);
-					FrmGroupDetail f = new FrmGroupDetail(bg);
-					f.ShowDialog();
+					dgvr = existingRow;
+					break;
 				}
+			}
+			if (dgvr is null)
+			{
+				int iNewRowIndex = DgvGroups.Rows.Add();
+				dgvr = DgvGroups.Rows[iNewRowIndex];
+				dgvr.Cells["_data"].Value = group;
+			}
+
+			dgvr.Cells["status"].Value = GroupStatus.GetById (group.BriefingStatus)?.Label;
+			dgvr.Cells["id"].Value = group.Id;
+			dgvr.Cells["name"].Value = group.Name;
+
+			if (group is BriefingFlight flight)
+			{
+				dgvr.Cells["callsign"].Value = flight.GetCallsign();
+				dgvr.Cells["type"].Value = flight.Type;
+				dgvr.Cells["task"].Value = flight.Task;
+				dgvr.Cells["radio"].Value = flight.GetRadioString();
+			}
+			else if (group is BriefingShip ship)
+			{
+				dgvr.Cells["callsign"].Value = ship.UnitName;
+				dgvr.Cells["type"].Value = ship.Type;
+				dgvr.Cells["task"].Value = "";
+				dgvr.Cells["radio"].Value = ship.GetRadioString();
 			}
 		}
 
-		public void ResetMap()
+		private void ShowDetail()
 		{
-			UcMap.SetMapData(BriefingCoalition.MapData);
+			if (DgvGroups.SelectedRows.Count > 0)
+			{
+				object o = DgvGroups.SelectedRows[0].Cells["_data"].Value;
+				if (o is BriefingGroup group)
+				{
+					FrmGroupDetail f = new FrmGroupDetail(group);
+					f.ShowDialog();
+					RefreshGridRow(group);
+				}
+			}
 		}
+		#endregion
 
 		#region Menus
 		private class MenuName
 		{
-			public static readonly string Map = "Map";
-			public static readonly string ResetMap = "ResetMap";
+			public static readonly string Detail = "Detail";
 		}
 
 		private void BuildMenu()
 		{
-			DgvFlights.ContextMenuStrip.Items.Clear();
-			DgvFlights.ContextMenuStrip.Items.Add(MenuItem("Display map", MenuName.Map));
-			DgvFlights.ContextMenuStrip.Items.Add(MenuItem("Reset map", MenuName.ResetMap));
+			DgvGroups.ContextMenuStrip.Items.Clear();
+			DgvGroups.ContextMenuStrip.Items.Add(MenuItem("Details", MenuName.Detail));
 		}
 
 		private ToolStripMenuItem MenuItem(string sLabel, string sName)
@@ -96,17 +136,14 @@ namespace DcsBriefop.UcBriefing
 			if (tsi == null)
 				return;
 
-			if (tsi.Name == MenuName.Map)
+			if (tsi.Name == MenuName.Detail)
 			{
-				DisplayMap();
-			}
-			else if (tsi.Name == MenuName.ResetMap)
-			{
-				ResetMap();
+				ShowDetail();
 			}
 		}
 		#endregion
 
+		#region Events
 		private void DgvFlights_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 		{
 			//MessageBox.Show("Flight detail - choose included, preset frequencies, additional info, targets for briefing");
@@ -143,5 +180,6 @@ namespace DcsBriefop.UcBriefing
 		{
 			BriefingCoalition.BullseyeDescription = TbBullseyeDescription.Text;
 		}
+		#endregion
 	}
 }

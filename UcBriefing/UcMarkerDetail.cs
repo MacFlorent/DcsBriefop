@@ -27,6 +27,9 @@ namespace DcsBriefop.UcBriefing
 
 		public void DataToScreen()
 		{
+			TbColor.TextChanged -= TbColor_TextChanged;
+			TbLabel.TextChanged -= TbLabel_TextChanged;
+
 			CbMarkerType.Text = m_marker.MarkerTemplate;
 			TbLabel.Text = m_marker.Label;
 
@@ -34,11 +37,14 @@ namespace DcsBriefop.UcBriefing
 				TbColor.Text = ColorTranslator.ToHtml(m_marker.TintColor.Value);
 			else
 				TbColor.Text = "";
+
+			TbColor.TextChanged += TbColor_TextChanged;
+			TbLabel.TextChanged += TbLabel_TextChanged;
 		}
 
 		public void ScreenToData()
 		{
-			m_marker.LoadTemplate (CbMarkerType.Text);
+			m_marker.LoadTemplate(CbMarkerType.SelectedValue?.ToString());
 			m_marker.Label = TbLabel.Text;
 			m_marker.TintColor = GetSelectedColor();
 
@@ -48,61 +54,44 @@ namespace DcsBriefop.UcBriefing
 
 		private Color? GetSelectedColor()
 		{
-			Color? color = null;
+			Color? color;
 			try { color = ColorTranslator.FromHtml(TbColor.Text); }
-			catch (Exception)
-			{
-				color = null;
-			}
+			catch (Exception) { color = null; }
 
 			return color;
 		}
-			#region Events
-			private void TbLabel_Validated(object sender, EventArgs e)
+		#region Events
+		private void CbMarkerType_SelectionChangeCommitted(object sender, EventArgs e)
 		{
 			ScreenToData();
 		}
 
-		private void TbColor_Validated(object sender, EventArgs e)
+		private void TbLabel_TextChanged(object sender, EventArgs e)
 		{
 			ScreenToData();
 		}
 
-		private void TbColor_Validating(object sender, CancelEventArgs e)
+		private void TbColor_TextChanged(object sender, EventArgs e)
 		{
-			//if (sender is TextBox tb && !string.IsNullOrEmpty(tb.Text))
-			//{
-			//	Color? color = GetSelectedColor();
-			//	if (color = null)
-			//	{
-			//		tb.Text = "";
-			//		tb.Select(0, tb.Text.Length);
-			//		e.Cancel = true;
-			//	}
-			//}
+			ScreenToData();
 		}
 
 		private void BtColor_Click(object sender, EventArgs e)
 		{
-			ColorDialog MyDialog = new ColorDialog();
-			// Keeps the user from selecting a custom color.
-			MyDialog.AllowFullOpen = false;
-			// Sets the initial color select to the current text color.
-			MyDialog.Color = GetSelectedColor() ?? Color.Black;
+			ColorDialog cd = new ColorDialog();
+			cd.AllowFullOpen = false;
+			cd.Color = GetSelectedColor() ?? Color.Black;
 
-			// Update the text box color if the user clicks OK 
-			if (MyDialog.ShowDialog() == DialogResult.OK)
+			if (cd.ShowDialog() == DialogResult.OK)
 			{
-				TbColor.Text = ColorTranslator.ToHtml(MyDialog.Color);
+				TbColor.Text = ColorTranslator.ToHtml(cd.Color);
 				ScreenToData();
 			}
 
 		}
 
-		private void CbMarkerType_Validated(object sender, EventArgs e)
-		{
-			ScreenToData();
-		}
 		#endregion
+
+
 	}
 }

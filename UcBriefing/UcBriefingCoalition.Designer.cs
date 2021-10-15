@@ -31,13 +31,13 @@ namespace DcsBriefop.UcBriefing
 		{
 			this.TbTask = new System.Windows.Forms.TextBox();
 			this.LbTask = new System.Windows.Forms.Label();
-			this.DgvFlights = new System.Windows.Forms.DataGridView();
+			this.DgvGroups = new System.Windows.Forms.DataGridView();
 			this.LbBullseye = new System.Windows.Forms.Label();
-			this.LbFlights = new System.Windows.Forms.Label();
+			this.LbGroups = new System.Windows.Forms.Label();
 			this.TbBullseyeCoordinates = new System.Windows.Forms.TextBox();
 			this.TbBullseyeDescription = new System.Windows.Forms.TextBox();
 			this.button1 = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)(this.DgvFlights)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DgvGroups)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// TbTask
@@ -62,19 +62,22 @@ namespace DcsBriefop.UcBriefing
 			this.LbTask.Text = "Ops";
 			this.LbTask.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// DgvFlights
+			// DgvGroups
 			// 
-			this.DgvFlights.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.DgvGroups.AllowUserToAddRows = false;
+			this.DgvGroups.AllowUserToDeleteRows = false;
+			this.DgvGroups.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.DgvFlights.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DgvFlights.Location = new System.Drawing.Point(3, 334);
-			this.DgvFlights.Name = "DgvFlights";
-			this.DgvFlights.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.DgvFlights.Size = new System.Drawing.Size(659, 302);
-			this.DgvFlights.TabIndex = 4;
-			this.DgvFlights.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvFlights_CellDoubleClick);
-			this.DgvFlights.SelectionChanged += new System.EventHandler(this.DgvFlights_SelectionChanged);
+			this.DgvGroups.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+			this.DgvGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.DgvGroups.Location = new System.Drawing.Point(3, 334);
+			this.DgvGroups.Name = "DgvGroups";
+			this.DgvGroups.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			this.DgvGroups.Size = new System.Drawing.Size(659, 302);
+			this.DgvGroups.TabIndex = 4;
+			this.DgvGroups.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvFlights_CellDoubleClick);
+			this.DgvGroups.SelectionChanged += new System.EventHandler(this.DgvFlights_SelectionChanged);
 			// 
 			// LbBullseye
 			// 
@@ -87,16 +90,16 @@ namespace DcsBriefop.UcBriefing
 			this.LbBullseye.Text = "Bullseye";
 			this.LbBullseye.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// LbFlights
+			// LbGroups
 			// 
-			this.LbFlights.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.LbGroups.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.LbFlights.Location = new System.Drawing.Point(3, 307);
-			this.LbFlights.Name = "LbFlights";
-			this.LbFlights.Size = new System.Drawing.Size(662, 24);
-			this.LbFlights.TabIndex = 6;
-			this.LbFlights.Text = "Flights";
-			this.LbFlights.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LbGroups.Location = new System.Drawing.Point(3, 307);
+			this.LbGroups.Name = "LbGroups";
+			this.LbGroups.Size = new System.Drawing.Size(662, 24);
+			this.LbGroups.TabIndex = 6;
+			this.LbGroups.Text = "Groups";
+			this.LbGroups.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// TbBullseyeCoordinates
 			// 
@@ -140,14 +143,14 @@ namespace DcsBriefop.UcBriefing
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.TbBullseyeDescription);
 			this.Controls.Add(this.TbBullseyeCoordinates);
-			this.Controls.Add(this.LbFlights);
+			this.Controls.Add(this.LbGroups);
 			this.Controls.Add(this.LbBullseye);
-			this.Controls.Add(this.DgvFlights);
+			this.Controls.Add(this.DgvGroups);
 			this.Controls.Add(this.TbTask);
 			this.Controls.Add(this.LbTask);
 			this.Name = "UcBriefingCoalition";
 			this.Size = new System.Drawing.Size(668, 663);
-			((System.ComponentModel.ISupportInitialize)(this.DgvFlights)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DgvGroups)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -156,9 +159,9 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 		private System.Windows.Forms.TextBox TbTask;
 		private System.Windows.Forms.Label LbTask;
-		private System.Windows.Forms.DataGridView DgvFlights;
+		private System.Windows.Forms.DataGridView DgvGroups;
 		private System.Windows.Forms.Label LbBullseye;
-		private System.Windows.Forms.Label LbFlights;
+		private System.Windows.Forms.Label LbGroups;
 		private System.Windows.Forms.TextBox TbBullseyeCoordinates;
 		private System.Windows.Forms.TextBox TbBullseyeDescription;
 		private System.Windows.Forms.Button button1;

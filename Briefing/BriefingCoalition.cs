@@ -141,13 +141,13 @@ namespace DcsBriefop.Briefing
 
 		private void InitializeMapDataChildrenOverlays()
 		{
-			foreach (BriefingFlight flight in GroupFlights.Where(_f => _f.BriefingInclusion == ElementBriefingInclusionId.Orbit || _f.BriefingInclusion == ElementBriefingInclusionId.Point))
+			foreach (BriefingFlight flight in GroupFlights.Where(_f => _f.BriefingStatus == ElementGroupStatusId.Orbit || _f.BriefingStatus == ElementGroupStatusId.Point))
 			{
 				GMapOverlay staticGroupOverlay = flight.MapData.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
 				if (staticGroupOverlay is object)
 					MapData.AdditionalMapOverlays.Add(staticGroupOverlay);
 			}
-			foreach (BriefingShip ship in GroupShips.Where(_s => _s.BriefingInclusion == ElementBriefingInclusionId.Orbit || _s.BriefingInclusion == ElementBriefingInclusionId.Point))
+			foreach (BriefingShip ship in GroupShips.Where(_s => _s.BriefingStatus == ElementGroupStatusId.Orbit || _s.BriefingStatus == ElementGroupStatusId.Point))
 			{
 				GMapOverlay staticGroupOverlay = ship.MapData.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
 				if (staticGroupOverlay is object)

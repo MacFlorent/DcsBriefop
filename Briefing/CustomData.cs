@@ -71,7 +71,7 @@ namespace DcsBriefop.Briefing
 		public CustomDataGroup(int iId)
 		{
 			Id = iId;
-			BriefingCategory = ElementBriefingInclusionId.NotSet;
+			BriefingCategory = ElementGroupStatusId.NotSet;
 		}
 	}
 }
