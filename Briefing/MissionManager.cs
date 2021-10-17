@@ -1,7 +1,4 @@
 ﻿using DcsBriefop.Tools;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Spreadsheet;
 using LsonLib;
 using System;
 using System.IO;
@@ -15,20 +12,14 @@ namespace DcsBriefop.Briefing
 		private readonly string m_dictionnaryLuaFileName = @"l10n\DEFAULT\dictionary";
 		private readonly string m_missionLuaFileName = "mission";
 		private readonly string m_customLuaFileName = "customBriefOp";
-		private string DictionaryZipEntryFullName { get { return m_dictionnaryLuaFileName.Replace(@"\", "/"); } }
-		private string DictionaryFileName { get { return Path.GetFileName(m_dictionnaryLuaFileName); } }
 		#endregion
 
 		#region Properties
+		private string DictionaryZipEntryFullName { get { return m_dictionnaryLuaFileName.Replace(@"\", "/"); } }
+		private string DictionaryFileName { get { return Path.GetFileName(m_dictionnaryLuaFileName); } }
 		public string MizFilePath { get; set; }
-		public string MizFileDirectory
-		{
-			get { return Path.GetDirectoryName(MizFilePath); }
-		}
-		public string MizFileName
-		{
-			get { return Path.GetFileName(MizFilePath); }
-		}
+		public string MizFileDirectory { get { return Path.GetDirectoryName(MizFilePath); } }
+		public string MizFileName { get { return Path.GetFileName(MizFilePath); } }
 
 		public LsonStructure.RootMission RootMission { get; private set; }
 		public LsonStructure.RootDictionary RootDictionary { get; private set; }
@@ -151,40 +142,6 @@ namespace DcsBriefop.Briefing
 			using (StreamWriter writer = new StreamWriter(zpe.Open()))
 			{
 				writer.Write(sEntryContent);
-			}
-		}
-
-		public void GenerateExcel()
-		{
-		//html=>pdf ?
-		//https://github.com/itext/itext7-dotnet
-		//https://html-agility-pack.net/
-					
-			string sExcelPath = MizFileDirectory; //Path.GetTempPath();
-			string sExcelFilePath = Path.Combine(sExcelPath, $"{MizFileName}.xlsx");
-			if (File.Exists(sExcelFilePath))
-				File.Delete(sExcelFilePath);
-
-
-			using (var package = SpreadsheetDocument.Create(sExcelFilePath, SpreadsheetDocumentType.Workbook))
-			{
-				var workbookPart = package.AddWorkbookPart();
-
-				var workbook = new Workbook();
-				workbook.AddNamespaceDeclaration("r", "http://schemas.openxmlformats.org/officeDocument/2006/relationships");
-				workbookPart.Workbook = workbook;
-
-				var sheets = new Sheets();
-				workbook.Append(sheets);
-
-				// Ajout du premier onglet
-				var sheet = new Sheet() { Name = "Onglet1", SheetId = 1, Id = "rId1" };
-				sheets.Append(sheet);
-				var worksheetPart = workbookPart.AddNewPart<WorksheetPart>("rId1");
-				var worksheet = new Worksheet();
-				var sheetData = new SheetData();
-				worksheet.Append(sheetData);
-				worksheetPart.Worksheet = worksheet;
 			}
 		}
 		#endregion

@@ -14,7 +14,6 @@ namespace DcsBriefop
 		private UcMap m_ucMap;
 
 		private string m_sDcsFileFilter = "DCS mission files (*.miz)|*.miz|All files (*.*)|*.*";
-		//private string m_sExcelFileFilter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
 		#endregion
 
 		#region CTOR
@@ -84,14 +83,14 @@ namespace DcsBriefop
 			}
 		}
 
-		private void GenerateExcel()
+		private void GenerateBriefingFiles()
 		{
 			if (m_missionManager is null)
 				throw new ExceptionDcsBriefop("No mission is currently loaded");
 
 			ScreenToData();
 
-			m_missionManager.GenerateExcel();
+			m_briefingPack.GenerateBriefingFiles();
 		}
 
 		private void DataToScreen()
@@ -169,7 +168,7 @@ namespace DcsBriefop
 			public static readonly string Save = "Save";
 			public static readonly string SaveAs = "SaveAs";
 			public static readonly string Test = "Test";
-			public static readonly string GenerateExcel = "GenerateExcel";
+			public static readonly string GenerateBriefingFiles = "GenerateBriefingFiles";
 			public static readonly string Exit = "Exit";
 		}
 
@@ -189,7 +188,7 @@ namespace DcsBriefop
 			MainMenu.Items.Add(tsmiFile);
 
 			ToolStripMenuItem tsmiBriefing = MenuItemRoot("Briefing", "Briefing");
-			tsmiBriefing.DropDownItems.Add(MenuItem("Generate Excel", MenuName.GenerateExcel));
+			tsmiBriefing.DropDownItems.Add(MenuItem("Generate briefing files", MenuName.GenerateBriefingFiles));
 			MainMenu.Items.Add(tsmiBriefing);
 		}
 
@@ -233,18 +232,15 @@ namespace DcsBriefop
 			{
 				Application.Exit();
 			}
-			else if (tsi.Name == MenuName.GenerateExcel)
+			else if (tsi.Name == MenuName.GenerateBriefingFiles)
 			{
-				GenerateExcel();
+				GenerateBriefingFiles();
 			}
 
 		}
 		#endregion
 
 		#region Events
-		private void FrmMain_Load(object sender, EventArgs e)
-		{
-		}
 		#endregion
 	}
 }

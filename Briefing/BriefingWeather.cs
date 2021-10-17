@@ -136,18 +136,19 @@ namespace DcsBriefop.Briefing
 				else
 					sDensity = "Overcast";
 
-				sb.AppendWithSeparator($"{sDensity} clouds at {CloudBaseFoot} feet", sNewLine);
+				int CloudBaseRoundedFoot = CloudBaseFoot / 1000 * 1000;
+				sb.AppendWithSeparator($"{sDensity} clouds at {CloudBaseRoundedFoot} feet", sNewLine);
 			}
 
 			//T° and QNH
-			sb.Append($"Temperature {TemperatureCelcius}°C / QNH {QnhHpa} hPa - {QnhInHg} inHg");
+			sb.Append($"Temperature {TemperatureCelcius:0}°C / QNH {QnhHpa:0} hPa - {QnhInHg:00.00} inHg");
 
 			return sb.ToString();
 		}
 
 		private string ToString_Wind(int iAltitudeFoot, BriefingWeatherWind ww)
 		{
-			return $"Wind {iAltitudeFoot} feet : {ww.DirectionTrue}° @ {ww.SpeedKnot} kt";
+			return $"Wind {iAltitudeFoot} feet : {ww.DirectionTrue:000}° @ {ww.SpeedKnot:00} kt";
 		}
 	}
 
