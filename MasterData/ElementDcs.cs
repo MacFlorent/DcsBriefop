@@ -30,7 +30,7 @@ namespace DcsBriefop.MasterData
 		public static readonly string Sead = "SEAD";
 		public static readonly string Cas = "CAS";
 
-		public static readonly List<string> Supports = new List<string>() { Refueling , Awacs };
+		public static readonly List<string> Supports = new List<string>() { Refueling, Awacs };
 	}
 
 	internal static class ElementRouteTask
@@ -50,5 +50,9 @@ namespace DcsBriefop.MasterData
 	{
 		public static readonly int AM = 0;
 		public static readonly int FM = 1;
+	}
+
+	internal static class ElementAircraftType
+	{
 	}
 }

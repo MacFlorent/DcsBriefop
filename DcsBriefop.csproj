@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Briefing\BriefingCoalition.cs" />
+    <Compile Include="Briefing\BriefingFilesBuilder.cs" />
     <Compile Include="Briefing\BriefingRoutePoint.cs" />
     <Compile Include="Briefing\BriefingShip.cs" />
     <Compile Include="Briefing\BriefingFlight.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="FrmGroupDetail.Designer.cs">
       <DependentUpon>FrmGroupDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tools\ToolsZip.cs" />
     <Compile Include="UcBriefing\TabPageBriefing.cs">
       <SubType>Component</SubType>
     </Compile>

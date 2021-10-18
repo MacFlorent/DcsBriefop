@@ -126,22 +126,9 @@ namespace DcsBriefop.Briefing
 
 			using (ZipArchive za = ZipFile.Open(sFilePath, ZipArchiveMode.Update))
 			{
-				ReplaceZipEntry(za, DictionaryZipEntryFullName, ToolsLua.LsonRootToCorrectedString(RootDictionary.RootLua));
-				ReplaceZipEntry(za, m_missionLuaFileName, ToolsLua.LsonRootToCorrectedString(RootMission.RootLua));
-				ReplaceZipEntry(za, m_customLuaFileName, RootCustom.SerializeToJson());
-			}
-		}
-
-		private void ReplaceZipEntry(ZipArchive za, string sEntryName, string sEntryContent)
-		{
-			ZipArchiveEntry zpe = za.GetEntry(sEntryName);
-			if (zpe is object)
-				zpe.Delete();
-
-			zpe = za.CreateEntry(sEntryName);
-			using (StreamWriter writer = new StreamWriter(zpe.Open()))
-			{
-				writer.Write(sEntryContent);
+				ToolsZip.ReplaceZipEntry(za, DictionaryZipEntryFullName, ToolsLua.LsonRootToCorrectedString(RootDictionary.RootLua));
+				ToolsZip.ReplaceZipEntry(za, m_missionLuaFileName, ToolsLua.LsonRootToCorrectedString(RootMission.RootLua));
+				ToolsZip.ReplaceZipEntry(za, m_customLuaFileName, RootCustom.SerializeToJson());
 			}
 		}
 		#endregion

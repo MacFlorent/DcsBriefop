@@ -90,7 +90,8 @@ namespace DcsBriefop
 
 			ScreenToData();
 
-			m_briefingPack.GenerateBriefingFiles();
+			BriefingFilesBuilder builder = new BriefingFilesBuilder(m_briefingPack, m_missionManager);
+			builder.Generate(@"D:\Projects", true);
 		}
 
 		private void DataToScreen()
