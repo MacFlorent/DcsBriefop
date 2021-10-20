@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using GMap.NET.MapProviders;
+using System.Drawing;
 
 namespace DcsBriefop.MasterData
 {
@@ -11,9 +12,16 @@ namespace DcsBriefop.MasterData
 
 	internal static class ElementMapValue
 	{
+		public static readonly GMapProvider MapProvider = BingMapProvider.Instance;
 		public static readonly int MinZoom = 1;
 		public static readonly int MaxZoom = 18;
 		public static readonly int DefaultZoom = 9;
 		public static readonly string OverlayStatic = "static";
 	}
-}
+
+	internal static class ElementImageSize
+	{
+		public static readonly int Width = 800;
+		public static readonly int Height = 1200;
+	}
+	}

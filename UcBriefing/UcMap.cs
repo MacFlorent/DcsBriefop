@@ -23,7 +23,7 @@ namespace DcsBriefop.UcBriefing
 		{
 			InitializeComponent();
 
-			Map.MapProvider = GMap.NET.MapProviders.BingMapProvider.Instance;
+			Map.MapProvider = ElementMapValue.MapProvider;
 			GMaps.Instance.Mode = AccessMode.ServerOnly;
 			//Map.ShowTileGridLines = true;
 			Map.Position = new PointLatLng(26.1702778, 56.24);
@@ -106,7 +106,7 @@ namespace DcsBriefop.UcBriefing
 		{
 			MapData.CenterLatitude = Map.Position.Lat;
 			MapData.CenterLongitude = Map.Position.Lng;
-			MapData.Zoom = Map.Zoom;
+			MapData.Zoom = (int)Map.Zoom;
 		}
 
 		private void BtAreaRecall_Click(object sender, System.EventArgs e)

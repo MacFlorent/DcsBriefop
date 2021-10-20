@@ -166,6 +166,7 @@
     <Compile Include="LsonStructure\RouteTask.cs" />
     <Compile Include="LsonStructure\Map.cs" />
     <Compile Include="LsonStructure\Unit.cs" />
+    <Compile Include="Map\MapImageBuilder.cs" />
     <Compile Include="Map\MarkerBriefopTemplate.cs" />
     <Compile Include="Map\GMarkerBriefop.cs" />
     <Compile Include="MasterData\GroupStatus.cs" />
