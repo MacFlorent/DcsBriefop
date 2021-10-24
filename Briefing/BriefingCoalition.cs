@@ -135,6 +135,7 @@ namespace DcsBriefop.Briefing
 				MapData.MapOverlayCustom = new GMapOverlay();
 			}
 
+			MapData.AdditionalMapOverlays.Clear();
 			MapData.AdditionalMapOverlays.Add(staticOverlay);
 			MapData.AdditionalMapOverlays.Add(RootCustom.MapData.MapOverlayCustom);
 		}

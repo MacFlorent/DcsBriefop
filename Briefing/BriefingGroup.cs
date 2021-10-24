@@ -78,7 +78,7 @@ namespace DcsBriefop.Briefing
 		#region Methods
 		public void InitializeMapData()
 		{
-			GMapOverlay staticOverlay = MapData.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
+			GMapOverlay staticOverlay = MapData?.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
 			if (staticOverlay is null)
 				staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
 
@@ -117,6 +117,7 @@ namespace DcsBriefop.Briefing
 				MapData.MapOverlayCustom = new GMapOverlay();
 			}
 
+			MapData.AdditionalMapOverlays.Clear();
 			MapData.AdditionalMapOverlays.Add(staticOverlay);
 			MapData.AdditionalMapOverlays.Add(RootCustom.MapData.MapOverlayCustom);
 			MapData.AdditionalMapOverlays.Add(m_briefingCoalition.MapData.MapOverlayCustom);
@@ -157,7 +158,7 @@ namespace DcsBriefop.Briefing
 
 			if (points.Count > 1)
 			{
-				GMapRoute route = new GMapRoute(points, "route");
+				GRouteBriefop route = new GRouteBriefop(points, "route");
 				route.Stroke = new Pen(m_briefingCoalition.Color, 2);
 				staticOverlay.Routes.Add(route);
 			}

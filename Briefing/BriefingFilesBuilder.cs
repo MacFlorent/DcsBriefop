@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using TheArtOfDev.HtmlRenderer.WinForms;
 
 namespace DcsBriefop.Briefing
@@ -97,7 +98,10 @@ namespace DcsBriefop.Briefing
 			GenerateFileSituation(coalition);
 			GenerateFilesOperations(coalition);
 
-			AddMapData("mapDataTest", KneeboardFolders.Images, coalition.MapData);
+			AddMapData($"mapDataTest_", KneeboardFolders.Images, coalition.MapData);
+			foreach (BriefingGroup bg in coalition.GroupFlights.Where(_bf => _bf.Id == 45 || _bf.Id == 68))
+				AddMapData($"mapDataTest_{bg.Id}", KneeboardFolders.Images, bg.MapData);
+
 		}
 
 		private void GenerateFileSituation(BriefingCoalition coalition)
@@ -161,7 +165,7 @@ namespace DcsBriefop.Briefing
 
 		private void AddMapData(string sFileName, string sKneeboardFolder, CustomDataMap mapData)
 		{
-			BriefingFile bf = new BriefingFile() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, BitmapContent = MapImageBuilder.Generate(mapData, null) };
+			BriefingFile bf = new BriefingFile() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, BitmapContent = ToolsMap.GenerateMapImage(mapData) };
 			m_listFiles.Add(bf);
 		}
 
