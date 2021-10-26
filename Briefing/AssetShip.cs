@@ -1,10 +1,11 @@
 ﻿using DcsBriefop.LsonStructure;
 using DcsBriefop.MasterData;
+using DcsBriefop.Tools;
 using System.Linq;
 
 namespace DcsBriefop.Briefing
 {
-	internal class BriefingShip : BriefingGroup
+	internal class AssetShip : Asset
 	{
 		#region Fields
 		private GroupShip GroupShip { get { return m_group as GroupShip; } }
@@ -12,7 +13,6 @@ namespace DcsBriefop.Briefing
 
 		#region Properties
 		protected override string DefaultMarker { get; set; } = MarkerBriefopType.ship.ToString();
-		public override string Category { get { return "Ship"; } }
 
 		private UnitShip MainUnit
 		{
@@ -43,21 +43,27 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public BriefingShip(BriefingPack bp, GroupShip gs, BriefingCoalition bc) : base(bp, gs, bc)
-		{
-			if (BriefingStatus == ElementGroupStatusId.NotSet)
-			{
-				BriefingStatus = ElementGroupStatusId.Point;
-			}
-
-			InitializeMapData();
-		}
+		public AssetShip(BriefingPack bp, GroupShip gs, BriefingCoalition bc) : base(bp, gs, bc) { }
 		#endregion
 
 		#region Methods
+		protected override void InitializeCustomData()
+		{
+			if (Type.StartsWith("CVN"))
+			{
+				Category = ElementAssetCategory.Base;
+				MapDisplay = ElementAssetMapDisplay.Point;
+			}
+			else
+			{
+				Category = ElementAssetCategory.Excluded;
+				MapDisplay = ElementAssetMapDisplay.None;
+			}
+		}
+
 		public string GetRadioString()
 		{
-			return ToolsMasterData.GetRadioString(RadioFrequency, RadioModulation);
+			return ToolsMisc.GetRadioString(RadioFrequency, RadioModulation);
 		}
 		#endregion
 	}

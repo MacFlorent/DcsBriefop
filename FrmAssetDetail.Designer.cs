@@ -1,7 +1,7 @@
 ﻿
 namespace DcsBriefop
 {
-	partial class FrmGroupDetail
+	partial class FrmAssetDetail
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -31,14 +31,16 @@ namespace DcsBriefop
 		{
 			this.LbName = new System.Windows.Forms.Label();
 			this.TbName = new System.Windows.Forms.TextBox();
-			this.CbGroupStatus = new System.Windows.Forms.ComboBox();
-			this.LbStatus = new System.Windows.Forms.Label();
+			this.CbCategory = new System.Windows.Forms.ComboBox();
+			this.LbCategory = new System.Windows.Forms.Label();
 			this.TbType = new System.Windows.Forms.TextBox();
 			this.LbType = new System.Windows.Forms.Label();
-			this.TbCategory = new System.Windows.Forms.TextBox();
-			this.LbCategory = new System.Windows.Forms.Label();
 			this.PnMap = new System.Windows.Forms.Panel();
 			this.PnData = new System.Windows.Forms.Panel();
+			this.CbMapDisplay = new System.Windows.Forms.ComboBox();
+			this.LbMapDisplay = new System.Windows.Forms.Label();
+			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.LbBase = new System.Windows.Forms.Label();
 			this.TbTask = new System.Windows.Forms.TextBox();
 			this.LbTask = new System.Windows.Forms.Label();
 			this.CkLateActivation = new System.Windows.Forms.CheckBox();
@@ -53,9 +55,9 @@ namespace DcsBriefop
 			this.LbName.AutoSize = true;
 			this.LbName.Location = new System.Drawing.Point(211, 9);
 			this.LbName.Name = "LbName";
-			this.LbName.Size = new System.Drawing.Size(65, 13);
+			this.LbName.Size = new System.Drawing.Size(35, 13);
 			this.LbName.TabIndex = 1;
-			this.LbName.Text = "Group name";
+			this.LbName.Text = "Name";
 			// 
 			// TbName
 			// 
@@ -65,27 +67,27 @@ namespace DcsBriefop
 			this.TbName.Size = new System.Drawing.Size(100, 20);
 			this.TbName.TabIndex = 2;
 			// 
-			// CbGroupStatus
+			// CbCategory
 			// 
-			this.CbGroupStatus.FormattingEnabled = true;
-			this.CbGroupStatus.Location = new System.Drawing.Point(498, 6);
-			this.CbGroupStatus.Name = "CbGroupStatus";
-			this.CbGroupStatus.Size = new System.Drawing.Size(121, 21);
-			this.CbGroupStatus.TabIndex = 3;
-			this.CbGroupStatus.SelectionChangeCommitted += new System.EventHandler(this.CbGroupStatus_SelectionChangeCommitted);
+			this.CbCategory.FormattingEnabled = true;
+			this.CbCategory.Location = new System.Drawing.Point(100, 36);
+			this.CbCategory.Name = "CbCategory";
+			this.CbCategory.Size = new System.Drawing.Size(121, 21);
+			this.CbCategory.TabIndex = 3;
+			this.CbCategory.SelectionChangeCommitted += new System.EventHandler(this.CbCategory_SelectionChangeCommitted);
 			// 
-			// LbStatus
+			// LbCategory
 			// 
-			this.LbStatus.AutoSize = true;
-			this.LbStatus.Location = new System.Drawing.Point(406, 10);
-			this.LbStatus.Name = "LbStatus";
-			this.LbStatus.Size = new System.Drawing.Size(73, 13);
-			this.LbStatus.TabIndex = 4;
-			this.LbStatus.Text = "Briefing status";
+			this.LbCategory.AutoSize = true;
+			this.LbCategory.Location = new System.Drawing.Point(8, 40);
+			this.LbCategory.Name = "LbCategory";
+			this.LbCategory.Size = new System.Drawing.Size(49, 13);
+			this.LbCategory.TabIndex = 4;
+			this.LbCategory.Text = "Category";
 			// 
 			// TbType
 			// 
-			this.TbType.Location = new System.Drawing.Point(282, 32);
+			this.TbType.Location = new System.Drawing.Point(465, 6);
 			this.TbType.Name = "TbType";
 			this.TbType.ReadOnly = true;
 			this.TbType.Size = new System.Drawing.Size(100, 20);
@@ -94,39 +96,26 @@ namespace DcsBriefop
 			// LbType
 			// 
 			this.LbType.AutoSize = true;
-			this.LbType.Location = new System.Drawing.Point(211, 35);
+			this.LbType.Location = new System.Drawing.Point(394, 9);
 			this.LbType.Name = "LbType";
 			this.LbType.Size = new System.Drawing.Size(31, 13);
 			this.LbType.TabIndex = 5;
 			this.LbType.Text = "Type";
-			// 
-			// TbCategory
-			// 
-			this.TbCategory.Location = new System.Drawing.Point(100, 32);
-			this.TbCategory.Name = "TbCategory";
-			this.TbCategory.ReadOnly = true;
-			this.TbCategory.Size = new System.Drawing.Size(100, 20);
-			this.TbCategory.TabIndex = 8;
-			// 
-			// LbCategory
-			// 
-			this.LbCategory.AutoSize = true;
-			this.LbCategory.Location = new System.Drawing.Point(29, 35);
-			this.LbCategory.Name = "LbCategory";
-			this.LbCategory.Size = new System.Drawing.Size(49, 13);
-			this.LbCategory.TabIndex = 7;
-			this.LbCategory.Text = "Category";
 			// 
 			// PnMap
 			// 
 			this.PnMap.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.PnMap.Location = new System.Drawing.Point(0, 115);
 			this.PnMap.Name = "PnMap";
-			this.PnMap.Size = new System.Drawing.Size(717, 564);
+			this.PnMap.Size = new System.Drawing.Size(776, 564);
 			this.PnMap.TabIndex = 9;
 			// 
 			// PnData
 			// 
+			this.PnData.Controls.Add(this.CbMapDisplay);
+			this.PnData.Controls.Add(this.LbMapDisplay);
+			this.PnData.Controls.Add(this.textBox1);
+			this.PnData.Controls.Add(this.LbBase);
 			this.PnData.Controls.Add(this.TbTask);
 			this.PnData.Controls.Add(this.LbTask);
 			this.PnData.Controls.Add(this.CkLateActivation);
@@ -135,17 +124,50 @@ namespace DcsBriefop
 			this.PnData.Controls.Add(this.TbId);
 			this.PnData.Controls.Add(this.TbType);
 			this.PnData.Controls.Add(this.LbName);
-			this.PnData.Controls.Add(this.TbCategory);
 			this.PnData.Controls.Add(this.TbName);
+			this.PnData.Controls.Add(this.CbCategory);
 			this.PnData.Controls.Add(this.LbCategory);
-			this.PnData.Controls.Add(this.CbGroupStatus);
-			this.PnData.Controls.Add(this.LbStatus);
 			this.PnData.Controls.Add(this.LbType);
 			this.PnData.Dock = System.Windows.Forms.DockStyle.Top;
 			this.PnData.Location = new System.Drawing.Point(0, 0);
 			this.PnData.Name = "PnData";
-			this.PnData.Size = new System.Drawing.Size(717, 115);
+			this.PnData.Size = new System.Drawing.Size(776, 115);
 			this.PnData.TabIndex = 10;
+			// 
+			// CbMapDisplay
+			// 
+			this.CbMapDisplay.FormattingEnabled = true;
+			this.CbMapDisplay.Location = new System.Drawing.Point(371, 40);
+			this.CbMapDisplay.Name = "CbMapDisplay";
+			this.CbMapDisplay.Size = new System.Drawing.Size(121, 21);
+			this.CbMapDisplay.TabIndex = 17;
+			this.CbMapDisplay.SelectionChangeCommitted += new System.EventHandler(this.CbMapDisplay_SelectionChangeCommitted);
+			// 
+			// LbMapDisplay
+			// 
+			this.LbMapDisplay.AutoSize = true;
+			this.LbMapDisplay.Location = new System.Drawing.Point(279, 44);
+			this.LbMapDisplay.Name = "LbMapDisplay";
+			this.LbMapDisplay.Size = new System.Drawing.Size(63, 13);
+			this.LbMapDisplay.TabIndex = 18;
+			this.LbMapDisplay.Text = "Map display";
+			// 
+			// textBox1
+			// 
+			this.textBox1.Location = new System.Drawing.Point(375, 71);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.ReadOnly = true;
+			this.textBox1.Size = new System.Drawing.Size(100, 20);
+			this.textBox1.TabIndex = 16;
+			// 
+			// LbBase
+			// 
+			this.LbBase.AutoSize = true;
+			this.LbBase.Location = new System.Drawing.Point(304, 74);
+			this.LbBase.Name = "LbBase";
+			this.LbBase.Size = new System.Drawing.Size(31, 13);
+			this.LbBase.TabIndex = 15;
+			this.LbBase.Text = "Base";
 			// 
 			// TbTask
 			// 
@@ -168,7 +190,7 @@ namespace DcsBriefop
 			// 
 			this.CkLateActivation.AutoSize = true;
 			this.CkLateActivation.Enabled = false;
-			this.CkLateActivation.Location = new System.Drawing.Point(499, 36);
+			this.CkLateActivation.Location = new System.Drawing.Point(661, 9);
 			this.CkLateActivation.Name = "CkLateActivation";
 			this.CkLateActivation.Size = new System.Drawing.Size(96, 17);
 			this.CkLateActivation.TabIndex = 12;
@@ -179,7 +201,7 @@ namespace DcsBriefop
 			// 
 			this.CkPlayable.AutoSize = true;
 			this.CkPlayable.Enabled = false;
-			this.CkPlayable.Location = new System.Drawing.Point(409, 35);
+			this.CkPlayable.Location = new System.Drawing.Point(571, 8);
 			this.CkPlayable.Name = "CkPlayable";
 			this.CkPlayable.Size = new System.Drawing.Size(66, 17);
 			this.CkPlayable.TabIndex = 11;
@@ -203,15 +225,15 @@ namespace DcsBriefop
 			this.TbId.Size = new System.Drawing.Size(100, 20);
 			this.TbId.TabIndex = 10;
 			// 
-			// FrmGroupDetail
+			// FrmAssetDetail
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(717, 679);
+			this.ClientSize = new System.Drawing.Size(776, 679);
 			this.Controls.Add(this.PnMap);
 			this.Controls.Add(this.PnData);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-			this.Name = "FrmGroupDetail";
+			this.Name = "FrmAssetDetail";
 			this.Text = "FrmGroupDetail";
 			this.PnData.ResumeLayout(false);
 			this.PnData.PerformLayout();
@@ -223,11 +245,9 @@ namespace DcsBriefop
 
 		private System.Windows.Forms.Label LbName;
 		private System.Windows.Forms.TextBox TbName;
-		private System.Windows.Forms.ComboBox CbGroupStatus;
-		private System.Windows.Forms.Label LbStatus;
+		private System.Windows.Forms.ComboBox CbCategory;
 		private System.Windows.Forms.TextBox TbType;
 		private System.Windows.Forms.Label LbType;
-		private System.Windows.Forms.TextBox TbCategory;
 		private System.Windows.Forms.Label LbCategory;
 		private System.Windows.Forms.Panel PnMap;
 		private System.Windows.Forms.Panel PnData;
@@ -237,5 +257,9 @@ namespace DcsBriefop
 		private System.Windows.Forms.CheckBox CkLateActivation;
 		private System.Windows.Forms.TextBox TbTask;
 		private System.Windows.Forms.Label LbTask;
+		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.Label LbBase;
+		private System.Windows.Forms.ComboBox CbMapDisplay;
+		private System.Windows.Forms.Label LbMapDisplay;
 	}
 }

@@ -82,8 +82,8 @@ namespace DcsBriefop.Briefing
 			}
 		}
 
-		public List<BriefingFlight> GroupFlights { get; private set; } = new List<BriefingFlight>();
-		public List<BriefingShip> GroupShips { get; private set; } = new List<BriefingShip>();
+		public List<AssetFlight> GroupFlights { get; private set; } = new List<AssetFlight>();
+		public List<AssetShip> GroupShips { get; private set; } = new List<AssetShip>();
 		// ships
 		// planes
 
@@ -106,11 +106,11 @@ namespace DcsBriefop.Briefing
 			{
 				foreach (GroupFlight ga in c.GroupAirs)
 				{
-					GroupFlights.Add(new BriefingFlight(bp, ga, this));
+					GroupFlights.Add(new AssetFlight(bp, ga, this));
 				}
 				foreach (GroupShip gs in c.GroupShips)
 				{
-					GroupShips.Add(new BriefingShip(bp, gs, this));
+					GroupShips.Add(new AssetShip(bp, gs, this));
 				}
 			}
 
@@ -142,13 +142,13 @@ namespace DcsBriefop.Briefing
 
 		private void InitializeMapDataChildrenOverlays()
 		{
-			foreach (BriefingFlight flight in GroupFlights.Where(_f => _f.BriefingStatus == ElementGroupStatusId.Orbit || _f.BriefingStatus == ElementGroupStatusId.Point))
+			foreach (AssetFlight flight in GroupFlights.Where(_f => _f.MapDisplay != ElementAssetMapDisplay.None))
 			{
 				GMapOverlay staticGroupOverlay = flight.MapData.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
 				if (staticGroupOverlay is object)
 					MapData.AdditionalMapOverlays.Add(staticGroupOverlay);
 			}
-			foreach (BriefingShip ship in GroupShips.Where(_s => _s.BriefingStatus == ElementGroupStatusId.Orbit || _s.BriefingStatus == ElementGroupStatusId.Point))
+			foreach (AssetShip ship in GroupShips.Where(_s => _s.MapDisplay != ElementAssetMapDisplay.None))
 			{
 				GMapOverlay staticGroupOverlay = ship.MapData.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
 				if (staticGroupOverlay is object)

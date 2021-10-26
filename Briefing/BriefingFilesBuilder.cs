@@ -99,7 +99,7 @@ namespace DcsBriefop.Briefing
 			GenerateFilesOperations(coalition);
 
 			AddMapData($"mapDataTest_", KneeboardFolders.Images, coalition.MapData);
-			foreach (BriefingGroup bg in coalition.GroupFlights.Where(_bf => _bf.Id == 45 || _bf.Id == 68))
+			foreach (Asset bg in coalition.GroupFlights.Where(_bf => _bf.Id == 45 || _bf.Id == 68))
 				AddMapData($"mapDataTest_{bg.Id}", KneeboardFolders.Images, bg.MapData);
 
 		}
@@ -138,12 +138,12 @@ namespace DcsBriefop.Briefing
 
 			hb.AppendHeader(m_briefingPack.Sortie, 3);
 			hb.AppendHeader("OPERATIONS", 2);
-			hb.AppendHeader("BULSEYE", 3);
+			hb.AppendHeader("BULLSEYE", 3);
 			hb.AppendParagraphCentered(coalition.BullseyeCoordinates);
 			hb.AppendParagraphCentered(coalition.BullseyeDescription);
 			hb.AppendHeader("OPERATIONS", 3);
 			
-			foreach(BriefingGroup groupFlight in coalition.GroupFlights)
+			foreach(Asset groupFlight in coalition.GroupFlights)
 			{
 				//hb.AppendTableHeader(m_briefingPack.Sortie, 3);
 			}

@@ -66,7 +66,7 @@ namespace DcsBriefop.Tools
 
 		public static PointLatLng? GetPointsCenter(List<PointLatLng> points)
 		{
-			if (points.Count <= 0)
+			if (points is null || points.Count <= 0)
 				return null;
 			else if (points.Count == 1)
 				return points[0];

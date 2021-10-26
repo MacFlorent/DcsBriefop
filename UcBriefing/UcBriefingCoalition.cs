@@ -7,6 +7,17 @@ namespace DcsBriefop.UcBriefing
 {
 	internal partial class UcBriefingCoalition : UcBaseBriefing
 	{
+		private static class GridColumn
+		{
+			public static readonly string AssetCategory = "BriefingCategory";
+			public static readonly string Id = "Id";
+			public static readonly string Name = "Name";
+			public static readonly string Type = "Type";
+			public static readonly string Task = "Task";
+			public static readonly string Radio = "Radio";
+			public static readonly string Data = "Data";
+		}
+
 		#region Properties
 		public BriefingCoalition BriefingCoalition { get; private set; }
 		#endregion
@@ -18,8 +29,8 @@ namespace DcsBriefop.UcBriefing
 
 			BriefingCoalition = bc;
 
-			DgvGroups.ContextMenuStrip = new ContextMenuStrip();
-			DgvGroups.ReadOnly = true;
+			DgvAssets.ContextMenuStrip = new ContextMenuStrip();
+			DgvAssets.ReadOnly = true;
 			BuildMenu();
 		}
 		#endregion
@@ -31,26 +42,23 @@ namespace DcsBriefop.UcBriefing
 			TbBullseyeDescription.Text = BriefingCoalition.BullseyeDescription;
 			TbTask.Text = BriefingCoalition.Task;
 
-			DgvGroups.Columns.Add("status", "Status");
-			DgvGroups.Columns.Add("id", "ID");
-			DgvGroups.Columns.Add("name", "Name");
-			DgvGroups.Columns.Add("callsign", "Callsign");
-			DgvGroups.Columns.Add("type", "Type");
-			DgvGroups.Columns.Add("task", "Task");
-			DgvGroups.Columns.Add("radio", "Radio");
-			DgvGroups.Columns.Add("_data", "");
+			DgvAssets.Columns.Add(GridColumn.AssetCategory, "Cat.");
+			DgvAssets.Columns.Add(GridColumn.Id, "ID");
+			DgvAssets.Columns.Add(GridColumn.Name, "Name");
+			DgvAssets.Columns.Add(GridColumn.Type, "Type");
+			DgvAssets.Columns.Add(GridColumn.Task, "Task");
+			DgvAssets.Columns.Add(GridColumn.Radio, "Radio");
+			DgvAssets.Columns.Add(GridColumn.Data, "");
 
-			DgvGroups.Columns["_data"].Visible = false;
+			DgvAssets.Columns[GridColumn.Data].Visible = false;
 
-			foreach (BriefingFlight flight in BriefingCoalition.GroupFlights)
+			foreach (AssetFlight flight in BriefingCoalition.GroupFlights)
 			{
 				RefreshGridRow(flight);
-				//DgvGroups.Rows.Add(bga.BriefingStatus, bga.Id, bga.GetCallsign(), bga.Name, bga.Type, bga.Task, bga.GetRadioString(), bga);
 			}
-			foreach (BriefingShip ship in BriefingCoalition.GroupShips)
+			foreach (AssetShip ship in BriefingCoalition.GroupShips)
 			{
 				RefreshGridRow(ship);
-				//DgvGroups.Rows.Add(bgs.BriefingStatus, bgs.Id, bgs.UnitName, bgs.Name, bgs.Type, "", bgs.GetRadioString(), bgs);
 			}
 		}
 
@@ -60,12 +68,12 @@ namespace DcsBriefop.UcBriefing
 			BriefingCoalition.Task = TbTask.Text;
 		}
 
-		private void RefreshGridRow(BriefingGroup group)
+		private void RefreshGridRow(Asset asset)
 		{
 			DataGridViewRow dgvr = null;
-			foreach(DataGridViewRow existingRow in DgvGroups.Rows)
+			foreach(DataGridViewRow existingRow in DgvAssets.Rows)
 			{
-				if (existingRow.Cells["_data"].Value == group)
+				if (existingRow.Cells[GridColumn.Data].Value == asset)
 				{
 					dgvr = existingRow;
 					break;
@@ -73,39 +81,36 @@ namespace DcsBriefop.UcBriefing
 			}
 			if (dgvr is null)
 			{
-				int iNewRowIndex = DgvGroups.Rows.Add();
-				dgvr = DgvGroups.Rows[iNewRowIndex];
-				dgvr.Cells["_data"].Value = group;
+				int iNewRowIndex = DgvAssets.Rows.Add();
+				dgvr = DgvAssets.Rows[iNewRowIndex];
+				dgvr.Cells[GridColumn.Data].Value = asset;
 			}
 
-			dgvr.Cells["status"].Value = GroupStatus.GetById (group.BriefingStatus)?.Label;
-			dgvr.Cells["id"].Value = group.Id;
-			dgvr.Cells["name"].Value = group.Name;
+			dgvr.Cells[GridColumn.AssetCategory].Value = MasterDataRepository.GetById(MasterDataType.AssetCategory, (int)asset.Category)?.Label;
+			dgvr.Cells[GridColumn.Id].Value = asset.Id;
+			dgvr.Cells[GridColumn.Name].Value = asset.Name;
 
-			if (group is BriefingFlight flight)
+			if (asset is AssetFlight flight)
 			{
-				dgvr.Cells["callsign"].Value = flight.GetCallsign();
-				dgvr.Cells["type"].Value = flight.Type;
-				dgvr.Cells["task"].Value = flight.Task;
-				dgvr.Cells["radio"].Value = flight.GetRadioString();
+				dgvr.Cells[GridColumn.Type].Value = flight.Type;
+				dgvr.Cells[GridColumn.Task].Value = flight.Task;
+				dgvr.Cells[GridColumn.Radio].Value = flight.GetRadioString();
 			}
-			else if (group is BriefingShip ship)
+			else if (asset is AssetShip ship)
 			{
-				dgvr.Cells["callsign"].Value = ship.UnitName;
-				dgvr.Cells["type"].Value = ship.Type;
-				dgvr.Cells["task"].Value = "";
-				dgvr.Cells["radio"].Value = ship.GetRadioString();
+				dgvr.Cells[GridColumn.Type].Value = ship.Type;
+				dgvr.Cells[GridColumn.Radio].Value = ship.GetRadioString();
 			}
 		}
 
 		private void ShowDetail()
 		{
-			if (DgvGroups.SelectedRows.Count > 0)
+			if (DgvAssets.SelectedRows.Count > 0)
 			{
-				object o = DgvGroups.SelectedRows[0].Cells["_data"].Value;
-				if (o is BriefingGroup group)
+				object o = DgvAssets.SelectedRows[0].Cells[GridColumn.Data].Value;
+				if (o is Asset group)
 				{
-					FrmGroupDetail f = new FrmGroupDetail(group);
+					FrmAssetDetail f = new FrmAssetDetail(group);
 					f.ShowDialog();
 					RefreshGridRow(group);
 				}
@@ -121,8 +126,8 @@ namespace DcsBriefop.UcBriefing
 
 		private void BuildMenu()
 		{
-			DgvGroups.ContextMenuStrip.Items.Clear();
-			DgvGroups.ContextMenuStrip.Items.Add(MenuItem("Details", MenuName.Detail));
+			DgvAssets.ContextMenuStrip.Items.Clear();
+			DgvAssets.ContextMenuStrip.Items.Add(MenuItem("Details", MenuName.Detail));
 		}
 
 		private ToolStripMenuItem MenuItem(string sLabel, string sName)

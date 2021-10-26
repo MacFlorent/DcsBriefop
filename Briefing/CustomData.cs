@@ -65,13 +65,14 @@ namespace DcsBriefop.Briefing
 	internal class CustomDataGroup
 	{
 		public int Id { get; set; }
-		public int BriefingCategory { get; set; }
+		public int Category { get; set; }
+		public int MapDisplay { get; set; }
+		
 		public CustomDataMap MapData { get; set; }
 
 		public CustomDataGroup(int iId)
 		{
 			Id = iId;
-			BriefingCategory = ElementGroupStatusId.NotSet;
 		}
 	}
 }

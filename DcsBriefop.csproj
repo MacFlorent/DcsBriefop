@@ -149,9 +149,9 @@
     <Compile Include="Briefing\BriefingCoalition.cs" />
     <Compile Include="Briefing\BriefingFilesBuilder.cs" />
     <Compile Include="Briefing\BriefingRoutePoint.cs" />
-    <Compile Include="Briefing\BriefingShip.cs" />
-    <Compile Include="Briefing\BriefingFlight.cs" />
-    <Compile Include="Briefing\BriefingGroup.cs" />
+    <Compile Include="Briefing\AssetShip.cs" />
+    <Compile Include="Briefing\AssetFlight.cs" />
+    <Compile Include="Briefing\Asset.cs" />
     <Compile Include="Briefing\BriefingPack.cs" />
     <Compile Include="Briefing\CustomData.cs" />
     <Compile Include="Configuration\BriefopMarkerSection.cs" />
@@ -166,22 +166,20 @@
     <Compile Include="LsonStructure\RouteTask.cs" />
     <Compile Include="LsonStructure\Map.cs" />
     <Compile Include="LsonStructure\Unit.cs" />
-    <Compile Include="Map\GRouteBriefop.cs" />
     <Compile Include="Map\MarkerBriefopTemplate.cs" />
     <Compile Include="Map\GMarkerBriefop.cs" />
-    <Compile Include="MasterData\GroupStatus.cs" />
+    <Compile Include="MasterData\MasterDataObject.cs" />
     <Compile Include="MasterData\ElementBriefop.cs" />
     <Compile Include="MasterData\Theatre.cs" />
-    <Compile Include="MasterData\ToolsMasterData.cs" />
     <Compile Include="Map\MapJsonSerializers.cs" />
     <Compile Include="Tools\ToolsImage.cs" />
     <Compile Include="Tools\ToolsLua.cs" />
     <Compile Include="Tools\ToolsMap.cs" />
-    <Compile Include="FrmGroupDetail.cs">
+    <Compile Include="FrmAssetDetail.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmGroupDetail.Designer.cs">
-      <DependentUpon>FrmGroupDetail.cs</DependentUpon>
+    <Compile Include="FrmAssetDetail.Designer.cs">
+      <DependentUpon>FrmAssetDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ToolsZip.cs" />
     <Compile Include="UcBriefing\TabPageBriefing.cs">
@@ -261,8 +259,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="FrmGroupDetail.resx">
-      <DependentUpon>FrmGroupDetail.cs</DependentUpon>
+    <EmbeddedResource Include="FrmAssetDetail.resx">
+      <DependentUpon>FrmAssetDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UcBriefing\UcBriefingPack.resx">
       <DependentUpon>UcBriefingPack.cs</DependentUpon>

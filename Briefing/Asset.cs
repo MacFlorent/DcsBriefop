@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace DcsBriefop.Briefing
 {
-	internal class BriefingGroup : BaseBriefing
+	internal abstract class Asset : BaseBriefing
 	{
 		#region Fields
 		protected Group m_group;
@@ -19,12 +19,17 @@ namespace DcsBriefop.Briefing
 
 		#region Properties
 		protected virtual string DefaultMarker { get; set; } = MarkerBriefopType.dot.ToString();
-		public virtual string Category { get { return "Group"; } }
 
-		public int BriefingStatus
+		public ElementAssetCategory Category
 		{
-			get { return m_customDataGroup.BriefingCategory; }
-			set { m_customDataGroup.BriefingCategory = value; }
+			get { return (ElementAssetCategory)m_customDataGroup.Category; }
+			set { m_customDataGroup.Category = (int)value; }
+		}
+
+		public ElementAssetMapDisplay MapDisplay
+		{
+			get { return (ElementAssetMapDisplay)m_customDataGroup.MapDisplay; }
+			set { m_customDataGroup.MapDisplay = (int)value; }
 		}
 
 		public int Id
@@ -56,7 +61,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public BriefingGroup(BriefingPack bp, Group g, BriefingCoalition bc) : base(bp)
+		public Asset(BriefingPack bp, Group g, BriefingCoalition bc) : base(bp)
 		{
 			m_group = g;
 			m_briefingCoalition = bc;
@@ -66,16 +71,22 @@ namespace DcsBriefop.Briefing
 			{
 				m_customDataGroup = new CustomDataGroup(Id);
 				RootCustom.Groups.Add(m_customDataGroup);
+
+				InitializeCustomData();
 			}
 
 			foreach (RoutePoint rp in m_group.RoutePoints)
 			{
 				RoutePoints.Add(new BriefingRoutePoint(bp, rp));
 			}
+
+			InitializeMapData();
 		}
 		#endregion
 
 		#region Methods
+		protected abstract void InitializeCustomData();
+
 		public void InitializeMapData()
 		{
 			GMapOverlay staticOverlay = MapData?.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
@@ -85,15 +96,15 @@ namespace DcsBriefop.Briefing
 			staticOverlay.Clear();
 			List<PointLatLng> points = null;
 			
-			if (BriefingStatus == ElementGroupStatusId.Point)
+			if (MapDisplay == ElementAssetMapDisplay.Point)
 			{
 				points = InitializeMapDataPoint(staticOverlay);
 			}
-			else if (BriefingStatus == ElementGroupStatusId.Orbit)
+			else if (MapDisplay == ElementAssetMapDisplay.Orbit)
 			{
 				points = InitializeMapDataOrbit(staticOverlay);
 			}
-			else if(BriefingStatus == ElementGroupStatusId.FullRoute)
+			else if(MapDisplay == ElementAssetMapDisplay.FullRoute)
 			{
 				points = InitializeMapDataFullRoute(staticOverlay);
 			}
@@ -158,7 +169,7 @@ namespace DcsBriefop.Briefing
 
 			if (points.Count > 1)
 			{
-				GRouteBriefop route = new GRouteBriefop(points, "route");
+				GMapRoute route = new GMapRoute(points, "route");
 				route.Stroke = new Pen(m_briefingCoalition.Color, 2);
 				staticOverlay.Routes.Add(route);
 			}
@@ -200,7 +211,7 @@ namespace DcsBriefop.Briefing
 			{
 				RouteTask rtBeacon = brp.RouteTasks.Where(_rt => _rt.Action?.Id == ElementRouteTask.ActivateBeacon).FirstOrDefault();
 				if (rtBeacon?.Action is RouteTaskAction rta)
-					return ToolsMasterData.GetTacanString(rta.ParamChannel.GetValueOrDefault(), rta.ParamModeChannel, rta.ParamCallsign);
+					return ToolsMisc.GetTacanString(rta.ParamChannel.GetValueOrDefault(), rta.ParamModeChannel, rta.ParamCallsign);
 			}
 
 			return null;

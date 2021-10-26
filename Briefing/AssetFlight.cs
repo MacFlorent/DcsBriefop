@@ -1,10 +1,11 @@
 ﻿using DcsBriefop.LsonStructure;
 using DcsBriefop.MasterData;
+using DcsBriefop.Tools;
 using System.Linq;
 
 namespace DcsBriefop.Briefing
 {
-	internal class BriefingFlight : BriefingGroup
+	internal class AssetFlight : Asset
 	{
 		#region Fields
 		private GroupFlight GroupFlight { get { return m_group as GroupFlight; } }
@@ -12,7 +13,6 @@ namespace DcsBriefop.Briefing
 
 		#region Properties
 		protected override string DefaultMarker { get; set; } = MarkerBriefopType.aircraft.ToString();
-		public override string Category { get { return "Flight"; } }
 		public string Type { get { return GroupFlight.Units.FirstOrDefault()?.Type; } }
 
 		public string Task
@@ -33,26 +33,32 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public BriefingFlight(BriefingPack bp, GroupFlight ga, BriefingCoalition bc) : base(bp, ga, bc)
-		{
-			if (BriefingStatus == ElementGroupStatusId.NotSet)
-			{
-				if (Playable)
-					BriefingStatus = ElementGroupStatusId.FullRoute;
-				else if (ElementTask.Supports.Contains(Task))
-					BriefingStatus = ElementGroupStatusId.Orbit;
-				else
-					BriefingStatus = ElementGroupStatusId.Point;
-			}
-
-			InitializeMapData();
-		}
+		public AssetFlight(BriefingPack bp, GroupFlight ga, BriefingCoalition bc) : base(bp, ga, bc) { }
 		#endregion
 
 		#region Methods
+		protected override void InitializeCustomData()
+		{
+			if(Playable)
+			{
+				Category = ElementAssetCategory.Mission;
+				MapDisplay = ElementAssetMapDisplay.None;
+			}
+			else if (Task == ElementTask.Awacs || Task == ElementTask.Refueling)
+			{
+				Category = ElementAssetCategory.Support;
+				MapDisplay = ElementAssetMapDisplay.Orbit;
+			}
+			else
+			{
+				Category = ElementAssetCategory.Mission;
+				MapDisplay = ElementAssetMapDisplay.None;
+			}
+		}
+
 		public string GetRadioString()
 		{
-			return ToolsMasterData.GetRadioString(RadioFrequency, RadioModulation);
+			return ToolsMisc.GetRadioString(RadioFrequency, RadioModulation);
 		}
 
 		public string GetCallsign()
