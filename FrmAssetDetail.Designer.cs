@@ -39,7 +39,7 @@ namespace DcsBriefop
 			this.PnData = new System.Windows.Forms.Panel();
 			this.CbMapDisplay = new System.Windows.Forms.ComboBox();
 			this.LbMapDisplay = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.TbBase = new System.Windows.Forms.TextBox();
 			this.LbBase = new System.Windows.Forms.Label();
 			this.TbTask = new System.Windows.Forms.TextBox();
 			this.LbTask = new System.Windows.Forms.Label();
@@ -114,7 +114,7 @@ namespace DcsBriefop
 			// 
 			this.PnData.Controls.Add(this.CbMapDisplay);
 			this.PnData.Controls.Add(this.LbMapDisplay);
-			this.PnData.Controls.Add(this.textBox1);
+			this.PnData.Controls.Add(this.TbBase);
 			this.PnData.Controls.Add(this.LbBase);
 			this.PnData.Controls.Add(this.TbTask);
 			this.PnData.Controls.Add(this.LbTask);
@@ -152,13 +152,13 @@ namespace DcsBriefop
 			this.LbMapDisplay.TabIndex = 18;
 			this.LbMapDisplay.Text = "Map display";
 			// 
-			// textBox1
+			// TbBase
 			// 
-			this.textBox1.Location = new System.Drawing.Point(375, 71);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.ReadOnly = true;
-			this.textBox1.Size = new System.Drawing.Size(100, 20);
-			this.textBox1.TabIndex = 16;
+			this.TbBase.Location = new System.Drawing.Point(375, 71);
+			this.TbBase.Name = "TbBase";
+			this.TbBase.ReadOnly = true;
+			this.TbBase.Size = new System.Drawing.Size(284, 20);
+			this.TbBase.TabIndex = 16;
 			// 
 			// LbBase
 			// 
@@ -257,7 +257,7 @@ namespace DcsBriefop
 		private System.Windows.Forms.CheckBox CkLateActivation;
 		private System.Windows.Forms.TextBox TbTask;
 		private System.Windows.Forms.Label LbTask;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox TbBase;
 		private System.Windows.Forms.Label LbBase;
 		private System.Windows.Forms.ComboBox CbMapDisplay;
 		private System.Windows.Forms.Label LbMapDisplay;

@@ -1,0 +1,64 @@
+[
+    {
+      "Id": 1,
+      "Name": "Abu Musa Island",
+      "Radios": [
+        {
+          "Frequency": 119.2,
+          "Modulation": 0
+        }
+      ]
+    },
+    {
+      "Id": 2,
+      "Name": "Bandar Abbas Intl"
+    },
+    {
+      "Id": 3,
+      "Name": "Bandar Lengeh"
+    },
+    {
+      "Id": 4,
+      "Name": "Al Dhafra AFB"
+    },
+    {
+      "Id": 5,
+      "Name": "Dubai Intl"
+    },
+    {
+      "Id": 6,
+      "Name": "Al Maktoum Intl"
+    },
+    {
+      "Id": 7,
+      "Name": "Fujairah Intl"
+    },
+    {
+      "Id": 8,
+      "Name": "Tunb Island AFB"
+    },
+    {
+      "Id": 9,
+      "Name": "Havadarya"
+    },
+    {
+      "Id": 10,
+      "Name": "Khasab"
+    },
+    {
+      "Id": 11,
+      "Name": "Lar"
+    },
+    {
+      "Id": 12,
+      "Name": "Al Minhad AFB"
+    },
+    {
+      "Id": 13,
+      "Name": "Qeshm Island"
+    },
+    {
+      "Id": 14,
+      "Name": "Sharjah Intl"
+    }
+  ]

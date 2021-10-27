@@ -1,14 +1,10 @@
 ﻿using DcsBriefop.Configuration;
-using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.WindowsForms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Windows.Forms;
 
 namespace DcsBriefop

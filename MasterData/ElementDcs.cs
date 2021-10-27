@@ -44,6 +44,7 @@ namespace DcsBriefop.MasterData
 		public static readonly string TakeOffParking = "TakeOffParking";
 		public static readonly string TakeOffParkingHot = "TakeOffParkingHot";
 		public static readonly string TakeOff = "TakeOff";
+		public static readonly string Land = "Land";
 	}
 
 	internal static class ElementRadioModulation

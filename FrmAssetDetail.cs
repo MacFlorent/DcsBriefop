@@ -38,7 +38,12 @@ namespace DcsBriefop
 			TbType.Text = m_asset.GetUnitTypes();
 			CkPlayable.Checked = m_asset.Playable;
 			CkLateActivation.Checked = m_asset.LateActivation;
-			//TbTask.Text = m_group.;
+
+			if (m_asset is AssetFlight flight)
+			{
+				TbTask.Text = flight.Task;
+				TbBase.Text = flight.GetAirdromeNames();
+			}
 
 			CbCategory.SelectedValue = (int)m_asset.Category;
 			CbMapDisplay.SelectedValue = (int)m_asset.MapDisplay;

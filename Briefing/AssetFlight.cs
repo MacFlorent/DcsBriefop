@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.LsonStructure;
 using DcsBriefop.MasterData;
 using DcsBriefop.Tools;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DcsBriefop.Briefing
@@ -68,6 +69,30 @@ namespace DcsBriefop.Briefing
 					return sCallsign.Substring(0, sCallsign.Length - 1);
 				else
 					return null;
+		}
+
+		public List<Airdrome> GetAirdromes()
+		{
+			IEnumerable<int> grouped = m_group.RoutePoints
+				.Where(_rp => _rp.AirdromeId is object
+					&& (_rp.Type == ElementRoutePointType.TakeOff || _rp.Type == ElementRoutePointType.TakeOffParking || _rp.Type == ElementRoutePointType.TakeOffParkingHot || _rp.Type == ElementRoutePointType.Land))
+				.GroupBy(_rp => _rp.AirdromeId).Select(_g => _g.Key.Value);
+
+			List<Airdrome> airdromes = new List<Airdrome>();
+			foreach(int iId in grouped)
+			{
+				Airdrome ad = Theatre.GetAirdrome(iId);
+				if (ad is object)
+					airdromes.Add(Theatre.GetAirdrome(iId));
+			}
+
+			return airdromes;
+		}
+
+		public string GetAirdromeNames()
+		{
+			IEnumerable<string> grouped = GetAirdromes().Select(_ad => _ad.Name);
+			return string.Join(",", grouped);
 		}
 		#endregion
 	}

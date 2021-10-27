@@ -1,6 +1,10 @@
-﻿using System;
+﻿using DcsBriefop.Briefing;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace DcsBriefop.MasterData
 {
@@ -20,7 +24,7 @@ namespace DcsBriefop.MasterData
 		private List<decimal> m_coordinatesLutValuesY;
 		private List<decimal> m_coordinatesLutValuesX;
 
-		//public List<Airdrome> Airdromes;
+		public List<Airdrome> Airdromes;
 
 		public Theatre(string sName)
 		{
@@ -187,35 +191,37 @@ namespace DcsBriefop.MasterData
 
 		private void InitializeAirdromes()
 		{
-			//try
-			//{
-			//	Airdromes = new List<Airdrome>();
+			try
+			{
+				string sResourceName = $"Airdromes{Name}";
+				string sBaseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+				string sResourceFilePath = Path.Combine(sBaseDirectory, "Theatre", $"{sResourceName}.json");
+				string sJsonStream = null;
 
-			//	string sResource = $"Airdromes{Name}";
-			//	string sResourceContent = "";
-			//	try { sResourceContent = Properties.Resources.ResourceManager.GetString(sResource, Properties.Resources.Culture); }
-			//	catch (Exception) { sResourceContent = ""; }
+				if (File.Exists(sResourceFilePath))
+				{
+					sJsonStream = File.ReadAllText(sResourceFilePath);
+				}
+				else
+				{
+					try { sJsonStream = Properties.Resources.ResourceManager.GetString(sResourceName, Properties.Resources.Culture); }
+					catch (Exception) { sJsonStream = ""; }
+				}
 
-			//	string[] resourceContentLines = sResourceContent.Split('\n');
-			//	foreach (string sLine in resourceContentLines)
-			//	{
-			//		//InitializeCoordinatesLut_Line(sLine);
-			//	}
-			//}
-			//catch (Exception e)
-			//{
-			//	Log.Error("Failed to build airdrome data. Airdrome informations will not be available");
-			//	Log.Exception(e);
-			//	Airdromes = null;
-			//}
+				Airdromes = JsonConvert.DeserializeObject<List<Airdrome>>(sJsonStream);
+			}
+			catch (Exception e)
+			{
+				Log.Error("Failed to build airdrome data. Airdrome informations will not be available");
+				Log.Exception(e);
+				Airdromes = null;
+			}
 		}
-	}
 
-	internal class Airdrome
-	{
-		public int Id { get; private set; }
-		public string Name { get; private set; }
-		//public Radio Radio { get; private set; }
+		public Airdrome GetAirdrome(int iId)
+		{
+			return Airdromes.Where(_ad => _ad.Id == iId).FirstOrDefault();
+		}
 	}
 }
 

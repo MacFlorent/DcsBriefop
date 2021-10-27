@@ -146,6 +146,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Briefing\Airdrome.cs" />
     <Compile Include="Briefing\BriefingCoalition.cs" />
     <Compile Include="Briefing\BriefingFilesBuilder.cs" />
     <Compile Include="Briefing\BriefingRoutePoint.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Briefing\Asset.cs" />
     <Compile Include="Briefing\BriefingPack.cs" />
     <Compile Include="Briefing\CustomData.cs" />
+    <Compile Include="Briefing\Radio.cs" />
     <Compile Include="Configuration\BriefopMarkerSection.cs" />
     <Compile Include="Configuration\BriefopMarkerCollection.cs" />
     <Compile Include="Configuration\BriefopMarkerElement.cs" />
@@ -172,6 +174,11 @@
     <Compile Include="MasterData\ElementBriefop.cs" />
     <Compile Include="MasterData\Theatre.cs" />
     <Compile Include="Map\MapJsonSerializers.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Tools\ToolsImage.cs" />
     <Compile Include="Tools\ToolsLua.cs" />
     <Compile Include="Tools\ToolsMap.cs" />
@@ -251,14 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="FrmAssetDetail.resx">
       <DependentUpon>FrmAssetDetail.cs</DependentUpon>
     </EmbeddedResource>
@@ -292,40 +294,40 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\PointsPersianGulf.txt" />
+    <None Include="Resources\Theatre\PointsPersianGulf.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bullseye.png" />
+    <None Include="Resources\Markers\bullseye.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\factory.png" />
+    <None Include="Resources\Markers\factory.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\pin.png" />
+    <None Include="Resources\Markers\pin.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\aircraft.png" />
+    <None Include="Resources\Markers\aircraft.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\airport.png" />
+    <None Include="Resources\Markers\airport.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dot.png" />
+    <None Include="Resources\Markers\dot.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\helicopter.png" />
+    <None Include="Resources\Markers\helicopter.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ship.png" />
+    <None Include="Resources\Markers\ship.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\tank.png" />
+    <None Include="Resources\Markers\tank.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\triangle.png" />
+    <None Include="Resources\Markers\triangle.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icon16.png" />
+    <None Include="Resources\AppIcon16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -338,4 +340,8 @@
   </Target>
   <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /I /Y $(SolutionDir)Resources\Markers $(TargetDir)\Markers
+xcopy /I /Y $(SolutionDir)Resources\Theatre $(TargetDir)\Theatre</PostBuildEvent>
+  </PropertyGroup>
 </Project>
