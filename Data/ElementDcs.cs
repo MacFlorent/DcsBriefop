@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DcsBriefop.MasterData
+namespace DcsBriefop.Data
 {
 	internal static class ElementCoalition
 	{

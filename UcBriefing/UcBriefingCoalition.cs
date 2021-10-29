@@ -1,5 +1,5 @@
 ﻿using DcsBriefop.Briefing;
-using DcsBriefop.MasterData;
+using DcsBriefop.Data;
 using System;
 using System.Windows.Forms;
 
@@ -9,7 +9,7 @@ namespace DcsBriefop.UcBriefing
 	{
 		private static class GridColumn
 		{
-			public static readonly string AssetCategory = "BriefingCategory";
+			public static readonly string AssetCategory = "AssetCategory";
 			public static readonly string Id = "Id";
 			public static readonly string Name = "Name";
 			public static readonly string Type = "Type";
@@ -52,13 +52,9 @@ namespace DcsBriefop.UcBriefing
 
 			DgvAssets.Columns[GridColumn.Data].Visible = false;
 
-			foreach (AssetFlight flight in BriefingCoalition.GroupFlights)
+			foreach (Asset asset in BriefingCoalition.Assets)
 			{
-				RefreshGridRow(flight);
-			}
-			foreach (AssetShip ship in BriefingCoalition.GroupShips)
-			{
-				RefreshGridRow(ship);
+				RefreshGridRow(asset);
 			}
 		}
 
@@ -108,7 +104,7 @@ namespace DcsBriefop.UcBriefing
 			if (DgvAssets.SelectedRows.Count > 0)
 			{
 				object o = DgvAssets.SelectedRows[0].Cells[GridColumn.Data].Value;
-				if (o is Asset group)
+				if (o is AssetGroup group)
 				{
 					FrmAssetDetail f = new FrmAssetDetail(group);
 					f.ShowDialog();

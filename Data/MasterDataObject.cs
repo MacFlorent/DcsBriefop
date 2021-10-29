@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 
-namespace DcsBriefop.MasterData
+namespace DcsBriefop.Data
 {
 	internal enum MasterDataType
 	{

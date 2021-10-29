@@ -1,5 +1,5 @@
 ﻿using DcsBriefop.Briefing;
-using DcsBriefop.MasterData;
+using DcsBriefop.Data;
 using DcsBriefop.UcBriefing;
 using System.Windows.Forms;
 
@@ -8,12 +8,12 @@ namespace DcsBriefop
 	internal partial class FrmAssetDetail : Form
 	{
 		#region Fields
-		private Asset m_asset;
+		private AssetGroup m_asset;
 		private UcMap m_ucMap;
 		#endregion
 
 		#region CTOR
-		internal FrmAssetDetail(Asset asset)
+		internal FrmAssetDetail(AssetGroup asset)
 		{
 			InitializeComponent();
 			m_asset = asset;

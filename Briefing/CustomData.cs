@@ -1,4 +1,4 @@
-﻿using DcsBriefop.MasterData;
+﻿using DcsBriefop.Data;
 using DcsBriefop.Map;
 using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
@@ -18,7 +18,7 @@ namespace DcsBriefop.Briefing
 		public CustomDataCoalition Blue { get; set; } = new CustomDataCoalition();
 		public CustomDataCoalition Neutral { get; set; } = new CustomDataCoalition();
 
-		public List<CustomDataGroup> Groups = new List<CustomDataGroup>();
+		public List<CustomDataAsset> Assets = new List<CustomDataAsset>();
 
 		public CustomData() { }
 
@@ -62,7 +62,7 @@ namespace DcsBriefop.Briefing
 		public CustomDataMap MapData { get; set; }
 	}
 
-	internal class CustomDataGroup
+	internal class CustomDataAsset
 	{
 		public int Id { get; set; }
 		public int Category { get; set; }
@@ -70,7 +70,7 @@ namespace DcsBriefop.Briefing
 		
 		public CustomDataMap MapData { get; set; }
 
-		public CustomDataGroup(int iId)
+		public CustomDataAsset(int iId)
 		{
 			Id = iId;
 		}

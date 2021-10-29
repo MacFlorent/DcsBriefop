@@ -1,4 +1,4 @@
-﻿using DcsBriefop.MasterData;
+﻿using DcsBriefop.Data;
 using System.Text;
 
 namespace DcsBriefop.Tools

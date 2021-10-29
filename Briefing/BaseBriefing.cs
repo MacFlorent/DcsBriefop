@@ -1,4 +1,4 @@
-﻿using DcsBriefop.MasterData;
+﻿using DcsBriefop.Data;
 
 namespace DcsBriefop.Briefing
 {
@@ -7,7 +7,7 @@ namespace DcsBriefop.Briefing
 		public LsonStructure.RootMission RootMission { get; private set; }
 		public LsonStructure.RootDictionary RootDictionary { get; private set; }
 		public CustomData RootCustom { get; private set; }
-		public Theatre Theatre  { get; private set; }
+		public Theatre Theatre { get; private set; }
 
 	public BaseBriefing(MissionManager manager)
 		{

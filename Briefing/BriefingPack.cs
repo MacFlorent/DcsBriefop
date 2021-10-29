@@ -1,5 +1,5 @@
 ﻿using CoordinateSharp;
-using DcsBriefop.MasterData;
+using DcsBriefop.Data;
 using GMap.NET.WindowsForms;
 using System;
 

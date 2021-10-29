@@ -1,7 +1,7 @@
 ﻿using GMap.NET.MapProviders;
 using System.Drawing;
 
-namespace DcsBriefop.MasterData
+namespace DcsBriefop.Data
 {
 	internal static class ElementCoalitionColor
 	{

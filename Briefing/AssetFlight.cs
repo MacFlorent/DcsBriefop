@@ -1,12 +1,12 @@
 ﻿using DcsBriefop.LsonStructure;
-using DcsBriefop.MasterData;
+using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace DcsBriefop.Briefing
 {
-	internal class AssetFlight : Asset
+	internal class AssetFlight : AssetGroup
 	{
 		#region Fields
 		private GroupFlight GroupFlight { get { return m_group as GroupFlight; } }
@@ -34,7 +34,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public AssetFlight(BriefingPack bp, GroupFlight ga, BriefingCoalition bc) : base(bp, ga, bc) { }
+		public AssetFlight(BriefingPack briefingPack, BriefingCoalition briefingCoalition, GroupFlight group) : base(briefingPack, briefingCoalition, group) { }
 		#endregion
 
 		#region Methods

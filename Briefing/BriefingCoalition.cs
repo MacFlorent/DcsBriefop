@@ -1,6 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.LsonStructure;
-using DcsBriefop.MasterData;
+using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
@@ -82,10 +82,7 @@ namespace DcsBriefop.Briefing
 			}
 		}
 
-		public List<AssetFlight> GroupFlights { get; private set; } = new List<AssetFlight>();
-		public List<AssetShip> GroupShips { get; private set; } = new List<AssetShip>();
-		// ships
-		// planes
+		public List<Asset> Assets { get; private set; } = new List<Asset>();
 
 		public CustomDataMap MapData
 		{
@@ -95,7 +92,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public BriefingCoalition(BriefingPack bp, string sCoalitionName) : base(bp)
+		public BriefingCoalition(BriefingPack briefingPack, string sCoalitionName) : base(briefingPack)
 		{
 			m_coalition = RootMission.Coalitions.Where(c => c.Code == sCoalitionName).FirstOrDefault();
 			m_customDataCoalition = RootCustom.GetCoalition(sCoalitionName);
@@ -104,13 +101,13 @@ namespace DcsBriefop.Briefing
 
 			foreach (Country c in m_coalition.Countries)
 			{
-				foreach (GroupFlight ga in c.GroupAirs)
+				foreach (GroupFlight g in c.GroupFlights)
 				{
-					GroupFlights.Add(new AssetFlight(bp, ga, this));
+					Assets.Add(new AssetFlight(briefingPack, this, g));
 				}
-				foreach (GroupShip gs in c.GroupShips)
+				foreach (GroupShip g in c.GroupShips)
 				{
-					GroupShips.Add(new AssetShip(bp, gs, this));
+					Assets.Add(new AssetShip(briefingPack, this, g));
 				}
 			}
 
@@ -142,18 +139,11 @@ namespace DcsBriefop.Briefing
 
 		private void InitializeMapDataChildrenOverlays()
 		{
-			foreach (AssetFlight flight in GroupFlights.Where(_f => _f.MapDisplay != ElementAssetMapDisplay.None))
+			foreach (Asset asset in Assets.Where(_f => _f.MapDisplay != ElementAssetMapDisplay.None))
 			{
-				GMapOverlay staticGroupOverlay = flight.MapData.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
+				GMapOverlay staticGroupOverlay = asset.GetStaticMapOverlay();
 				if (staticGroupOverlay is object)
 					MapData.AdditionalMapOverlays.Add(staticGroupOverlay);
-			}
-			foreach (AssetShip ship in GroupShips.Where(_s => _s.MapDisplay != ElementAssetMapDisplay.None))
-			{
-				GMapOverlay staticGroupOverlay = ship.MapData.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
-				if (staticGroupOverlay is object)
-					MapData.AdditionalMapOverlays.Add(staticGroupOverlay);
-
 			}
 		}
 		#endregion

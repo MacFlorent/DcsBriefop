@@ -1,5 +1,4 @@
-﻿using DcsBriefop.LsonStructure;
-using DcsBriefop.MasterData;
+﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
@@ -12,9 +11,8 @@ namespace DcsBriefop.Briefing
 	internal abstract class Asset : BaseBriefing
 	{
 		#region Fields
-		protected Group m_group;
 		protected BriefingCoalition m_briefingCoalition;
-		protected CustomDataGroup m_customDataGroup;
+		protected CustomDataAsset m_customData;
 		#endregion
 
 		#region Properties
@@ -22,74 +20,57 @@ namespace DcsBriefop.Briefing
 
 		public ElementAssetCategory Category
 		{
-			get { return (ElementAssetCategory)m_customDataGroup.Category; }
-			set { m_customDataGroup.Category = (int)value; }
+			get { return (ElementAssetCategory)m_customData.Category; }
+			set { m_customData.Category = (int)value; }
 		}
 
 		public ElementAssetMapDisplay MapDisplay
 		{
-			get { return (ElementAssetMapDisplay)m_customDataGroup.MapDisplay; }
-			set { m_customDataGroup.MapDisplay = (int)value; }
+			get { return (ElementAssetMapDisplay)m_customData.MapDisplay; }
+			set { m_customData.MapDisplay = (int)value; }
 		}
 
-		public int Id
-		{
-			get { return m_group.Id; }
-		}
-		public string Name
-		{
-			get { return m_group.Name; }
-		}
-
-		public bool Playable
-		{
-			get { return m_group.Units.Where(u => u.Skill == ElementSkill.Player || u.Skill == ElementSkill.Client).Any(); }
-		}
-
-		public bool LateActivation
-		{
-			get { return m_group.LateActivation; }
-		}
-
-		public List<BriefingRoutePoint> RoutePoints { get; private set; } = new List<BriefingRoutePoint>();
+		public abstract int Id { get; set; }
+		public abstract string Name { get; set; }
 
 		public CustomDataMap MapData
 		{
-			get { return m_customDataGroup.MapData; }
-			set { m_customDataGroup.MapData = value; }
+			get { return m_customData.MapData; }
+			set { m_customData.MapData = value; }
 		}
+
+		public List<AssetMapPoint> MapPoints { get; private set; } = new List<AssetMapPoint>();
 		#endregion
 
 		#region CTOR
-		public Asset(BriefingPack bp, Group g, BriefingCoalition bc) : base(bp)
+		public Asset(BriefingPack briefingPack, BriefingCoalition briefingCoalition) : base(briefingPack)
 		{
-			m_group = g;
-			m_briefingCoalition = bc;
-
-			m_customDataGroup = RootCustom.Groups?.Where(_f => _f.Id == Id).FirstOrDefault();
-			if (m_customDataGroup is null)
-			{
-				m_customDataGroup = new CustomDataGroup(Id);
-				RootCustom.Groups.Add(m_customDataGroup);
-
-				InitializeCustomData();
-			}
-
-			foreach (RoutePoint rp in m_group.RoutePoints)
-			{
-				RoutePoints.Add(new BriefingRoutePoint(bp, rp));
-			}
-
-			InitializeMapData();
+			m_briefingCoalition = briefingCoalition;
 		}
 		#endregion
 
 		#region Methods
 		protected abstract void InitializeCustomData();
+		protected abstract void InitializeMapPoints(BriefingPack briefingPack);
+
+		protected void InitializeData(BriefingPack briefingPack)
+		{
+			m_customData = RootCustom.Assets?.Where(_f => _f.Id == Id).FirstOrDefault();
+			if (m_customData is null)
+			{
+				m_customData = new CustomDataAsset(Id);
+				RootCustom.Assets.Add(m_customData);
+
+				InitializeCustomData();
+			}
+
+			InitializeMapPoints(briefingPack);
+			InitializeMapData();
+		}
 
 		public void InitializeMapData()
 		{
-			GMapOverlay staticOverlay = MapData?.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
+			GMapOverlay staticOverlay = GetStaticMapOverlay();
 			if (staticOverlay is null)
 				staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
 
@@ -136,7 +117,7 @@ namespace DcsBriefop.Briefing
 
 		private List<PointLatLng> InitializeMapDataPoint(GMapOverlay staticOverlay)
 		{
-			PointLatLng p = new PointLatLng(RoutePoints[0].Coordinate.Latitude.DecimalDegree, RoutePoints[0].Coordinate.Longitude.DecimalDegree);
+			PointLatLng p = new PointLatLng(MapPoints[0].Coordinate.Latitude.DecimalDegree, MapPoints[0].Coordinate.Longitude.DecimalDegree);
 			GMarkerBriefop marker = new GMarkerBriefop(p, DefaultMarker, m_briefingCoalition.Color, Name);
 			staticOverlay.Markers.Add(marker);
 
@@ -147,11 +128,11 @@ namespace DcsBriefop.Briefing
 		{
 			List<PointLatLng> points = new List<PointLatLng>();
 
-			foreach (BriefingRoutePoint routePoint in RoutePoints)
+			foreach (AssetMapPoint routePoint in MapPoints)
 			{
 				if (points.Count > 1)
 					break;
-				else if (points.Count <= 0 && routePoint.RouteTasks.Where(_rt => _rt.Id == ElementRouteTask.Orbit).Any())
+				else if (points.Count <= 0 && routePoint.IsOrbitStart())
 				{
 					PointLatLng p = new PointLatLng(routePoint.Coordinate.Latitude.DecimalDegree, routePoint.Coordinate.Longitude.DecimalDegree);
 					GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, Name);
@@ -181,7 +162,7 @@ namespace DcsBriefop.Briefing
 		{
 			List<PointLatLng> points = new List<PointLatLng>();
 
-			foreach (BriefingRoutePoint routePoint in RoutePoints)
+			foreach (AssetMapPoint routePoint in MapPoints)
 			{
 				PointLatLng p = new PointLatLng(routePoint.Coordinate.Latitude.DecimalDegree, routePoint.Coordinate.Longitude.DecimalDegree);
 				GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, null);
@@ -199,22 +180,9 @@ namespace DcsBriefop.Briefing
 			return points;
 		}
 
-		public string GetUnitTypes()
+		public GMapOverlay GetStaticMapOverlay()
 		{
-			IEnumerable<string> grouped = m_group.Units.GroupBy(u => u.Type).Select(g => g.Key);
-			return string.Join(",", grouped);
-		}
-
-		public string GetTacanString()
-		{
-			foreach (BriefingRoutePoint brp in RoutePoints)
-			{
-				RouteTask rtBeacon = brp.RouteTasks.Where(_rt => _rt.Action?.Id == ElementRouteTask.ActivateBeacon).FirstOrDefault();
-				if (rtBeacon?.Action is RouteTaskAction rta)
-					return ToolsMisc.GetTacanString(rta.ParamChannel.GetValueOrDefault(), rta.ParamModeChannel, rta.ParamCallsign);
-			}
-
-			return null;
+			return MapData?.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
 		}
 		#endregion
 	}

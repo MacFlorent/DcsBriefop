@@ -1,4 +1,4 @@
-﻿namespace DcsBriefop.Briefing
+﻿namespace DcsBriefop.Data
 {
 	internal class Radio
 	{

@@ -1,5 +1,5 @@
 ﻿using DcsBriefop.Map;
-using DcsBriefop.MasterData;
+using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using System;
 using System.Collections.Generic;
@@ -40,7 +40,7 @@ namespace DcsBriefop.Briefing
 	{
 		public string HtmlContent { get; set; }
 	}
-	
+
 	internal class BriefingFilesBuilder : IDisposable
 	{
 		private static class KneeboardFolders
@@ -99,8 +99,8 @@ namespace DcsBriefop.Briefing
 			GenerateFilesOperations(coalition);
 
 			AddMapData($"mapDataTest_", KneeboardFolders.Images, coalition.MapData);
-			foreach (Asset bg in coalition.GroupFlights.Where(_bf => _bf.Id == 45 || _bf.Id == 68))
-				AddMapData($"mapDataTest_{bg.Id}", KneeboardFolders.Images, bg.MapData);
+			//foreach (AssetGroup bg in coalition.GroupFlights.Where(_bf => _bf.Id == 45 || _bf.Id == 68))
+			//	AddMapData($"mapDataTest_{bg.Id}", KneeboardFolders.Images, bg.MapData);
 
 		}
 
@@ -142,11 +142,11 @@ namespace DcsBriefop.Briefing
 			hb.AppendParagraphCentered(coalition.BullseyeCoordinates);
 			hb.AppendParagraphCentered(coalition.BullseyeDescription);
 			hb.AppendHeader("OPERATIONS", 3);
-			
-			foreach(Asset groupFlight in coalition.GroupFlights)
-			{
-				//hb.AppendTableHeader(m_briefingPack.Sortie, 3);
-			}
+
+			//foreach (AssetGroup groupFlight in coalition.GroupFlights)
+			//{
+			//	hb.AppendTableHeader(m_briefingPack.Sortie, 3);
+			//}
 			// tab with groups
 
 			hb.CloseTag();
@@ -173,7 +173,7 @@ namespace DcsBriefop.Briefing
 		{
 			if (!Directory.Exists(sPath))
 				throw new ExceptionDcsBriefop($"Path does not exists : {sPath}");
-			
+
 			foreach (BriefingFile briefingFile in m_listFiles)
 			{
 				string sFilePath = Path.Combine(sPath, $"{briefingFile.FileName}.jpg");
@@ -193,7 +193,7 @@ namespace DcsBriefop.Briefing
 
 			using (ZipArchive za = ZipFile.Open(m_missionManager.MizFilePath, ZipArchiveMode.Update))
 			{
-				foreach(BriefingFile briefingFile in m_listFiles)
+				foreach (BriefingFile briefingFile in m_listFiles)
 				{
 					string sZipEntry = $@"KNEEBOARD/{briefingFile.KneeboardFolder}/{briefingFile.FileName}";
 
@@ -210,7 +210,7 @@ namespace DcsBriefop.Briefing
 					}
 					else if (briefingFile is BriefingFile bf) { }
 				}
-				
+
 			}
 		}
 		#endregion
