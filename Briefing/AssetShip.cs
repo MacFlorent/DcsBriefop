@@ -13,6 +13,9 @@ namespace DcsBriefop.Briefing
 
 		#region Properties
 		protected override string DefaultMarker { get; set; } = MarkerBriefopType.ship.ToString();
+		public override string Task { get { return ""; } }
+		public override string Type { get { return MainUnit.Type; } }
+		public override string Radio { get { return ToolsMisc.GetRadioString(RadioFrequency, RadioModulation); } }
 
 		private UnitShip MainUnit
 		{
@@ -25,8 +28,6 @@ namespace DcsBriefop.Briefing
 				return us;
 			}
 		}
-
-		public string Type { get { return MainUnit.Type; } }
 		
 		public string UnitName { get { return MainUnit.Name; } }
 		
@@ -47,6 +48,11 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Methods
+		protected override string GetDefaultInformation()
+		{
+			return $"TCN={GetTacanString()} ICLS={"xxx"}";
+		}
+
 		protected override void InitializeCustomData()
 		{
 			if (Type.StartsWith("CVN"))

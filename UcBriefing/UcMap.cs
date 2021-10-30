@@ -14,6 +14,10 @@ namespace DcsBriefop.UcBriefing
 {
 	internal partial class UcMap : UserControl
 	{
+		#region Fields
+		private bool m_bViewOnly;
+		#endregion
+
 		#region Properties
 		public CustomDataMap MapData { get; private set; }
 		#endregion
@@ -33,24 +37,43 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 
 		#region Methods
-		public void SetMapData(CustomDataMap cdm)
+		public void SetMapData(CustomDataMap cdm, string sTitle, bool bViewOnly)
 		{
+			m_bViewOnly = bViewOnly;
+			LbTitle.Text = sTitle;
+
+			CkAddMarker.Enabled = BtAreaSet.Enabled = BtAreaRecall.Enabled = !m_bViewOnly;
+
 			MapData = cdm;
-
-			Map.Overlays.Clear();
-			UnselectAll();
-
-			Map.Overlays.Add(MapData.MapOverlayCustom);
-
-			foreach (GMapOverlay gmo in MapData.AdditionalMapOverlays)
-				Map.Overlays.Add(gmo);
-
+			RefreshOverlays();
 			Map.Position = new PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
 			Map.Zoom = MapData.Zoom;
 		}
 
+		public void RefreshOverlays()
+		{
+			Map.Overlays.Clear();
+			if (MapData is object)
+			{
+				UnselectAll();
+
+				Map.Overlays.Add(MapData.MapOverlayCustom);
+
+				foreach (GMapOverlay gmo in MapData.AdditionalMapOverlays)
+					Map.Overlays.Add(gmo);
+			}
+		}
+
+		public void ClearOverlays()
+		{
+			Map.Overlays.Clear();
+		}
+
 		private void AddMarker(double dLat, double dLng)
 		{
+			if (m_bViewOnly)
+				return;
+
 			PointLatLng p = new PointLatLng(dLat, dLng);
 			MapData.MapOverlayCustom.Markers.Add(new GMarkerBriefop(p, MarkerBriefopType.pin.ToString(), Color.Orange, null));
 			CkAddMarker.Checked = false;
@@ -58,12 +81,18 @@ namespace DcsBriefop.UcBriefing
 
 		private void DeleteMarker(GMarkerBriefop gmb)
 		{
+			if (m_bViewOnly)
+				return;
+
 			if (gmb.Overlay == MapData.MapOverlayCustom)
 				MapData.MapOverlayCustom.Markers.Remove(gmb);
 		}
 
 		private void SelectMarker(GMarkerBriefop gmb)
 		{
+			if (m_bViewOnly)
+				return;
+
 			gmb.IsSelected = true;
 
 			// display detail
@@ -117,6 +146,9 @@ namespace DcsBriefop.UcBriefing
 
 		private void Map_MouseDown(object sender, MouseEventArgs e)
 		{
+			if (m_bViewOnly)
+				return;
+
 			if (GetMarkerHovered() is GMarkerBriefop gmbHovered)
 			{
 				gmbHovered.IsPressed = true;
@@ -125,12 +157,18 @@ namespace DcsBriefop.UcBriefing
 
 		private void Map_MouseUp(object sender, MouseEventArgs e)
 		{
+			if (m_bViewOnly)
+				return;
+
 			foreach (GMarkerBriefop gmb in MapData.MapOverlayCustom.Markers.OfType<GMarkerBriefop>())
 				gmb.IsPressed = false;
 		}
 
 		private void Map_MouseClick(object sender, MouseEventArgs e)
 		{
+			if (m_bViewOnly)
+				return;
+
 			if (e.Button == MouseButtons.Left)
 			{
 				if (CkAddMarker.Checked)
@@ -142,6 +180,9 @@ namespace DcsBriefop.UcBriefing
 
 		private void Map_KeyUp(object sender, KeyEventArgs e)
 		{
+			if (m_bViewOnly)
+				return;
+
 			if (e.KeyCode == Keys.Delete)
 			{
 				GMarkerBriefop gmb = GetMarkerHovered();
@@ -155,6 +196,9 @@ namespace DcsBriefop.UcBriefing
 
 		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
 		{
+			if (m_bViewOnly)
+				return;
+
 			CkAddMarker.Checked = false;
 
 			if (item.Overlay != MapData.MapOverlayCustom)
@@ -165,10 +209,12 @@ namespace DcsBriefop.UcBriefing
 			if (item is GMarkerBriefop selectedGmb)
 				SelectMarker(selectedGmb);
 		}
-		#endregion
 
 		private void Map_OnMarkerEnter(GMapMarker item)
 		{
+			if (m_bViewOnly)
+				return;
+
 			if (item.Overlay == MapData.MapOverlayCustom && item is GMarkerBriefop gmb)
 				gmb.IsHovered = true;
 
@@ -176,12 +222,18 @@ namespace DcsBriefop.UcBriefing
 
 		private void Map_OnMarkerLeave(GMapMarker item)
 		{
+			if (m_bViewOnly)
+				return;
+
 			if (item is GMarkerBriefop gmb)
 				gmb.IsHovered = false;
 		}
 
 		private void Map_MouseMove(object sender, MouseEventArgs e)
 		{
+			if (m_bViewOnly)
+				return;
+
 			if (e.Button == MouseButtons.Left)
 			{
 				if (GetMarkerPressed() is GMarkerBriefop gmb)
@@ -193,7 +245,16 @@ namespace DcsBriefop.UcBriefing
 				Map.Refresh();
 			}
 		}
+		#endregion
 
+		private void BtRefresh_Click(object sender, System.EventArgs e)
+		{
+			RefreshOverlays();
+			Map.Refresh();
 
+			// TODO fin a better way to refresh...
+			Map.Zoom += 1;
+			Map.Zoom -= 1;
+		}
 	}
 }

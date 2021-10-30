@@ -23,8 +23,8 @@ namespace DcsBriefop
 
 			m_ucMap = new UcMap();
 			m_ucMap.Dock = DockStyle.Fill;
-			PnMap.Controls.Clear();
-			PnMap.Controls.Add(m_ucMap);
+			PnMissionMap.Controls.Clear();
+			PnMissionMap.Controls.Add(m_ucMap);
 
 			DataToScreen();
 		}
@@ -33,34 +33,50 @@ namespace DcsBriefop
 		#region Methods
 		private void DataToScreen()
 		{
+			Text = $"Asset detail : {m_asset.Name}";
 			TbId.Text = m_asset.Id.ToString();
 			TbName.Text = m_asset.Name;
-			TbType.Text = m_asset.GetUnitTypes();
+			TbTask.Text = m_asset.Task;
+			TbType.Text = m_asset.Type;
 			CkPlayable.Checked = m_asset.Playable;
 			CkLateActivation.Checked = m_asset.LateActivation;
-
-			if (m_asset is AssetFlight flight)
-			{
-				TbTask.Text = flight.Task;
-				TbBase.Text = flight.GetAirdromeNames();
-			}
+			TbRadio.Text = m_asset.Radio;
 
 			CbCategory.SelectedValue = (int)m_asset.Category;
 			CbMapDisplay.SelectedValue = (int)m_asset.MapDisplay;
 
-			m_ucMap.SetMapData(m_asset.MapData);
+			TbInformation.Text = m_asset.Information;
+
+			UpdateMapControl();
 		}
 
 		private void ScreenToData()
 		{
-			m_asset.Category = (ElementAssetCategory)CbCategory.SelectedValue;
-
-			int iMapDisplay = (int)CbMapDisplay.SelectedValue;
-			if (iMapDisplay != (int)m_asset.MapDisplay)
+			ElementAssetCategory category = (ElementAssetCategory)CbCategory.SelectedValue;
+			if (category != m_asset.Category)
 			{
-				m_asset.MapDisplay = (ElementAssetMapDisplay)iMapDisplay;
-				m_asset.InitializeMapData();
+				m_asset.Category = category;
+				m_asset.InitializeMapDataMission();
 			}
+
+			ElementAssetMapDisplay mapDisplay = (ElementAssetMapDisplay)CbMapDisplay.SelectedValue;
+			if (mapDisplay != m_asset.MapDisplay)
+			{
+				m_asset.MapDisplay = mapDisplay;
+				m_asset.InitializeMapOverlay();
+			}
+
+			m_asset.Information = TbInformation.Text;
+
+			UpdateMapControl();
+		}
+
+		private void UpdateMapControl()
+		{
+			if (m_asset.Category == ElementAssetCategory.Mission)
+				m_ucMap.SetMapData(m_asset.MapDataMission, "Mission map", false);
+			else if (m_asset.Category != ElementAssetCategory.Mission)
+				m_ucMap.SetMapData(m_asset.BriefingCoalition.MapData, "Coalition map (view only)", true);
 		}
 		#endregion
 
@@ -75,5 +91,21 @@ namespace DcsBriefop
 			ScreenToData();
 		}
 		#endregion
+
+		private void FrmAssetDetail_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			m_ucMap.ClearOverlays();
+		}
+
+		private void BtInformationReset_Click(object sender, System.EventArgs e)
+		{
+			m_asset.Information = null;
+			TbInformation.Text = m_asset.Information;
+		}
+
+		private void TbInformation_TextChanged(object sender, System.EventArgs e)
+		{
+			ScreenToData();
+		}
 	}
 }

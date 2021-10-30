@@ -14,17 +14,8 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Properties
-		public override int Id
-		{ 
-			get { return m_group.Id; }
-			set { throw new NotImplementedException(); }
-
-		}
-		public override string Name
-		{
-			get { return m_group.Name; }
-			set { throw new NotImplementedException(); }
-		}
+		public override int Id { get { return m_group.Id; } }
+		public override string Name { get { return m_group.Name; } }
 
 		public bool Playable
 		{

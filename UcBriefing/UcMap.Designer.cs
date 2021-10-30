@@ -35,11 +35,15 @@ namespace DcsBriefop.UcBriefing
 			this.BtAreaRecall = new System.Windows.Forms.Button();
 			this.BtAreaSet = new System.Windows.Forms.Button();
 			this.Map = new GMap.NET.WindowsForms.GMapControl();
+			this.BtRefresh = new System.Windows.Forms.Button();
+			this.LbTitle = new System.Windows.Forms.Label();
 			this.PnMapControls.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// PnMapControls
 			// 
+			this.PnMapControls.Controls.Add(this.LbTitle);
+			this.PnMapControls.Controls.Add(this.BtRefresh);
 			this.PnMapControls.Controls.Add(this.PnSelectionDetail);
 			this.PnMapControls.Controls.Add(this.CkAddMarker);
 			this.PnMapControls.Controls.Add(this.BtAreaRecall);
@@ -63,7 +67,7 @@ namespace DcsBriefop.UcBriefing
 			// CkAddMarker
 			// 
 			this.CkAddMarker.AutoSize = true;
-			this.CkAddMarker.Location = new System.Drawing.Point(25, 104);
+			this.CkAddMarker.Location = new System.Drawing.Point(38, 152);
 			this.CkAddMarker.Name = "CkAddMarker";
 			this.CkAddMarker.Size = new System.Drawing.Size(80, 17);
 			this.CkAddMarker.TabIndex = 2;
@@ -72,7 +76,7 @@ namespace DcsBriefop.UcBriefing
 			// 
 			// BtAreaRecall
 			// 
-			this.BtAreaRecall.Location = new System.Drawing.Point(25, 42);
+			this.BtAreaRecall.Location = new System.Drawing.Point(38, 90);
 			this.BtAreaRecall.Name = "BtAreaRecall";
 			this.BtAreaRecall.Size = new System.Drawing.Size(134, 23);
 			this.BtAreaRecall.TabIndex = 1;
@@ -82,7 +86,7 @@ namespace DcsBriefop.UcBriefing
 			// 
 			// BtAreaSet
 			// 
-			this.BtAreaSet.Location = new System.Drawing.Point(25, 13);
+			this.BtAreaSet.Location = new System.Drawing.Point(38, 61);
 			this.BtAreaSet.Name = "BtAreaSet";
 			this.BtAreaSet.Size = new System.Drawing.Size(134, 23);
 			this.BtAreaSet.TabIndex = 0;
@@ -125,6 +129,25 @@ namespace DcsBriefop.UcBriefing
 			this.Map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Map_MouseMove);
 			this.Map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Map_MouseUp);
 			// 
+			// BtRefresh
+			// 
+			this.BtRefresh.Location = new System.Drawing.Point(38, 119);
+			this.BtRefresh.Name = "BtRefresh";
+			this.BtRefresh.Size = new System.Drawing.Size(134, 23);
+			this.BtRefresh.TabIndex = 6;
+			this.BtRefresh.Text = "Refresh overlays";
+			this.BtRefresh.UseVisualStyleBackColor = true;
+			this.BtRefresh.Click += new System.EventHandler(this.BtRefresh_Click);
+			// 
+			// LbTitle
+			// 
+			this.LbTitle.Location = new System.Drawing.Point(6, 11);
+			this.LbTitle.Name = "LbTitle";
+			this.LbTitle.Size = new System.Drawing.Size(226, 23);
+			this.LbTitle.TabIndex = 7;
+			this.LbTitle.Text = "title";
+			this.LbTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// UcMap
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,5 +169,7 @@ namespace DcsBriefop.UcBriefing
 		private System.Windows.Forms.Button BtAreaSet;
 		private System.Windows.Forms.CheckBox CkAddMarker;
 		private System.Windows.Forms.Panel PnSelectionDetail;
+		private System.Windows.Forms.Button BtRefresh;
+		private System.Windows.Forms.Label LbTitle;
 	}
 }

@@ -14,12 +14,9 @@ namespace DcsBriefop.Briefing
 
 		#region Properties
 		protected override string DefaultMarker { get; set; } = MarkerBriefopType.aircraft.ToString();
-		public string Type { get { return GroupFlight.Units.FirstOrDefault()?.Type; } }
-
-		public string Task
-		{
-			get { return GroupFlight.Task; }
-		}
+		public override string Task { get { return GroupFlight.Task; } }
+		public override string Type { get { return GroupFlight.Units.FirstOrDefault()?.Type; } }
+		public override string Radio { get { return ToolsMisc.GetRadioString(RadioFrequency, RadioModulation); } }
 
 		public decimal RadioFrequency
 		{
@@ -38,6 +35,19 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Methods
+		protected override string GetDefaultInformation()
+		{
+			string sInformation = "";
+
+			if (Task == ElementTask.Refueling)
+			{
+				sInformation = $"TCN={GetTacanString()} ";
+			}
+
+			sInformation = $"{sInformation} Base={GetAirdromeNames()}";
+			return sInformation;
+		}
+
 		protected override void InitializeCustomData()
 		{
 			if(Playable)

@@ -11,17 +11,30 @@ namespace DcsBriefop.Briefing
 	internal abstract class Asset : BaseBriefing
 	{
 		#region Fields
-		protected BriefingCoalition m_briefingCoalition;
 		protected CustomDataAsset m_customData;
 		#endregion
 
 		#region Properties
 		protected virtual string DefaultMarker { get; set; } = MarkerBriefopType.dot.ToString();
 
+		public BriefingCoalition BriefingCoalition { get; protected set; }
+
 		public ElementAssetCategory Category
 		{
 			get { return (ElementAssetCategory)m_customData.Category; }
 			set { m_customData.Category = (int)value; }
+			//{
+			//	if (m_customData.Category != (int)value)
+			//	{
+			//		;
+
+			//		if (value == ElementAssetCategory.Mission)
+			//				MapDataM.MapOverlayCustom = new GMapOverlay();
+			//			else
+			//				MapData.MapOverlayCustom = null;
+			//		}
+			//	}
+			//}
 		}
 
 		public ElementAssetMapDisplay MapDisplay
@@ -30,29 +43,54 @@ namespace DcsBriefop.Briefing
 			set { m_customData.MapDisplay = (int)value; }
 		}
 
-		public abstract int Id { get; set; }
-		public abstract string Name { get; set; }
-
-		public CustomDataMap MapData
+		public abstract int Id { get; }
+		public abstract string Name { get; }
+		public abstract string Task { get; }
+		public abstract string Type { get; }
+		public abstract string Radio { get; }
+		public string Information
 		{
-			get { return m_customData.MapData; }
-			set { m_customData.MapData = value; }
+			get
+			{
+				if (CustomInformation is null)
+					return GetDefaultInformation();
+				else
+					return CustomInformation;
+			}
+			set
+			{
+				CustomInformation = value;
+			}
+		}
+
+		public string CustomInformation
+		{
+			get { return m_customData.Information; }
+			set { m_customData.Information = value; }
+		}
+
+		public CustomDataMap MapDataMission
+		{
+			get { return m_customData.MapDataMission; }
+			set { m_customData.MapDataMission = value; }
 		}
 
 		public List<AssetMapPoint> MapPoints { get; private set; } = new List<AssetMapPoint>();
+		public GMapOverlay MapOverlayStatic { get; set; }
 		#endregion
 
 		#region CTOR
 		public Asset(BriefingPack briefingPack, BriefingCoalition briefingCoalition) : base(briefingPack)
 		{
-			m_briefingCoalition = briefingCoalition;
+			BriefingCoalition = briefingCoalition;
 		}
 		#endregion
 
 		#region Methods
+		protected abstract string GetDefaultInformation();
 		protected abstract void InitializeCustomData();
 		protected abstract void InitializeMapPoints(BriefingPack briefingPack);
-
+		
 		protected void InitializeData(BriefingPack briefingPack)
 		{
 			m_customData = RootCustom.Assets?.Where(_f => _f.Id == Id).FirstOrDefault();
@@ -65,60 +103,68 @@ namespace DcsBriefop.Briefing
 			}
 
 			InitializeMapPoints(briefingPack);
-			InitializeMapData();
+			InitializeMapOverlay();
+			InitializeMapDataMission();
 		}
 
-		public void InitializeMapData()
+		public void InitializeMapOverlay()
 		{
-			GMapOverlay staticOverlay = GetStaticMapOverlay();
-			if (staticOverlay is null)
-				staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
+			if (MapOverlayStatic is null)
+				MapOverlayStatic = new GMapOverlay(ElementMapValue.OverlayStatic);
+			
+			MapOverlayStatic.Clear();
 
-			staticOverlay.Clear();
 			List<PointLatLng> points = null;
 			
 			if (MapDisplay == ElementAssetMapDisplay.Point)
 			{
-				points = InitializeMapDataPoint(staticOverlay);
+				points = InitializeMapDataPoint(MapOverlayStatic);
 			}
 			else if (MapDisplay == ElementAssetMapDisplay.Orbit)
 			{
-				points = InitializeMapDataOrbit(staticOverlay);
+				points = InitializeMapDataOrbit(MapOverlayStatic);
 			}
 			else if(MapDisplay == ElementAssetMapDisplay.FullRoute)
 			{
-				points = InitializeMapDataFullRoute(staticOverlay);
+				points = InitializeMapDataFullRoute(MapOverlayStatic);
 			}
+		}
 
-			if (MapData is null)
+		public void InitializeMapDataMission()
+		{
+			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
+			List<PointLatLng> points = InitializeMapDataFullRoute(staticOverlay);
+
+			if (MapDataMission is null)
 			{
-				MapData = new CustomDataMap();
+				MapDataMission = new CustomDataMap();
 
 				PointLatLng? centerPoint = ToolsMap.GetPointsCenter(points);
 				if (centerPoint is object)
 				{
-					MapData.CenterLatitude = centerPoint.Value.Lat;
-					MapData.CenterLongitude = centerPoint.Value.Lng;
+					MapDataMission.CenterLatitude = centerPoint.Value.Lat;
+					MapDataMission.CenterLongitude = centerPoint.Value.Lng;
 				}
 				else
 				{
-					MapData.CenterLatitude = m_briefingCoalition.Bullseye.Latitude.DecimalDegree;
-					MapData.CenterLongitude = m_briefingCoalition.Bullseye.Longitude.DecimalDegree;
+					MapDataMission.CenterLatitude = BriefingCoalition.Bullseye.Latitude.DecimalDegree;
+					MapDataMission.CenterLongitude = BriefingCoalition.Bullseye.Longitude.DecimalDegree;
 				}
-				MapData.Zoom = ElementMapValue.DefaultZoom;
-				MapData.MapOverlayCustom = new GMapOverlay();
+				MapDataMission.Zoom = ElementMapValue.DefaultZoom;
+				MapDataMission.MapOverlayCustom = new GMapOverlay();
 			}
 
-			MapData.AdditionalMapOverlays.Clear();
-			MapData.AdditionalMapOverlays.Add(staticOverlay);
-			MapData.AdditionalMapOverlays.Add(RootCustom.MapData.MapOverlayCustom);
-			MapData.AdditionalMapOverlays.Add(m_briefingCoalition.MapData.MapOverlayCustom);
+
+			MapDataMission.AdditionalMapOverlays.Clear();
+			MapDataMission.AdditionalMapOverlays.Add(staticOverlay);
+			MapDataMission.AdditionalMapOverlays.Add(RootCustom.MapData.MapOverlayCustom);
+			MapDataMission.AdditionalMapOverlays.Add(BriefingCoalition.MapData.MapOverlayCustom);
 		}
 
 		private List<PointLatLng> InitializeMapDataPoint(GMapOverlay staticOverlay)
 		{
 			PointLatLng p = new PointLatLng(MapPoints[0].Coordinate.Latitude.DecimalDegree, MapPoints[0].Coordinate.Longitude.DecimalDegree);
-			GMarkerBriefop marker = new GMarkerBriefop(p, DefaultMarker, m_briefingCoalition.Color, Name);
+			GMarkerBriefop marker = new GMarkerBriefop(p, DefaultMarker, BriefingCoalition.Color, Name);
 			staticOverlay.Markers.Add(marker);
 
 			return new List<PointLatLng>() { p };
@@ -135,14 +181,14 @@ namespace DcsBriefop.Briefing
 				else if (points.Count <= 0 && routePoint.IsOrbitStart())
 				{
 					PointLatLng p = new PointLatLng(routePoint.Coordinate.Latitude.DecimalDegree, routePoint.Coordinate.Longitude.DecimalDegree);
-					GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, Name);
+					GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), BriefingCoalition.Color, Name);
 					staticOverlay.Markers.Add(marker);
 					points.Add(p);
 				}
 				else if (points.Count == 1)
 				{
 					PointLatLng p = new PointLatLng(routePoint.Coordinate.Latitude.DecimalDegree, routePoint.Coordinate.Longitude.DecimalDegree);
-					GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, null);
+					GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), BriefingCoalition.Color, null);
 					staticOverlay.Markers.Add(marker);
 					points.Add(p);
 				}
@@ -151,7 +197,7 @@ namespace DcsBriefop.Briefing
 			if (points.Count > 1)
 			{
 				GMapRoute route = new GMapRoute(points, "route");
-				route.Stroke = new Pen(m_briefingCoalition.Color, 2);
+				route.Stroke = new Pen(BriefingCoalition.Color, 2);
 				staticOverlay.Routes.Add(route);
 			}
 
@@ -165,7 +211,7 @@ namespace DcsBriefop.Briefing
 			foreach (AssetMapPoint routePoint in MapPoints)
 			{
 				PointLatLng p = new PointLatLng(routePoint.Coordinate.Latitude.DecimalDegree, routePoint.Coordinate.Longitude.DecimalDegree);
-				GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), m_briefingCoalition.Color, null);
+				GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), BriefingCoalition.Color, null);
 				staticOverlay.Markers.Add(marker);
 				points.Add(p);
 			}
@@ -173,16 +219,11 @@ namespace DcsBriefop.Briefing
 			if (points.Count > 1)
 			{
 				GMapRoute route = new GMapRoute(points, "route");
-				route.Stroke = new Pen(m_briefingCoalition.Color, 2);
+				route.Stroke = new Pen(BriefingCoalition.Color, 2);
 				staticOverlay.Routes.Add(route);
 			}
 
 			return points;
-		}
-
-		public GMapOverlay GetStaticMapOverlay()
-		{
-			return MapData?.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault();
 		}
 		#endregion
 	}

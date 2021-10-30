@@ -87,17 +87,21 @@ namespace DcsBriefop.UcBriefing
 		{
 			if (TcMissionData.SelectedIndex >= 0 && TcMissionData.TabPages[TcMissionData.SelectedIndex] is TabPageBriefing tp)
 			{
+				string sTitle = null;
 				CustomDataMap cdm = null;
+
 				if (tp.UcBriefing is UcBriefingSituation ucBs)
 				{
+					sTitle = "General situation";
 					cdm = ucBs.BriefingPack.MapData;
 				}
 				else if (tp.UcBriefing is UcBriefingCoalition ucBc)
 				{
+					sTitle = "Coalition map";
 					cdm = ucBc.BriefingCoalition.MapData;
 				}
 
-				UcMap.SetMapData(cdm);
+				UcMap.SetMapData(cdm, sTitle, false);
 			}
 
 		}

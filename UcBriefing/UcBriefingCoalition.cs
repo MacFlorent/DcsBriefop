@@ -15,6 +15,7 @@ namespace DcsBriefop.UcBriefing
 			public static readonly string Type = "Type";
 			public static readonly string Task = "Task";
 			public static readonly string Radio = "Radio";
+			public static readonly string Notes = "Notes";
 			public static readonly string Data = "Data";
 		}
 
@@ -45,9 +46,10 @@ namespace DcsBriefop.UcBriefing
 			DgvAssets.Columns.Add(GridColumn.AssetCategory, "Cat.");
 			DgvAssets.Columns.Add(GridColumn.Id, "ID");
 			DgvAssets.Columns.Add(GridColumn.Name, "Name");
-			DgvAssets.Columns.Add(GridColumn.Type, "Type");
 			DgvAssets.Columns.Add(GridColumn.Task, "Task");
+			DgvAssets.Columns.Add(GridColumn.Type, "Type");
 			DgvAssets.Columns.Add(GridColumn.Radio, "Radio");
+			DgvAssets.Columns.Add(GridColumn.Notes, "Notes");
 			DgvAssets.Columns.Add(GridColumn.Data, "");
 
 			DgvAssets.Columns[GridColumn.Data].Visible = false;
@@ -85,18 +87,23 @@ namespace DcsBriefop.UcBriefing
 			dgvr.Cells[GridColumn.AssetCategory].Value = MasterDataRepository.GetById(MasterDataType.AssetCategory, (int)asset.Category)?.Label;
 			dgvr.Cells[GridColumn.Id].Value = asset.Id;
 			dgvr.Cells[GridColumn.Name].Value = asset.Name;
+			dgvr.Cells[GridColumn.Task].Value = asset.Task;
+			dgvr.Cells[GridColumn.Type].Value = asset.Type;
+			dgvr.Cells[GridColumn.Radio].Value = asset.Radio;
+			dgvr.Cells[GridColumn.Notes].Value = asset.Information;
 
-			if (asset is AssetFlight flight)
-			{
-				dgvr.Cells[GridColumn.Type].Value = flight.Type;
-				dgvr.Cells[GridColumn.Task].Value = flight.Task;
-				dgvr.Cells[GridColumn.Radio].Value = flight.GetRadioString();
-			}
-			else if (asset is AssetShip ship)
-			{
-				dgvr.Cells[GridColumn.Type].Value = ship.Type;
-				dgvr.Cells[GridColumn.Radio].Value = ship.GetRadioString();
-			}
+
+			//if (asset is AssetFlight flight)
+			//{
+			//	dgvr.Cells[GridColumn.Type].Value = flight.Type;
+			//	dgvr.Cells[GridColumn.Task].Value = flight.Task;
+			//	dgvr.Cells[GridColumn.Radio].Value = flight.GetRadioString();
+			//}
+			//else if (asset is AssetShip ship)
+			//{
+			//	dgvr.Cells[GridColumn.Type].Value = ship.Type;
+			//	dgvr.Cells[GridColumn.Radio].Value = ship.GetRadioString();
+			//}
 		}
 
 		private void ShowDetail()

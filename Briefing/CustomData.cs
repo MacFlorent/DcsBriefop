@@ -29,6 +29,7 @@ namespace DcsBriefop.Briefing
 
 		public string SerializeToJson()
 		{
+			NormalizeData();
 			return JsonConvert.SerializeObject(this, Formatting.Indented, new GMapOverlayJsonConverter(), new GMarkerBriefopJsonConverter());
 		}
 
@@ -42,6 +43,15 @@ namespace DcsBriefop.Briefing
 				return Neutral;
 			else
 				return null;
+		}
+
+		private void NormalizeData()
+		{
+			foreach (CustomDataAsset asset in Assets)
+			{
+				if (asset.Category != (int)ElementAssetCategory.Mission)
+					asset.MapDataMission = null;
+			}
 		}
 	}
 
@@ -67,8 +77,9 @@ namespace DcsBriefop.Briefing
 		public int Id { get; set; }
 		public int Category { get; set; }
 		public int MapDisplay { get; set; }
-		
-		public CustomDataMap MapData { get; set; }
+		public string Information { get; set; }
+
+		public CustomDataMap MapDataMission { get; set; }
 
 		public CustomDataAsset(int iId)
 		{

@@ -141,9 +141,8 @@ namespace DcsBriefop.Briefing
 		{
 			foreach (Asset asset in Assets.Where(_f => _f.MapDisplay != ElementAssetMapDisplay.None))
 			{
-				GMapOverlay staticGroupOverlay = asset.GetStaticMapOverlay();
-				if (staticGroupOverlay is object)
-					MapData.AdditionalMapOverlays.Add(staticGroupOverlay);
+				if (asset.MapOverlayStatic is object)
+					MapData.AdditionalMapOverlays.Add(asset.MapOverlayStatic);
 			}
 		}
 		#endregion
