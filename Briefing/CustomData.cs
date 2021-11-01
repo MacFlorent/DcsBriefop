@@ -78,6 +78,7 @@ namespace DcsBriefop.Briefing
 		public int Category { get; set; }
 		public int MapDisplay { get; set; }
 		public string Information { get; set; }
+		public string MissionInformation { get; set; }
 
 		public CustomDataMap MapDataMission { get; set; }
 

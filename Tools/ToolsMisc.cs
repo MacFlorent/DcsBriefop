@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using System.Text;
+using System.Windows.Forms;
 
 namespace DcsBriefop.Tools
 {
@@ -30,6 +31,11 @@ namespace DcsBriefop.Tools
 				return "FM";
 			else
 				return null;
+		}
+
+		public static void ShowMessageBoxError(string sMessage)
+		{
+			MessageBox.Show(sMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 	}
 }

@@ -1,7 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.LsonStructure;
 using DcsBriefop.Tools;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -39,9 +38,11 @@ namespace DcsBriefop.Briefing
 		#region Methods
 		protected override void InitializeMapPoints(BriefingPack briefingPack)
 		{
+			int iNumber = 0;
 			foreach (RoutePoint rp in m_group.RoutePoints)
 			{
-				MapPoints.Add(new AssetRoutePoint(briefingPack, rp));
+				MapPoints.Add(new AssetRoutePoint(briefingPack, rp, iNumber));
+				iNumber++;
 			}
 		}
 

@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Briefing;
 using DcsBriefop.Data;
-using DcsBriefop.UcBriefing;
 using System.Windows.Forms;
 
 namespace DcsBriefop
@@ -9,7 +8,6 @@ namespace DcsBriefop
 	{
 		#region Fields
 		private AssetGroup m_asset;
-		private UcMap m_ucMap;
 		#endregion
 
 		#region CTOR
@@ -20,12 +18,6 @@ namespace DcsBriefop
 
 			MasterDataRepository.FillCombo(MasterDataType.AssetCategory, CbCategory);
 			MasterDataRepository.FillCombo(MasterDataType.AssetMapDisplay, CbMapDisplay);
-
-			m_ucMap = new UcMap();
-			m_ucMap.Dock = DockStyle.Fill;
-			PnMissionMap.Controls.Clear();
-			PnMissionMap.Controls.Add(m_ucMap);
-
 			DataToScreen();
 		}
 		#endregion
@@ -46,8 +38,6 @@ namespace DcsBriefop
 			CbMapDisplay.SelectedValue = (int)m_asset.MapDisplay;
 
 			TbInformation.Text = m_asset.Information;
-
-			UpdateMapControl();
 		}
 
 		private void ScreenToData()
@@ -67,16 +57,6 @@ namespace DcsBriefop
 			}
 
 			m_asset.Information = TbInformation.Text;
-
-			UpdateMapControl();
-		}
-
-		private void UpdateMapControl()
-		{
-			if (m_asset.Category == ElementAssetCategory.Mission)
-				m_ucMap.SetMapData(m_asset.MapDataMission, "Mission map", false);
-			else if (m_asset.Category != ElementAssetCategory.Mission)
-				m_ucMap.SetMapData(m_asset.BriefingCoalition.MapData, "Coalition map (view only)", true);
 		}
 		#endregion
 
@@ -90,12 +70,6 @@ namespace DcsBriefop
 		{
 			ScreenToData();
 		}
-		#endregion
-
-		private void FrmAssetDetail_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			m_ucMap.ClearOverlays();
-		}
 
 		private void BtInformationReset_Click(object sender, System.EventArgs e)
 		{
@@ -107,5 +81,6 @@ namespace DcsBriefop
 		{
 			ScreenToData();
 		}
+		#endregion
 	}
 }

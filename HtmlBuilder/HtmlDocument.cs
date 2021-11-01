@@ -27,6 +27,7 @@ namespace DcsBriefop.HtmlBuilder
 			m_sBackColorCoalition = ColorTranslator.ToHtml(ControlPaint.Light(color, 75f));
 
 			m_sForeColor = ColorTranslator.ToHtml(Color.DimGray);
+			m_sBackColor = ColorTranslator.ToHtml(Color.White);
 			m_sBackColorCoalition = ColorTranslator.ToHtml(Color.LightGray);
 		}
 
@@ -37,7 +38,7 @@ namespace DcsBriefop.HtmlBuilder
 
 		public void AppendHeader(string sText, int iHeaderLevel)
 		{
-			string sAttributes = $"style=\"color:{m_sForeColorCoalition}; background-color:{m_sBackColorCoalition}; text-align:center; padding: 2px 10px; border-radius: 3px;\"";
+			string sAttributes = $"style=\"color:{m_sForeColorCoalition}; background-color:{m_sBackColorCoalition}; text-align:center; padding: 2px 10px;\"";
 			OpenTag($"h{iHeaderLevel}", sAttributes);
 			AppendText(sText);
 			CloseTag();
@@ -54,13 +55,50 @@ namespace DcsBriefop.HtmlBuilder
 
 		public void AppendParagraph(string sText, string sTextAlign)
 		{
-			string sAttributes = $"style=\"color:{m_sForeColor}; background-color:{m_sBackColor}; text-align:{sTextAlign}; padding: 2px 10px; border-radius: 3px;\"";
+			string sAttributes = $"style=\"color:{m_sForeColor}; background-color:{m_sBackColor}; text-align:{sTextAlign}; padding: 2px 10px;\"";
 			OpenTag("p", sAttributes);
 			AppendText(sText);
 			CloseTag();
 		}
 
-		public void AppendLineBreaks(int iCount)
+		public void OpenTable(params string[] headers)
+		{
+			string sAttributes = $"style=\"color:{m_sForeColorCoalition}; background-color:{m_sBackColorCoalition}; text-align:center; padding: 2px 10px;\"";
+
+			OpenTag("table");
+			OpenTag("theader");
+			OpenTag("tr");
+			foreach (string s in headers)
+			{
+				OpenTag($"th");
+				AppendText(s);
+				CloseTag();
+			}
+			CloseTag();
+
+			CloseTag();
+			OpenTag("tbody");
+		}
+
+		public void AppendTableRow(params string[] values)
+		{
+			OpenTag("tr");
+			foreach (string s in values)
+			{
+				OpenTag($"td");
+				AppendText(s);
+				CloseTag();
+			}
+			CloseTag();
+		}
+
+		public void CloseTable()
+		{
+			CloseTag(); // tbody
+			CloseTag(); // table
+		}
+
+			public void AppendLineBreaks(int iCount)
 		{
 			for(int i = 0; i < iCount; i++)
 			{

@@ -10,6 +10,7 @@ namespace DcsBriefop.LsonStructure
 		{
 			public static readonly string Name = "name";
 			public static readonly string Type = "type";
+			public static readonly string Action = "action";
 			public static readonly string Altitude = "alt";
 			public static readonly string AltitudeType = "alt_type";
 			public static readonly string Y = "y";
@@ -23,6 +24,7 @@ namespace DcsBriefop.LsonStructure
 
 		public string Name { get; set; }
 		public string Type { get; set; }
+		public string Action { get; set; }
 		public decimal Altitude { get; set; }
 		public string AltitudeType { get; set; }
 		public decimal Y { get; set; }
@@ -37,6 +39,7 @@ namespace DcsBriefop.LsonStructure
 		{
 			Name = m_lsd.IfExistsString(LuaNode.Name);
 			Type = m_lsd[LuaNode.Type].GetString();
+			Action = m_lsd[LuaNode.Action].GetString();
 			Altitude = m_lsd[LuaNode.Altitude].GetDecimal();
 			AltitudeType = m_lsd[LuaNode.AltitudeType].GetString();
 			Y = m_lsd[LuaNode.Y].GetDecimal();
@@ -55,6 +58,7 @@ namespace DcsBriefop.LsonStructure
 		{
 			m_lsd.SetOrAddString(LuaNode.Name, Name);
 			m_lsd[LuaNode.Type] = Type;
+			m_lsd[LuaNode.Action] = Action;
 			m_lsd[LuaNode.Altitude] = Altitude;
 			m_lsd[LuaNode.AltitudeType] = AltitudeType;
 			m_lsd[LuaNode.Y] = Y;

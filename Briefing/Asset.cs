@@ -23,18 +23,6 @@ namespace DcsBriefop.Briefing
 		{
 			get { return (ElementAssetCategory)m_customData.Category; }
 			set { m_customData.Category = (int)value; }
-			//{
-			//	if (m_customData.Category != (int)value)
-			//	{
-			//		;
-
-			//		if (value == ElementAssetCategory.Mission)
-			//				MapDataM.MapOverlayCustom = new GMapOverlay();
-			//			else
-			//				MapData.MapOverlayCustom = null;
-			//		}
-			//	}
-			//}
 		}
 
 		public ElementAssetMapDisplay MapDisplay
@@ -67,6 +55,12 @@ namespace DcsBriefop.Briefing
 		{
 			get { return m_customData.Information; }
 			set { m_customData.Information = value; }
+		}
+
+		public string MissionInformation
+		{
+			get { return m_customData.MissionInformation; }
+			set { m_customData.MissionInformation = value; }
 		}
 
 		public CustomDataMap MapDataMission
@@ -161,7 +155,7 @@ namespace DcsBriefop.Briefing
 			MapDataMission.AdditionalMapOverlays.Add(BriefingCoalition.MapData.MapOverlayCustom);
 		}
 
-		private List<PointLatLng> InitializeMapDataPoint(GMapOverlay staticOverlay)
+		protected List<PointLatLng> InitializeMapDataPoint(GMapOverlay staticOverlay)
 		{
 			PointLatLng p = new PointLatLng(MapPoints[0].Coordinate.Latitude.DecimalDegree, MapPoints[0].Coordinate.Longitude.DecimalDegree);
 			GMarkerBriefop marker = new GMarkerBriefop(p, DefaultMarker, BriefingCoalition.Color, Name);
@@ -170,7 +164,7 @@ namespace DcsBriefop.Briefing
 			return new List<PointLatLng>() { p };
 		}
 
-		private List<PointLatLng> InitializeMapDataOrbit(GMapOverlay staticOverlay)
+		protected List<PointLatLng> InitializeMapDataOrbit(GMapOverlay staticOverlay)
 		{
 			List<PointLatLng> points = new List<PointLatLng>();
 
@@ -204,7 +198,7 @@ namespace DcsBriefop.Briefing
 			return points;
 		}
 
-		private List<PointLatLng> InitializeMapDataFullRoute(GMapOverlay staticOverlay)
+		protected List<PointLatLng> InitializeMapDataFullRoute(GMapOverlay staticOverlay)
 		{
 			List<PointLatLng> points = new List<PointLatLng>();
 

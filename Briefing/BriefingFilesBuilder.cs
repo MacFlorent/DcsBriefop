@@ -67,18 +67,25 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Methods
-		public void Generate(string sFileExportPath, bool bUpdateMiz)
+		public void Generate(bool bUpdateMiz, bool bLocalExportDirectoryActive, bool bLocalExportDirectoryWithHtmlBitmaps, string sLocalExportDirectory)
 		{
+			if (bLocalExportDirectoryActive && !Directory.Exists(sLocalExportDirectory))
+			{
+					throw new ExceptionDcsBriefop ($"Local export directory not found {sLocalExportDirectory}.");
+			}
+
 			GenerateAllFiles();
 
-			if (!string.IsNullOrEmpty(sFileExportPath))
-				ExportFilesToPath(sFileExportPath);
+			if (bLocalExportDirectoryActive)
+				ExportFilesToPath(sLocalExportDirectory, bLocalExportDirectoryWithHtmlBitmaps);
 			if (bUpdateMiz)
 				ExportFilesToMiz();
 		}
 
 		private void GenerateAllFiles()
 		{
+			AddMapData("00_GENERAL_MAP", KneeboardFolders.Images, m_briefingPack.MapData);
+
 			if (m_briefingPack.DisplayRed)
 			{
 				GenerateAllFilesCoalition(m_briefingPack.BriefingRed);
@@ -95,19 +102,25 @@ namespace DcsBriefop.Briefing
 
 		private void GenerateAllFilesCoalition(BriefingCoalition coalition)
 		{
-			GenerateFileSituation(coalition);
-			GenerateFilesOperations(coalition);
+			string sKneeboardFolder = KneeboardFolders.Images;
+			string sFileName = $"{coalition.Name}_01_SITUATION";
+			AddFileHtml(sFileName, sKneeboardFolder, GenerateHtmlSituation(coalition));
+			AddMapData($"{sFileName}_MAP", sKneeboardFolder, coalition.MapData);
 
-			AddMapData($"mapDataTest_", KneeboardFolders.Images, coalition.MapData);
-			//foreach (AssetGroup bg in coalition.GroupFlights.Where(_bf => _bf.Id == 45 || _bf.Id == 68))
-			//	AddMapData($"mapDataTest_{bg.Id}", KneeboardFolders.Images, bg.MapData);
+			sKneeboardFolder = KneeboardFolders.Images;
+			sFileName = $"{coalition.Name}_02_OPERATIONS";
+			AddFileHtml(sFileName, sKneeboardFolder, GenerateHtmlOperations(coalition));
 
+			//foreach (AssetGroup asset in coalition.Assets.OfType<AssetGroup>().Where(_a => _a.Category == ElementAssetCategory.Mission))
+			//{
+			//	sKneeboardFolder = KneeboardFolders.AircraftType;
+			//	sFileName = $"{coalition.Name}_03_MISSION_{asset.Name}";
+			//	GenerateHtmlMission(sFileName, sKneeboardFolder, asset.MapDataMission);
+			//}
 		}
 
-		private void GenerateFileSituation(BriefingCoalition coalition)
+		private HtmlBuilder.HtmlDocument GenerateHtmlSituation(BriefingCoalition coalition)
 		{
-			string sFileName = $"{coalition.Name}_00_SITUATION";
-
 			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.Color);
 
 			hb.OpenTag("html", "");
@@ -124,13 +137,11 @@ namespace DcsBriefop.Briefing
 			hb.CloseTag();
 			hb.CloseTag();
 
-			AddFileHtml(sFileName, KneeboardFolders.Images, hb.ToString());
+			return hb;
 		}
 
-		private void GenerateFilesOperations(BriefingCoalition coalition)
+		private HtmlBuilder.HtmlDocument GenerateHtmlOperations(BriefingCoalition coalition)
 		{
-			string sFileName = $"{coalition.Name}_02_OPERATIONS";
-
 			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.Color);
 
 			hb.OpenTag("html", "");
@@ -141,22 +152,37 @@ namespace DcsBriefop.Briefing
 			hb.AppendHeader("BULLSEYE", 3);
 			hb.AppendParagraphCentered(coalition.BullseyeCoordinates);
 			hb.AppendParagraphCentered(coalition.BullseyeDescription);
-			hb.AppendHeader("OPERATIONS", 3);
+			hb.AppendHeader("ASSETS", 3);
 
-			//foreach (AssetGroup groupFlight in coalition.GroupFlights)
-			//{
-			//	hb.AppendTableHeader(m_briefingPack.Sortie, 3);
-			//}
-			// tab with groups
+			hb.OpenTable("Name", "Task", "Type", "Notes");
+			hb.AppendTableRow("Missions");
+			foreach (Asset asset in coalition.Assets.Where(_a =>_a.Category == ElementAssetCategory.Mission))
+			{
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
+			}
 
-			hb.CloseTag();
-			hb.CloseTag();
+			hb.AppendTableRow("Support");
+			foreach (Asset asset in coalition.Assets.Where(_a => _a.Category == ElementAssetCategory.Support))
+			{
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
+			}
 
-			AddFileHtml(sFileName, KneeboardFolders.Images, hb.ToString());
+			hb.AppendTableRow("Base");
+			foreach (Asset asset in coalition.Assets.Where(_a => _a.Category == ElementAssetCategory.Base))
+			{
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
+			}
+
+
+			hb.CloseTag(); // body
+			hb.CloseTag(); // html
+
+			return hb;
 		}
 
-		private void AddFileHtml(string sFileName, string sKneeboardFolder, string sHtmlContent)
+		private void AddFileHtml(string sFileName, string sKneeboardFolder, HtmlBuilder.HtmlDocument hb)
 		{
+			string sHtmlContent = hb.ToString();
 			BriefingFileHtml bf = new BriefingFileHtml() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, HtmlContent = sHtmlContent };
 			bf.BitmapContent = HtmlRender.RenderToImage(sHtmlContent, new Size(ElementImageSize.Width, ElementImageSize.Height), Color.LightGray) as Bitmap;
 			//Bitmap b = TheArtOfDev.HtmlRenderer.WinForms.HtmlRender.RenderToImageGdiPlus(hb.ToString(), new Size(800, 1200)) as Bitmap;
@@ -169,25 +195,45 @@ namespace DcsBriefop.Briefing
 			m_listFiles.Add(bf);
 		}
 
-		private void ExportFilesToPath(string sPath)
+		private void ExportFilesToPath(string sPath, bool bWithHtmlBitmaps)
 		{
 			if (!Directory.Exists(sPath))
 				throw new ExceptionDcsBriefop($"Path does not exists : {sPath}");
 
 			foreach (BriefingFile briefingFile in m_listFiles)
 			{
-				string sFilePath = Path.Combine(sPath, $"{briefingFile.FileName}.jpg");
-				if (File.Exists(sFilePath))
-					File.Delete(sFilePath);
+				string sFilePath;
+				if (briefingFile is BriefingFileHtml briefingFileHtml)
+				{
+					sFilePath = Path.Combine(sPath, $"{briefingFile.FileName}.html");
+					if (File.Exists(sFilePath))
+						File.Delete(sFilePath);
 
-				briefingFile.BitmapContent.Save(sFilePath, ImageFormat.Jpeg);
+					File.WriteAllText(sFilePath, briefingFileHtml.HtmlContent);
+
+					if (bWithHtmlBitmaps)
+					{
+						sFilePath = Path.Combine(sPath, $"{briefingFile.FileName}.jpg");
+						if (File.Exists(sFilePath))
+							File.Delete(sFilePath);
+
+						briefingFile.BitmapContent.Save(sFilePath, ImageFormat.Jpeg);
+					}
+				}
+				else
+				{
+					sFilePath = Path.Combine(sPath, $"{briefingFile.FileName}.jpg");
+					if (File.Exists(sFilePath))
+						File.Delete(sFilePath);
+
+					briefingFile.BitmapContent.Save(sFilePath, ImageFormat.Jpeg);
+				}
 			}
 
 		}
 
 		private void ExportFilesToMiz()
 		{
-			return;
 			if (!File.Exists(m_missionManager.MizFilePath))
 				throw new ExceptionDcsBriefop($"Miz file not found : {m_missionManager.MizFilePath}");
 

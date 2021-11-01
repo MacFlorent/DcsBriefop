@@ -35,7 +35,6 @@ namespace DcsBriefop
 			this.LbCategory = new System.Windows.Forms.Label();
 			this.TbType = new System.Windows.Forms.TextBox();
 			this.LbType = new System.Windows.Forms.Label();
-			this.PnMissionMap = new System.Windows.Forms.Panel();
 			this.PnData = new System.Windows.Forms.Panel();
 			this.BtInformationReset = new System.Windows.Forms.Button();
 			this.TbInformation = new System.Windows.Forms.TextBox();
@@ -105,14 +104,6 @@ namespace DcsBriefop
 			this.LbType.TabIndex = 5;
 			this.LbType.Text = "Type";
 			// 
-			// PnMissionMap
-			// 
-			this.PnMissionMap.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.PnMissionMap.Location = new System.Drawing.Point(189, 0);
-			this.PnMissionMap.Name = "PnMissionMap";
-			this.PnMissionMap.Size = new System.Drawing.Size(1070, 679);
-			this.PnMissionMap.TabIndex = 9;
-			// 
 			// PnData
 			// 
 			this.PnData.Controls.Add(this.BtInformationReset);
@@ -137,16 +128,16 @@ namespace DcsBriefop
 			this.PnData.Dock = System.Windows.Forms.DockStyle.Left;
 			this.PnData.Location = new System.Drawing.Point(0, 0);
 			this.PnData.Name = "PnData";
-			this.PnData.Size = new System.Drawing.Size(189, 679);
+			this.PnData.Size = new System.Drawing.Size(361, 357);
 			this.PnData.TabIndex = 10;
 			// 
 			// BtInformationReset
 			// 
-			this.BtInformationReset.Location = new System.Drawing.Point(153, 213);
+			this.BtInformationReset.Location = new System.Drawing.Point(224, 212);
 			this.BtInformationReset.Name = "BtInformationReset";
-			this.BtInformationReset.Size = new System.Drawing.Size(25, 22);
+			this.BtInformationReset.Size = new System.Drawing.Size(131, 22);
 			this.BtInformationReset.TabIndex = 23;
-			this.BtInformationReset.Text = "R";
+			this.BtInformationReset.Text = "Reset information";
 			this.BtInformationReset.UseVisualStyleBackColor = true;
 			this.BtInformationReset.Click += new System.EventHandler(this.BtInformationReset_Click);
 			// 
@@ -158,7 +149,7 @@ namespace DcsBriefop
 			this.TbInformation.Multiline = true;
 			this.TbInformation.Name = "TbInformation";
 			this.TbInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbInformation.Size = new System.Drawing.Size(177, 114);
+			this.TbInformation.Size = new System.Drawing.Size(349, 114);
 			this.TbInformation.TabIndex = 22;
 			this.TbInformation.TextChanged += new System.EventHandler(this.TbInformation_TextChanged);
 			// 
@@ -266,13 +257,11 @@ namespace DcsBriefop
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1259, 679);
-			this.Controls.Add(this.PnMissionMap);
+			this.ClientSize = new System.Drawing.Size(361, 357);
 			this.Controls.Add(this.PnData);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Name = "FrmAssetDetail";
 			this.Text = "FrmGroupDetail";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmAssetDetail_FormClosed);
 			this.PnData.ResumeLayout(false);
 			this.PnData.PerformLayout();
 			this.ResumeLayout(false);
@@ -287,7 +276,6 @@ namespace DcsBriefop
 		private System.Windows.Forms.TextBox TbType;
 		private System.Windows.Forms.Label LbType;
 		private System.Windows.Forms.Label LbCategory;
-		private System.Windows.Forms.Panel PnMissionMap;
 		private System.Windows.Forms.Panel PnData;
 		private System.Windows.Forms.Label LbId;
 		private System.Windows.Forms.TextBox TbId;

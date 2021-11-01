@@ -21,6 +21,11 @@ namespace DcsBriefop.Briefing
 		public string MizFileDirectory { get { return Path.GetDirectoryName(MizFilePath); } }
 		public string MizFileName { get { return Path.GetFileName(MizFilePath); } }
 
+		public bool ExportMizActive { get; set; } = true;
+		public bool ExportLocalDirectoryActive { get; set; } = true;
+		public bool ExportLocalDirectoryBitmaps { get; set; } = false;
+		public string ExportLocalDirectoryPath { get; set; }
+
 		public LsonStructure.RootMission RootMission { get; private set; }
 		public LsonStructure.RootDictionary RootDictionary { get; private set; }
 		public CustomData RootCustom { get; private set; }

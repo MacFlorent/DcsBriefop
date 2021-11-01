@@ -91,19 +91,6 @@ namespace DcsBriefop.UcBriefing
 			dgvr.Cells[GridColumn.Type].Value = asset.Type;
 			dgvr.Cells[GridColumn.Radio].Value = asset.Radio;
 			dgvr.Cells[GridColumn.Notes].Value = asset.Information;
-
-
-			//if (asset is AssetFlight flight)
-			//{
-			//	dgvr.Cells[GridColumn.Type].Value = flight.Type;
-			//	dgvr.Cells[GridColumn.Task].Value = flight.Task;
-			//	dgvr.Cells[GridColumn.Radio].Value = flight.GetRadioString();
-			//}
-			//else if (asset is AssetShip ship)
-			//{
-			//	dgvr.Cells[GridColumn.Type].Value = ship.Type;
-			//	dgvr.Cells[GridColumn.Radio].Value = ship.GetRadioString();
-			//}
 		}
 
 		private void ShowDetail()
@@ -119,18 +106,33 @@ namespace DcsBriefop.UcBriefing
 				}
 			}
 		}
+		private void ShowMission()
+		{
+			if (DgvAssets.SelectedRows.Count > 0)
+			{
+				object o = DgvAssets.SelectedRows[0].Cells[GridColumn.Data].Value;
+				if (o is AssetGroup asset && asset.Category == ElementAssetCategory.Mission)
+				{
+					FrmMissionDetail f = new FrmMissionDetail(asset);
+					f.ShowDialog();
+				}
+			}
+		}
+
 		#endregion
 
 		#region Menus
 		private class MenuName
 		{
-			public static readonly string Detail = "Detail";
+			public static readonly string AssetDetail = "Detail";
+			public static readonly string AssetMission = "Mission";
 		}
 
 		private void BuildMenu()
 		{
 			DgvAssets.ContextMenuStrip.Items.Clear();
-			DgvAssets.ContextMenuStrip.Items.Add(MenuItem("Details", MenuName.Detail));
+			DgvAssets.ContextMenuStrip.Items.Add(MenuItem("Details", MenuName.AssetDetail));
+			DgvAssets.ContextMenuStrip.Items.Add(MenuItem("Mission", MenuName.AssetMission));
 		}
 
 		private ToolStripMenuItem MenuItem(string sLabel, string sName)
@@ -144,9 +146,13 @@ namespace DcsBriefop.UcBriefing
 			if (tsi == null)
 				return;
 
-			if (tsi.Name == MenuName.Detail)
+			if (tsi.Name == MenuName.AssetDetail)
 			{
 				ShowDetail();
+			}
+			else if (tsi.Name == MenuName.AssetMission)
+			{
+				ShowMission();
 			}
 		}
 		#endregion

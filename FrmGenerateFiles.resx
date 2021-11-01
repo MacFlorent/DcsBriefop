@@ -117,41 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="aircraft" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Markers\aircraft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="airport" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Markers\airport.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="bullseye" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Markers\bullseye.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="dot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Markers\dot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="factory" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Markers\factory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="helicopter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Markers\helicopter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icon16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icon16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pin" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Markers\pin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PointsPersianGulf" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Theatre\PointsPersianGulf.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="ship" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Markers\ship.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tank" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Markers\tank.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="triangle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Markers\triangle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>

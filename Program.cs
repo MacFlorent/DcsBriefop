@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DcsBriefop.Tools;
+using System;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -27,7 +28,7 @@ namespace DcsBriefop
 		{
 			Log.Exception(ex);
 			string sMessage = $"Unhandled error.{Environment.NewLine}{ex?.Message}{Environment.NewLine}{Environment.NewLine}{ex?.InnerException}";
-			MessageBox.Show(sMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			ToolsMisc.ShowMessageBoxError (sMessage);
 		}
 
 		private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
