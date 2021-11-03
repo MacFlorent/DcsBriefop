@@ -11,24 +11,25 @@ namespace DcsBriefop.Briefing
 	internal abstract class Asset : BaseBriefing
 	{
 		#region Fields
-		protected CustomDataAsset m_customData;
 		#endregion
 
 		#region Properties
+		public CustomDataAsset CustomData;
+
 		protected virtual string DefaultMarker { get; set; } = MarkerBriefopType.dot.ToString();
 
 		public BriefingCoalition BriefingCoalition { get; protected set; }
 
 		public ElementAssetCategory Category
 		{
-			get { return (ElementAssetCategory)m_customData.Category; }
-			set { m_customData.Category = (int)value; }
+			get { return (ElementAssetCategory)CustomData.Category; }
+			set { CustomData.Category = (int)value; }
 		}
 
 		public ElementAssetMapDisplay MapDisplay
 		{
-			get { return (ElementAssetMapDisplay)m_customData.MapDisplay; }
-			set { m_customData.MapDisplay = (int)value; }
+			get { return (ElementAssetMapDisplay)CustomData.MapDisplay; }
+			set { CustomData.MapDisplay = (int)value; }
 		}
 
 		public abstract int Id { get; }
@@ -53,20 +54,20 @@ namespace DcsBriefop.Briefing
 
 		public string CustomInformation
 		{
-			get { return m_customData.Information; }
-			set { m_customData.Information = value; }
+			get { return CustomData.Information; }
+			set { CustomData.Information = value; }
 		}
 
 		public string MissionInformation
 		{
-			get { return m_customData.MissionInformation; }
-			set { m_customData.MissionInformation = value; }
+			get { return CustomData.MissionInformation; }
+			set { CustomData.MissionInformation = value; }
 		}
 
 		public CustomDataMap MapDataMission
 		{
-			get { return m_customData.MapDataMission; }
-			set { m_customData.MapDataMission = value; }
+			get { return CustomData.MapDataMission; }
+			set { CustomData.MapDataMission = value; }
 		}
 
 		public List<AssetMapPoint> MapPoints { get; private set; } = new List<AssetMapPoint>();
@@ -87,11 +88,11 @@ namespace DcsBriefop.Briefing
 		
 		protected void InitializeData(BriefingPack briefingPack)
 		{
-			m_customData = RootCustom.Assets?.Where(_f => _f.Id == Id).FirstOrDefault();
-			if (m_customData is null)
+			CustomData = RootCustom.Assets?.Where(_f => _f.Id == Id).FirstOrDefault();
+			if (CustomData is null)
 			{
-				m_customData = new CustomDataAsset(Id);
-				RootCustom.Assets.Add(m_customData);
+				CustomData = new CustomDataAsset(Id);
+				RootCustom.Assets.Add(CustomData);
 
 				InitializeCustomData();
 			}
@@ -202,10 +203,10 @@ namespace DcsBriefop.Briefing
 		{
 			List<PointLatLng> points = new List<PointLatLng>();
 
-			foreach (AssetMapPoint routePoint in MapPoints)
+			foreach (AssetMapPoint mapPoint in MapPoints)
 			{
-				PointLatLng p = new PointLatLng(routePoint.Coordinate.Latitude.DecimalDegree, routePoint.Coordinate.Longitude.DecimalDegree);
-				GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), BriefingCoalition.Color, null);
+				PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
+				GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), BriefingCoalition.Color, $"{mapPoint.Number}:{mapPoint.Name}");
 				staticOverlay.Markers.Add(marker);
 				points.Add(p);
 			}

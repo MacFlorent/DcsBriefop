@@ -16,10 +16,15 @@ namespace DcsBriefop.HtmlBuilder
 
 		private StringBuilder m_builder = new StringBuilder();
 		private List<string> m_openTags = new List<string>();
+
+		private readonly int m_iParagraphPadding = 4;
+		private readonly int m_iTablePadding = 5;
+
 		private string m_sForeColorCoalition;
 		private string m_sBackColorCoalition;
 		private string m_sForeColor;
 		private string m_sBackColor;
+
 
 		public HtmlDocument(Color color)
 		{
@@ -27,8 +32,11 @@ namespace DcsBriefop.HtmlBuilder
 			m_sBackColorCoalition = ColorTranslator.ToHtml(ControlPaint.Light(color, 75f));
 
 			m_sForeColor = ColorTranslator.ToHtml(Color.DimGray);
-			m_sBackColor = ColorTranslator.ToHtml(Color.White);
+			m_sBackColor = $"{ColorTranslator.ToHtml(Color.WhiteSmoke)}";
 			m_sBackColorCoalition = ColorTranslator.ToHtml(Color.LightGray);
+
+			OpenTag("html");
+			OpenTag("body", $"style=\"background-color:{m_sBackColor};\"");
 		}
 
 		public override string ToString()
@@ -36,9 +44,15 @@ namespace DcsBriefop.HtmlBuilder
 			return m_builder.ToString();
 		}
 
+		public void FinalizeDocument()
+		{
+			CloseTag(); // body
+			CloseTag(); // html
+		}
+
 		public void AppendHeader(string sText, int iHeaderLevel)
 		{
-			string sAttributes = $"style=\"color:{m_sForeColorCoalition}; background-color:{m_sBackColorCoalition}; text-align:center; padding: 2px 10px;\"";
+			string sAttributes = $"style=\"color:{m_sForeColorCoalition}; background-color:{m_sBackColorCoalition}; text-align:center; padding:{m_iParagraphPadding}px;\"";
 			OpenTag($"h{iHeaderLevel}", sAttributes);
 			AppendText(sText);
 			CloseTag();
@@ -55,7 +69,10 @@ namespace DcsBriefop.HtmlBuilder
 
 		public void AppendParagraph(string sText, string sTextAlign)
 		{
-			string sAttributes = $"style=\"color:{m_sForeColor}; background-color:{m_sBackColor}; text-align:{sTextAlign}; padding: 2px 10px;\"";
+			if (string.IsNullOrEmpty(sText))
+				return;
+
+			string sAttributes = $"style=\"color:{m_sForeColor}; background-color:{m_sBackColor}; text-align:{sTextAlign}; padding:{m_iParagraphPadding}px;\"";
 			OpenTag("p", sAttributes);
 			AppendText(sText);
 			CloseTag();
@@ -63,21 +80,15 @@ namespace DcsBriefop.HtmlBuilder
 
 		public void OpenTable(params string[] headers)
 		{
-			string sAttributes = $"style=\"color:{m_sForeColorCoalition}; background-color:{m_sBackColorCoalition}; text-align:center; padding: 2px 10px;\"";
-
-			OpenTag("table");
-			OpenTag("theader");
+			OpenTag("table", "align=\"center\" style=\"border-collapse:collapse;\"");
 			OpenTag("tr");
 			foreach (string s in headers)
 			{
-				OpenTag($"th");
+				OpenTag($"th", $"style=\"color:{m_sForeColorCoalition}; background-color:{m_sBackColorCoalition}; padding:{m_iTablePadding}px; border: 1px solid {m_sForeColor};\"");
 				AppendText(s);
 				CloseTag();
 			}
 			CloseTag();
-
-			CloseTag();
-			OpenTag("tbody");
 		}
 
 		public void AppendTableRow(params string[] values)
@@ -85,7 +96,7 @@ namespace DcsBriefop.HtmlBuilder
 			OpenTag("tr");
 			foreach (string s in values)
 			{
-				OpenTag($"td");
+				OpenTag($"td", $"style=\"color:{m_sForeColor}; background-color:{m_sBackColor}; padding:{m_iTablePadding}px; border: 1px solid {m_sForeColor};\"");
 				AppendText(s);
 				CloseTag();
 			}
@@ -94,13 +105,12 @@ namespace DcsBriefop.HtmlBuilder
 
 		public void CloseTable()
 		{
-			CloseTag(); // tbody
 			CloseTag(); // table
 		}
 
-			public void AppendLineBreaks(int iCount)
+		public void AppendLineBreaks(int iCount)
 		{
-			for(int i = 0; i < iCount; i++)
+			for (int i = 0; i < iCount; i++)
 			{
 				OpenTag("p");
 				AppendText(HtmlCodes.Space);
@@ -110,10 +120,11 @@ namespace DcsBriefop.HtmlBuilder
 
 		public void AppendText(string sText)
 		{
-			m_builder.Append(sText.Replace(Environment.NewLine, $"<br>{Environment.NewLine}"));
+			if (!string.IsNullOrEmpty(sText))
+				m_builder.Append(sText.Replace(Environment.NewLine, $"<br>{Environment.NewLine}"));
 		}
 
-			public void OpenTag(string sTag)
+		public void OpenTag(string sTag)
 		{
 			OpenTag(sTag, null);
 		}

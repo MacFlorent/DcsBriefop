@@ -35,7 +35,9 @@ namespace DcsBriefop
 			this.LbType = new System.Windows.Forms.Label();
 			this.PnMissionMap = new System.Windows.Forms.Panel();
 			this.PnData = new System.Windows.Forms.Panel();
-			this.DgvRoutepoints = new System.Windows.Forms.DataGridView();
+			this.TbBase = new System.Windows.Forms.TextBox();
+			this.LbBase = new System.Windows.Forms.Label();
+			this.DgvRoutePoints = new System.Windows.Forms.DataGridView();
 			this.LbWaypoints = new System.Windows.Forms.Label();
 			this.DgvTargets = new System.Windows.Forms.DataGridView();
 			this.LbTargets = new System.Windows.Forms.Label();
@@ -45,10 +47,8 @@ namespace DcsBriefop
 			this.LbTask = new System.Windows.Forms.Label();
 			this.LbId = new System.Windows.Forms.Label();
 			this.TbId = new System.Windows.Forms.TextBox();
-			this.TbBase = new System.Windows.Forms.TextBox();
-			this.LbBase = new System.Windows.Forms.Label();
 			this.PnData.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DgvRoutepoints)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DgvRoutePoints)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DgvTargets)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -98,7 +98,7 @@ namespace DcsBriefop
 			// 
 			this.PnData.Controls.Add(this.TbBase);
 			this.PnData.Controls.Add(this.LbBase);
-			this.PnData.Controls.Add(this.DgvRoutepoints);
+			this.PnData.Controls.Add(this.DgvRoutePoints);
 			this.PnData.Controls.Add(this.LbWaypoints);
 			this.PnData.Controls.Add(this.DgvTargets);
 			this.PnData.Controls.Add(this.LbTargets);
@@ -118,20 +118,38 @@ namespace DcsBriefop
 			this.PnData.Size = new System.Drawing.Size(400, 679);
 			this.PnData.TabIndex = 10;
 			// 
-			// DgvWaypoints
+			// TbBase
 			// 
-			this.DgvRoutepoints.AllowUserToAddRows = false;
-			this.DgvRoutepoints.AllowUserToDeleteRows = false;
-			this.DgvRoutepoints.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.TbBase.Location = new System.Drawing.Point(78, 55);
+			this.TbBase.Name = "TbBase";
+			this.TbBase.ReadOnly = true;
+			this.TbBase.Size = new System.Drawing.Size(246, 20);
+			this.TbBase.TabIndex = 28;
+			// 
+			// LbBase
+			// 
+			this.LbBase.AutoSize = true;
+			this.LbBase.Location = new System.Drawing.Point(41, 58);
+			this.LbBase.Name = "LbBase";
+			this.LbBase.Size = new System.Drawing.Size(31, 13);
+			this.LbBase.TabIndex = 27;
+			this.LbBase.Text = "Base";
+			// 
+			// DgvRoutepoints
+			// 
+			this.DgvRoutePoints.AllowUserToAddRows = false;
+			this.DgvRoutePoints.AllowUserToDeleteRows = false;
+			this.DgvRoutePoints.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.DgvRoutepoints.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-			this.DgvRoutepoints.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DgvRoutepoints.Location = new System.Drawing.Point(2, 215);
-			this.DgvRoutepoints.Name = "DgvWaypoints";
-			this.DgvRoutepoints.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.DgvRoutepoints.Size = new System.Drawing.Size(394, 150);
-			this.DgvRoutepoints.TabIndex = 26;
+			this.DgvRoutePoints.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+			this.DgvRoutePoints.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.DgvRoutePoints.Location = new System.Drawing.Point(2, 215);
+			this.DgvRoutePoints.Name = "DgvRoutepoints";
+			this.DgvRoutePoints.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			this.DgvRoutePoints.Size = new System.Drawing.Size(394, 150);
+			this.DgvRoutePoints.TabIndex = 26;
+			this.DgvRoutePoints.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvRoutePoints_CellEndEdit);
 			// 
 			// LbWaypoints
 			// 
@@ -221,23 +239,6 @@ namespace DcsBriefop
 			this.TbId.Size = new System.Drawing.Size(100, 20);
 			this.TbId.TabIndex = 10;
 			// 
-			// TbBase
-			// 
-			this.TbBase.Location = new System.Drawing.Point(78, 55);
-			this.TbBase.Name = "TbBase";
-			this.TbBase.ReadOnly = true;
-			this.TbBase.Size = new System.Drawing.Size(246, 20);
-			this.TbBase.TabIndex = 28;
-			// 
-			// LbBase
-			// 
-			this.LbBase.AutoSize = true;
-			this.LbBase.Location = new System.Drawing.Point(41, 58);
-			this.LbBase.Name = "LbBase";
-			this.LbBase.Size = new System.Drawing.Size(31, 13);
-			this.LbBase.TabIndex = 27;
-			this.LbBase.Text = "Base";
-			// 
 			// FrmMissionDetail
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -247,10 +248,11 @@ namespace DcsBriefop
 			this.Controls.Add(this.PnData);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Name = "FrmMissionDetail";
+			this.ShowInTaskbar = false;
 			this.Text = "FrmGroupDetail";
 			this.PnData.ResumeLayout(false);
 			this.PnData.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DgvRoutepoints)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DgvRoutePoints)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DgvTargets)).EndInit();
 			this.ResumeLayout(false);
 
@@ -271,7 +273,7 @@ namespace DcsBriefop
 		private System.Windows.Forms.Label LbInformation;
 		private System.Windows.Forms.TextBox TbInformation;
 		private System.Windows.Forms.Label LbTargets;
-		private System.Windows.Forms.DataGridView DgvRoutepoints;
+		private System.Windows.Forms.DataGridView DgvRoutePoints;
 		private System.Windows.Forms.Label LbWaypoints;
 		private System.Windows.Forms.DataGridView DgvTargets;
 		private System.Windows.Forms.TextBox TbBase;

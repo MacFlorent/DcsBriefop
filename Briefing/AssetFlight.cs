@@ -28,8 +28,6 @@ namespace DcsBriefop.Briefing
 			get { return GroupFlight.RadioModulation; }
 			set { GroupFlight.RadioModulation = value; }
 		}
-
-		public string MissionInformation { get; set; }
 		#endregion
 
 			#region CTOR

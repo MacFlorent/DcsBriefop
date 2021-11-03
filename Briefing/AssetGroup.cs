@@ -41,7 +41,7 @@ namespace DcsBriefop.Briefing
 			int iNumber = 0;
 			foreach (RoutePoint rp in m_group.RoutePoints)
 			{
-				MapPoints.Add(new AssetRoutePoint(briefingPack, rp, iNumber));
+				MapPoints.Add(new AssetRoutePoint(briefingPack, this, iNumber, rp));
 				iNumber++;
 			}
 		}

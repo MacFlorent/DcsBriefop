@@ -111,22 +111,20 @@ namespace DcsBriefop.Briefing
 			sFileName = $"{coalition.Name}_02_OPERATIONS";
 			AddFileHtml(sFileName, sKneeboardFolder, GenerateHtmlOperations(coalition));
 
-			//foreach (AssetGroup asset in coalition.Assets.OfType<AssetGroup>().Where(_a => _a.Category == ElementAssetCategory.Mission))
-			//{
-			//	sKneeboardFolder = KneeboardFolders.AircraftType;
-			//	sFileName = $"{coalition.Name}_03_MISSION_{asset.Name}";
-			//	GenerateHtmlMission(sFileName, sKneeboardFolder, asset.MapDataMission);
-			//}
+			foreach (AssetGroup asset in coalition.Assets.OfType<AssetGroup>().Where(_a => _a.Category == ElementAssetCategory.Mission))
+			{
+				sKneeboardFolder = KneeboardFolders.Images; // TODO aircrat specific kneeboard folder
+				sFileName = $"{coalition.Name}_03_MISSION_{asset.Name}";
+				AddFileHtml(sFileName, sKneeboardFolder, GenerateHtmlMission(coalition, asset));
+				AddMapData($"{sFileName}_MAP", sKneeboardFolder, asset.MapDataMission);
+			}
 		}
 
 		private HtmlBuilder.HtmlDocument GenerateHtmlSituation(BriefingCoalition coalition)
 		{
 			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.Color);
 
-			hb.OpenTag("html", "");
-			hb.OpenTag("body", "");
-
-			hb.AppendHeader(m_briefingPack.Sortie, 3);
+			//hb.AppendHeader(m_briefingPack.Sortie, 3);
 			hb.AppendHeader("SITUATION", 2);
 			hb.AppendParagraphJustified(m_briefingPack.Description);
 			hb.AppendHeader("TASKS", 3);
@@ -134,9 +132,7 @@ namespace DcsBriefop.Briefing
 			hb.AppendHeader("WEATHER", 3);
 			hb.AppendParagraphCentered(m_briefingPack.Weather.ToString());
 
-			hb.CloseTag();
-			hb.CloseTag();
-
+			hb.FinalizeDocument(); 
 			return hb;
 		}
 
@@ -144,10 +140,7 @@ namespace DcsBriefop.Briefing
 		{
 			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.Color);
 
-			hb.OpenTag("html", "");
-			hb.OpenTag("body", "");
-
-			hb.AppendHeader(m_briefingPack.Sortie, 3);
+			//hb.AppendHeader(m_briefingPack.Sortie, 3);
 			hb.AppendHeader("OPERATIONS", 2);
 			hb.AppendHeader("BULLSEYE", 3);
 			hb.AppendParagraphCentered(coalition.BullseyeCoordinates);
@@ -173,10 +166,31 @@ namespace DcsBriefop.Briefing
 				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
 			}
 
+			hb.CloseTable();
 
-			hb.CloseTag(); // body
-			hb.CloseTag(); // html
+			hb.FinalizeDocument();
+			return hb;
+		}
 
+		private HtmlBuilder.HtmlDocument GenerateHtmlMission(BriefingCoalition coalition, AssetGroup asset)
+		{
+			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.Color);
+
+			hb.AppendHeader($"MISSION {asset.Name} | {asset.Task}", 2);
+			hb.AppendParagraphCentered(asset.MissionInformation);
+			hb.AppendHeader("WAYPOINTS", 3);
+
+			hb.OpenTable("#", "Waypoint", "Action", "Alt.", "Notes");
+
+			foreach (AssetRoutePoint routePoint in asset.MapPoints.OfType<AssetRoutePoint>())
+			{
+				hb.AppendTableRow(routePoint.Number.ToString(), routePoint.Name, routePoint.Action, routePoint.AltitudeFeet, routePoint.Notes);
+			}
+
+
+			hb.CloseTable();
+
+			hb.FinalizeDocument();
 			return hb;
 		}
 
@@ -245,7 +259,7 @@ namespace DcsBriefop.Briefing
 
 					if (briefingFile is BriefingFileHtml bfHtml)
 					{
-						using (Bitmap b = HtmlRender.RenderToImage(bfHtml.HtmlContent, new Size(ElementImageSize.Width, ElementImageSize.Height), Color.LightGray) as Bitmap)
+						using (Bitmap b = HtmlRender.RenderToImage(bfHtml.HtmlContent, new Size(ElementImageSize.Width, ElementImageSize.Height)) as Bitmap)
 						{
 							string sTempPath = Path.GetTempFileName();
 							b.Save(sTempPath);

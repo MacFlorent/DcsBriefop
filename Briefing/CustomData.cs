@@ -50,7 +50,10 @@ namespace DcsBriefop.Briefing
 			foreach (CustomDataAsset asset in Assets)
 			{
 				if (asset.Category != (int)ElementAssetCategory.Mission)
+				{
 					asset.MapDataMission = null;
+					asset.AssetMapPoints = null;
+				}
 			}
 		}
 	}
@@ -81,11 +84,18 @@ namespace DcsBriefop.Briefing
 		public string MissionInformation { get; set; }
 
 		public CustomDataMap MapDataMission { get; set; }
+		public List<CustomDataAssetMapPoint> AssetMapPoints { get; set; }
 
 		public CustomDataAsset(int iId)
 		{
 			Id = iId;
 		}
+	}
+
+	internal class CustomDataAssetMapPoint
+	{
+		public int Id { get; set; }
+		public string Notes { get; set; }
 	}
 }
 

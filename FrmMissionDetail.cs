@@ -8,7 +8,7 @@ namespace DcsBriefop
 {
 	internal partial class FrmMissionDetail : Form
 	{
-		private static class GridRouteWaypoint
+		private static class GridColumnRoutePoint
 		{
 			public static readonly string Number = "Number";
 			public static readonly string Name = "Name";
@@ -66,14 +66,14 @@ namespace DcsBriefop
 
 		private void DataToScreenRoutePoints()
 		{
-			DgvRoutepoints.Columns.Add(GridRouteWaypoint.Number, "#");
-			DgvRoutepoints.Columns.Add(GridRouteWaypoint.Name, "Name");
-			DgvRoutepoints.Columns.Add(GridRouteWaypoint.Action, "Action");
-			DgvRoutepoints.Columns.Add(GridRouteWaypoint.Altitude, "Altitude");
-			DgvRoutepoints.Columns.Add(GridRouteWaypoint.Notes, "Notes");
-			DgvRoutepoints.Columns.Add(GridRouteWaypoint.Data, "#");
+			DgvRoutePoints.Columns.Add(GridColumnRoutePoint.Number, "#");
+			DgvRoutePoints.Columns.Add(GridColumnRoutePoint.Name, "Name");
+			DgvRoutePoints.Columns.Add(GridColumnRoutePoint.Action, "Action");
+			DgvRoutePoints.Columns.Add(GridColumnRoutePoint.Altitude, "Altitude");
+			DgvRoutePoints.Columns.Add(GridColumnRoutePoint.Notes, "Notes");
+			DgvRoutePoints.Columns.Add(GridColumnRoutePoint.Data, "#");
 
-			DgvRoutepoints.Columns[GridRouteWaypoint.Data].Visible = false;
+			DgvRoutePoints.Columns[GridColumnRoutePoint.Data].Visible = false;
 
 			foreach (AssetRoutePoint routePoint in m_asset.MapPoints.OfType<AssetRoutePoint>())
 			{
@@ -84,9 +84,9 @@ namespace DcsBriefop
 		private void RefreshGridRowRoutePoint(AssetRoutePoint routePoint)
 		{
 			DataGridViewRow dgvr = null;
-			foreach (DataGridViewRow existingRow in DgvRoutepoints.Rows)
+			foreach (DataGridViewRow existingRow in DgvRoutePoints.Rows)
 			{
-				if (existingRow.Cells[GridRouteWaypoint.Data].Value == routePoint)
+				if (existingRow.Cells[GridColumnRoutePoint.Data].Value == routePoint)
 				{
 					dgvr = existingRow;
 					break;
@@ -94,16 +94,20 @@ namespace DcsBriefop
 			}
 			if (dgvr is null)
 			{
-				int iNewRowIndex = DgvRoutepoints.Rows.Add();
-				dgvr = DgvRoutepoints.Rows[iNewRowIndex];
-				dgvr.Cells[GridRouteWaypoint.Data].Value = routePoint;
+				int iNewRowIndex = DgvRoutePoints.Rows.Add();
+				dgvr = DgvRoutePoints.Rows[iNewRowIndex];
+				dgvr.Cells[GridColumnRoutePoint.Data].Value = routePoint;
 			}
 
-			dgvr.Cells[GridRouteWaypoint.Number].Value = routePoint.Number;
-			dgvr.Cells[GridRouteWaypoint.Name].Value = routePoint.Name;
-			dgvr.Cells[GridRouteWaypoint.Action].Value = routePoint.Action;
-			dgvr.Cells[GridRouteWaypoint.Altitude].Value = routePoint.Altitude;
-			dgvr.Cells[GridRouteWaypoint.Notes].Value = routePoint.Notes;
+			dgvr.Cells[GridColumnRoutePoint.Number].Value = routePoint.Number;
+			dgvr.Cells[GridColumnRoutePoint.Number].ReadOnly = true;
+			dgvr.Cells[GridColumnRoutePoint.Name].Value = routePoint.Name;
+			dgvr.Cells[GridColumnRoutePoint.Name].ReadOnly = true;
+			dgvr.Cells[GridColumnRoutePoint.Action].Value = routePoint.Action;
+			dgvr.Cells[GridColumnRoutePoint.Action].ReadOnly = true;
+			dgvr.Cells[GridColumnRoutePoint.Altitude].Value = routePoint.AltitudeFeet;
+			dgvr.Cells[GridColumnRoutePoint.Altitude].ReadOnly = true;
+			dgvr.Cells[GridColumnRoutePoint.Notes].Value = routePoint.Notes;
 		}
 
 		private void ScreenToData()
@@ -134,6 +138,18 @@ namespace DcsBriefop
 		private void TbInformation_TextChanged(object sender, System.EventArgs e)
 		{
 			ScreenToData();
+		}
+
+		private void DgvRoutePoints_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+		{
+			AssetRoutePoint routePoint = DgvRoutePoints.Rows[e.RowIndex].Cells[GridColumnRoutePoint.Data].Value as AssetRoutePoint;
+			object value = DgvRoutePoints.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+			string sColumnName = DgvRoutePoints.Columns[e.ColumnIndex].Name;
+			
+			if (sColumnName == GridColumnRoutePoint.Notes)
+			{
+				routePoint.Notes = value as string;
+			}
 		}
 	}
 }

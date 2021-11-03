@@ -86,11 +86,11 @@ namespace DcsBriefop
 			this.BtLocalDirectoryBrowse.UseVisualStyleBackColor = true;
 			this.BtLocalDirectoryBrowse.Click += new System.EventHandler(this.BtDirectoryBrowse_Click);
 			// 
-			// CkLocalDirectoryBitmaps
+			// CkLocalDirectoryHtmlBitmaps
 			// 
 			this.CkLocalDirectoryHtmlBitmaps.AutoSize = true;
 			this.CkLocalDirectoryHtmlBitmaps.Location = new System.Drawing.Point(167, 31);
-			this.CkLocalDirectoryHtmlBitmaps.Name = "CkLocalDirectoryBitmaps";
+			this.CkLocalDirectoryHtmlBitmaps.Name = "CkLocalDirectoryHtmlBitmaps";
 			this.CkLocalDirectoryHtmlBitmaps.Size = new System.Drawing.Size(87, 17);
 			this.CkLocalDirectoryHtmlBitmaps.TabIndex = 5;
 			this.CkLocalDirectoryHtmlBitmaps.Text = "With bitmaps";
@@ -119,6 +119,7 @@ namespace DcsBriefop
 			this.Controls.Add(this.CkLocalDirectory);
 			this.Controls.Add(this.CkMizFile);
 			this.Name = "FrmGenerateFiles";
+			this.ShowInTaskbar = false;
 			this.Text = "FrmGenerateFiles";
 			this.ResumeLayout(false);
 			this.PerformLayout();

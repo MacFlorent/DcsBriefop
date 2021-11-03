@@ -13,16 +13,14 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Properties
-		public int Number { get; set; }
-
 		public override string Name
 		{
 			get
 			{
-				if (string.IsNullOrEmpty(m_routePoint.Name))
+				if (!string.IsNullOrEmpty(m_routePoint.Name))
 					return m_routePoint.Name;
 				else
-					return $"Waypoint {Number}";
+					return $"WP{Number}";
 			}
 		}
 
@@ -31,9 +29,8 @@ namespace DcsBriefop.Briefing
 			get { return Theatre.GetCoordinate(m_routePoint.Y, m_routePoint.X); }
 		}
 
-		public decimal Altitude { get { return m_routePoint.Altitude; } }
+		public string AltitudeFeet{ get { return $"{UnitsNet.UnitConverter.Convert(m_routePoint.Altitude, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot):0} ft"; } }
 		public string Action { get { return m_routePoint.Action; } }
-		public string Notes { get; set; }
 
 		public List<RouteTask> RouteTasks
 		{
@@ -42,10 +39,9 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public AssetRoutePoint(BriefingPack briefingPack, RoutePoint routePoint, int iNumber) : base(briefingPack)
+		public AssetRoutePoint(BriefingPack briefingPack, Asset asset, int iNumber, RoutePoint routePoint) : base(briefingPack, asset, iNumber)
 		{
 			m_routePoint = routePoint;
-			Number = iNumber;
 		}
 		#endregion
 

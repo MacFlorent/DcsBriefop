@@ -1,6 +1,4 @@
 ﻿using DcsBriefop.Briefing;
-using DcsBriefop.Tools;
-using System.IO;
 using System.Windows.Forms;
 
 namespace DcsBriefop
