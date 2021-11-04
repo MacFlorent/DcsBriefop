@@ -55,6 +55,13 @@ namespace DcsBriefop.Briefing
 
 		protected override void InitializeCustomData()
 		{
+			CustomData = RootCustom.AssetGroups?.Where(_f => _f.Id == Id).FirstOrDefault();
+			if (CustomData is object)
+				return;
+
+			CustomData = new CustomDataAssetGroup(Id);
+			RootCustom.AssetGroups.Add(CustomData);
+
 			if (Type.StartsWith("CVN"))
 			{
 				Category = ElementAssetCategory.Base;

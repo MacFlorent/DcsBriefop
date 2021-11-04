@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Briefing\Asset.cs" />
+    <Compile Include="Briefing\AssetAirdrome.cs" />
     <Compile Include="Briefing\AssetRoutePoint.cs" />
     <Compile Include="Data\Airdrome.cs" />
     <Compile Include="Briefing\BriefingCoalition.cs" />

@@ -3,6 +3,7 @@ using DcsBriefop.Map;
 using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DcsBriefop.Briefing
 {
@@ -18,7 +19,8 @@ namespace DcsBriefop.Briefing
 		public CustomDataCoalition Blue { get; set; } = new CustomDataCoalition();
 		public CustomDataCoalition Neutral { get; set; } = new CustomDataCoalition();
 
-		public List<CustomDataAsset> Assets = new List<CustomDataAsset>();
+		public List<CustomDataAssetGroup> AssetGroups = new List<CustomDataAssetGroup>();
+		public List<CustomDataAssetAirdrome> AssetAirdromes = new List<CustomDataAssetAirdrome>();
 
 		public CustomData() { }
 
@@ -47,13 +49,19 @@ namespace DcsBriefop.Briefing
 
 		private void NormalizeData()
 		{
-			foreach (CustomDataAsset asset in Assets)
+			foreach (CustomDataAssetGroup asset in AssetGroups)
 			{
 				if (asset.Category != (int)ElementAssetCategory.Mission)
 				{
 					asset.MapDataMission = null;
-					asset.AssetMapPoints = null;
+					asset.AssetMissionPoints = null;
 				}
+			}
+
+			List<CustomDataAssetAirdrome> toRemove = AssetAirdromes.Where(_a => _a.Category == (int)ElementAssetCategory.Excluded && _a.MapDisplay == (int)ElementAssetMapDisplay.None).ToList();
+			foreach (CustomDataAssetAirdrome asset in toRemove)
+			{
+				AssetAirdromes.Remove(asset); // TODO do not save excluded airfields
 			}
 		}
 	}
@@ -75,7 +83,20 @@ namespace DcsBriefop.Briefing
 		public CustomDataMap MapData { get; set; }
 	}
 
-	internal class CustomDataAsset
+	internal class CustomDataAssetAirdrome
+	{
+		public int Id { get; set; }
+		public int Category { get; set; }
+		public int MapDisplay { get; set; }
+		public string Information { get; set; }
+
+		public CustomDataAssetAirdrome(int iId)
+		{
+			Id = iId;
+		}
+	}
+
+	internal class CustomDataAssetGroup
 	{
 		public int Id { get; set; }
 		public int Category { get; set; }
@@ -84,15 +105,15 @@ namespace DcsBriefop.Briefing
 		public string MissionInformation { get; set; }
 
 		public CustomDataMap MapDataMission { get; set; }
-		public List<CustomDataAssetMapPoint> AssetMapPoints { get; set; }
+		public List<CustomDataAssetMissionPoint> AssetMissionPoints { get; set; }
 
-		public CustomDataAsset(int iId)
+		public CustomDataAssetGroup(int iId)
 		{
 			Id = iId;
 		}
 	}
 
-	internal class CustomDataAssetMapPoint
+	internal class CustomDataAssetMissionPoint
 	{
 		public int Id { get; set; }
 		public string Notes { get; set; }

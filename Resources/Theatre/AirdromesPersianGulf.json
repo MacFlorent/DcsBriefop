@@ -2,11 +2,11 @@
     {
       "Id": 1,
       "Name": "Abu Musa Island",
+      "Latitude": 25.875,
+      "Longitude": 55.021,
       "Radios": [
-        {
-          "Frequency": 119.2,
-          "Modulation": 0
-        }
+        { "Frequency": 250.4, "Modulation": 0 },        
+        { "Frequency": 122.9, "Modulation": 0 }
       ]
     },
     {
@@ -19,7 +19,14 @@
     },
     {
       "Id": 4,
-      "Name": "Al Dhafra AFB"
+      "Name": "Al Dhafra AFB",
+      "Latitude": 24.258,
+      "Longitude": 54.534,
+      "Tacan": { "Channel": 96, "Mode": "X" },
+      "Radios": [
+        { "Frequency": 251.1, "Modulation": 0 },        
+        { "Frequency": 126.5, "Modulation": 0 }
+      ]      
     },
     {
       "Id": 5,
@@ -60,5 +67,65 @@
     {
       "Id": 14,
       "Name": "Sharjah Intl"
+    },
+    {
+      "Id": 15,
+      "Name": "Sirri Island"
+    },
+    {
+      "Id": 16,
+      "Name": "Tunb Kochak"
+    },
+    {
+      "Id": 17,
+      "Name": "Sir Abu Nuayr"
+    },
+    {
+      "Id": 18,
+      "Name": "Kerman"
+    },
+    {
+      "Id": 19,
+      "Name": "Shiraz Intl"
+    },
+    {
+      "Id": 20,
+      "Name": "Sas Al Nakheel"
+    },
+    {
+      "Id": 21,
+      "Name": "Bandar-e-Jask"
+    },
+    {
+      "Id": 22,
+      "Name": "Abu Dhabi Intl"
+    },
+    {
+      "Id": 23,
+      "Name": "Al-Bateen"
+    },
+    {
+      "Id": 24,
+      "Name": "Kish Island"
+    },
+    {
+      "Id": 25,
+      "Name": "Al Ain Intl"
+    },
+    {
+      "Id": 26,
+      "Name": "Lavan Island"
+    },
+    {
+      "Id": 27,
+      "Name": "Jiroft"
+    },
+    {
+      "Id": 28,
+      "Name": "Ras Al Khaimah Intl"
+    },
+    {
+      "Id": 29,
+      "Name": "Liwa AFB"
     }
   ]

@@ -98,11 +98,11 @@ namespace DcsBriefop.UcBriefing
 			if (DgvAssets.SelectedRows.Count > 0)
 			{
 				object o = DgvAssets.SelectedRows[0].Cells[GridColumn.Data].Value;
-				if (o is AssetGroup group)
+				if (o is Asset asset)
 				{
-					FrmAssetDetail f = new FrmAssetDetail(group);
+					FrmAssetDetail f = new FrmAssetDetail(asset);
 					f.ShowDialog();
-					RefreshGridRow(group);
+					RefreshGridRow(asset);
 				}
 			}
 		}

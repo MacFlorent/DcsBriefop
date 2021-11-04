@@ -111,6 +111,11 @@ namespace DcsBriefop.Briefing
 				}
 			}
 
+			foreach (Airdrome airdrome in Theatre.Airdromes)
+			{
+				Assets.Add(new AssetAirdrome(briefingPack, this, airdrome));
+			}
+
 			InitializeMapDataChildrenOverlays();
 		}
 		#endregion

@@ -44,13 +44,20 @@ namespace DcsBriefop.Briefing
 				sInformation = $"TCN={GetTacanString()} ";
 			}
 
-			sInformation = $"{sInformation} Base={GetAirdromeNames()}";
+			//sInformation = $"{sInformation} Base={GetAirdromeNames()}";
 			return sInformation;
 		}
 
 		protected override void InitializeCustomData()
 		{
-			if(Playable)
+			CustomData = RootCustom.AssetGroups?.Where(_f => _f.Id == Id).FirstOrDefault();
+			if (CustomData is object)
+				return;
+
+			CustomData = new CustomDataAssetGroup(Id);
+			RootCustom.AssetGroups.Add(CustomData);
+
+			if (Playable)
 			{
 				Category = ElementAssetCategory.Mission;
 				MapDisplay = ElementAssetMapDisplay.None;
@@ -81,29 +88,30 @@ namespace DcsBriefop.Briefing
 					return null;
 		}
 
-		public List<Airdrome> GetAirdromes()
+		public List<int> GetAirdromeIds()
 		{
 			IEnumerable<int> grouped = m_group.RoutePoints
 				.Where(_rp => _rp.AirdromeId is object
 					&& (_rp.Type == ElementRoutePointType.TakeOff || _rp.Type == ElementRoutePointType.TakeOffParking || _rp.Type == ElementRoutePointType.TakeOffParkingHot || _rp.Type == ElementRoutePointType.Land))
 				.GroupBy(_rp => _rp.AirdromeId).Select(_g => _g.Key.Value);
 
-			List<Airdrome> airdromes = new List<Airdrome>();
-			foreach(int iId in grouped)
-			{
-				Airdrome ad = Theatre.GetAirdrome(iId);
-				if (ad is object)
-					airdromes.Add(Theatre.GetAirdrome(iId));
-			}
+			return grouped.ToList(); ;
+			//List<Airdrome> airdromes = new List<Airdrome>();
+			//foreach(int iId in grouped)
+			//{
+			//	Airdrome ad = Theatre.GetAirdrome(iId);
+			//	if (ad is object)
+			//		airdromes.Add(Theatre.GetAirdrome(iId));
+			//}
 
-			return airdromes;
+			//return airdromes;
 		}
 
-		public string GetAirdromeNames()
-		{
-			IEnumerable<string> grouped = GetAirdromes().Select(_ad => _ad.Name);
-			return string.Join(",", grouped);
-		}
+		//public string GetAirdromeNames()
+		//{
+		//	IEnumerable<string> grouped = GetAirdromes().Select(_ad => _ad.Name);
+		//	return string.Join(",", grouped);
+		//}
 		#endregion
 	}
 }

@@ -7,17 +7,20 @@ namespace DcsBriefop
 	internal partial class FrmAssetDetail : Form
 	{
 		#region Fields
-		private AssetGroup m_asset;
+		private Asset m_asset;
 		#endregion
 
 		#region CTOR
-		internal FrmAssetDetail(AssetGroup asset)
+		internal FrmAssetDetail(Asset asset)
 		{
 			InitializeComponent();
 			m_asset = asset;
 
 			MasterDataRepository.FillCombo(MasterDataType.AssetCategory, CbCategory);
 			MasterDataRepository.FillCombo(MasterDataType.AssetMapDisplay, CbMapDisplay);
+
+			CkPlayable.Visible = CkLateActivation.Visible = (m_asset is AssetGroup);
+
 			DataToScreen();
 		}
 		#endregion
@@ -30,9 +33,17 @@ namespace DcsBriefop
 			TbName.Text = m_asset.Name;
 			TbTask.Text = m_asset.Task;
 			TbType.Text = m_asset.Type;
-			CkPlayable.Checked = m_asset.Playable;
-			CkLateActivation.Checked = m_asset.LateActivation;
-			TbRadio.Text = m_asset.Radio;
+
+			if (m_asset is AssetGroup group)
+			{
+				CkPlayable.Checked = group.Playable;
+				CkLateActivation.Checked = group.LateActivation;
+				TbRadio.Text = group.Radio; // TODO radio selection for flights
+			}
+			else if (m_asset is AssetAirdrome airdrome)
+			{
+				TbRadio.Text = airdrome.Radio;
+			}
 
 			CbCategory.SelectedValue = (int)m_asset.Category;
 			CbMapDisplay.SelectedValue = (int)m_asset.MapDisplay;
@@ -46,7 +57,7 @@ namespace DcsBriefop
 			if (category != m_asset.Category)
 			{
 				m_asset.Category = category;
-				m_asset.InitializeMapDataMission();
+				(m_asset as AssetGroup)?.InitializeMapDataMission();
 			}
 
 			ElementAssetMapDisplay mapDisplay = (ElementAssetMapDisplay)CbMapDisplay.SelectedValue;
