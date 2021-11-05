@@ -1,6 +1,8 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using System.Linq;
+using System.Text;
 
 namespace DcsBriefop.Briefing
 {
@@ -30,7 +32,29 @@ namespace DcsBriefop.Briefing
 		public override string Name { get { return m_airdrome.Name; } }
 		public override string Task { get { return ""; } }
 		public override string Type { get { return "Airbase"; } }
-		public override string Radio { get { return "radio todo"; } }
+		
+		private string m_sRadioString;
+		public override string RadioString
+		{
+			get
+			{
+				if (m_sRadioString is null)
+				{
+					if (m_airdrome.Radios is null)
+						m_sRadioString = "";
+					else
+					{
+						StringBuilder sb = new StringBuilder();
+						foreach (Radio radio in m_airdrome.Radios)
+							sb.AppendWithSeparator(radio.ToString(), " ");
+
+						m_sRadioString = sb.ToString();
+					}
+				}
+
+				return m_sRadioString;
+			}
+		}
 
 		public override string CustomInformation
 		{
@@ -40,8 +64,10 @@ namespace DcsBriefop.Briefing
 
 		public Coordinate Coordinate
 		{
-			get { return new Coordinate (m_airdrome.Latitude, m_airdrome.Longitude); }
+			get { return new Coordinate(m_airdrome.Latitude, m_airdrome.Longitude); }
 		}
+
+		public Tacan Tacan { get { return m_airdrome.Tacan; } }
 		#endregion
 
 		#region CTOR
@@ -81,15 +107,7 @@ namespace DcsBriefop.Briefing
 
 		protected override string GetDefaultInformation()
 		{
-			string sInformation = "";
-
-			//if (Task == ElementTask.Refueling)
-			//{
-			//	sInformation = $"TCN={GetTacanString()} ";
-			//}
-
-			//sInformation = $"{sInformation} Base={GetAirdromeNames()}";
-			return sInformation;
+			return Tacan?.ToString();
 		}
 		#endregion
 	}

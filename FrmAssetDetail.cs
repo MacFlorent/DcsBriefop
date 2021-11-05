@@ -38,11 +38,11 @@ namespace DcsBriefop
 			{
 				CkPlayable.Checked = group.Playable;
 				CkLateActivation.Checked = group.LateActivation;
-				TbRadio.Text = group.Radio; // TODO radio selection for flights
+				TbRadio.Text = group.RadioString; // TODO radio selection for flights
 			}
 			else if (m_asset is AssetAirdrome airdrome)
 			{
-				TbRadio.Text = airdrome.Radio;
+				TbRadio.Text = airdrome.RadioString;
 			}
 
 			CbCategory.SelectedValue = (int)m_asset.Category;

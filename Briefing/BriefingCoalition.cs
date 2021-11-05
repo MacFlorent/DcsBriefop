@@ -144,7 +144,7 @@ namespace DcsBriefop.Briefing
 
 		private void InitializeMapDataChildrenOverlays()
 		{
-			foreach (Asset asset in Assets.Where(_f => _f.MapDisplay != ElementAssetMapDisplay.None))
+			foreach (Asset asset in Assets)
 			{
 				if (asset.MapOverlayStatic is object)
 					MapData.AdditionalMapOverlays.Add(asset.MapOverlayStatic);

@@ -10,10 +10,5 @@ namespace DcsBriefop.Data
 		public double Longitude { get; set; }
 		public Tacan Tacan { get; set; }
 		public List<Radio> Radios { get; set; }
-
-		public string GetRadioString()
-		{
-			return "";
-		}
 	}
 }

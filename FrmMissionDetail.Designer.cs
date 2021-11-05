@@ -35,8 +35,8 @@ namespace DcsBriefop
 			this.LbType = new System.Windows.Forms.Label();
 			this.PnMissionMap = new System.Windows.Forms.Panel();
 			this.PnData = new System.Windows.Forms.Panel();
-			this.TbBase = new System.Windows.Forms.TextBox();
-			this.LbBase = new System.Windows.Forms.Label();
+			this.TbAssetInformation = new System.Windows.Forms.TextBox();
+			this.LbAssetInformation = new System.Windows.Forms.Label();
 			this.DgvRoutePoints = new System.Windows.Forms.DataGridView();
 			this.LbWaypoints = new System.Windows.Forms.Label();
 			this.DgvTargets = new System.Windows.Forms.DataGridView();
@@ -96,8 +96,8 @@ namespace DcsBriefop
 			// 
 			// PnData
 			// 
-			this.PnData.Controls.Add(this.TbBase);
-			this.PnData.Controls.Add(this.LbBase);
+			this.PnData.Controls.Add(this.TbAssetInformation);
+			this.PnData.Controls.Add(this.LbAssetInformation);
 			this.PnData.Controls.Add(this.DgvRoutePoints);
 			this.PnData.Controls.Add(this.LbWaypoints);
 			this.PnData.Controls.Add(this.DgvTargets);
@@ -118,24 +118,24 @@ namespace DcsBriefop
 			this.PnData.Size = new System.Drawing.Size(400, 679);
 			this.PnData.TabIndex = 10;
 			// 
-			// TbBase
+			// TbAssetInformation
 			// 
-			this.TbBase.Location = new System.Drawing.Point(78, 55);
-			this.TbBase.Name = "TbBase";
-			this.TbBase.ReadOnly = true;
-			this.TbBase.Size = new System.Drawing.Size(246, 20);
-			this.TbBase.TabIndex = 28;
+			this.TbAssetInformation.Location = new System.Drawing.Point(134, 55);
+			this.TbAssetInformation.Name = "TbAssetInformation";
+			this.TbAssetInformation.ReadOnly = true;
+			this.TbAssetInformation.Size = new System.Drawing.Size(190, 20);
+			this.TbAssetInformation.TabIndex = 28;
 			// 
-			// LbBase
+			// LbAssetInformation
 			// 
-			this.LbBase.AutoSize = true;
-			this.LbBase.Location = new System.Drawing.Point(41, 58);
-			this.LbBase.Name = "LbBase";
-			this.LbBase.Size = new System.Drawing.Size(31, 13);
-			this.LbBase.TabIndex = 27;
-			this.LbBase.Text = "Base";
+			this.LbAssetInformation.AutoSize = true;
+			this.LbAssetInformation.Location = new System.Drawing.Point(41, 58);
+			this.LbAssetInformation.Name = "LbAssetInformation";
+			this.LbAssetInformation.Size = new System.Drawing.Size(87, 13);
+			this.LbAssetInformation.TabIndex = 27;
+			this.LbAssetInformation.Text = "Asset information";
 			// 
-			// DgvRoutepoints
+			// DgvRoutePoints
 			// 
 			this.DgvRoutePoints.AllowUserToAddRows = false;
 			this.DgvRoutePoints.AllowUserToDeleteRows = false;
@@ -145,7 +145,7 @@ namespace DcsBriefop
 			this.DgvRoutePoints.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
 			this.DgvRoutePoints.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.DgvRoutePoints.Location = new System.Drawing.Point(2, 215);
-			this.DgvRoutePoints.Name = "DgvRoutepoints";
+			this.DgvRoutePoints.Name = "DgvRoutePoints";
 			this.DgvRoutePoints.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.DgvRoutePoints.Size = new System.Drawing.Size(394, 150);
 			this.DgvRoutePoints.TabIndex = 26;
@@ -201,9 +201,9 @@ namespace DcsBriefop
 			this.LbInformation.AutoSize = true;
 			this.LbInformation.Location = new System.Drawing.Point(5, 86);
 			this.LbInformation.Name = "LbInformation";
-			this.LbInformation.Size = new System.Drawing.Size(59, 13);
+			this.LbInformation.Size = new System.Drawing.Size(96, 13);
 			this.LbInformation.TabIndex = 21;
-			this.LbInformation.Text = "Information";
+			this.LbInformation.Text = "Mission information";
 			// 
 			// TbTask
 			// 
@@ -276,7 +276,7 @@ namespace DcsBriefop
 		private System.Windows.Forms.DataGridView DgvRoutePoints;
 		private System.Windows.Forms.Label LbWaypoints;
 		private System.Windows.Forms.DataGridView DgvTargets;
-		private System.Windows.Forms.TextBox TbBase;
-		private System.Windows.Forms.Label LbBase;
+		private System.Windows.Forms.TextBox TbAssetInformation;
+		private System.Windows.Forms.Label LbAssetInformation;
 	}
 }

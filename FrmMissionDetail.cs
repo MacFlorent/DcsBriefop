@@ -45,6 +45,9 @@ namespace DcsBriefop
 			PnMissionMap.Controls.Clear();
 			PnMissionMap.Controls.Add(m_ucMap);
 
+			DgvRoutePoints.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+			DgvRoutePoints.AllowUserToResizeColumns = true;
+
 			DataToScreen();
 		}
 		#endregion
@@ -57,6 +60,7 @@ namespace DcsBriefop
 			TbName.Text = m_asset.Name;
 			TbTask.Text = m_asset.Task;
 			TbType.Text = m_asset.Type;
+			TbAssetInformation.Text = m_asset.Information;
 			TbInformation.Text = m_asset.MissionInformation;
 
 			DataToScreenRoutePoints();

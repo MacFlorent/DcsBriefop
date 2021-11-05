@@ -3,6 +3,7 @@ using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace DcsBriefop.Briefing
 {
@@ -16,17 +17,23 @@ namespace DcsBriefop.Briefing
 		protected override string DefaultMarker { get; set; } = MarkerBriefopType.aircraft.ToString();
 		public override string Task { get { return GroupFlight.Task; } }
 		public override string Type { get { return GroupFlight.Units.FirstOrDefault()?.Type; } }
-		public override string Radio { get { return ToolsMisc.GetRadioString(RadioFrequency, RadioModulation); } }
+		public override string RadioString { get { return Radio.ToString(); } }
 
-		public decimal RadioFrequency
+
+		private Radio m_radio;
+		public Radio Radio
 		{
-			get { return GroupFlight.RadioFrequency; }
-			set { GroupFlight.RadioFrequency = value; }
-		}
-		public int RadioModulation
-		{
-			get { return GroupFlight.RadioModulation; }
-			set { GroupFlight.RadioModulation = value; }
+			get
+			{
+				if (m_radio is null)
+					m_radio = new Radio() { Frequency = GroupFlight.RadioFrequency, Modulation = GroupFlight.RadioModulation };
+				return m_radio;
+			}
+			set
+			{
+				GroupFlight.RadioFrequency = value.Frequency;
+				GroupFlight.RadioModulation = value.Modulation;
+			}
 		}
 		#endregion
 
@@ -37,15 +44,20 @@ namespace DcsBriefop.Briefing
 		#region Methods
 		protected override string GetDefaultInformation()
 		{
-			string sInformation = "";
+			StringBuilder sbInformation = new StringBuilder();
 
 			if (Task == ElementTask.Refueling)
 			{
-				sInformation = $"TCN={GetTacanString()} ";
+				sbInformation.AppendWithSeparator($"TCN={GetTacanString()}", " ");
 			}
 
-			//sInformation = $"{sInformation} Base={GetAirdromeNames()}";
-			return sInformation;
+			int? iAirdromeId = GetAirdromeIds()?.FirstOrDefault();
+			if (iAirdromeId is object && Theatre.GetAirdrome(iAirdromeId.Value) is Airdrome airdrome)
+			{
+				sbInformation.AppendWithSeparator($"Base={airdrome.Name}", " ");
+			}
+
+			return sbInformation.ToString();
 		}
 
 		protected override void InitializeCustomData()
@@ -72,11 +84,6 @@ namespace DcsBriefop.Briefing
 				Category = ElementAssetCategory.Mission;
 				MapDisplay = ElementAssetMapDisplay.None;
 			}
-		}
-
-		public string GetRadioString()
-		{
-			return ToolsMisc.GetRadioString(RadioFrequency, RadioModulation);
 		}
 
 		public string GetCallsign()

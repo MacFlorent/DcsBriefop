@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Briefing;
 using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using System;
 using System.Windows.Forms;
 
@@ -10,6 +11,7 @@ namespace DcsBriefop.UcBriefing
 		private static class GridColumn
 		{
 			public static readonly string AssetCategory = "AssetCategory";
+			public static readonly string AssetMapDisplay = "AssetMapDisplay";
 			public static readonly string Id = "Id";
 			public static readonly string Name = "Name";
 			public static readonly string Type = "Type";
@@ -32,6 +34,9 @@ namespace DcsBriefop.UcBriefing
 
 			DgvAssets.ContextMenuStrip = new ContextMenuStrip();
 			DgvAssets.ReadOnly = true;
+			DgvAssets.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+			DgvAssets.AllowUserToResizeColumns = true;
+
 			BuildMenu();
 		}
 		#endregion
@@ -44,6 +49,7 @@ namespace DcsBriefop.UcBriefing
 			TbTask.Text = BriefingCoalition.Task;
 
 			DgvAssets.Columns.Add(GridColumn.AssetCategory, "Cat.");
+			DgvAssets.Columns.Add(GridColumn.AssetMapDisplay, "Map");
 			DgvAssets.Columns.Add(GridColumn.Id, "ID");
 			DgvAssets.Columns.Add(GridColumn.Name, "Name");
 			DgvAssets.Columns.Add(GridColumn.Task, "Task");
@@ -85,11 +91,12 @@ namespace DcsBriefop.UcBriefing
 			}
 
 			dgvr.Cells[GridColumn.AssetCategory].Value = MasterDataRepository.GetById(MasterDataType.AssetCategory, (int)asset.Category)?.Label;
+			dgvr.Cells[GridColumn.AssetMapDisplay].Value = MasterDataRepository.GetById(MasterDataType.AssetMapDisplay, (int)asset.MapDisplay)?.Label;
 			dgvr.Cells[GridColumn.Id].Value = asset.Id;
 			dgvr.Cells[GridColumn.Name].Value = asset.Name;
 			dgvr.Cells[GridColumn.Task].Value = asset.Task;
 			dgvr.Cells[GridColumn.Type].Value = asset.Type;
-			dgvr.Cells[GridColumn.Radio].Value = asset.Radio;
+			dgvr.Cells[GridColumn.Radio].Value = asset.RadioString;
 			dgvr.Cells[GridColumn.Notes].Value = asset.Information;
 		}
 
@@ -119,13 +126,38 @@ namespace DcsBriefop.UcBriefing
 			}
 		}
 
+		private void SetCategory(ElementAssetCategory category)
+		{
+
+		}
+
+		private void SetMapDisplay(ElementAssetMapDisplay mapDisplay)
+		{
+			foreach (DataGridViewRow row in DgvAssets.SelectedRows)
+			{
+				if (row.Cells[GridColumn.Data].Value is Asset asset && asset.MapDisplay != mapDisplay)
+				{
+					asset.MapDisplay = mapDisplay;
+					asset.InitializeMapOverlay();
+					RefreshGridRow(asset);
+				}
+			}
+		}
 		#endregion
 
 		#region Menus
-		private class MenuName
+		private enum MenuName
 		{
-			public static readonly string AssetDetail = "Detail";
-			public static readonly string AssetMission = "Mission";
+			AssetDetail,
+			AssetMission,
+			AssetCategorySetExcluded,
+			AssetCategorySetMission,
+			AssetCategorySetSupport,
+			AssetCategorySetBase,
+			AssetMapDisplaySetNone,
+			AssetMapDisplaySetPoint,
+			AssetMapDisplaySetOrbit,
+			AssetMapDisplaySetFullRoute,
 		}
 
 		private void BuildMenu()
@@ -133,11 +165,26 @@ namespace DcsBriefop.UcBriefing
 			DgvAssets.ContextMenuStrip.Items.Clear();
 			DgvAssets.ContextMenuStrip.Items.Add(MenuItem("Details", MenuName.AssetDetail));
 			DgvAssets.ContextMenuStrip.Items.Add(MenuItem("Mission", MenuName.AssetMission));
+			DgvAssets.ContextMenuStrip.Items.Add(new ToolStripSeparator());
+
+			int iIndex = DgvAssets.ContextMenuStrip.Items.Add(MenuItem("Category", null));
+			ToolStripMenuItem tmsiParent = DgvAssets.ContextMenuStrip.Items[iIndex] as ToolStripMenuItem;
+			tmsiParent.DropDownItems.Add(MenuItem("Excluded", MenuName.AssetCategorySetExcluded));
+			tmsiParent.DropDownItems.Add(MenuItem("Mission", MenuName.AssetCategorySetMission));
+			tmsiParent.DropDownItems.Add(MenuItem("Support", MenuName.AssetCategorySetSupport));
+			tmsiParent.DropDownItems.Add(MenuItem("Base", MenuName.AssetCategorySetBase));
+			
+			iIndex = DgvAssets.ContextMenuStrip.Items.Add(MenuItem("Map display", null));
+			tmsiParent = DgvAssets.ContextMenuStrip.Items[iIndex] as ToolStripMenuItem;
+			tmsiParent.DropDownItems.Add(MenuItem("None", MenuName.AssetMapDisplaySetNone));
+			tmsiParent.DropDownItems.Add(MenuItem("Point", MenuName.AssetMapDisplaySetPoint));
+			tmsiParent.DropDownItems.Add(MenuItem("Orbit", MenuName.AssetMapDisplaySetOrbit));
+			tmsiParent.DropDownItems.Add(MenuItem("Full route", MenuName.AssetMapDisplaySetFullRoute));
 		}
 
-		private ToolStripMenuItem MenuItem(string sLabel, string sName)
+		private ToolStripMenuItem MenuItem(string sLabel, MenuName? name)
 		{
-			return new ToolStripMenuItem(sLabel, null, new EventHandler(ToolStripItemClicked), sName);
+			return new ToolStripMenuItem(sLabel, null, new EventHandler(ToolStripItemClicked), name?.ToString());
 		}
 
 		private void ToolStripItemClicked(object sender, EventArgs e)
@@ -146,14 +193,54 @@ namespace DcsBriefop.UcBriefing
 			if (tsi == null)
 				return;
 
-			if (tsi.Name == MenuName.AssetDetail)
+			if (string.IsNullOrEmpty(tsi.Name))
+				return;
+
+			Enum.TryParse(tsi.Name, out MenuName clickedName);
+
+			if (clickedName == MenuName.AssetDetail)
 			{
 				ShowDetail();
 			}
-			else if (tsi.Name == MenuName.AssetMission)
+			else if (clickedName == MenuName.AssetMission)
 			{
 				ShowMission();
 			}
+			// Category set
+			else if (clickedName == MenuName.AssetCategorySetExcluded)
+			{
+				SetCategory(ElementAssetCategory.Excluded);
+			}
+			else if (clickedName == MenuName.AssetCategorySetMission)
+			{
+				SetCategory(ElementAssetCategory.Mission);
+			}
+			else if (clickedName == MenuName.AssetCategorySetSupport)
+			{
+				SetCategory(ElementAssetCategory.Support);
+			}
+			else if (clickedName == MenuName.AssetCategorySetBase)
+			{
+				SetCategory(ElementAssetCategory.Base);
+			}
+			// Map display set
+			else if (clickedName == MenuName.AssetMapDisplaySetNone)
+			{
+				SetMapDisplay(ElementAssetMapDisplay.None);
+			}
+			else if (clickedName == MenuName.AssetMapDisplaySetPoint)
+			{
+				SetMapDisplay(ElementAssetMapDisplay.Point);
+			}
+			else if (clickedName == MenuName.AssetMapDisplaySetOrbit)
+			{
+				SetMapDisplay(ElementAssetMapDisplay.Orbit);
+			}
+			else if (clickedName == MenuName.AssetMapDisplaySetFullRoute)
+			{
+				SetMapDisplay(ElementAssetMapDisplay.FullRoute);
+			}
+
 		}
 		#endregion
 

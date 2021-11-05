@@ -124,7 +124,7 @@ namespace DcsBriefop.Briefing
 			{
 				RouteTask rtBeacon = brp.RouteTasks.Where(_rt => _rt.Action?.Id == ElementRouteTask.ActivateBeacon).FirstOrDefault();
 				if (rtBeacon?.Action is RouteTaskAction rta)
-					return ToolsMisc.GetTacanString(rta.ParamChannel.GetValueOrDefault(), rta.ParamModeChannel, rta.ParamCallsign);
+					return new Tacan() { Channel = rta.ParamChannel.GetValueOrDefault(), Mode = rta.ParamModeChannel, Identifier = rta.ParamCallsign }.ToString();
 			}
 
 			return null;

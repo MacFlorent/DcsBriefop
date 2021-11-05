@@ -24,7 +24,7 @@ namespace DcsBriefop.Briefing
 		public abstract string Name { get; }
 		public abstract string Task { get; }
 		public abstract string Type { get; }
-		public abstract string Radio { get; }
+		public abstract string RadioString { get; }
 		public abstract string CustomInformation { get; set; }
 		public string Information
 		{
@@ -70,20 +70,18 @@ namespace DcsBriefop.Briefing
 				MapOverlayStatic = new GMapOverlay(ElementMapValue.OverlayStatic);
 			
 			MapOverlayStatic.Clear();
-
-			List<PointLatLng> points = null;
-			
+					
 			if (MapDisplay == ElementAssetMapDisplay.Point)
 			{
-				points = InitializeMapDataPoint(MapOverlayStatic);
+				InitializeMapDataPoint(MapOverlayStatic);
 			}
 			else if (MapDisplay == ElementAssetMapDisplay.Orbit)
 			{
-				points = InitializeMapDataOrbit(MapOverlayStatic);
+				InitializeMapDataOrbit(MapOverlayStatic);
 			}
 			else if(MapDisplay == ElementAssetMapDisplay.FullRoute)
 			{
-				points = InitializeMapDataFullRoute(MapOverlayStatic);
+				InitializeMapDataFullRoute(MapOverlayStatic);
 			}
 		}
 

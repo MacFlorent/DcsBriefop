@@ -15,7 +15,7 @@ namespace DcsBriefop.Briefing
 		protected override string DefaultMarker { get; set; } = MarkerBriefopType.ship.ToString();
 		public override string Task { get { return ""; } }
 		public override string Type { get { return MainUnit.Type; } }
-		public override string Radio { get { return ToolsMisc.GetRadioString(RadioFrequency, RadioModulation); } }
+		public override string RadioString { get { return Radio.ToString(); } }
 
 		private UnitShip MainUnit
 		{
@@ -30,16 +30,21 @@ namespace DcsBriefop.Briefing
 		}
 		
 		public string UnitName { get { return MainUnit.Name; } }
-		
-		public decimal RadioFrequency
+
+		private Radio m_radio;
+		public Radio Radio
 		{
-			get { return MainUnit.RadioFrequency / 1000000; }
-			set { MainUnit.RadioFrequency = value * 1000000; }
-		}
-		public int RadioModulation
-		{
-			get { return MainUnit.RadioModulation; }
-			set { MainUnit.RadioModulation = value; }
+			get
+			{
+				if (m_radio is null)
+					m_radio = new Radio() { Frequency = MainUnit.RadioFrequency / 1000000, Modulation = MainUnit.RadioModulation };
+				return m_radio;
+			}
+			set
+			{
+				MainUnit.RadioFrequency = value.Frequency * 1000000;
+				MainUnit.RadioModulation = value.Modulation;
+			}
 		}
 		#endregion
 
@@ -50,7 +55,7 @@ namespace DcsBriefop.Briefing
 		#region Methods
 		protected override string GetDefaultInformation()
 		{
-			return $"TCN={GetTacanString()} ICLS={"xxx"}";
+			return $"TCN={GetTacanString()}";
 		}
 
 		protected override void InitializeCustomData()
@@ -72,11 +77,6 @@ namespace DcsBriefop.Briefing
 				Category = ElementAssetCategory.Excluded;
 				MapDisplay = ElementAssetMapDisplay.None;
 			}
-		}
-
-		public string GetRadioString()
-		{
-			return ToolsMisc.GetRadioString(RadioFrequency, RadioModulation);
 		}
 		#endregion
 	}
