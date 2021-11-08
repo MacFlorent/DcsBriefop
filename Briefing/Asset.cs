@@ -1,10 +1,8 @@
 ﻿using DcsBriefop.Data;
-using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 
 namespace DcsBriefop.Briefing
 {

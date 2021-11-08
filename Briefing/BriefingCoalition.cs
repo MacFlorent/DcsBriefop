@@ -109,6 +109,10 @@ namespace DcsBriefop.Briefing
 				{
 					Assets.Add(new AssetShip(briefingPack, this, g));
 				}
+				foreach (GroupVehicle g in c.GroupVehicles)
+				{
+					Assets.Add(new AssetVehicle(briefingPack, this, g));
+				}
 			}
 
 			foreach (Airdrome airdrome in Theatre.Airdromes)

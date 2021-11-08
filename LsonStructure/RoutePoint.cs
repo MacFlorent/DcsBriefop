@@ -17,6 +17,7 @@ namespace DcsBriefop.LsonStructure
 			public static readonly string X = "x";
 			public static readonly string AirdromeId = "airdromeId";
 			public static readonly string HelipadId = "helipadId";
+			public static readonly string LinkUnit = "linkUnit";
 			public static readonly string Task = "task";
 			public static readonly string Params = "params";
 			public static readonly string Tasks = "tasks";
@@ -31,6 +32,7 @@ namespace DcsBriefop.LsonStructure
 		public decimal X { get; set; }
 		public int? AirdromeId { get; set; }
 		public int? HelipadId { get; set; }
+		public int? LinkUnitId { get; set; }
 		public List<RouteTask> RouteTasks { get; set; } = new List<RouteTask>();
 
 		public RoutePoint(LsonDict lsd) : base(lsd) { }
@@ -41,16 +43,20 @@ namespace DcsBriefop.LsonStructure
 			Type = m_lsd[LuaNode.Type].GetString();
 			Action = m_lsd[LuaNode.Action].GetString();
 			Altitude = m_lsd[LuaNode.Altitude].GetDecimal();
-			AltitudeType = m_lsd[LuaNode.AltitudeType].GetString();
+			AltitudeType = m_lsd.IfExistsString(LuaNode.AltitudeType);
 			Y = m_lsd[LuaNode.Y].GetDecimal();
 			X = m_lsd[LuaNode.X].GetDecimal();
 			AirdromeId = m_lsd.IfExistsInt(LuaNode.AirdromeId);
 			HelipadId = m_lsd.IfExistsInt(LuaNode.HelipadId);
+			LinkUnitId = m_lsd.IfExistsInt(LuaNode.LinkUnit);
 
-			LsonDict lsdRouteTasks = m_lsd[LuaNode.Task][LuaNode.Params][LuaNode.Tasks].GetDict();
-			foreach (LsonValue lsv in lsdRouteTasks.Values)
+			if (m_lsd.ContainsKey(LuaNode.Task))
 			{
-				RouteTasks.Add(new RouteTask(lsv.GetDict()));
+				LsonDict lsdRouteTasks = m_lsd[LuaNode.Task][LuaNode.Params][LuaNode.Tasks].GetDict();
+				foreach (LsonValue lsv in lsdRouteTasks.Values)
+				{
+					RouteTasks.Add(new RouteTask(lsv.GetDict()));
+				}
 			}
 		}
 

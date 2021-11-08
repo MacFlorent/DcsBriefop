@@ -81,11 +81,11 @@ namespace DcsBriefop.Briefing
 		#region Methods
 		protected override void InitializeCustomData()
 		{
-			CustomData = RootCustom.AssetAirdromes?.Where(_f => _f.Id == Id).FirstOrDefault();
+			CustomData = RootCustom.GetAssetAirdrome(Id, BriefingCoalition.Name);
 			if (CustomData is object)
 				return;
 
-			CustomData = new CustomDataAssetAirdrome(Id);
+			CustomData = new CustomDataAssetAirdrome(Id, BriefingCoalition.Name);
 			RootCustom.AssetAirdromes.Add(CustomData);
 
 			if (BriefingCoalition.Assets.OfType<AssetFlight>().Where(_a => _a.GetAirdromeIds().Contains(Id)).Any())

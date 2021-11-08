@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.LsonStructure;
 using DcsBriefop.Data;
-using DcsBriefop.Tools;
 using System.Linq;
 
 namespace DcsBriefop.Briefing
@@ -17,7 +16,7 @@ namespace DcsBriefop.Briefing
 		public override string Type { get { return MainUnit.Type; } }
 		public override string RadioString { get { return Radio.ToString(); } }
 
-		private UnitShip MainUnit
+		public UnitShip MainUnit
 		{
 			get
 			{

@@ -47,6 +47,17 @@ namespace DcsBriefop.Briefing
 				return null;
 		}
 
+		public CustomDataAssetGroup GetAssetGroup(int iAssetId, string sCoalition)
+		{
+			return AssetGroups?.Where(_g => _g.Id == iAssetId && _g.Coalition == sCoalition).FirstOrDefault();
+		}
+
+		public CustomDataAssetAirdrome GetAssetAirdrome(int iAssetId, string sCoalition)
+		{
+			return AssetAirdromes?.Where(_a => _a.Id == iAssetId && _a.Coalition == sCoalition).FirstOrDefault();
+		}
+
+
 		private void NormalizeData()
 		{
 			foreach (CustomDataAssetGroup asset in AssetGroups)
@@ -86,19 +97,22 @@ namespace DcsBriefop.Briefing
 	internal class CustomDataAssetAirdrome
 	{
 		public int Id { get; set; }
+		public string Coalition { get; set; }
 		public int Category { get; set; }
 		public int MapDisplay { get; set; }
 		public string Information { get; set; }
 
-		public CustomDataAssetAirdrome(int iId)
+		public CustomDataAssetAirdrome(int iId, string sCoalition)
 		{
 			Id = iId;
+			Coalition = sCoalition;
 		}
 	}
 
 	internal class CustomDataAssetGroup
 	{
 		public int Id { get; set; }
+		public string Coalition { get; set; }
 		public int Category { get; set; }
 		public int MapDisplay { get; set; }
 		public string Information { get; set; }

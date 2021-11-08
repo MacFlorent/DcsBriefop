@@ -10,7 +10,7 @@ namespace DcsBriefop
 	[Serializable]
 	public class GMarkerBriefop : GMapMarker, ISerializable, IDeserializationCallback
 	{
-		private Font m_font = new Font("Arial", 10);
+		private Font m_font = new Font("Arial", 11);
 		private Pen m_penSelected = new Pen(Color.Blue, 1);
 		private Pen m_penMouseOver = new Pen(Color.CadetBlue, 1);
 
@@ -66,7 +66,17 @@ namespace DcsBriefop
 			lock (m_bitmap) { g.DrawImage(m_bitmap, rect); }
 
 			if (!string.IsNullOrEmpty(Label))
-				g.DrawString(Label, m_font, Brushes.Black, rect.Left, rect.Bottom);
+			{
+				Color textColor = TintColor.GetValueOrDefault(Color.Black);
+				Color shadowColor = Color.FromArgb(120, textColor);
+
+				using (Brush textBrush = new SolidBrush(textColor))
+				using (Brush shadowBrush = new SolidBrush(shadowColor))
+				{
+					g.DrawString(Label, m_font, shadowBrush, rect.Left + 1, rect.Bottom + 1);
+					g.DrawString(Label, m_font, textBrush, rect.Left, rect.Bottom);
+				}
+			}
 
 			if (IsSelected)
 			{

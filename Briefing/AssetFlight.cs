@@ -37,7 +37,7 @@ namespace DcsBriefop.Briefing
 		}
 		#endregion
 
-			#region CTOR
+		#region CTOR
 		public AssetFlight(BriefingPack briefingPack, BriefingCoalition briefingCoalition, GroupFlight group) : base(briefingPack, briefingCoalition, group) { }
 		#endregion
 
@@ -51,18 +51,41 @@ namespace DcsBriefop.Briefing
 				sbInformation.AppendWithSeparator($"TCN={GetTacanString()}", " ");
 			}
 
-			int? iAirdromeId = GetAirdromeIds()?.FirstOrDefault();
-			if (iAirdromeId is object && Theatre.GetAirdrome(iAirdromeId.Value) is Airdrome airdrome)
+			StringBuilder sbBases = new StringBuilder();
+			foreach (Airdrome airdrome in GetAirdromeIds().Select(_i => Theatre.GetAirdrome(_i)))
 			{
-				sbInformation.AppendWithSeparator($"Base={airdrome.Name}", " ");
+				if (airdrome is object)
+				{
+					if (sbBases.Length <= 0)
+					{
+						sbBases.Append($"Base={airdrome.Name}");
+					}
+					else
+					{
+						sbBases.AppendWithSeparator($"{airdrome.Name}", ",");
+					}
+				}
+			}
+			foreach (AssetShip carrier in GetCarrierAssets())
+			{
+				if (sbBases.Length <= 0)
+				{
+					sbBases.Append($"Base={carrier.Name}");
+				}
+				else
+				{
+					sbBases.AppendWithSeparator($"{carrier.Name}", ",");
+				}
+
 			}
 
+			sbInformation.AppendWithSeparator(sbBases.ToString(), " ");
 			return sbInformation.ToString();
 		}
 
 		protected override void InitializeCustomData()
 		{
-			CustomData = RootCustom.AssetGroups?.Where(_f => _f.Id == Id).FirstOrDefault();
+			CustomData = RootCustom.GetAssetGroup(Id, BriefingCoalition.Name);
 			if (CustomData is object)
 				return;
 
@@ -88,11 +111,11 @@ namespace DcsBriefop.Briefing
 
 		public string GetCallsign()
 		{
-				string sCallsign = m_group.Units.OfType<UnitPlane>().FirstOrDefault()?.Callsign;
-				if (!string.IsNullOrEmpty(sCallsign))
-					return sCallsign.Substring(0, sCallsign.Length - 1);
-				else
-					return null;
+			string sCallsign = m_group.Units.OfType<UnitFlight>().FirstOrDefault()?.Callsign;
+			if (!string.IsNullOrEmpty(sCallsign))
+				return sCallsign.Substring(0, sCallsign.Length - 1);
+			else
+				return null;
 		}
 
 		public List<int> GetAirdromeIds()
@@ -102,23 +125,19 @@ namespace DcsBriefop.Briefing
 					&& (_rp.Type == ElementRoutePointType.TakeOff || _rp.Type == ElementRoutePointType.TakeOffParking || _rp.Type == ElementRoutePointType.TakeOffParkingHot || _rp.Type == ElementRoutePointType.Land))
 				.GroupBy(_rp => _rp.AirdromeId).Select(_g => _g.Key.Value);
 
-			return grouped.ToList(); ;
-			//List<Airdrome> airdromes = new List<Airdrome>();
-			//foreach(int iId in grouped)
-			//{
-			//	Airdrome ad = Theatre.GetAirdrome(iId);
-			//	if (ad is object)
-			//		airdromes.Add(Theatre.GetAirdrome(iId));
-			//}
-
-			//return airdromes;
+			return grouped.ToList();
 		}
 
-		//public string GetAirdromeNames()
-		//{
-		//	IEnumerable<string> grouped = GetAirdromes().Select(_ad => _ad.Name);
-		//	return string.Join(",", grouped);
-		//}
+		public List<AssetShip> GetCarrierAssets()
+		{
+			IEnumerable<int> grouped = m_group.RoutePoints
+				.Where(_rp => _rp.HelipadId is object
+					&& (_rp.Type == ElementRoutePointType.TakeOff || _rp.Type == ElementRoutePointType.TakeOffParking || _rp.Type == ElementRoutePointType.TakeOffParkingHot || _rp.Type == ElementRoutePointType.Land))
+				.GroupBy(_rp => _rp.HelipadId).Select(_g => _g.Key.Value);
+
+
+			return BriefingCoalition.Assets.OfType<AssetShip>().Where(_a => grouped.Contains(_a.MainUnit.Id)).ToList();
+		}
 		#endregion
 	}
 }

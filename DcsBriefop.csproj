@@ -146,6 +146,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Briefing\AssetStatic.cs" />
+    <Compile Include="Briefing\AssetVehicle.cs" />
     <Compile Include="Briefing\Asset.cs" />
     <Compile Include="Briefing\AssetAirdrome.cs" />
     <Compile Include="Briefing\AssetRoutePoint.cs" />

@@ -31,10 +31,13 @@ namespace DcsBriefop.LsonStructure
 			Name = m_lsd[LuaNode.Name].GetString();
 			LateActivation = m_lsd.IfExistsBool(LuaNode.LateActivation).GetValueOrDefault();
 
-			LsonDict lsdRoutePoints = m_lsd[LuaNode.Route][LuaNode.Points].GetDict();
-			foreach (LsonValue lsv in lsdRoutePoints.Values)
+			if (m_lsd.ContainsKey(LuaNode.Route))
 			{
-				RoutePoints.Add(new RoutePoint(lsv.GetDict()));
+				LsonDict lsdRoutePoints = m_lsd[LuaNode.Route][LuaNode.Points].GetDict();
+				foreach (LsonValue lsv in lsdRoutePoints.Values)
+				{
+					RoutePoints.Add(new RoutePoint(lsv.GetDict()));
+				}
 			}
 		}
 
@@ -50,36 +53,6 @@ namespace DcsBriefop.LsonStructure
 				rp.ToLua();
 			}
 		}
-
-		//public string GetStringTacan()
-		//{
-		//	foreach (RoutePoint rp in RoutePoints)
-		//	{
-		//		foreach (RouteTask rt in rp.RouteTasks)
-		//		{
-		//			string sTacan = rt.GetStringTacan();
-		//			if (!string.IsNullOrEmpty(sTacan))
-		//				return sTacan;
-		//		}
-		//	}
-
-		//	return null;
-		//}
-
-		//public int? GetAirdromeId()
-		//{
-		//	return RoutePoints.Where(_rp => _rp.AirdromeId is object).Select(_rp => _rp.AirdromeId).FirstOrDefault();
-		//}
-
-		//public int? GetHelipadId()
-		//{
-		//	return RoutePoints.Where(_rp => _rp.HelipadId is object).Select(_rp => _rp.HelipadId).FirstOrDefault();
-		//}
-
-		//public Unit FindUnit(int iUnitId)
-		//{
-		//	return Units.Where(_u => _u.Id == iUnitId).FirstOrDefault();
-		//}
 	}
 
 	internal class GroupFlight : Group
@@ -109,7 +82,7 @@ namespace DcsBriefop.LsonStructure
 			LsonDict lsdUnits = m_lsd[LuaNode.Units].GetDict();
 			foreach (LsonValue lsv in lsdUnits.Values)
 			{
-				Units.Add(new UnitPlane(lsv.GetDict()));
+				Units.Add(new UnitFlight(lsv.GetDict()));
 			}
 		}
 
@@ -121,9 +94,9 @@ namespace DcsBriefop.LsonStructure
 			m_lsd[LuaNode.RadioFrequency] = RadioFrequency;
 			m_lsd[LuaNode.RadioModulation] = RadioModulation;
 
-			foreach (UnitPlane up in Units.OfType<UnitPlane>())
+			foreach (UnitFlight unit in Units.OfType<UnitFlight>())
 			{
-				up.ToLua();
+				unit.ToLua();
 			}
 		}
 	}
@@ -151,10 +124,70 @@ namespace DcsBriefop.LsonStructure
 		{
 			base.ToLua();
 
-			foreach (UnitPlane up in Units.OfType<UnitPlane>())
+			foreach (UnitShip unit in Units.OfType<UnitShip>())
 			{
-				up.ToLua();
+				unit.ToLua();
 			}
 		}
 	}
-}
+
+	internal class GroupVehicle : Group
+	{
+		private class LuaNode
+		{
+			public static readonly string Units = "units";
+		}
+
+		public GroupVehicle(LsonDict lsd) : base(lsd) { }
+
+		public override void FromLua()
+		{
+			base.FromLua();
+			LsonDict lsdUnits = m_lsd[LuaNode.Units].GetDict();
+			foreach (LsonValue lsv in lsdUnits.Values)
+			{
+				Units.Add(new UnitVehicle(lsv.GetDict()));
+			}
+		}
+
+		public override void ToLua()
+		{
+			base.ToLua();
+
+			foreach (UnitVehicle unit in Units.OfType<UnitVehicle>())
+			{
+				unit.ToLua();
+			}
+		}
+	}
+
+	internal class GroupStatic : Group
+	{
+		private class LuaNode
+		{
+			public static readonly string Units = "units";
+		}
+
+		public GroupStatic(LsonDict lsd) : base(lsd) { }
+
+		public override void FromLua()
+		{
+			base.FromLua();
+			LsonDict lsdUnits = m_lsd[LuaNode.Units].GetDict();
+			foreach (LsonValue lsv in lsdUnits.Values)
+			{
+				Units.Add(new UnitStatic(lsv.GetDict()));
+			}
+		}
+
+		public override void ToLua()
+		{
+			base.ToLua();
+
+			foreach (UnitStatic unit in Units.OfType<UnitStatic>())
+			{
+				unit.ToLua();
+			}
+		}
+	}
+	}

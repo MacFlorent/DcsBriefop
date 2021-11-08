@@ -11,12 +11,16 @@ namespace DcsBriefop.LsonStructure
 			public static readonly string Plane = "plane";
 			public static readonly string Helicopter = "helicopter";
 			public static readonly string Ship = "ship";
+			public static readonly string Vehicle = "vehicle";
+			public static readonly string Static = "static";
 			public static readonly string Group = "group";
 		}
 
 		public string Name { get; set; }
 		public List<GroupFlight> GroupFlights { get; set; } = new List<GroupFlight>();
 		public List<GroupShip> GroupShips { get; set; } = new List<GroupShip>();
+		public List<GroupVehicle> GroupVehicles { get; set; } = new List<GroupVehicle>();
+		public List<GroupStatic> GroupStatics { get; set; } = new List<GroupStatic>();
 
 		public Country(LsonDict lsd) : base(lsd) { }
 
@@ -48,6 +52,24 @@ namespace DcsBriefop.LsonStructure
 				foreach (LsonValue lsv in lsdGroupShips.Values)
 				{
 					GroupShips.Add(new GroupShip(lsv.GetDict()));
+				}
+			}
+
+			if (m_lsd.ContainsKey(LuaNode.Vehicle))
+			{
+				LsonDict lsdGroupVehicles = m_lsd[LuaNode.Vehicle][LuaNode.Group].GetDict();
+				foreach (LsonValue lsv in lsdGroupVehicles.Values)
+				{
+					GroupVehicles.Add(new GroupVehicle(lsv.GetDict()));
+				}
+			}
+
+			if (m_lsd.ContainsKey(LuaNode.Static))
+			{
+				LsonDict lsdGroupStatics = m_lsd[LuaNode.Static][LuaNode.Group].GetDict();
+				foreach (LsonValue lsv in lsdGroupStatics.Values)
+				{
+					GroupStatics.Add(new GroupStatic(lsv.GetDict()));
 				}
 			}
 		}

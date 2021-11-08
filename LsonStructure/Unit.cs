@@ -1,4 +1,5 @@
-﻿using LsonLib;
+﻿using DcsBriefop.Tools;
+using LsonLib;
 
 namespace DcsBriefop.LsonStructure
 {
@@ -24,7 +25,7 @@ namespace DcsBriefop.LsonStructure
 			Id = m_lsd[LuaNode.Id].GetInt();
 			Name = m_lsd[LuaNode.Name].GetString();
 			Type = m_lsd[LuaNode.Type].GetString();
-			Skill = m_lsd[LuaNode.Skill].GetString();
+			Skill = m_lsd.IfExistsString(LuaNode.Skill);
 		}
 
 		public override void ToLua()
@@ -36,7 +37,7 @@ namespace DcsBriefop.LsonStructure
 		}
 	}
 
-	internal class UnitPlane : Unit
+	internal class UnitFlight : Unit
 	{
 		private class LuaNode
 		{
@@ -48,7 +49,7 @@ namespace DcsBriefop.LsonStructure
 		public string Callsign { get; set; }
 		public string Modex { get; set; }
 
-		public UnitPlane(LsonDict lsd) : base(lsd) { }
+		public UnitFlight(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -96,4 +97,43 @@ namespace DcsBriefop.LsonStructure
 			m_lsd[LuaNode.RadioModulation] = RadioModulation;
 		}
 	}
+
+	internal class UnitVehicle : Unit
+	{
+		private class LuaNode
+		{
+		}
+
+		public UnitVehicle(LsonDict lsd) : base(lsd) { }
+
+		public override void FromLua()
+		{
+			base.FromLua();
+		}
+
+		public override void ToLua()
+		{
+			base.ToLua();
+		}
+	}
+
+	internal class UnitStatic : Unit
+	{
+		private class LuaNode
+		{
+		}
+
+		public UnitStatic(LsonDict lsd) : base(lsd) { }
+
+		public override void FromLua()
+		{
+			base.FromLua();
+		}
+
+		public override void ToLua()
+		{
+			base.ToLua();
+		}
+	}
+
 }
