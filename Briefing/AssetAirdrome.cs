@@ -16,10 +16,10 @@ namespace DcsBriefop.Briefing
 		protected override string DefaultMarker { get; set; } = MarkerBriefopType.airport.ToString();
 		public CustomDataAssetAirdrome CustomData;
 
-		public override ElementAssetCategory Category
+		public override ElementAssetUsage Usage
 		{
-			get { return (ElementAssetCategory)CustomData.Category; }
-			set { CustomData.Category = (int)value; }
+			get { return (ElementAssetUsage)CustomData.Usage; }
+			set { CustomData.Usage = (int)value; }
 		}
 
 		public override ElementAssetMapDisplay MapDisplay
@@ -71,7 +71,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public AssetAirdrome(BriefingPack briefingPack, BriefingCoalition briefingCoalition, Airdrome airdrome) : base(briefingPack, briefingCoalition)
+		public AssetAirdrome(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, Airdrome airdrome) : base(briefingPack, briefingCoalition, side)
 		{
 			m_airdrome = airdrome;
 			InitializeData(briefingPack);
@@ -88,14 +88,15 @@ namespace DcsBriefop.Briefing
 			CustomData = new CustomDataAssetAirdrome(Id, BriefingCoalition.Name);
 			RootCustom.AssetAirdromes.Add(CustomData);
 
-			if (BriefingCoalition.Assets.OfType<AssetFlight>().Where(_a => _a.GetAirdromeIds().Contains(Id)).Any())
+			if (BriefingCoalition.OwnAssets.OfType<AssetFlight>().Where(_a => _a.GetAirdromeIds().Contains(Id)).Any())
 			{
-				Category = ElementAssetCategory.Base;
+				Side = ElementAssetSide.Own;
+				Usage = ElementAssetUsage.Base;
 				MapDisplay = ElementAssetMapDisplay.Point;
 			}
 			else
 			{
-				Category = ElementAssetCategory.Excluded;
+				Usage = ElementAssetUsage.Excluded;
 				MapDisplay = ElementAssetMapDisplay.None;
 			}
 		}

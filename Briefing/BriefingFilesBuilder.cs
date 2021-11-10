@@ -111,7 +111,7 @@ namespace DcsBriefop.Briefing
 			sFileName = $"{coalition.Name}_02_OPERATIONS";
 			AddFileHtml(sFileName, sKneeboardFolder, GenerateHtmlOperations(coalition));
 
-			foreach (AssetGroup asset in coalition.Assets.OfType<AssetGroup>().Where(_a => _a.Category == ElementAssetCategory.Mission))
+			foreach (AssetGroup asset in coalition.OwnAssets.OfType<AssetGroup>().Where(_a => _a.Usage == ElementAssetUsage.Mission))
 			{
 				sKneeboardFolder = KneeboardFolders.Images; // TODO aircrat specific kneeboard folder
 				sFileName = $"{coalition.Name}_03_MISSION_{asset.Name}";
@@ -149,19 +149,23 @@ namespace DcsBriefop.Briefing
 
 			hb.OpenTable("Name", "Task", "Type", "Notes");
 			hb.AppendTableRow("Missions");
-			foreach (Asset asset in coalition.Assets.Where(_a =>_a.Category == ElementAssetCategory.Mission))
+			foreach (Asset asset in coalition.OwnAssets.Where(_a =>_a.Usage == ElementAssetUsage.Mission))
 			{
 				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
 			}
 
 			hb.AppendTableRow("Support");
-			foreach (Asset asset in coalition.Assets.Where(_a => _a.Category == ElementAssetCategory.Support))
+			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Support))
 			{
 				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
 			}
 
 			hb.AppendTableRow("Base");
-			foreach (Asset asset in coalition.Assets.Where(_a => _a.Category == ElementAssetCategory.Base))
+			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Base))
+			{
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
+			}
+			foreach (Asset asset in coalition.Airdromes.Where(_a => _a.Usage == ElementAssetUsage.Base && _a.Side == ElementAssetSide.Own))
 			{
 				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
 			}

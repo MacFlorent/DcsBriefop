@@ -2,16 +2,20 @@
 using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace DcsBriefop.UcBriefing
 {
 	internal partial class UcBriefingCoalition : UcBaseBriefing
 	{
+		#region Columns
 		private static class GridColumn
 		{
-			public static readonly string AssetCategory = "AssetCategory";
-			public static readonly string AssetMapDisplay = "AssetMapDisplay";
+			public static readonly string Side = "Side";
+			public static readonly string Usage = "Usage";
+			public static readonly string MapDisplay = "MapDisplay";
 			public static readonly string Id = "Id";
 			public static readonly string Name = "Name";
 			public static readonly string Type = "Type";
@@ -20,24 +24,18 @@ namespace DcsBriefop.UcBriefing
 			public static readonly string Notes = "Notes";
 			public static readonly string Data = "Data";
 		}
+		#endregion
 
 		#region Properties
 		public BriefingCoalition BriefingCoalition { get; private set; }
 		#endregion
 
 		#region CTOR
-		public UcBriefingCoalition(UcMap ucMap, BriefingPack bp, BriefingCoalition bc) : base (ucMap, bp)
+		public UcBriefingCoalition(UcMap ucMap, BriefingPack bp, BriefingCoalition bc) : base(ucMap, bp)
 		{
 			InitializeComponent();
-
+			
 			BriefingCoalition = bc;
-
-			DgvAssets.ContextMenuStrip = new ContextMenuStrip();
-			DgvAssets.ReadOnly = true;
-			DgvAssets.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-			DgvAssets.AllowUserToResizeColumns = true;
-
-			BuildMenu();
 		}
 		#endregion
 
@@ -48,22 +46,97 @@ namespace DcsBriefop.UcBriefing
 			TbBullseyeDescription.Text = BriefingCoalition.BullseyeDescription;
 			TbTask.Text = BriefingCoalition.Task;
 
-			DgvAssets.Columns.Add(GridColumn.AssetCategory, "Cat.");
-			DgvAssets.Columns.Add(GridColumn.AssetMapDisplay, "Map");
-			DgvAssets.Columns.Add(GridColumn.Id, "ID");
-			DgvAssets.Columns.Add(GridColumn.Name, "Name");
-			DgvAssets.Columns.Add(GridColumn.Task, "Task");
-			DgvAssets.Columns.Add(GridColumn.Type, "Type");
-			DgvAssets.Columns.Add(GridColumn.Radio, "Radio");
-			DgvAssets.Columns.Add(GridColumn.Notes, "Notes");
-			DgvAssets.Columns.Add(GridColumn.Data, "");
+			TcAssets.TabPages.Clear();
 
-			DgvAssets.Columns[GridColumn.Data].Visible = false;
-
-			foreach (Asset asset in BriefingCoalition.Assets)
+			TabPage tp = new TabPage("Own assets");
+			TcAssets.TabPages.Add(tp);
+			DataGridView dgv = new DataGridView();
+			SetGridProperties(dgv);
+			InitializeContextMenu(dgv);
+			tp.Controls.Add(dgv);
+			InitializeGridOwnAsset(dgv);
+			foreach (Asset asset in BriefingCoalition.OwnAssets)
 			{
-				RefreshGridRow(asset);
+				RefreshGridRow(dgv, asset);
 			}
+
+			tp = new TabPage("Opposing assets");
+			TcAssets.TabPages.Add(tp);
+			dgv = new DataGridView();
+			SetGridProperties(dgv);
+			InitializeContextMenu(dgv);
+			tp.Controls.Add(dgv);
+			InitializeGridOpposingAsset(dgv);
+			foreach (Asset asset in BriefingCoalition.OpposingAssets)
+			{
+				RefreshGridRow(dgv, asset);
+			}
+
+			tp = new TabPage("Airdromes");
+			TcAssets.TabPages.Add(tp);
+			dgv = new DataGridView();
+			SetGridProperties(dgv);
+			InitializeContextMenu(dgv);
+			tp.Controls.Add(dgv);
+			InitializeGridAirdrome(dgv);
+			foreach (Asset asset in BriefingCoalition.Airdromes)
+			{
+				RefreshGridRow(dgv, asset);
+			}
+		}
+
+		private void SetGridProperties(DataGridView dgv)
+		{
+			dgv.ContextMenuStrip = new ContextMenuStrip();
+			dgv.ReadOnly = true;
+			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+			dgv.AllowUserToResizeColumns = true;
+			dgv.AllowUserToAddRows = false;
+			dgv.RowHeadersVisible = false;
+			dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			dgv.Dock = DockStyle.Fill;
+		}
+
+		private static void InitializeGridOwnAsset(DataGridView dgv)
+		{
+			dgv.Columns.Add(GridColumn.Usage, "Usage");
+			dgv.Columns.Add(GridColumn.MapDisplay, "Map");
+			dgv.Columns.Add(GridColumn.Id, "ID");
+			dgv.Columns.Add(GridColumn.Name, "Name");
+			dgv.Columns.Add(GridColumn.Task, "Task");
+			dgv.Columns.Add(GridColumn.Type, "Type");
+			dgv.Columns.Add(GridColumn.Radio, "Radio");
+			dgv.Columns.Add(GridColumn.Notes, "Notes");
+			dgv.Columns.Add(GridColumn.Data, "");
+
+			dgv.Columns[GridColumn.Data].Visible = false;
+		}
+
+		private static void InitializeGridOpposingAsset(DataGridView dgv)
+		{
+			dgv.Columns.Add(GridColumn.Usage, "Usage");
+			dgv.Columns.Add(GridColumn.MapDisplay, "Map");
+			dgv.Columns.Add(GridColumn.Id, "ID");
+			dgv.Columns.Add(GridColumn.Name, "Name");
+			dgv.Columns.Add(GridColumn.Task, "Task");
+			dgv.Columns.Add(GridColumn.Type, "Type");
+			dgv.Columns.Add(GridColumn.Notes, "Notes");
+			dgv.Columns.Add(GridColumn.Data, "");
+
+			dgv.Columns[GridColumn.Data].Visible = false;
+		}
+
+		private static void InitializeGridAirdrome(DataGridView dgv)
+		{
+			dgv.Columns.Add(GridColumn.Usage, "Usage");
+			dgv.Columns.Add(GridColumn.MapDisplay, "Map");
+			dgv.Columns.Add(GridColumn.Id, "ID");
+			dgv.Columns.Add(GridColumn.Name, "Name");
+			dgv.Columns.Add(GridColumn.Radio, "Radio");
+			dgv.Columns.Add(GridColumn.Notes, "Notes");
+			dgv.Columns.Add(GridColumn.Data, "");
+
+			dgv.Columns[GridColumn.Data].Visible = false;
 		}
 
 		public override void ScreenToData()
@@ -72,10 +145,10 @@ namespace DcsBriefop.UcBriefing
 			BriefingCoalition.Task = TbTask.Text;
 		}
 
-		private void RefreshGridRow(Asset asset)
+		private void RefreshGridRow(DataGridView dgv, Asset asset)
 		{
 			DataGridViewRow dgvr = null;
-			foreach(DataGridViewRow existingRow in DgvAssets.Rows)
+			foreach (DataGridViewRow existingRow in dgv.Rows)
 			{
 				if (existingRow.Cells[GridColumn.Data].Value == asset)
 				{
@@ -85,61 +158,61 @@ namespace DcsBriefop.UcBriefing
 			}
 			if (dgvr is null)
 			{
-				int iNewRowIndex = DgvAssets.Rows.Add();
-				dgvr = DgvAssets.Rows[iNewRowIndex];
+				int iNewRowIndex = dgv.Rows.Add();
+				dgvr = dgv.Rows[iNewRowIndex];
 				dgvr.Cells[GridColumn.Data].Value = asset;
 			}
 
-			dgvr.Cells[GridColumn.AssetCategory].Value = MasterDataRepository.GetById(MasterDataType.AssetCategory, (int)asset.Category)?.Label;
-			dgvr.Cells[GridColumn.AssetMapDisplay].Value = MasterDataRepository.GetById(MasterDataType.AssetMapDisplay, (int)asset.MapDisplay)?.Label;
-			dgvr.Cells[GridColumn.Id].Value = asset.Id;
-			dgvr.Cells[GridColumn.Name].Value = asset.Name;
-			dgvr.Cells[GridColumn.Task].Value = asset.Task;
-			dgvr.Cells[GridColumn.Type].Value = asset.Type;
-			dgvr.Cells[GridColumn.Radio].Value = asset.RadioString;
-			dgvr.Cells[GridColumn.Notes].Value = asset.Information;
+			RefreshGridRowContent(dgvr, GridColumn.Usage, MasterDataRepository.GetById(MasterDataType.AssetUsage, (int)asset.Usage)?.Label);
+			RefreshGridRowContent(dgvr, GridColumn.MapDisplay, MasterDataRepository.GetById(MasterDataType.AssetMapDisplay, (int)asset.MapDisplay)?.Label);
+			RefreshGridRowContent(dgvr, GridColumn.Id, asset.Id);
+			RefreshGridRowContent(dgvr, GridColumn.Name, asset.Name);
+			RefreshGridRowContent(dgvr, GridColumn.Task, asset.Task);
+			RefreshGridRowContent(dgvr, GridColumn.Type, asset.Type);
+			RefreshGridRowContent(dgvr, GridColumn.Radio, asset.RadioString);
+			RefreshGridRowContent(dgvr, GridColumn.Notes, asset.Information);
 		}
 
-		private void ShowDetail()
+		private void RefreshGridRowContent(DataGridViewRow dgvr, string sColumn, object value)
 		{
-			if (DgvAssets.SelectedRows.Count > 0)
+			if (dgvr.DataGridView.Columns.Contains(sColumn))
+				dgvr.Cells[sColumn].Value = value;
+		}
+
+		private void ShowDetail(Asset asset, DataGridView dgv)
+		{
+			FrmAssetDetail f = new FrmAssetDetail(asset);
+			f.ShowDialog();
+			RefreshGridRow(dgv, asset);
+		}
+
+		private void ShowMission(AssetGroup asset, DataGridView dgv)
+		{
+			FrmMissionDetail f = new FrmMissionDetail(asset);
+			f.ShowDialog();
+		}
+
+		private void SetUsage(List<Asset> assets, ElementAssetUsage usage, DataGridView dgv)
+		{
+			foreach (Asset asset in assets)
 			{
-				object o = DgvAssets.SelectedRows[0].Cells[GridColumn.Data].Value;
-				if (o is Asset asset)
+				if (asset.Usage != usage)
 				{
-					FrmAssetDetail f = new FrmAssetDetail(asset);
-					f.ShowDialog();
-					RefreshGridRow(asset);
+					asset.Usage = usage;
+					RefreshGridRow(dgv, asset);
 				}
 			}
 		}
-		private void ShowMission()
+
+		private void SetMapDisplay(List<Asset> assets, ElementAssetMapDisplay mapDisplay, DataGridView dgv)
 		{
-			if (DgvAssets.SelectedRows.Count > 0)
+			foreach (Asset asset in assets)
 			{
-				object o = DgvAssets.SelectedRows[0].Cells[GridColumn.Data].Value;
-				if (o is AssetGroup asset && asset.Category == ElementAssetCategory.Mission)
-				{
-					FrmMissionDetail f = new FrmMissionDetail(asset);
-					f.ShowDialog();
-				}
-			}
-		}
-
-		private void SetCategory(ElementAssetCategory category)
-		{
-
-		}
-
-		private void SetMapDisplay(ElementAssetMapDisplay mapDisplay)
-		{
-			foreach (DataGridViewRow row in DgvAssets.SelectedRows)
-			{
-				if (row.Cells[GridColumn.Data].Value is Asset asset && asset.MapDisplay != mapDisplay)
+				if (asset.MapDisplay != mapDisplay)
 				{
 					asset.MapDisplay = mapDisplay;
 					asset.InitializeMapOverlay();
-					RefreshGridRow(asset);
+					RefreshGridRow(dgv, asset);
 				}
 			}
 		}
@@ -150,96 +223,60 @@ namespace DcsBriefop.UcBriefing
 		{
 			AssetDetail,
 			AssetMission,
-			AssetCategorySetExcluded,
-			AssetCategorySetMission,
-			AssetCategorySetSupport,
-			AssetCategorySetBase,
+			AssetUsageSetExcluded,
+			AssetUsageSetMission,
+			AssetUsageSetSupport,
+			AssetUsageSetBase,
 			AssetMapDisplaySetNone,
 			AssetMapDisplaySetPoint,
 			AssetMapDisplaySetOrbit,
 			AssetMapDisplaySetFullRoute,
 		}
 
-		private void BuildMenu()
+		private void InitializeContextMenu(DataGridView dgv)
 		{
-			DgvAssets.ContextMenuStrip.Items.Clear();
-			DgvAssets.ContextMenuStrip.Items.Add(MenuItem("Details", MenuName.AssetDetail));
-			DgvAssets.ContextMenuStrip.Items.Add(MenuItem("Mission", MenuName.AssetMission));
-			DgvAssets.ContextMenuStrip.Items.Add(new ToolStripSeparator());
-
-			int iIndex = DgvAssets.ContextMenuStrip.Items.Add(MenuItem("Category", null));
-			ToolStripMenuItem tmsiParent = DgvAssets.ContextMenuStrip.Items[iIndex] as ToolStripMenuItem;
-			tmsiParent.DropDownItems.Add(MenuItem("Excluded", MenuName.AssetCategorySetExcluded));
-			tmsiParent.DropDownItems.Add(MenuItem("Mission", MenuName.AssetCategorySetMission));
-			tmsiParent.DropDownItems.Add(MenuItem("Support", MenuName.AssetCategorySetSupport));
-			tmsiParent.DropDownItems.Add(MenuItem("Base", MenuName.AssetCategorySetBase));
-			
-			iIndex = DgvAssets.ContextMenuStrip.Items.Add(MenuItem("Map display", null));
-			tmsiParent = DgvAssets.ContextMenuStrip.Items[iIndex] as ToolStripMenuItem;
-			tmsiParent.DropDownItems.Add(MenuItem("None", MenuName.AssetMapDisplaySetNone));
-			tmsiParent.DropDownItems.Add(MenuItem("Point", MenuName.AssetMapDisplaySetPoint));
-			tmsiParent.DropDownItems.Add(MenuItem("Orbit", MenuName.AssetMapDisplaySetOrbit));
-			tmsiParent.DropDownItems.Add(MenuItem("Full route", MenuName.AssetMapDisplaySetFullRoute));
+			dgv.ContextMenuStrip.Opening += (object sender, CancelEventArgs e) => { ContextMenuOpening(sender as ContextMenuStrip, dgv, e); };
 		}
 
-		private ToolStripMenuItem MenuItem(string sLabel, MenuName? name)
+		private void ContextMenuOpening(ContextMenuStrip menu, DataGridView dgv, CancelEventArgs e)
 		{
-			return new ToolStripMenuItem(sLabel, null, new EventHandler(ToolStripItemClicked), name?.ToString());
-		}
+			List<Asset> selectedAssets = new List<Asset>();
+			foreach (DataGridViewRow row in dgv.SelectedRows)
+			{
+				if (row.Cells[GridColumn.Data].Value is Asset asset)
+				{
+					selectedAssets.Add(asset);
+				}
+			}
 
-		private void ToolStripItemClicked(object sender, EventArgs e)
-		{
-			ToolStripItem tsi = sender as ToolStripItem;
-			if (tsi == null)
-				return;
+			Asset singleSelectedAsset = selectedAssets.Count == 1 ? selectedAssets[0] as Asset : null;
 
-			if (string.IsNullOrEmpty(tsi.Name))
-				return;
+			menu.Items.Clear();
 
-			Enum.TryParse(tsi.Name, out MenuName clickedName);
+			if (selectedAssets.Count > 0)
+			{
+				if (singleSelectedAsset is object)
+					menu.Items.AddMenuItem("Details", (object _sender, EventArgs _e) => { ShowDetail(singleSelectedAsset, dgv); });
+				if (singleSelectedAsset is AssetGroup assetGroup)
+					menu.Items.AddMenuItem("Mission", (object _sender, EventArgs _e) => { ShowMission(assetGroup, dgv); });
 
-			if (clickedName == MenuName.AssetDetail)
-			{
-				ShowDetail();
+				menu.Items.AddMenuSeparator();
+
+				ToolStripMenuItem tmsiUsage = menu.Items.AddMenuItem("Usage", null);
+				tmsiUsage.DropDownItems.AddMenuItem("Excluded", (object _sender, EventArgs _e) => { SetUsage(selectedAssets, ElementAssetUsage.Excluded, dgv); });
+				tmsiUsage.DropDownItems.AddMenuItem("Mission", (object _sender, EventArgs _e) => { SetUsage(selectedAssets, ElementAssetUsage.Mission, dgv); });
+				tmsiUsage.DropDownItems.AddMenuItem("Support",  (object _sender, EventArgs _e) => { SetUsage(selectedAssets, ElementAssetUsage.Support, dgv); });
+				tmsiUsage.DropDownItems.AddMenuItem("Base", (object _sender, EventArgs _e) => { SetUsage(selectedAssets, ElementAssetUsage.Base, dgv); });
+
+				ToolStripMenuItem tmsiMapDisplay = menu.Items.AddMenuItem("Map display", null);
+				tmsiMapDisplay.DropDownItems.AddMenuItem("None", (object _sender, EventArgs _e) => { SetMapDisplay(selectedAssets, ElementAssetMapDisplay.None, dgv); });
+				tmsiMapDisplay.DropDownItems.AddMenuItem("Point", (object _sender, EventArgs _e) => { SetMapDisplay(selectedAssets, ElementAssetMapDisplay.Point, dgv); });
+				tmsiMapDisplay.DropDownItems.AddMenuItem("Orbit", (object _sender, EventArgs _e) => { SetMapDisplay(selectedAssets, ElementAssetMapDisplay.Orbit, dgv); });
+				tmsiMapDisplay.DropDownItems.AddMenuItem("Full route", (object _sender, EventArgs _e) => { SetMapDisplay(selectedAssets, ElementAssetMapDisplay.FullRoute, dgv); });
 			}
-			else if (clickedName == MenuName.AssetMission)
-			{
-				ShowMission();
-			}
-			// Category set
-			else if (clickedName == MenuName.AssetCategorySetExcluded)
-			{
-				SetCategory(ElementAssetCategory.Excluded);
-			}
-			else if (clickedName == MenuName.AssetCategorySetMission)
-			{
-				SetCategory(ElementAssetCategory.Mission);
-			}
-			else if (clickedName == MenuName.AssetCategorySetSupport)
-			{
-				SetCategory(ElementAssetCategory.Support);
-			}
-			else if (clickedName == MenuName.AssetCategorySetBase)
-			{
-				SetCategory(ElementAssetCategory.Base);
-			}
-			// Map display set
-			else if (clickedName == MenuName.AssetMapDisplaySetNone)
-			{
-				SetMapDisplay(ElementAssetMapDisplay.None);
-			}
-			else if (clickedName == MenuName.AssetMapDisplaySetPoint)
-			{
-				SetMapDisplay(ElementAssetMapDisplay.Point);
-			}
-			else if (clickedName == MenuName.AssetMapDisplaySetOrbit)
-			{
-				SetMapDisplay(ElementAssetMapDisplay.Orbit);
-			}
-			else if (clickedName == MenuName.AssetMapDisplaySetFullRoute)
-			{
-				SetMapDisplay(ElementAssetMapDisplay.FullRoute);
-			}
+
+			if (menu.Items.Count <= 0)
+				e.Cancel = true;
 
 		}
 		#endregion
@@ -274,7 +311,7 @@ namespace DcsBriefop.UcBriefing
 			//	}
 			//}
 
-			
+
 		}
 
 		private void TbBullseyeDescription_Validated(object sender, System.EventArgs e)

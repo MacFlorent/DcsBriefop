@@ -6,16 +6,24 @@ namespace DcsBriefop.Data
 {
 	internal enum MasterDataType
 	{
-		AssetCategory,
+		AssetUsage,
 		AssetMapDisplay
 	}
 
-	internal enum ElementAssetCategory
+	internal enum ElementAssetSide
+	{
+		None = 0,
+		Own = 1,
+		Opposing = 2
+	}
+
+	internal enum ElementAssetUsage
 	{
 		Excluded = 0,
 		Mission = 1,
 		Support = 2,
-		Base = 3
+		Base = 3,
+		Opposition = 4
 	}
 
 	internal enum ElementAssetMapDisplay
@@ -40,18 +48,18 @@ namespace DcsBriefop.Data
 
 		static MasterDataRepository()
 		{
-			m_repository.Add(MasterDataType.AssetCategory, BuildListAssetCategory());
+			m_repository.Add(MasterDataType.AssetUsage, BuildListAssetUsage());
 			m_repository.Add(MasterDataType.AssetMapDisplay, BuildListAssetMapDisplay());
 		}
 
-		private static List<MasterDataObject> BuildListAssetCategory()
+		private static List<MasterDataObject> BuildListAssetUsage()
 		{
 			return new List<MasterDataObject>()
 			{
-				new MasterDataObject() { Id = (int)ElementAssetCategory.Excluded, Label = "Excluded" },
-				new MasterDataObject() { Id = (int)ElementAssetCategory.Mission, Label = "Mission" },
-				new MasterDataObject() { Id = (int)ElementAssetCategory.Support, Label = "Support" },
-				new MasterDataObject() { Id = (int)ElementAssetCategory.Base, Label = "Base" }
+				new MasterDataObject() { Id = (int)ElementAssetUsage.Excluded, Label = "Excluded" },
+				new MasterDataObject() { Id = (int)ElementAssetUsage.Mission, Label = "Mission" },
+				new MasterDataObject() { Id = (int)ElementAssetUsage.Support, Label = "Support" },
+				new MasterDataObject() { Id = (int)ElementAssetUsage.Base, Label = "Base" }
 			};
 		}
 

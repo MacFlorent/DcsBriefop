@@ -31,53 +31,36 @@ namespace DcsBriefop.UcBriefing
 		{
 			this.TbTask = new System.Windows.Forms.TextBox();
 			this.LbTask = new System.Windows.Forms.Label();
-			this.DgvAssets = new System.Windows.Forms.DataGridView();
 			this.LbBullseye = new System.Windows.Forms.Label();
-			this.LbAssets = new System.Windows.Forms.Label();
 			this.TbBullseyeCoordinates = new System.Windows.Forms.TextBox();
 			this.TbBullseyeDescription = new System.Windows.Forms.TextBox();
 			this.button1 = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)(this.DgvAssets)).BeginInit();
+			this.TcAssets = new System.Windows.Forms.TabControl();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.TcAssets.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// TbTask
 			// 
 			this.TbTask.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbTask.Location = new System.Drawing.Point(6, 156);
+			this.TbTask.Location = new System.Drawing.Point(6, 128);
 			this.TbTask.Multiline = true;
 			this.TbTask.Name = "TbTask";
 			this.TbTask.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbTask.Size = new System.Drawing.Size(659, 128);
+			this.TbTask.Size = new System.Drawing.Size(659, 83);
 			this.TbTask.TabIndex = 3;
 			// 
 			// LbTask
 			// 
 			this.LbTask.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.LbTask.Location = new System.Drawing.Point(6, 134);
+			this.LbTask.Location = new System.Drawing.Point(6, 106);
 			this.LbTask.Name = "LbTask";
 			this.LbTask.Size = new System.Drawing.Size(662, 20);
 			this.LbTask.TabIndex = 2;
 			this.LbTask.Text = "Ops";
 			this.LbTask.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// DgvAssets
-			// 
-			this.DgvAssets.AllowUserToAddRows = false;
-			this.DgvAssets.AllowUserToDeleteRows = false;
-			this.DgvAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.DgvAssets.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-			this.DgvAssets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DgvAssets.Location = new System.Drawing.Point(3, 314);
-			this.DgvAssets.Name = "DgvAssets";
-			this.DgvAssets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.DgvAssets.Size = new System.Drawing.Size(659, 317);
-			this.DgvAssets.TabIndex = 4;
-			this.DgvAssets.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvFlights_CellDoubleClick);
-			this.DgvAssets.SelectionChanged += new System.EventHandler(this.DgvFlights_SelectionChanged);
 			// 
 			// LbBullseye
 			// 
@@ -90,17 +73,6 @@ namespace DcsBriefop.UcBriefing
 			this.LbBullseye.Text = "Bullseye";
 			this.LbBullseye.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// LbAssets
-			// 
-			this.LbAssets.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.LbAssets.Location = new System.Drawing.Point(3, 287);
-			this.LbAssets.Name = "LbAssets";
-			this.LbAssets.Size = new System.Drawing.Size(662, 24);
-			this.LbAssets.TabIndex = 6;
-			this.LbAssets.Text = "Assets";
-			this.LbAssets.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
 			// TbBullseyeCoordinates
 			// 
 			this.TbBullseyeCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -110,7 +82,7 @@ namespace DcsBriefop.UcBriefing
 			this.TbBullseyeCoordinates.Name = "TbBullseyeCoordinates";
 			this.TbBullseyeCoordinates.ReadOnly = true;
 			this.TbBullseyeCoordinates.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbBullseyeCoordinates.Size = new System.Drawing.Size(659, 62);
+			this.TbBullseyeCoordinates.Size = new System.Drawing.Size(659, 56);
 			this.TbBullseyeCoordinates.TabIndex = 7;
 			this.TbBullseyeCoordinates.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
@@ -118,39 +90,59 @@ namespace DcsBriefop.UcBriefing
 			// 
 			this.TbBullseyeDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbBullseyeDescription.Location = new System.Drawing.Point(3, 89);
-			this.TbBullseyeDescription.Multiline = true;
+			this.TbBullseyeDescription.Location = new System.Drawing.Point(3, 84);
 			this.TbBullseyeDescription.Name = "TbBullseyeDescription";
 			this.TbBullseyeDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbBullseyeDescription.Size = new System.Drawing.Size(659, 43);
+			this.TbBullseyeDescription.Size = new System.Drawing.Size(659, 20);
 			this.TbBullseyeDescription.TabIndex = 8;
 			this.TbBullseyeDescription.Validated += new System.EventHandler(this.TbBullseyeDescription_Validated);
 			// 
 			// button1
 			// 
 			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button1.Location = new System.Drawing.Point(6, 637);
+			this.button1.Location = new System.Drawing.Point(3, 751);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(118, 23);
 			this.button1.TabIndex = 9;
 			this.button1.Text = "Communications";
 			this.button1.UseVisualStyleBackColor = true;
 			// 
+			// TcAssets
+			// 
+			this.TcAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.TcAssets.Controls.Add(this.tabPage1);
+			this.TcAssets.Location = new System.Drawing.Point(8, 217);
+			this.TcAssets.Name = "TcAssets";
+			this.TcAssets.SelectedIndex = 0;
+			this.TcAssets.Size = new System.Drawing.Size(654, 522);
+			this.TcAssets.TabIndex = 10;
+			// 
+			// tabPage1
+			// 
+			this.tabPage1.Location = new System.Drawing.Point(4, 22);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage1.Size = new System.Drawing.Size(646, 496);
+			this.tabPage1.TabIndex = 0;
+			this.tabPage1.Text = "tabPage1";
+			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
 			// UcBriefingCoalition
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.TcAssets);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.TbBullseyeDescription);
 			this.Controls.Add(this.TbBullseyeCoordinates);
-			this.Controls.Add(this.LbAssets);
 			this.Controls.Add(this.LbBullseye);
-			this.Controls.Add(this.DgvAssets);
 			this.Controls.Add(this.TbTask);
 			this.Controls.Add(this.LbTask);
 			this.Name = "UcBriefingCoalition";
-			this.Size = new System.Drawing.Size(668, 663);
-			((System.ComponentModel.ISupportInitialize)(this.DgvAssets)).EndInit();
+			this.Size = new System.Drawing.Size(668, 777);
+			this.TcAssets.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -159,11 +151,11 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 		private System.Windows.Forms.TextBox TbTask;
 		private System.Windows.Forms.Label LbTask;
-		private System.Windows.Forms.DataGridView DgvAssets;
 		private System.Windows.Forms.Label LbBullseye;
-		private System.Windows.Forms.Label LbAssets;
 		private System.Windows.Forms.TextBox TbBullseyeCoordinates;
 		private System.Windows.Forms.TextBox TbBullseyeDescription;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.TabControl TcAssets;
+		private System.Windows.Forms.TabPage tabPage1;
 	}
 }

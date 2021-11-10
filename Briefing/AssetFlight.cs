@@ -38,7 +38,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public AssetFlight(BriefingPack briefingPack, BriefingCoalition briefingCoalition, GroupFlight group) : base(briefingPack, briefingCoalition, group) { }
+		public AssetFlight(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, GroupFlight group) : base(briefingPack, briefingCoalition, side, group) { }
 		#endregion
 
 		#region Methods
@@ -94,17 +94,17 @@ namespace DcsBriefop.Briefing
 
 			if (Playable)
 			{
-				Category = ElementAssetCategory.Mission;
+				Usage = ElementAssetUsage.Mission;
 				MapDisplay = ElementAssetMapDisplay.None;
 			}
 			else if (Task == ElementTask.Awacs || Task == ElementTask.Refueling)
 			{
-				Category = ElementAssetCategory.Support;
+				Usage = ElementAssetUsage.Support;
 				MapDisplay = ElementAssetMapDisplay.Orbit;
 			}
 			else
 			{
-				Category = ElementAssetCategory.Mission;
+				Usage = ElementAssetUsage.Mission;
 				MapDisplay = ElementAssetMapDisplay.None;
 			}
 		}
@@ -136,7 +136,7 @@ namespace DcsBriefop.Briefing
 				.GroupBy(_rp => _rp.HelipadId).Select(_g => _g.Key.Value);
 
 
-			return BriefingCoalition.Assets.OfType<AssetShip>().Where(_a => grouped.Contains(_a.MainUnit.Id)).ToList();
+			return BriefingCoalition.OwnAssets.OfType<AssetShip>().Where(_a => grouped.Contains(_a.MainUnit.Id)).ToList();
 		}
 		#endregion
 	}

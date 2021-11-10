@@ -62,14 +62,14 @@ namespace DcsBriefop.Briefing
 		{
 			foreach (CustomDataAssetGroup asset in AssetGroups)
 			{
-				if (asset.Category != (int)ElementAssetCategory.Mission)
+				if (asset.Usage != (int)ElementAssetUsage.Mission)
 				{
 					asset.MapDataMission = null;
 					asset.AssetMissionPoints = null;
 				}
 			}
 
-			List<CustomDataAssetAirdrome> toRemove = AssetAirdromes.Where(_a => _a.Category == (int)ElementAssetCategory.Excluded && _a.MapDisplay == (int)ElementAssetMapDisplay.None).ToList();
+			List<CustomDataAssetAirdrome> toRemove = AssetAirdromes.Where(_a => _a.Usage == (int)ElementAssetUsage.Excluded && _a.MapDisplay == (int)ElementAssetMapDisplay.None).ToList();
 			foreach (CustomDataAssetAirdrome asset in toRemove)
 			{
 				AssetAirdromes.Remove(asset); // TODO do not save excluded airfields
@@ -98,7 +98,7 @@ namespace DcsBriefop.Briefing
 	{
 		public int Id { get; set; }
 		public string Coalition { get; set; }
-		public int Category { get; set; }
+		public int Usage { get; set; }
 		public int MapDisplay { get; set; }
 		public string Information { get; set; }
 
@@ -113,7 +113,7 @@ namespace DcsBriefop.Briefing
 	{
 		public int Id { get; set; }
 		public string Coalition { get; set; }
-		public int Category { get; set; }
+		public int Usage { get; set; }
 		public int MapDisplay { get; set; }
 		public string Information { get; set; }
 		public string MissionInformation { get; set; }

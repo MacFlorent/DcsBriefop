@@ -48,7 +48,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public AssetShip(BriefingPack briefingPack, BriefingCoalition briefingCoalition, GroupShip group) : base(briefingPack, briefingCoalition, group) { }
+		public AssetShip(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, GroupShip group) : base(briefingPack, briefingCoalition, side, group) { }
 		#endregion
 
 		#region Methods
@@ -68,12 +68,12 @@ namespace DcsBriefop.Briefing
 
 			if (Type.StartsWith("CVN"))
 			{
-				Category = ElementAssetCategory.Base;
+				Usage = ElementAssetUsage.Base;
 				MapDisplay = ElementAssetMapDisplay.Point;
 			}
 			else
 			{
-				Category = ElementAssetCategory.Excluded;
+				Usage = ElementAssetUsage.Excluded;
 				MapDisplay = ElementAssetMapDisplay.None;
 			}
 		}

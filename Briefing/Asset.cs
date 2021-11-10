@@ -15,8 +15,9 @@ namespace DcsBriefop.Briefing
 		protected virtual string DefaultMarker { get; set; } = MarkerBriefopType.dot.ToString();
 
 		public BriefingCoalition BriefingCoalition { get; protected set; }
+		public ElementAssetSide Side { get; set; }
 
-		public abstract ElementAssetCategory Category { get; set; }
+		public abstract ElementAssetUsage Usage { get; set; }
 		public abstract ElementAssetMapDisplay MapDisplay { get; set; }
 		public abstract int Id { get; }
 		public abstract string Name { get; }
@@ -44,9 +45,10 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public Asset(BriefingPack briefingPack, BriefingCoalition briefingCoalition) : base(briefingPack)
+		public Asset(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side) : base(briefingPack)
 		{
 			BriefingCoalition = briefingCoalition;
+			Side = side;
 		}
 		#endregion
 

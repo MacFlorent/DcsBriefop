@@ -17,10 +17,10 @@ namespace DcsBriefop.Briefing
 		#region Properties
 		public CustomDataAssetGroup CustomData;
 
-		public override ElementAssetCategory Category
+		public override ElementAssetUsage Usage
 		{
-			get { return (ElementAssetCategory)CustomData.Category; }
-			set { CustomData.Category = (int)value; }
+			get { return (ElementAssetUsage)CustomData.Usage; }
+			set { CustomData.Usage = (int)value; }
 		}
 
 		public override ElementAssetMapDisplay MapDisplay
@@ -62,7 +62,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public AssetGroup(BriefingPack briefingPack, BriefingCoalition briefingCoalition, Group group) : base(briefingPack, briefingCoalition)
+		public AssetGroup(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, Group group) : base(briefingPack, briefingCoalition, side)
 		{
 			m_group = group;
 			InitializeData(briefingPack);

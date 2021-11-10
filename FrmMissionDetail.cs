@@ -128,7 +128,7 @@ namespace DcsBriefop
 		#endregion
 
 		#region Events
-		private void CbCategory_SelectionChangeCommitted(object sender, System.EventArgs e)
+		private void CbUsage_SelectionChangeCommitted(object sender, System.EventArgs e)
 		{
 			ScreenToData();
 		}

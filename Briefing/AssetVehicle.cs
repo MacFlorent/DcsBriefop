@@ -1,4 +1,5 @@
-﻿using DcsBriefop.LsonStructure;
+﻿using DcsBriefop.Data;
+using DcsBriefop.LsonStructure;
 using System.Linq;
 
 namespace DcsBriefop.Briefing
@@ -17,7 +18,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public AssetVehicle(BriefingPack briefingPack, BriefingCoalition briefingCoalition, GroupVehicle group) : base(briefingPack, briefingCoalition, group) { }
+		public AssetVehicle(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, GroupVehicle group) : base(briefingPack, briefingCoalition, side, group) { }
 		#endregion
 
 		#region Methods

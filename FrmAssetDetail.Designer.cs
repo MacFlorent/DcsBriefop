@@ -31,8 +31,8 @@ namespace DcsBriefop
 		{
 			this.LbName = new System.Windows.Forms.Label();
 			this.TbName = new System.Windows.Forms.TextBox();
-			this.CbCategory = new System.Windows.Forms.ComboBox();
-			this.LbCategory = new System.Windows.Forms.Label();
+			this.CbUsage = new System.Windows.Forms.ComboBox();
+			this.LbUsage = new System.Windows.Forms.Label();
 			this.TbType = new System.Windows.Forms.TextBox();
 			this.LbType = new System.Windows.Forms.Label();
 			this.PnData = new System.Windows.Forms.Panel();
@@ -69,23 +69,23 @@ namespace DcsBriefop
 			this.TbName.Size = new System.Drawing.Size(100, 20);
 			this.TbName.TabIndex = 2;
 			// 
-			// CbCategory
+			// CbUsage
 			// 
-			this.CbCategory.FormattingEnabled = true;
-			this.CbCategory.Location = new System.Drawing.Point(78, 183);
-			this.CbCategory.Name = "CbCategory";
-			this.CbCategory.Size = new System.Drawing.Size(100, 21);
-			this.CbCategory.TabIndex = 3;
-			this.CbCategory.SelectionChangeCommitted += new System.EventHandler(this.CbCategory_SelectionChangeCommitted);
+			this.CbUsage.FormattingEnabled = true;
+			this.CbUsage.Location = new System.Drawing.Point(78, 183);
+			this.CbUsage.Name = "CbUsage";
+			this.CbUsage.Size = new System.Drawing.Size(100, 21);
+			this.CbUsage.TabIndex = 3;
+			this.CbUsage.SelectionChangeCommitted += new System.EventHandler(this.CbUsage_SelectionChangeCommitted);
 			// 
-			// LbCategory
+			// LbUsage
 			// 
-			this.LbCategory.AutoSize = true;
-			this.LbCategory.Location = new System.Drawing.Point(23, 186);
-			this.LbCategory.Name = "LbCategory";
-			this.LbCategory.Size = new System.Drawing.Size(49, 13);
-			this.LbCategory.TabIndex = 4;
-			this.LbCategory.Text = "Category";
+			this.LbUsage.AutoSize = true;
+			this.LbUsage.Location = new System.Drawing.Point(23, 186);
+			this.LbUsage.Name = "LbUsage";
+			this.LbUsage.Size = new System.Drawing.Size(49, 13);
+			this.LbUsage.TabIndex = 4;
+			this.LbUsage.Text = "Usage";
 			// 
 			// TbType
 			// 
@@ -122,8 +122,8 @@ namespace DcsBriefop
 			this.PnData.Controls.Add(this.TbType);
 			this.PnData.Controls.Add(this.LbName);
 			this.PnData.Controls.Add(this.TbName);
-			this.PnData.Controls.Add(this.CbCategory);
-			this.PnData.Controls.Add(this.LbCategory);
+			this.PnData.Controls.Add(this.CbUsage);
+			this.PnData.Controls.Add(this.LbUsage);
 			this.PnData.Controls.Add(this.LbType);
 			this.PnData.Dock = System.Windows.Forms.DockStyle.Left;
 			this.PnData.Location = new System.Drawing.Point(0, 0);
@@ -272,10 +272,10 @@ namespace DcsBriefop
 
 		private System.Windows.Forms.Label LbName;
 		private System.Windows.Forms.TextBox TbName;
-		private System.Windows.Forms.ComboBox CbCategory;
+		private System.Windows.Forms.ComboBox CbUsage;
 		private System.Windows.Forms.TextBox TbType;
 		private System.Windows.Forms.Label LbType;
-		private System.Windows.Forms.Label LbCategory;
+		private System.Windows.Forms.Label LbUsage;
 		private System.Windows.Forms.Panel PnData;
 		private System.Windows.Forms.Label LbId;
 		private System.Windows.Forms.TextBox TbId;

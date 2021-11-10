@@ -16,7 +16,7 @@ namespace DcsBriefop
 			InitializeComponent();
 			m_asset = asset;
 
-			MasterDataRepository.FillCombo(MasterDataType.AssetCategory, CbCategory);
+			MasterDataRepository.FillCombo(MasterDataType.AssetUsage, CbUsage);
 			MasterDataRepository.FillCombo(MasterDataType.AssetMapDisplay, CbMapDisplay);
 
 			CkPlayable.Visible = CkLateActivation.Visible = (m_asset is AssetGroup);
@@ -45,7 +45,7 @@ namespace DcsBriefop
 				TbRadio.Text = airdrome.RadioString;
 			}
 
-			CbCategory.SelectedValue = (int)m_asset.Category;
+			CbUsage.SelectedValue = (int)m_asset.Usage;
 			CbMapDisplay.SelectedValue = (int)m_asset.MapDisplay;
 
 			TbInformation.Text = m_asset.Information;
@@ -53,10 +53,10 @@ namespace DcsBriefop
 
 		private void ScreenToData()
 		{
-			ElementAssetCategory category = (ElementAssetCategory)CbCategory.SelectedValue;
-			if (category != m_asset.Category)
+			ElementAssetUsage usage = (ElementAssetUsage)CbUsage.SelectedValue;
+			if (usage != m_asset.Usage)
 			{
-				m_asset.Category = category;
+				m_asset.Usage = usage;
 				(m_asset as AssetGroup)?.InitializeMapDataMission();
 			}
 
@@ -72,7 +72,7 @@ namespace DcsBriefop
 		#endregion
 
 		#region Events
-		private void CbCategory_SelectionChangeCommitted(object sender, System.EventArgs e)
+		private void CbUsage_SelectionChangeCommitted(object sender, System.EventArgs e)
 		{
 			ScreenToData();
 		}

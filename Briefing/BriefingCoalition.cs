@@ -82,7 +82,9 @@ namespace DcsBriefop.Briefing
 			}
 		}
 
-		public List<Asset> Assets { get; private set; } = new List<Asset>();
+		public List<Asset> OwnAssets { get; private set; } = new List<Asset>();
+		public List<Asset> OpposingAssets { get; private set; } = new List<Asset>();
+		public List<AssetAirdrome> Airdromes { get; private set; } = new List<AssetAirdrome>();
 
 		public CustomDataMap MapData
 		{
@@ -95,36 +97,58 @@ namespace DcsBriefop.Briefing
 		public BriefingCoalition(BriefingPack briefingPack, string sCoalitionName) : base(briefingPack)
 		{
 			m_coalition = RootMission.Coalitions.Where(c => c.Code == sCoalitionName).FirstOrDefault();
+			
+			string sOtherCoalitionName = "";
+			if (sCoalitionName == ElementCoalition.Blue)
+				sOtherCoalitionName = ElementCoalition.Red;
+			else if (sCoalitionName == ElementCoalition.Red)
+				sOtherCoalitionName = ElementCoalition.Blue;
+			Coalition otherCoalition = RootMission.Coalitions.Where(c => c.Code == sOtherCoalitionName).FirstOrDefault();
+
 			m_customDataCoalition = RootCustom.GetCoalition(sCoalitionName);
 
 			InitializeMapData();
 
-			foreach (Country c in m_coalition.Countries)
-			{
-				foreach (GroupFlight g in c.GroupFlights)
-				{
-					Assets.Add(new AssetFlight(briefingPack, this, g));
-				}
-				foreach (GroupShip g in c.GroupShips)
-				{
-					Assets.Add(new AssetShip(briefingPack, this, g));
-				}
-				foreach (GroupVehicle g in c.GroupVehicles)
-				{
-					Assets.Add(new AssetVehicle(briefingPack, this, g));
-				}
-			}
+			OwnAssets = BuildCoalitionAssets(briefingPack, m_coalition, ElementAssetSide.Own);
+			OpposingAssets = BuildCoalitionAssets(briefingPack, otherCoalition, ElementAssetSide.Opposing);
 
 			foreach (Airdrome airdrome in Theatre.Airdromes)
 			{
-				Assets.Add(new AssetAirdrome(briefingPack, this, airdrome));
+				Airdromes.Add(new AssetAirdrome(briefingPack, this, ElementAssetSide.None, airdrome));
 			}
+
 
 			InitializeMapDataChildrenOverlays();
 		}
 		#endregion
 
 		#region Methods
+		private List<Asset> BuildCoalitionAssets(BriefingPack briefingPack, Coalition coalition, ElementAssetSide side)
+		{
+			List<Asset> assets = new List<Asset>();
+
+			if (coalition is object)
+			{
+				foreach (Country c in coalition.Countries)
+				{
+					foreach (GroupFlight g in c.GroupFlights)
+					{
+						assets.Add(new AssetFlight(briefingPack, this, side, g));
+					}
+					foreach (GroupShip g in c.GroupShips)
+					{
+						assets.Add(new AssetShip(briefingPack, this, side, g));
+					}
+					foreach (GroupVehicle g in c.GroupVehicles)
+					{
+						assets.Add(new AssetVehicle(briefingPack, this, side, g));
+					}
+				}
+			}
+
+			return assets;
+		}
+
 		private void InitializeMapData()
 		{
 			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
@@ -148,11 +172,22 @@ namespace DcsBriefop.Briefing
 
 		private void InitializeMapDataChildrenOverlays()
 		{
-			foreach (Asset asset in Assets)
+			foreach (Asset asset in OwnAssets)
 			{
 				if (asset.MapOverlayStatic is object)
 					MapData.AdditionalMapOverlays.Add(asset.MapOverlayStatic);
 			}
+			foreach (Asset asset in OpposingAssets)
+			{
+				if (asset.MapOverlayStatic is object)
+					MapData.AdditionalMapOverlays.Add(asset.MapOverlayStatic);
+			}
+			foreach (Asset asset in Airdromes)
+			{
+				if (asset.MapOverlayStatic is object)
+					MapData.AdditionalMapOverlays.Add(asset.MapOverlayStatic);
+			}
+
 		}
 		#endregion
 	}
