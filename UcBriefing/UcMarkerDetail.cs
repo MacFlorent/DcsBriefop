@@ -1,6 +1,6 @@
-﻿using GMap.NET.WindowsForms;
+﻿using DcsBriefop.Map;
+using GMap.NET.WindowsForms;
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 

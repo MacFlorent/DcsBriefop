@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using DcsBriefop.Map;
 
 namespace DcsBriefop.Briefing
 {
@@ -15,6 +16,7 @@ namespace DcsBriefop.Briefing
 	{
 		#region Fields
 		private Coalition m_coalition;
+		private Coalition m_opposingCoalition;
 		private CustomDataCoalition m_customDataCoalition;
 		private GMarkerBriefop m_markerkBullseye;
 		#endregion
@@ -32,17 +34,17 @@ namespace DcsBriefop.Briefing
 
 		public string BullseyeDescription
 		{
-			get { return RootCustom.GetCoalition(m_coalition.Code)?.BullseyeDescription; }
+			get { return RootCustom.GetCoalition(m_coalition.Name)?.BullseyeDescription; }
 			set
 			{
-				RootCustom.GetCoalition(m_coalition.Code).BullseyeDescription = value;
+				RootCustom.GetCoalition(m_coalition.Name).BullseyeDescription = value;
 				m_markerkBullseye.Label = value;
 			}
 		}
 
 		public string Name
 		{
-			get { return m_coalition.Code; }
+			get { return m_coalition.Name; }
 		}
 
 		public string Task
@@ -69,18 +71,15 @@ namespace DcsBriefop.Briefing
 			}
 		}
 
-		public Color Color
+		public Color OwnColor
 		{
-			get
-			{
-				if (Name == ElementCoalition.Red)
-					return ElementCoalitionColor.Red;
-				else if (Name == ElementCoalition.Blue)
-					return ElementCoalitionColor.Blue;
-				else
-					return ElementCoalitionColor.Neutral;
-			}
+			get { return ElementCoalitionColor.GetCoalitionColor(Name); }
 		}
+		public Color OpposingColor
+		{
+			get { return ElementCoalitionColor.GetCoalitionColor(m_opposingCoalition.Name); }
+		}
+
 
 		public List<Asset> OwnAssets { get; private set; } = new List<Asset>();
 		public List<Asset> OpposingAssets { get; private set; } = new List<Asset>();
@@ -96,29 +95,29 @@ namespace DcsBriefop.Briefing
 		#region CTOR
 		public BriefingCoalition(BriefingPack briefingPack, string sCoalitionName) : base(briefingPack)
 		{
-			m_coalition = RootMission.Coalitions.Where(c => c.Code == sCoalitionName).FirstOrDefault();
+			m_coalition = RootMission.Coalitions.Where(c => c.Name == sCoalitionName).FirstOrDefault();
 			
-			string sOtherCoalitionName = "";
+			string sOpposingCoalitionName = "";
 			if (sCoalitionName == ElementCoalition.Blue)
-				sOtherCoalitionName = ElementCoalition.Red;
+				sOpposingCoalitionName = ElementCoalition.Red;
 			else if (sCoalitionName == ElementCoalition.Red)
-				sOtherCoalitionName = ElementCoalition.Blue;
-			Coalition otherCoalition = RootMission.Coalitions.Where(c => c.Code == sOtherCoalitionName).FirstOrDefault();
+				sOpposingCoalitionName = ElementCoalition.Blue;
+			m_opposingCoalition = RootMission.Coalitions.Where(c => c.Name == sOpposingCoalitionName).FirstOrDefault();
 
 			m_customDataCoalition = RootCustom.GetCoalition(sCoalitionName);
 
 			InitializeMapData();
 
 			OwnAssets = BuildCoalitionAssets(briefingPack, m_coalition, ElementAssetSide.Own);
-			OpposingAssets = BuildCoalitionAssets(briefingPack, otherCoalition, ElementAssetSide.Opposing);
+			OpposingAssets = BuildCoalitionAssets(briefingPack, m_opposingCoalition, ElementAssetSide.Opposing);
 
 			foreach (Airdrome airdrome in Theatre.Airdromes)
 			{
 				Airdromes.Add(new AssetAirdrome(briefingPack, this, ElementAssetSide.None, airdrome));
 			}
 
-
 			InitializeMapDataChildrenOverlays();
+			InitializeFlightDataMissions();
 		}
 		#endregion
 
@@ -153,7 +152,7 @@ namespace DcsBriefop.Briefing
 		{
 			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
 			PointLatLng p = new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree);
-			m_markerkBullseye = new GMarkerBriefop(p, MarkerBriefopType.bullseye.ToString(), Color, BullseyeDescription);
+			m_markerkBullseye = new GMarkerBriefop(p, MarkerBriefopType.bullseye.ToString(), OwnColor, BullseyeDescription);
 			staticOverlay.Markers.Add(m_markerkBullseye);
 
 			if (MapData is null)
@@ -187,7 +186,14 @@ namespace DcsBriefop.Briefing
 				if (asset.MapOverlayStatic is object)
 					MapData.AdditionalMapOverlays.Add(asset.MapOverlayStatic);
 			}
+		}
 
+		private void InitializeFlightDataMissions()
+		{
+			foreach (AssetFlight asset in OwnAssets.OfType<AssetFlight>())
+			{
+				asset.SetMissionData();
+			}
 		}
 		#endregion
 	}

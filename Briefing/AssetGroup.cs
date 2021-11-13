@@ -1,8 +1,5 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.LsonStructure;
-using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.WindowsForms;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,7 +12,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Properties
-		public CustomDataAssetGroup CustomData;
+		public CustomDataAssetGroup CustomData { get; set; }
 
 		public override ElementAssetUsage Usage
 		{
@@ -47,18 +44,6 @@ namespace DcsBriefop.Briefing
 		{
 			get { return m_group.LateActivation; }
 		}
-
-		public string MissionInformation
-		{
-			get { return CustomData.MissionInformation; }
-			set { CustomData.MissionInformation = value; }
-		}
-
-		public CustomDataMap MapDataMission
-		{
-			get { return CustomData.MapDataMission; }
-			set { CustomData.MapDataMission = value; }
-		}
 		#endregion
 
 		#region CTOR
@@ -66,11 +51,10 @@ namespace DcsBriefop.Briefing
 		{
 			m_group = group;
 			InitializeData(briefingPack);
-			InitializeMapDataMission();
 		}
 		#endregion
 
-		#region Methods
+		#region Initialize
 		protected override void InitializeMapPoints(BriefingPack briefingPack)
 		{
 			int iNumber = 0;
@@ -80,38 +64,9 @@ namespace DcsBriefop.Briefing
 				iNumber++;
 			}
 		}
+		#endregion
 
-		public void InitializeMapDataMission()
-		{
-			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
-			List<PointLatLng> points = InitializeMapDataFullRoute(staticOverlay);
-
-			if (MapDataMission is null)
-			{
-				MapDataMission = new CustomDataMap();
-
-				PointLatLng? centerPoint = ToolsMap.GetPointsCenter(points);
-				if (centerPoint is object)
-				{
-					MapDataMission.CenterLatitude = centerPoint.Value.Lat;
-					MapDataMission.CenterLongitude = centerPoint.Value.Lng;
-				}
-				else
-				{
-					MapDataMission.CenterLatitude = BriefingCoalition.Bullseye.Latitude.DecimalDegree;
-					MapDataMission.CenterLongitude = BriefingCoalition.Bullseye.Longitude.DecimalDegree;
-				}
-				MapDataMission.Zoom = ElementMapValue.DefaultZoom;
-				MapDataMission.MapOverlayCustom = new GMapOverlay();
-			}
-
-
-			MapDataMission.AdditionalMapOverlays.Clear();
-			MapDataMission.AdditionalMapOverlays.Add(staticOverlay);
-			MapDataMission.AdditionalMapOverlays.Add(RootCustom.MapData.MapOverlayCustom);
-			MapDataMission.AdditionalMapOverlays.Add(BriefingCoalition.MapData.MapOverlayCustom);
-		}
-
+		#region Methods
 		public string GetUnitTypes()
 		{
 			IEnumerable<string> grouped = m_group.Units.GroupBy(u => u.Type).Select(g => g.Key);

@@ -57,7 +57,7 @@ namespace DcsBriefop
 			if (usage != m_asset.Usage)
 			{
 				m_asset.Usage = usage;
-				(m_asset as AssetGroup)?.InitializeMapDataMission();
+				(m_asset as AssetFlight)?.SetMissionData();
 			}
 
 			ElementAssetMapDisplay mapDisplay = (ElementAssetMapDisplay)CbMapDisplay.SelectedValue;

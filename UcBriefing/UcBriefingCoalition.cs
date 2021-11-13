@@ -87,13 +87,8 @@ namespace DcsBriefop.UcBriefing
 
 		private void SetGridProperties(DataGridView dgv)
 		{
-			dgv.ContextMenuStrip = new ContextMenuStrip();
+			ToolsMisc.SetDataGridViewProperties(dgv);
 			dgv.ReadOnly = true;
-			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-			dgv.AllowUserToResizeColumns = true;
-			dgv.AllowUserToAddRows = false;
-			dgv.RowHeadersVisible = false;
-			dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 			dgv.Dock = DockStyle.Fill;
 		}
 
@@ -186,7 +181,7 @@ namespace DcsBriefop.UcBriefing
 			RefreshGridRow(dgv, asset);
 		}
 
-		private void ShowMission(AssetGroup asset, DataGridView dgv)
+		private void ShowMission(AssetFlight asset, DataGridView dgv)
 		{
 			FrmMissionDetail f = new FrmMissionDetail(asset);
 			f.ShowDialog();
@@ -199,6 +194,7 @@ namespace DcsBriefop.UcBriefing
 				if (asset.Usage != usage)
 				{
 					asset.Usage = usage;
+					(asset as AssetFlight)?.SetMissionData();
 					RefreshGridRow(dgv, asset);
 				}
 			}
@@ -235,6 +231,7 @@ namespace DcsBriefop.UcBriefing
 
 		private void InitializeContextMenu(DataGridView dgv)
 		{
+			dgv.ContextMenuStrip = new ContextMenuStrip();
 			dgv.ContextMenuStrip.Opening += (object sender, CancelEventArgs e) => { ContextMenuOpening(sender as ContextMenuStrip, dgv, e); };
 		}
 
@@ -257,13 +254,14 @@ namespace DcsBriefop.UcBriefing
 			{
 				if (singleSelectedAsset is object)
 					menu.Items.AddMenuItem("Details", (object _sender, EventArgs _e) => { ShowDetail(singleSelectedAsset, dgv); });
-				if (singleSelectedAsset is AssetGroup assetGroup)
-					menu.Items.AddMenuItem("Mission", (object _sender, EventArgs _e) => { ShowMission(assetGroup, dgv); });
+				if (singleSelectedAsset is AssetFlight assetFlight && assetFlight.MissionData is object)
+					menu.Items.AddMenuItem("Mission", (object _sender, EventArgs _e) => { ShowMission(assetFlight, dgv); });
 
 				menu.Items.AddMenuSeparator();
 
 				ToolStripMenuItem tmsiUsage = menu.Items.AddMenuItem("Usage", null);
 				tmsiUsage.DropDownItems.AddMenuItem("Excluded", (object _sender, EventArgs _e) => { SetUsage(selectedAssets, ElementAssetUsage.Excluded, dgv); });
+				tmsiUsage.DropDownItems.AddMenuItem("Mission with detail", (object _sender, EventArgs _e) => { SetUsage(selectedAssets, ElementAssetUsage.MissionWithDetail, dgv); });
 				tmsiUsage.DropDownItems.AddMenuItem("Mission", (object _sender, EventArgs _e) => { SetUsage(selectedAssets, ElementAssetUsage.Mission, dgv); });
 				tmsiUsage.DropDownItems.AddMenuItem("Support",  (object _sender, EventArgs _e) => { SetUsage(selectedAssets, ElementAssetUsage.Support, dgv); });
 				tmsiUsage.DropDownItems.AddMenuItem("Base", (object _sender, EventArgs _e) => { SetUsage(selectedAssets, ElementAssetUsage.Base, dgv); });

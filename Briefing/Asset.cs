@@ -1,8 +1,12 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.Map;
+using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace DcsBriefop.Briefing
 {
@@ -12,7 +16,8 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Properties
-		protected virtual string DefaultMarker { get; set; } = MarkerBriefopType.dot.ToString();
+		protected virtual string MapMarker { get; set; } = MarkerBriefopType.dot.ToString();
+		protected virtual Color Color { get; set; } = ElementCoalitionColor.Neutral;
 
 		public BriefingCoalition BriefingCoalition { get; protected set; }
 		public ElementAssetSide Side { get; set; }
@@ -24,6 +29,7 @@ namespace DcsBriefop.Briefing
 		public abstract string Task { get; }
 		public abstract string Type { get; }
 		public abstract string RadioString { get; }
+
 		public abstract string CustomInformation { get; set; }
 		public string Information
 		{
@@ -49,11 +55,20 @@ namespace DcsBriefop.Briefing
 		{
 			BriefingCoalition = briefingCoalition;
 			Side = side;
+			
+			if (Side == ElementAssetSide.Own)
+			{
+				Color = briefingCoalition.OwnColor;
+			}
+			else if (Side == ElementAssetSide.Opposing)
+			{
+				Color = briefingCoalition.OpposingColor;
+			}
+
 		}
 		#endregion
 
-		#region Methods
-		protected abstract string GetDefaultInformation();
+		#region Initialize
 		protected abstract void InitializeCustomData();
 		protected abstract void InitializeMapPoints(BriefingPack briefingPack);
 		
@@ -85,16 +100,16 @@ namespace DcsBriefop.Briefing
 			}
 		}
 
-		protected List<PointLatLng> InitializeMapDataPoint(GMapOverlay staticOverlay)
+		public List<PointLatLng> InitializeMapDataPoint(GMapOverlay staticOverlay)
 		{
 			PointLatLng p = new PointLatLng(MapPoints[0].Coordinate.Latitude.DecimalDegree, MapPoints[0].Coordinate.Longitude.DecimalDegree);
-			GMarkerBriefop marker = new GMarkerBriefop(p, DefaultMarker, BriefingCoalition.Color, Name);
+			GMarkerBriefop marker = new GMarkerBriefop(p, MapMarker, Color, Name);
 			staticOverlay.Markers.Add(marker);
 
 			return new List<PointLatLng>() { p };
 		}
 
-		protected List<PointLatLng> InitializeMapDataOrbit(GMapOverlay staticOverlay)
+		public List<PointLatLng> InitializeMapDataOrbit(GMapOverlay staticOverlay)
 		{
 			List<PointLatLng> points = new List<PointLatLng>();
 
@@ -105,14 +120,14 @@ namespace DcsBriefop.Briefing
 				else if (points.Count <= 0 && mapPoint.IsOrbitStart())
 				{
 					PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
-					GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), BriefingCoalition.Color, Name);
+					GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), Color, Name);
 					staticOverlay.Markers.Add(marker);
 					points.Add(p);
 				}
 				else if (points.Count == 1)
 				{
 					PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
-					GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), BriefingCoalition.Color, null);
+					GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), Color, null);
 					staticOverlay.Markers.Add(marker);
 					points.Add(p);
 				}
@@ -121,21 +136,21 @@ namespace DcsBriefop.Briefing
 			if (points.Count > 1)
 			{
 				GMapRoute route = new GMapRoute(points, "route");
-				route.Stroke = new Pen(BriefingCoalition.Color, 2);
+				route.Stroke = new Pen(Color, 2);
 				staticOverlay.Routes.Add(route);
 			}
 
 			return points;
 		}
 
-		protected List<PointLatLng> InitializeMapDataFullRoute(GMapOverlay staticOverlay)
+		public List<PointLatLng> InitializeMapDataFullRoute(GMapOverlay staticOverlay)
 		{
 			List<PointLatLng> points = new List<PointLatLng>();
 
 			foreach (AssetMapPoint mapPoint in MapPoints)
 			{
 				PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
-				GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), BriefingCoalition.Color, $"{mapPoint.Number}:{mapPoint.Name}");
+				GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), Color, $"{mapPoint.Number}:{mapPoint.Name}");
 				staticOverlay.Markers.Add(marker);
 				points.Add(p);
 			}
@@ -143,11 +158,27 @@ namespace DcsBriefop.Briefing
 			if (points.Count > 1)
 			{
 				GMapRoute route = new GMapRoute(points, "route");
-				route.Stroke = new Pen(BriefingCoalition.Color, 2);
+				route.Stroke = new Pen(Color, 2);
 				staticOverlay.Routes.Add(route);
 			}
 
 			return points;
+		}
+		#endregion
+
+		#region Methods
+		protected abstract string GetDefaultInformation();
+
+		public virtual string GetLocalisation()
+		{
+			string sLocalisation = "";
+			AssetMapPoint point = MapPoints.FirstOrDefault();
+			if (point is object)
+			{
+				sLocalisation = $"{point.Coordinate.ToStringDMS()}{Environment.NewLine}{point.Coordinate.ToStringDDM()}{Environment.NewLine}{point.Coordinate.ToStringMGRS()}";
+			}
+
+			return sLocalisation;
 		}
 		#endregion
 	}

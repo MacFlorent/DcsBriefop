@@ -1,5 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
+using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Properties
-		protected override string DefaultMarker { get; set; } = MarkerBriefopType.airport.ToString();
+		protected override string MapMarker { get; set; } = MarkerBriefopType.airport.ToString();
 		public CustomDataAssetAirdrome CustomData;
 
 		public override ElementAssetUsage Usage
@@ -82,23 +83,30 @@ namespace DcsBriefop.Briefing
 		protected override void InitializeCustomData()
 		{
 			CustomData = RootCustom.GetAssetAirdrome(Id, BriefingCoalition.Name);
-			if (CustomData is object)
-				return;
+			bool bIsAssetBase = BriefingCoalition.OwnAssets.OfType<AssetFlight>().Where(_a => _a.GetAirdromeIds().Contains(Id)).Any();
 
-			CustomData = new CustomDataAssetAirdrome(Id, BriefingCoalition.Name);
-			RootCustom.AssetAirdromes.Add(CustomData);
+			if (CustomData is null)
+			{
+				CustomData = new CustomDataAssetAirdrome(Id, BriefingCoalition.Name);
+				RootCustom.AssetAirdromes.Add(CustomData);
 
-			if (BriefingCoalition.OwnAssets.OfType<AssetFlight>().Where(_a => _a.GetAirdromeIds().Contains(Id)).Any())
-			{
-				Side = ElementAssetSide.Own;
-				Usage = ElementAssetUsage.Base;
-				MapDisplay = ElementAssetMapDisplay.Point;
+				if (bIsAssetBase)
+				{
+					Side = ElementAssetSide.Own;
+					Usage = ElementAssetUsage.Base;
+					MapDisplay = ElementAssetMapDisplay.Point;
+				}
+				else
+				{
+					Usage = ElementAssetUsage.Excluded;
+					MapDisplay = ElementAssetMapDisplay.None;
+				}
 			}
-			else
-			{
-				Usage = ElementAssetUsage.Excluded;
-				MapDisplay = ElementAssetMapDisplay.None;
-			}
+
+			if (bIsAssetBase)
+				Color = BriefingCoalition.OwnColor;
+
+			CustomData.SetDefaultData();
 		}
 
 		protected override void InitializeMapPoints(BriefingPack briefingPack)

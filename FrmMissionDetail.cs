@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Briefing;
 using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using DcsBriefop.UcBriefing;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,45 +9,38 @@ namespace DcsBriefop
 {
 	internal partial class FrmMissionDetail : Form
 	{
-		private static class GridColumnRoutePoint
+		private static class GridColumn
 		{
+			public static readonly string Id = "Id";
 			public static readonly string Number = "Number";
 			public static readonly string Name = "Name";
 			public static readonly string Action = "Action";
 			public static readonly string Altitude = "Altitude";
-			public static readonly string Notes = "Notes";
-			public static readonly string Data = "Data";
-		}
-
-		private static class GridColumnTarget
-		{
-			public static readonly string Id = "Id";
-			public static readonly string Name = "Name";
 			public static readonly string Type = "Type";
-			public static readonly string Altitude = "Altitude";
-			public static readonly string Notes = "Notes";
+			public static readonly string Localisation = "Localisation";
+			public static readonly string Information = "Information";
 			public static readonly string Data = "Data";
 		}
 
 		#region Fields
-		private AssetGroup m_asset;
+		private AssetFlight m_asset;
 		private UcMap m_ucMap;
 		#endregion
 
 		#region CTOR
-		internal FrmMissionDetail(AssetGroup asset)
+		internal FrmMissionDetail(AssetFlight asset)
 		{
 			InitializeComponent();
 			m_asset = asset;
-			m_asset.InitializeMapDataMission();
 
 			m_ucMap = new UcMap();
 			m_ucMap.Dock = DockStyle.Fill;
 			PnMissionMap.Controls.Clear();
 			PnMissionMap.Controls.Add(m_ucMap);
 
-			DgvRoutePoints.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-			DgvRoutePoints.AllowUserToResizeColumns = true;
+			ToolsMisc.SetDataGridViewProperties(DgvRoutePoints);
+			ToolsMisc.SetDataGridViewProperties(DgvTargets);
+			DgvRoutePoints.ReadOnly = true;
 
 			DataToScreen();
 		}
@@ -61,23 +55,23 @@ namespace DcsBriefop
 			TbTask.Text = m_asset.Task;
 			TbType.Text = m_asset.Type;
 			TbAssetInformation.Text = m_asset.Information;
-			TbInformation.Text = m_asset.MissionInformation;
+			TbInformation.Text = m_asset.MissionData.MissionInformation;
 
 			DataToScreenRoutePoints();
+			DataToScreenTargets();
 
 			UpdateMapControl();
 		}
 
 		private void DataToScreenRoutePoints()
 		{
-			DgvRoutePoints.Columns.Add(GridColumnRoutePoint.Number, "#");
-			DgvRoutePoints.Columns.Add(GridColumnRoutePoint.Name, "Name");
-			DgvRoutePoints.Columns.Add(GridColumnRoutePoint.Action, "Action");
-			DgvRoutePoints.Columns.Add(GridColumnRoutePoint.Altitude, "Altitude");
-			DgvRoutePoints.Columns.Add(GridColumnRoutePoint.Notes, "Notes");
-			DgvRoutePoints.Columns.Add(GridColumnRoutePoint.Data, "#");
+			DgvRoutePoints.Columns.Add(GridColumn.Number, "#");
+			DgvRoutePoints.Columns.Add(GridColumn.Name, "Name");
+			DgvRoutePoints.Columns.Add(GridColumn.Action, "Action");
+			DgvRoutePoints.Columns.Add(GridColumn.Altitude, "Altitude");
+			DgvRoutePoints.Columns.Add(GridColumn.Data, "Data");
 
-			DgvRoutePoints.Columns[GridColumnRoutePoint.Data].Visible = false;
+			DgvRoutePoints.Columns[GridColumn.Data].Visible = false;
 
 			foreach (AssetRoutePoint routePoint in m_asset.MapPoints.OfType<AssetRoutePoint>())
 			{
@@ -85,12 +79,12 @@ namespace DcsBriefop
 			}
 		}
 
-		private void RefreshGridRowRoutePoint(AssetRoutePoint routePoint)
+		private void RefreshGridRowRoutePoint(AssetRoutePoint missionPoint)
 		{
 			DataGridViewRow dgvr = null;
 			foreach (DataGridViewRow existingRow in DgvRoutePoints.Rows)
 			{
-				if (existingRow.Cells[GridColumnRoutePoint.Data].Value == routePoint)
+				if (existingRow.Cells[GridColumn.Data].Value == missionPoint)
 				{
 					dgvr = existingRow;
 					break;
@@ -100,30 +94,67 @@ namespace DcsBriefop
 			{
 				int iNewRowIndex = DgvRoutePoints.Rows.Add();
 				dgvr = DgvRoutePoints.Rows[iNewRowIndex];
-				dgvr.Cells[GridColumnRoutePoint.Data].Value = routePoint;
+				dgvr.Cells[GridColumn.Data].Value = missionPoint;
 			}
 
-			dgvr.Cells[GridColumnRoutePoint.Number].Value = routePoint.Number;
-			dgvr.Cells[GridColumnRoutePoint.Number].ReadOnly = true;
-			dgvr.Cells[GridColumnRoutePoint.Name].Value = routePoint.Name;
-			dgvr.Cells[GridColumnRoutePoint.Name].ReadOnly = true;
-			dgvr.Cells[GridColumnRoutePoint.Action].Value = routePoint.Action;
-			dgvr.Cells[GridColumnRoutePoint.Action].ReadOnly = true;
-			dgvr.Cells[GridColumnRoutePoint.Altitude].Value = routePoint.AltitudeFeet;
-			dgvr.Cells[GridColumnRoutePoint.Altitude].ReadOnly = true;
-			dgvr.Cells[GridColumnRoutePoint.Notes].Value = routePoint.Notes;
+			dgvr.Cells[GridColumn.Number].Value = missionPoint.Number;
+			dgvr.Cells[GridColumn.Name].Value = missionPoint.Name;
+			dgvr.Cells[GridColumn.Action].Value = missionPoint.Action;
+			dgvr.Cells[GridColumn.Altitude].Value = missionPoint.AltitudeFeet;
+		}
+
+		private void DataToScreenTargets()
+		{
+			DgvTargets.Columns.Add(GridColumn.Id, "Id");
+			DgvTargets.Columns.Add(GridColumn.Name, "Name");
+			DgvTargets.Columns.Add(GridColumn.Type, "Type");
+			DgvTargets.Columns.Add(GridColumn.Localisation, "Localisation");
+			DgvTargets.Columns.Add(GridColumn.Information, "Information");
+			DgvTargets.Columns.Add(GridColumn.Data, "Data");
+
+			DgvTargets.Columns[GridColumn.Data].Visible = false;
+
+			foreach (AssetGroup target in m_asset.BriefingCoalition.OpposingAssets.OfType<AssetGroup>())
+			{
+				RefreshGridRowTarget(target);
+			}
+		}
+
+		private void RefreshGridRowTarget(AssetGroup target)
+		{
+			DataGridViewRow dgvr = null;
+			foreach (DataGridViewRow existingRow in DgvTargets.Rows)
+			{
+				if (existingRow.Cells[GridColumn.Data].Value == target)
+				{
+					dgvr = existingRow;
+					break;
+				}
+			}
+			if (dgvr is null)
+			{
+				int iNewRowIndex = DgvTargets.Rows.Add();
+				dgvr = DgvTargets.Rows[iNewRowIndex];
+				dgvr.Cells[GridColumn.Data].Value = target;
+			}
+
+			dgvr.Cells[GridColumn.Id].Value = target.Id;
+			dgvr.Cells[GridColumn.Name].Value = target.Name;
+			dgvr.Cells[GridColumn.Type].Value = target.Type;
+			dgvr.Cells[GridColumn.Localisation].Value = target.GetLocalisation();
+			dgvr.Cells[GridColumn.Information].Value = target.Information;
 		}
 
 		private void ScreenToData()
 		{
-			m_asset.MissionInformation = TbInformation.Text;
+			m_asset.MissionData.MissionInformation = TbInformation.Text;
 
 			UpdateMapControl();
 		}
 
 		private void UpdateMapControl()
 		{
-			m_ucMap.SetMapData(m_asset.MapDataMission, "Mission map", false);
+			m_ucMap.SetMapData(m_asset.MissionData.MapDataMission, "Mission map", false);
 		}
 		#endregion
 
@@ -142,18 +173,6 @@ namespace DcsBriefop
 		private void TbInformation_TextChanged(object sender, System.EventArgs e)
 		{
 			ScreenToData();
-		}
-
-		private void DgvRoutePoints_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-		{
-			AssetRoutePoint routePoint = DgvRoutePoints.Rows[e.RowIndex].Cells[GridColumnRoutePoint.Data].Value as AssetRoutePoint;
-			object value = DgvRoutePoints.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-			string sColumnName = DgvRoutePoints.Columns[e.ColumnIndex].Name;
-			
-			if (sColumnName == GridColumnRoutePoint.Notes)
-			{
-				routePoint.Notes = value as string;
-			}
 		}
 	}
 }

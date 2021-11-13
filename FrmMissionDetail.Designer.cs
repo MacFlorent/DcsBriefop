@@ -149,7 +149,6 @@ namespace DcsBriefop
 			this.DgvRoutePoints.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.DgvRoutePoints.Size = new System.Drawing.Size(394, 150);
 			this.DgvRoutePoints.TabIndex = 26;
-			this.DgvRoutePoints.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvRoutePoints_CellEndEdit);
 			// 
 			// LbWaypoints
 			// 

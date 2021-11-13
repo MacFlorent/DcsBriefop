@@ -1,4 +1,6 @@
-﻿using GMap.NET;
+﻿using DcsBriefop.Briefing;
+using DcsBriefop.Map;
+using GMap.NET;
 using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -7,7 +9,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace DcsBriefop.Map
+namespace DcsBriefop.Tools
 {
 	internal class GMapOverlayJsonConverter : JsonConverter<GMapOverlay>
 	{
@@ -37,7 +39,6 @@ namespace DcsBriefop.Map
 
 				jo[JsonNode.Routes] = ja;
 			}
-
 
 			jo.WriteTo(writer, new GMarkerBriefopJsonConverter());
 		}
@@ -79,12 +80,12 @@ namespace DcsBriefop.Map
 			jo.Add(new JProperty(JsonNode.Latitude, value.Position.Lat));
 			jo.Add(new JProperty(JsonNode.Longitude, value.Position.Lng));
 			jo.Add(new JProperty(JsonNode.Template, value.MarkerTemplate));
-			
+
 			if (value.TintColor is object)
 				jo.Add(new JProperty(JsonNode.Color, ColorTranslator.ToHtml(value.TintColor.Value)));
-			
+
 			jo.Add(new JProperty(JsonNode.Label, value.Label));
-			
+
 			jo.WriteTo(writer);
 		}
 
@@ -98,10 +99,54 @@ namespace DcsBriefop.Map
 			Color? tintColor = null;
 			if (token[JsonNode.Color] is object)
 				tintColor = ColorTranslator.FromHtml(token[JsonNode.Color].Value<string>());
-			
+
 			string sLabel = token[JsonNode.Label].Value<string>();
 
 			return new GMarkerBriefop(new PointLatLng(lat, lng), sMarkerType, tintColor, sLabel);
+		}
+	}
+
+	internal class ListCustomDataAssetGroupJsonConverter : JsonConverter<List<CustomDataAssetGroup>>
+	{
+		public override void WriteJson(JsonWriter writer, List<CustomDataAssetGroup> value, JsonSerializer serializer)
+		{
+			if (value is object && value.Count > 0)
+			{
+				JArray ja = new JArray();
+				foreach (CustomDataAssetGroup customDataAsset in value.Where(_a => !_a.IsDefaultData()))
+				{
+					ja.Add(JToken.FromObject(customDataAsset, serializer));
+				}
+
+				ja.WriteTo(writer);
+			}
+		}
+
+		public override List<CustomDataAssetGroup> ReadJson(JsonReader reader, Type objectType, List<CustomDataAssetGroup> existingValue, bool hasExistingValue, JsonSerializer serializer)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
+	internal class ListCustomDataAssetAirdromeJsonConverter : JsonConverter<List<CustomDataAssetAirdrome>>
+	{
+		public override void WriteJson(JsonWriter writer, List<CustomDataAssetAirdrome> value, JsonSerializer serializer)
+		{
+			if (value is object && value.Count > 0)
+			{
+				JArray ja = new JArray();
+				foreach (CustomDataAssetAirdrome customDataAsset in value.Where(_a => !_a.IsDefaultData()))
+				{
+					ja.Add(JToken.FromObject(customDataAsset, serializer));
+				}
+
+				ja.WriteTo(writer);
+			}
+		}
+
+		public override List<CustomDataAssetAirdrome> ReadJson(JsonReader reader, Type objectType, List<CustomDataAssetAirdrome> existingValue, bool hasExistingValue, JsonSerializer serializer)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

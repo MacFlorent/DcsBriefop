@@ -10,30 +10,6 @@ namespace DcsBriefop.Data
 		AssetMapDisplay
 	}
 
-	internal enum ElementAssetSide
-	{
-		None = 0,
-		Own = 1,
-		Opposing = 2
-	}
-
-	internal enum ElementAssetUsage
-	{
-		Excluded = 0,
-		Mission = 1,
-		Support = 2,
-		Base = 3,
-		Opposition = 4
-	}
-
-	internal enum ElementAssetMapDisplay
-	{
-		None = 0,
-		Point = 1,
-		Orbit = 2,
-		FullRoute = 3
-	}
-
 	internal class MasterDataObject
 	{
 		public int Id { get; set; }
@@ -57,6 +33,7 @@ namespace DcsBriefop.Data
 			return new List<MasterDataObject>()
 			{
 				new MasterDataObject() { Id = (int)ElementAssetUsage.Excluded, Label = "Excluded" },
+				new MasterDataObject() { Id = (int)ElementAssetUsage.MissionWithDetail, Label = "Mission with detail" },
 				new MasterDataObject() { Id = (int)ElementAssetUsage.Mission, Label = "Mission" },
 				new MasterDataObject() { Id = (int)ElementAssetUsage.Support, Label = "Support" },
 				new MasterDataObject() { Id = (int)ElementAssetUsage.Base, Label = "Base" }

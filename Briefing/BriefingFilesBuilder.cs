@@ -111,18 +111,18 @@ namespace DcsBriefop.Briefing
 			sFileName = $"{coalition.Name}_02_OPERATIONS";
 			AddFileHtml(sFileName, sKneeboardFolder, GenerateHtmlOperations(coalition));
 
-			foreach (AssetGroup asset in coalition.OwnAssets.OfType<AssetGroup>().Where(_a => _a.Usage == ElementAssetUsage.Mission))
+			foreach (AssetFlight asset in coalition.OwnAssets.OfType<AssetFlight>().Where(_a => _a.MissionData is object))
 			{
 				sKneeboardFolder = KneeboardFolders.Images; // TODO aircrat specific kneeboard folder
 				sFileName = $"{coalition.Name}_03_MISSION_{asset.Name}";
 				AddFileHtml(sFileName, sKneeboardFolder, GenerateHtmlMission(coalition, asset));
-				AddMapData($"{sFileName}_MAP", sKneeboardFolder, asset.MapDataMission);
+				AddMapData($"{sFileName}_MAP", sKneeboardFolder, asset.MissionData.MapDataMission);
 			}
 		}
 
 		private HtmlBuilder.HtmlDocument GenerateHtmlSituation(BriefingCoalition coalition)
 		{
-			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.Color);
+			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.OwnColor);
 
 			//hb.AppendHeader(m_briefingPack.Sortie, 3);
 			hb.AppendHeader("SITUATION", 2);
@@ -138,7 +138,7 @@ namespace DcsBriefop.Briefing
 
 		private HtmlBuilder.HtmlDocument GenerateHtmlOperations(BriefingCoalition coalition)
 		{
-			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.Color);
+			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.OwnColor);
 
 			//hb.AppendHeader(m_briefingPack.Sortie, 3);
 			hb.AppendHeader("OPERATIONS", 2);
@@ -147,27 +147,31 @@ namespace DcsBriefop.Briefing
 			hb.AppendParagraphCentered(coalition.BullseyeDescription);
 			hb.AppendHeader("ASSETS", 3);
 
-			hb.OpenTable("Name", "Task", "Type", "Notes");
+			hb.OpenTable("Name", "Task", "Type", "Radio", "Notes");
 			hb.AppendTableRow("Missions");
-			foreach (Asset asset in coalition.OwnAssets.Where(_a =>_a.Usage == ElementAssetUsage.Mission))
+			foreach (Asset asset in coalition.OwnAssets.Where(_a =>_a.Usage == ElementAssetUsage.MissionWithDetail))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.RadioString, asset.Information);
+			}
+			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Mission))
+			{
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.RadioString, asset.Information);
 			}
 
 			hb.AppendTableRow("Support");
 			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Support))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.RadioString, asset.Information);
 			}
 
 			hb.AppendTableRow("Base");
 			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Base))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.RadioString, asset.Information);
 			}
 			foreach (Asset asset in coalition.Airdromes.Where(_a => _a.Usage == ElementAssetUsage.Base && _a.Side == ElementAssetSide.Own))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.RadioString, asset.Information);
 			}
 
 			hb.CloseTable();
@@ -176,19 +180,19 @@ namespace DcsBriefop.Briefing
 			return hb;
 		}
 
-		private HtmlBuilder.HtmlDocument GenerateHtmlMission(BriefingCoalition coalition, AssetGroup asset)
+		private HtmlBuilder.HtmlDocument GenerateHtmlMission(BriefingCoalition coalition, AssetFlight asset)
 		{
-			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.Color);
+			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.OwnColor);
 
 			hb.AppendHeader($"MISSION {asset.Name} | {asset.Task}", 2);
-			hb.AppendParagraphCentered(asset.MissionInformation);
+			hb.AppendParagraphCentered(asset.MissionData.MissionInformation);
 			hb.AppendHeader("WAYPOINTS", 3);
 
-			hb.OpenTable("#", "Waypoint", "Action", "Alt.", "Notes");
+			hb.OpenTable("#", "Waypoint", "Action", "Alt.");
 
 			foreach (AssetRoutePoint routePoint in asset.MapPoints.OfType<AssetRoutePoint>())
 			{
-				hb.AppendTableRow(routePoint.Number.ToString(), routePoint.Name, routePoint.Action, routePoint.AltitudeFeet, routePoint.Notes);
+				hb.AppendTableRow(routePoint.Number.ToString(), routePoint.Name, routePoint.Action, routePoint.AltitudeFeet);
 			}
 
 

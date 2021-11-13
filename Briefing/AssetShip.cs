@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.LsonStructure;
 using DcsBriefop.Data;
 using System.Linq;
+using DcsBriefop.Map;
 
 namespace DcsBriefop.Briefing
 {
@@ -11,7 +12,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Properties
-		protected override string DefaultMarker { get; set; } = MarkerBriefopType.ship.ToString();
+		protected override string MapMarker { get; set; } = MarkerBriefopType.ship.ToString();
 		public override string Task { get { return ""; } }
 		public override string Type { get { return MainUnit.Type; } }
 		public override string RadioString { get { return Radio.ToString(); } }
@@ -54,16 +55,26 @@ namespace DcsBriefop.Briefing
 		#region Methods
 		protected override string GetDefaultInformation()
 		{
-			return $"TCN={GetTacanString()}";
+			string sInformation = "";
+			if (Side == ElementAssetSide.Own)
+			{
+				sInformation = $"TCN={GetTacanString()}";
+			}
+			else
+			{
+
+			}
+
+			return sInformation;
 		}
 
 		protected override void InitializeCustomData()
 		{
-			CustomData = RootCustom.AssetGroups?.Where(_f => _f.Id == Id).FirstOrDefault();
+			CustomData = RootCustom.GetAssetGroup(Id, BriefingCoalition.Name);
 			if (CustomData is object)
 				return;
 
-			CustomData = new CustomDataAssetGroup(Id);
+			CustomData = new CustomDataAssetGroup(Id, BriefingCoalition.Name);
 			RootCustom.AssetGroups.Add(CustomData);
 
 			if (Type.StartsWith("CVN"))
@@ -76,6 +87,8 @@ namespace DcsBriefop.Briefing
 				Usage = ElementAssetUsage.Excluded;
 				MapDisplay = ElementAssetMapDisplay.None;
 			}
+
+			CustomData.SetDefaultData();
 		}
 		#endregion
 	}

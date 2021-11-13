@@ -133,8 +133,10 @@ namespace DcsBriefop.Briefing
 			{
 				ToolsZip.ReplaceZipEntry(za, DictionaryZipEntryFullName, ToolsLua.LsonRootToCorrectedString(RootDictionary.RootLua));
 				ToolsZip.ReplaceZipEntry(za, m_missionLuaFileName, ToolsLua.LsonRootToCorrectedString(RootMission.RootLua));
-				ToolsZip.ReplaceZipEntry(za, m_customLuaFileName, RootCustom.SerializeToJson());
+				ToolsZip.ReplaceZipEntry(za, m_customLuaFileName, RootCustom.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
 			}
+
+			File.WriteAllText(Path.Combine(MizFileDirectory, "testcustom.json"), RootCustom.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
 		}
 		#endregion
 	}

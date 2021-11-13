@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Briefing;
 using DcsBriefop.Data;
+using DcsBriefop.Map;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Drawing;

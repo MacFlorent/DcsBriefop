@@ -18,5 +18,14 @@ namespace DcsBriefop.Tools
 		{
 			MessageBox.Show(sMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
+
+		public static void SetDataGridViewProperties(DataGridView dgv)
+		{
+			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+			dgv.AllowUserToResizeColumns = true;
+			dgv.AllowUserToAddRows = false;
+			dgv.RowHeadersVisible = false;
+			dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+		}
 	}
 }

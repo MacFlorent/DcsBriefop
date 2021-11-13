@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.LsonStructure;
+using DcsBriefop.Map;
 using System.Linq;
 
 namespace DcsBriefop.Briefing
@@ -11,7 +12,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Properties
-		protected override string DefaultMarker { get; set; } = MarkerBriefopType.tank.ToString();
+		protected override string MapMarker { get; set; } = MarkerBriefopType.tank.ToString();
 		public override string Task { get { return ""; } }
 		public override string Type { get { return GroupVehicle.Units.FirstOrDefault()?.Type; ; } }
 		public override string RadioString { get { return ""; } }
@@ -24,7 +25,16 @@ namespace DcsBriefop.Briefing
 		#region Methods
 		protected override string GetDefaultInformation()
 		{
-			return "";
+			string sInformation = "";
+			if (Side == ElementAssetSide.Own)
+			{
+			}
+			else
+			{
+				
+			}
+
+			return sInformation;
 		}
 
 		protected override void InitializeCustomData()
@@ -33,9 +43,10 @@ namespace DcsBriefop.Briefing
 			if (CustomData is object)
 				return;
 
-			CustomData = new CustomDataAssetGroup(Id);
+			CustomData = new CustomDataAssetGroup(Id, BriefingCoalition.Name);
 			RootCustom.AssetGroups.Add(CustomData);
 
+			CustomData.SetDefaultData();
 		}
 		#endregion
 	}

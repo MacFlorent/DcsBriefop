@@ -5,7 +5,7 @@ using System;
 using System.Drawing;
 using System.Runtime.Serialization;
 
-namespace DcsBriefop
+namespace DcsBriefop.Map
 {
 	[Serializable]
 	public class GMarkerBriefop : GMapMarker, ISerializable, IDeserializationCallback
