@@ -111,15 +111,22 @@ namespace DcsBriefop.Briefing
 
 		protected override string GetDefaultInformation()
 		{
-			StringBuilder sbInformation = new StringBuilder();
+			string sInformation = "";
 
-			if (Task == ElementTask.Refueling)
+			if (Side == ElementAssetSide.Own)
 			{
-				sbInformation.AppendWithSeparator($"TCN={GetTacanString()}", " ");
+				StringBuilder sbInformation = new StringBuilder();
+
+				if (Task == ElementTask.Refueling)
+				{
+					sbInformation.AppendWithSeparator($"TCN={GetTacanString()}", " ");
+				}
+
+				sbInformation.AppendWithSeparator(GetBaseInformation(), " ");
+				sInformation = sbInformation.ToString();
 			}
 
-			sbInformation.AppendWithSeparator(GetBaseInformation(), " ");
-			return sbInformation.ToString();
+			return sInformation;
 		}
 
 		public string GetCallsign()
@@ -134,7 +141,7 @@ namespace DcsBriefop.Briefing
 		private string GetBaseInformation()
 		{
 			StringBuilder sb = new StringBuilder();
-			foreach (Airdrome airdrome in GetAirdromeIds().Select(_i => Theatre.GetAirdrome(_i)))
+			foreach (DcsAirdrome airdrome in GetAirdromeIds().Select(_i => Theatre.GetAirdrome(_i)))
 			{
 				if (airdrome is object)
 				{

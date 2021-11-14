@@ -146,14 +146,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Briefing\BriefingMission.cs" />
+    <Compile Include="Briefing\BriefingUnit.cs" />
     <Compile Include="Briefing\AssetStatic.cs" />
     <Compile Include="Briefing\AssetVehicle.cs" />
     <Compile Include="Briefing\Asset.cs" />
     <Compile Include="Briefing\AssetAirdrome.cs" />
     <Compile Include="Briefing\CustomDataMission.cs" />
     <Compile Include="Briefing\CustomDataAsset.cs" />
-    <Compile Include="Data\Airdrome.cs" />
+    <Compile Include="Data\DcsAirdrome.cs" />
     <Compile Include="Briefing\BriefingCoalition.cs" />
     <Compile Include="Briefing\BriefingFilesBuilder.cs" />
     <Compile Include="Briefing\AssetMapPoint.cs" />
@@ -166,6 +166,7 @@
     <Compile Include="Configuration\BriefopMarkerSection.cs" />
     <Compile Include="Configuration\BriefopMarkerCollection.cs" />
     <Compile Include="Configuration\BriefopMarkerElement.cs" />
+    <Compile Include="Data\DcsUnit.cs" />
     <Compile Include="FrmGenerateFiles.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -191,7 +192,7 @@
     <Compile Include="Map\GMarkerBriefop.cs" />
     <Compile Include="Data\MasterDataObject.cs" />
     <Compile Include="Data\ElementBriefop.cs" />
-    <Compile Include="Data\Theatre.cs" />
+    <Compile Include="Data\DcsTheatre.cs" />
     <Compile Include="Tools\JsonSerializers.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -208,6 +209,7 @@
       <DependentUpon>FrmAssetDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ToolsMenu.cs" />
+    <Compile Include="Tools\ToolsResources.cs" />
     <Compile Include="Tools\ToolsZip.cs" />
     <Compile Include="UcBriefing\TabPageBriefing.cs">
       <SubType>Component</SubType>
@@ -368,6 +370,6 @@
   <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /I /Y $(SolutionDir)Resources\Markers $(TargetDir)\Markers
-xcopy /I /Y $(SolutionDir)Resources\Theatre $(TargetDir)\Theatre</PostBuildEvent>
+xcopy /I /Y $(SolutionDir)Resources\Resources $(TargetDir)\Resources</PostBuildEvent>
   </PropertyGroup>
 </Project>

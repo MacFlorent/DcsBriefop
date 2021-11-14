@@ -10,7 +10,7 @@ namespace DcsBriefop.Briefing
 	internal class AssetAirdrome : Asset
 	{
 		#region Fields
-		protected Airdrome m_airdrome;
+		protected DcsAirdrome m_airdrome;
 		#endregion
 
 		#region Properties
@@ -72,7 +72,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public AssetAirdrome(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, Airdrome airdrome) : base(briefingPack, briefingCoalition, side)
+		public AssetAirdrome(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, DcsAirdrome airdrome) : base(briefingPack, briefingCoalition, side)
 		{
 			m_airdrome = airdrome;
 			InitializeData(briefingPack);
@@ -116,7 +116,11 @@ namespace DcsBriefop.Briefing
 
 		protected override string GetDefaultInformation()
 		{
-			return Tacan?.ToString();
+			string sInformation = "";
+			if (Side == ElementAssetSide.Own)
+				sInformation = Tacan?.ToString();
+
+			return sInformation;
 		}
 		#endregion
 	}

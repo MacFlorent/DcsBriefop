@@ -27,6 +27,11 @@ namespace DcsBriefop.Data
 		FullRoute = 3
 	}
 
+	internal static class ElementGlobalData
+	{
+		public static readonly string ResourcesDirectory = "Resources";
+	}
+
 	internal static class ElementCoalitionColor
 	{
 		public static readonly Color Blue = Color.Blue;

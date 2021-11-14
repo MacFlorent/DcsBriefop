@@ -57,13 +57,7 @@ namespace DcsBriefop.Briefing
 		{
 			string sInformation = "";
 			if (Side == ElementAssetSide.Own)
-			{
 				sInformation = $"TCN={GetTacanString()}";
-			}
-			else
-			{
-
-			}
 
 			return sInformation;
 		}

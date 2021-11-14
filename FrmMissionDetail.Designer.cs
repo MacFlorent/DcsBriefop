@@ -171,7 +171,7 @@ namespace DcsBriefop
 			this.DgvTargets.Location = new System.Drawing.Point(5, 387);
 			this.DgvTargets.Name = "DgvTargets";
 			this.DgvTargets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.DgvTargets.Size = new System.Drawing.Size(394, 100);
+			this.DgvTargets.Size = new System.Drawing.Size(394, 289);
 			this.DgvTargets.TabIndex = 24;
 			// 
 			// LbTargets

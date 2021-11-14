@@ -167,7 +167,10 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Methods
-		protected abstract string GetDefaultInformation();
+		protected virtual string GetDefaultInformation()
+		{
+			return "";
+		}
 
 		public virtual string GetLocalisation()
 		{

@@ -13,14 +13,14 @@ namespace DcsBriefop.Configuration
 			set { this["baseDirectory"] = value; }
 		}
 
-		[ConfigurationProperty("defaultWidth", DefaultValue = 32)]
+		[ConfigurationProperty("defaultWidth", DefaultValue = 24)]
 		public int DefaultWidth
 		{
 			get { return (int)this["defaultWidth"]; }
 			set { this["defaultWidth"] = value; }
 		}
 
-		[ConfigurationProperty("defaultHeight", DefaultValue = 32)]
+		[ConfigurationProperty("defaultHeight", DefaultValue = 24)]
 		public int DefaultHeight
 		{
 			get { return (int)this["defaultHeight"]; }

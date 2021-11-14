@@ -12,6 +12,8 @@ namespace DcsBriefop.LsonStructure
 			public static readonly string Id = "groupId";
 			public static readonly string Name = "name";
 			public static readonly string LateActivation = "lateActivation";
+			public static readonly string Y = "y";
+			public static readonly string X = "x";
 			public static readonly string Route = "route";
 			public static readonly string Points = "points";
 		}
@@ -19,6 +21,8 @@ namespace DcsBriefop.LsonStructure
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public bool LateActivation { get; set; }
+		public decimal Y { get; set; }
+		public decimal X { get; set; }
 
 		public virtual List<Unit> Units { get; set; } = new List<Unit>();
 		public List<RoutePoint> RoutePoints { get; set; } = new List<RoutePoint>();
@@ -30,6 +34,8 @@ namespace DcsBriefop.LsonStructure
 			Id = m_lsd[LuaNode.Id].GetInt();
 			Name = m_lsd[LuaNode.Name].GetString();
 			LateActivation = m_lsd.IfExistsBool(LuaNode.LateActivation).GetValueOrDefault();
+			Y = m_lsd[LuaNode.Y].GetDecimal();
+			X = m_lsd[LuaNode.X].GetDecimal();
 
 			if (m_lsd.ContainsKey(LuaNode.Route))
 			{

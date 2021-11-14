@@ -23,20 +23,6 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Methods
-		protected override string GetDefaultInformation()
-		{
-			string sInformation = "";
-			if (Side == ElementAssetSide.Own)
-			{
-			}
-			else
-			{
-				
-			}
-
-			return sInformation;
-		}
-
 		protected override void InitializeCustomData()
 		{
 			CustomData = RootCustom.GetAssetGroup(Id, BriefingCoalition.Name);

@@ -98,11 +98,11 @@ namespace DcsBriefop.Map
 					}
 					else if (sTemplate == MarkerBriefopType.dot.ToString())
 					{
-						size = new Size(16, 16);
+						size = new Size(10, 10);
 					}
 					else if (sTemplate == MarkerBriefopType.triangle.ToString())
 					{
-						size = new Size(16, 16);
+						size = new Size(10, 10);
 					}
 				}
 

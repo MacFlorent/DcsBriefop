@@ -11,12 +11,16 @@ namespace DcsBriefop.LsonStructure
 			public static readonly string Name = "name";
 			public static readonly string Type = "type";
 			public static readonly string Skill = "skill";
+			public static readonly string Y = "y";
+			public static readonly string X = "x";
 		}
 
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public string Type { get; set; }
 		public string Skill { get; set; }
+		public decimal Y { get; set; }
+		public decimal X { get; set; }
 
 		public Unit(LsonDict lsd) : base(lsd) { }
 		
@@ -26,6 +30,8 @@ namespace DcsBriefop.LsonStructure
 			Name = m_lsd[LuaNode.Name].GetString();
 			Type = m_lsd[LuaNode.Type].GetString();
 			Skill = m_lsd.IfExistsString(LuaNode.Skill);
+			Y = m_lsd[LuaNode.Y].GetDecimal();
+			X = m_lsd[LuaNode.X].GetDecimal();
 		}
 
 		public override void ToLua()

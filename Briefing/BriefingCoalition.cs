@@ -111,7 +111,7 @@ namespace DcsBriefop.Briefing
 			OwnAssets = BuildCoalitionAssets(briefingPack, m_coalition, ElementAssetSide.Own);
 			OpposingAssets = BuildCoalitionAssets(briefingPack, m_opposingCoalition, ElementAssetSide.Opposing);
 
-			foreach (Airdrome airdrome in Theatre.Airdromes)
+			foreach (DcsAirdrome airdrome in Theatre.Airdromes)
 			{
 				Airdromes.Add(new AssetAirdrome(briefingPack, this, ElementAssetSide.None, airdrome));
 			}

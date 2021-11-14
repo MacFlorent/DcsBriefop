@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Data;
+﻿using CoordinateSharp;
+using DcsBriefop.Data;
 using DcsBriefop.LsonStructure;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,12 +45,25 @@ namespace DcsBriefop.Briefing
 		{
 			get { return m_group.LateActivation; }
 		}
+
+		public Coordinate Coordinate
+		{
+			get { return Theatre.GetCoordinate(m_group.Y, m_group.X); }
+		}
+
+		public List<BriefingUnit> Units = new List<BriefingUnit>();
 		#endregion
 
 		#region CTOR
 		public AssetGroup(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, Group group) : base(briefingPack, briefingCoalition, side)
 		{
 			m_group = group;
+
+			foreach (Unit unit in m_group.Units)
+			{
+				Units.Add(new BriefingUnit(briefingPack, this, unit));
+			}
+
 			InitializeData(briefingPack);
 		}
 		#endregion

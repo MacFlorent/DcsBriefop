@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DcsBriefop.Tools;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +8,7 @@ using System.Reflection;
 
 namespace DcsBriefop.Data
 {
-	internal class Theatre
+	internal class DcsTheatre
 	{
 		private class PointCoordinate
 		{
@@ -23,9 +24,9 @@ namespace DcsBriefop.Data
 		private List<decimal> m_coordinatesLutValuesY;
 		private List<decimal> m_coordinatesLutValuesX;
 
-		public List<Airdrome> Airdromes;
+		public List<DcsAirdrome> Airdromes;
 
-		public Theatre(string sName)
+		public DcsTheatre(string sName)
 		{
 			Name = sName;
 			InitializeCoordinatesLut();
@@ -129,11 +130,7 @@ namespace DcsBriefop.Data
 				m_coordinatesLutValuesY = new List<decimal>();
 				m_coordinatesLutValuesX = new List<decimal>();
 
-				string sResource = $"Points{Name}";
-				string sResourceContent = "";
-				try { sResourceContent = Properties.Resources.ResourceManager.GetString(sResource, Properties.Resources.Culture); }
-				catch (Exception) { sResourceContent = ""; }
-
+				string sResourceContent = ToolsResources.GetTextResourceContent($"Points{Name}", "txt");
 				string[] resourceContentLines = sResourceContent.Split('\n');
 				foreach (string sLine in resourceContentLines)
 				{
@@ -192,22 +189,8 @@ namespace DcsBriefop.Data
 		{
 			try
 			{
-				string sResourceName = $"Airdromes{Name}";
-				string sBaseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-				string sResourceFilePath = Path.Combine(sBaseDirectory, "Theatre", $"{sResourceName}.json");
-				string sJsonStream = null;
-
-				if (File.Exists(sResourceFilePath))
-				{
-					sJsonStream = File.ReadAllText(sResourceFilePath);
-				}
-				else
-				{
-					try { sJsonStream = Properties.Resources.ResourceManager.GetString(sResourceName, Properties.Resources.Culture); }
-					catch (Exception) { sJsonStream = ""; }
-				}
-
-				Airdromes = JsonConvert.DeserializeObject<List<Airdrome>>(sJsonStream);
+				string sJsonStream = ToolsResources.GetJsonResourceContent($"Airdromes{Name}");
+				Airdromes = JsonConvert.DeserializeObject<List<DcsAirdrome>>(sJsonStream);
 			}
 			catch (Exception e)
 			{
@@ -217,7 +200,7 @@ namespace DcsBriefop.Data
 			}
 		}
 
-		public Airdrome GetAirdrome(int iId)
+		public DcsAirdrome GetAirdrome(int iId)
 		{
 			return Airdromes.Where(_ad => _ad.Id == iId).FirstOrDefault();
 		}

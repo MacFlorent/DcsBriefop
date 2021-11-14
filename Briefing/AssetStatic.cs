@@ -23,11 +23,6 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Methods
-		protected override string GetDefaultInformation()
-		{
-			return "";
-		}
-
 		protected override void InitializeCustomData()
 		{
 			CustomData = RootCustom.GetAssetGroup(Id, BriefingCoalition.Name);

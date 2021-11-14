@@ -2,7 +2,7 @@
 
 namespace DcsBriefop.Data
 {
-	internal class Airdrome
+	internal class DcsAirdrome
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }

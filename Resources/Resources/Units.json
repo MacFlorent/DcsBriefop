@@ -1,0 +1,26 @@
+[
+   {
+     "Type": "S-300PS 54K6 cp",
+     "Description": "S-300PS/SA-10B command post",
+     "Marker": null,
+     "Information": null
+   },
+   {
+    "Type": "S-300PS 64H6E sr",
+    "Description": "S-300PS/SA-10B acquisition radar",
+    "Marker": null,
+    "Information": "Big Bird RWR=BB HARM=104"
+  },
+  {
+    "Type": "S-300PS 40B6M tr",
+    "Name": "S-300PS/SA-10B Fire Control Radar",
+    "Marker": null,
+    "Information": "Flap Lid RWR=10 HARM=110"
+  },
+  {
+    "Type": "S-300PS 40B6MD sr",
+    "Name": "S-300PS/SA-10B Specialized Radar ",
+    "Marker": null,
+    "Information": "Clam Shell RWR=CS HARM=103"
+  }
+ ]

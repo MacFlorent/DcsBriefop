@@ -1,5 +1,4 @@
 ﻿using DcsBriefop.Briefing;
-using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using DcsBriefop.UcBriefing;
 using System.Linq;
@@ -13,6 +12,7 @@ namespace DcsBriefop
 		{
 			public static readonly string Id = "Id";
 			public static readonly string Number = "Number";
+			public static readonly string Asset = "Asset";
 			public static readonly string Name = "Name";
 			public static readonly string Action = "Action";
 			public static readonly string Altitude = "Altitude";
@@ -105,8 +105,8 @@ namespace DcsBriefop
 
 		private void DataToScreenTargets()
 		{
+			DgvTargets.Columns.Add(GridColumn.Asset, "Asset");
 			DgvTargets.Columns.Add(GridColumn.Id, "Id");
-			DgvTargets.Columns.Add(GridColumn.Name, "Name");
 			DgvTargets.Columns.Add(GridColumn.Type, "Type");
 			DgvTargets.Columns.Add(GridColumn.Localisation, "Localisation");
 			DgvTargets.Columns.Add(GridColumn.Information, "Information");
@@ -116,16 +116,19 @@ namespace DcsBriefop
 
 			foreach (AssetGroup target in m_asset.BriefingCoalition.OpposingAssets.OfType<AssetGroup>())
 			{
-				RefreshGridRowTarget(target);
+				foreach (BriefingUnit unit in target.Units)
+				{
+					RefreshGridRowTarget(unit);
+				}
 			}
 		}
 
-		private void RefreshGridRowTarget(AssetGroup target)
+		private void RefreshGridRowTarget(BriefingUnit unit)
 		{
 			DataGridViewRow dgvr = null;
 			foreach (DataGridViewRow existingRow in DgvTargets.Rows)
 			{
-				if (existingRow.Cells[GridColumn.Data].Value == target)
+				if (existingRow.Cells[GridColumn.Data].Value == unit)
 				{
 					dgvr = existingRow;
 					break;
@@ -135,14 +138,14 @@ namespace DcsBriefop
 			{
 				int iNewRowIndex = DgvTargets.Rows.Add();
 				dgvr = DgvTargets.Rows[iNewRowIndex];
-				dgvr.Cells[GridColumn.Data].Value = target;
+				dgvr.Cells[GridColumn.Data].Value = unit;
 			}
 
-			dgvr.Cells[GridColumn.Id].Value = target.Id;
-			dgvr.Cells[GridColumn.Name].Value = target.Name;
-			dgvr.Cells[GridColumn.Type].Value = target.Type;
-			dgvr.Cells[GridColumn.Localisation].Value = target.GetLocalisation();
-			dgvr.Cells[GridColumn.Information].Value = target.Information;
+			dgvr.Cells[GridColumn.Asset].Value = unit.Asset.Name;
+			dgvr.Cells[GridColumn.Id].Value = unit.Id;
+			dgvr.Cells[GridColumn.Type].Value = unit.Type;
+			dgvr.Cells[GridColumn.Localisation].Value = unit.GetLocalisation();
+			dgvr.Cells[GridColumn.Information].Value = unit.Information;
 		}
 
 		private void ScreenToData()

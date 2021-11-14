@@ -257,5 +257,17 @@ namespace DcsBriefop.UcBriefing
 			Map.Zoom += 1;
 			Map.Zoom -= 1;
 		}
+
+		private void BtZoomOut_Click(object sender, System.EventArgs e)
+		{
+			Map.Zoom -= 0.1;
+			Map.Refresh();
+		}
+
+		private void BtZoomIn_Click(object sender, System.EventArgs e)
+		{
+			Map.Zoom += 0.1;
+			Map.Refresh();
+		}
 	}
 }
