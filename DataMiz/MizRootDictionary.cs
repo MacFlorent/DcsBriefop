@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace DcsBriefop.LsonStructure
+namespace DcsBriefop.DataMiz
 {
-	internal class RootDictionary : BaseLsonStructure
+	internal class MizRootDictionary : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -23,7 +23,7 @@ namespace DcsBriefop.LsonStructure
 		public string BlueTask { get; set; }
 		public string NeutralTask { get; set; }
 
-		public RootDictionary(Dictionary<string, LsonValue> rootLua) : base(rootLua["dictionary"].GetDict())
+		public MizRootDictionary(Dictionary<string, LsonValue> rootLua) : base(rootLua["dictionary"].GetDict())
 		{
 			RootLua = rootLua;
 		}

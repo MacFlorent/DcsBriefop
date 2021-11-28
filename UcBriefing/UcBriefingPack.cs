@@ -10,14 +10,12 @@ namespace DcsBriefop.UcBriefing
 		{
 			InitializeComponent();
 
-			LbSortie.Text = "";
 			TcMissionData.TabPages.Clear();
 		}
 
 		public override void DataToScreen()
 		{
 			LbTheatre.Text = BriefingPack.Theatre.Name;
-			LbSortie.Text = BriefingPack.Sortie;
 
 			CkDisplayRed.Checked = BriefingPack.DisplayRed;
 			CkDisplayBlue.Checked = BriefingPack.DisplayBlue;

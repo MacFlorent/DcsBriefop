@@ -26,8 +26,8 @@ namespace DcsBriefop.Briefing
 		public bool ExportLocalDirectoryBitmaps { get; set; } = false;
 		public string ExportLocalDirectoryPath { get; set; }
 
-		public LsonStructure.RootMission RootMission { get; private set; }
-		public LsonStructure.RootDictionary RootDictionary { get; private set; }
+		public DataMiz.MizRootMission RootMission { get; private set; }
+		public DataMiz.MizRootDictionary RootDictionary { get; private set; }
 		public CustomData RootCustom { get; private set; }
 		#endregion
 
@@ -84,8 +84,8 @@ namespace DcsBriefop.Briefing
 				throw new ExceptionDcsBriefop($"Dictionary lua file not found : {sDictionaryFilePath}");
 			}
 
-			RootMission = new LsonStructure.RootMission(LsonVars.Parse(ToolsLua.ReadLuaFileContent(sMissionFilePath)));
-			RootDictionary = new LsonStructure.RootDictionary(LsonVars.Parse(ToolsLua.ReadLuaFileContent(sDictionaryFilePath)));
+			RootMission = new DataMiz.MizRootMission(LsonVars.Parse(ToolsLua.ReadLuaFileContent(sMissionFilePath)));
+			RootDictionary = new DataMiz.MizRootDictionary(LsonVars.Parse(ToolsLua.ReadLuaFileContent(sDictionaryFilePath)));
 
 			if (File.Exists(sCustomFilePath))
 			{
@@ -136,7 +136,7 @@ namespace DcsBriefop.Briefing
 				ToolsZip.ReplaceZipEntry(za, m_customLuaFileName, RootCustom.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
 			}
 
-			File.WriteAllText(Path.Combine(MizFileDirectory, "testcustom.json"), RootCustom.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
+			//File.WriteAllText(Path.Combine(MizFileDirectory, "testcustom.json"), RootCustom.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
 		}
 		#endregion
 	}

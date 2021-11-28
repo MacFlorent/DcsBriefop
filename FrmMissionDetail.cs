@@ -11,6 +11,7 @@ namespace DcsBriefop
 		private static class GridColumn
 		{
 			public static readonly string Id = "Id";
+			public static readonly string Selected = "Selected";
 			public static readonly string Number = "Number";
 			public static readonly string Asset = "Asset";
 			public static readonly string Name = "Name";
@@ -105,6 +106,8 @@ namespace DcsBriefop
 
 		private void DataToScreenTargets()
 		{
+			DataGridViewCheckBoxColumn col = new DataGridViewCheckBoxColumn() { Name = GridColumn.Selected, HeaderText = "Selected" };
+			DgvTargets.Columns.Add(col);
 			DgvTargets.Columns.Add(GridColumn.Asset, "Asset");
 			DgvTargets.Columns.Add(GridColumn.Id, "Id");
 			DgvTargets.Columns.Add(GridColumn.Type, "Type");
@@ -112,6 +115,12 @@ namespace DcsBriefop
 			DgvTargets.Columns.Add(GridColumn.Information, "Information");
 			DgvTargets.Columns.Add(GridColumn.Data, "Data");
 
+			DgvTargets.Columns[GridColumn.Selected].ValueType = typeof(bool);
+			DgvTargets.Columns[GridColumn.Asset].ReadOnly = true;
+			DgvTargets.Columns[GridColumn.Id].ReadOnly = true;
+			DgvTargets.Columns[GridColumn.Type].ReadOnly = true;
+			DgvTargets.Columns[GridColumn.Localisation].ReadOnly = true;
+			DgvTargets.Columns[GridColumn.Information].ReadOnly = true;
 			DgvTargets.Columns[GridColumn.Data].Visible = false;
 
 			foreach (AssetGroup target in m_asset.BriefingCoalition.OpposingAssets.OfType<AssetGroup>())
@@ -141,6 +150,7 @@ namespace DcsBriefop
 				dgvr.Cells[GridColumn.Data].Value = unit;
 			}
 
+			dgvr.Cells[GridColumn.Selected].Value = m_asset.MissionData.IsTarget(unit.Id);
 			dgvr.Cells[GridColumn.Asset].Value = unit.Asset.Name;
 			dgvr.Cells[GridColumn.Id].Value = unit.Id;
 			dgvr.Cells[GridColumn.Type].Value = unit.Type;
@@ -176,6 +186,39 @@ namespace DcsBriefop
 		private void TbInformation_TextChanged(object sender, System.EventArgs e)
 		{
 			ScreenToData();
+		}
+
+		private void DgvTargets_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex < 0)
+				return;
+
+			DataGridView grid = (sender as DataGridView);
+			if (grid is null)
+				return;
+
+			DataGridViewColumn column = grid.Columns[e.ColumnIndex];
+			if (column.Name == GridColumn.Selected)
+			{
+				DataGridViewCell cell = grid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+				BriefingUnit unit = grid.Rows[e.RowIndex].Cells[GridColumn.Data].Value as BriefingUnit;
+				m_asset.MissionData.SetTarget(unit.Id, (bool)cell.Value);
+				m_asset.MissionData.InitializeMapData();
+				UpdateMapControl();
+			}
+
+		}
+
+		private void DgvTargets_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+		{
+			if (e.RowIndex < 0)
+				return;
+
+			DataGridViewColumn column = (sender as DataGridView).Columns[e.ColumnIndex];
+			if (column.Name == GridColumn.Selected)
+			{
+				(sender as DataGridView).EndEdit();
+			}
 		}
 	}
 }

@@ -1,9 +1,9 @@
 ﻿using DcsBriefop.Tools;
 using LsonLib;
 
-namespace DcsBriefop.LsonStructure
+namespace DcsBriefop.DataMiz
 {
-	internal class RouteTask : BaseLsonStructure
+	internal class MizRouteTask : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -17,9 +17,9 @@ namespace DcsBriefop.LsonStructure
 		public string Id { get; set; }
 		public int Number { get; set; }
 		public bool Enabled { get; set; }
-		public RouteTaskAction Action { get; set; }
+		public MizRouteTaskAction Action { get; set; }
 
-		public RouteTask(LsonDict lsd) : base(lsd) { }
+		public MizRouteTask(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -29,7 +29,7 @@ namespace DcsBriefop.LsonStructure
 
 			LsonDict lsdAction = m_lsd[LuaNode.Params].GetDict().IfExists(LuaNode.Action)?.GetDict();
 			if (lsdAction is object)
-				Action = new RouteTaskAction(lsdAction);
+				Action = new MizRouteTaskAction(lsdAction);
 		}
 
 		public override void ToLua()
@@ -50,7 +50,7 @@ namespace DcsBriefop.LsonStructure
 		//}
 	}
 
-	internal class RouteTaskAction : BaseLsonStructure
+	internal class MizRouteTaskAction : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -73,7 +73,7 @@ namespace DcsBriefop.LsonStructure
 		public int? ParamChannel { get; set; }
 		public int? ParamFrequency { get; set; }
 
-		public RouteTaskAction(LsonDict lsd) : base(lsd) { }
+		public MizRouteTaskAction(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{

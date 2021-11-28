@@ -1,6 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
-using DcsBriefop.LsonStructure;
+using DcsBriefop.DataMiz;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -41,21 +41,21 @@ namespace DcsBriefop.Briefing
 	internal class AssetRoutePoint : AssetMapPoint
 	{
 		#region Fields
-		protected RoutePoint m_routePoint;
+		protected MizRoutePoint m_routePoint;
 		#endregion
 
 		#region Properties
 		public string AltitudeFeet { get { return $"{UnitsNet.UnitConverter.Convert(m_routePoint.Altitude, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot):0} ft"; } }
 		public string Action { get { return m_routePoint.Action; } }
 
-		public List<RouteTask> RouteTasks
+		public List<MizRouteTask> RouteTasks
 		{
 			get { return m_routePoint.RouteTasks; }
 		}
 		#endregion
 
 		#region CTOR
-		public AssetRoutePoint(BriefingPack briefingPack, int iNumber, AssetGroup asset, RoutePoint routePoint) : base(briefingPack, iNumber)
+		public AssetRoutePoint(BriefingPack briefingPack, int iNumber, AssetGroup asset, MizRoutePoint routePoint) : base(briefingPack, iNumber)
 		{
 			m_routePoint = routePoint;
 

@@ -3,15 +3,15 @@ using DcsBriefop.Tools;
 using System;
 using System.Text;
 
-namespace DcsBriefop.Briefing
+namespace DcsBriefop.Data
 {
-	internal class BriefingWeather : BaseBriefing
+	internal class Weather
 	{
 		public WeatherPreset Preset { get; private set; }
 
-		public BriefingWeatherWind WindGround { get; private set; }
-		public BriefingWeatherWind Wind2000 { get; private set; }
-		public BriefingWeatherWind Wind8000 { get; private set; }
+		public WeatherWind WindGround { get; private set; }
+		public WeatherWind Wind2000 { get; private set; }
+		public WeatherWind Wind8000 { get; private set; }
 
 		public int CloudDensityOkta { get; private set; }
 		public int CloudBaseMeter { get; private set; }
@@ -45,35 +45,28 @@ namespace DcsBriefop.Briefing
 			get { return Convert.ToInt32(UnitsNet.UnitConverter.Convert(TemperatureCelcius, UnitsNet.Units.TemperatureUnit.DegreeCelsius, UnitsNet.Units.TemperatureUnit.DegreeFahrenheit)); }
 		}
 
-		public BriefingWeather(BriefingPack bp) : base(bp)
+		public Weather(DataMiz.MizWeather mizWeather)
 		{
-			Initialize();
-		}
-
-		private void Initialize()
-		{
-			DataMiz.MizWeather lson = RootMission.Weather;
-
 			Preset = null;
-			if (WeatherPreset.WeatherPresets.TryGetValue(lson.Cloud.Preset, out WeatherPreset wp))
+			if (WeatherPreset.WeatherPresets.TryGetValue(mizWeather.Cloud.Preset, out WeatherPreset wp))
 				Preset = wp;
 
-			WindGround = new BriefingWeatherWind(lson.WindAtGround);
-			Wind2000= new BriefingWeatherWind(lson.WindAt2000);
-			Wind8000 = new BriefingWeatherWind(lson.WindAt8000);
+			WindGround = new WeatherWind(mizWeather.WindAtGround);
+			Wind2000= new WeatherWind(mizWeather.WindAt2000);
+			Wind8000 = new WeatherWind(mizWeather.WindAt8000);
 
-			VisibilityMeter = lson.VisibilityDistance;
-			if (lson.Fog is object && lson.Fog.Thickness > 100)
+			VisibilityMeter = mizWeather.VisibilityDistance;
+			if (mizWeather.Fog is object && mizWeather.Fog.Thickness > 100)
 			{
 				Fog = true;
-				if (lson.Fog.Visibility < VisibilityMeter)
-					VisibilityMeter = lson.Fog.Visibility;
+				if (mizWeather.Fog.Visibility < VisibilityMeter)
+					VisibilityMeter = mizWeather.Fog.Visibility;
 			}
 
 			if (Preset is object)
 			{
 				CloudDensityOkta = Preset.Density;
-				CloudBaseMeter = lson.Cloud.Base;
+				CloudBaseMeter = mizWeather.Cloud.Base;
 				if (Preset.Visibility is object && Preset.Visibility < VisibilityMeter)
 					VisibilityMeter = Preset.Visibility.Value;
 
@@ -81,19 +74,19 @@ namespace DcsBriefop.Briefing
 			}
 			else
 			{
-				if (lson.Cloud.Density < 10)
+				if (mizWeather.Cloud.Density < 10)
 					CloudDensityOkta = 0;
 				else
-					CloudDensityOkta = lson.Cloud.Density * 8 / 10; // density in mission editor is on a scale of 10
+					CloudDensityOkta = mizWeather.Cloud.Density * 8 / 10; // density in mission editor is on a scale of 10
 
-				CloudBaseMeter = lson.Cloud.Base;
-				Precipitation = lson.Cloud.Precipitations > 0;
+				CloudBaseMeter = mizWeather.Cloud.Base;
+				Precipitation = mizWeather.Cloud.Precipitations > 0;
 			}
 
-			Dust = lson.Dust;
+			Dust = mizWeather.Dust;
 
-			QnhMmHg = lson.Qnh;
-			TemperatureCelcius = lson.Temperature;
+			QnhMmHg = mizWeather.Qnh;
+			TemperatureCelcius = mizWeather.Temperature;
 		}
 
 		public override string ToString()
@@ -146,13 +139,13 @@ namespace DcsBriefop.Briefing
 			return sb.ToString();
 		}
 
-		private string ToString_Wind(int iAltitudeFoot, BriefingWeatherWind ww)
+		private string ToString_Wind(int iAltitudeFoot, WeatherWind ww)
 		{
 			return $"Wind {iAltitudeFoot} feet : {ww.DirectionTrue:000}° @ {ww.SpeedKnot:00} kt";
 		}
 	}
 
-	internal class BriefingWeatherWind
+	internal class WeatherWind
 	{
 		public decimal SpeedMs { get; private set; }
 		public decimal SpeedKnot
@@ -161,7 +154,7 @@ namespace DcsBriefop.Briefing
 		}
 		public int DirectionTrue { get; private set; } // Direction the wind is coming from
 
-		public BriefingWeatherWind(DataMiz.MizWeatherWind lson)
+		public WeatherWind(DataMiz.MizWeatherWind lson)
 		{
 			SpeedMs = lson.Speed;
 			DirectionTrue = (lson.Direction + 180) % 360;

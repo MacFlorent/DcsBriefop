@@ -1,5 +1,5 @@
 ﻿using CoordinateSharp;
-using DcsBriefop.LsonStructure;
+using DcsBriefop.DataMiz;
 using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using GMap.NET;
@@ -15,8 +15,8 @@ namespace DcsBriefop.Briefing
 	internal class BriefingCoalition : BaseBriefing
 	{
 		#region Fields
-		private Coalition m_coalition;
-		private Coalition m_opposingCoalition;
+		private MizCoalition m_coalition;
+		private MizCoalition m_opposingCoalition;
 		private CustomDataCoalition m_customDataCoalition;
 		private GMarkerBriefop m_markerkBullseye;
 		#endregion
@@ -111,7 +111,7 @@ namespace DcsBriefop.Briefing
 			OwnAssets = BuildCoalitionAssets(briefingPack, m_coalition, ElementAssetSide.Own);
 			OpposingAssets = BuildCoalitionAssets(briefingPack, m_opposingCoalition, ElementAssetSide.Opposing);
 
-			foreach (DcsAirdrome airdrome in Theatre.Airdromes)
+			foreach (Airdrome airdrome in Theatre.Airdromes)
 			{
 				Airdromes.Add(new AssetAirdrome(briefingPack, this, ElementAssetSide.None, airdrome));
 			}
@@ -122,23 +122,23 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region Methods
-		private List<Asset> BuildCoalitionAssets(BriefingPack briefingPack, Coalition coalition, ElementAssetSide side)
+		private List<Asset> BuildCoalitionAssets(BriefingPack briefingPack, MizCoalition coalition, ElementAssetSide side)
 		{
 			List<Asset> assets = new List<Asset>();
 
 			if (coalition is object)
 			{
-				foreach (Country c in coalition.Countries)
+				foreach (MizCountry c in coalition.Countries)
 				{
-					foreach (GroupFlight g in c.GroupFlights)
+					foreach (MizGroupFlight g in c.GroupFlights)
 					{
 						assets.Add(new AssetFlight(briefingPack, this, side, g));
 					}
-					foreach (GroupShip g in c.GroupShips)
+					foreach (MizGroupShip g in c.GroupShips)
 					{
 						assets.Add(new AssetShip(briefingPack, this, side, g));
 					}
-					foreach (GroupVehicle g in c.GroupVehicles)
+					foreach (MizGroupVehicle g in c.GroupVehicles)
 					{
 						assets.Add(new AssetVehicle(briefingPack, this, side, g));
 					}

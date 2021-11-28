@@ -1,9 +1,9 @@
 ﻿using LsonLib;
 using System.Collections.Generic;
 
-namespace DcsBriefop.LsonStructure
+namespace DcsBriefop.DataMiz
 {
-	internal class Coalition : BaseLsonStructure
+	internal class MizCoalition : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -19,10 +19,10 @@ namespace DcsBriefop.LsonStructure
 		public decimal BullseyeY { get; set; }
 		public decimal BullseyeX { get; set; }
 
-		public List<InitialPoint> InitialPoints { get; private set; } = new List<InitialPoint>();
-		public List<Country> Countries { get; private set; } = new List<Country>();
+		public List<MizInitialPoint> InitialPoints { get; private set; } = new List<MizInitialPoint>();
+		public List<MizCountry> Countries { get; private set; } = new List<MizCountry>();
 
-		public Coalition(LsonDict lsd) : base(lsd) { }
+		public MizCoalition(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -34,13 +34,13 @@ namespace DcsBriefop.LsonStructure
 			LsonDict lsdInitialPoints = m_lsd[LuaNode.NavPoints].GetDict();
 			foreach (LsonValue lsv in lsdInitialPoints.Values)
 			{
-				InitialPoints.Add(new InitialPoint(lsv.GetDict()));
+				InitialPoints.Add(new MizInitialPoint(lsv.GetDict()));
 			}
 
 			LsonDict lsdCountries = m_lsd[LuaNode.Country].GetDict();
 			foreach (LsonValue lsv in lsdCountries.Values)
 			{
-				Countries.Add(new Country(lsv.GetDict()));
+				Countries.Add(new MizCountry(lsv.GetDict()));
 			}
 		}
 
@@ -51,11 +51,11 @@ namespace DcsBriefop.LsonStructure
 			m_lsd[LuaNode.Bullseye][LuaNode.BullseyeY] = BullseyeY;
 			m_lsd[LuaNode.Bullseye][LuaNode.BullseyeX] = BullseyeX;
 
-			foreach (InitialPoint ip in InitialPoints)
+			foreach (MizInitialPoint ip in InitialPoints)
 			{
 				ip.ToLua();
 			}
-			foreach (Country c in Countries)
+			foreach (MizCountry c in Countries)
 			{
 				c.ToLua();
 			}

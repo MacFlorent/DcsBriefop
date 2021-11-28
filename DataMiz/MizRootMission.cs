@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace DcsBriefop.LsonStructure
+namespace DcsBriefop.DataMiz
 {
-	internal class RootMission : BaseLsonStructure
+	internal class MizRootMission : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -24,13 +24,13 @@ namespace DcsBriefop.LsonStructure
 		public DateTime Date { get; set; } // Date is in local timezone
 		public int StartTime { get; set; } // Seconds to add to the mission date
 		public string Theatre { get; set; }
-		public Map Map { get; set; }
-		public Weather Weather { get; set; }
-		public List<Coalition> Coalitions { get; set; } = new List<Coalition>();
+		public MizMap Map { get; set; }
+		public MizWeather Weather { get; set; }
+		public List<MizCoalition> Coalitions { get; set; } = new List<MizCoalition>();
 
-		public RootMission(LsonDict lsd) : base(lsd) { }
+		public MizRootMission(LsonDict lsd) : base(lsd) { }
 
-		public RootMission(Dictionary<string, LsonValue> rootLua) : base(rootLua["mission"].GetDict())
+		public MizRootMission(Dictionary<string, LsonValue> rootLua) : base(rootLua["mission"].GetDict())
 		{
 			RootLua = rootLua;
 		}
@@ -40,13 +40,13 @@ namespace DcsBriefop.LsonStructure
 			Date = new DateTime(m_lsd[LuaNode.Date][LuaNode.Year].GetInt(), m_lsd[LuaNode.Date][LuaNode.Month].GetInt(), m_lsd[LuaNode.Date][LuaNode.Day].GetInt());
 			StartTime = m_lsd[LuaNode.StartTime].GetInt();
 			Theatre = m_lsd[LuaNode.Theater].GetString();
-			Map = new Map(m_lsd[LuaNode.Map].GetDict());
-			Weather = new Weather(m_lsd[LuaNode.Weather].GetDict());
+			Map = new MizMap(m_lsd[LuaNode.Map].GetDict());
+			Weather = new MizWeather(m_lsd[LuaNode.Weather].GetDict());
 
 			LsonDict lsdCoalitions = m_lsd[LuaNode.Coalition].GetDict();
 			foreach (LsonValue lsv in lsdCoalitions.Values)
 			{
-				Coalitions.Add(new Coalition(lsv.GetDict()));
+				Coalitions.Add(new MizCoalition(lsv.GetDict()));
 			}
 		}
 
@@ -60,7 +60,7 @@ namespace DcsBriefop.LsonStructure
 			Map.ToLua();
 			Weather.ToLua();
 
-			foreach (Coalition c in Coalitions)
+			foreach (MizCoalition c in Coalitions)
 			{
 				c.ToLua();
 			}

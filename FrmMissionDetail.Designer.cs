@@ -173,6 +173,8 @@ namespace DcsBriefop
 			this.DgvTargets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.DgvTargets.Size = new System.Drawing.Size(394, 289);
 			this.DgvTargets.TabIndex = 24;
+			this.DgvTargets.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvTargets_CellEndEdit);
+			this.DgvTargets.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvTargets_CellMouseUp);
 			// 
 			// LbTargets
 			// 

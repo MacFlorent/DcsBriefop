@@ -2,9 +2,9 @@
 using LsonLib;
 using System.Collections.Generic;
 
-namespace DcsBriefop.LsonStructure
+namespace DcsBriefop.DataMiz
 {
-	internal class RoutePoint : BaseLsonStructure
+	internal class MizRoutePoint : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -33,9 +33,9 @@ namespace DcsBriefop.LsonStructure
 		public int? AirdromeId { get; set; }
 		public int? HelipadId { get; set; }
 		public int? LinkUnitId { get; set; }
-		public List<RouteTask> RouteTasks { get; set; } = new List<RouteTask>();
+		public List<MizRouteTask> RouteTasks { get; set; } = new List<MizRouteTask>();
 
-		public RoutePoint(LsonDict lsd) : base(lsd) { }
+		public MizRoutePoint(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -55,7 +55,7 @@ namespace DcsBriefop.LsonStructure
 				LsonDict lsdRouteTasks = m_lsd[LuaNode.Task][LuaNode.Params][LuaNode.Tasks].GetDict();
 				foreach (LsonValue lsv in lsdRouteTasks.Values)
 				{
-					RouteTasks.Add(new RouteTask(lsv.GetDict()));
+					RouteTasks.Add(new MizRouteTask(lsv.GetDict()));
 				}
 			}
 		}
@@ -73,7 +73,7 @@ namespace DcsBriefop.LsonStructure
 			m_lsd.SetOrAddInt(LuaNode.HelipadId, HelipadId);
 
 			LsonDict lsdRouteTasks = m_lsd[LuaNode.Task][LuaNode.Params][LuaNode.Tasks].GetDict();
-			foreach (RouteTask rt in RouteTasks)
+			foreach (MizRouteTask rt in RouteTasks)
 			{
 				rt.ToLua();
 			}

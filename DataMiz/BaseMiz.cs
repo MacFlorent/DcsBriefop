@@ -1,12 +1,12 @@
 ﻿using LsonLib;
 
-namespace DcsBriefop.LsonStructure
+namespace DcsBriefop.DataMiz
 {
-	internal abstract class BaseLsonStructure
+	internal abstract class BaseMiz
 	{
 		protected LsonDict m_lsd;
 
-		public BaseLsonStructure(LsonDict lsd)
+		public BaseMiz(LsonDict lsd)
 		{
 			m_lsd = lsd;
 			FromLua();

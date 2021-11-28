@@ -12,12 +12,14 @@ namespace DcsBriefop.UcBriefing
 
 		public override void DataToScreen()
 		{
+			TbSortie.Text = BriefingPack.Sortie;
 			TbWeather.Text = BriefingPack.Weather.ToString();
 			TbDescription.Text = BriefingPack.Description;
 			DtpDate.Value = BriefingPack.Date;
 		}
 		public override void ScreenToData()
 		{
+			BriefingPack.Sortie = TbSortie.Text;
 			BriefingPack.Description = TbDescription.Text;
 			BriefingPack.Date = DtpDate.Value;
 		}

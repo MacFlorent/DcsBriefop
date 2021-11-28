@@ -1,6 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
-using DcsBriefop.LsonStructure;
+using DcsBriefop.DataMiz;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +9,7 @@ namespace DcsBriefop.Briefing
 	internal abstract class AssetGroup : Asset
 	{
 		#region Fields
-		protected Group m_group;
+		protected MizGroup m_group;
 		#endregion
 
 		#region Properties
@@ -55,11 +55,11 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public AssetGroup(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, Group group) : base(briefingPack, briefingCoalition, side)
+		public AssetGroup(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, MizGroup group) : base(briefingPack, briefingCoalition, side)
 		{
 			m_group = group;
 
-			foreach (Unit unit in m_group.Units)
+			foreach (MizUnit unit in m_group.Units)
 			{
 				Units.Add(new BriefingUnit(briefingPack, this, unit));
 			}
@@ -72,7 +72,7 @@ namespace DcsBriefop.Briefing
 		protected override void InitializeMapPoints(BriefingPack briefingPack)
 		{
 			int iNumber = 0;
-			foreach (RoutePoint rp in m_group.RoutePoints)
+			foreach (MizRoutePoint rp in m_group.RoutePoints)
 			{
 				MapPoints.Add(new AssetRoutePoint(briefingPack, iNumber, this, rp));
 				iNumber++;
@@ -91,8 +91,8 @@ namespace DcsBriefop.Briefing
 		{
 			foreach (AssetRoutePoint brp in MapPoints.OfType<AssetRoutePoint>())
 			{
-				RouteTask rtBeacon = brp.RouteTasks.Where(_rt => _rt.Action?.Id == ElementRouteTask.ActivateBeacon).FirstOrDefault();
-				if (rtBeacon?.Action is RouteTaskAction rta)
+				MizRouteTask rtBeacon = brp.RouteTasks.Where(_rt => _rt.Action?.Id == ElementRouteTask.ActivateBeacon).FirstOrDefault();
+				if (rtBeacon?.Action is MizRouteTaskAction rta)
 					return new Tacan() { Channel = rta.ParamChannel.GetValueOrDefault(), Mode = rta.ParamModeChannel, Identifier = rta.ParamCallsign }.ToString();
 			}
 

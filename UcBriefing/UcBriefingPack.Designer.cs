@@ -32,7 +32,6 @@ namespace DcsBriefop.UcBriefing
 			this.TcMissionData = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.PnHeader = new System.Windows.Forms.Panel();
-			this.LbSortie = new System.Windows.Forms.Label();
 			this.LbTheatre = new System.Windows.Forms.Label();
 			this.LbDisplayCoalition = new System.Windows.Forms.Label();
 			this.CkDisplayNeutral = new System.Windows.Forms.CheckBox();
@@ -46,10 +45,10 @@ namespace DcsBriefop.UcBriefing
 			// 
 			this.TcMissionData.Controls.Add(this.tabPage1);
 			this.TcMissionData.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TcMissionData.Location = new System.Drawing.Point(0, 107);
+			this.TcMissionData.Location = new System.Drawing.Point(0, 60);
 			this.TcMissionData.Name = "TcMissionData";
 			this.TcMissionData.SelectedIndex = 0;
-			this.TcMissionData.Size = new System.Drawing.Size(834, 731);
+			this.TcMissionData.Size = new System.Drawing.Size(834, 778);
 			this.TcMissionData.TabIndex = 1;
 			this.TcMissionData.SelectedIndexChanged += new System.EventHandler(this.TcMissionData_SelectedIndexChanged);
 			// 
@@ -58,14 +57,13 @@ namespace DcsBriefop.UcBriefing
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(826, 705);
+			this.tabPage1.Size = new System.Drawing.Size(826, 752);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "tabPage1";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
 			// PnHeader
 			// 
-			this.PnHeader.Controls.Add(this.LbSortie);
 			this.PnHeader.Controls.Add(this.LbTheatre);
 			this.PnHeader.Controls.Add(this.LbDisplayCoalition);
 			this.PnHeader.Controls.Add(this.CkDisplayNeutral);
@@ -74,20 +72,8 @@ namespace DcsBriefop.UcBriefing
 			this.PnHeader.Dock = System.Windows.Forms.DockStyle.Top;
 			this.PnHeader.Location = new System.Drawing.Point(0, 0);
 			this.PnHeader.Name = "PnHeader";
-			this.PnHeader.Size = new System.Drawing.Size(834, 107);
+			this.PnHeader.Size = new System.Drawing.Size(834, 60);
 			this.PnHeader.TabIndex = 0;
-			// 
-			// LbSortie
-			// 
-			this.LbSortie.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.LbSortie.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.LbSortie.Location = new System.Drawing.Point(4, 29);
-			this.LbSortie.Name = "LbSortie";
-			this.LbSortie.Size = new System.Drawing.Size(826, 32);
-			this.LbSortie.TabIndex = 1;
-			this.LbSortie.Text = "Sortie";
-			this.LbSortie.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// LbTheatre
 			// 
@@ -104,7 +90,7 @@ namespace DcsBriefop.UcBriefing
 			// LbDisplayCoalition
 			// 
 			this.LbDisplayCoalition.AutoSize = true;
-			this.LbDisplayCoalition.Location = new System.Drawing.Point(19, 78);
+			this.LbDisplayCoalition.Location = new System.Drawing.Point(15, 35);
 			this.LbDisplayCoalition.Name = "LbDisplayCoalition";
 			this.LbDisplayCoalition.Size = new System.Drawing.Size(95, 13);
 			this.LbDisplayCoalition.TabIndex = 2;
@@ -115,7 +101,7 @@ namespace DcsBriefop.UcBriefing
 			this.CkDisplayNeutral.AutoSize = true;
 			this.CkDisplayNeutral.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.CkDisplayNeutral.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.CkDisplayNeutral.Location = new System.Drawing.Point(232, 77);
+			this.CkDisplayNeutral.Location = new System.Drawing.Point(228, 34);
 			this.CkDisplayNeutral.Name = "CkDisplayNeutral";
 			this.CkDisplayNeutral.Size = new System.Drawing.Size(67, 17);
 			this.CkDisplayNeutral.TabIndex = 5;
@@ -128,7 +114,7 @@ namespace DcsBriefop.UcBriefing
 			this.CkDisplayBlue.AutoSize = true;
 			this.CkDisplayBlue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.CkDisplayBlue.ForeColor = System.Drawing.Color.Blue;
-			this.CkDisplayBlue.Location = new System.Drawing.Point(175, 77);
+			this.CkDisplayBlue.Location = new System.Drawing.Point(171, 34);
 			this.CkDisplayBlue.Name = "CkDisplayBlue";
 			this.CkDisplayBlue.Size = new System.Drawing.Size(51, 17);
 			this.CkDisplayBlue.TabIndex = 4;
@@ -141,7 +127,7 @@ namespace DcsBriefop.UcBriefing
 			this.CkDisplayRed.AutoSize = true;
 			this.CkDisplayRed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.CkDisplayRed.ForeColor = System.Drawing.Color.Red;
-			this.CkDisplayRed.Location = new System.Drawing.Point(120, 77);
+			this.CkDisplayRed.Location = new System.Drawing.Point(116, 34);
 			this.CkDisplayRed.Name = "CkDisplayRed";
 			this.CkDisplayRed.Size = new System.Drawing.Size(49, 17);
 			this.CkDisplayRed.TabIndex = 3;
@@ -171,7 +157,6 @@ namespace DcsBriefop.UcBriefing
 		private System.Windows.Forms.CheckBox CkDisplayNeutral;
 		private System.Windows.Forms.CheckBox CkDisplayBlue;
 		private System.Windows.Forms.CheckBox CkDisplayRed;
-		private System.Windows.Forms.Label LbSortie;
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.Label LbDisplayCoalition;
 		private System.Windows.Forms.Label LbTheatre;

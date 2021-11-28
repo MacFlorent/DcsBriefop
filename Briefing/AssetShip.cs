@@ -1,4 +1,4 @@
-﻿using DcsBriefop.LsonStructure;
+﻿using DcsBriefop.DataMiz;
 using DcsBriefop.Data;
 using System.Linq;
 using DcsBriefop.Map;
@@ -8,7 +8,7 @@ namespace DcsBriefop.Briefing
 	internal class AssetShip : AssetGroup
 	{
 		#region Fields
-		private GroupShip GroupShip { get { return m_group as GroupShip; } }
+		private MizGroupShip GroupShip { get { return m_group as MizGroupShip; } }
 		#endregion
 
 		#region Properties
@@ -17,13 +17,13 @@ namespace DcsBriefop.Briefing
 		public override string Type { get { return MainUnit.Type; } }
 		public override string RadioString { get { return Radio.ToString(); } }
 
-		public UnitShip MainUnit
+		public MizUnitShip MainUnit
 		{
 			get
 			{
-				UnitShip us = GroupShip.Units.OfType<UnitShip>().Where(_us => _us.Type.StartsWith("CVN")).FirstOrDefault();
+				MizUnitShip us = GroupShip.Units.OfType<MizUnitShip>().Where(_us => _us.Type.StartsWith("CVN")).FirstOrDefault();
 				if (us is null)
-					us = GroupShip.Units.OfType<UnitShip>().FirstOrDefault();
+					us = GroupShip.Units.OfType<MizUnitShip>().FirstOrDefault();
 
 				return us;
 			}
@@ -49,7 +49,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public AssetShip(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, GroupShip group) : base(briefingPack, briefingCoalition, side, group) { }
+		public AssetShip(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, MizGroupShip group) : base(briefingPack, briefingCoalition, side, group) { }
 		#endregion
 
 		#region Methods

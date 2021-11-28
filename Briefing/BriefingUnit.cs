@@ -1,6 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
-using DcsBriefop.LsonStructure;
+using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 using System;
 
@@ -9,7 +9,7 @@ namespace DcsBriefop.Briefing
 	internal class BriefingUnit : BaseBriefing
 	{
 		#region Fields
-		private Unit m_unit;
+		private MizUnit m_unit;
 		#endregion
 
 		#region Properties
@@ -24,7 +24,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public BriefingUnit(BriefingPack briefingPack, AssetGroup asset, Unit unit) : base(briefingPack)
+		public BriefingUnit(BriefingPack briefingPack, AssetGroup asset, MizUnit unit) : base(briefingPack)
 		{
 			m_unit = unit;
 			Asset = asset;

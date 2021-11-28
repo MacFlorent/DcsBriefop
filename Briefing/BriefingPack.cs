@@ -11,6 +11,7 @@ namespace DcsBriefop.Briefing
 		public string Sortie
 		{
 			get { return RootDictionary.Sortie; }
+			set { RootDictionary.Sortie = value; }
 		}
 
 		public string Description

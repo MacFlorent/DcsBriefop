@@ -2,13 +2,11 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace DcsBriefop.Data
 {
-	internal class DcsTheatre
+	internal class Theatre
 	{
 		private class PointCoordinate
 		{
@@ -24,18 +22,13 @@ namespace DcsBriefop.Data
 		private List<decimal> m_coordinatesLutValuesY;
 		private List<decimal> m_coordinatesLutValuesX;
 
-		public List<DcsAirdrome> Airdromes;
+		public List<Airdrome> Airdromes;
 
-		public DcsTheatre(string sName)
+		public Theatre(string sName)
 		{
 			Name = sName;
 			InitializeCoordinatesLut();
 			InitializeAirdromes();
-
-			//if (Name == Dcs.TheaterName.PersianGulf)
-			//{
-			//}
-
 		}
 
 		public CoordinateSharp.Coordinate GetCoordinate(decimal dY, decimal dX)
@@ -190,7 +183,7 @@ namespace DcsBriefop.Data
 			try
 			{
 				string sJsonStream = ToolsResources.GetJsonResourceContent($"Airdromes{Name}");
-				Airdromes = JsonConvert.DeserializeObject<List<DcsAirdrome>>(sJsonStream);
+				Airdromes = JsonConvert.DeserializeObject<List<Airdrome>>(sJsonStream);
 			}
 			catch (Exception e)
 			{
@@ -200,7 +193,7 @@ namespace DcsBriefop.Data
 			}
 		}
 
-		public DcsAirdrome GetAirdrome(int iId)
+		public Airdrome GetAirdrome(int iId)
 		{
 			return Airdromes.Where(_ad => _ad.Id == iId).FirstOrDefault();
 		}

@@ -33,6 +33,7 @@ namespace DcsBriefop.UcBriefing
 			this.TbDescription = new System.Windows.Forms.TextBox();
 			this.TbWeather = new System.Windows.Forms.TextBox();
 			this.LbDate = new System.Windows.Forms.Label();
+			this.TbSortie = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// DtpDate
@@ -79,10 +80,20 @@ namespace DcsBriefop.UcBriefing
 			this.LbDate.Text = "Date";
 			this.LbDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
+			// TbSortie
+			// 
+			this.TbSortie.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.TbSortie.Location = new System.Drawing.Point(212, 10);
+			this.TbSortie.Name = "TbSortie";
+			this.TbSortie.Size = new System.Drawing.Size(760, 20);
+			this.TbSortie.TabIndex = 4;
+			// 
 			// UcBriefingSituation
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.TbSortie);
 			this.Controls.Add(this.LbDate);
 			this.Controls.Add(this.DtpDate);
 			this.Controls.Add(this.TbDescription);
@@ -100,5 +111,6 @@ namespace DcsBriefop.UcBriefing
 		private System.Windows.Forms.TextBox TbDescription;
 		private System.Windows.Forms.TextBox TbWeather;
 		private System.Windows.Forms.Label LbDate;
+		private System.Windows.Forms.TextBox TbSortie;
 	}
 }

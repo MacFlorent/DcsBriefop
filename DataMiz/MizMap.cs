@@ -1,8 +1,8 @@
 ﻿using LsonLib;
 
-namespace DcsBriefop.LsonStructure
+namespace DcsBriefop.DataMiz
 {
-	internal class Map : BaseLsonStructure
+	internal class MizMap : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -15,7 +15,7 @@ namespace DcsBriefop.LsonStructure
 		public decimal CenterX { get; set; }
 		public decimal Zoom { get; set; }
 
-		public Map(LsonDict lsd) : base(lsd) { }
+		public MizMap(LsonDict lsd) : base(lsd) { }
 		
 		public override void FromLua()
 		{

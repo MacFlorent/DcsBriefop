@@ -71,7 +71,7 @@ namespace DcsBriefop.Briefing
 		{
 			if (bLocalExportDirectoryActive && !Directory.Exists(sLocalExportDirectory))
 			{
-					throw new ExceptionDcsBriefop ($"Local export directory not found {sLocalExportDirectory}.");
+				throw new ExceptionDcsBriefop($"Local export directory not found {sLocalExportDirectory}.");
 			}
 
 			GenerateAllFiles();
@@ -84,7 +84,7 @@ namespace DcsBriefop.Briefing
 
 		private void GenerateAllFiles()
 		{
-			AddMapData("00_GENERAL_MAP", KneeboardFolders.Images, m_briefingPack.MapData);
+			//AddMapData("00_GENERAL_MAP", KneeboardFolders.Images, m_briefingPack.MapData);
 
 			if (m_briefingPack.DisplayRed)
 			{
@@ -132,7 +132,7 @@ namespace DcsBriefop.Briefing
 			hb.AppendHeader("WEATHER", 3);
 			hb.AppendParagraphCentered(m_briefingPack.Weather.ToString());
 
-			hb.FinalizeDocument(); 
+			hb.FinalizeDocument();
 			return hb;
 		}
 
@@ -149,7 +149,7 @@ namespace DcsBriefop.Briefing
 
 			hb.OpenTable("Name", "Task", "Type", "Radio", "Notes");
 			hb.AppendTableRow("Missions");
-			foreach (Asset asset in coalition.OwnAssets.Where(_a =>_a.Usage == ElementAssetUsage.MissionWithDetail))
+			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.MissionWithDetail))
 			{
 				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.RadioString, asset.Information);
 			}
@@ -186,16 +186,21 @@ namespace DcsBriefop.Briefing
 
 			hb.AppendHeader($"MISSION {asset.Name} | {asset.Task}", 2);
 			hb.AppendParagraphCentered(asset.MissionData.MissionInformation);
+
 			hb.AppendHeader("WAYPOINTS", 3);
-
 			hb.OpenTable("#", "Waypoint", "Action", "Alt.");
-
 			foreach (AssetRoutePoint routePoint in asset.MapPoints.OfType<AssetRoutePoint>())
 			{
 				hb.AppendTableRow(routePoint.Number.ToString(), routePoint.Name, routePoint.Action, routePoint.AltitudeFeet);
 			}
+			hb.CloseTable();
 
-
+			hb.AppendHeader("TARGETS", 3);
+			hb.OpenTable("Name", "Type", "Localication", "Information");
+			foreach (BriefingUnit unit in asset.MissionData.GetListTargetUnits())
+			{
+				hb.AppendTableRow(unit.Asset.Name, unit.Type, unit.GetLocalisation(), unit.Information);
+			}
 			hb.CloseTable();
 
 			hb.FinalizeDocument();
@@ -207,7 +212,6 @@ namespace DcsBriefop.Briefing
 			string sHtmlContent = hb.ToString();
 			BriefingFileHtml bf = new BriefingFileHtml() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, HtmlContent = sHtmlContent };
 			bf.BitmapContent = HtmlRender.RenderToImage(sHtmlContent, new Size(ElementImageSize.Width, ElementImageSize.Height), Color.LightGray) as Bitmap;
-			//Bitmap b = TheArtOfDev.HtmlRenderer.WinForms.HtmlRender.RenderToImageGdiPlus(hb.ToString(), new Size(800, 1200)) as Bitmap;
 			m_listFiles.Add(bf);
 		}
 
@@ -263,24 +267,16 @@ namespace DcsBriefop.Briefing
 			{
 				foreach (BriefingFile briefingFile in m_listFiles)
 				{
-					string sZipEntry = $@"KNEEBOARD/{briefingFile.KneeboardFolder}/{briefingFile.FileName}";
+					string sZipEntry = $@"KNEEBOARD/{briefingFile.KneeboardFolder}/{briefingFile.FileName}.jpg";
+					string sTempPath = Path.GetTempFileName();
+					briefingFile.BitmapContent.Save(sTempPath);
 
-					if (briefingFile is BriefingFileHtml bfHtml)
-					{
-						using (Bitmap b = HtmlRender.RenderToImage(bfHtml.HtmlContent, new Size(ElementImageSize.Width, ElementImageSize.Height)) as Bitmap)
-						{
-							string sTempPath = Path.GetTempFileName();
-							b.Save(sTempPath);
-
-							ToolsZip.RemoveZipEntries(za, sZipEntry);
-							za.CreateEntryFromFile(sTempPath, sZipEntry);
-						}
-					}
-					else if (briefingFile is BriefingFile bf) { }
+					ToolsZip.RemoveZipEntries(za, sZipEntry);
+					za.CreateEntryFromFile(sTempPath, sZipEntry);
 				}
-
 			}
 		}
+
 		#endregion
 
 		public void Dispose()

@@ -1,9 +1,9 @@
 ﻿using LsonLib;
 using System.Collections.Generic;
 
-namespace DcsBriefop.LsonStructure
+namespace DcsBriefop.DataMiz
 {
-	internal class Country : BaseLsonStructure
+	internal class MizCountry : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -17,12 +17,12 @@ namespace DcsBriefop.LsonStructure
 		}
 
 		public string Name { get; set; }
-		public List<GroupFlight> GroupFlights { get; set; } = new List<GroupFlight>();
-		public List<GroupShip> GroupShips { get; set; } = new List<GroupShip>();
-		public List<GroupVehicle> GroupVehicles { get; set; } = new List<GroupVehicle>();
-		public List<GroupStatic> GroupStatics { get; set; } = new List<GroupStatic>();
+		public List<MizGroupFlight> GroupFlights { get; set; } = new List<MizGroupFlight>();
+		public List<MizGroupShip> GroupShips { get; set; } = new List<MizGroupShip>();
+		public List<MizGroupVehicle> GroupVehicles { get; set; } = new List<MizGroupVehicle>();
+		public List<MizGroupStatic> GroupStatics { get; set; } = new List<MizGroupStatic>();
 
-		public Country(LsonDict lsd) : base(lsd) { }
+		public MizCountry(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -33,7 +33,7 @@ namespace DcsBriefop.LsonStructure
 				LsonDict lsdGroupPlanes = m_lsd[LuaNode.Plane][LuaNode.Group].GetDict();
 				foreach (LsonValue lsv in lsdGroupPlanes.Values)
 				{
-					GroupFlights.Add(new GroupFlight(lsv.GetDict()));
+					GroupFlights.Add(new MizGroupFlight(lsv.GetDict()));
 				}
 			}
 
@@ -42,7 +42,7 @@ namespace DcsBriefop.LsonStructure
 				LsonDict lsdGroupHelicopters = m_lsd[LuaNode.Helicopter][LuaNode.Group].GetDict();
 				foreach (LsonValue lsv in lsdGroupHelicopters.Values)
 				{
-					GroupFlights.Add(new GroupFlight(lsv.GetDict()));
+					GroupFlights.Add(new MizGroupFlight(lsv.GetDict()));
 				}
 			}
 
@@ -51,7 +51,7 @@ namespace DcsBriefop.LsonStructure
 				LsonDict lsdGroupShips = m_lsd[LuaNode.Ship][LuaNode.Group].GetDict();
 				foreach (LsonValue lsv in lsdGroupShips.Values)
 				{
-					GroupShips.Add(new GroupShip(lsv.GetDict()));
+					GroupShips.Add(new MizGroupShip(lsv.GetDict()));
 				}
 			}
 
@@ -60,7 +60,7 @@ namespace DcsBriefop.LsonStructure
 				LsonDict lsdGroupVehicles = m_lsd[LuaNode.Vehicle][LuaNode.Group].GetDict();
 				foreach (LsonValue lsv in lsdGroupVehicles.Values)
 				{
-					GroupVehicles.Add(new GroupVehicle(lsv.GetDict()));
+					GroupVehicles.Add(new MizGroupVehicle(lsv.GetDict()));
 				}
 			}
 
@@ -69,7 +69,7 @@ namespace DcsBriefop.LsonStructure
 				LsonDict lsdGroupStatics = m_lsd[LuaNode.Static][LuaNode.Group].GetDict();
 				foreach (LsonValue lsv in lsdGroupStatics.Values)
 				{
-					GroupStatics.Add(new GroupStatic(lsv.GetDict()));
+					GroupStatics.Add(new MizGroupStatic(lsv.GetDict()));
 				}
 			}
 		}
@@ -78,11 +78,11 @@ namespace DcsBriefop.LsonStructure
 		{
 			m_lsd[LuaNode.Name] = Name;
 
-			foreach (GroupFlight gp in GroupFlights)
+			foreach (MizGroupFlight gp in GroupFlights)
 			{
 				gp.ToLua();
 			}
-			foreach (GroupShip gs in GroupShips)
+			foreach (MizGroupShip gs in GroupShips)
 			{
 				gs.ToLua();
 			}

@@ -3,9 +3,9 @@ using LsonLib;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DcsBriefop.LsonStructure
+namespace DcsBriefop.DataMiz
 {
-	internal class Group : BaseLsonStructure
+	internal class MizGroup : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -24,10 +24,10 @@ namespace DcsBriefop.LsonStructure
 		public decimal Y { get; set; }
 		public decimal X { get; set; }
 
-		public virtual List<Unit> Units { get; set; } = new List<Unit>();
-		public List<RoutePoint> RoutePoints { get; set; } = new List<RoutePoint>();
+		public virtual List<MizUnit> Units { get; set; } = new List<MizUnit>();
+		public List<MizRoutePoint> RoutePoints { get; set; } = new List<MizRoutePoint>();
 
-		public Group(LsonDict lsd) : base(lsd) { }
+		public MizGroup(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -42,7 +42,7 @@ namespace DcsBriefop.LsonStructure
 				LsonDict lsdRoutePoints = m_lsd[LuaNode.Route][LuaNode.Points].GetDict();
 				foreach (LsonValue lsv in lsdRoutePoints.Values)
 				{
-					RoutePoints.Add(new RoutePoint(lsv.GetDict()));
+					RoutePoints.Add(new MizRoutePoint(lsv.GetDict()));
 				}
 			}
 		}
@@ -54,14 +54,14 @@ namespace DcsBriefop.LsonStructure
 
 			m_lsd.SetOrAddBool(LuaNode.LateActivation, LateActivation);
 
-			foreach (RoutePoint rp in RoutePoints)
+			foreach (MizRoutePoint rp in RoutePoints)
 			{
 				rp.ToLua();
 			}
 		}
 	}
 
-	internal class GroupFlight : Group
+	internal class MizGroupFlight : MizGroup
 	{
 		private class LuaNode
 		{
@@ -75,7 +75,7 @@ namespace DcsBriefop.LsonStructure
 		public decimal RadioFrequency { get; set; }
 		public int RadioModulation { get; set; }
 
-		public GroupFlight(LsonDict lsd) : base(lsd) { }
+		public MizGroupFlight(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -88,7 +88,7 @@ namespace DcsBriefop.LsonStructure
 			LsonDict lsdUnits = m_lsd[LuaNode.Units].GetDict();
 			foreach (LsonValue lsv in lsdUnits.Values)
 			{
-				Units.Add(new UnitFlight(lsv.GetDict()));
+				Units.Add(new MizUnitFlight(lsv.GetDict()));
 			}
 		}
 
@@ -100,21 +100,21 @@ namespace DcsBriefop.LsonStructure
 			m_lsd[LuaNode.RadioFrequency] = RadioFrequency;
 			m_lsd[LuaNode.RadioModulation] = RadioModulation;
 
-			foreach (UnitFlight unit in Units.OfType<UnitFlight>())
+			foreach (MizUnitFlight unit in Units.OfType<MizUnitFlight>())
 			{
 				unit.ToLua();
 			}
 		}
 	}
 
-	internal class GroupShip : Group
+	internal class MizGroupShip : MizGroup
 	{
 		private class LuaNode
 		{
 			public static readonly string Units = "units";
 		}
 
-		public GroupShip(LsonDict lsd) : base(lsd) { }
+		public MizGroupShip(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -122,7 +122,7 @@ namespace DcsBriefop.LsonStructure
 			LsonDict lsdUnits = m_lsd[LuaNode.Units].GetDict();
 			foreach (LsonValue lsv in lsdUnits.Values)
 			{
-				Units.Add(new UnitShip(lsv.GetDict()));
+				Units.Add(new MizUnitShip(lsv.GetDict()));
 			}
 		}
 
@@ -130,21 +130,21 @@ namespace DcsBriefop.LsonStructure
 		{
 			base.ToLua();
 
-			foreach (UnitShip unit in Units.OfType<UnitShip>())
+			foreach (MizUnitShip unit in Units.OfType<MizUnitShip>())
 			{
 				unit.ToLua();
 			}
 		}
 	}
 
-	internal class GroupVehicle : Group
+	internal class MizGroupVehicle : MizGroup
 	{
 		private class LuaNode
 		{
 			public static readonly string Units = "units";
 		}
 
-		public GroupVehicle(LsonDict lsd) : base(lsd) { }
+		public MizGroupVehicle(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -152,7 +152,7 @@ namespace DcsBriefop.LsonStructure
 			LsonDict lsdUnits = m_lsd[LuaNode.Units].GetDict();
 			foreach (LsonValue lsv in lsdUnits.Values)
 			{
-				Units.Add(new UnitVehicle(lsv.GetDict()));
+				Units.Add(new MizUnitVehicle(lsv.GetDict()));
 			}
 		}
 
@@ -160,21 +160,21 @@ namespace DcsBriefop.LsonStructure
 		{
 			base.ToLua();
 
-			foreach (UnitVehicle unit in Units.OfType<UnitVehicle>())
+			foreach (MizUnitVehicle unit in Units.OfType<MizUnitVehicle>())
 			{
 				unit.ToLua();
 			}
 		}
 	}
 
-	internal class GroupStatic : Group
+	internal class MizGroupStatic : MizGroup
 	{
 		private class LuaNode
 		{
 			public static readonly string Units = "units";
 		}
 
-		public GroupStatic(LsonDict lsd) : base(lsd) { }
+		public MizGroupStatic(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -182,7 +182,7 @@ namespace DcsBriefop.LsonStructure
 			LsonDict lsdUnits = m_lsd[LuaNode.Units].GetDict();
 			foreach (LsonValue lsv in lsdUnits.Values)
 			{
-				Units.Add(new UnitStatic(lsv.GetDict()));
+				Units.Add(new MizUnitStatic(lsv.GetDict()));
 			}
 		}
 
@@ -190,7 +190,7 @@ namespace DcsBriefop.LsonStructure
 		{
 			base.ToLua();
 
-			foreach (UnitStatic unit in Units.OfType<UnitStatic>())
+			foreach (MizUnitStatic unit in Units.OfType<MizUnitStatic>())
 			{
 				unit.ToLua();
 			}

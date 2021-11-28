@@ -1,5 +1,5 @@
 ﻿using DcsBriefop.Data;
-using DcsBriefop.LsonStructure;
+using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using System.Linq;
 
@@ -8,7 +8,7 @@ namespace DcsBriefop.Briefing
 	internal class AssetVehicle : AssetGroup
 	{
 		#region Fields
-		private GroupVehicle GroupVehicle { get { return m_group as GroupVehicle; } }
+		private MizGroupVehicle GroupVehicle { get { return m_group as MizGroupVehicle; } }
 		#endregion
 
 		#region Properties
@@ -19,7 +19,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public AssetVehicle(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, GroupVehicle group) : base(briefingPack, briefingCoalition, side, group) { }
+		public AssetVehicle(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, MizGroupVehicle group) : base(briefingPack, briefingCoalition, side, group) { }
 		#endregion
 
 		#region Methods

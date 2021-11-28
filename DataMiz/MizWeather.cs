@@ -1,8 +1,8 @@
 ﻿using LsonLib;
 
-namespace DcsBriefop.LsonStructure
+namespace DcsBriefop.DataMiz
 {
-	internal class Weather : BaseLsonStructure
+	internal class MizWeather : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -32,14 +32,14 @@ namespace DcsBriefop.LsonStructure
 		public decimal Qnh { get; set; } // Qnh in mmHg
 		public bool Dust { get; set; }
 
-		public WeatherWind WindAtGround { get; set; }
-		public WeatherWind WindAt2000 { get; set; }
-		public WeatherWind WindAt8000 { get; set; }
+		public MizWeatherWind WindAtGround { get; set; }
+		public MizWeatherWind WindAt2000 { get; set; }
+		public MizWeatherWind WindAt8000 { get; set; }
 		
-		public WeatherCloud Cloud { get; set; }
-		public WeatherFog Fog { get; set; }
+		public MizWeatherCloud Cloud { get; set; }
+		public MizWeatherFog Fog { get; set; }
 
-		public Weather(LsonDict lsd) : base(lsd) { }
+		public MizWeather(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -52,14 +52,14 @@ namespace DcsBriefop.LsonStructure
 			Dust = m_lsd[LuaNode.DustEnable].GetBool();
 
 			LsonDict lsdWinds = m_lsd[LuaNode.Wind].GetDict();
-			WindAtGround = new WeatherWind(lsdWinds[LuaNode.WindAtGround].GetDict());
-			WindAt2000 = new WeatherWind(lsdWinds[LuaNode.WindAt2000].GetDict());
-			WindAt8000 = new WeatherWind(lsdWinds[LuaNode.WindAt8000].GetDict());
+			WindAtGround = new MizWeatherWind(lsdWinds[LuaNode.WindAtGround].GetDict());
+			WindAt2000 = new MizWeatherWind(lsdWinds[LuaNode.WindAt2000].GetDict());
+			WindAt8000 = new MizWeatherWind(lsdWinds[LuaNode.WindAt8000].GetDict());
 
-			Cloud = new WeatherCloud(m_lsd[LuaNode.Clouds].GetDict());
+			Cloud = new MizWeatherCloud(m_lsd[LuaNode.Clouds].GetDict());
 
 			if (m_lsd[LuaNode.FogEnable].GetBool())
-				Fog = new WeatherFog(m_lsd[LuaNode.Fog].GetDict());
+				Fog = new MizWeatherFog(m_lsd[LuaNode.Fog].GetDict());
 			else
 				Fog = null;
 		}
@@ -92,7 +92,7 @@ namespace DcsBriefop.LsonStructure
 		}
 	}
 
-	internal class WeatherWind : BaseLsonStructure
+	internal class MizWeatherWind : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -103,7 +103,7 @@ namespace DcsBriefop.LsonStructure
 		public decimal Speed { get; set; } // Speed in m/s
 		public int Direction { get; set; } // Direction the wind is goind towards, in degrees true
 
-		public WeatherWind(LsonDict lsd) : base(lsd) { }
+		public MizWeatherWind(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -118,7 +118,7 @@ namespace DcsBriefop.LsonStructure
 		}
 	}
 
-	internal class WeatherCloud : BaseLsonStructure
+	internal class MizWeatherCloud : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -135,7 +135,7 @@ namespace DcsBriefop.LsonStructure
 		public int Base { get; set; } // Base in meters
 		public int Precipitations { get; set; } // 0=none, 1=rain (does not apply with presets)
 
-		public WeatherCloud(LsonDict lsd) : base(lsd) { }
+		public MizWeatherCloud(LsonDict lsd) : base(lsd) { }
 		
 		public override void FromLua()
 		{
@@ -157,7 +157,7 @@ namespace DcsBriefop.LsonStructure
 		}
 	}
 
-	internal class WeatherFog : BaseLsonStructure
+	internal class MizWeatherFog : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -168,7 +168,7 @@ namespace DcsBriefop.LsonStructure
 		public int Thickness { get; set; } // Thickness in meters
 		public int Visibility { get; set; } // Visibility in meters
 
-		public WeatherFog(LsonDict lsd) : base(lsd) { }
+		public MizWeatherFog(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{

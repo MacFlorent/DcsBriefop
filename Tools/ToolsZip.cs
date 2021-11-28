@@ -6,6 +6,11 @@ namespace DcsBriefop.Tools
 {
 	internal static class ToolsZip
 	{
+		public static string PathToZip(string sPath)
+		{
+			return sPath.Replace(@"\", "/");
+		}
+
 		public static void ReplaceZipEntry(ZipArchive za, string sEntryName, string sEntryContent)
 		{
 			ZipArchiveEntry zpe = za.GetEntry(sEntryName);

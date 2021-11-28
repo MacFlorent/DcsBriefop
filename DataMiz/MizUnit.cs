@@ -1,9 +1,9 @@
 ﻿using DcsBriefop.Tools;
 using LsonLib;
 
-namespace DcsBriefop.LsonStructure
+namespace DcsBriefop.DataMiz
 {
-	internal class Unit : BaseLsonStructure
+	internal class MizUnit : BaseMiz
 	{
 		private class LuaNode
 		{
@@ -22,7 +22,7 @@ namespace DcsBriefop.LsonStructure
 		public decimal Y { get; set; }
 		public decimal X { get; set; }
 
-		public Unit(LsonDict lsd) : base(lsd) { }
+		public MizUnit(LsonDict lsd) : base(lsd) { }
 		
 		public override void FromLua()
 		{
@@ -43,7 +43,7 @@ namespace DcsBriefop.LsonStructure
 		}
 	}
 
-	internal class UnitFlight : Unit
+	internal class MizUnitFlight : MizUnit
 	{
 		private class LuaNode
 		{
@@ -55,7 +55,7 @@ namespace DcsBriefop.LsonStructure
 		public string Callsign { get; set; }
 		public string Modex { get; set; }
 
-		public UnitFlight(LsonDict lsd) : base(lsd) { }
+		public MizUnitFlight(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -74,7 +74,7 @@ namespace DcsBriefop.LsonStructure
 		}
 	}
 
-	internal class UnitShip : Unit
+	internal class MizUnitShip : MizUnit
 	{
 		private class LuaNode
 		{
@@ -85,7 +85,7 @@ namespace DcsBriefop.LsonStructure
 		public decimal RadioFrequency { get; set; }
 		public int RadioModulation { get; set; }
 
-		public UnitShip(LsonDict lsd) : base(lsd) { }
+		public MizUnitShip(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -104,13 +104,13 @@ namespace DcsBriefop.LsonStructure
 		}
 	}
 
-	internal class UnitVehicle : Unit
+	internal class MizUnitVehicle : MizUnit
 	{
 		private class LuaNode
 		{
 		}
 
-		public UnitVehicle(LsonDict lsd) : base(lsd) { }
+		public MizUnitVehicle(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
@@ -123,13 +123,13 @@ namespace DcsBriefop.LsonStructure
 		}
 	}
 
-	internal class UnitStatic : Unit
+	internal class MizUnitStatic : MizUnit
 	{
 		private class LuaNode
 		{
 		}
 
-		public UnitStatic(LsonDict lsd) : base(lsd) { }
+		public MizUnitStatic(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{

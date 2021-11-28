@@ -4,17 +4,17 @@ namespace DcsBriefop.Briefing
 {
 	internal abstract class BaseBriefing
 	{
-		public LsonStructure.RootMission RootMission { get; private set; }
-		public LsonStructure.RootDictionary RootDictionary { get; private set; }
+		public DataMiz.MizRootMission RootMission { get; private set; }
+		public DataMiz.MizRootDictionary RootDictionary { get; private set; }
 		public CustomData RootCustom { get; private set; }
-		public DcsTheatre Theatre { get; private set; }
+		public Theatre Theatre { get; private set; }
 
 	public BaseBriefing(MissionManager manager)
 		{
 			RootMission = manager.RootMission;
 			RootDictionary = manager.RootDictionary;
 			RootCustom = manager.RootCustom;
-			Theatre = new DcsTheatre(RootMission.Theatre);
+			Theatre = new Theatre(RootMission.Theatre);
 		}
 
 		public BaseBriefing(BriefingPack bp)

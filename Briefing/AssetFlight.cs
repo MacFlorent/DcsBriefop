@@ -1,4 +1,4 @@
-﻿using DcsBriefop.LsonStructure;
+﻿using DcsBriefop.DataMiz;
 using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace DcsBriefop.Briefing
 	internal class AssetFlight : AssetGroup
 	{
 		#region Fields
-		private GroupFlight GroupFlight { get { return m_group as GroupFlight; } }
+		private MizGroupFlight GroupFlight { get { return m_group as MizGroupFlight; } }
 		#endregion
 
 		#region Properties
@@ -43,7 +43,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public AssetFlight(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, GroupFlight group) : base(briefingPack, briefingCoalition, side, group) { }
+		public AssetFlight(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, MizGroupFlight group) : base(briefingPack, briefingCoalition, side, group) { }
 		#endregion
 
 		#region Initialize
@@ -131,7 +131,7 @@ namespace DcsBriefop.Briefing
 
 		public string GetCallsign()
 		{
-			string sCallsign = m_group.Units.OfType<UnitFlight>().FirstOrDefault()?.Callsign;
+			string sCallsign = m_group.Units.OfType<MizUnitFlight>().FirstOrDefault()?.Callsign;
 			if (!string.IsNullOrEmpty(sCallsign))
 				return sCallsign.Substring(0, sCallsign.Length - 1);
 			else
@@ -141,7 +141,7 @@ namespace DcsBriefop.Briefing
 		private string GetBaseInformation()
 		{
 			StringBuilder sb = new StringBuilder();
-			foreach (DcsAirdrome airdrome in GetAirdromeIds().Select(_i => Theatre.GetAirdrome(_i)))
+			foreach (Airdrome airdrome in GetAirdromeIds().Select(_i => Theatre.GetAirdrome(_i)))
 			{
 				if (airdrome is object)
 				{
@@ -226,6 +226,15 @@ namespace DcsBriefop.Briefing
 			set { CustomData.MapData = value; }
 		}
 
+		public List<int> TargetIds
+		{
+			get { return CustomData.TargetIds; }
+		}
+		public Dictionary<int, string> WaypointNotes
+		{
+			get { return CustomData.WaypointNotes; }
+		}
+
 		#endregion
 
 		#region CTOR
@@ -287,6 +296,40 @@ namespace DcsBriefop.Briefing
 			{
 				MapDataMission.AdditionalMapOverlays.Add(carrier.MapOverlayStatic);
 			}
+			foreach (AssetGroup target in BriefingCoalition.OpposingAssets.OfType<AssetGroup>())
+			{
+				if (target.Units.Select(_u => _u.Id).Intersect(TargetIds).Any())
+					MapDataMission.AdditionalMapOverlays.Add(target.MapOverlayStatic);
+			}
+		}
+		#endregion
+
+		#region Methods
+		public bool IsTarget(int iTargetId)
+		{
+			return TargetIds.Contains(iTargetId);
+		}
+
+		public void SetTarget(int iTargetId, bool bSelected)
+		{
+			if (bSelected && !IsTarget(iTargetId))
+				TargetIds.Add(iTargetId);
+			else if (!bSelected && IsTarget(iTargetId))
+				TargetIds.Remove(iTargetId);
+		}
+
+		public List<BriefingUnit> GetListTargetUnits()
+		{
+			List<BriefingUnit> list = new List<BriefingUnit>();
+			foreach (AssetGroup target in BriefingCoalition.OpposingAssets.OfType<AssetGroup>())
+			{
+				foreach (BriefingUnit unit in target.Units.Where(_u => IsTarget(_u.Id)))
+				{
+					list.Add(unit);
+				}
+			}
+
+			return list;
 		}
 		#endregion
 	}

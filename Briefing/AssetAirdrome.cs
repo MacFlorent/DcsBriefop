@@ -10,7 +10,7 @@ namespace DcsBriefop.Briefing
 	internal class AssetAirdrome : Asset
 	{
 		#region Fields
-		protected DcsAirdrome m_airdrome;
+		protected Airdrome m_airdrome;
 		#endregion
 
 		#region Properties
@@ -72,7 +72,7 @@ namespace DcsBriefop.Briefing
 		#endregion
 
 		#region CTOR
-		public AssetAirdrome(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, DcsAirdrome airdrome) : base(briefingPack, briefingCoalition, side)
+		public AssetAirdrome(BriefingPack briefingPack, BriefingCoalition briefingCoalition, ElementAssetSide side, Airdrome airdrome) : base(briefingPack, briefingCoalition, side)
 		{
 			m_airdrome = airdrome;
 			InitializeData(briefingPack);
