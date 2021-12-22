@@ -1,4 +1,4 @@
-﻿using DcsBriefop.Briefing;
+﻿using DcsBriefop.Data;
 using System.Windows.Forms;
 
 namespace DcsBriefop
@@ -6,16 +6,16 @@ namespace DcsBriefop
 	internal partial class FrmGenerateFiles : Form
 	{
 		#region Fields
-		BriefingPack m_briefingPack;
+		BriefingContainer m_briefingContainer;
 		MissionManager m_missionManager;
 		#endregion
 
 		#region CTOR
-		public FrmGenerateFiles(BriefingPack briefingPack, MissionManager missionManager)
+		public FrmGenerateFiles(BriefingContainer briefingContainer, MissionManager missionManager)
 		{
 			InitializeComponent();
 
-			m_briefingPack = briefingPack;
+			m_briefingContainer = briefingContainer;
 			m_missionManager = missionManager;
 
 			if (string.IsNullOrEmpty(m_missionManager.ExportLocalDirectoryPath))
@@ -53,7 +53,7 @@ namespace DcsBriefop
 		#region Events
 		private void BtGenerate_Click(object sender, System.EventArgs e)
 		{
-			using (BriefingFilesBuilder builder = new BriefingFilesBuilder(m_briefingPack, m_missionManager))
+			using (BriefingFilesBuilder builder = new BriefingFilesBuilder(m_briefingContainer, m_missionManager))
 			{
 				builder.Generate(CkMizFile.Checked, CkLocalDirectory.Checked, CkLocalDirectoryHtmlBitmaps.Checked, TbLocalDirectory.Text);
 			}

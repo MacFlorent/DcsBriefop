@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Briefing;
 using DcsBriefop.Data;
+using DcsBriefop.DataMiz;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
@@ -74,7 +75,7 @@ namespace DcsBriefop.Tools
 				return GetRectCenter(GetRectOfPoints(points));
 		}
 
-		public static Bitmap GenerateMapImage(CustomDataMap mapData)
+		public static Bitmap GenerateMapImage(BriefopCustomMap mapData)
 		{
 			GMapProvider mapProvider = ElementMapValue.MapProvider;
 			List<GMapOverlay> overlays = new List<GMapOverlay>();

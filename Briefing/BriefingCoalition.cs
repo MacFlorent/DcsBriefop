@@ -73,11 +73,11 @@ namespace DcsBriefop.Briefing
 
 		public Color OwnColor
 		{
-			get { return ElementCoalitionColor.GetCoalitionColor(Name); }
+			get { return ToolsBriefop.GetCoalitionColor(Name); }
 		}
 		public Color OpposingColor
 		{
-			get { return ElementCoalitionColor.GetCoalitionColor(m_opposingCoalition.Name); }
+			get { return ToolsBriefop.GetCoalitionColor(m_opposingCoalition.Name); }
 		}
 
 

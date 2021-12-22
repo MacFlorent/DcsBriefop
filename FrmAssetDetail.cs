@@ -1,5 +1,4 @@
-﻿using DcsBriefop.Briefing;
-using DcsBriefop.Data;
+﻿using DcsBriefop.Data;
 using System.Windows.Forms;
 
 namespace DcsBriefop
@@ -38,11 +37,11 @@ namespace DcsBriefop
 			{
 				CkPlayable.Checked = group.Playable;
 				CkLateActivation.Checked = group.LateActivation;
-				TbRadio.Text = group.RadioString; // TODO radio selection for flights
+				TbRadio.Text = group.GetRadioString(); // TODO radio selection for flights
 			}
 			else if (m_asset is AssetAirdrome airdrome)
 			{
-				TbRadio.Text = airdrome.RadioString;
+				TbRadio.Text = airdrome.GetRadioString();
 			}
 
 			CbUsage.SelectedValue = (int)m_asset.Usage;

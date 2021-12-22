@@ -1,27 +1,26 @@
-﻿using DcsBriefop.Briefing;
-using GMap.NET.WindowsForms;
+﻿using DcsBriefop.Data;
 
 namespace DcsBriefop.UcBriefing
 {
 	internal partial class UcBriefingSituation : UcBaseBriefing
 	{
-		public UcBriefingSituation(UcMap ucMap, BriefingPack bp) : base(ucMap, bp)
+		public UcBriefingSituation(UcMap ucMap, BriefingContainer briefingContainer) : base(ucMap, briefingContainer)
 		{
 			InitializeComponent();
 		}
 
 		public override void DataToScreen()
 		{
-			TbSortie.Text = BriefingPack.Sortie;
-			TbWeather.Text = BriefingPack.Weather.ToString();
-			TbDescription.Text = BriefingPack.Description;
-			DtpDate.Value = BriefingPack.Date;
+			TbSortie.Text = BriefingContainer.Mission.Sortie;
+			TbWeather.Text = BriefingContainer.Mission.Weather.ToString();
+			TbDescription.Text = BriefingContainer.Mission.Description;
+			DtpDate.Value = BriefingContainer.Mission.Date;
 		}
 		public override void ScreenToData()
 		{
-			BriefingPack.Sortie = TbSortie.Text;
-			BriefingPack.Description = TbDescription.Text;
-			BriefingPack.Date = DtpDate.Value;
+			BriefingContainer.Mission.Sortie = TbSortie.Text;
+			BriefingContainer.Mission.Description = TbDescription.Text;
+			BriefingContainer.Mission.Date = DtpDate.Value;
 		}
 	}
 }

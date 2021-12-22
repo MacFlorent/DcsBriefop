@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Briefing;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataMiz;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -6,7 +7,7 @@ namespace DcsBriefop.UcBriefing
 {
 	internal partial class UcBriefingPack : UcBaseBriefing
 	{
-		public UcBriefingPack(UcMap ucMap, BriefingPack bp) : base (ucMap, bp)
+		public UcBriefingPack(UcMap ucMap, BriefingContainer briefingContainer) : base (ucMap, briefingContainer)
 		{
 			InitializeComponent();
 
@@ -15,70 +16,35 @@ namespace DcsBriefop.UcBriefing
 
 		public override void DataToScreen()
 		{
-			LbTheatre.Text = BriefingPack.Theatre.Name;
-
-			CkDisplayRed.Checked = BriefingPack.DisplayRed;
-			CkDisplayBlue.Checked = BriefingPack.DisplayBlue;
-			CkDisplayNeutral.Checked = BriefingPack.DisplayNeutral;
+			LbTheatre.Text = BriefingContainer.Core.Theatre.Name;
 
 			TcMissionData.TabPages.Clear();
 
-			UcBriefingSituation ucbs = new UcBriefingSituation(UcMap, BriefingPack);
+			UcBriefingSituation ucbs = new UcBriefingSituation(UcMap, BriefingContainer);
 			TabPageBriefing tpb = new TabPageBriefing("SITUATION", ucbs);
 			TcMissionData.TabPages.Add(tpb);
 			tpb.UcBriefing.DataToScreen();
 
-			if (BriefingPack.DisplayRed)
-				DataToScreen_AddCoalitionTab(BriefingPack.BriefingRed);
-			if (BriefingPack.DisplayBlue)
-				DataToScreen_AddCoalitionTab(BriefingPack.BriefingBlue);
-			if (BriefingPack.DisplayNeutral)
-				DataToScreen_AddCoalitionTab(BriefingPack.BriefingNeutral);
+			foreach(BriefingCoalition coalition in BriefingContainer.BriefingCoalitions)
+			{
+				DataToScreen_AddCoalitionTab(coalition);
+			}
 
 			DisplayCurrentTabMap();
 		}
 
-		private void DataToScreen_AddCoalitionTab(BriefingCoalition bc)
+		private void DataToScreen_AddCoalitionTab(BriefingCoalition coalition)
 		{
-			UcBriefingCoalition ucbc = new UcBriefingCoalition(UcMap, BriefingPack, bc);
-			TabPageBriefing tpb = new TabPageBriefing(bc.Name, ucbc);
+			UcBriefingCoalition ucbc = new UcBriefingCoalition(UcMap, BriefingContainer, coalition);
+			TabPageBriefing tpb = new TabPageBriefing(coalition.CoalitionName, ucbc);
 			TcMissionData.TabPages.Add(tpb);
 			tpb.UcBriefing.DataToScreen();
 		}
 
 		public override void ScreenToData()
 		{
-			BriefingPack.DisplayRed = CkDisplayRed.Checked;
-			BriefingPack.DisplayBlue = CkDisplayBlue.Checked;
-			BriefingPack.DisplayNeutral = CkDisplayNeutral.Checked;
-
 			foreach (TabPageBriefing tpb in TcMissionData.TabPages.OfType<TabPageBriefing>())
 				tpb.UcBriefing.ScreenToData();
-
-		}
-
-		private void CkDisplayCoalition_CheckedChanged(object sender, System.EventArgs e)
-		{
-			if (sender is CheckBox ck && BriefingPack is object)
-			{
-
-				bool bDisplay = ck.Checked;
-				if (ck == CkDisplayRed && ck.Checked != BriefingPack.DisplayRed)
-				{
-					BriefingPack.DisplayRed = ck.Checked;
-					DataToScreen();
-				}
-				else if (ck == CkDisplayBlue && ck.Checked != BriefingPack.DisplayBlue)
-				{
-					BriefingPack.DisplayBlue = ck.Checked;
-					DataToScreen();
-				}
-				if (ck == CkDisplayNeutral && ck.Checked != BriefingPack.DisplayNeutral)
-				{
-					BriefingPack.DisplayNeutral = ck.Checked;
-					DataToScreen();
-				}
-			}
 		}
 
 		private void DisplayCurrentTabMap()
@@ -86,20 +52,20 @@ namespace DcsBriefop.UcBriefing
 			if (TcMissionData.SelectedIndex >= 0 && TcMissionData.TabPages[TcMissionData.SelectedIndex] is TabPageBriefing tp)
 			{
 				string sTitle = null;
-				CustomDataMap cdm = null;
+				BriefopCustomMap mapData = null;
 
 				if (tp.UcBriefing is UcBriefingSituation ucBs)
 				{
 					sTitle = "General situation";
-					cdm = ucBs.BriefingPack.MapData;
+					mapData = ucBs.BriefingContainer.MapData;
 				}
 				else if (tp.UcBriefing is UcBriefingCoalition ucBc)
 				{
 					sTitle = "Coalition map";
-					cdm = ucBc.BriefingCoalition.MapData;
+					mapData = ucBc.Coalition.MapData;
 				}
 
-				UcMap.SetMapData(cdm, sTitle, false);
+				UcMap.SetMapData(mapData, sTitle, false);
 			}
 
 		}

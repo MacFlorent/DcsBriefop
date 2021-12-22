@@ -1,5 +1,4 @@
-﻿using DcsBriefop.Briefing;
-using GMap.NET.WindowsForms;
+﻿using DcsBriefop.Data;
 using System.Windows.Forms;
 
 namespace DcsBriefop.UcBriefing
@@ -7,16 +6,16 @@ namespace DcsBriefop.UcBriefing
 	internal partial class UcBaseBriefing : UserControl
 	{
 		protected UcMap UcMap { get; private set; }
-		public BriefingPack BriefingPack { get; set; }
+		public BriefingContainer BriefingContainer { get; set; }
 
 		public UcBaseBriefing()
 		{
 			InitializeComponent();
 		}
 
-		public UcBaseBriefing(UcMap ucMap, BriefingPack bp)
+		public UcBaseBriefing(UcMap ucMap, BriefingContainer briefingContainer)
 		{
-			BriefingPack = bp;
+			BriefingContainer = briefingContainer;
 			UcMap = ucMap;
 		}
 

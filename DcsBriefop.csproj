@@ -146,7 +146,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Briefing\BriefingComms.cs" />
+    <Compile Include="BriefingFilesBuilder.cs" />
     <Compile Include="Briefing\BriefingUnit.cs" />
     <Compile Include="Briefing\AssetStatic.cs" />
     <Compile Include="Briefing\AssetVehicle.cs" />
@@ -154,20 +154,34 @@
     <Compile Include="Briefing\AssetAirdrome.cs" />
     <Compile Include="Briefing\CustomDataMission.cs" />
     <Compile Include="Briefing\CustomDataAsset.cs" />
+    <Compile Include="DataMiz\BaseBriefopCustomSerializable.cs" />
+    <Compile Include="DataMiz\BriefopCustomAsset.cs" />
+    <Compile Include="DataMiz\BriefopCustomMission.cs" />
     <Compile Include="DataMiz\Miz.cs" />
     <Compile Include="Data\Airdrome.cs" />
     <Compile Include="Briefing\BriefingCoalition.cs" />
-    <Compile Include="Briefing\BriefingFilesBuilder.cs" />
     <Compile Include="Briefing\AssetMapPoint.cs" />
     <Compile Include="Briefing\AssetShip.cs" />
     <Compile Include="Briefing\AssetFlight.cs" />
     <Compile Include="Briefing\AssetGroup.cs" />
     <Compile Include="Briefing\BriefingPack.cs" />
     <Compile Include="Briefing\CustomData.cs" />
+    <Compile Include="Data\Asset.cs" />
+    <Compile Include="Data\AssetAirdrome.cs" />
+    <Compile Include="Data\AssetFlight.cs" />
+    <Compile Include="Data\AssetGroup.cs" />
+    <Compile Include="Data\AssetMapPoint.cs" />
+    <Compile Include="Data\AssetShip.cs" />
+    <Compile Include="Data\AssetStatic.cs" />
+    <Compile Include="Data\AssetVehicle.cs" />
     <Compile Include="Data\BaseBriefing.cs" />
+    <Compile Include="Data\BriefingComms.cs" />
     <Compile Include="Data\BriefingContainer.cs" />
-    <Compile Include="Data\BriefingContext.cs" />
-    <Compile Include="Data\BriefingCoalition2.cs" />
+    <Compile Include="DataMiz\BriefopCustom.cs" />
+    <Compile Include="Data\AssetUnit.cs" />
+    <Compile Include="Data\BriefingMission.cs" />
+    <Compile Include="Data\BriefingCoalition.cs" />
+    <Compile Include="MissionManager.cs" />
     <Compile Include="Data\Weather.cs" />
     <Compile Include="Data\Radio.cs" />
     <Compile Include="Configuration\BriefopMarkerSection.cs" />
@@ -216,6 +230,7 @@
       <DependentUpon>FrmAssetDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ToolsMenu.cs" />
+    <Compile Include="Tools\ToolsBriefop.cs" />
     <Compile Include="Tools\ToolsResources.cs" />
     <Compile Include="Tools\ToolsZip.cs" />
     <Compile Include="UcBriefing\TabPageBriefing.cs">

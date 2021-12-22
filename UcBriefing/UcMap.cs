@@ -1,5 +1,5 @@
-﻿using DcsBriefop.Briefing;
-using DcsBriefop.Data;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using GMap.NET;
 using GMap.NET.WindowsForms;
@@ -20,7 +20,7 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 
 		#region Properties
-		public CustomDataMap MapData { get; private set; }
+		public BriefopCustomMap MapData { get; private set; }
 		#endregion
 
 		#region CTOR
@@ -38,14 +38,14 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 
 		#region Methods
-		public void SetMapData(CustomDataMap cdm, string sTitle, bool bViewOnly)
+		public void SetMapData(BriefopCustomMap mapData, string sTitle, bool bViewOnly)
 		{
 			m_bViewOnly = bViewOnly;
 			LbTitle.Text = sTitle;
 
 			CkAddMarker.Enabled = BtAreaSet.Enabled = BtAreaRecall.Enabled = !m_bViewOnly;
 
-			MapData = cdm;
+			MapData = mapData;
 			RefreshOverlays();
 			Map.Position = new PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
 			Map.Zoom = MapData.Zoom;

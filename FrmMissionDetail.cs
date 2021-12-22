@@ -1,4 +1,4 @@
-﻿using DcsBriefop.Briefing;
+﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using DcsBriefop.UcBriefing;
 using System.Linq;
@@ -123,16 +123,16 @@ namespace DcsBriefop
 			DgvTargets.Columns[GridColumn.Information].ReadOnly = true;
 			DgvTargets.Columns[GridColumn.Data].Visible = false;
 
-			foreach (AssetGroup target in m_asset.BriefingCoalition.OpposingAssets.OfType<AssetGroup>())
+			foreach (AssetGroup target in m_asset.Coalition.OpposingAssets.OfType<AssetGroup>())
 			{
-				foreach (BriefingUnit unit in target.Units)
+				foreach (AssetUnit unit in target.Units)
 				{
-					RefreshGridRowTarget(unit);
+					RefreshGridRowTarget(target, unit);
 				}
 			}
 		}
 
-		private void RefreshGridRowTarget(BriefingUnit unit)
+		private void RefreshGridRowTarget(AssetGroup target, AssetUnit unit)
 		{
 			DataGridViewRow dgvr = null;
 			foreach (DataGridViewRow existingRow in DgvTargets.Rows)
@@ -151,7 +151,7 @@ namespace DcsBriefop
 			}
 
 			dgvr.Cells[GridColumn.Selected].Value = m_asset.MissionData.IsTarget(unit.Id);
-			dgvr.Cells[GridColumn.Asset].Value = unit.Asset.Name;
+			dgvr.Cells[GridColumn.Asset].Value = target.Name;
 			dgvr.Cells[GridColumn.Id].Value = unit.Id;
 			dgvr.Cells[GridColumn.Type].Value = unit.Type;
 			dgvr.Cells[GridColumn.Localisation].Value = unit.GetLocalisation();
@@ -167,7 +167,7 @@ namespace DcsBriefop
 
 		private void UpdateMapControl()
 		{
-			m_ucMap.SetMapData(m_asset.MissionData.MapDataMission, "Mission map", false);
+			m_ucMap.SetMapData(m_asset.MissionData.MapData, "Mission map", false);
 		}
 		#endregion
 
@@ -201,7 +201,7 @@ namespace DcsBriefop
 			if (column.Name == GridColumn.Selected)
 			{
 				DataGridViewCell cell = grid.Rows[e.RowIndex].Cells[e.ColumnIndex];
-				BriefingUnit unit = grid.Rows[e.RowIndex].Cells[GridColumn.Data].Value as BriefingUnit;
+				AssetUnit unit = grid.Rows[e.RowIndex].Cells[GridColumn.Data].Value as AssetUnit;
 				m_asset.MissionData.SetTarget(unit.Id, (bool)cell.Value);
 				m_asset.MissionData.InitializeMapData();
 				UpdateMapControl();

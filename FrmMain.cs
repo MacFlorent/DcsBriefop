@@ -1,4 +1,4 @@
-﻿using DcsBriefop.Briefing;
+﻿using DcsBriefop.Data;
 using DcsBriefop.UcBriefing;
 using System;
 using System.Windows.Forms;
@@ -9,7 +9,7 @@ namespace DcsBriefop
 	{
 		#region Fields
 		private MissionManager m_missionManager;
-		private BriefingPack m_briefingPack;
+		private BriefingContainer m_briefingContainer;
 		private UcBriefingPack m_ucBriefingPack;
 		private UcMap m_ucMap;
 
@@ -37,7 +37,7 @@ namespace DcsBriefop
 				if (ofd.ShowDialog() == DialogResult.OK)
 				{
 					m_missionManager = new MissionManager(ofd.FileName);
-					m_briefingPack = new BriefingPack(m_missionManager);
+					m_briefingContainer = new BriefingContainer(m_missionManager.Miz);
 					DataToScreen();
 
 				}
@@ -50,7 +50,7 @@ namespace DcsBriefop
 				throw new ExceptionDcsBriefop("No mission is currently loaded");
 
 			m_missionManager.MizLoad();
-			m_briefingPack = new BriefingPack(m_missionManager);
+			m_briefingContainer = new BriefingContainer(m_missionManager.Miz);
 			DataToScreen();
 		}
 
@@ -61,6 +61,7 @@ namespace DcsBriefop
 
 			ScreenToData();
 
+			m_briefingContainer.Persist();
 			m_missionManager.MizSave(sMizFilePath);
 			MizReload();
 		}
@@ -90,7 +91,7 @@ namespace DcsBriefop
 
 			ScreenToData();
 
-			FrmGenerateFiles f = new FrmGenerateFiles(m_briefingPack, m_missionManager);
+			FrmGenerateFiles f = new FrmGenerateFiles(m_briefingContainer, m_missionManager);
 			f.ShowDialog();
 
 		}
@@ -107,13 +108,13 @@ namespace DcsBriefop
 
 			if (m_ucBriefingPack is null)
 			{
-				m_ucBriefingPack = new UcBriefingPack(m_ucMap, m_briefingPack);
+				m_ucBriefingPack = new UcBriefingPack(m_ucMap, m_briefingContainer);
 				m_ucBriefingPack.Dock = DockStyle.Fill;
 				SplitContainer.Panel1.Controls.Clear();
 				SplitContainer.Panel1.Controls.Add(m_ucBriefingPack);
 			}
 			else
-				m_ucBriefingPack.BriefingPack = m_briefingPack;
+				m_ucBriefingPack.BriefingContainer = m_briefingContainer;
 
 			StatusStrip.Items.Clear();
 			StatusStrip.Items.Add(m_missionManager.MizFilePath);

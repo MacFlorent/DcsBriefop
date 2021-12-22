@@ -33,10 +33,6 @@ namespace DcsBriefop.UcBriefing
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.PnHeader = new System.Windows.Forms.Panel();
 			this.LbTheatre = new System.Windows.Forms.Label();
-			this.LbDisplayCoalition = new System.Windows.Forms.Label();
-			this.CkDisplayNeutral = new System.Windows.Forms.CheckBox();
-			this.CkDisplayBlue = new System.Windows.Forms.CheckBox();
-			this.CkDisplayRed = new System.Windows.Forms.CheckBox();
 			this.TcMissionData.SuspendLayout();
 			this.PnHeader.SuspendLayout();
 			this.SuspendLayout();
@@ -45,10 +41,10 @@ namespace DcsBriefop.UcBriefing
 			// 
 			this.TcMissionData.Controls.Add(this.tabPage1);
 			this.TcMissionData.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TcMissionData.Location = new System.Drawing.Point(0, 60);
+			this.TcMissionData.Location = new System.Drawing.Point(0, 33);
 			this.TcMissionData.Name = "TcMissionData";
 			this.TcMissionData.SelectedIndex = 0;
-			this.TcMissionData.Size = new System.Drawing.Size(834, 778);
+			this.TcMissionData.Size = new System.Drawing.Size(834, 805);
 			this.TcMissionData.TabIndex = 1;
 			this.TcMissionData.SelectedIndexChanged += new System.EventHandler(this.TcMissionData_SelectedIndexChanged);
 			// 
@@ -57,7 +53,7 @@ namespace DcsBriefop.UcBriefing
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(826, 752);
+			this.tabPage1.Size = new System.Drawing.Size(826, 779);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "tabPage1";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -65,14 +61,10 @@ namespace DcsBriefop.UcBriefing
 			// PnHeader
 			// 
 			this.PnHeader.Controls.Add(this.LbTheatre);
-			this.PnHeader.Controls.Add(this.LbDisplayCoalition);
-			this.PnHeader.Controls.Add(this.CkDisplayNeutral);
-			this.PnHeader.Controls.Add(this.CkDisplayBlue);
-			this.PnHeader.Controls.Add(this.CkDisplayRed);
 			this.PnHeader.Dock = System.Windows.Forms.DockStyle.Top;
 			this.PnHeader.Location = new System.Drawing.Point(0, 0);
 			this.PnHeader.Name = "PnHeader";
-			this.PnHeader.Size = new System.Drawing.Size(834, 60);
+			this.PnHeader.Size = new System.Drawing.Size(834, 33);
 			this.PnHeader.TabIndex = 0;
 			// 
 			// LbTheatre
@@ -87,54 +79,6 @@ namespace DcsBriefop.UcBriefing
 			this.LbTheatre.Text = "Theater";
 			this.LbTheatre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// LbDisplayCoalition
-			// 
-			this.LbDisplayCoalition.AutoSize = true;
-			this.LbDisplayCoalition.Location = new System.Drawing.Point(15, 35);
-			this.LbDisplayCoalition.Name = "LbDisplayCoalition";
-			this.LbDisplayCoalition.Size = new System.Drawing.Size(95, 13);
-			this.LbDisplayCoalition.TabIndex = 2;
-			this.LbDisplayCoalition.Text = "Coalitions included";
-			// 
-			// CkDisplayNeutral
-			// 
-			this.CkDisplayNeutral.AutoSize = true;
-			this.CkDisplayNeutral.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.CkDisplayNeutral.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.CkDisplayNeutral.Location = new System.Drawing.Point(228, 34);
-			this.CkDisplayNeutral.Name = "CkDisplayNeutral";
-			this.CkDisplayNeutral.Size = new System.Drawing.Size(67, 17);
-			this.CkDisplayNeutral.TabIndex = 5;
-			this.CkDisplayNeutral.Text = "Neutral";
-			this.CkDisplayNeutral.UseVisualStyleBackColor = true;
-			this.CkDisplayNeutral.CheckedChanged += new System.EventHandler(this.CkDisplayCoalition_CheckedChanged);
-			// 
-			// CkDisplayBlue
-			// 
-			this.CkDisplayBlue.AutoSize = true;
-			this.CkDisplayBlue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.CkDisplayBlue.ForeColor = System.Drawing.Color.Blue;
-			this.CkDisplayBlue.Location = new System.Drawing.Point(171, 34);
-			this.CkDisplayBlue.Name = "CkDisplayBlue";
-			this.CkDisplayBlue.Size = new System.Drawing.Size(51, 17);
-			this.CkDisplayBlue.TabIndex = 4;
-			this.CkDisplayBlue.Text = "Blue";
-			this.CkDisplayBlue.UseVisualStyleBackColor = true;
-			this.CkDisplayBlue.CheckedChanged += new System.EventHandler(this.CkDisplayCoalition_CheckedChanged);
-			// 
-			// CkDisplayRed
-			// 
-			this.CkDisplayRed.AutoSize = true;
-			this.CkDisplayRed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.CkDisplayRed.ForeColor = System.Drawing.Color.Red;
-			this.CkDisplayRed.Location = new System.Drawing.Point(116, 34);
-			this.CkDisplayRed.Name = "CkDisplayRed";
-			this.CkDisplayRed.Size = new System.Drawing.Size(49, 17);
-			this.CkDisplayRed.TabIndex = 3;
-			this.CkDisplayRed.Text = "Red";
-			this.CkDisplayRed.UseVisualStyleBackColor = true;
-			this.CkDisplayRed.CheckedChanged += new System.EventHandler(this.CkDisplayCoalition_CheckedChanged);
-			// 
 			// UcBriefingPack
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -145,7 +89,6 @@ namespace DcsBriefop.UcBriefing
 			this.Size = new System.Drawing.Size(834, 838);
 			this.TcMissionData.ResumeLayout(false);
 			this.PnHeader.ResumeLayout(false);
-			this.PnHeader.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -154,11 +97,7 @@ namespace DcsBriefop.UcBriefing
 
 		private System.Windows.Forms.TabControl TcMissionData;
 		private System.Windows.Forms.Panel PnHeader;
-		private System.Windows.Forms.CheckBox CkDisplayNeutral;
-		private System.Windows.Forms.CheckBox CkDisplayBlue;
-		private System.Windows.Forms.CheckBox CkDisplayRed;
 		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.Label LbDisplayCoalition;
 		private System.Windows.Forms.Label LbTheatre;
 	}
 }

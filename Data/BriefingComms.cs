@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DcsBriefop.Briefing
+namespace DcsBriefop.Data
 {
 	class BriefingComms
 	{

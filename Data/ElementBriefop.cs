@@ -37,16 +37,6 @@ namespace DcsBriefop.Data
 		public static readonly Color Blue = Color.Blue;
 		public static readonly Color Red = Color.Red;
 		public static readonly Color Neutral = Color.DarkGray;
-
-		public static Color GetCoalitionColor(string sCoalitionName)
-		{
-			if (sCoalitionName == ElementCoalition.Red)
-				return Red;
-			else if (sCoalitionName == ElementCoalition.Blue)
-				return Blue;
-			else
-				return Neutral;
-		}
 	}
 
 	internal static class ElementMapValue
@@ -63,4 +53,4 @@ namespace DcsBriefop.Data
 		public static readonly int Width = 800;
 		public static readonly int Height = 1200;
 	}
-	}
+}

@@ -1,5 +1,4 @@
-﻿using DcsBriefop.Briefing;
-using DcsBriefop.Data;
+﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using System;
 using System.Collections.Generic;
@@ -27,24 +26,24 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 
 		#region Properties
-		public BriefingCoalition BriefingCoalition { get; private set; }
+		public BriefingCoalition Coalition { get; private set; }
 		#endregion
 
 		#region CTOR
-		public UcBriefingCoalition(UcMap ucMap, BriefingPack bp, BriefingCoalition bc) : base(ucMap, bp)
+		public UcBriefingCoalition(UcMap ucMap, BriefingContainer briefingContainer, BriefingCoalition briefingCoalition) : base(ucMap, briefingContainer)
 		{
 			InitializeComponent();
 			
-			BriefingCoalition = bc;
+			Coalition = briefingCoalition;
 		}
 		#endregion
 
 		#region Methods
 		public override void DataToScreen()
 		{
-			TbBullseyeCoordinates.Text = BriefingCoalition.BullseyeCoordinates;
-			TbBullseyeDescription.Text = BriefingCoalition.BullseyeDescription;
-			TbTask.Text = BriefingCoalition.Task;
+			TbBullseyeCoordinates.Text = Coalition.GetBullseyeCoordinatesString();
+			TbBullseyeDescription.Text = Coalition.BullseyeDescription;
+			TbTask.Text = Coalition.Task;
 
 			TcAssets.TabPages.Clear();
 
@@ -55,7 +54,7 @@ namespace DcsBriefop.UcBriefing
 			InitializeContextMenu(dgv);
 			tp.Controls.Add(dgv);
 			InitializeGridOwnAsset(dgv);
-			foreach (Asset asset in BriefingCoalition.OwnAssets)
+			foreach (Asset asset in Coalition.OwnAssets)
 			{
 				RefreshGridRow(dgv, asset);
 			}
@@ -67,7 +66,7 @@ namespace DcsBriefop.UcBriefing
 			InitializeContextMenu(dgv);
 			tp.Controls.Add(dgv);
 			InitializeGridOpposingAsset(dgv);
-			foreach (Asset asset in BriefingCoalition.OpposingAssets)
+			foreach (Asset asset in Coalition.OpposingAssets)
 			{
 				RefreshGridRow(dgv, asset);
 			}
@@ -79,7 +78,7 @@ namespace DcsBriefop.UcBriefing
 			InitializeContextMenu(dgv);
 			tp.Controls.Add(dgv);
 			InitializeGridAirdrome(dgv);
-			foreach (Asset asset in BriefingCoalition.Airdromes)
+			foreach (Asset asset in Coalition.Airdromes)
 			{
 				RefreshGridRow(dgv, asset);
 			}
@@ -136,8 +135,8 @@ namespace DcsBriefop.UcBriefing
 
 		public override void ScreenToData()
 		{
-			BriefingCoalition.BullseyeDescription = TbBullseyeDescription.Text;
-			BriefingCoalition.Task = TbTask.Text;
+			Coalition.BullseyeDescription = TbBullseyeDescription.Text;
+			Coalition.Task = TbTask.Text;
 		}
 
 		private void RefreshGridRow(DataGridView dgv, Asset asset)
@@ -164,7 +163,7 @@ namespace DcsBriefop.UcBriefing
 			RefreshGridRowContent(dgvr, GridColumn.Name, asset.Name);
 			RefreshGridRowContent(dgvr, GridColumn.Task, asset.Task);
 			RefreshGridRowContent(dgvr, GridColumn.Type, asset.Type);
-			RefreshGridRowContent(dgvr, GridColumn.Radio, asset.RadioString);
+			RefreshGridRowContent(dgvr, GridColumn.Radio, asset.GetRadioString());
 			RefreshGridRowContent(dgvr, GridColumn.Notes, asset.Information);
 		}
 
@@ -314,7 +313,7 @@ namespace DcsBriefop.UcBriefing
 
 		private void TbBullseyeDescription_Validated(object sender, System.EventArgs e)
 		{
-			BriefingCoalition.BullseyeDescription = TbBullseyeDescription.Text;
+			Coalition.BullseyeDescription = TbBullseyeDescription.Text;
 		}
 		#endregion
 	}

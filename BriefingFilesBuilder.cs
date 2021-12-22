@@ -9,8 +9,9 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using TheArtOfDev.HtmlRenderer.WinForms;
+using DcsBriefop.DataMiz;
 
-namespace DcsBriefop.Briefing
+namespace DcsBriefop
 {
 	//https://github.com/itext/itext7-dotnet
 	//HtmlConverter.ConvertToPdf(new FileInfo(sFilePath), new FileInfo(sPdfFileName));
@@ -53,15 +54,15 @@ namespace DcsBriefop.Briefing
 		}
 
 		#region Fields
-		private BriefingPack m_briefingPack;
+		private BriefingContainer m_briefingContainer;
 		private MissionManager m_missionManager;
 		private List<BriefingFile> m_listFiles = new List<BriefingFile>();
 		#endregion
 
 		#region CTOR
-		public BriefingFilesBuilder(BriefingPack briefingPack, MissionManager missionManager)
+		public BriefingFilesBuilder(BriefingContainer briefingContainer, MissionManager missionManager)
 		{
-			m_briefingPack = briefingPack;
+			m_briefingContainer = briefingContainer;
 			m_missionManager = missionManager;
 		}
 		#endregion
@@ -86,37 +87,29 @@ namespace DcsBriefop.Briefing
 		{
 			//AddMapData("00_GENERAL_MAP", KneeboardFolders.Images, m_briefingPack.MapData);
 
-			if (m_briefingPack.DisplayRed)
+			foreach(BriefingCoalition coalition in m_briefingContainer.BriefingCoalitions)
 			{
-				GenerateAllFilesCoalition(m_briefingPack.BriefingRed);
-			}
-			if (m_briefingPack.DisplayBlue)
-			{
-				GenerateAllFilesCoalition(m_briefingPack.BriefingBlue);
-			}
-			if (m_briefingPack.DisplayNeutral)
-			{
-				GenerateAllFilesCoalition(m_briefingPack.BriefingNeutral);
+				GenerateAllFilesCoalition(coalition);
 			}
 		}
 
 		private void GenerateAllFilesCoalition(BriefingCoalition coalition)
 		{
 			string sKneeboardFolder = KneeboardFolders.Images;
-			string sFileName = $"{coalition.Name}_01_SITUATION";
+			string sFileName = $"{coalition.CoalitionName}_01_SITUATION";
 			AddFileHtml(sFileName, sKneeboardFolder, GenerateHtmlSituation(coalition));
 			AddMapData($"{sFileName}_MAP", sKneeboardFolder, coalition.MapData);
 
 			sKneeboardFolder = KneeboardFolders.Images;
-			sFileName = $"{coalition.Name}_02_OPERATIONS";
+			sFileName = $"{coalition.CoalitionName}_02_OPERATIONS";
 			AddFileHtml(sFileName, sKneeboardFolder, GenerateHtmlOperations(coalition));
 
 			foreach (AssetFlight asset in coalition.OwnAssets.OfType<AssetFlight>().Where(_a => _a.MissionData is object))
 			{
 				sKneeboardFolder = KneeboardFolders.Images; // TODO aircrat specific kneeboard folder
-				sFileName = $"{coalition.Name}_03_MISSION_{asset.Name}";
+				sFileName = $"{coalition.CoalitionName}_03_MISSION_{asset.Name}";
 				AddFileHtml(sFileName, sKneeboardFolder, GenerateHtmlMission(coalition, asset));
-				AddMapData($"{sFileName}_MAP", sKneeboardFolder, asset.MissionData.MapDataMission);
+				AddMapData($"{sFileName}_MAP", sKneeboardFolder, asset.MissionData.MapData);
 			}
 		}
 
@@ -126,11 +119,11 @@ namespace DcsBriefop.Briefing
 
 			//hb.AppendHeader(m_briefingPack.Sortie, 3);
 			hb.AppendHeader("SITUATION", 2);
-			hb.AppendParagraphJustified(m_briefingPack.Description);
+			hb.AppendParagraphJustified(m_briefingContainer.Mission.Description);
 			hb.AppendHeader("TASKS", 3);
 			hb.AppendParagraphJustified(coalition.Task);
 			hb.AppendHeader("WEATHER", 3);
-			hb.AppendParagraphCentered(m_briefingPack.Weather.ToString());
+			hb.AppendParagraphCentered(m_briefingContainer.Mission.Weather.ToString());
 
 			hb.FinalizeDocument();
 			return hb;
@@ -143,7 +136,7 @@ namespace DcsBriefop.Briefing
 			//hb.AppendHeader(m_briefingPack.Sortie, 3);
 			hb.AppendHeader("OPERATIONS", 2);
 			hb.AppendHeader("BULLSEYE", 3);
-			hb.AppendParagraphCentered(coalition.BullseyeCoordinates);
+			hb.AppendParagraphCentered(coalition.GetBullseyeCoordinatesString());
 			hb.AppendParagraphCentered(coalition.BullseyeDescription);
 			hb.AppendHeader("ASSETS", 3);
 
@@ -151,27 +144,27 @@ namespace DcsBriefop.Briefing
 			hb.AppendTableRow("Missions");
 			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.MissionWithDetail))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.RadioString, asset.Information);
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.GetRadioString(), asset.Information);
 			}
 			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Mission))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.RadioString, asset.Information);
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.GetRadioString(), asset.Information);
 			}
 
 			hb.AppendTableRow("Support");
 			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Support))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.RadioString, asset.Information);
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.GetRadioString(), asset.Information);
 			}
 
 			hb.AppendTableRow("Base");
 			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Base))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.RadioString, asset.Information);
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.GetRadioString(), asset.Information);
 			}
 			foreach (Asset asset in coalition.Airdromes.Where(_a => _a.Usage == ElementAssetUsage.Base && _a.Side == ElementAssetSide.Own))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.RadioString, asset.Information);
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.GetRadioString(), asset.Information);
 			}
 
 			hb.CloseTable();
@@ -197,9 +190,9 @@ namespace DcsBriefop.Briefing
 
 			hb.AppendHeader("TARGETS", 3);
 			hb.OpenTable("Name", "Type", "Localication", "Information");
-			foreach (BriefingUnit unit in asset.MissionData.GetListTargetUnits())
+			foreach (AssetUnit unit in asset.MissionData.GetListTargetUnits())
 			{
-				hb.AppendTableRow(unit.Asset.Name, unit.Type, unit.GetLocalisation(), unit.Information);
+				hb.AppendTableRow(asset.Name, unit.Type, unit.GetLocalisation(), unit.Information);
 			}
 			hb.CloseTable();
 
@@ -215,7 +208,7 @@ namespace DcsBriefop.Briefing
 			m_listFiles.Add(bf);
 		}
 
-		private void AddMapData(string sFileName, string sKneeboardFolder, CustomDataMap mapData)
+		private void AddMapData(string sFileName, string sKneeboardFolder, BriefopCustomMap mapData)
 		{
 			BriefingFile bf = new BriefingFile() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, BitmapContent = ToolsMap.GenerateMapImage(mapData) };
 			m_listFiles.Add(bf);

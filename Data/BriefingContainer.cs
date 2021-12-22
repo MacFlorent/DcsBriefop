@@ -3,24 +3,36 @@ using System.Collections.Generic;
 
 namespace DcsBriefop.Data
 {
-	internal class BriefingContainer
+	internal class BriefingContainer : BaseBriefing
 	{
 		#region Properties
-		public BriefingContext MissionContext { get; private set; }
-		public List<BriefingCoalition2> BriefingFolders { get; private set; } = new List<BriefingCoalition2>();
+		public BriefingMission Mission { get; set; }
+		public List<BriefingCoalition> BriefingCoalitions { get; private set; } = new List<BriefingCoalition>();
+
+		public BriefopCustomMap MapData { get { return Core.Miz.BriefopCustom.MapData; } }
 		#endregion
 
 		#region CTOR
-		public BriefingContainer(Miz miz)
+		public BriefingContainer(Miz miz) : base (new BaseBriefingCore(miz))
 		{
-			MissionContext = new BriefingContext(miz);
+			Mission = new BriefingMission(Core);
+
+			if (!string.IsNullOrEmpty(miz.RootDictionary.RedTask))
+				BriefingCoalitions.Add(new BriefingCoalition(Core, ElementCoalition.Red));
+			if (!string.IsNullOrEmpty(miz.RootDictionary.BlueTask))
+				BriefingCoalitions.Add(new BriefingCoalition(Core, ElementCoalition.Blue));
+			if (!string.IsNullOrEmpty(miz.RootDictionary.NeutralTask))
+				BriefingCoalitions.Add(new BriefingCoalition(Core, ElementCoalition.Neutral));
 		}
 		#endregion
 
 		#region Methods
-		public void Persist()
+		public override void Persist()
 		{
-			MissionContext.Persist();
+			Mission.Persist();
+
+			foreach (BriefingCoalition coalition in BriefingCoalitions)
+				coalition.Persist();
 		}
 		#endregion
 	}

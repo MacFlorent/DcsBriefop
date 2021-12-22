@@ -1,20 +1,34 @@
-﻿namespace DcsBriefop.Data
+﻿using DcsBriefop.DataMiz;
+
+namespace DcsBriefop.Data
 {
 	internal abstract class BaseBriefing
 	{
 		#region Properties
-		protected BriefingContext MissionContext { get; private set; }
+		public BaseBriefingCore Core { get; private set; }
 		#endregion
 
 		#region CTOR
-		public BaseBriefing(BriefingContext missionContext)
+		public BaseBriefing(BaseBriefingCore core)
 		{
-			MissionContext = missionContext;
+			Core = core;
 		}
 		#endregion
 
 		#region Methods
 		public virtual void Persist() { }
 		#endregion
+	}
+
+	internal class BaseBriefingCore
+	{
+		public Miz Miz { get; private set; }
+		public Theatre Theatre { get; private set; }
+
+		public BaseBriefingCore(Miz miz)
+		{
+			Miz = miz;
+			Theatre = new Theatre(Miz.RootMission.Theatre);
+		}
 	}
 }
