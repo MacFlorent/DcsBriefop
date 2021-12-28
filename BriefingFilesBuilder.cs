@@ -44,6 +44,8 @@ namespace DcsBriefop
 
 	internal class BriefingFilesBuilder : IDisposable
 	{
+		private static readonly string m_sFilePrefix = "BOP_";
+
 		private static class KneeboardFolders
 		{
 			public static readonly string Images = "IMAGES";
@@ -68,48 +70,53 @@ namespace DcsBriefop
 		#endregion
 
 		#region Methods
-		public void Generate(bool bUpdateMiz, bool bLocalExportDirectoryActive, bool bLocalExportDirectoryWithHtmlBitmaps, string sLocalExportDirectory)
+		public void Generate(List<ElementExportFileType> exportFileTypes, bool bUpdateMiz, bool bLocalExportDirectoryActive, bool bLocalExportDirectoryWithHtml, string sLocalExportDirectory)
 		{
 			if (bLocalExportDirectoryActive && !Directory.Exists(sLocalExportDirectory))
 			{
 				throw new ExceptionDcsBriefop($"Local export directory not found {sLocalExportDirectory}.");
 			}
 
-			GenerateAllFiles();
+			GenerateAllFiles(exportFileTypes);
 
 			if (bLocalExportDirectoryActive)
-				ExportFilesToPath(sLocalExportDirectory, bLocalExportDirectoryWithHtmlBitmaps);
+				ExportFilesToPath(sLocalExportDirectory, bLocalExportDirectoryWithHtml);
 			if (bUpdateMiz)
 				ExportFilesToMiz();
 		}
 
-		private void GenerateAllFiles()
+		private string GenerateFileName(ElementExportFileType fileType, string sCoalitionName)
 		{
-			//AddMapData("00_GENERAL_MAP", KneeboardFolders.Images, m_briefingPack.MapData);
+			return $"{m_sFilePrefix}{sCoalitionName}{(int)fileType:00}_{fileType}";
+		}
 
+		private void GenerateAllFiles(List<ElementExportFileType> exportFileTypes)
+		{
 			foreach(BriefingCoalition coalition in m_briefingContainer.BriefingCoalitions)
 			{
-				GenerateAllFilesCoalition(coalition);
+				GenerateAllFilesCoalition(exportFileTypes, coalition);
 			}
 		}
 
-		private void GenerateAllFilesCoalition(BriefingCoalition coalition)
+		private void GenerateAllFilesCoalition(List<ElementExportFileType> exportFileTypes, BriefingCoalition coalition)
 		{
 			string sKneeboardFolder = KneeboardFolders.Images;
-			string sFileName = $"{coalition.CoalitionName}_01_SITUATION";
-			AddFileHtml(sFileName, sKneeboardFolder, GenerateHtmlSituation(coalition));
-			AddMapData($"{sFileName}_MAP", sKneeboardFolder, coalition.MapData);
 
-			sKneeboardFolder = KneeboardFolders.Images;
-			sFileName = $"{coalition.CoalitionName}_02_OPERATIONS";
-			AddFileHtml(sFileName, sKneeboardFolder, GenerateHtmlOperations(coalition));
+			if (exportFileTypes.Contains(ElementExportFileType.Situation))
+				AddFileHtml(GenerateFileName(ElementExportFileType.Situation, coalition.CoalitionName), sKneeboardFolder, GenerateHtmlSituation(coalition));
+			if (exportFileTypes.Contains(ElementExportFileType.SituationMap))
+				AddMapData(GenerateFileName(ElementExportFileType.SituationMap, coalition.CoalitionName), sKneeboardFolder, coalition.MapData);
+			if (exportFileTypes.Contains(ElementExportFileType.Operations))
+				AddFileHtml(GenerateFileName(ElementExportFileType.Operations, coalition.CoalitionName), sKneeboardFolder, GenerateHtmlOperations(coalition));
 
 			foreach (AssetFlight asset in coalition.OwnAssets.OfType<AssetFlight>().Where(_a => _a.MissionData is object))
 			{
-				sKneeboardFolder = KneeboardFolders.Images; // TODO aircrat specific kneeboard folder
-				sFileName = $"{coalition.CoalitionName}_03_MISSION_{asset.Name}";
-				AddFileHtml(sFileName, sKneeboardFolder, GenerateHtmlMission(coalition, asset));
-				AddMapData($"{sFileName}_MAP", sKneeboardFolder, asset.MissionData.MapData);
+				sKneeboardFolder = KneeboardFolders.Images; // TODO aircraft specific kneeboard folder
+
+				if (exportFileTypes.Contains(ElementExportFileType.Missions))
+					AddFileHtml(GenerateFileName(ElementExportFileType.Missions, coalition.CoalitionName), sKneeboardFolder, GenerateHtmlMission(coalition, asset));
+				if (exportFileTypes.Contains(ElementExportFileType.MissionMaps))
+					AddMapData(GenerateFileName(ElementExportFileType.MissionMaps, coalition.CoalitionName), sKneeboardFolder, asset.MissionData.MapData);
 			}
 		}
 
@@ -192,7 +199,7 @@ namespace DcsBriefop
 			hb.OpenTable("Name", "Type", "Localication", "Information");
 			foreach (AssetUnit unit in asset.MissionData.GetListTargetUnits())
 			{
-				hb.AppendTableRow(asset.Name, unit.Type, unit.GetLocalisation(), unit.Information);
+				hb.AppendTableRow(unit.AssetGroup.Name, unit.Type, unit.GetLocalisation(), unit.Information);
 			}
 			hb.CloseTable();
 
@@ -214,29 +221,33 @@ namespace DcsBriefop
 			m_listFiles.Add(bf);
 		}
 
-		private void ExportFilesToPath(string sPath, bool bWithHtmlBitmaps)
+		private void ExportFilesToPath(string sPath, bool bKeepHtml)
 		{
 			if (!Directory.Exists(sPath))
 				throw new ExceptionDcsBriefop($"Path does not exists : {sPath}");
+
+			CleanFilesToPath(sPath);
 
 			foreach (BriefingFile briefingFile in m_listFiles)
 			{
 				string sFilePath;
 				if (briefingFile is BriefingFileHtml briefingFileHtml)
 				{
-					sFilePath = Path.Combine(sPath, $"{briefingFile.FileName}.html");
+					string sHtmlFilePath = Path.Combine(sPath, $"{briefingFile.FileName}.html");
+					if (File.Exists(sHtmlFilePath))
+						File.Delete(sHtmlFilePath);
+
+					File.WriteAllText(sHtmlFilePath, briefingFileHtml.HtmlContent);
+
+					sFilePath = Path.Combine(sPath, $"{briefingFile.FileName}.jpg");
 					if (File.Exists(sFilePath))
 						File.Delete(sFilePath);
 
-					File.WriteAllText(sFilePath, briefingFileHtml.HtmlContent);
-
-					if (bWithHtmlBitmaps)
+					briefingFile.BitmapContent.Save(sFilePath, ImageFormat.Jpeg);
+					
+					if (!bKeepHtml)
 					{
-						sFilePath = Path.Combine(sPath, $"{briefingFile.FileName}.jpg");
-						if (File.Exists(sFilePath))
-							File.Delete(sFilePath);
-
-						briefingFile.BitmapContent.Save(sFilePath, ImageFormat.Jpeg);
+						File.Delete(sHtmlFilePath);
 					}
 				}
 				else
@@ -251,10 +262,21 @@ namespace DcsBriefop
 
 		}
 
+		private void CleanFilesToPath(string sPath)
+		{
+			DirectoryInfo di = new DirectoryInfo(sPath);
+			foreach (FileInfo file in di.GetFiles().Where(_f => _f.Name.StartsWith(m_sFilePrefix)))
+			{
+				file.Delete();
+			}
+		}
+
 		private void ExportFilesToMiz()
 		{
 			if (!File.Exists(m_missionManager.MizFilePath))
 				throw new ExceptionDcsBriefop($"Miz file not found : {m_missionManager.MizFilePath}");
+
+			CleanFilesToMiz();
 
 			using (ZipArchive za = ZipFile.Open(m_missionManager.MizFilePath, ZipArchiveMode.Update))
 			{
@@ -270,6 +292,14 @@ namespace DcsBriefop
 			}
 		}
 
+		private void CleanFilesToMiz()
+		{
+			//DirectoryInfo di = new DirectoryInfo(sPath);
+			//foreach (FileInfo file in di.GetFiles().Where(_f => _f.Name.StartsWith(m_sFilePrefix)))
+			//{
+			//	file.Delete();
+			//}
+		}
 		#endregion
 
 		public void Dispose()

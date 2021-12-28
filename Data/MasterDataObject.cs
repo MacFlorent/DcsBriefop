@@ -7,7 +7,8 @@ namespace DcsBriefop.Data
 	internal enum MasterDataType
 	{
 		AssetUsage,
-		AssetMapDisplay
+		AssetMapDisplay,
+		ExportFileType
 	}
 
 	internal class MasterDataObject
@@ -26,6 +27,7 @@ namespace DcsBriefop.Data
 		{
 			m_repository.Add(MasterDataType.AssetUsage, BuildListAssetUsage());
 			m_repository.Add(MasterDataType.AssetMapDisplay, BuildListAssetMapDisplay());
+			m_repository.Add(MasterDataType.ExportFileType, BuildListExportFileTypes());
 		}
 
 		private static List<MasterDataObject> BuildListAssetUsage()
@@ -48,6 +50,18 @@ namespace DcsBriefop.Data
 				new MasterDataObject() { Id = (int)ElementAssetMapDisplay.Point, Label = "Point" },
 				new MasterDataObject() { Id = (int)ElementAssetMapDisplay.Orbit, Label = "Orbit" },
 				new MasterDataObject() { Id = (int)ElementAssetMapDisplay.FullRoute, Label = "Full route" }
+			};
+		}
+
+		private static List<MasterDataObject> BuildListExportFileTypes()
+		{
+			return new List<MasterDataObject>()
+			{
+				new MasterDataObject() { Id = (int)ElementExportFileType.Situation, Label = "Situation" },
+				new MasterDataObject() { Id = (int)ElementExportFileType.SituationMap, Label = "SituationMap" },
+				new MasterDataObject() { Id = (int)ElementExportFileType.Operations, Label = "Operations" },
+				new MasterDataObject() { Id = (int)ElementExportFileType.Missions, Label = "Missions" },
+				new MasterDataObject() { Id = (int)ElementExportFileType.MissionMaps, Label = "MissionMaps" }
 			};
 		}
 

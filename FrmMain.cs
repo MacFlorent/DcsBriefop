@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using DcsBriefop.UcBriefing;
 using System;
 using System.Windows.Forms;
@@ -38,6 +39,7 @@ namespace DcsBriefop
 				{
 					m_missionManager = new MissionManager(ofd.FileName);
 					m_briefingContainer = new BriefingContainer(m_missionManager.Miz);
+					BuildMenu();
 					DataToScreen();
 
 				}
@@ -51,6 +53,7 @@ namespace DcsBriefop
 
 			m_missionManager.MizLoad();
 			m_briefingContainer = new BriefingContainer(m_missionManager.Miz);
+			BuildMenu();
 			DataToScreen();
 		}
 
@@ -164,83 +167,57 @@ namespace DcsBriefop
 		#endregion
 
 		#region Menus
-		private class MenuName
-		{
-			public static readonly string Open = "Open";
-			public static readonly string Reload = "Reload";
-			public static readonly string Save = "Save";
-			public static readonly string SaveAs = "SaveAs";
-			public static readonly string Test = "Test";
-			public static readonly string GenerateBriefingFiles = "GenerateBriefingFiles";
-			public static readonly string Exit = "Exit";
-		}
-
 		private void BuildMenu()
 		{
 			MainMenu.Items.Clear();
 
-			ToolStripMenuItem tsmiFile = MenuItemRoot("Miz", "Miz");
-			tsmiFile.DropDownItems.Add(MenuItem("Open", MenuName.Open));
-			tsmiFile.DropDownItems.Add(MenuItem("Reload", MenuName.Reload));
-			tsmiFile.DropDownItems.Add(MenuItem("Save", MenuName.Save));
-			tsmiFile.DropDownItems.Add(MenuItem("Save as", MenuName.SaveAs));
-			tsmiFile.DropDownItems.Add(new ToolStripSeparator());
-			tsmiFile.DropDownItems.Add(MenuItem("Test", MenuName.Test));
-			tsmiFile.DropDownItems.Add(new ToolStripSeparator());
-			tsmiFile.DropDownItems.Add(MenuItem("Exit", MenuName.Exit));
-			MainMenu.Items.Add(tsmiFile);
-
-			ToolStripMenuItem tsmiBriefing = MenuItemRoot("Briefing", "Briefing");
-			tsmiBriefing.DropDownItems.Add(MenuItem("Generate briefing files", MenuName.GenerateBriefingFiles));
+			ToolStripMenuItem tsmiMiz = MainMenu.Items.AddMenuItem("Miz", null);
+			MainMenu.Items.Add(tsmiMiz);
+			tsmiMiz.DropDownItems.AddMenuItem("Open", (object _sender, EventArgs _e) => { MizOpen(); });
+			tsmiMiz.DropDownItems.AddMenuItem("Reload", (object _sender, EventArgs _e) => { MizReload(); });
+			tsmiMiz.DropDownItems.AddMenuItem("Save", (object _sender, EventArgs _e) => { MizSave(null); });
+			tsmiMiz.DropDownItems.AddMenuItem("Save as", (object _sender, EventArgs _e) => { MizSaveAs(); });
+			tsmiMiz.DropDownItems.AddMenuSeparator();
+			tsmiMiz.DropDownItems.AddMenuItem("Test", (object _sender, EventArgs _e) => { Test(); });
+			tsmiMiz.DropDownItems.AddMenuSeparator();
+			tsmiMiz.DropDownItems.AddMenuItem("Exit", (object _sender, EventArgs _e) => { Application.Exit(); });
+			
+			ToolStripMenuItem tsmiBriefing = MainMenu.Items.AddMenuItem("Briefing", null);
 			MainMenu.Items.Add(tsmiBriefing);
+			ToolStripMenuItem tsmiBriefingCoalitions = tsmiBriefing.DropDownItems.AddMenuItem("Coalitions", null);
+			tsmiBriefing.DropDownItems.Add(tsmiBriefingCoalitions);
+			AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Red);
+			AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Blue);
+			//AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Neutral);
+			tsmiBriefing.DropDownItems.AddMenuItem("Generate", (object _sender, EventArgs _e) => { GenerateBriefingFiles(); });
 		}
 
-		private ToolStripMenuItem MenuItemRoot(string sLabel, string sName)
+		private void AddMenuCoalition(ToolStripMenuItem tsmiBriefingCoalitions, string sCoalitionName)
 		{
-			return new ToolStripMenuItem(sLabel, null, null, sName);
-		}
-
-		private ToolStripMenuItem MenuItem(string sLabel, string sName)
-		{
-			return new ToolStripMenuItem(sLabel, null, new EventHandler(ToolStripItemClicked), sName);
-		}
-
-		private void ToolStripItemClicked(object sender, EventArgs e)
-		{
-			ToolStripItem tsi = sender as ToolStripItem;
-			if (tsi == null)
+			if (m_briefingContainer is null)
 				return;
 
-			if (tsi.Name == MenuName.Open)
+			ToolStripMenuItem tsmiCoalition = tsmiBriefingCoalitions.DropDownItems.AddMenuItem(sCoalitionName, (object _sender, EventArgs _e) => { CoalitionMenuClick(_sender as ToolStripMenuItem, sCoalitionName); });
+			tsmiCoalition.Checked = (m_briefingContainer.GetCoalition(sCoalitionName) is BriefingCoalition coalition && coalition.Included);
+		}
+
+		private void CoalitionMenuClick(ToolStripMenuItem tsmiBriefingCoalition, string sCoalitionName)
+		{
+			BriefingCoalition coalition = m_briefingContainer.GetCoalition(sCoalitionName);
+			if (coalition is null)
 			{
-				MizOpen();
-			}
-			else if (tsi.Name == MenuName.Reload)
-			{
-				MizReload();
-			}
-			else if (tsi.Name == MenuName.Save)
-			{
-				MizSave(null);
-			}
-			else if (tsi.Name == MenuName.SaveAs)
-			{
-				MizSaveAs();
-			}
-			else if (tsi.Name == MenuName.Test)
-			{
-				Test();
-			}
-			else if (tsi.Name == MenuName.Exit)
-			{
-				Application.Exit();
-			}
-			else if (tsi.Name == MenuName.GenerateBriefingFiles)
-			{
-				GenerateBriefingFiles();
+				m_briefingContainer.AddCoalition(sCoalitionName);
+				coalition = m_briefingContainer.GetCoalition(sCoalitionName);
+				coalition.Included = false;
 			}
 
+			coalition.Included = !coalition.Included;
+			tsmiBriefingCoalition.Checked = coalition.Included;
+
+			ScreenToData();
+			DataToScreen();
 		}
+
 		#endregion
 
 		#region Events

@@ -34,8 +34,10 @@ namespace DcsBriefop
 			this.TbLocalDirectory = new System.Windows.Forms.TextBox();
 			this.BtGenerate = new System.Windows.Forms.Button();
 			this.BtLocalDirectoryBrowse = new System.Windows.Forms.Button();
-			this.CkLocalDirectoryHtmlBitmaps = new System.Windows.Forms.CheckBox();
+			this.CkLocalDirectoryHtml = new System.Windows.Forms.CheckBox();
 			this.BtLocalDirectoryReset = new System.Windows.Forms.Button();
+			this.DgvFileTypes = new System.Windows.Forms.DataGridView();
+			((System.ComponentModel.ISupportInitialize)(this.DgvFileTypes)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// CkMizFile
@@ -68,7 +70,8 @@ namespace DcsBriefop
 			// 
 			// BtGenerate
 			// 
-			this.BtGenerate.Location = new System.Drawing.Point(12, 54);
+			this.BtGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.BtGenerate.Location = new System.Drawing.Point(12, 164);
 			this.BtGenerate.Name = "BtGenerate";
 			this.BtGenerate.Size = new System.Drawing.Size(544, 23);
 			this.BtGenerate.TabIndex = 3;
@@ -86,15 +89,15 @@ namespace DcsBriefop
 			this.BtLocalDirectoryBrowse.UseVisualStyleBackColor = true;
 			this.BtLocalDirectoryBrowse.Click += new System.EventHandler(this.BtDirectoryBrowse_Click);
 			// 
-			// CkLocalDirectoryHtmlBitmaps
+			// CkLocalDirectoryHtml
 			// 
-			this.CkLocalDirectoryHtmlBitmaps.AutoSize = true;
-			this.CkLocalDirectoryHtmlBitmaps.Location = new System.Drawing.Point(167, 31);
-			this.CkLocalDirectoryHtmlBitmaps.Name = "CkLocalDirectoryHtmlBitmaps";
-			this.CkLocalDirectoryHtmlBitmaps.Size = new System.Drawing.Size(87, 17);
-			this.CkLocalDirectoryHtmlBitmaps.TabIndex = 5;
-			this.CkLocalDirectoryHtmlBitmaps.Text = "With bitmaps";
-			this.CkLocalDirectoryHtmlBitmaps.UseVisualStyleBackColor = true;
+			this.CkLocalDirectoryHtml.AutoSize = true;
+			this.CkLocalDirectoryHtml.Location = new System.Drawing.Point(167, 31);
+			this.CkLocalDirectoryHtml.Name = "CkLocalDirectoryHtml";
+			this.CkLocalDirectoryHtml.Size = new System.Drawing.Size(91, 17);
+			this.CkLocalDirectoryHtml.TabIndex = 5;
+			this.CkLocalDirectoryHtml.Text = "With html files";
+			this.CkLocalDirectoryHtml.UseVisualStyleBackColor = true;
 			// 
 			// BtLocalDirectoryReset
 			// 
@@ -106,13 +109,29 @@ namespace DcsBriefop
 			this.BtLocalDirectoryReset.UseVisualStyleBackColor = true;
 			this.BtLocalDirectoryReset.Click += new System.EventHandler(this.BtDirectoryReset_Click);
 			// 
+			// DgvFileTypes
+			// 
+			this.DgvFileTypes.AllowUserToAddRows = false;
+			this.DgvFileTypes.AllowUserToDeleteRows = false;
+			this.DgvFileTypes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.DgvFileTypes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+			this.DgvFileTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.DgvFileTypes.Location = new System.Drawing.Point(12, 56);
+			this.DgvFileTypes.Name = "DgvFileTypes";
+			this.DgvFileTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			this.DgvFileTypes.Size = new System.Drawing.Size(544, 102);
+			this.DgvFileTypes.TabIndex = 25;
+			// 
 			// FrmGenerateFiles
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(561, 86);
+			this.ClientSize = new System.Drawing.Size(561, 194);
+			this.Controls.Add(this.DgvFileTypes);
 			this.Controls.Add(this.BtLocalDirectoryReset);
-			this.Controls.Add(this.CkLocalDirectoryHtmlBitmaps);
+			this.Controls.Add(this.CkLocalDirectoryHtml);
 			this.Controls.Add(this.BtLocalDirectoryBrowse);
 			this.Controls.Add(this.BtGenerate);
 			this.Controls.Add(this.TbLocalDirectory);
@@ -121,6 +140,7 @@ namespace DcsBriefop
 			this.Name = "FrmGenerateFiles";
 			this.ShowInTaskbar = false;
 			this.Text = "FrmGenerateFiles";
+			((System.ComponentModel.ISupportInitialize)(this.DgvFileTypes)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -133,7 +153,8 @@ namespace DcsBriefop
 		private System.Windows.Forms.TextBox TbLocalDirectory;
 		private System.Windows.Forms.Button BtGenerate;
 		private System.Windows.Forms.Button BtLocalDirectoryBrowse;
-		private System.Windows.Forms.CheckBox CkLocalDirectoryHtmlBitmaps;
+		private System.Windows.Forms.CheckBox CkLocalDirectoryHtml;
 		private System.Windows.Forms.Button BtLocalDirectoryReset;
+		private System.Windows.Forms.DataGridView DgvFileTypes;
 	}
 }

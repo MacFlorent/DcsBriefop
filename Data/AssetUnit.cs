@@ -12,9 +12,10 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Properties
-
+		public AssetGroup AssetGroup { get; set; }
 		public int Id { get; set; }
 		public string Name { get; set; }
+		public string GroupName { get; set; }
 		public string Type { get; set; }
 		public Coordinate Coordinate { get; set; }
 		public string Description { get; set; }
@@ -22,9 +23,10 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region CTOR
-		public AssetUnit(BaseBriefingCore core, MizUnit unit) : base(core)
+		public AssetUnit(BaseBriefingCore core, MizUnit unit, AssetGroup group) : base(core)
 		{
 			m_unit = unit;
+			AssetGroup = group;
 
 			Id = m_unit.Id;
 			Name = m_unit.Name;

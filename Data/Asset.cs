@@ -59,13 +59,11 @@ namespace DcsBriefop.Data
 		#region Initialize
 		protected void Initialize()
 		{
-			InitializeDataCustom();
 			InitializeData();
+			InitializeDataCustom();
 			InitializeMapPoints();
 			InitializeMapOverlay();
 		}
-
-		protected abstract void InitializeDataCustom();
 
 		protected virtual void InitializeData()
 		{
@@ -83,7 +81,10 @@ namespace DcsBriefop.Data
 			{
 				Color = ElementCoalitionColor.Neutral; 
 			}
+		}
 
+		protected virtual void InitializeDataCustom()
+		{
 			Usage = ElementAssetUsage.Excluded;
 			MapDisplay = ElementAssetMapDisplay.None;
 		}

@@ -22,14 +22,28 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Initialize
+		protected override void InitializeData()
+		{
+			base.InitializeData();
+			
+			MapMarker = MarkerBriefopType.ship.ToString();
+
+			MainUnit = GroupShip.Units.OfType<MizUnitShip>().Where(_us => _us.Type.StartsWith("CVN")).FirstOrDefault();
+			if (MainUnit is null)
+				MainUnit = GroupShip.Units.OfType<MizUnitShip>().FirstOrDefault();
+
+			Type = MainUnit.Type;
+			Radio = new Radio() { Frequency = MainUnit.RadioFrequency / 1000000, Modulation = MainUnit.RadioModulation };
+		}
+
 		protected override void InitializeDataCustom()
 		{
-			m_briefopCustomGroup = Core.Miz.BriefopCustom.GetGroup(Id, Coalition.CoalitionName);
+			m_briefopCustomGroup = Core.Miz.BriefopCustomData.GetGroup(Id, Coalition.CoalitionName);
 
 			if (m_briefopCustomGroup is null)
 			{
 				m_briefopCustomGroup = new BriefopCustomGroup(Id, Coalition.CoalitionName);
-				Core.Miz.BriefopCustom.AssetGroups.Add(m_briefopCustomGroup);
+				Core.Miz.BriefopCustomData.AssetGroups.Add(m_briefopCustomGroup);
 
 				if (Type.StartsWith("CVN"))
 				{
@@ -44,20 +58,9 @@ namespace DcsBriefop.Data
 
 				m_briefopCustomGroup.SetDefaultData();
 			}
-		}
 
-		protected override void InitializeData()
-		{
-			base.InitializeData();
-			
-			MapMarker = MarkerBriefopType.ship.ToString();
-
-			MainUnit = GroupShip.Units.OfType<MizUnitShip>().Where(_us => _us.Type.StartsWith("CVN")).FirstOrDefault();
-			if (MainUnit is null)
-				MainUnit = GroupShip.Units.OfType<MizUnitShip>().FirstOrDefault();
-
-			Type = MainUnit.Type;
-			Radio = new Radio() { Frequency = MainUnit.RadioFrequency / 1000000, Modulation = MainUnit.RadioModulation };
+			Usage = (ElementAssetUsage)m_briefopCustomGroup.Usage;
+			MapDisplay = (ElementAssetMapDisplay)m_briefopCustomGroup.MapDisplay;
 		}
 		#endregion
 

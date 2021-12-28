@@ -147,25 +147,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BriefingFilesBuilder.cs" />
-    <Compile Include="Briefing\BriefingUnit.cs" />
-    <Compile Include="Briefing\AssetStatic.cs" />
-    <Compile Include="Briefing\AssetVehicle.cs" />
-    <Compile Include="Briefing\Asset.cs" />
-    <Compile Include="Briefing\AssetAirdrome.cs" />
-    <Compile Include="Briefing\CustomDataMission.cs" />
-    <Compile Include="Briefing\CustomDataAsset.cs" />
     <Compile Include="DataMiz\BaseBriefopCustomSerializable.cs" />
     <Compile Include="DataMiz\BriefopCustomAsset.cs" />
     <Compile Include="DataMiz\BriefopCustomMission.cs" />
     <Compile Include="DataMiz\Miz.cs" />
     <Compile Include="Data\Airdrome.cs" />
-    <Compile Include="Briefing\BriefingCoalition.cs" />
-    <Compile Include="Briefing\AssetMapPoint.cs" />
-    <Compile Include="Briefing\AssetShip.cs" />
-    <Compile Include="Briefing\AssetFlight.cs" />
-    <Compile Include="Briefing\AssetGroup.cs" />
-    <Compile Include="Briefing\BriefingPack.cs" />
-    <Compile Include="Briefing\CustomData.cs" />
     <Compile Include="Data\Asset.cs" />
     <Compile Include="Data\AssetAirdrome.cs" />
     <Compile Include="Data\AssetFlight.cs" />
@@ -263,8 +249,6 @@
     <Compile Include="LsonLib\Lson.cs" />
     <Compile Include="LsonLib\OffsetToLineCol.cs" />
     <Compile Include="LsonLib\Util.cs" />
-    <Compile Include="Briefing\BaseBriefing.cs" />
-    <Compile Include="Briefing\MissionManager.cs" />
     <Compile Include="Data\ElementDcs.cs" />
     <Compile Include="Data\WeatherPreset.cs" />
     <Compile Include="Program.cs" />
@@ -272,7 +256,6 @@
     <Compile Include="Tools\ToolsCoordinate.cs" />
     <Compile Include="Tools\ToolsLson.cs" />
     <Compile Include="Tools\ToolsMisc.cs" />
-    <Compile Include="Briefing\BriefingWeather.cs" />
     <Compile Include="UcBriefing\UcBriefingCoalition.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -214,20 +214,6 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 
 		#region Menus
-		private enum MenuName
-		{
-			AssetDetail,
-			AssetMission,
-			AssetUsageSetExcluded,
-			AssetUsageSetMission,
-			AssetUsageSetSupport,
-			AssetUsageSetBase,
-			AssetMapDisplaySetNone,
-			AssetMapDisplaySetPoint,
-			AssetMapDisplaySetOrbit,
-			AssetMapDisplaySetFullRoute,
-		}
-
 		private void InitializeContextMenu(DataGridView dgv)
 		{
 			dgv.ContextMenuStrip = new ContextMenuStrip();
@@ -292,28 +278,12 @@ namespace DcsBriefop.UcBriefing
 			//		UcMap.Refresh();
 			//	}
 			//}
-
-		}
-
-		private void DgvFlights_SelectionChanged(object sender, System.EventArgs e)
-		{
-			//if (sender is DataGridView dgv && dgv.SelectedRows.Count > 0)
-			//{
-			//	object o = dgv.SelectedRows[0].Cells["_data"].Value;
-			//	if (o is BriefingGroup bg)
-			//	{
-			//		UcMap.RemoveOverlay("group");
-			//		UcMap.AddOverlay(bg.MapOverlay);
-			//		UcMap.RefreshMap("group");
-			//	}
-			//}
-
-
 		}
 
 		private void TbBullseyeDescription_Validated(object sender, System.EventArgs e)
 		{
 			Coalition.BullseyeDescription = TbBullseyeDescription.Text;
+			Coalition.ResetBullseyeMarkerDescription();
 		}
 		#endregion
 	}

@@ -1,6 +1,7 @@
-﻿using DcsBriefop.Tools;
-using LsonLib;
+﻿using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
@@ -20,6 +21,7 @@ namespace DcsBriefop
 		public bool ExportLocalDirectoryActive { get; set; } = true;
 		public bool ExportLocalDirectoryBitmaps { get; set; } = false;
 		public string ExportLocalDirectoryPath { get; set; }
+		public List<ElementExportFileType> ExportFileTypes { get; set; } = new List<ElementExportFileType>() { ElementExportFileType.Situation, ElementExportFileType.Operations, ElementExportFileType.Missions };
 
 		public DataMiz.Miz Miz { get; private set; }
 		#endregion
@@ -114,7 +116,7 @@ namespace DcsBriefop
 			{
 				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.DictionaryZipEntryFullName, ToolsLua.LsonRootToCorrectedString(Miz.RootDictionary.RootLua));
 				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.MissionFileName, ToolsLua.LsonRootToCorrectedString(Miz.RootMission.RootLua));
-				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.BriefopCustomFileName, Miz.BriefopCustom.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
+				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.BriefopCustomFileName, Miz.BriefopCustomData.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
 			}
 
 			//File.WriteAllText(Path.Combine(MizFileDirectory, "testcustom.json"), RootCustom.SerializeToJson(Newtonsoft.Json.Formatting.Indented));

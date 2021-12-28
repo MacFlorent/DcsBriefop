@@ -20,7 +20,7 @@ namespace DcsBriefop.DataMiz
 
 		public MizRootMission RootMission { get; private set; }
 		public MizRootDictionary RootDictionary { get; private set; }
-		public BriefopCustom BriefopCustom { get; private set; }
+		public BriefopCustom BriefopCustomData { get; private set; }
 		#endregion
 
 		#region CTOR
@@ -30,9 +30,9 @@ namespace DcsBriefop.DataMiz
 			RootDictionary = new MizRootDictionary(LsonVars.Parse(sLuaDictionary));
 
 			if (!string.IsNullOrEmpty(sJsonBriefopCustom))
-				BriefopCustom = BriefopCustom.DeserializeJson(File.ReadAllText(sJsonBriefopCustom));
+				BriefopCustomData = BriefopCustom.DeserializeJson(sJsonBriefopCustom);
 			else
-				BriefopCustom = new BriefopCustom();
+				BriefopCustomData = new BriefopCustom();
 		}
 		#endregion
 

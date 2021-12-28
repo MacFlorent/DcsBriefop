@@ -25,14 +25,24 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Initialize
+		protected override void InitializeData()
+		{
+			base.InitializeData();
+		
+			MapMarker = MarkerBriefopType.aircraft.ToString();
+
+			Task = GroupFlight.Task;
+			Radio = new Radio() { Frequency = GroupFlight.RadioFrequency, Modulation = GroupFlight.RadioModulation };
+		}
+
 		protected override void InitializeDataCustom()
 		{
-			m_briefopCustomGroup = Core.Miz.BriefopCustom.GetGroup(Id, Coalition.CoalitionName);
+			m_briefopCustomGroup = Core.Miz.BriefopCustomData.GetGroup(Id, Coalition.CoalitionName);
 
 			if (m_briefopCustomGroup is null)
 			{
 				m_briefopCustomGroup = new BriefopCustomGroup(Id, Coalition.CoalitionName);
-				Core.Miz.BriefopCustom.AssetGroups.Add(m_briefopCustomGroup);
+				Core.Miz.BriefopCustomData.AssetGroups.Add(m_briefopCustomGroup);
 
 				if (Side != ElementAssetSide.Own)
 				{
@@ -57,16 +67,9 @@ namespace DcsBriefop.Data
 
 				m_briefopCustomGroup.SetDefaultData();
 			}
-		}
 
-		protected override void InitializeData()
-		{
-			base.InitializeData();
-			
-			MapMarker = MarkerBriefopType.aircraft.ToString();
-
-			Task = GroupFlight.Task;
-			Radio = new Radio() { Frequency = GroupFlight.RadioFrequency, Modulation = GroupFlight.RadioModulation };
+			Usage = (ElementAssetUsage)m_briefopCustomGroup.Usage;
+			MapDisplay = (ElementAssetMapDisplay)m_briefopCustomGroup.MapDisplay;
 		}
 		#endregion
 
@@ -238,11 +241,11 @@ namespace DcsBriefop.Data
 		#region Initialize
 		private void InitializeDataCustom()
 		{
-			m_briefopCustomMission = Core.Miz.BriefopCustom.GetMission(m_flight.Id, Coalition.CoalitionName);
+			m_briefopCustomMission = Core.Miz.BriefopCustomData.GetMission(m_flight.Id, Coalition.CoalitionName);
 			if (m_briefopCustomMission is null)
 			{
 				m_briefopCustomMission = new BriefopCustomMission(m_flight.Id, Coalition.CoalitionName);
-				Core.Miz.BriefopCustom.Missions.Add(m_briefopCustomMission);
+				Core.Miz.BriefopCustomData.Missions.Add(m_briefopCustomMission);
 			}
 		}
 
@@ -277,7 +280,7 @@ namespace DcsBriefop.Data
 
 			MapData.AdditionalMapOverlays.Clear();
 			MapData.AdditionalMapOverlays.Add(staticOverlay);
-			MapData.AdditionalMapOverlays.Add(Core.Miz.BriefopCustom.MapData.MapOverlayCustom);
+			MapData.AdditionalMapOverlays.Add(Core.Miz.BriefopCustomData.MapData.MapOverlayCustom);
 			MapData.AdditionalMapOverlays.Add(Coalition.MapData.MapOverlayCustom);
 
 			foreach (AssetAirdrome airdrome in m_flight.GetAirdromeAssets())
@@ -304,8 +307,8 @@ namespace DcsBriefop.Data
 
 		public void Remove()
 		{
-			if (Core.Miz.BriefopCustom.Missions.Contains(m_briefopCustomMission))
-				Core.Miz.BriefopCustom.Missions.Contains(m_briefopCustomMission);
+			if (Core.Miz.BriefopCustomData.Missions.Contains(m_briefopCustomMission))
+				Core.Miz.BriefopCustomData.Missions.Contains(m_briefopCustomMission);
 		}
 
 		public bool IsTarget(int iTargetId)

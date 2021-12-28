@@ -21,11 +21,11 @@ namespace DcsBriefop.UcBriefing
 			TcMissionData.TabPages.Clear();
 
 			UcBriefingSituation ucbs = new UcBriefingSituation(UcMap, BriefingContainer);
-			TabPageBriefing tpb = new TabPageBriefing("SITUATION", ucbs);
+			TabPageBriefing tpb = new TabPageBriefing("situation", ucbs);
 			TcMissionData.TabPages.Add(tpb);
 			tpb.UcBriefing.DataToScreen();
 
-			foreach(BriefingCoalition coalition in BriefingContainer.BriefingCoalitions)
+			foreach(BriefingCoalition coalition in BriefingContainer.BriefingCoalitions.Where(_c => _c.Included))
 			{
 				DataToScreen_AddCoalitionTab(coalition);
 			}

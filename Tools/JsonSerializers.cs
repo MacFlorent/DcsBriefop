@@ -1,4 +1,4 @@
-﻿using DcsBriefop.Briefing;
+﻿using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using GMap.NET;
 using GMap.NET.WindowsForms;
@@ -106,14 +106,14 @@ namespace DcsBriefop.Tools
 		}
 	}
 
-	internal class ListCustomDataAssetGroupJsonConverter : JsonConverter<List<CustomDataAssetGroup>>
+	internal class ListBriefopCustomGroupJsonConverter : JsonConverter<List<BriefopCustomGroup>>
 	{
-		public override void WriteJson(JsonWriter writer, List<CustomDataAssetGroup> value, JsonSerializer serializer)
+		public override void WriteJson(JsonWriter writer, List<BriefopCustomGroup> value, JsonSerializer serializer)
 		{
 			if (value is object && value.Count > 0)
 			{
 				JArray ja = new JArray();
-				foreach (CustomDataAssetGroup customDataAsset in value.Where(_a => !_a.IsDefaultData()))
+				foreach (BriefopCustomGroup customDataAsset in value.Where(_a => !_a.IsDefaultData()))
 				{
 					ja.Add(JToken.FromObject(customDataAsset, serializer));
 				}
@@ -122,20 +122,20 @@ namespace DcsBriefop.Tools
 			}
 		}
 
-		public override List<CustomDataAssetGroup> ReadJson(JsonReader reader, Type objectType, List<CustomDataAssetGroup> existingValue, bool hasExistingValue, JsonSerializer serializer)
+		public override List<BriefopCustomGroup> ReadJson(JsonReader reader, Type objectType, List<BriefopCustomGroup> existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
 			throw new NotImplementedException();
 		}
 	}
 
-	internal class ListCustomDataAssetAirdromeJsonConverter : JsonConverter<List<CustomDataAssetAirdrome>>
+	internal class ListBriefopCustomAirdromeJsonConverter : JsonConverter<List<BriefopCustomAirdrome>>
 	{
-		public override void WriteJson(JsonWriter writer, List<CustomDataAssetAirdrome> value, JsonSerializer serializer)
+		public override void WriteJson(JsonWriter writer, List<BriefopCustomAirdrome> value, JsonSerializer serializer)
 		{
 			if (value is object && value.Count > 0)
 			{
 				JArray ja = new JArray();
-				foreach (CustomDataAssetAirdrome customDataAsset in value.Where(_a => !_a.IsDefaultData()))
+				foreach (BriefopCustomAirdrome customDataAsset in value.Where(_a => !_a.IsDefaultData()))
 				{
 					ja.Add(JToken.FromObject(customDataAsset, serializer));
 				}
@@ -144,7 +144,7 @@ namespace DcsBriefop.Tools
 			}
 		}
 
-		public override List<CustomDataAssetAirdrome> ReadJson(JsonReader reader, Type objectType, List<CustomDataAssetAirdrome> existingValue, bool hasExistingValue, JsonSerializer serializer)
+		public override List<BriefopCustomAirdrome> ReadJson(JsonReader reader, Type objectType, List<BriefopCustomAirdrome> existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
 			throw new NotImplementedException();
 		}

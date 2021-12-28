@@ -27,6 +27,15 @@ namespace DcsBriefop.Data
 		FullRoute = 3
 	}
 
+	internal enum ElementExportFileType
+	{
+		Situation,
+		SituationMap,
+		Operations,
+		Missions,
+		MissionMaps,
+	}
+
 	internal static class ElementGlobalData
 	{
 		public static readonly string ResourcesDirectory = "Resources";

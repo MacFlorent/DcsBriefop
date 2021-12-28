@@ -8,8 +8,8 @@ namespace DcsBriefop.DataMiz
 		#region Fields
 		protected static JsonConverter m_converterGMapOverlays = new GMapOverlayJsonConverter();
 		protected static JsonConverter m_converterGMarkerBriefop = new GMarkerBriefopJsonConverter();
-		protected static JsonConverter m_converterListCustomDataAssetGroup = new ListCustomDataAssetGroupJsonConverter();
-		protected static JsonConverter m_converterListCustomDataAssetAirdrome = new ListCustomDataAssetAirdromeJsonConverter();
+		protected static JsonConverter m_converterListCustomDataAssetGroup = new ListBriefopCustomGroupJsonConverter();
+		protected static JsonConverter m_converterListCustomDataAssetAirdrome = new ListBriefopCustomAirdromeJsonConverter();
 
 		protected static JsonConverter[] m_serializeConverters = new JsonConverter[] { m_converterGMapOverlays, m_converterGMarkerBriefop, m_converterListCustomDataAssetGroup, m_converterListCustomDataAssetAirdrome };
 		protected static JsonConverter[] m_deserializeConverters = new JsonConverter[] { m_converterGMapOverlays, m_converterGMarkerBriefop };

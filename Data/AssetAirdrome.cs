@@ -30,12 +30,12 @@ namespace DcsBriefop.Data
 		#region Initialization
 		protected override void InitializeDataCustom()
 		{
-			m_briefopCustomAirdrome = Core.Miz.BriefopCustom.GetAirdrome(Id, Coalition.CoalitionName);
+			m_briefopCustomAirdrome = Core.Miz.BriefopCustomData.GetAirdrome(Id, Coalition.CoalitionName);
 
 			if (m_briefopCustomAirdrome is null)
 			{
 				m_briefopCustomAirdrome = new BriefopCustomAirdrome(Id, Coalition.CoalitionName);
-				Core.Miz.BriefopCustom.AssetAirdromes.Add(m_briefopCustomAirdrome);
+				Core.Miz.BriefopCustomData.AssetAirdromes.Add(m_briefopCustomAirdrome);
 
 				if (IsAssetBase())
 				{
@@ -50,6 +50,9 @@ namespace DcsBriefop.Data
 
 				m_briefopCustomAirdrome.SetDefaultData();
 			}
+
+			Usage = (ElementAssetUsage)m_briefopCustomAirdrome.Usage;
+			MapDisplay = (ElementAssetMapDisplay)m_briefopCustomAirdrome.MapDisplay;
 		}
 
 		protected override void InitializeData()
@@ -57,14 +60,6 @@ namespace DcsBriefop.Data
 			base.InitializeData();
 			
 			MapMarker = MarkerBriefopType.airport.ToString();
-			Usage = (ElementAssetUsage)m_briefopCustomAirdrome.Usage;
-			MapDisplay = (ElementAssetMapDisplay)m_briefopCustomAirdrome.MapDisplay;
-
-			if (IsAssetBase())
-			{
-				Side = ElementAssetSide.Own;
-				Color = Coalition.OwnColor;
-			}
 
 			Id = m_airdrome.Id;
 			Name = m_airdrome.Name;
@@ -72,6 +67,12 @@ namespace DcsBriefop.Data
 
 			Coordinate = new Coordinate(m_airdrome.Latitude, m_airdrome.Longitude);
 			Tacan = m_airdrome.Tacan;
+
+			if (IsAssetBase())
+			{
+				Side = ElementAssetSide.Own;
+				Color = Coalition.OwnColor;
+			}
 		}
 
 		protected override void InitializeMapPoints()

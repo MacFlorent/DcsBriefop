@@ -28,25 +28,9 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Initialize
-		protected override void InitializeDataCustom()
-		{
-			m_briefopCustomGroup = Core.Miz.BriefopCustom.GetGroup(Id, Coalition.CoalitionName);
-
-			if (m_briefopCustomGroup is null)
-			{
-				m_briefopCustomGroup = new BriefopCustomGroup(Id, Coalition.CoalitionName);
-				Core.Miz.BriefopCustom.AssetGroups.Add(m_briefopCustomGroup);
-
-				m_briefopCustomGroup.SetDefaultData();
-			}
-		}
-
 		protected override void InitializeData()
 		{
 			base.InitializeData();
-
-			Usage = (ElementAssetUsage)m_briefopCustomGroup.Usage;
-			MapDisplay = (ElementAssetMapDisplay)m_briefopCustomGroup.MapDisplay;
 
 			Id = m_mizGroup.Id;
 			Name = m_mizGroup.Name;
@@ -57,8 +41,27 @@ namespace DcsBriefop.Data
 
 			foreach (MizUnit unit in m_mizGroup.Units)
 			{
-				Units.Add(new AssetUnit(Core, unit));
+				Units.Add(new AssetUnit(Core, unit, this));
 			}
+		}
+
+		protected override void InitializeDataCustom()
+		{
+			m_briefopCustomGroup = Core.Miz.BriefopCustomData.GetGroup(Id, Coalition.CoalitionName);
+
+			if (m_briefopCustomGroup is null)
+			{
+				m_briefopCustomGroup = new BriefopCustomGroup(Id, Coalition.CoalitionName);
+				Core.Miz.BriefopCustomData.AssetGroups.Add(m_briefopCustomGroup);
+
+				m_briefopCustomGroup.Usage = (int)ElementAssetUsage.Excluded;
+				m_briefopCustomGroup.MapDisplay = (int)ElementAssetMapDisplay.None;
+
+				m_briefopCustomGroup.SetDefaultData();
+			}
+
+			Usage = (ElementAssetUsage)m_briefopCustomGroup.Usage;
+			MapDisplay = (ElementAssetMapDisplay)m_briefopCustomGroup.MapDisplay;
 		}
 
 		protected override void InitializeMapPoints()

@@ -23,6 +23,7 @@ namespace DcsBriefop.Data
 
 		#region Properties
 		public string CoalitionName { get; set; }
+		public bool Included { get; set; }
 		public Coordinate Bullseye { get; set; }
 		public string BullseyeDescription { get; set; }
 		public string Task { get; set; }
@@ -58,12 +59,14 @@ namespace DcsBriefop.Data
 
 		private void InitializeDataCustom()
 		{
-			m_briefopCustomCoalition = Core.Miz.BriefopCustom.GetCoalition(CoalitionName);
+			m_briefopCustomCoalition = Core.Miz.BriefopCustomData.GetCoalition(CoalitionName);
 			if (m_briefopCustomCoalition is null)
 			{
-				m_briefopCustomCoalition = new BriefopCustomCoalition() { CoalitionName = CoalitionName };
-				Core.Miz.BriefopCustom.Coalitions.Add(m_briefopCustomCoalition);
+				m_briefopCustomCoalition = new BriefopCustomCoalition() { CoalitionName = CoalitionName, Included = true };
+				Core.Miz.BriefopCustomData.Coalitions.Add(m_briefopCustomCoalition);
 			}
+
+			Included = m_briefopCustomCoalition.Included;
 		}
 
 		private void InitializeData()
@@ -116,7 +119,7 @@ namespace DcsBriefop.Data
 
 			MapData.AdditionalMapOverlays.Clear();
 			MapData.AdditionalMapOverlays.Add(staticOverlay);
-			MapData.AdditionalMapOverlays.Add(Core.Miz.BriefopCustom.MapData.MapOverlayCustom);
+			MapData.AdditionalMapOverlays.Add(Core.Miz.BriefopCustomData.MapData.MapOverlayCustom);
 		}
 
 		private void InitializeMapDataChildrenOverlays()
@@ -157,6 +160,7 @@ namespace DcsBriefop.Data
 			else if (CoalitionName == ElementCoalition.Neutral)
 				Core.Miz.RootDictionary.NeutralTask = Task;
 
+			m_briefopCustomCoalition.Included = Included;
 			m_briefopCustomCoalition.BullseyeDescription = BullseyeDescription;
 
 			foreach (Asset asset in OwnAssets)
@@ -197,6 +201,12 @@ namespace DcsBriefop.Data
 		public string GetBullseyeCoordinatesString()
 		{
 			return $"{Bullseye.ToStringDMS()}{Environment.NewLine}{Bullseye.ToStringDDM()}{Environment.NewLine}{Bullseye.ToStringMGRS()}";
+		}
+
+		public void ResetBullseyeMarkerDescription()
+		{
+			if (m_markerkBullseye is object)
+				m_markerkBullseye.Label = BullseyeDescription;
 		}
 		#endregion
 	}
