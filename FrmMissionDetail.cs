@@ -206,7 +206,6 @@ namespace DcsBriefop
 				m_asset.MissionData.InitializeMapData();
 				UpdateMapControl();
 			}
-
 		}
 
 		private void DgvTargets_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)

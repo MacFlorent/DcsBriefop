@@ -1,4 +1,5 @@
-﻿using GMap.NET.WindowsForms;
+﻿using DcsBriefop.Data;
+using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,6 +68,7 @@ namespace DcsBriefop.DataMiz
 		public bool Included { get; set; }
 		public string BullseyeDescription { get; set; }
 		public BriefopCustomMap MapData { get; set; }
+		public ListComPreset ComPresets { get; set; }
 	}
 }
 

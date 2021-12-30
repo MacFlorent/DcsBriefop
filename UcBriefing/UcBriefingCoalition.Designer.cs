@@ -34,7 +34,7 @@ namespace DcsBriefop.UcBriefing
 			this.LbBullseye = new System.Windows.Forms.Label();
 			this.TbBullseyeCoordinates = new System.Windows.Forms.TextBox();
 			this.TbBullseyeDescription = new System.Windows.Forms.TextBox();
-			this.button1 = new System.Windows.Forms.Button();
+			this.BtComPresets = new System.Windows.Forms.Button();
 			this.TcAssets = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.TcAssets.SuspendLayout();
@@ -97,15 +97,16 @@ namespace DcsBriefop.UcBriefing
 			this.TbBullseyeDescription.TabIndex = 8;
 			this.TbBullseyeDescription.Validated += new System.EventHandler(this.TbBullseyeDescription_Validated);
 			// 
-			// button1
+			// BtComPresets
 			// 
-			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button1.Location = new System.Drawing.Point(3, 751);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(118, 23);
-			this.button1.TabIndex = 9;
-			this.button1.Text = "Communications";
-			this.button1.UseVisualStyleBackColor = true;
+			this.BtComPresets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.BtComPresets.Location = new System.Drawing.Point(3, 751);
+			this.BtComPresets.Name = "BtComPresets";
+			this.BtComPresets.Size = new System.Drawing.Size(118, 23);
+			this.BtComPresets.TabIndex = 9;
+			this.BtComPresets.Text = "Communications";
+			this.BtComPresets.UseVisualStyleBackColor = true;
+			this.BtComPresets.Click += new System.EventHandler(this.BtComPresets_Click);
 			// 
 			// TcAssets
 			// 
@@ -134,7 +135,7 @@ namespace DcsBriefop.UcBriefing
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.TcAssets);
-			this.Controls.Add(this.button1);
+			this.Controls.Add(this.BtComPresets);
 			this.Controls.Add(this.TbBullseyeDescription);
 			this.Controls.Add(this.TbBullseyeCoordinates);
 			this.Controls.Add(this.LbBullseye);
@@ -154,7 +155,7 @@ namespace DcsBriefop.UcBriefing
 		private System.Windows.Forms.Label LbBullseye;
 		private System.Windows.Forms.TextBox TbBullseyeCoordinates;
 		private System.Windows.Forms.TextBox TbBullseyeDescription;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button BtComPresets;
 		private System.Windows.Forms.TabControl TcAssets;
 		private System.Windows.Forms.TabPage tabPage1;
 	}

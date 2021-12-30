@@ -2,19 +2,37 @@
 {
 	internal class Radio
 	{
+		#region Properties
 		public decimal Frequency { get; set; }
 		public int Modulation { get; set; }
+		#endregion
 
+		#region CTOR
+		public Radio()
+		{
+			Frequency = 250;
+			Modulation = ElementRadioModulation.AM;
+		}
+
+		public Radio(decimal dFrequency, int iModulation)
+		{
+			Frequency = dFrequency;
+			Modulation = iModulation;
+		}
+		#endregion
+
+		#region Methods
 		public override string ToString()
 		{
-			string sModulation = "";
-			if (Modulation == ElementRadioModulation.AM)
-				sModulation = "AM";
-			if (Modulation == ElementRadioModulation.FM)
-				sModulation = "FM";
-
+			string sModulation = MasterDataRepository.GetById(MasterDataType.RadioModulation, Modulation)?.Label;
 			return $"{Frequency:###.00}{sModulation}";
 		}
+
+		public Radio GetCopy()
+		{
+			return new Radio(Frequency, Modulation);
+		}
+		#endregion
 	}
 
 	internal class Tacan

@@ -8,7 +8,8 @@ namespace DcsBriefop.Data
 	{
 		AssetUsage,
 		AssetMapDisplay,
-		ExportFileType
+		ExportFileType,
+		RadioModulation
 	}
 
 	internal class MasterDataObject
@@ -28,6 +29,7 @@ namespace DcsBriefop.Data
 			m_repository.Add(MasterDataType.AssetUsage, BuildListAssetUsage());
 			m_repository.Add(MasterDataType.AssetMapDisplay, BuildListAssetMapDisplay());
 			m_repository.Add(MasterDataType.ExportFileType, BuildListExportFileTypes());
+			m_repository.Add(MasterDataType.RadioModulation, BuildListRadioModulation());
 		}
 
 		private static List<MasterDataObject> BuildListAssetUsage()
@@ -62,6 +64,15 @@ namespace DcsBriefop.Data
 				new MasterDataObject() { Id = (int)ElementExportFileType.Operations, Label = "Operations" },
 				new MasterDataObject() { Id = (int)ElementExportFileType.Missions, Label = "Missions" },
 				new MasterDataObject() { Id = (int)ElementExportFileType.MissionMaps, Label = "MissionMaps" }
+			};
+		}
+
+		private static List<MasterDataObject> BuildListRadioModulation()
+		{
+			return new List<MasterDataObject>()
+			{
+				new MasterDataObject() { Id = (int)ElementRadioModulation.AM, Label = "AM" },
+				new MasterDataObject() { Id = (int)ElementRadioModulation.FM, Label = "FM" }
 			};
 		}
 

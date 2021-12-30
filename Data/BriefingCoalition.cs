@@ -18,7 +18,6 @@ namespace DcsBriefop.Data
 		private MizCoalition m_mizOpposingCoalition;
 		private BriefopCustomCoalition m_briefopCustomCoalition;
 		private GMarkerBriefop m_markerkBullseye;
-
 		#endregion
 
 		#region Properties
@@ -34,6 +33,7 @@ namespace DcsBriefop.Data
 		public List<Asset> OwnAssets { get; private set; } = new List<Asset>();
 		public List<Asset> OpposingAssets { get; private set; } = new List<Asset>();
 		public List<AssetAirdrome> Airdromes { get; private set; } = new List<AssetAirdrome>();
+		public ListComPreset ComPresets { get; set; }
 
 		public BriefopCustomMap MapData { get { return m_briefopCustomCoalition.MapData; } }
 		#endregion
@@ -67,6 +67,9 @@ namespace DcsBriefop.Data
 			}
 
 			Included = m_briefopCustomCoalition.Included;
+
+			if (m_briefopCustomCoalition.ComPresets is object)
+				ComPresets = m_briefopCustomCoalition.ComPresets.GetCopy();
 		}
 
 		private void InitializeData()
@@ -170,6 +173,10 @@ namespace DcsBriefop.Data
 			foreach (Asset asset in Airdromes)
 				asset.Persist();
 
+			if (ComPresets is object && ComPresets.Count > 0)
+			{
+				m_briefopCustomCoalition.ComPresets = ComPresets.GetCopy();
+			}
 		}
 
 		private List<Asset> BuildCoalitionAssets(MizCoalition mizCoalition, ElementAssetSide side)

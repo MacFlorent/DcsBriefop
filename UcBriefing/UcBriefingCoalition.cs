@@ -285,6 +285,14 @@ namespace DcsBriefop.UcBriefing
 			Coalition.BullseyeDescription = TbBullseyeDescription.Text;
 			Coalition.ResetBullseyeMarkerDescription();
 		}
+
+		private void BtComPresets_Click(object sender, EventArgs e)
+		{
+			FrmComs f = new FrmComs(Coalition);
+			f.ShowDialog();
+		}
 		#endregion
+
+
 	}
 }

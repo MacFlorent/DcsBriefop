@@ -1,5 +1,5 @@
-﻿using DcsBriefop.Map;
-using DcsBriefop.Data;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using TheArtOfDev.HtmlRenderer.WinForms;
-using DcsBriefop.DataMiz;
 
 namespace DcsBriefop
 {
@@ -21,6 +20,11 @@ namespace DcsBriefop
 		public string FileName { get; set; }
 		public string KneeboardFolder { get; set; }
 		public Bitmap BitmapContent { get; set; }
+
+		public string GetKneeboardZipEntryName()
+		{
+			return $@"KNEEBOARD/{KneeboardFolder}/{FileName}.jpg";
+		}
 
 		public void Dispose()
 		{
@@ -282,7 +286,7 @@ namespace DcsBriefop
 			{
 				foreach (BriefingFile briefingFile in m_listFiles)
 				{
-					string sZipEntry = $@"KNEEBOARD/{briefingFile.KneeboardFolder}/{briefingFile.FileName}.jpg";
+					string sZipEntry = briefingFile.GetKneeboardZipEntryName();
 					string sTempPath = Path.GetTempFileName();
 					briefingFile.BitmapContent.Save(sTempPath);
 
@@ -294,11 +298,19 @@ namespace DcsBriefop
 
 		private void CleanFilesToMiz()
 		{
-			//DirectoryInfo di = new DirectoryInfo(sPath);
-			//foreach (FileInfo file in di.GetFiles().Where(_f => _f.Name.StartsWith(m_sFilePrefix)))
-			//{
-			//	file.Delete();
-			//}
+			using (ZipArchive za = ZipFile.Open(m_missionManager.MizFilePath, ZipArchiveMode.Update))
+			{
+				List<string> listToDelete = new List<string>();
+				foreach (ZipArchiveEntry entry in za.Entries.Where(_ze =>_ze.Name.StartsWith(m_sFilePrefix)))
+				{
+					listToDelete.Add(entry.FullName);
+				}
+
+				foreach(string sEntry in listToDelete)
+				{
+					ToolsZip.RemoveZipEntries(za, sEntry);
+				}
+			}
 		}
 		#endregion
 

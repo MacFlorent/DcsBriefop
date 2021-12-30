@@ -71,7 +71,7 @@ namespace DcsBriefop
 			// BtGenerate
 			// 
 			this.BtGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.BtGenerate.Location = new System.Drawing.Point(12, 164);
+			this.BtGenerate.Location = new System.Drawing.Point(12, 229);
 			this.BtGenerate.Name = "BtGenerate";
 			this.BtGenerate.Size = new System.Drawing.Size(544, 23);
 			this.BtGenerate.TabIndex = 3;
@@ -121,14 +121,14 @@ namespace DcsBriefop
 			this.DgvFileTypes.Location = new System.Drawing.Point(12, 56);
 			this.DgvFileTypes.Name = "DgvFileTypes";
 			this.DgvFileTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.DgvFileTypes.Size = new System.Drawing.Size(544, 102);
+			this.DgvFileTypes.Size = new System.Drawing.Size(544, 167);
 			this.DgvFileTypes.TabIndex = 25;
 			// 
 			// FrmGenerateFiles
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(561, 194);
+			this.ClientSize = new System.Drawing.Size(561, 259);
 			this.Controls.Add(this.DgvFileTypes);
 			this.Controls.Add(this.BtLocalDirectoryReset);
 			this.Controls.Add(this.CkLocalDirectoryHtml);
