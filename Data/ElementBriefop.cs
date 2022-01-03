@@ -27,6 +27,13 @@ namespace DcsBriefop.Data
 		FullRoute = 3
 	}
 
+	internal enum ElementComPresetMode
+	{
+		Free = 0,
+		Airdrome = 1,
+		Group = 2
+	}
+
 	internal enum ElementExportFileType
 	{
 		Situation,

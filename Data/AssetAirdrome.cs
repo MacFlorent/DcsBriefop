@@ -16,6 +16,7 @@ namespace DcsBriefop.Data
 
 		#region Properties
 		public Coordinate Coordinate { get; set; }
+		public Radio Radio { get; set; }
 		public Tacan Tacan { get; set; }
 		#endregion
 
@@ -67,6 +68,8 @@ namespace DcsBriefop.Data
 
 			Coordinate = new Coordinate(m_airdrome.Latitude, m_airdrome.Longitude);
 			Tacan = m_airdrome.Tacan;
+			if (m_airdrome.Radios is object)
+				Radio = m_airdrome.Radios.FirstOrDefault();
 
 			if (IsAssetBase())
 			{

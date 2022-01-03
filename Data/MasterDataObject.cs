@@ -9,11 +9,19 @@ namespace DcsBriefop.Data
 		AssetUsage,
 		AssetMapDisplay,
 		ExportFileType,
-		RadioModulation
+		RadioModulation,
+		ComPresetMode
+	}
+
+	internal static class MasterDataColumn
+	{
+		public static readonly string Id = "Id";
+		public static readonly string Label = "Label";
 	}
 
 	internal class MasterDataObject
 	{
+
 		public int Id { get; set; }
 		public string Label { get; set; }
 
@@ -30,6 +38,7 @@ namespace DcsBriefop.Data
 			m_repository.Add(MasterDataType.AssetMapDisplay, BuildListAssetMapDisplay());
 			m_repository.Add(MasterDataType.ExportFileType, BuildListExportFileTypes());
 			m_repository.Add(MasterDataType.RadioModulation, BuildListRadioModulation());
+			m_repository.Add(MasterDataType.ComPresetMode, BuildListComPresetMode());
 		}
 
 		private static List<MasterDataObject> BuildListAssetUsage()
@@ -76,6 +85,16 @@ namespace DcsBriefop.Data
 			};
 		}
 
+		private static List<MasterDataObject> BuildListComPresetMode()
+		{
+			return new List<MasterDataObject>()
+			{
+				new MasterDataObject() { Id = (int)ElementComPresetMode.Free, Label = "Free" },
+				new MasterDataObject() { Id = (int)ElementComPresetMode.Airdrome, Label = "Airdrome" },
+				new MasterDataObject() { Id = (int)ElementComPresetMode.Group, Label = "Group" }
+			};
+		}
+
 		public static List<MasterDataObject> GetMasterDataList(MasterDataType type)
 		{
 			if (m_repository.TryGetValue(type, out List<MasterDataObject> list))
@@ -92,8 +111,8 @@ namespace DcsBriefop.Data
 		public static void FillCombo(MasterDataType type, ComboBox cb)
 		{
 			cb.Items.Clear();
-			cb.ValueMember = "Id";
-			cb.DisplayMember = "Label";
+			cb.ValueMember = MasterDataColumn.Id;
+			cb.DisplayMember = MasterDataColumn.Label;
 			cb.DataSource = GetMasterDataList(type);
 		}
 	}
