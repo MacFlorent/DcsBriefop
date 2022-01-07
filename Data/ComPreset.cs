@@ -3,10 +3,20 @@ using System.Linq;
 
 namespace DcsBriefop.Data
 {
+	/*
+	 * For compatibility with all playable airframes we use the following (these are not RM limitations but rather DCS gameplay constraints) :
+	 * 
+	 *	Radio 1 is UHF only (FM/AM)
+	 *	Radio 2 is VHF/UHF (FM/AM)
+	 * 
+	 * See frequency ranges in Radio class
+	 * 
+	 * The first preset of one radio must be also the group radio, or it will be overwritten by the editor.
+	 * Usually radio 1, but radio 2 for F14-B
+	 */
 	internal class ComPreset
 	{
 		#region Fields
-		private BriefingCoalition m_coalition;
 		#endregion
 
 		#region Properties
@@ -14,94 +24,223 @@ namespace DcsBriefop.Data
 		public int PresetNumber { get; set; }
 		public ElementComPresetMode Mode { get; set; }
 		public int AssetId { get; set; }
+		public string Label { get; set; }
 		public Radio Radio { get; set; }
-		public string Notes { get; set; }
 		#endregion
 
 		#region CTOR
-		public ComPreset(BriefingCoalition coalition, int iRadio, int iNumber) : this(coalition, iRadio, iNumber, new Radio()) { }
+		public ComPreset() : this (0, 0) { }
 
-		public ComPreset(BriefingCoalition coalition, int iRadio, int iNumber, Radio radio)
+		public ComPreset(int iRadio, int iNumber) : this(iRadio, iNumber, new Radio()) { }
+
+		public ComPreset(int iRadio, int iNumber, Radio radio)
 		{
-			m_coalition = coalition;
-
 			PresetRadio = iRadio;
 			PresetNumber = iNumber;
 			Radio = radio;
 
 			Mode = ElementComPresetMode.Free;
-			Compute();
+			AssetId = 0;
 		}
 		#endregion
 
 		#region Methods
 		public ComPreset GetCopy()
 		{
-			return new ComPreset(m_coalition, PresetRadio, PresetNumber, Radio.GetCopy());
+			ComPreset copy = new ComPreset(PresetRadio, PresetNumber, Radio.GetCopy());
+			copy.Mode = Mode;
+			copy.AssetId = AssetId;
+			copy.Label = Label;
+			return copy;
 		}
 
-		public void Compute()
+		public void Compute(BriefingCoalition coalition)
 		{
 			if (Mode == ElementComPresetMode.Airdrome)
 			{
-				AssetAirdrome airdrome = m_coalition.Airdromes.Where(_a => _a.Id == AssetId).FirstOrDefault();
+				AssetAirdrome airdrome = GetAsset(coalition) as AssetAirdrome;
 				if (airdrome is object)
 				{
-					Radio = airdrome.Radio;
-					Notes = airdrome.Information;
+					if (airdrome.Radios is object && airdrome.Radios.Count > 0)
+					{
+						Radio = airdrome.Radios.First();
+						Label = airdrome.Name;
+					}
+					else
+					{
+						Radio = new Radio();
+						Label = $"{airdrome.Name} (A/A)";
+					}
 				}
 				else
 				{
 					Radio = new Radio();
-					Notes = "-no airdrome id selected-";
+					Label = "-invalid id-";
 				}
 			}
 			else if (Mode == ElementComPresetMode.Group)
 			{
-				Asset asset = m_coalition.OwnAssets.Where(_a => _a.Id == AssetId).FirstOrDefault();
+				Asset asset = GetAsset(coalition) as Asset;
 				if (asset is AssetFlight flight)
 				{
 					Radio = flight.Radio;
-					Notes = flight.Information;
+					Label = flight.Name;
 				}
 				else if (asset is AssetShip ship)
 				{
 					Radio = ship.Radio;
-					Notes = ship.Information;
+					Label = ship.Name;
 				}
 				else
 				{
 					Radio = new Radio();
-					Notes = "-no group id selected-";
+					Label = "-invalid id-";
 				}
 			}
 			else //if (Mode == ElementComPresetMode.Free)
 			{
 				Mode = ElementComPresetMode.Free;
 				AssetId = 0;
-				Notes = "";
+				Radio.Normalize();
 			}
 
+		}
+
+		public Asset GetAsset(BriefingCoalition coalition)
+		{
+			if (Mode == ElementComPresetMode.Airdrome)
+				return coalition.Airdromes.Where(_a => _a.Id == AssetId).FirstOrDefault();
+			else if (Mode == ElementComPresetMode.Group)
+				return coalition.OwnAssets.Where(_a => _a.Id == AssetId).FirstOrDefault();
+			else
+				return null;
 		}
 		#endregion
 	}
 
 	internal class ListComPreset : List<ComPreset>
 	{
+		#region Properties
+		public static readonly int RadiosCount = 2;
+		public static readonly int PresetsCount = 10;
+
+		#endregion
 		#region CTOR
 		#endregion
 
 		#region Methods
-		public void InitializeDefault(BriefingCoalition coalition)
+		public void InitializeEmpty()
 		{
 			Clear();
-			for (int iRadio = 1; iRadio <= 2; iRadio++)
+			for (int iRadio = 1; iRadio <= RadiosCount; iRadio++)
 			{
-				for (int iNumber = 1; iNumber <= 10; iNumber++)
+				for (int iNumber = 1; iNumber <= PresetsCount; iNumber++)
 				{
-					Add(new ComPreset(coalition, iRadio, iNumber, new Radio()));
+					Add(new ComPreset(iRadio, iNumber, new Radio(255, ElementRadioModulation.AM)));
 				}
 			}
+		}
+
+		public void InitializeCoalition(BriefingCoalition coalition)
+		{
+			InitializeEmpty();
+
+			ComPreset preset;
+
+			int iRadio = 0;
+			int iNumber = 0;
+
+			iRadio++;
+
+			foreach (AssetAirdrome airdrome in coalition.Airdromes.Where(_a => _a.IsAssetBase()))
+			{
+				iNumber++;
+				preset = GetPreset(iRadio, iNumber);
+				if (preset is object)
+				{
+					preset.Mode = ElementComPresetMode.Airdrome;
+					preset.AssetId = airdrome.Id;
+					preset.Compute(coalition);
+				}
+			}
+
+			foreach (AssetShip ship in coalition.OwnAssets.OfType<AssetShip>().Where(_s => _s.Usage == ElementAssetUsage.Base))
+			{
+				iNumber++;
+				preset = GetPreset(iRadio, iNumber);
+				if (preset is object)
+				{
+					preset.Mode = ElementComPresetMode.Group;
+					preset.AssetId = ship.Id;
+					preset.Compute(coalition);
+				}
+			}
+
+			foreach (AssetFlight flight in coalition.OwnAssets.OfType<AssetFlight>().Where(_f => _f.Usage == ElementAssetUsage.Support))
+			{
+
+				iNumber++;
+				preset = GetPreset(iRadio, iNumber);
+				if (preset is object)
+				{
+					preset.Mode = ElementComPresetMode.Group;
+					preset.AssetId = flight.Id;
+					preset.Compute(coalition);
+				}
+			}
+
+			iRadio++; iNumber = 0;
+
+			iNumber++;
+
+			preset = GetPreset(iRadio, iNumber);
+			if (preset is object)
+			{
+				preset.Mode = ElementComPresetMode.Free;
+				preset.Label = "Guard";
+				preset.Radio = new Radio(121.5m, ElementRadioModulation.AM);
+				preset.Compute(coalition);
+			}
+
+			decimal dFrequency = 122.0m;
+			foreach (AssetFlight flight in coalition.OwnAssets.OfType<AssetFlight>().Where(_f => _f.Playable))
+			{
+				iNumber++;
+				preset = GetPreset(iRadio, iNumber);
+				if (preset is object)
+				{
+					dFrequency += 0.1m;
+
+					preset.Mode = ElementComPresetMode.Free;
+					preset.Label = flight.GetCallsign();
+					preset.Radio = new Radio(dFrequency, ElementRadioModulation.AM);
+					preset.Compute(coalition);
+				}
+			}
+		}
+
+		public void Compute(BriefingCoalition coalition)
+		{
+			foreach(ComPreset preset in this)
+			{
+				preset.Compute(coalition);
+			}
+
+	
+			foreach(AssetFlight flight in coalition.OwnAssets.OfType<AssetFlight>().Where (_f => _f.Playable))
+			{
+				int iRadio = 1;
+				if (flight.Type.StartsWith("F-14"))
+					iRadio = 2;
+
+				ComPreset defaultPreset = GetPreset(iRadio, 1);
+				flight.Radio = defaultPreset.Radio.GetCopy();
+			}
+		}
+
+		public ComPreset GetPreset(int iRadio, int iNumber)
+		{
+			return this.Where(_p => _p.PresetRadio == iRadio && _p.PresetNumber == iNumber).FirstOrDefault();
 		}
 
 		public ListComPreset GetCopy()

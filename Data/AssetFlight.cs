@@ -32,6 +32,8 @@ namespace DcsBriefop.Data
 			MapMarker = MarkerBriefopType.aircraft.ToString();
 
 			Task = GroupFlight.Task;
+			Type = GroupFlight.Units.OfType<MizUnitFlight>().FirstOrDefault()?.Type;
+			Name = $"{GetCallsign()} [{m_mizGroup.Name}]";
 			Radio = new Radio() { Frequency = GroupFlight.RadioFrequency, Modulation = GroupFlight.RadioModulation };
 		}
 

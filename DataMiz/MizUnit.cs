@@ -1,5 +1,7 @@
 ﻿using DcsBriefop.Tools;
 using LsonLib;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DcsBriefop.DataMiz
 {
@@ -13,6 +15,7 @@ namespace DcsBriefop.DataMiz
 			public static readonly string Skill = "skill";
 			public static readonly string Y = "y";
 			public static readonly string X = "x";
+			public static readonly string Radio = "Radio";
 		}
 
 		public int Id { get; set; }
@@ -21,9 +24,10 @@ namespace DcsBriefop.DataMiz
 		public string Skill { get; set; }
 		public decimal Y { get; set; }
 		public decimal X { get; set; }
+		public MizRadio[] Radios { get; set; }
 
 		public MizUnit(LsonDict lsd) : base(lsd) { }
-		
+
 		public override void FromLua()
 		{
 			Id = m_lsd[LuaNode.Id].GetInt();
@@ -32,6 +36,16 @@ namespace DcsBriefop.DataMiz
 			Skill = m_lsd.IfExistsString(LuaNode.Skill);
 			Y = m_lsd[LuaNode.Y].GetDecimal();
 			X = m_lsd[LuaNode.X].GetDecimal();
+
+			if (m_lsd.ContainsKey(LuaNode.Radio))
+			{
+				LsonDict lsdRadios = m_lsd[LuaNode.Radio].GetDict();
+				Radios = new MizRadio[lsdRadios.Count + 1];
+				foreach (KeyValuePair<LsonValue, LsonValue> kvp in lsdRadios)
+				{
+					Radios[kvp.Key.GetInt()] = new MizRadio(kvp.Value.GetDict());
+				}
+			}
 		}
 
 		public override void ToLua()
@@ -40,6 +54,14 @@ namespace DcsBriefop.DataMiz
 			m_lsd[LuaNode.Name] = Name;
 			m_lsd[LuaNode.Type] = Type;
 			m_lsd[LuaNode.Skill] = Skill;
+
+			if (Radios is object)
+			{
+				foreach (MizRadio radio in Radios)
+				{
+					radio?.ToLua();
+				}
+			}
 		}
 	}
 

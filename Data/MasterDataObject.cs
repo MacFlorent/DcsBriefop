@@ -71,6 +71,7 @@ namespace DcsBriefop.Data
 				new MasterDataObject() { Id = (int)ElementExportFileType.Situation, Label = "Situation" },
 				new MasterDataObject() { Id = (int)ElementExportFileType.SituationMap, Label = "SituationMap" },
 				new MasterDataObject() { Id = (int)ElementExportFileType.Operations, Label = "Operations" },
+				new MasterDataObject() { Id = (int)ElementExportFileType.Coms, Label = "Coms" },
 				new MasterDataObject() { Id = (int)ElementExportFileType.Missions, Label = "Missions" },
 				new MasterDataObject() { Id = (int)ElementExportFileType.MissionMaps, Label = "MissionMaps" }
 			};

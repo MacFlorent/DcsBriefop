@@ -44,6 +44,21 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Methods
+		public override void Persist()
+		{
+			if (m_unit.Radios is object && m_unit.Radios.Length > 0 && AssetGroup.Coalition.ComPresets is object && AssetGroup.Coalition.ComPresets.Count > 0)
+			{
+				foreach(ComPreset comPreset in AssetGroup.Coalition.ComPresets)
+				{
+					MizRadio mizRadio = m_unit.Radios[comPreset.PresetRadio];
+					if (comPreset.PresetNumber < mizRadio.Modulations.Length)
+						mizRadio.Modulations[comPreset.PresetNumber] = comPreset.Radio.Modulation;
+					if (comPreset.PresetNumber < mizRadio.Channels.Length)
+						mizRadio.Channels[comPreset.PresetNumber] = comPreset.Radio.Frequency;
+				}
+			}
+		}
+
 		public virtual string GetLocalisation()
 		{
 			return $"{Coordinate.ToStringDMS()}{Environment.NewLine}{Coordinate.ToStringDDM()}{Environment.NewLine}{Coordinate.ToStringMGRS()}";

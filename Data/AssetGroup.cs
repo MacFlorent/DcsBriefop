@@ -81,6 +81,11 @@ namespace DcsBriefop.Data
 			m_briefopCustomGroup.Usage = (int)Usage;
 			m_briefopCustomGroup.MapDisplay = (int)MapDisplay;
 			m_briefopCustomGroup.Information = m_customInformation;
+
+			foreach (AssetUnit unit in Units)
+			{
+				unit.Persist();
+			}
 		}
 
 		public string GetUnitTypes()

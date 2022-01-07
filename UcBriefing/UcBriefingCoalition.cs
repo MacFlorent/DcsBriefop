@@ -3,6 +3,7 @@ using DcsBriefop.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace DcsBriefop.UcBriefing
@@ -81,6 +82,20 @@ namespace DcsBriefop.UcBriefing
 			foreach (Asset asset in Coalition.Airdromes)
 			{
 				RefreshGridRow(dgv, asset);
+			}
+
+			SetComPresetButton();
+		}
+
+		private void SetComPresetButton()
+		{
+			if (Coalition.ComPresets is object && Coalition.ComPresets.Count > 0)
+			{
+				BtComPresets.BackColor = Color.LightGreen;
+			}
+			else
+			{
+				BtComPresets.BackColor = Color.LightGray;
 			}
 		}
 
@@ -288,8 +303,12 @@ namespace DcsBriefop.UcBriefing
 
 		private void BtComPresets_Click(object sender, EventArgs e)
 		{
+			
 			FrmComs f = new FrmComs(Coalition);
-			f.ShowDialog();
+			if (f.ShowDialog() == DialogResult.OK)
+			{
+				DataToScreen();
+			}
 		}
 		#endregion
 

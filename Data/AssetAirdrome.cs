@@ -2,6 +2,7 @@
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -16,8 +17,8 @@ namespace DcsBriefop.Data
 
 		#region Properties
 		public Coordinate Coordinate { get; set; }
-		public Radio Radio { get; set; }
 		public Tacan Tacan { get; set; }
+		public List<Radio> Radios { get { return m_airdrome?.Radios; } }
 		#endregion
 
 		#region CTOR
@@ -68,8 +69,6 @@ namespace DcsBriefop.Data
 
 			Coordinate = new Coordinate(m_airdrome.Latitude, m_airdrome.Longitude);
 			Tacan = m_airdrome.Tacan;
-			if (m_airdrome.Radios is object)
-				Radio = m_airdrome.Radios.FirstOrDefault();
 
 			if (IsAssetBase())
 			{
@@ -115,7 +114,7 @@ namespace DcsBriefop.Data
 			}
 		}
 
-		private bool IsAssetBase()
+		public bool IsAssetBase()
 		{
 			return Coalition.OwnAssets.OfType<AssetFlight>().Where(_a => _a.GetAirdromeIds().Contains(Id)).Any();
 		}

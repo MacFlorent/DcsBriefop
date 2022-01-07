@@ -39,6 +39,7 @@ namespace DcsBriefop.Data
 		Situation,
 		SituationMap,
 		Operations,
+		Coms,
 		Missions,
 		MissionMaps,
 	}

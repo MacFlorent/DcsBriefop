@@ -1,4 +1,5 @@
 ﻿using LsonLib;
+using System.Collections;
 
 namespace DcsBriefop.Tools
 {
@@ -49,6 +50,5 @@ namespace DcsBriefop.Tools
 			else if (!string.IsNullOrEmpty(sValue))
 				lsd.Add(sKey, sValue);
 		}
-
 	}
 }

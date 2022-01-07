@@ -17,7 +17,7 @@ namespace DcsBriefop
 			public static readonly string Modulation = "Modulation";
 			public static readonly string Mode = "Mode";
 			public static readonly string Asset = "Asset";
-			public static readonly string Notes = "Notes";
+			public static readonly string Label = "Notes";
 			public static readonly string Data = "Data";
 		}
 
@@ -37,7 +37,7 @@ namespace DcsBriefop
 			else
 			{
 				m_listComPresets = new ListComPreset();
-				m_listComPresets.InitializeDefault(briefingCoalition);
+				m_listComPresets.InitializeEmpty();
 			}
 
 			ToolsMisc.SetDataGridViewProperties(DgvRadio1);
@@ -60,6 +60,8 @@ namespace DcsBriefop
 
 		private void DataToScreenGrid(DataGridView dgv, int iRadio)
 		{
+			dgv.Columns.Clear();
+
 			DataGridViewComboBoxColumn colModulation = new DataGridViewComboBoxColumn() { Name = GridColumn.Modulation, HeaderText = "Mod." };
 			colModulation.DataSource = MasterDataRepository.GetMasterDataList(MasterDataType.RadioModulation);
 			colModulation.ValueMember = MasterDataColumn.Id;
@@ -68,10 +70,9 @@ namespace DcsBriefop
 			dgv.Columns.Add(GridColumn.PresetNumber, "Num.");
 			dgv.Columns.Add(GridColumn.Mode, "Mode");
 			dgv.Columns.Add(GridColumn.Asset, "Asset ID");
+			dgv.Columns.Add(GridColumn.Label, "Label");
 			dgv.Columns.Add(GridColumn.Frequency, "Frequency");
 			dgv.Columns.Add(colModulation);
-
-			dgv.Columns.Add(GridColumn.Notes, "Notes");
 			dgv.Columns.Add(GridColumn.Data, null);
 
 			dgv.Columns[GridColumn.PresetNumber].ReadOnly = true;
@@ -107,9 +108,34 @@ namespace DcsBriefop
 			RefreshGridRowContent(dgvr, GridColumn.PresetNumber, preset.PresetNumber);
 			RefreshGridRowContent(dgvr, GridColumn.Mode, MasterDataRepository.GetById(MasterDataType.ComPresetMode, (int)preset.Mode)?.Label);
 			RefreshGridRowContent(dgvr, GridColumn.Asset, preset.AssetId);
+			RefreshGridRowContent(dgvr, GridColumn.Label, preset.Label);
 			RefreshGridRowContent(dgvr, GridColumn.Frequency, preset.Radio.Frequency);
 			RefreshGridRowContent(dgvr, GridColumn.Modulation, preset.Radio.Modulation);
-			RefreshGridRowContent(dgvr, GridColumn.Notes, preset.Notes);
+
+			if (preset.Mode == ElementComPresetMode.Free)
+			{
+				dgvr.Cells[GridColumn.Asset].ReadOnly = true;
+				dgvr.Cells[GridColumn.Label].ReadOnly = false;
+				dgvr.Cells[GridColumn.Frequency].ReadOnly = false;
+				dgvr.Cells[GridColumn.Modulation].ReadOnly = false;
+			}
+			else
+			{
+				dgvr.Cells[GridColumn.Asset].ReadOnly = false;
+				dgvr.Cells[GridColumn.Label].ReadOnly = true;
+
+				Asset asset = preset.GetAsset(m_briefingCoalition);
+				if (asset is AssetAirdrome airdrome && (airdrome.Radios is null || airdrome.Radios.Count <= 0))
+				{
+					dgvr.Cells[GridColumn.Frequency].ReadOnly = false;
+					dgvr.Cells[GridColumn.Modulation].ReadOnly = false;
+				}
+				else
+				{
+					dgvr.Cells[GridColumn.Frequency].ReadOnly = true;
+					dgvr.Cells[GridColumn.Modulation].ReadOnly = true;
+				}
+			}
 		}
 
 		private void RefreshGridRowContent(DataGridViewRow dgvr, string sColumn, object value)
@@ -126,6 +152,7 @@ namespace DcsBriefop
 		private void ScreenToData()
 		{
 			m_briefingCoalition.ComPresets = m_listComPresets;
+			m_briefingCoalition.ComPresets?.Compute(m_briefingCoalition);
 		}
 
 		private void SetMode(List<ComPreset> presets, ElementComPresetMode mode, DataGridView dgv)
@@ -135,10 +162,16 @@ namespace DcsBriefop
 				if (preset.Mode != mode)
 				{
 					preset.Mode = mode;
-					preset.Compute();
+					preset.Compute(m_briefingCoalition);
 					RefreshGridRow(dgv, preset);
 				}
 			}
+		}
+
+		private void SetRadio(ComPreset preset, Radio radio, DataGridView dgv)
+		{
+			preset.Radio = radio.GetCopy();
+			RefreshGridRow(dgv, preset);
 		}
 		#endregion
 
@@ -159,6 +192,7 @@ namespace DcsBriefop
 					selectedPresets.Add(preset);
 				}
 			}
+			ComPreset singleSelected = selectedPresets.Count == 1 ? selectedPresets[0] as ComPreset : null;
 
 			menu.Items.Clear();
 
@@ -167,6 +201,15 @@ namespace DcsBriefop
 				menu.Items.AddMenuItem("Free", (object _sender, EventArgs _e) => { SetMode(selectedPresets, ElementComPresetMode.Free, dgv); });
 				menu.Items.AddMenuItem("Airdrome", (object _sender, EventArgs _e) => { SetMode(selectedPresets, ElementComPresetMode.Airdrome, dgv); });
 				menu.Items.AddMenuItem("Group", (object _sender, EventArgs _e) => { SetMode(selectedPresets, ElementComPresetMode.Group, dgv); });
+
+				if (singleSelected is object && singleSelected.GetAsset(m_briefingCoalition) is AssetAirdrome airdrome && airdrome.Radios is object && airdrome.Radios.Count() > 1)
+				{
+					menu.Items.AddMenuSeparator();
+					foreach (Radio radio in airdrome.Radios)
+					{
+						menu.Items.AddMenuItem($"Set radio {radio}", (object _sender, EventArgs _e) => { SetRadio(singleSelected, radio, dgv); });
+					}
+				}
 			}
 
 			if (menu.Items.Count <= 0)
@@ -196,22 +239,38 @@ namespace DcsBriefop
 				preset.Radio.Modulation = (int)(cell as DataGridViewComboBoxCell).Value;
 			else if (column.Name == GridColumn.Asset)
 				preset.AssetId = (int)cell.Value;
+			else if (column.Name == GridColumn.Label)
+				preset.Label = cell.Value as string;
 
-			preset.Compute();
+			preset.Compute(m_briefingCoalition);
 			RefreshGridRow(dgv, preset);
 		}
 
 
 		private void BtCancel_Click(object sender, System.EventArgs e)
 		{
+			DialogResult = DialogResult.Cancel;
 			Close();
 		}
 
 		private void BtOk_Click(object sender, System.EventArgs e)
 		{
 			ScreenToData();
+			DialogResult = DialogResult.OK;
 			Close();
 		}
 		#endregion
+
+		private void BtClear_Click(object sender, EventArgs e)
+		{
+			m_listComPresets.InitializeEmpty();
+			DataToScreen();
+		}
+
+		private void BtAuto_Click(object sender, EventArgs e)
+		{
+			m_listComPresets.InitializeCoalition(m_briefingCoalition);
+			DataToScreen();
+		}
 	}
 }

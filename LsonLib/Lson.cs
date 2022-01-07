@@ -1066,13 +1066,14 @@ namespace LsonLib
                 sb.AppendLine();
                 for (int i = 0; i <= indentation; i++)
                     sb.Append('\t');
-                if (kvp.Key.Equals((LsonNumber) implicitIndex))
-                {
-                    LsonValue.AppendIndented(kvp.Value, sb, indentation + 1);
-                    sb.Append(',');
-                    sb.Append(" -- [" + implicitIndex + "]");
-                }
-                else
+                // FG modified - keep implicit indexes for DCS
+                //if (kvp.Key.Equals((LsonNumber) implicitIndex))
+                //{
+                //    LsonValue.AppendIndented(kvp.Value, sb, indentation + 1);
+                //    sb.Append(',');
+                //    sb.Append(" -- [" + implicitIndex + "]");
+                //}
+                //else
                 {
                     implicitIndex = -1;
                     sb.Append('[');

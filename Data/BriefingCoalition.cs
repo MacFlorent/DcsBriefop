@@ -55,6 +55,8 @@ namespace DcsBriefop.Data
 		{
 			InitializeDataCustom();
 			InitializeData();
+
+			ComPresets?.Compute(this);
 		}
 
 		private void InitializeDataCustom()
@@ -166,17 +168,15 @@ namespace DcsBriefop.Data
 			m_briefopCustomCoalition.Included = Included;
 			m_briefopCustomCoalition.BullseyeDescription = BullseyeDescription;
 
+			if (ComPresets is object && ComPresets.Count > 0)
+				m_briefopCustomCoalition.ComPresets = ComPresets.GetCopy();
+
 			foreach (Asset asset in OwnAssets)
 				asset.Persist();
 			foreach (Asset asset in OpposingAssets)
 				asset.Persist();
 			foreach (Asset asset in Airdromes)
 				asset.Persist();
-
-			if (ComPresets is object && ComPresets.Count > 0)
-			{
-				m_briefopCustomCoalition.ComPresets = ComPresets.GetCopy();
-			}
 		}
 
 		private List<Asset> BuildCoalitionAssets(MizCoalition mizCoalition, ElementAssetSide side)

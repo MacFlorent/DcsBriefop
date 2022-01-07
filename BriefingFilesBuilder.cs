@@ -112,6 +112,8 @@ namespace DcsBriefop
 				AddMapData(GenerateFileName(ElementExportFileType.SituationMap, coalition.CoalitionName), sKneeboardFolder, coalition.MapData);
 			if (exportFileTypes.Contains(ElementExportFileType.Operations))
 				AddFileHtml(GenerateFileName(ElementExportFileType.Operations, coalition.CoalitionName), sKneeboardFolder, GenerateHtmlOperations(coalition));
+			if (exportFileTypes.Contains(ElementExportFileType.Coms) && coalition.ComPresets is object && coalition.ComPresets.Count > 0)
+				AddFileHtml(GenerateFileName(ElementExportFileType.Coms, coalition.CoalitionName), sKneeboardFolder, GenerateHtmlComs(coalition));
 
 			foreach (AssetFlight asset in coalition.OwnAssets.OfType<AssetFlight>().Where(_a => _a.MissionData is object))
 			{
@@ -204,6 +206,27 @@ namespace DcsBriefop
 			foreach (AssetUnit unit in asset.MissionData.GetListTargetUnits())
 			{
 				hb.AppendTableRow(unit.AssetGroup.Name, unit.Type, unit.GetLocalisation(), unit.Information);
+			}
+			hb.CloseTable();
+
+			hb.FinalizeDocument();
+			return hb;
+		}
+
+		private HtmlBuilder.HtmlDocument GenerateHtmlComs(BriefingCoalition coalition)
+		{
+			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.OwnColor);
+
+			hb.AppendHeader("COMS", 2);
+
+			hb.OpenTable("#", "Label", "Freq.", " ", "#", "Label", "Freq.");
+
+			for (int iNumber = 1; iNumber <= ListComPreset.PresetsCount; iNumber++)
+			{
+				ComPreset presetRadio1 = coalition.ComPresets.GetPreset(1, iNumber);
+				ComPreset presetRadio2 = coalition.ComPresets.GetPreset(2, iNumber);
+
+				hb.AppendTableRow(presetRadio1.PresetNumber.ToString(), presetRadio1.Label, presetRadio1.Radio.ToString(), " ", presetRadio2.PresetNumber.ToString(), presetRadio2.Label, presetRadio2.Radio.ToString());
 			}
 			hb.CloseTable();
 
