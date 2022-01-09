@@ -64,7 +64,7 @@ namespace DcsBriefop.Data
 			MapMarker = MarkerBriefopType.airport.ToString();
 
 			Id = m_airdrome.Id;
-			Name = m_airdrome.Name;
+			Name = Description = m_airdrome.Name;
 			Type = "Airbase";
 
 			Coordinate = new Coordinate(m_airdrome.Latitude, m_airdrome.Longitude);

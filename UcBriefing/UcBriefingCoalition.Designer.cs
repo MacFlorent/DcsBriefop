@@ -44,22 +44,22 @@ namespace DcsBriefop.UcBriefing
 			// 
 			this.TbTask.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbTask.Location = new System.Drawing.Point(6, 128);
+			this.TbTask.Location = new System.Drawing.Point(3, 126);
 			this.TbTask.Multiline = true;
 			this.TbTask.Name = "TbTask";
 			this.TbTask.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbTask.Size = new System.Drawing.Size(659, 83);
+			this.TbTask.Size = new System.Drawing.Size(659, 151);
 			this.TbTask.TabIndex = 3;
 			// 
 			// LbTask
 			// 
 			this.LbTask.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.LbTask.Location = new System.Drawing.Point(6, 106);
+			this.LbTask.Location = new System.Drawing.Point(3, 102);
 			this.LbTask.Name = "LbTask";
-			this.LbTask.Size = new System.Drawing.Size(662, 20);
+			this.LbTask.Size = new System.Drawing.Size(659, 22);
 			this.LbTask.TabIndex = 2;
-			this.LbTask.Text = "Ops";
+			this.LbTask.Text = "Operations";
 			this.LbTask.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LbBullseye
@@ -68,7 +68,7 @@ namespace DcsBriefop.UcBriefing
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.LbBullseye.Location = new System.Drawing.Point(3, 0);
 			this.LbBullseye.Name = "LbBullseye";
-			this.LbBullseye.Size = new System.Drawing.Size(662, 24);
+			this.LbBullseye.Size = new System.Drawing.Size(659, 22);
 			this.LbBullseye.TabIndex = 5;
 			this.LbBullseye.Text = "Bullseye";
 			this.LbBullseye.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -77,7 +77,7 @@ namespace DcsBriefop.UcBriefing
 			// 
 			this.TbBullseyeCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbBullseyeCoordinates.Location = new System.Drawing.Point(3, 27);
+			this.TbBullseyeCoordinates.Location = new System.Drawing.Point(3, 23);
 			this.TbBullseyeCoordinates.Multiline = true;
 			this.TbBullseyeCoordinates.Name = "TbBullseyeCoordinates";
 			this.TbBullseyeCoordinates.ReadOnly = true;
@@ -90,7 +90,7 @@ namespace DcsBriefop.UcBriefing
 			// 
 			this.TbBullseyeDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbBullseyeDescription.Location = new System.Drawing.Point(3, 84);
+			this.TbBullseyeDescription.Location = new System.Drawing.Point(3, 80);
 			this.TbBullseyeDescription.Name = "TbBullseyeDescription";
 			this.TbBullseyeDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.TbBullseyeDescription.Size = new System.Drawing.Size(659, 20);
@@ -100,7 +100,7 @@ namespace DcsBriefop.UcBriefing
 			// BtComPresets
 			// 
 			this.BtComPresets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.BtComPresets.Location = new System.Drawing.Point(3, 751);
+			this.BtComPresets.Location = new System.Drawing.Point(8, 564);
 			this.BtComPresets.Name = "BtComPresets";
 			this.BtComPresets.Size = new System.Drawing.Size(118, 23);
 			this.BtComPresets.TabIndex = 9;
@@ -114,10 +114,10 @@ namespace DcsBriefop.UcBriefing
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.TcAssets.Controls.Add(this.tabPage1);
-			this.TcAssets.Location = new System.Drawing.Point(8, 217);
+			this.TcAssets.Location = new System.Drawing.Point(8, 280);
 			this.TcAssets.Name = "TcAssets";
 			this.TcAssets.SelectedIndex = 0;
-			this.TcAssets.Size = new System.Drawing.Size(654, 522);
+			this.TcAssets.Size = new System.Drawing.Size(654, 281);
 			this.TcAssets.TabIndex = 10;
 			// 
 			// tabPage1
@@ -125,7 +125,7 @@ namespace DcsBriefop.UcBriefing
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(646, 496);
+			this.tabPage1.Size = new System.Drawing.Size(646, 255);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "tabPage1";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -142,7 +142,7 @@ namespace DcsBriefop.UcBriefing
 			this.Controls.Add(this.TbTask);
 			this.Controls.Add(this.LbTask);
 			this.Name = "UcBriefingCoalition";
-			this.Size = new System.Drawing.Size(668, 777);
+			this.Size = new System.Drawing.Size(668, 590);
 			this.TcAssets.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();

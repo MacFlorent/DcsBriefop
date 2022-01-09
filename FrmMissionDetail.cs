@@ -32,6 +32,7 @@ namespace DcsBriefop
 		internal FrmMissionDetail(AssetFlight asset)
 		{
 			InitializeComponent();
+
 			m_asset = asset;
 
 			m_ucMap = new UcMap();
@@ -62,6 +63,8 @@ namespace DcsBriefop
 			DataToScreenTargets();
 
 			UpdateMapControl();
+
+			ToolsStyle.ApplyStyle(this);
 		}
 
 		private void DataToScreenRoutePoints()
@@ -167,7 +170,7 @@ namespace DcsBriefop
 
 		private void UpdateMapControl()
 		{
-			m_ucMap.SetMapData(m_asset.MissionData.MapData, "Mission map", false);
+			m_ucMap.SetMapData(m_asset.MissionData.MapData, m_asset.Core.Theatre.Name, "Mission map", false);
 		}
 		#endregion
 

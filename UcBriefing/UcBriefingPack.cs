@@ -1,7 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace DcsBriefop.UcBriefing
 {
@@ -16,8 +15,6 @@ namespace DcsBriefop.UcBriefing
 
 		public override void DataToScreen()
 		{
-			LbTheatre.Text = BriefingContainer.Core.Theatre.Name;
-
 			TcMissionData.TabPages.Clear();
 
 			UcBriefingSituation ucbs = new UcBriefingSituation(UcMap, BriefingContainer);
@@ -56,16 +53,16 @@ namespace DcsBriefop.UcBriefing
 
 				if (tp.UcBriefing is UcBriefingSituation ucBs)
 				{
-					sTitle = "General situation";
+					sTitle = "General map data";
 					mapData = ucBs.BriefingContainer.MapData;
 				}
 				else if (tp.UcBriefing is UcBriefingCoalition ucBc)
 				{
-					sTitle = "Coalition map";
+					sTitle = $"{ucBc.Coalition.CoalitionName} coalition map data";
 					mapData = ucBc.Coalition.MapData;
 				}
 
-				UcMap.SetMapData(mapData, sTitle, false);
+				UcMap.SetMapData(mapData, BriefingContainer.Core.Theatre.Name, sTitle, false);
 			}
 
 		}

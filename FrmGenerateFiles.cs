@@ -23,6 +23,8 @@ namespace DcsBriefop
 		public FrmGenerateFiles(BriefingContainer briefingContainer, MissionManager missionManager)
 		{
 			InitializeComponent();
+			ToolsStyle.ApplyStyle(this);
+			ToolsStyle.ButtonOk(BtGenerate);
 
 			m_briefingContainer = briefingContainer;
 			m_missionManager = missionManager;

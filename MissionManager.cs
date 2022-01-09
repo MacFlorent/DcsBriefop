@@ -61,7 +61,7 @@ namespace DcsBriefop
 						entry.ExtractToFile(sTempPath);
 						sDictionaryFilePath = sTempPath;
 					}
-					if (entry.FullName.Equals(DataMiz.Miz.BriefopCustomFileName, StringComparison.OrdinalIgnoreCase))
+					if (entry.FullName.Equals(DataMiz.Miz.BriefopCustomZipEntryFullName, StringComparison.OrdinalIgnoreCase))
 					{
 						string sTempPath = Path.Combine(Path.GetTempPath(), $"{DataMiz.Miz.BriefopCustomFileName}.{DateTime.Now:yyyyMMdd_HHmmss}");
 						entry.ExtractToFile(sTempPath);
@@ -116,7 +116,7 @@ namespace DcsBriefop
 			{
 				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.DictionaryZipEntryFullName, ToolsLua.LsonRootToCorrectedString(Miz.RootDictionary.RootLua));
 				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.MissionFileName, ToolsLua.LsonRootToCorrectedString(Miz.RootMission.RootLua));
-				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.BriefopCustomFileName, Miz.BriefopCustomData.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
+				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.BriefopCustomZipEntryFullName, Miz.BriefopCustomData.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
 			}
 		}
 		#endregion

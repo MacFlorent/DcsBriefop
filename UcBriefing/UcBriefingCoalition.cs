@@ -111,7 +111,7 @@ namespace DcsBriefop.UcBriefing
 			dgv.Columns.Add(GridColumn.Usage, "Usage");
 			dgv.Columns.Add(GridColumn.MapDisplay, "Map");
 			dgv.Columns.Add(GridColumn.Id, "ID");
-			dgv.Columns.Add(GridColumn.Name, "Name");
+			dgv.Columns.Add(GridColumn.Name, "Description");
 			dgv.Columns.Add(GridColumn.Task, "Task");
 			dgv.Columns.Add(GridColumn.Type, "Type");
 			dgv.Columns.Add(GridColumn.Radio, "Radio");
@@ -126,7 +126,7 @@ namespace DcsBriefop.UcBriefing
 			dgv.Columns.Add(GridColumn.Usage, "Usage");
 			dgv.Columns.Add(GridColumn.MapDisplay, "Map");
 			dgv.Columns.Add(GridColumn.Id, "ID");
-			dgv.Columns.Add(GridColumn.Name, "Name");
+			dgv.Columns.Add(GridColumn.Name, "Description");
 			dgv.Columns.Add(GridColumn.Task, "Task");
 			dgv.Columns.Add(GridColumn.Type, "Type");
 			dgv.Columns.Add(GridColumn.Notes, "Notes");
@@ -140,7 +140,7 @@ namespace DcsBriefop.UcBriefing
 			dgv.Columns.Add(GridColumn.Usage, "Usage");
 			dgv.Columns.Add(GridColumn.MapDisplay, "Map");
 			dgv.Columns.Add(GridColumn.Id, "ID");
-			dgv.Columns.Add(GridColumn.Name, "Name");
+			dgv.Columns.Add(GridColumn.Name, "Description");
 			dgv.Columns.Add(GridColumn.Radio, "Radio");
 			dgv.Columns.Add(GridColumn.Notes, "Notes");
 			dgv.Columns.Add(GridColumn.Data, "");
@@ -175,7 +175,7 @@ namespace DcsBriefop.UcBriefing
 			RefreshGridRowContent(dgvr, GridColumn.Usage, MasterDataRepository.GetById(MasterDataType.AssetUsage, (int)asset.Usage)?.Label);
 			RefreshGridRowContent(dgvr, GridColumn.MapDisplay, MasterDataRepository.GetById(MasterDataType.AssetMapDisplay, (int)asset.MapDisplay)?.Label);
 			RefreshGridRowContent(dgvr, GridColumn.Id, asset.Id);
-			RefreshGridRowContent(dgvr, GridColumn.Name, asset.Name);
+			RefreshGridRowContent(dgvr, GridColumn.Name, asset.Description);
 			RefreshGridRowContent(dgvr, GridColumn.Task, asset.Task);
 			RefreshGridRowContent(dgvr, GridColumn.Type, asset.Type);
 			RefreshGridRowContent(dgvr, GridColumn.Radio, asset.GetRadioString());

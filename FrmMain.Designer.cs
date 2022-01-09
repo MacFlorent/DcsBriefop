@@ -38,9 +38,9 @@ namespace DcsBriefop
 			// 
 			// StatusStrip
 			// 
-			this.StatusStrip.Location = new System.Drawing.Point(0, 757);
+			this.StatusStrip.Location = new System.Drawing.Point(0, 801);
 			this.StatusStrip.Name = "StatusStrip";
-			this.StatusStrip.Size = new System.Drawing.Size(1475, 22);
+			this.StatusStrip.Size = new System.Drawing.Size(1691, 22);
 			this.StatusStrip.TabIndex = 0;
 			this.StatusStrip.Text = "statusStrip1";
 			// 
@@ -48,7 +48,7 @@ namespace DcsBriefop
 			// 
 			this.MainMenu.Location = new System.Drawing.Point(0, 0);
 			this.MainMenu.Name = "MainMenu";
-			this.MainMenu.Size = new System.Drawing.Size(1475, 24);
+			this.MainMenu.Size = new System.Drawing.Size(1691, 24);
 			this.MainMenu.TabIndex = 1;
 			this.MainMenu.Text = "menuStrip1";
 			// 
@@ -61,15 +61,15 @@ namespace DcsBriefop
 			// SplitContainer.Panel1
 			// 
 			this.SplitContainer.Panel1.BackColor = System.Drawing.SystemColors.Control;
-			this.SplitContainer.Size = new System.Drawing.Size(1475, 733);
-			this.SplitContainer.SplitterDistance = 491;
+			this.SplitContainer.Size = new System.Drawing.Size(1691, 777);
+			this.SplitContainer.SplitterDistance = 562;
 			this.SplitContainer.TabIndex = 3;
 			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1475, 779);
+			this.ClientSize = new System.Drawing.Size(1691, 823);
 			this.Controls.Add(this.SplitContainer);
 			this.Controls.Add(this.StatusStrip);
 			this.Controls.Add(this.MainMenu);

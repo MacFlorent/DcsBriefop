@@ -120,9 +120,9 @@ namespace DcsBriefop
 				sKneeboardFolder = KneeboardFolders.Images; // TODO aircraft specific kneeboard folder
 
 				if (exportFileTypes.Contains(ElementExportFileType.Missions))
-					AddFileHtml(GenerateFileName(ElementExportFileType.Missions, coalition.CoalitionName), sKneeboardFolder, GenerateHtmlMission(coalition, asset));
+					AddFileHtml($"{GenerateFileName(ElementExportFileType.Missions, coalition.CoalitionName)}_{asset.Id}", sKneeboardFolder, GenerateHtmlMission(coalition, asset));
 				if (exportFileTypes.Contains(ElementExportFileType.MissionMaps))
-					AddMapData(GenerateFileName(ElementExportFileType.MissionMaps, coalition.CoalitionName), sKneeboardFolder, asset.MissionData.MapData);
+					AddMapData($"{GenerateFileName(ElementExportFileType.MissionMaps, coalition.CoalitionName)}_{asset.Id}", sKneeboardFolder, asset.MissionData.MapData);
 			}
 		}
 
@@ -151,33 +151,32 @@ namespace DcsBriefop
 			hb.AppendHeader("BULLSEYE", 3);
 			hb.AppendParagraphCentered(coalition.GetBullseyeCoordinatesString());
 			hb.AppendParagraphCentered(coalition.BullseyeDescription);
-			hb.AppendHeader("ASSETS", 3);
-
-			hb.OpenTable("Name", "Task", "Type", "Radio", "Notes");
-			hb.AppendTableRow("Missions");
+			
+			hb.AppendHeader("MISSIONS", 3);
+			hb.OpenTable("Name", "Task", "Type", "Notes");
 			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.MissionWithDetail))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.GetRadioString(), asset.Information);
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
 			}
 			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Mission))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.GetRadioString(), asset.Information);
+				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
 			}
+			hb.CloseTable();
 
-			hb.AppendTableRow("Support");
+			hb.AppendHeader("SUPPORT", 3);
+			hb.OpenTable("Name", "Task", "Type", "Radio", "Notes");
 			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Support))
 			{
 				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.GetRadioString(), asset.Information);
 			}
-
-			hb.AppendTableRow("Base");
 			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Base))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.GetRadioString(), asset.Information);
+				hb.AppendTableRow(asset.Name, "Base", asset.Type, asset.GetRadioString(), asset.Information);
 			}
 			foreach (Asset asset in coalition.Airdromes.Where(_a => _a.Usage == ElementAssetUsage.Base && _a.Side == ElementAssetSide.Own))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.GetRadioString(), asset.Information);
+				hb.AppendTableRow(asset.Name, "Base", asset.Type, asset.GetRadioString(), asset.Information);
 			}
 
 			hb.CloseTable();
@@ -201,13 +200,17 @@ namespace DcsBriefop
 			}
 			hb.CloseTable();
 
-			hb.AppendHeader("TARGETS", 3);
-			hb.OpenTable("Name", "Type", "Localication", "Information");
-			foreach (AssetUnit unit in asset.MissionData.GetListTargetUnits())
+			List<AssetUnit> targets = asset.MissionData.GetListTargetUnits();
+			if (targets.Count > 0)
 			{
-				hb.AppendTableRow(unit.AssetGroup.Name, unit.Type, unit.GetLocalisation(), unit.Information);
+				hb.AppendHeader("TARGETS", 3);
+				hb.OpenTable("Name", "Type", "Localication", "Information");
+				foreach (AssetUnit unit in asset.MissionData.GetListTargetUnits())
+				{
+					hb.AppendTableRow(unit.AssetGroup.Name, unit.Type, unit.GetLocalisation(), unit.Information);
+				}
+				hb.CloseTable();
 			}
-			hb.CloseTable();
 
 			hb.FinalizeDocument();
 			return hb;
@@ -217,21 +220,31 @@ namespace DcsBriefop
 		{
 			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.OwnColor);
 
-			hb.AppendHeader("COMS", 2);
-
-			hb.OpenTable("#", "Label", "Freq.", " ", "#", "Label", "Freq.");
-
-			for (int iNumber = 1; iNumber <= ListComPreset.PresetsCount; iNumber++)
-			{
-				ComPreset presetRadio1 = coalition.ComPresets.GetPreset(1, iNumber);
-				ComPreset presetRadio2 = coalition.ComPresets.GetPreset(2, iNumber);
-
-				hb.AppendTableRow(presetRadio1.PresetNumber.ToString(), presetRadio1.Label, presetRadio1.Radio.ToString(), " ", presetRadio2.PresetNumber.ToString(), presetRadio2.Label, presetRadio2.Radio.ToString());
-			}
+			hb.AppendHeader("COMMUNICATIONS", 2);
+			hb.OpenTable("Radio 1", "Radio 2");
+			hb.OpenTag("tr");
+			hb.OpenTag("td");
+			AppendTableComsRadio(hb, coalition, 1);
+			hb.CloseTag();
+			hb.OpenTag("td");
+			AppendTableComsRadio(hb, coalition, 1);
+			hb.CloseTag();
+			hb.CloseTag();
 			hb.CloseTable();
 
 			hb.FinalizeDocument();
 			return hb;
+		}
+
+		private void AppendTableComsRadio(HtmlBuilder.HtmlDocument hb, BriefingCoalition coalition, int iRadio)
+		{
+			hb.OpenTable("#", "Label", "Freq.");
+			for (int iNumber = 1; iNumber <= ListComPreset.PresetsCount; iNumber++)
+			{
+				ComPreset preset = coalition.ComPresets.GetPreset(iRadio, iNumber);
+				hb.AppendTableRow(preset.PresetNumber.ToString(), preset.Label, preset.Radio.ToString());
+			}
+			hb.CloseTable();
 		}
 
 		private void AddFileHtml(string sFileName, string sKneeboardFolder, HtmlBuilder.HtmlDocument hb)

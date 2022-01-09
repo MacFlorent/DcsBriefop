@@ -61,9 +61,16 @@ namespace DcsBriefop.Data
 				AssetAirdrome airdrome = GetAsset(coalition) as AssetAirdrome;
 				if (airdrome is object)
 				{
+					Radio = null;
 					if (airdrome.Radios is object && airdrome.Radios.Count > 0)
 					{
-						Radio = airdrome.Radios.First();
+						Radio = airdrome.Radios.Where(_r => _r.Frequency >= 225m).FirstOrDefault();
+						if (Radio is null)
+							Radio = airdrome.Radios.FirstOrDefault();
+					}
+
+					if (Radio is object)
+					{
 						Label = airdrome.Name;
 					}
 					else
@@ -122,7 +129,7 @@ namespace DcsBriefop.Data
 	{
 		#region Properties
 		public static readonly int RadiosCount = 2;
-		public static readonly int PresetsCount = 10;
+		public static readonly int PresetsCount = 15;
 
 		#endregion
 		#region CTOR

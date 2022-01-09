@@ -33,7 +33,7 @@ namespace DcsBriefop.Data
 			base.InitializeData();
 
 			Id = m_mizGroup.Id;
-			Name = m_mizGroup.Name;
+			Name = Description = m_mizGroup.Name;
 			Type = "Group";
 			Playable = m_mizGroup.Units.Where(u => u.Skill == ElementSkill.Player || u.Skill == ElementSkill.Client).Any();
 			LateActivation = m_mizGroup.LateActivation;

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace DcsBriefop
@@ -30,9 +31,14 @@ namespace DcsBriefop
 		public FrmComs(BriefingCoalition briefingCoalition)
 		{
 			InitializeComponent();
+			ToolsStyle.ApplyStyle(this);
+			ToolsStyle.LabelHeader(LbRadio1);
+			ToolsStyle.LabelHeader(LbRadio2);
+			ToolsStyle.ButtonOk(BtOk);
+			ToolsStyle.ButtonCancel(BtCancel);
 
 			m_briefingCoalition = briefingCoalition;
-			if (m_briefingCoalition.ComPresets is object && m_briefingCoalition.ComPresets.Count > 0)
+			if (m_briefingCoalition is object && m_briefingCoalition.ComPresets is object && m_briefingCoalition.ComPresets.Count > 0)
 				m_listComPresets = m_briefingCoalition.ComPresets.GetCopy();
 			else
 			{
@@ -46,6 +52,18 @@ namespace DcsBriefop
 			ToolsMisc.SetDataGridViewProperties(DgvRadio2);
 			DgvRadio2.CellEndEdit += DgvCellEndEdit;
 			InitializeContextMenu(DgvRadio2);
+
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine("For compatibility with all playable airframes use the following:");
+			sb.AppendLine("  Radio 1 is UHF AM only");
+			sb.AppendLine("  Radio 2 is UHF/VHF AM only");
+			sb.AppendLine("Usable ranges are the following with 0.025 Mhz increments:");
+			sb.AppendLine("  VHF FM range from: 30.000 MHz to 87.975 MHz");
+			sb.AppendLine("  VHF AM range from: 118.000 MHz to 135.975 MHz");
+			sb.AppendLine("  VHF AM / FM range from: 136.000 MHz to 155.975 MHz");
+			sb.AppendLine("  VHF FM range from: 156.000 MHz to 173.975 MHz");
+			sb.AppendLine("  UHF AM range from: 225.000 MHz to 399.975 MHz");
+			TbLegend.Text = sb.ToString();
 
 			DataToScreen();
 		}

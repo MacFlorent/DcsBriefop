@@ -33,7 +33,7 @@ namespace DcsBriefop.Data
 
 			Task = GroupFlight.Task;
 			Type = GroupFlight.Units.OfType<MizUnitFlight>().FirstOrDefault()?.Type;
-			Name = $"{GetCallsign()} [{m_mizGroup.Name}]";
+			Description = $"{GetCallsign()} | {m_mizGroup.Name}";
 			Radio = new Radio() { Frequency = GroupFlight.RadioFrequency, Modulation = GroupFlight.RadioModulation };
 		}
 
@@ -108,7 +108,10 @@ namespace DcsBriefop.Data
 
 		public override string GetRadioString()
 		{
-			return Radio.ToString();
+			if (Playable)
+				return "initial preset only";
+			else
+				return Radio.ToString();
 		}
 
 		public override string GetLocalisation()

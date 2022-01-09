@@ -1,4 +1,6 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.Tools;
+using System.Text;
 using System.Windows.Forms;
 
 namespace DcsBriefop
@@ -13,6 +15,9 @@ namespace DcsBriefop
 		internal FrmAssetDetail(Asset asset)
 		{
 			InitializeComponent();
+			ToolsStyle.ApplyStyle(this);
+			ToolsStyle.TextBoxSmall(TbLegend);
+
 			m_asset = asset;
 
 			MasterDataRepository.FillCombo(MasterDataType.AssetUsage, CbUsage);
@@ -27,17 +32,20 @@ namespace DcsBriefop
 		#region Methods
 		private void DataToScreen()
 		{
-			Text = $"Asset detail : {m_asset.Name}";
+			Text = $"Asset detail : {m_asset.Description}";
 			TbId.Text = m_asset.Id.ToString();
 			TbName.Text = m_asset.Name;
 			TbTask.Text = m_asset.Task;
 			TbType.Text = m_asset.Type;
+			TbDescription.Text = m_asset.Description;
 
-			if (m_asset is AssetGroup group)
+			AssetGroup group = m_asset as AssetGroup;
+
+			if (group is object)
 			{
 				CkPlayable.Checked = group.Playable;
 				CkLateActivation.Checked = group.LateActivation;
-				TbRadio.Text = group.GetRadioString(); // TODO radio selection for flights
+				TbRadio.Text = group.GetRadioString();
 			}
 			else if (m_asset is AssetAirdrome airdrome)
 			{
@@ -48,6 +56,13 @@ namespace DcsBriefop
 			CbMapDisplay.SelectedValue = (int)m_asset.MapDisplay;
 
 			TbInformation.Text = m_asset.Information;
+
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine($"Information is an additionnal text useful for describing the asset and its role. If customized it can be reset to its automatic value with {BtInformationReset.Text}");
+			if (group is object && group.Playable)
+				sb.AppendLine($"For playable units, displayed radio is the one that will be initially selected (which is also preset 1 or radio 1)");
+
+			TbLegend.Text = sb.ToString();
 		}
 
 		private void ScreenToData()

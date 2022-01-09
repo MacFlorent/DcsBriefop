@@ -39,11 +39,13 @@ namespace DcsBriefop.UcBriefing
 			this.BtAreaRecall = new System.Windows.Forms.Button();
 			this.BtAreaSet = new System.Windows.Forms.Button();
 			this.Map = new GMap.NET.WindowsForms.GMapControl();
+			this.LbTheater = new System.Windows.Forms.Label();
 			this.PnMapControls.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// PnMapControls
 			// 
+			this.PnMapControls.Controls.Add(this.LbTheater);
 			this.PnMapControls.Controls.Add(this.BtZoomIn);
 			this.PnMapControls.Controls.Add(this.BtZoomOut);
 			this.PnMapControls.Controls.Add(this.LbTitle);
@@ -80,7 +82,7 @@ namespace DcsBriefop.UcBriefing
 			// 
 			// LbTitle
 			// 
-			this.LbTitle.Location = new System.Drawing.Point(6, 11);
+			this.LbTitle.Location = new System.Drawing.Point(3, 23);
 			this.LbTitle.Name = "LbTitle";
 			this.LbTitle.Size = new System.Drawing.Size(226, 23);
 			this.LbTitle.TabIndex = 7;
@@ -172,6 +174,15 @@ namespace DcsBriefop.UcBriefing
 			this.Map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Map_MouseMove);
 			this.Map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Map_MouseUp);
 			// 
+			// LbTheater
+			// 
+			this.LbTheater.Location = new System.Drawing.Point(3, 0);
+			this.LbTheater.Name = "LbTheater";
+			this.LbTheater.Size = new System.Drawing.Size(226, 23);
+			this.LbTheater.TabIndex = 10;
+			this.LbTheater.Text = "title";
+			this.LbTheater.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// UcMap
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -197,5 +208,6 @@ namespace DcsBriefop.UcBriefing
 		private System.Windows.Forms.Label LbTitle;
 		private System.Windows.Forms.Button BtZoomIn;
 		private System.Windows.Forms.Button BtZoomOut;
+		private System.Windows.Forms.Label LbTheater;
 	}
 }

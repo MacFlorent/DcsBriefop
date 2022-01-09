@@ -21,6 +21,8 @@ namespace DcsBriefop
 		public FrmMain()
 		{
 			InitializeComponent();
+			ToolsStyle.ApplyStyle(this);
+
 			this.Icon = Tools.ToolsImage.GetIconResource("icon16");
 			BuildMenu();
 		}
@@ -41,7 +43,6 @@ namespace DcsBriefop
 					m_briefingContainer = new BriefingContainer(m_missionManager.Miz);
 					BuildMenu();
 					DataToScreen();
-
 				}
 			}
 		}
@@ -123,6 +124,8 @@ namespace DcsBriefop
 			StatusStrip.Items.Add(m_missionManager.MizFilePath);
 
 			m_ucBriefingPack.DataToScreen();
+
+			ToolsStyle.ApplyStyle(this);
 		}
 
 		private void ScreenToData()
@@ -132,36 +135,39 @@ namespace DcsBriefop
 
 		private void Test()
 		{
+			FrmComs f = new FrmComs(null);
+			f.ShowDialog();
+
 			//SplitContainer.Panel1.Controls.Clear();
 			//FlowLayoutPanel f = new FlowLayoutPanel();
 			//f.FlowDirection = FlowDirection.LeftToRight;
 			//f.Dock = DockStyle.Fill;
 			//SplitContainer.Panel1.Controls.Add(f);
 
-			//TextBox tb1 = new TextBox();
-			//tb1.Multiline = true;
-			//tb1.Height = 500;
-			//tb1.Width = f.Width;
-			//TextBox tb2 = new TextBox();
-			//tb2.Multiline = true;
-			//tb2.Height = 500;
-			//tb2.Width = f.Width;
-			//f.Controls.Add(tb1);
-			//f.Controls.Add(tb2);
+				//TextBox tb1 = new TextBox();
+				//tb1.Multiline = true;
+				//tb1.Height = 500;
+				//tb1.Width = f.Width;
+				//TextBox tb2 = new TextBox();
+				//tb2.Multiline = true;
+				//tb2.Height = 500;
+				//tb2.Width = f.Width;
+				//f.Controls.Add(tb1);
+				//f.Controls.Add(tb2);
 
-			//string sFilePath = @"D:\Projects\dictionary";
-			//string s = MissionManager.ReadLuaFileContent(sFilePath);
-			//var v = LsonLib.LsonVars.Parse(s);
+				//string sFilePath = @"D:\Projects\dictionary";
+				//string s = MissionManager.ReadLuaFileContent(sFilePath);
+				//var v = LsonLib.LsonVars.Parse(s);
 
-			//LsonLib.LsonDict root = v["dictionary"].GetDict();
-			//s = root["DictKey_descriptionText_1"].GetString();
+				//LsonLib.LsonDict root = v["dictionary"].GetDict();
+				//s = root["DictKey_descriptionText_1"].GetString();
 
-			//tb1.Text = s;
+				//tb1.Text = s;
 
-			//s = MissionManager.LsonRootToCorrectedString(v);
+				//s = MissionManager.LsonRootToCorrectedString(v);
 
-			//tb2.Text = s;
-			//System.IO.File.WriteAllText(sFilePath + "_mod", s);
+				//tb2.Text = s;
+				//System.IO.File.WriteAllText(sFilePath + "_mod", s);
 
 		}
 		#endregion

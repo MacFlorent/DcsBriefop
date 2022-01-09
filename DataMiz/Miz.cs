@@ -8,6 +8,7 @@ namespace DcsBriefop.DataMiz
 	{
 		#region Fields
 		private static readonly string m_dictionnaryLuaPath = @"l10n\DEFAULT\dictionary";
+		private static readonly string m_briefopCustomLuaPath = @"kneeboard\briefopCustom";
 		private static readonly string m_missionLuaPath = "mission";
 		#endregion
 
@@ -16,7 +17,8 @@ namespace DcsBriefop.DataMiz
 		public static string MissionZipEntryFullName { get { return ToolsZip.PathToZip(m_missionLuaPath); } }
 		public static string DictionaryFileName { get { return Path.GetFileName(m_dictionnaryLuaPath); } }
 		public static string DictionaryZipEntryFullName { get { return ToolsZip.PathToZip(m_dictionnaryLuaPath); } }
-		public static string BriefopCustomFileName { get; set; } = "briefopCustom";
+		public static string BriefopCustomFileName { get { return Path.GetFileName(m_briefopCustomLuaPath); } }
+		public static string BriefopCustomZipEntryFullName { get { return ToolsZip.PathToZip(m_briefopCustomLuaPath); } }
 
 		public MizRootMission RootMission { get; private set; }
 		public MizRootDictionary RootDictionary { get; private set; }

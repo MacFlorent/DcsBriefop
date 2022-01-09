@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
+using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Drawing;
@@ -13,7 +14,7 @@ using System.Windows.Forms;
 
 namespace DcsBriefop.UcBriefing
 {
-	internal partial class UcMap : UserControl
+	internal partial class UcMap : UserControl, ICustomStylable
 	{
 		#region Fields
 		private bool m_bViewOnly;
@@ -37,10 +38,19 @@ namespace DcsBriefop.UcBriefing
 		}
 		#endregion
 
+		#region ICustomStylable
+		public void ApplyCustomStyle()
+		{
+			ToolsStyle.LabelHeader(LbTheater);
+			ToolsStyle.LabelTitle(LbTitle);
+		}
+		#endregion
+
 		#region Methods
-		public void SetMapData(BriefopCustomMap mapData, string sTitle, bool bViewOnly)
+		public void SetMapData(BriefopCustomMap mapData, string sTheater, string sTitle, bool bViewOnly)
 		{
 			m_bViewOnly = bViewOnly;
+			LbTheater.Text = sTheater;
 			LbTitle.Text = sTitle;
 
 			CkAddMarker.Enabled = BtAreaSet.Enabled = BtAreaRecall.Enabled = !m_bViewOnly;
