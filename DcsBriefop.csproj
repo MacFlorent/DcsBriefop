@@ -151,6 +151,7 @@
     <Compile Include="DataMiz\BriefopCustomAsset.cs" />
     <Compile Include="DataMiz\BriefopCustomMission.cs" />
     <Compile Include="DataMiz\Miz.cs" />
+    <Compile Include="DataMiz\MizDrawing.cs" />
     <Compile Include="DataMiz\MizRadio.cs" />
     <Compile Include="Data\Airdrome.cs" />
     <Compile Include="Data\Asset.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="FrmComs.Designer.cs">
       <DependentUpon>FrmComs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Map\GRouteBriefop.cs" />
     <Compile Include="MissionManager.cs" />
     <Compile Include="Data\Weather.cs" />
     <Compile Include="Data\Radio.cs" />

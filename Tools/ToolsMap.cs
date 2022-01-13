@@ -1,5 +1,7 @@
-﻿using DcsBriefop.Data;
+﻿using CoordinateSharp;
+using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Map;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
@@ -7,11 +9,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 
 namespace DcsBriefop.Tools
 {
 	internal static class ToolsMap
 	{
+		#region Miscellaneous
 		public static RectLatLng? GetRectOfPoints(List<PointLatLng> points)
 		{
 			RectLatLng? rect = null;
@@ -73,7 +77,65 @@ namespace DcsBriefop.Tools
 			else
 				return GetRectCenter(GetRectOfPoints(points));
 		}
+		#endregion
 
+		#region MizDrawings
+		public static void AddMizDrawingLayers(Theatre theatre, GMapOverlay overlay, List<MizDrawingLayer> drawingLayers)
+		{
+			foreach (MizDrawingLayer drawingLayer in drawingLayers)
+			{
+				AddMizDrawingLayer(theatre, overlay, drawingLayer);
+			}
+		}
+
+		public static void AddMizDrawingLayer(Theatre theatre, GMapOverlay overlay, MizDrawingLayer drawingLayer)
+		{
+			foreach (MizDrawingObject drawingObject in drawingLayer.Objects)
+			{
+				if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Line)
+					AddMizDrawingObjectLine(theatre, overlay, drawingObject);
+			}
+		}
+
+		private static void AddMizDrawingObjectLine(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		{
+			List<PointLatLng> points = new List<PointLatLng>();
+			foreach (MizDrawingPoint point in drawingObject.Points)
+			{
+				decimal dY = drawingObject.MapY + point.Y;
+				decimal dX = drawingObject.MapX + point.X;
+				Coordinate coordinate = theatre.GetCoordinate(dY, dX);
+				PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+				points.Add(p);
+			}
+
+			//GMapRoute route = new GMapRoute(points, drawingObject.Name);
+			//Pen pen = new Pen(ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(1) / 10f);
+			//Brush brush = new HatchBrush(HatchStyle.DashedHorizontal, Color.Black);
+			Brush brush = new LinearGradientBrush(new Point(0, 10), new Point(200, 10), Color.FromArgb(255, 255, 0, 0), Color.FromArgb(255, 0, 0, 255));
+
+			GRouteBriefop route = new GRouteBriefop(points, drawingObject.Name);
+			//Bitmap bitmap = new Bitmap("polyline_Bound4.png");
+			//TextureBrush brush = new TextureBrush(bitmap);
+
+			Pen pen = new Pen(brush, 5);
+
+
+			route.Stroke = pen;
+			overlay.Routes.Add(route);
+		}
+
+		private static Color ColorFromDcsString(string sDcsString)
+		{
+			string sHtmlColor = $"#{sDcsString.Substring(2, 6)}";
+			string sAlpha = sDcsString.Substring(8,2);
+			Color color = ColorTranslator.FromHtml(sHtmlColor);
+			Color colorAlpha = Color.FromArgb(Convert.ToInt32(sAlpha, 16), color);
+			return colorAlpha;
+		}
+		#endregion
+
+		#region Image Generation
 		public static Bitmap GenerateMapImage(BriefopCustomMap mapData)
 		{
 			GMapProvider mapProvider = ElementMapValue.MapProvider;
@@ -248,7 +310,7 @@ namespace DcsBriefop.Tools
 							gfx.TranslateTransform(markerPointPixel.X, markerPointPixel.Y); // account for marker position within the global map as the render method will draw at this postion
 							gfx.TranslateTransform(-marker.LocalPosition.X, -marker.LocalPosition.Y); // account for (nullify) local position of relative to displayed map control if any, as it will be used in the render
 							gfx.TranslateTransform(marker.Offset.X, marker.Offset.Y); // account for marker offset positioning
-							
+
 
 							marker.OnRender(gfx);
 						}
@@ -259,9 +321,9 @@ namespace DcsBriefop.Tools
 			}
 
 			return bmpDestination;
-
-
 		}
+
+		#endregion
 	}
 }
 

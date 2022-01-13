@@ -80,7 +80,7 @@ namespace DcsBriefop.HtmlBuilder
 
 		public void OpenTable(params string[] headers)
 		{
-			OpenTag("table", "align=\"center\" style=\"border-collapse:collapse;\"");
+			OpenTag("table", "align=\"center\" style=\"width:100%;border-collapse:collapse;\"");
 			OpenTag("tr");
 			foreach (string s in headers)
 			{

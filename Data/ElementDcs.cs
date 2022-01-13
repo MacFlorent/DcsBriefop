@@ -56,4 +56,17 @@ namespace DcsBriefop.Data
 	internal static class ElementAircraftType
 	{
 	}
+
+	internal static class ElementDrawingLayer
+	{
+		public static readonly string Common = "Common";
+		public static readonly string Red = "Red";
+		public static readonly string Blue = "Blue";
+		public static readonly string Neutral = "Neutral";
+	}
+
+	internal static class ElementDrawingPrimitive
+	{
+		public static readonly string Line = "Line";
+	}
 }

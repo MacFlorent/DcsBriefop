@@ -227,7 +227,7 @@ namespace DcsBriefop
 			AppendTableComsRadio(hb, coalition, 1);
 			hb.CloseTag();
 			hb.OpenTag("td");
-			AppendTableComsRadio(hb, coalition, 1);
+			AppendTableComsRadio(hb, coalition, 2);
 			hb.CloseTag();
 			hb.CloseTag();
 			hb.CloseTable();

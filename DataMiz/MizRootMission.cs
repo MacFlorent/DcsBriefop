@@ -17,6 +17,8 @@ namespace DcsBriefop.DataMiz
 			public static readonly string Map = "map";
 			public static readonly string Weather = "weather";
 			public static readonly string Coalition = "coalition";
+			public static readonly string Drawings = "drawings";
+			public static readonly string Layers = "layers";
 		}
 
 		public Dictionary<string, LsonValue> RootLua { get; private set; }
@@ -27,6 +29,7 @@ namespace DcsBriefop.DataMiz
 		public MizMap Map { get; set; }
 		public MizWeather Weather { get; set; }
 		public List<MizCoalition> Coalitions { get; set; } = new List<MizCoalition>();
+		public List<MizDrawingLayer> DrawingLayers { get; set; } = new List<MizDrawingLayer>();
 
 		public MizRootMission(LsonDict lsd) : base(lsd) { }
 
@@ -47,6 +50,12 @@ namespace DcsBriefop.DataMiz
 			foreach (LsonValue lsv in lsdCoalitions.Values)
 			{
 				Coalitions.Add(new MizCoalition(lsv.GetDict()));
+			}
+
+			LsonDict lsdDrawings = m_lsd[LuaNode.Drawings][LuaNode.Layers].GetDict();
+			foreach (LsonValue lsv in lsdDrawings.Values)
+			{
+				DrawingLayers.Add(new MizDrawingLayer(lsv.GetDict()));
 			}
 		}
 

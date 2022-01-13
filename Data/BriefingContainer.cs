@@ -1,7 +1,10 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Tools;
+using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace DcsBriefop.Data
@@ -36,6 +39,10 @@ namespace DcsBriefop.Data
 
 		private void InitializeMapData()
 		{
+			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
+			
+			ToolsMap.AddMizDrawingLayers(Core.Theatre, staticOverlay, Core.Miz.RootMission.DrawingLayers.Where(_dl => _dl.Name == ElementDrawingLayer.Common).ToList());
+
 			if (MapData is null)
 			{
 				Core.Miz.BriefopCustomData.MapData = new BriefopCustomMap();
@@ -45,6 +52,10 @@ namespace DcsBriefop.Data
 				MapData.Zoom = ElementMapValue.DefaultZoom;
 				MapData.MapOverlayCustom = new GMapOverlay();
 			}
+
+			MapData.AdditionalMapOverlays.Clear();
+			MapData.AdditionalMapOverlays.Add(staticOverlay);
+
 		}
 
 		private void InitializeCoalition(string sCoalitionName)

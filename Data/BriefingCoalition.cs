@@ -113,6 +113,8 @@ namespace DcsBriefop.Data
 			m_markerkBullseye = new GMarkerBriefop(p, MarkerBriefopType.bullseye.ToString(), OwnColor, BullseyeDescription);
 			staticOverlay.Markers.Add(m_markerkBullseye);
 
+			ToolsMap.AddMizDrawingLayers(Core.Theatre, staticOverlay, Core.Miz.RootMission.DrawingLayers.Where(_dl => _dl.Name.ToUpper() == CoalitionName.ToUpper()).ToList());
+
 			if (MapData is null)
 			{
 				m_briefopCustomCoalition.MapData = new BriefopCustomMap();
@@ -125,6 +127,7 @@ namespace DcsBriefop.Data
 			MapData.AdditionalMapOverlays.Clear();
 			MapData.AdditionalMapOverlays.Add(staticOverlay);
 			MapData.AdditionalMapOverlays.Add(Core.Miz.BriefopCustomData.MapData.MapOverlayCustom);
+			MapData.AdditionalMapOverlays.Add(Core.Miz.BriefopCustomData.MapData.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault());
 		}
 
 		private void InitializeMapDataChildrenOverlays()
