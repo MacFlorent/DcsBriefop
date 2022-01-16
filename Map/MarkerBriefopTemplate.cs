@@ -52,36 +52,37 @@ namespace DcsBriefop.Map
 
 		static MarkerBriefopTemplate()
 		{
-			BriefopMarkerSection configSection = BriefopMarkerSection.GetMarkerSection();
+			BriefopConfigSection configSection = BriefopConfigSection.GetConfigSection();
 
-			string sBaseDirectory = configSection.BaseDirectory;
+			string sBaseDirectory = configSection.BaseDirectoryMarkers;
 			if (sBaseDirectory.StartsWith(@".\"))
 				sBaseDirectory = sBaseDirectory.Replace(@".\", $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\");
 
+			BriefopMarkersElement configElement = configSection.BriefopMarkers;
 			if (Directory.Exists(sBaseDirectory))
 			{
 				foreach (string sFilePath in Directory.GetFiles(sBaseDirectory, "*.*", SearchOption.TopDirectoryOnly))
 				{
-					AddTemplate(sFilePath, configSection);
+					AddTemplate(sFilePath, configElement);
 				}
 			}
 
 			foreach (string sResource in Enum.GetValues(typeof(MarkerBriefopType)).Cast<MarkerBriefopType>().Select(_e => _e.ToString()))
-				AddTemplate(sResource, configSection);
+				AddTemplate(sResource, configElement);
 		}
 
-		private static void AddTemplate(string sTemplate, BriefopMarkerSection configSection)
+		private static void AddTemplate(string sTemplate, BriefopMarkersElement configElement)
 		{
 			try
 			{
-				Size size = new Size(configSection.DefaultWidth, configSection.DefaultHeight);
+				Size size = new Size(configElement.DefaultWidth, configElement.DefaultHeight);
 				double dOffsetWidth = m_dDefaultOffsetWidth, dOffsetHeight = m_dDefaultOffsetHeight;
 				string sName = null;
 
 				if (File.Exists(sTemplate))
 				{
 					sName = Path.GetFileNameWithoutExtension(sTemplate);
-					if (configSection.MarkerConfigs[sName] is BriefopMarkerElement cfgElement)
+					if (configElement.MarkerConfigsList[sName] is BriefopMarkerElement cfgElement)
 					{
 						size.Width = cfgElement.Width ?? size.Width;
 						size.Height = cfgElement.Height ?? size.Height;
@@ -142,7 +143,7 @@ namespace DcsBriefop.Map
 				}
 
 				if (bmp is null)
-					throw new ExceptionDcsBriefop($"Failed to create bitmap template for marker file { sTemplate}");
+					throw new ExceptionDcsBriefop($"Failed to create bitmap template for marker file {sTemplate}");
 
 				m_bitmapCache.Add(sTemplate, bmp);
 			}

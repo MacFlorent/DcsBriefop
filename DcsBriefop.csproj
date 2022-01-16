@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BriefingFilesBuilder.cs" />
+    <Compile Include="Configuration\BriefopConfigSection.cs" />
     <Compile Include="DataMiz\BaseBriefopCustomSerializable.cs" />
     <Compile Include="DataMiz\BriefopCustomAsset.cs" />
     <Compile Include="DataMiz\BriefopCustomMission.cs" />
@@ -176,10 +177,11 @@
       <DependentUpon>FrmComs.cs</DependentUpon>
     </Compile>
     <Compile Include="Map\GRouteBriefop.cs" />
+    <Compile Include="Map\RouteBriefopTemplate.cs" />
     <Compile Include="MissionManager.cs" />
     <Compile Include="Data\Weather.cs" />
     <Compile Include="Data\Radio.cs" />
-    <Compile Include="Configuration\BriefopMarkerSection.cs" />
+    <Compile Include="Configuration\BriefopMarkersElement.cs" />
     <Compile Include="Configuration\BriefopMarkerCollection.cs" />
     <Compile Include="Configuration\BriefopMarkerElement.cs" />
     <Compile Include="Data\DcsUnit.cs" />
@@ -389,6 +391,7 @@
   <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /I /Y $(SolutionDir)Resources\Markers $(TargetDir)\Markers
+xcopy /I /Y $(SolutionDir)Resources\Routes $(TargetDir)\Routes
 xcopy /I /Y $(SolutionDir)Resources\Resources $(TargetDir)\Resources</PostBuildEvent>
   </PropertyGroup>
 </Project>

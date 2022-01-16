@@ -112,16 +112,14 @@ namespace DcsBriefop.Tools
 			//GMapRoute route = new GMapRoute(points, drawingObject.Name);
 			//Pen pen = new Pen(ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(1) / 10f);
 			//Brush brush = new HatchBrush(HatchStyle.DashedHorizontal, Color.Black);
-			Brush brush = new LinearGradientBrush(new Point(0, 10), new Point(200, 10), Color.FromArgb(255, 255, 0, 0), Color.FromArgb(255, 0, 0, 255));
-
-			GRouteBriefop route = new GRouteBriefop(points, drawingObject.Name);
+			//Brush brush = new LinearGradientBrush(new Point(0, 10), new Point(200, 10), Color.FromArgb(255, 255, 0, 0), Color.FromArgb(255, 0, 0, 255));
 			//Bitmap bitmap = new Bitmap("polyline_Bound4.png");
 			//TextureBrush brush = new TextureBrush(bitmap);
+			//Pen pen = new Pen(brush, 5);
+			//route.Stroke = pen;
 
-			Pen pen = new Pen(brush, 5);
-
-
-			route.Stroke = pen;
+			string sTemplate = $"polyline_{drawingObject.Style}"; 
+			GRouteBriefop route = new GRouteBriefop(points, drawingObject.Name, sTemplate, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5));
 			overlay.Routes.Add(route);
 		}
 
