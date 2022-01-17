@@ -118,8 +118,7 @@ namespace DcsBriefop.Tools
 			//Pen pen = new Pen(brush, 5);
 			//route.Stroke = pen;
 
-			string sTemplate = $"polyline_{drawingObject.Style}"; 
-			GRouteBriefop route = new GRouteBriefop(points, drawingObject.Name, sTemplate, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5));
+			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, drawingObject.Name, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5));
 			overlay.Routes.Add(route);
 		}
 

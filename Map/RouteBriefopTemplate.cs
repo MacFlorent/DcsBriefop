@@ -13,6 +13,7 @@ namespace DcsBriefop.Map
 	{
 		line,
 		dot,
+		dash
 	}
 
 	public class RouteBriefopTemplate
@@ -22,8 +23,10 @@ namespace DcsBriefop.Map
 
 		#region Properties
 		public string Name { get; set; }
-		public Bitmap Bitmap { get; set; }
 		public DashStyle DashStyle { get; set; }
+		public Bitmap Bitmap { get; set; }
+		public decimal? ThicknessCorrection { get; set; }
+		public string DcsMizStyle { get; set; }
 		#endregion
 
 		#region Methods
@@ -46,38 +49,49 @@ namespace DcsBriefop.Map
 			if (sBaseDirectory.StartsWith(@".\"))
 				sBaseDirectory = sBaseDirectory.Replace(@".\", $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\");
 
+			BriefopRoutesElement configElement = configSection.BriefopRoutes;
+
 			if (Directory.Exists(sBaseDirectory))
 			{
 				foreach (string sFilePath in Directory.GetFiles(sBaseDirectory, "*.*", SearchOption.TopDirectoryOnly))
 				{
-					AddTemplate(sFilePath);
+					AddTemplate(sFilePath, configElement);
 				}
 			}
 
 			foreach (string sDash in Enum.GetValues(typeof(RouteBriefopType)).Cast<RouteBriefopType>().Select(_e => _e.ToString()))
-				AddTemplate(sDash);
+				AddTemplate(sDash, configElement);
 
 		}
 
-		private static void AddTemplate(string sTemplate)
+		private static void AddTemplate(string sTemplate, BriefopRoutesElement configsElement)
 		{
 			try
 			{
 				string sName = null;
 				DashStyle dashStyle = DashStyle.Solid;
 				Bitmap bitmap = null;
+				decimal? dThicknessCorrection = null;
+				string sDcsMizStyle = null;
 
 				if (File.Exists(sTemplate))
 				{
 					sName = Path.GetFileNameWithoutExtension(sTemplate);
 					bitmap = GetCachedBitmap(sTemplate);
+
+					if (configsElement.MarkerConfigsList[sName] is BriefopRouteElement cfgElement)
+					{
+						dThicknessCorrection = cfgElement.ThicknessCorrection ?? configsElement.DefaultThicknessCorrection;
+						sDcsMizStyle = cfgElement.DcsMizStyle ?? sName.Replace("polyline_", "");
+					}
 				}
 				else
 				{
 					sName = sTemplate;
 					if (sTemplate == RouteBriefopType.dot.ToString())
 						dashStyle = DashStyle.Dot;
-
+					else if (sTemplate == RouteBriefopType.dash.ToString())
+						dashStyle = DashStyle.Dash;
 				}
 
 				if (string.IsNullOrEmpty(sName) || m_templatesList.ContainsKey(sName))
@@ -86,8 +100,10 @@ namespace DcsBriefop.Map
 				RouteBriefopTemplate template = new RouteBriefopTemplate()
 				{
 					Name = sName,
+					DashStyle = dashStyle,
 					Bitmap = bitmap,
-					DashStyle = dashStyle
+					ThicknessCorrection = dThicknessCorrection,
+					DcsMizStyle = sDcsMizStyle
 				};
 				m_templatesList.Add(template.Name, template);
 			}
@@ -127,6 +143,15 @@ namespace DcsBriefop.Map
 			{
 				template = m_templatesList[m_sDefaultRouteType];
 			}
+
+			return template;
+		}
+
+		public static RouteBriefopTemplate GetTemplateFromDcsMizStyle(string sDcsMizStyle)
+		{
+			RouteBriefopTemplate template = m_templatesList.Values.Where(_t => _t.DcsMizStyle == sDcsMizStyle).FirstOrDefault();
+			if (template is null)
+				template = m_templatesList[m_sDefaultRouteType];
 
 			return template;
 		}

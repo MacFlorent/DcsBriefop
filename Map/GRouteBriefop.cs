@@ -4,6 +4,7 @@ using GMap.NET.WindowsForms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace DcsBriefop.Map
@@ -11,30 +12,50 @@ namespace DcsBriefop.Map
 	[Serializable]
 	public class GRouteBriefop : GMapRoute, ISerializable, IDeserializationCallback
 	{
+		#region Fields
 		private Font m_font = new Font("Arial", 11);
 		private double m_dRadian90 = 1.5707963268;
 		private RouteBriefopTemplate m_template;
 		private Bitmap m_bitmap;
+		#endregion
 
+		#region Properties
 		public string RouteTemplate
 		{
 			get { return m_template?.Name; }
 		}
 
 		public Color? TintColor { get; set; }
-		public int Width { get; set; }
+		
+		public int Thickness { get; set; }
+		#endregion
 
-		public GRouteBriefop(List<PointLatLng> points, string sName, string sRouteType, Color? tintColor, int iWidth) : base(points, sName)
+		#region CTOR
+		public GRouteBriefop(List<PointLatLng> points, string sName, RouteBriefopTemplate template, Color? tintColor, int iThickness) : base(points, sName)
 		{
-			LoadTemplate(sRouteType);
+			m_template = template;
 			TintColor = tintColor;
-			Width = iWidth;
+			Thickness = iThickness;
 			LoadBitmap();
 
-			Stroke = new Pen(TintColor.GetValueOrDefault(Color.Black), (float)Width);
+			Stroke = new Pen(TintColor.GetValueOrDefault(Color.Black), (float)Thickness);
 			Stroke.DashStyle = m_template.DashStyle;
 		}
 
+		public static GRouteBriefop NewFromTemplateName(List<PointLatLng> points, string sName, string sTemplateName, Color? tintColor, int iThickness)
+		{
+			RouteBriefopTemplate template = RouteBriefopTemplate.GetTemplate(sTemplateName);
+			return new GRouteBriefop(points, sName, template, tintColor, iThickness);
+		}
+
+		public static GRouteBriefop NewFromMizStyleName(List<PointLatLng> points, string sName, string sMizStyleName, Color? tintColor, int iThickness)
+		{
+			RouteBriefopTemplate template = RouteBriefopTemplate.GetTemplateFromDcsMizStyle(sMizStyleName);
+			return new GRouteBriefop(points, sName, template, tintColor, iThickness);
+		}
+		#endregion
+
+		#region Methods
 		public void LoadTemplate(string sTemplate)
 		{
 			m_template = RouteBriefopTemplate.GetTemplate(sTemplate);
@@ -56,17 +77,24 @@ namespace DcsBriefop.Map
 			else
 				m_bitmap = m_template.Bitmap;
 		}
+		#endregion
 
-
+		#region Render
 		public override void OnRender(Graphics g)
 		{
+			int iCorrectedThickness = Thickness;
+			if (m_template.ThicknessCorrection is object)
+			{
+				iCorrectedThickness = (int)(iCorrectedThickness * m_template.ThicknessCorrection.Value);
+			}
+
 			for (int i = 0; i < LocalPoints.Count - 1; i++)
 			{
-				DrawSegment(g, i);
+				DrawSegment(g, iCorrectedThickness, i);
 			}
 		}
 
-		private void DrawSegment(Graphics g, int iPointStartIndex)
+		private void DrawSegment(Graphics g, int iCorrectedThickness, int iPointStartIndex)
 		{
 			if (LocalPoints.Count <= iPointStartIndex + 1)
 				return;
@@ -75,7 +103,7 @@ namespace DcsBriefop.Map
 			Point pointEnd = new Point((int)LocalPoints[iPointStartIndex + 1].X, (int)LocalPoints[iPointStartIndex + 1].Y);
 
 			if (m_bitmap is object)
-				DrawSegmentBitmap(g, pointStart, pointEnd);
+				DrawSegmentBitmap(g, iCorrectedThickness, pointStart, pointEnd);
 			else
 				DrawSegmentDash(g, pointStart, pointEnd);
 		}
@@ -85,51 +113,77 @@ namespace DcsBriefop.Map
 			g.DrawLine(Stroke, pointStart, pointEnd);
 		}
 
-		private void DrawSegmentBitmap(Graphics g, Point pointStart, Point pointEnd)
+		private void DrawSegmentBitmap(Graphics g, int iCorrectedThickness, Point pointStart, Point pointEnd)
 		{
 			//double dSegmentAngle = ComputeVerticalAngle(pointStart, pointEnd);
-			double dHeight = Width;
-			double dSegmentWidth = ComputePointDistance(pointStart, pointEnd);
+			double dHeight = iCorrectedThickness;
+			//double dSegmentWidth = ComputePointDistance(pointStart, pointEnd);
 
 			// drawing a border around the full segment
-			g.DrawPolygon(new Pen(Brushes.Red, 1), ComputeAngledPoints(pointStart, pointEnd, dHeight));
+			//g.DrawPolygon(new Pen(Brushes.Red, 1), ComputeAngledPoints(pointStart, pointEnd, dHeight));
 
 			// drawing the image multiple times to fill the segment
 			lock (m_bitmap)
 			{
-				double dTargetBitmapWidth = m_bitmap.Width * dHeight / m_bitmap.Height;
+				double dFullDrawWidth = m_bitmap.Width * dHeight / m_bitmap.Height;
 
+				bool bFinished = false;
 				Point p1 = pointStart;
-				//g.DrawString("*", m_font, Brushes.Aqua, p1);
 				Point p2;
-				double dDistanceRemaining = dSegmentWidth;
-				while (dDistanceRemaining > 0)
+				while (!bFinished)
 				{
-					if (dDistanceRemaining - dTargetBitmapWidth <= 0)
+					double dDrawWidth = dFullDrawWidth;
+					double dDistanceRemaining = ComputePointDistance(p1, pointEnd);
+					if (dDistanceRemaining < dDrawWidth)
+					{
 						p2 = pointEnd;
+						dDrawWidth = dDistanceRemaining;
+						bFinished = true;
+					}
 					else
-						p2 = TranslatePoint(p1, pointEnd, dTargetBitmapWidth);
+						p2 = TranslatePoint(p1, pointEnd, dDrawWidth);
 
 					//g.DrawPolygon(new Pen(Brushes.Chartreuse, 1), ComputeAngledPoints(p1, p2, dHeight));
-					g.DrawLine(new Pen(Brushes.Chartreuse, 1), p1, p2);
-					g.DrawString($"{ComputeVerticalAngle(p1, p2) - m_dRadian90}", m_font, Brushes.Aqua, p1);
-					DrawBitmapBetweenPoints(g, m_bitmap, p1, p2, dHeight);
-					//Point[] pointsBitmap = { pointTopLeft, pointToRight, pointBottomLeft };
-					//g.DrawImage(bitmap, pointsBitmap);
+					//g.DrawLine(new Pen(Brushes.Chartreuse, 1), p1, p2);
+					//g.DrawString($"{ComputeVerticalAngle(p1, p2) - m_dRadian90}", m_font, Brushes.Aqua, p1);
+					DrawBitmapBetweenPoints(g, m_bitmap, p1, p2, dHeight, dDrawWidth);
 
 					p1 = p2;
-					dDistanceRemaining -= dTargetBitmapWidth;
 				}
 
 			}
 
 		}
 
-		private void DrawBitmapBetweenPoints(Graphics g, Bitmap bitmap, Point p1, Point p2, double dHeight)
+		private Brush PickBrush()
+		{
+			Brush result = Brushes.Transparent;
+
+			Random rnd = new Random();
+
+			Type brushesType = typeof(Brushes);
+
+			PropertyInfo[] properties = brushesType.GetProperties();
+
+			int random = rnd.Next(properties.Length);
+			result = (Brush)properties[random].GetValue(null, null);
+
+			return result;
+		}
+
+		private void DrawBitmapBetweenPoints(Graphics g, Bitmap bitmap, Point p1, Point p2, double dHeight, double dDistance)
 		{
 			Point[] points = ComputeAngledPoints(p1, p2, dHeight);
-			Point[] pointsBitmap = { points[0], points[1], points[3] };
-			g.DrawImage(bitmap, pointsBitmap);
+
+			// points from ComputeAngledPoints are topLeft, topRight, bottomRight, bottomLeft
+			// points for DrawImage are topLeft, topRight, bottomLeft
+			// here they are switched to draw the image in the same orientation as DCS does
+			//Point[] pointsDest = { points[0], points[1], points[3] }; // this is not matching the DCS orientation
+			Point[] pointsDest = { points[2], points[3], points[1] }; // this is matching the DCS orientation
+			Rectangle rectSource = new Rectangle(0, 0, (int)(dDistance * m_bitmap.Height / dHeight), bitmap.Height);
+			g.DrawImage(bitmap, pointsDest, rectSource, GraphicsUnit.Pixel);
+
+			g.DrawPolygon(new Pen(PickBrush(), 1), points);
 		}
 
 		private Point TranslatePoint(Point pointOrigin, Point pointTowards, double dDistance)
@@ -177,6 +231,7 @@ namespace DcsBriefop.Map
 		{
 			base.Dispose();
 		}
+		#endregion
 
 		#region ISerializable Members
 		void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)

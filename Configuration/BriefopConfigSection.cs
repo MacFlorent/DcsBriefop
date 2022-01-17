@@ -27,6 +27,14 @@ namespace DcsBriefop.Configuration
 			set { this["briefopMarkers"] = value; }
 		}
 
+		[ConfigurationProperty("briefopRoutes")]
+		public BriefopRoutesElement BriefopRoutes
+		{
+			get { return this["briefopRoutes"] as BriefopRoutesElement; }
+			set { this["briefopRoutes"] = value; }
+		}
+
+
 		public static BriefopConfigSection GetConfigSection()
 		{
 			return ConfigurationManager.GetSection("briefopConfig") as BriefopConfigSection;

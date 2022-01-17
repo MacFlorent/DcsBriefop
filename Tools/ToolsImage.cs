@@ -11,11 +11,12 @@ namespace DcsBriefop.Tools
 			float fRedTint = colorTint.R / 255f;
 			float fGreenTint = colorTint.G / 255f;
 			float fBlueTint = colorTint.B / 255f;
+			float fAlphaTint = colorTint.A / 255f;
 
-			return sourceBitmap.ColorTint(fBlueTint, fGreenTint, fRedTint);
+			return sourceBitmap.ColorTintFromWhite(fBlueTint, fGreenTint, fRedTint, fAlphaTint);
 		}
 
-		public static Bitmap ColorTint(this Bitmap sourceBitmap, float blueTint, float greenTint, float redTint)
+		public static Bitmap ColorTintFromBlack(this Bitmap sourceBitmap, float blueTint, float greenTint, float redTint)
 		{
 			BitmapData sourceData = sourceBitmap.LockBits(new Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
 			byte[] pixelBuffer = new byte[sourceData.Stride * sourceData.Height];
@@ -45,6 +46,55 @@ namespace DcsBriefop.Tools
 				pixelBuffer[k] = (byte)blue;
 				pixelBuffer[k + 1] = (byte)green;
 				pixelBuffer[k + 2] = (byte)red;
+			}
+
+			Bitmap resultBitmap = new Bitmap(sourceBitmap.Width, sourceBitmap.Height);
+			BitmapData resultData = resultBitmap.LockBits(new Rectangle(0, 0, resultBitmap.Width, resultBitmap.Height), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+
+			System.Runtime.InteropServices.Marshal.Copy(pixelBuffer, 0, resultData.Scan0, pixelBuffer.Length);
+			resultBitmap.UnlockBits(resultData);
+
+			return resultBitmap;
+		}
+
+		public static Bitmap ColorTintFromWhite(this Bitmap sourceBitmap, float blueTint, float greenTint, float redTint, float alphaTint)
+		{
+			BitmapData sourceData = sourceBitmap.LockBits(new Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+			byte[] pixelBuffer = new byte[sourceData.Stride * sourceData.Height];
+
+			System.Runtime.InteropServices.Marshal.Copy(sourceData.Scan0, pixelBuffer, 0, pixelBuffer.Length);
+			sourceBitmap.UnlockBits(sourceData);
+
+			float blue = 0;
+			float green = 0;
+			float red = 0;
+			float alpha = 0;
+
+			for (int k = 0; k + 4 < pixelBuffer.Length; k += 4)
+			{
+				blue = pixelBuffer[k] - (pixelBuffer[k]) * (1 - blueTint);
+				green = pixelBuffer[k + 1] - (pixelBuffer[k + 1]) * (1 - greenTint);
+				red = pixelBuffer[k + 2] - (pixelBuffer[k + 2]) * (1 - redTint);
+				alpha = pixelBuffer[k + 3] - (pixelBuffer[k + 3]) * (1 - alphaTint);
+
+				if (blue < 0)
+				{ blue = 0; }
+
+				if (green < 0)
+				{ green = 0; }
+
+				if (red < 0)
+				{ red = 0; }
+
+				if (alpha <0)
+				{ alpha = 0; }
+
+				pixelBuffer[k] = (byte)blue;
+				pixelBuffer[k + 1] = (byte)green;
+				pixelBuffer[k + 2] = (byte)red;
+				
+				if (pixelBuffer[k + 3] > 0)
+					pixelBuffer[k + 3] = (byte)alpha;
 			}
 
 			Bitmap resultBitmap = new Bitmap(sourceBitmap.Width, sourceBitmap.Height);
@@ -100,7 +150,7 @@ namespace DcsBriefop.Tools
 			if (oResource is Icon i)
 				ico = i;
 			else if (oResource is Bitmap b)
-			{ 
+			{
 				IntPtr icH = b.GetHicon();
 				ico = Icon.FromHandle(icH);
 				//DestroyIcon(icH);

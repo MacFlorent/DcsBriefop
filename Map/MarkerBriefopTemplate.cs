@@ -11,16 +11,17 @@ namespace DcsBriefop.Map
 {
 	internal enum MarkerBriefopType
 	{
-		aircraft,
-		airport,
+		circle,
+		triangle,
+
 		bullseye,
-		dot,
-		factory,
+		airdrome,
+
+		aircraft,
 		helicopter,
-		pin,
+		ground,
 		ship,
-		tank,
-		triangle
+		carrier
 	}
 
 	public class MarkerBriefopTemplate
@@ -46,7 +47,7 @@ namespace DcsBriefop.Map
 		#endregion
 
 		#region Static
-		private static readonly string m_sDefaultMarkerType = MarkerBriefopType.pin.ToString();
+		private static readonly string m_sDefaultMarkerType = MarkerBriefopType.circle.ToString();
 		private static Dictionary<string, Bitmap> m_bitmapCache = new Dictionary<string, Bitmap>();
 		private static Dictionary<string, MarkerBriefopTemplate> m_templatesList = new Dictionary<string, MarkerBriefopTemplate>();
 
@@ -71,18 +72,18 @@ namespace DcsBriefop.Map
 				AddTemplate(sResource, configElement);
 		}
 
-		private static void AddTemplate(string sTemplate, BriefopMarkersElement configElement)
+		private static void AddTemplate(string sTemplate, BriefopMarkersElement configsElement)
 		{
 			try
 			{
-				Size size = new Size(configElement.DefaultWidth, configElement.DefaultHeight);
+				Size size = new Size(configsElement.DefaultWidth, configsElement.DefaultHeight);
 				double dOffsetWidth = m_dDefaultOffsetWidth, dOffsetHeight = m_dDefaultOffsetHeight;
 				string sName = null;
 
 				if (File.Exists(sTemplate))
 				{
 					sName = Path.GetFileNameWithoutExtension(sTemplate);
-					if (configElement.MarkerConfigsList[sName] is BriefopMarkerElement cfgElement)
+					if (configsElement.MarkerConfigsList[sName] is BriefopMarkerElement cfgElement)
 					{
 						size.Width = cfgElement.Width ?? size.Width;
 						size.Height = cfgElement.Height ?? size.Height;
@@ -93,18 +94,18 @@ namespace DcsBriefop.Map
 				else if (Properties.Resources.ResourceManager.GetObject(sTemplate, Properties.Resources.Culture) is object)
 				{
 					sName = sTemplate;
-					if (sTemplate == MarkerBriefopType.pin.ToString())
-					{
-						dOffsetWidth = -0.5; dOffsetHeight = -0.95;
-					}
-					else if (sTemplate == MarkerBriefopType.dot.ToString())
-					{
-						size = new Size(10, 10);
-					}
-					else if (sTemplate == MarkerBriefopType.triangle.ToString())
-					{
-						size = new Size(10, 10);
-					}
+					//if (sTemplate == MarkerBriefopType.pin.ToString())
+					//{
+					//	dOffsetWidth = -0.5; dOffsetHeight = -0.95;
+					//}
+					//else if (sTemplate == MarkerBriefopType.dot.ToString())
+					//{
+					//	size = new Size(10, 10);
+					//}
+					//else if (sTemplate == MarkerBriefopType.triangle.ToString())
+					//{
+					//	size = new Size(10, 10);
+					//}
 				}
 
 				if (string.IsNullOrEmpty(sName) || m_templatesList.ContainsKey(sName))

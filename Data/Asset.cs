@@ -68,7 +68,7 @@ namespace DcsBriefop.Data
 
 		protected virtual void InitializeData()
 		{
-			MapMarker = MarkerBriefopType.dot.ToString();
+			MapMarker = MarkerBriefopType.circle.ToString();
 			
 			if (Side == ElementAssetSide.Own)
 			{

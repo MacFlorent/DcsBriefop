@@ -148,6 +148,9 @@
   <ItemGroup>
     <Compile Include="BriefingFilesBuilder.cs" />
     <Compile Include="Configuration\BriefopConfigSection.cs" />
+    <Compile Include="Configuration\BriefopRoutesElement.cs" />
+    <Compile Include="Configuration\BriefopRouteElement.cs" />
+    <Compile Include="Configuration\BriefopRouteCollection.cs" />
     <Compile Include="DataMiz\BaseBriefopCustomSerializable.cs" />
     <Compile Include="DataMiz\BriefopCustomAsset.cs" />
     <Compile Include="DataMiz\BriefopCustomMission.cs" />
@@ -211,12 +214,12 @@
     <Compile Include="Data\MasterDataObject.cs" />
     <Compile Include="Data\ElementBriefop.cs" />
     <Compile Include="Data\Theatre.cs" />
-    <Compile Include="Tools\JsonSerializers.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Tools\JsonSerializers.cs" />
     <Compile Include="Tools\ToolsImage.cs" />
     <Compile Include="Tools\ToolsLua.cs" />
     <Compile Include="Tools\ToolsMap.cs" />
@@ -377,7 +380,33 @@
   <ItemGroup>
     <None Include="Resources\icon16.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Markers\P91000025.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Markers\P91000041.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Markers\P91000044.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Markers\P91000057.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Markers\P91000065.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Markers\airdrome_class_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Markers\ground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Markers\P0091000347.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Markers\airdrome_class_none.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

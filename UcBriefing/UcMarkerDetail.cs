@@ -54,9 +54,12 @@ namespace DcsBriefop.UcBriefing
 
 		private Color? GetSelectedColor()
 		{
-			Color? color;
-			try { color = ColorTranslator.FromHtml(TbColor.Text); }
-			catch (Exception) { color = null; }
+			Color? color = null;
+			if (!string.IsNullOrEmpty(TbColor.Text))
+			{
+				try { color = ColorTranslator.FromHtml(TbColor.Text); }
+				catch (Exception) { color = null; }
+			}
 
 			return color;
 		}
