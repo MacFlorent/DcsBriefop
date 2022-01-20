@@ -68,7 +68,7 @@ namespace DcsBriefop.Data
 
 		protected virtual void InitializeData()
 		{
-			MapMarker = MarkerBriefopType.circle.ToString();
+			MapMarker = ElementMapTemplateMarker.Mark;
 			
 			if (Side == ElementAssetSide.Own)
 			{
@@ -133,14 +133,14 @@ namespace DcsBriefop.Data
 				else if (points.Count <= 0 && mapPoint.IsOrbitStart())
 				{
 					PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
-					GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), Color, Name);
+					GMarkerBriefop marker = new GMarkerBriefop(p, ElementMapTemplateMarker.Waypoint, Color, Name);
 					staticOverlay.Markers.Add(marker);
 					points.Add(p);
 				}
 				else if (points.Count == 1)
 				{
 					PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
-					GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), Color, null);
+					GMarkerBriefop marker = new GMarkerBriefop(p, ElementMapTemplateMarker.Waypoint, Color, null);
 					staticOverlay.Markers.Add(marker);
 					points.Add(p);
 				}
@@ -163,7 +163,7 @@ namespace DcsBriefop.Data
 			foreach (AssetMapPoint mapPoint in MapPoints)
 			{
 				PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
-				GMarkerBriefop marker = new GMarkerBriefop(p, MarkerBriefopType.triangle.ToString(), Color, $"{mapPoint.Number}:{mapPoint.Name}");
+				GMarkerBriefop marker = new GMarkerBriefop(p, ElementMapTemplateMarker.Waypoint, Color, $"{mapPoint.Number}:{mapPoint.Name}");
 				staticOverlay.Markers.Add(marker);
 				points.Add(p);
 			}

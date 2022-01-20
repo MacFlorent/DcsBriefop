@@ -4,6 +4,7 @@ using GMap.NET.WindowsForms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Reflection;
 using System.Runtime.Serialization;
 
@@ -15,7 +16,7 @@ namespace DcsBriefop.Map
 		#region Fields
 		private Font m_font = new Font("Arial", 11);
 		private double m_dRadian90 = 1.5707963268;
-		private RouteBriefopTemplate m_template;
+		private MapTemplateRoute m_template;
 		private Bitmap m_bitmap;
 		#endregion
 
@@ -31,26 +32,31 @@ namespace DcsBriefop.Map
 		#endregion
 
 		#region CTOR
-		public GRouteBriefop(List<PointLatLng> points, string sName, RouteBriefopTemplate template, Color? tintColor, int iThickness) : base(points, sName)
+		public GRouteBriefop(List<PointLatLng> points, string sName, MapTemplateRoute template, Color? tintColor, int iThickness) : base(points, sName)
 		{
 			m_template = template;
 			TintColor = tintColor;
 			Thickness = iThickness;
+			if (m_template.ThicknessCorrection is object)
+			{
+				Thickness = (int)(Thickness * m_template.ThicknessCorrection.Value);
+			}
+
 			LoadBitmap();
 
-			Stroke = new Pen(TintColor.GetValueOrDefault(Color.Black), (float)Thickness);
-			Stroke.DashStyle = m_template.DashStyle;
+			Stroke = new Pen(TintColor.GetValueOrDefault(Color.Black), Thickness);
+			Stroke.DashStyle = m_template.DashOverride.GetValueOrDefault(DashStyle.Solid);
 		}
 
 		public static GRouteBriefop NewFromTemplateName(List<PointLatLng> points, string sName, string sTemplateName, Color? tintColor, int iThickness)
 		{
-			RouteBriefopTemplate template = RouteBriefopTemplate.GetTemplate(sTemplateName);
+			MapTemplateRoute template = MapTemplateRoute.GetTemplate(sTemplateName);
 			return new GRouteBriefop(points, sName, template, tintColor, iThickness);
 		}
 
 		public static GRouteBriefop NewFromMizStyleName(List<PointLatLng> points, string sName, string sMizStyleName, Color? tintColor, int iThickness)
 		{
-			RouteBriefopTemplate template = RouteBriefopTemplate.GetTemplateFromDcsMizStyle(sMizStyleName);
+			MapTemplateRoute template = MapTemplateRoute.GetTemplateFromDcsMizStyle(sMizStyleName);
 			return new GRouteBriefop(points, sName, template, tintColor, iThickness);
 		}
 		#endregion
@@ -58,7 +64,7 @@ namespace DcsBriefop.Map
 		#region Methods
 		public void LoadTemplate(string sTemplate)
 		{
-			m_template = RouteBriefopTemplate.GetTemplate(sTemplate);
+			m_template = MapTemplateRoute.GetTemplate(sTemplate);
 		}
 
 		public void LoadBitmap()
@@ -82,19 +88,13 @@ namespace DcsBriefop.Map
 		#region Render
 		public override void OnRender(Graphics g)
 		{
-			int iCorrectedThickness = Thickness;
-			if (m_template.ThicknessCorrection is object)
-			{
-				iCorrectedThickness = (int)(iCorrectedThickness * m_template.ThicknessCorrection.Value);
-			}
-
 			for (int i = 0; i < LocalPoints.Count - 1; i++)
 			{
-				DrawSegment(g, iCorrectedThickness, i);
+				DrawSegment(g, i);
 			}
 		}
 
-		private void DrawSegment(Graphics g, int iCorrectedThickness, int iPointStartIndex)
+		private void DrawSegment(Graphics g, int iPointStartIndex)
 		{
 			if (LocalPoints.Count <= iPointStartIndex + 1)
 				return;
@@ -102,8 +102,8 @@ namespace DcsBriefop.Map
 			Point pointStart = new Point((int)LocalPoints[iPointStartIndex].X, (int)LocalPoints[iPointStartIndex].Y);
 			Point pointEnd = new Point((int)LocalPoints[iPointStartIndex + 1].X, (int)LocalPoints[iPointStartIndex + 1].Y);
 
-			if (m_bitmap is object)
-				DrawSegmentBitmap(g, iCorrectedThickness, pointStart, pointEnd);
+			if (m_bitmap is object && m_template.DashOverride is null)
+				DrawSegmentBitmap(g, pointStart, pointEnd);
 			else
 				DrawSegmentDash(g, pointStart, pointEnd);
 		}
@@ -113,12 +113,12 @@ namespace DcsBriefop.Map
 			g.DrawLine(Stroke, pointStart, pointEnd);
 		}
 
-		private void DrawSegmentBitmap(Graphics g, int iCorrectedThickness, Point pointStart, Point pointEnd)
+		private void DrawSegmentBitmap(Graphics g, Point pointStart, Point pointEnd)
 		{
 			//double dSegmentAngle = ComputeVerticalAngle(pointStart, pointEnd);
-			double dHeight = iCorrectedThickness;
 			//double dSegmentWidth = ComputePointDistance(pointStart, pointEnd);
-
+			double dHeight = Thickness;
+			
 			// drawing a border around the full segment
 			//g.DrawPolygon(new Pen(Brushes.Red, 1), ComputeAngledPoints(pointStart, pointEnd, dHeight));
 
@@ -155,21 +155,21 @@ namespace DcsBriefop.Map
 
 		}
 
-		private Brush PickBrush()
-		{
-			Brush result = Brushes.Transparent;
+		//private Brush PickBrush()
+		//{
+		//	Brush result = Brushes.Transparent;
 
-			Random rnd = new Random();
+		//	Random rnd = new Random();
 
-			Type brushesType = typeof(Brushes);
+		//	Type brushesType = typeof(Brushes);
 
-			PropertyInfo[] properties = brushesType.GetProperties();
+		//	PropertyInfo[] properties = brushesType.GetProperties();
 
-			int random = rnd.Next(properties.Length);
-			result = (Brush)properties[random].GetValue(null, null);
+		//	int random = rnd.Next(properties.Length);
+		//	result = (Brush)properties[random].GetValue(null, null);
 
-			return result;
-		}
+		//	return result;
+		//}
 
 		private void DrawBitmapBetweenPoints(Graphics g, Bitmap bitmap, Point p1, Point p2, double dHeight, double dDistance)
 		{
@@ -182,8 +182,6 @@ namespace DcsBriefop.Map
 			Point[] pointsDest = { points[2], points[3], points[1] }; // this is matching the DCS orientation
 			Rectangle rectSource = new Rectangle(0, 0, (int)(dDistance * m_bitmap.Height / dHeight), bitmap.Height);
 			g.DrawImage(bitmap, pointsDest, rectSource, GraphicsUnit.Pixel);
-
-			g.DrawPolygon(new Pen(PickBrush(), 1), points);
 		}
 
 		private Point TranslatePoint(Point pointOrigin, Point pointTowards, double dDistance)
@@ -237,13 +235,16 @@ namespace DcsBriefop.Map
 		void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
 		{
 			info.AddValue("route_type", RouteTemplate);
+			info.AddValue("thickness", Thickness);
 			base.GetObjectData(info, context);
 		}
 
 		protected GRouteBriefop(SerializationInfo info, StreamingContext context) : base(info, context)
 		{
-			string sRouteType = Extensions.GetValue<string>(info, "route_type", "");
+			string sRouteType = Extensions.GetValue(info, "route_type", "");
 			LoadTemplate(sRouteType);
+
+			Thickness = Extensions.GetStruct<int>(info, "thickness", 1);
 		}
 		#endregion
 

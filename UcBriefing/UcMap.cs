@@ -86,7 +86,7 @@ namespace DcsBriefop.UcBriefing
 				return;
 
 			PointLatLng p = new PointLatLng(dLat, dLng);
-			MapData.MapOverlayCustom.Markers.Add(new GMarkerBriefop(p, MarkerBriefopType.circle.ToString(), Color.Orange, null));
+			MapData.MapOverlayCustom.Markers.Add(new GMarkerBriefop(p, ElementMapTemplateMarker.DefaultMark, Color.Orange, null));
 			CkAddMarker.Checked = false;
 		}
 

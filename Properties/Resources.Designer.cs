@@ -63,59 +63,9 @@ namespace DcsBriefop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap aircraft {
+        internal static System.Drawing.Bitmap defaultMark {
             get {
-                object obj = ResourceManager.GetObject("aircraft", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap airdrome {
-            get {
-                object obj = ResourceManager.GetObject("airdrome", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap bullseye {
-            get {
-                object obj = ResourceManager.GetObject("bullseye", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap carrier {
-            get {
-                object obj = ResourceManager.GetObject("carrier", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap circle {
-            get {
-                object obj = ResourceManager.GetObject("circle", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ground {
-            get {
-                object obj = ResourceManager.GetObject("ground", resourceCulture);
+                object obj = ResourceManager.GetObject("defaultMark", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -126,26 +76,6 @@ namespace DcsBriefop.Properties {
         internal static System.Drawing.Bitmap icon16 {
             get {
                 object obj = ResourceManager.GetObject("icon16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ship {
-            get {
-                object obj = ResourceManager.GetObject("ship", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap triangle {
-            get {
-                object obj = ResourceManager.GetObject("triangle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

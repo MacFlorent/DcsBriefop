@@ -179,8 +179,9 @@
     <Compile Include="FrmComs.Designer.cs">
       <DependentUpon>FrmComs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Map\ConfigMapTemplateObjects.cs" />
     <Compile Include="Map\GRouteBriefop.cs" />
-    <Compile Include="Map\RouteBriefopTemplate.cs" />
+    <Compile Include="Map\MapTemplateRoute.cs" />
     <Compile Include="MissionManager.cs" />
     <Compile Include="Data\Weather.cs" />
     <Compile Include="Data\Radio.cs" />
@@ -209,7 +210,7 @@
     <Compile Include="DataMiz\MizRouteTask.cs" />
     <Compile Include="DataMiz\MizMap.cs" />
     <Compile Include="DataMiz\MizUnit.cs" />
-    <Compile Include="Map\MarkerBriefopTemplate.cs" />
+    <Compile Include="Map\MapTemplateMarker.cs" />
     <Compile Include="Map\GMarkerBriefop.cs" />
     <Compile Include="Data\MasterDataObject.cs" />
     <Compile Include="Data\ElementBriefop.cs" />

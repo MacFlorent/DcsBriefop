@@ -1,11 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace DcsBriefop.Tools
 {
 	internal static class ToolsImage
 	{
+		private static Dictionary<string, Bitmap> m_bitmapCache = new Dictionary<string, Bitmap>();
+		public static Bitmap GetCachedBitmap(string sBitmapName)
+		{
+			if (!m_bitmapCache.TryGetValue(sBitmapName, out Bitmap bmp))
+			{
+				if (File.Exists(sBitmapName))
+				{
+					try { bmp = new Bitmap(sBitmapName); }
+					catch (Exception ex) { Log.Exception(ex); }
+				}
+				else
+				{
+					bmp = Properties.Resources.ResourceManager.GetObject(sBitmapName, Properties.Resources.Culture) as Bitmap;
+				}
+
+				if (bmp is null)
+					throw new ExceptionDcsBriefop($"Failed to create bitmap for file {sBitmapName}");
+
+				m_bitmapCache.Add(sBitmapName, bmp);
+			}
+
+			return bmp;
+		}
+
 		public static Bitmap ColorTint(this Bitmap sourceBitmap, Color colorTint)
 		{
 			float fRedTint = colorTint.R / 255f;
@@ -92,9 +118,7 @@ namespace DcsBriefop.Tools
 				pixelBuffer[k] = (byte)blue;
 				pixelBuffer[k + 1] = (byte)green;
 				pixelBuffer[k + 2] = (byte)red;
-				
-				if (pixelBuffer[k + 3] > 0)
-					pixelBuffer[k + 3] = (byte)alpha;
+				pixelBuffer[k + 3] = (byte)alpha;
 			}
 
 			Bitmap resultBitmap = new Bitmap(sourceBitmap.Width, sourceBitmap.Height);

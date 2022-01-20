@@ -1,0 +1,75 @@
+{
+  "Templates": 
+  [
+   {
+     "FileName": "polyline_solid",
+     "DcsMizStyle": "solid",
+     "ThicknessCorrection": "0.65",
+     "DashOverride": "Solid"     
+   },
+   {
+    "FileName": "polyline_Solid2",
+    "DcsMizStyle": "solid2"
+  },
+  {
+    "FileName": "polyline_dotted2",
+    "DcsMizStyle": "dot",
+    "ThicknessCorrection": "0.25",
+    "DashOverride": "Dot"
+  },
+  {
+    "FileName": "polyline_DoubleDotted",
+    "DcsMizStyle": "dot2"
+  },
+  {
+    "FileName": "polyline_DotDash",
+    "DcsMizStyle": "dotdash"
+  },
+  {
+    "FileName": "polyline_dash2",
+    "DcsMizStyle": "dash",
+    "ThicknessCorrection": "0.25",
+    "DashOverride": "Dash"     
+  },
+  {
+    "FileName": "polyline_cross2",
+    "DcsMizStyle": "cross"
+  },
+  {
+    "FileName": "polyline_square2",
+    "DcsMizStyle": "square"
+  },
+  {
+    "FileName": "polyline_StrongPoint",
+    "DcsMizStyle": "strongpoint"
+  },
+  {
+    "FileName": "polyline_triangle2",
+    "DcsMizStyle": "triangle"
+  },
+  {
+    "FileName": "polyline_wirefence",
+    "DcsMizStyle": "wirefence"
+  },
+  {
+    "FileName": "polyline_Bound1",
+    "DcsMizStyle": "boundry1"
+  },
+  {
+    "FileName": "polyline_Bound2",
+    "DcsMizStyle": "boundry2"
+  },
+  {
+    "FileName": "polyline_Bound3",
+    "DcsMizStyle": "boundry3"
+  },
+  {
+    "FileName": "polyline_Bound4",
+    "DcsMizStyle": "boundry4"
+  },
+  {
+    "FileName": "polyline_Bound5",
+    "DcsMizStyle": "boundry5"
+  }
+ ]
+}

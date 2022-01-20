@@ -61,7 +61,7 @@ namespace DcsBriefop.Data
 		{
 			base.InitializeData();
 			
-			MapMarker = MarkerBriefopType.airdrome.ToString();
+			MapMarker = ElementMapTemplateMarker.Airdrome;
 
 			Id = m_airdrome.Id;
 			Name = Description = m_airdrome.Name;

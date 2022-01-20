@@ -21,7 +21,7 @@ namespace DcsBriefop.UcBriefing
 			m_marker = marker;
 			m_map = map;
 
-			MarkerBriefopTemplate.FillCombo(CbMarkerType);
+			MapTemplateMarker.FillCombo(CbMarkerType);
 			DataToScreen();
 		}
 

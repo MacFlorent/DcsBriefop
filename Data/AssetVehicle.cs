@@ -21,7 +21,7 @@ namespace DcsBriefop.Data
 		protected override void InitializeData()
 		{
 			base.InitializeData();
-			MapMarker = MarkerBriefopType.ground.ToString();
+			MapMarker = ElementMapTemplateMarker.Ground;
 
 			Type = GroupVehicle.Units.FirstOrDefault()?.Type;
 		}

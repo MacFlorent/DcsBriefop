@@ -29,7 +29,7 @@ namespace DcsBriefop.Data
 		{
 			base.InitializeData();
 		
-			MapMarker = MarkerBriefopType.aircraft.ToString();
+			MapMarker = ElementMapTemplateMarker.Aircraft;
 
 			Task = GroupFlight.Task;
 			Type = GroupFlight.Units.OfType<MizUnitFlight>().FirstOrDefault()?.Type;

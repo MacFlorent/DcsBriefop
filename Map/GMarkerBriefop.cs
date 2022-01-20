@@ -14,7 +14,7 @@ namespace DcsBriefop.Map
 		private Pen m_penSelected = new Pen(Color.Blue, 1);
 		private Pen m_penMouseOver = new Pen(Color.CadetBlue, 1);
 
-		private MarkerBriefopTemplate m_template;
+		private MapTemplateMarker m_template;
 		private Bitmap m_bitmap;
 
 		public string MarkerTemplate
@@ -40,8 +40,8 @@ namespace DcsBriefop.Map
 
 		public void LoadTemplate(string sTemplate)
 		{
-			m_template = MarkerBriefopTemplate.GetTemplate(sTemplate);
-			Size = m_template.Size;
+			m_template = MapTemplateMarker.GetTemplate(sTemplate);
+			Size = m_template.SizeDisplay;
 			Offset = new Point((int)(Size.Width * m_template.OffsetWidth), (int)(Size.Height * m_template.OffsetHeight));
 		}
 
