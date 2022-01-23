@@ -86,7 +86,7 @@ namespace DcsBriefop.UcBriefing
 				return;
 
 			PointLatLng p = new PointLatLng(dLat, dLng);
-			MapData.MapOverlayCustom.Markers.Add(new GMarkerBriefop(p, ElementMapTemplateMarker.DefaultMark, Color.Orange, null));
+			MapData.MapOverlayCustom.Markers.Add(GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.DefaultMark, Color.Orange, null, 1, 0));
 			CkAddMarker.Checked = false;
 		}
 
@@ -115,8 +115,11 @@ namespace DcsBriefop.UcBriefing
 
 		private void UnselectAll()
 		{
-			foreach (GMarkerBriefop gmb in MapData.MapOverlayCustom.Markers.OfType<GMarkerBriefop>())
-				gmb.IsSelected = false;
+			foreach (var marker in MapData.MapOverlayCustom.Markers)
+			{
+				if (marker is GMarkerBriefop markerBriefop)
+					markerBriefop.IsSelected = false;
+			}
 
 			// hide detail
 			PnSelectionDetail.Controls.Clear();
@@ -124,18 +127,22 @@ namespace DcsBriefop.UcBriefing
 
 		private GMarkerBriefop GetMarkerHovered()
 		{
-			foreach (GMarkerBriefop gmb in MapData.MapOverlayCustom.Markers.OfType<GMarkerBriefop>())
-				if (gmb.IsHovered)
-					return gmb;
+			foreach (var marker in MapData.MapOverlayCustom.Markers)
+			{
+				if (marker is GMarkerBriefop markerBriefop && markerBriefop.IsHovered)
+					return markerBriefop;
+			}
 
 			return null;
 		}
 
 		private GMarkerBriefop GetMarkerPressed()
 		{
-			foreach (GMarkerBriefop gmb in MapData.MapOverlayCustom.Markers.OfType<GMarkerBriefop>())
-				if (gmb.IsPressed)
-					return gmb;
+			foreach (var marker in MapData.MapOverlayCustom.Markers)
+			{
+				if (marker is GMarkerBriefop markerBriefop && markerBriefop.IsPressed)
+					return markerBriefop;
+			}
 
 			return null;
 		}
@@ -171,8 +178,12 @@ namespace DcsBriefop.UcBriefing
 			if (m_bViewOnly)
 				return;
 
-			foreach (GMarkerBriefop gmb in MapData.MapOverlayCustom.Markers.OfType<GMarkerBriefop>())
-				gmb.IsPressed = false;
+			foreach (var marker in MapData.MapOverlayCustom.Markers)
+			{
+				if (marker is GMarkerBriefop markerBriefop)
+					markerBriefop.IsPressed = false;
+
+			}
 		}
 
 		private void Map_MouseClick(object sender, MouseEventArgs e)

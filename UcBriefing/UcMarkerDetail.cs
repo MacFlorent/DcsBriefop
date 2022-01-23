@@ -29,9 +29,13 @@ namespace DcsBriefop.UcBriefing
 		{
 			TbColor.TextChanged -= TbColor_TextChanged;
 			TbLabel.TextChanged -= TbLabel_TextChanged;
+			UdScale.ValueChanged -= UdScale_ValueChanged;
+			UdAngle.ValueChanged -= UdAngle_ValueChanged;
 
 			CbMarkerType.Text = m_marker.MarkerTemplate;
 			TbLabel.Text = m_marker.Label;
+			UdScale.Value = m_marker.Scale;
+			UdAngle.Value = m_marker.Angle;
 
 			if (m_marker.TintColor is object)
 				TbColor.Text = ColorTranslator.ToHtml(m_marker.TintColor.Value);
@@ -40,12 +44,17 @@ namespace DcsBriefop.UcBriefing
 
 			TbColor.TextChanged += TbColor_TextChanged;
 			TbLabel.TextChanged += TbLabel_TextChanged;
+			UdScale.ValueChanged += UdScale_ValueChanged;
+			UdAngle.ValueChanged += UdAngle_ValueChanged;
 		}
 
 		public void ScreenToData()
 		{
 			m_marker.LoadTemplate(CbMarkerType.SelectedValue?.ToString());
 			m_marker.Label = TbLabel.Text;
+			m_marker.Scale = (int)UdScale.Value;
+			m_marker.Angle = (int)UdAngle.Value;
+
 			m_marker.TintColor = GetSelectedColor();
 
 			m_marker.LoadBitmap();
@@ -63,6 +72,7 @@ namespace DcsBriefop.UcBriefing
 
 			return color;
 		}
+
 		#region Events
 		private void CbMarkerType_SelectionChangeCommitted(object sender, EventArgs e)
 		{
@@ -79,6 +89,16 @@ namespace DcsBriefop.UcBriefing
 			ScreenToData();
 		}
 
+		private void UdScale_ValueChanged(object sender, EventArgs e)
+		{
+			ScreenToData();
+		}
+
+		private void UdAngle_ValueChanged(object sender, EventArgs e)
+		{
+			ScreenToData();
+		}
+
 		private void BtColor_Click(object sender, EventArgs e)
 		{
 			ColorDialog cd = new ColorDialog();
@@ -90,7 +110,6 @@ namespace DcsBriefop.UcBriefing
 				TbColor.Text = ColorTranslator.ToHtml(cd.Color);
 				ScreenToData();
 			}
-
 		}
 
 		#endregion

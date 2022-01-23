@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Reflection;
+using System.Drawing.Text;
 using System.Runtime.Serialization;
 
 namespace DcsBriefop.Map
@@ -15,7 +15,7 @@ namespace DcsBriefop.Map
 	{
 		#region Fields
 		private Font m_font = new Font("Arial", 11);
-		private double m_dRadian90 = 1.5707963268;
+		private double m_dRadian90 = Math.PI / 2; // 1.5707963268;
 		private MapTemplateRoute m_template;
 		private Bitmap m_bitmap;
 		#endregion
@@ -27,7 +27,10 @@ namespace DcsBriefop.Map
 		}
 
 		public Color? TintColor { get; set; }
-		
+		public string Label
+		{
+			get { return Name; }
+		}
 		public int Thickness { get; set; }
 		#endregion
 
@@ -83,29 +86,47 @@ namespace DcsBriefop.Map
 			else
 				m_bitmap = m_template.Bitmap;
 		}
+
+		public override void Dispose()
+		{
+			if (m_bitmap != null && m_bitmap != m_template.Bitmap)
+			{
+				m_bitmap.Dispose();
+				m_bitmap = null;
+			}
+
+			base.Dispose();
+		}
 		#endregion
 
 		#region Render
 		public override void OnRender(Graphics g)
 		{
-			for (int i = 0; i < LocalPoints.Count - 1; i++)
+			Render(g, LocalPoints);
+		}
+
+		public void Render(Graphics g, List<GPoint> gPoints)
+		{
+			for (int i = 0; i < gPoints.Count - 1; i++)
 			{
-				DrawSegment(g, i);
+				Point pointStart = new Point((int)gPoints[i].X, (int)gPoints[i].Y);
+				Point pointEnd = new Point((int)gPoints[i + 1].X, (int)gPoints[i + 1].Y);
+
+				DrawSegment(g, pointStart, pointEnd);
 			}
 		}
 
-		private void DrawSegment(Graphics g, int iPointStartIndex)
+		private void DrawSegment(Graphics g, Point pointStart, Point pointEnd)
 		{
-			if (LocalPoints.Count <= iPointStartIndex + 1)
-				return;
-
-			Point pointStart = new Point((int)LocalPoints[iPointStartIndex].X, (int)LocalPoints[iPointStartIndex].Y);
-			Point pointEnd = new Point((int)LocalPoints[iPointStartIndex + 1].X, (int)LocalPoints[iPointStartIndex + 1].Y);
-
 			if (m_bitmap is object && m_template.DashOverride is null)
 				DrawSegmentBitmap(g, pointStart, pointEnd);
 			else
 				DrawSegmentDash(g, pointStart, pointEnd);
+
+			if (!string.IsNullOrEmpty(Label))
+			{
+				DrawStringAngledCentered(g, pointStart, pointEnd, Label);
+			}
 		}
 
 		private void DrawSegmentDash(Graphics g, Point pointStart, Point pointEnd)
@@ -113,12 +134,42 @@ namespace DcsBriefop.Map
 			g.DrawLine(Stroke, pointStart, pointEnd);
 		}
 
+		private void DrawStringAngledCentered(Graphics g, Point pointStart, Point pointEnd, string sLabel)
+		{
+			double dAngle = ComputeVerticalAngle(pointStart, pointEnd) - m_dRadian90;
+			float dDegrees = (float)(dAngle * 180 / Math.PI);
+			Point pMiddle = new Point(pointStart.X + (pointEnd.X - pointStart.X) / 2, pointStart.Y + (pointEnd.Y - pointStart.Y) / 2);
+
+			GraphicsState state = g.Save();
+			g.TranslateTransform(pMiddle.X, pMiddle.Y);
+			g.RotateTransform(dDegrees);
+
+			g.SmoothingMode = SmoothingMode.HighQuality;
+			g.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
+
+			SizeF textSize = g.MeasureString(sLabel, m_font);
+
+			Color textColor = TintColor.GetValueOrDefault(Color.Black);
+			Color shadowColor = Color.FromArgb(120, textColor);
+
+			using (Brush textBrush = new SolidBrush(textColor))
+			using (Brush shadowBrush = new SolidBrush(shadowColor))
+			{
+				//g.DrawString(Label, m_font, shadowBrush, new PointF(-(textSize.Width / 2) + 1, 1));
+				g.DrawString(Label, m_font, textBrush, new PointF(-(textSize.Width / 2), 0));
+
+			}
+
+			g.Restore(state);
+		}
+
+
 		private void DrawSegmentBitmap(Graphics g, Point pointStart, Point pointEnd)
 		{
 			//double dSegmentAngle = ComputeVerticalAngle(pointStart, pointEnd);
 			//double dSegmentWidth = ComputePointDistance(pointStart, pointEnd);
 			double dHeight = Thickness;
-			
+
 			// drawing a border around the full segment
 			//g.DrawPolygon(new Pen(Brushes.Red, 1), ComputeAngledPoints(pointStart, pointEnd, dHeight));
 
@@ -150,26 +201,8 @@ namespace DcsBriefop.Map
 
 					p1 = p2;
 				}
-
 			}
-
 		}
-
-		//private Brush PickBrush()
-		//{
-		//	Brush result = Brushes.Transparent;
-
-		//	Random rnd = new Random();
-
-		//	Type brushesType = typeof(Brushes);
-
-		//	PropertyInfo[] properties = brushesType.GetProperties();
-
-		//	int random = rnd.Next(properties.Length);
-		//	result = (Brush)properties[random].GetValue(null, null);
-
-		//	return result;
-		//}
 
 		private void DrawBitmapBetweenPoints(Graphics g, Bitmap bitmap, Point p1, Point p2, double dHeight, double dDistance)
 		{
@@ -202,7 +235,6 @@ namespace DcsBriefop.Map
 			// get array of points defining a rectangle angled along the vector running from pointStart to pointEnd
 			// with dHeight being the size of the sides crossing the vector
 			// points returned are topLeft, topRight, bottomRight, bottomLeft
-			// do not recompute angle each time double dAngle = ComputeHorizontalLineAngle(pointStart, pointEnd) - 1.5707963268; // remove 90° (in radians) for vertical angle
 			double dAngle = ComputeVerticalAngle(pointStart, pointEnd);
 			double dHalfHeight = dHeight / 2;
 
@@ -210,11 +242,11 @@ namespace DcsBriefop.Map
 			double dYTranslate = dHalfHeight * Math.Sin(dAngle);
 
 			Point pointTopLeft = new Point(pointStart.X - (int)dXTranslate, pointStart.Y - (int)dYTranslate);
-			Point pointToRight = new Point(pointEnd.X - (int)dXTranslate, pointEnd.Y - (int)dYTranslate);
+			Point pointTopRight = new Point(pointEnd.X - (int)dXTranslate, pointEnd.Y - (int)dYTranslate);
 			Point pointBottomRight = new Point(pointEnd.X + (int)dXTranslate, pointEnd.Y + (int)dYTranslate);
 			Point pointBottomLeft = new Point(pointStart.X + (int)dXTranslate, pointStart.Y + (int)dYTranslate);
 
-			return new Point[] { pointTopLeft, pointToRight, pointBottomRight, pointBottomLeft };
+			return new Point[] { pointTopLeft, pointTopRight, pointBottomRight, pointBottomLeft };
 		}
 
 		private double ComputeVerticalAngle(Point pointStart, Point pointEnd)
@@ -224,19 +256,16 @@ namespace DcsBriefop.Map
 			int iSpacingY = pointStart.Y - pointEnd.Y;
 			return Math.Atan2(iSpacingY, iSpacingX) - m_dRadian90; // remove 90° (in radians) for vertical angle
 		}
-
-		public override void Dispose()
-		{
-			base.Dispose();
-		}
 		#endregion
 
 		#region ISerializable Members
 		void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
 		{
+			base.GetObjectData(info, context);
+
 			info.AddValue("route_type", RouteTemplate);
 			info.AddValue("thickness", Thickness);
-			base.GetObjectData(info, context);
+
 		}
 
 		protected GRouteBriefop(SerializationInfo info, StreamingContext context) : base(info, context)

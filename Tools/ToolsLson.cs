@@ -1,5 +1,7 @@
 ﻿using LsonLib;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DcsBriefop.Tools
 {
@@ -7,7 +9,7 @@ namespace DcsBriefop.Tools
 	{
 		public static LsonValue IfExists(this LsonDict lsd, string sKey)
 		{
-			 return lsd.ContainsKey(sKey) ? lsd[sKey] : null;
+			return lsd.ContainsKey(sKey) ? lsd[sKey] : null;
 		}
 
 		public static bool? IfExistsBool(this LsonDict lsd, string sKey)
@@ -49,6 +51,13 @@ namespace DcsBriefop.Tools
 				lsd[sKey] = sValue;
 			else if (!string.IsNullOrEmpty(sValue))
 				lsd.Add(sKey, sValue);
+		}
+
+		public static List<LsonValue> GetOrderedValueList(LsonDict lsd)
+		{
+			var kvpList = lsd.ToList();
+			kvpList.Sort((kvp1, kvp2) => kvp1.Key.GetInt().CompareTo(kvp2.Key.GetInt()));
+			return kvpList.Select(_kvp => _kvp.Value).ToList();
 		}
 	}
 }

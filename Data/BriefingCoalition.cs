@@ -110,7 +110,7 @@ namespace DcsBriefop.Data
 		{
 			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
 			PointLatLng p = new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree);
-			m_markerkBullseye = new GMarkerBriefop(p, ElementMapTemplateMarker.Bullseye, OwnColor, BullseyeDescription);
+			m_markerkBullseye = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Bullseye, OwnColor, BullseyeDescription, 1, 0);
 			staticOverlay.Markers.Add(m_markerkBullseye);
 
 			ToolsMap.AddMizDrawingLayers(Core.Theatre, staticOverlay, Core.Miz.RootMission.DrawingLayers.Where(_dl => _dl.Name.ToUpper() == CoalitionName.ToUpper()).ToList());

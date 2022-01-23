@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Tools;
 using LsonLib;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DcsBriefop.DataMiz
 {
@@ -109,7 +110,7 @@ namespace DcsBriefop.DataMiz
 			if (m_lsd.ContainsKey(LuaNode.Points))
 			{
 				LsonDict lsdPoints = m_lsd[LuaNode.Points].GetDict();
-				foreach (LsonValue lsv in lsdPoints.Values)
+				foreach (LsonValue lsv in ToolsLson.GetOrderedValueList(lsdPoints))
 				{
 					Points.Add(new MizDrawingPoint(lsv.GetDict()));
 				}

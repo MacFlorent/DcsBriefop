@@ -36,6 +36,12 @@ namespace DcsBriefop.UcBriefing
 			this.BtColor = new System.Windows.Forms.Button();
 			this.LbColor = new System.Windows.Forms.Label();
 			this.TbColor = new System.Windows.Forms.TextBox();
+			this.LbScale = new System.Windows.Forms.Label();
+			this.UdScale = new System.Windows.Forms.NumericUpDown();
+			this.UdAngle = new System.Windows.Forms.NumericUpDown();
+			this.LbAngle = new System.Windows.Forms.Label();
+			((System.ComponentModel.ISupportInitialize)(this.UdScale)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.UdAngle)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// LbLabel
@@ -107,10 +113,68 @@ namespace DcsBriefop.UcBriefing
 			this.TbColor.TabIndex = 3;
 			this.TbColor.TextChanged += new System.EventHandler(this.TbColor_TextChanged);
 			// 
+			// LbScale
+			// 
+			this.LbScale.AutoSize = true;
+			this.LbScale.Location = new System.Drawing.Point(43, 94);
+			this.LbScale.Name = "LbScale";
+			this.LbScale.Size = new System.Drawing.Size(34, 13);
+			this.LbScale.TabIndex = 7;
+			this.LbScale.Text = "Scale";
+			// 
+			// UdScale
+			// 
+			this.UdScale.Location = new System.Drawing.Point(84, 90);
+			this.UdScale.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+			this.UdScale.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.UdScale.Name = "UdScale";
+			this.UdScale.Size = new System.Drawing.Size(142, 20);
+			this.UdScale.TabIndex = 8;
+			this.UdScale.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.UdScale.ValueChanged += new System.EventHandler(this.UdScale_ValueChanged);
+			// 
+			// UdAngle
+			// 
+			this.UdAngle.Location = new System.Drawing.Point(84, 116);
+			this.UdAngle.Maximum = new decimal(new int[] {
+            359,
+            0,
+            0,
+            0});
+			this.UdAngle.Name = "UdAngle";
+			this.UdAngle.Size = new System.Drawing.Size(142, 20);
+			this.UdAngle.TabIndex = 10;
+			this.UdAngle.ValueChanged += new System.EventHandler(this.UdAngle_ValueChanged);
+			// 
+			// LbAngle
+			// 
+			this.LbAngle.AutoSize = true;
+			this.LbAngle.Location = new System.Drawing.Point(43, 120);
+			this.LbAngle.Name = "LbAngle";
+			this.LbAngle.Size = new System.Drawing.Size(34, 13);
+			this.LbAngle.TabIndex = 9;
+			this.LbAngle.Text = "Angle";
+			// 
 			// UcMarkerDetail
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.UdAngle);
+			this.Controls.Add(this.LbAngle);
+			this.Controls.Add(this.UdScale);
+			this.Controls.Add(this.LbScale);
 			this.Controls.Add(this.TbColor);
 			this.Controls.Add(this.LbColor);
 			this.Controls.Add(this.BtColor);
@@ -119,7 +183,9 @@ namespace DcsBriefop.UcBriefing
 			this.Controls.Add(this.TbLabel);
 			this.Controls.Add(this.LbLabel);
 			this.Name = "UcMarkerDetail";
-			this.Size = new System.Drawing.Size(267, 99);
+			this.Size = new System.Drawing.Size(267, 143);
+			((System.ComponentModel.ISupportInitialize)(this.UdScale)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.UdAngle)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -134,5 +200,9 @@ namespace DcsBriefop.UcBriefing
 		private System.Windows.Forms.Button BtColor;
 		private System.Windows.Forms.Label LbColor;
 		private System.Windows.Forms.TextBox TbColor;
+		private System.Windows.Forms.Label LbScale;
+		private System.Windows.Forms.NumericUpDown UdScale;
+		private System.Windows.Forms.NumericUpDown UdAngle;
+		private System.Windows.Forms.Label LbAngle;
 	}
 }

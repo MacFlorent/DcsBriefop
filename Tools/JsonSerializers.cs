@@ -25,8 +25,11 @@ namespace DcsBriefop.Tools
 			if (value.Markers is object && value.Markers.Count > 0)
 			{
 				JArray ja = new JArray();
-				foreach (GMarkerBriefop gmb in value.Markers.OfType<GMarkerBriefop>())
-					ja.Add(JToken.FromObject(gmb, serializer));
+				foreach (var marker in value.Markers)
+				{
+					if (marker is GMarkerBriefop markerBriefop)
+						ja.Add(JToken.FromObject(markerBriefop, serializer));
+				}
 
 				jo[JsonNode.Markers] = ja;
 			}
@@ -69,8 +72,10 @@ namespace DcsBriefop.Tools
 		{
 			public static readonly string Latitude = "lat";
 			public static readonly string Longitude = "lng";
-			public static readonly string Template = "Template";
+			public static readonly string Template = "template";
 			public static readonly string Label = "label";
+			public static readonly string Scale = "scale";
+			public static readonly string Angle = "angle";
 			public static readonly string Color = "color";
 		}
 
@@ -80,6 +85,8 @@ namespace DcsBriefop.Tools
 			jo.Add(new JProperty(JsonNode.Latitude, value.Position.Lat));
 			jo.Add(new JProperty(JsonNode.Longitude, value.Position.Lng));
 			jo.Add(new JProperty(JsonNode.Template, value.MarkerTemplate));
+			jo.Add(new JProperty(JsonNode.Scale, value.Scale));
+			jo.Add(new JProperty(JsonNode.Angle, value.Angle));
 
 			if (value.TintColor is object)
 				jo.Add(new JProperty(JsonNode.Color, ColorTranslator.ToHtml(value.TintColor.Value)));
@@ -95,6 +102,8 @@ namespace DcsBriefop.Tools
 			double lat = token[JsonNode.Latitude].Value<double>();
 			double lng = token[JsonNode.Longitude].Value<double>();
 			string sMarkerType = token[JsonNode.Template].Value<string>();
+			int iScale = token[JsonNode.Scale].Value<int>();
+			int iAngle = token[JsonNode.Angle].Value<int>();
 
 			Color? tintColor = null;
 			if (token[JsonNode.Color] is object)
@@ -102,7 +111,7 @@ namespace DcsBriefop.Tools
 
 			string sLabel = token[JsonNode.Label].Value<string>();
 
-			return new GMarkerBriefop(new PointLatLng(lat, lng), sMarkerType, tintColor, sLabel);
+			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(lat, lng), sMarkerType, tintColor, sLabel, iScale, iAngle);
 		}
 	}
 

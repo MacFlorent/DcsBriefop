@@ -94,6 +94,9 @@ namespace DcsBriefop.Tools
 			{
 				if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Line)
 					AddMizDrawingObjectLine(theatre, overlay, drawingObject);
+				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Icon)
+					AddMizDrawingObjectIcon(theatre, overlay, drawingObject);
+
 			}
 		}
 
@@ -122,10 +125,19 @@ namespace DcsBriefop.Tools
 			overlay.Routes.Add(route);
 		}
 
+		private static void AddMizDrawingObjectIcon(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		{
+			Coordinate coordinate = theatre.GetCoordinate(drawingObject.MapY, drawingObject.MapX);
+			PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+
+			GMarkerBriefop marker = GMarkerBriefop.NewFromMizStyleName(p, drawingObject.File, ColorFromDcsString(drawingObject.ColorString), drawingObject.Name, drawingObject.Scale.GetValueOrDefault(1), drawingObject.Angle.GetValueOrDefault(0));
+			overlay.Markers.Add(marker);
+		}
+
 		private static Color ColorFromDcsString(string sDcsString)
 		{
 			string sHtmlColor = $"#{sDcsString.Substring(2, 6)}";
-			string sAlpha = sDcsString.Substring(8,2);
+			string sAlpha = sDcsString.Substring(8, 2);
 			Color color = ColorTranslator.FromHtml(sHtmlColor);
 			Color colorAlpha = Color.FromArgb(Convert.ToInt32(sAlpha, 16), color);
 			return colorAlpha;
@@ -202,53 +214,25 @@ namespace DcsBriefop.Tools
 					}
 				}
 
-				//Font testFont = new Font("Arial", 8);
-
 				foreach (GMapOverlay overlay in overlays)
 				{
 					// draw routes
 					// we cannot use the route render method as there is too much private/internal data and interconnections with the MapControl to do so
 					// so we just redraw the lines specifically here
-					foreach (var route in overlay.Routes)
+					foreach (GMapRoute route in overlay.Routes.Where(_r => _r.IsVisible))
 					{
-						if (route.IsVisible && route.Points is object && route.Points.Count > 0)
+						if (route.Points is object && route.Points.Count > 0)
 						{
-							using (GraphicsPath graphicsPath = new GraphicsPath())
-							//using (GraphicsPath graphicsPathTranslated = new GraphicsPath()) // this will also work but as we still need to reset transform might as well do is as it is for the markers
+							if (route is GRouteBriefop routeBriefop)
 							{
-								GPoint? lastPointPixel = null;
-
-								foreach (PointLatLng routePoint in route.Points)
-								{
-									GPoint routePointPixel = mapProvider.Projection.FromLatLngToPixel(routePoint.Lat, routePoint.Lng, iZoom);
-
-									if (lastPointPixel is object)
-									{
-										graphicsPath.AddLine(lastPointPixel.Value.X, lastPointPixel.Value.Y, routePointPixel.X, routePointPixel.Y);
-										//graphicsPathTranslated.AddLine(lastPointPixel.Value.X - topLeft.X, lastPointPixel.Value.Y - topLeft.Y, routePointPixel.X - topLeft.X, routePointPixel.Y - topLeft.Y);
-									}
-
-									lastPointPixel = routePointPixel;
-								}
-
-								if (graphicsPath.PointCount > 0)
-								{
-									gfx.ResetTransform(); // need to reset before transforming, if not sometimes will be drawn in the wrong position
-									gfx.TranslateTransform(-topLeft.X, -topLeft.Y);
-									gfx.DrawPath(route.Stroke, graphicsPath);
-								}
-								//if (graphicsPathTranslated.PointCount > 0)
-								//{
-								//	gfx.DrawPath(route.Stroke, graphicsPathTranslated);
-
-								//	//foreach (PointF p in graphicsPathTranslated.PathPoints)
-								//	//	gfx.DrawString($"P >> X={p.X} Y={p.Y}", testFont, Brushes.Black, p.X + 10, p.Y + 10);
-								//}
-
+								DrawRouteBriefop(gfx, mapProvider, iZoom, topLeft, routeBriefop);
+							}
+							else
+							{
+								DrawRoute(gfx, mapProvider, iZoom, topLeft, route);
 							}
 						}
 					}
-
 
 					//// draw polygons
 					//foreach (var r in overlay.Polygons)
@@ -292,25 +276,9 @@ namespace DcsBriefop.Tools
 
 
 					// draw markers
-					foreach (GMapMarker marker in overlay.Markers)
+					foreach (GMapMarker marker in overlay.Markers.Where(_m => _m.IsVisible))
 					{
-						if (marker.IsVisible)
-						{
-							GPoint markerPointPixel = mapProvider.Projection.FromLatLngToPixel(marker.Position.Lat, marker.Position.Lng, iZoom);
-
-							//px.Offset(-topLeft.X, -topLeft.Y);
-							//px.Offset(r.Offset.X, r.Offset.Y);
-							//gfx.TranslateTransform((int)px.X, (int)px.Y);
-
-							gfx.ResetTransform();
-							gfx.TranslateTransform(-topLeft.X, -topLeft.Y); // account for generated bitmap position within the global map
-							gfx.TranslateTransform(markerPointPixel.X, markerPointPixel.Y); // account for marker position within the global map as the render method will draw at this postion
-							gfx.TranslateTransform(-marker.LocalPosition.X, -marker.LocalPosition.Y); // account for (nullify) local position of relative to displayed map control if any, as it will be used in the render
-							gfx.TranslateTransform(marker.Offset.X, marker.Offset.Y); // account for marker offset positioning
-
-
-							marker.OnRender(gfx);
-						}
+						DrawMarker(gfx, mapProvider, iZoom, topLeft, marker);
 					}
 				}
 
@@ -320,6 +288,60 @@ namespace DcsBriefop.Tools
 			return bmpDestination;
 		}
 
+		private static void TranslateGraphics(Graphics gfx, GPoint topLeft)
+		{
+			gfx.ResetTransform(); // need to reset before transforming, if not sometimes will be drawn in the wrong position
+			gfx.TranslateTransform(-topLeft.X, -topLeft.Y);
+		}
+
+		private static void DrawRouteBriefop(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GRouteBriefop routeBriefop)
+		{
+			List<GPoint> gPoints = new List<GPoint>();
+			foreach (PointLatLng routePoint in routeBriefop.Points)
+			{
+				GPoint routePointPixel = mapProvider.Projection.FromLatLngToPixel(routePoint.Lat, routePoint.Lng, iZoom);
+				gPoints.Add(routePointPixel);
+			}
+
+			TranslateGraphics(gfx, topLeft);
+			routeBriefop.Render(gfx, gPoints);
+		}
+
+		private static void DrawRoute(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GMapRoute route)
+		{
+			using (GraphicsPath graphicsPath = new GraphicsPath())
+			{
+				GPoint? lastPointPixel = null;
+
+				foreach (PointLatLng routePoint in route.Points)
+				{
+					GPoint routePointPixel = mapProvider.Projection.FromLatLngToPixel(routePoint.Lat, routePoint.Lng, iZoom);
+
+					if (lastPointPixel is object)
+					{
+						graphicsPath.AddLine(lastPointPixel.Value.X, lastPointPixel.Value.Y, routePointPixel.X, routePointPixel.Y);
+					}
+
+					lastPointPixel = routePointPixel;
+				}
+
+				if (graphicsPath.PointCount > 0)
+				{
+					TranslateGraphics(gfx, topLeft);
+					gfx.DrawPath(route.Stroke, graphicsPath);
+				}
+			}
+		}
+
+		private static void DrawMarker(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GMapMarker marker)
+		{
+			GPoint markerPointPixel = mapProvider.Projection.FromLatLngToPixel(marker.Position.Lat, marker.Position.Lng, iZoom);
+			TranslateGraphics(gfx, topLeft);
+			gfx.TranslateTransform(markerPointPixel.X, markerPointPixel.Y); // account for marker position within the global map as the render method will draw at this postion
+			gfx.TranslateTransform(-marker.LocalPosition.X, -marker.LocalPosition.Y); // account for (nullify) local position of relative to displayed map control if any, as it will be used in the render
+			gfx.TranslateTransform(marker.Offset.X, marker.Offset.Y); // account for marker offset positioning
+			marker.OnRender(gfx);
+		}
 		#endregion
 	}
 }

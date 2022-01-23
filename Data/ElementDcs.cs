@@ -68,5 +68,7 @@ namespace DcsBriefop.Data
 	internal static class ElementDrawingPrimitive
 	{
 		public static readonly string Line = "Line";
+		public static readonly string Icon = "Icon";
+		public static readonly string TextBox = "TextBox";
 	}
 }

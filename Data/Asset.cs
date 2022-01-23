@@ -116,7 +116,7 @@ namespace DcsBriefop.Data
 		public List<PointLatLng> InitializeMapDataPoint(GMapOverlay staticOverlay)
 		{
 			PointLatLng p = new PointLatLng(MapPoints[0].Coordinate.Latitude.DecimalDegree, MapPoints[0].Coordinate.Longitude.DecimalDegree);
-			GMarkerBriefop marker = new GMarkerBriefop(p, MapMarker, Color, Name);
+			GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName (p, MapMarker, Color, Name, 1, 0);
 			staticOverlay.Markers.Add(marker);
 
 			return new List<PointLatLng>() { p };
@@ -133,14 +133,14 @@ namespace DcsBriefop.Data
 				else if (points.Count <= 0 && mapPoint.IsOrbitStart())
 				{
 					PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
-					GMarkerBriefop marker = new GMarkerBriefop(p, ElementMapTemplateMarker.Waypoint, Color, Name);
+					GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, Color, Name, 1, 0);
 					staticOverlay.Markers.Add(marker);
 					points.Add(p);
 				}
 				else if (points.Count == 1)
 				{
 					PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
-					GMarkerBriefop marker = new GMarkerBriefop(p, ElementMapTemplateMarker.Waypoint, Color, null);
+					GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, Color, null, 1, 0);
 					staticOverlay.Markers.Add(marker);
 					points.Add(p);
 				}
@@ -163,7 +163,7 @@ namespace DcsBriefop.Data
 			foreach (AssetMapPoint mapPoint in MapPoints)
 			{
 				PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
-				GMarkerBriefop marker = new GMarkerBriefop(p, ElementMapTemplateMarker.Waypoint, Color, $"{mapPoint.Number}:{mapPoint.Name}");
+				GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, Color, $"{mapPoint.Number}:{mapPoint.Name}", 1, 0);
 				staticOverlay.Markers.Add(marker);
 				points.Add(p);
 			}

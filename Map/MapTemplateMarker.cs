@@ -35,7 +35,7 @@ namespace DcsBriefop.Map
 
 		#region Properties
 		public string Name { get; set; }
-		public string DcsMizStyle { get; set; }
+		public string DcsMizFileName { get; set; }
 		public Bitmap Bitmap { get; set; }
 		public Size SizeDisplay { get; set; }
 		public double OffsetWidth { get; set; }
@@ -110,13 +110,14 @@ namespace DcsBriefop.Map
 
 				if (config is object && config.Templates.Where(_c => string.Equals(_c.FileName, template.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault() is ConfigMapTemplateMarker configTemplate)
 				{
-					template.DcsMizStyle = configTemplate.DcsMizStyle;
+					template.DcsMizFileName = configTemplate.DcsMizFileName ?? Path.GetFileName(sTemplateString);
 					template.SizeDisplay = new Size(configTemplate.Width.GetValueOrDefault(config.DefaultWidth.Value), configTemplate.Height.GetValueOrDefault(config.DefaultHeight.Value));
 					template.OffsetWidth = configTemplate.OffsetWidth.GetValueOrDefault(m_dDefaultOffsetWidth);
 					template.OffsetHeight = configTemplate.OffsetWidth.GetValueOrDefault(m_dDefaultOffsetHeight);
 				}
 				else
 				{
+					template.DcsMizFileName = Path.GetFileName(sTemplateString);
 					template.SizeDisplay = new Size(m_iDefaultWidth, m_iDefaultHeight);
 					template.OffsetWidth = m_dDefaultOffsetWidth;
 					template.OffsetHeight = m_dDefaultOffsetHeight;
@@ -150,9 +151,9 @@ namespace DcsBriefop.Map
 			return template;
 		}
 
-		public static MapTemplateMarker GetTemplateFromDcsMizStyle(string sDcsMizStyle)
+		public static MapTemplateMarker GetTemplateFromDcsMizFile(string sDcsMizFile)
 		{
-			MapTemplateMarker template = m_templatesList.Values.Where(_t => string.Equals(_t.DcsMizStyle, sDcsMizStyle, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+			MapTemplateMarker template = m_templatesList.Values.Where(_t => string.Equals(_t.DcsMizFileName, sDcsMizFile, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 			if (template is null)
 				template = m_default;
 

@@ -36,7 +36,7 @@ namespace DcsBriefop.Map
 	internal class ConfigMapTemplateMarker
 	{
 		public string FileName { get; set; }
-		public string DcsMizStyle { get; set; }
+		public string DcsMizFileName { get; set; }
 		public int? Width { get; set; }
 		public int? Height { get; set; }
 		public double? OffsetWidth { get; set; }
