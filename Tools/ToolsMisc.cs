@@ -1,6 +1,4 @@
-﻿using DcsBriefop.Data;
-using System;
-using System.Text;
+﻿using System.Text;
 using System.Windows.Forms;
 
 namespace DcsBriefop.Tools

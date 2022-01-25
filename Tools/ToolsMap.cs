@@ -96,7 +96,8 @@ namespace DcsBriefop.Tools
 					AddMizDrawingObjectLine(theatre, overlay, drawingObject);
 				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Icon)
 					AddMizDrawingObjectIcon(theatre, overlay, drawingObject);
-
+				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.TextBox)
+					AddMizDrawingObjectText(theatre, overlay, drawingObject);
 			}
 		}
 
@@ -112,14 +113,6 @@ namespace DcsBriefop.Tools
 				points.Add(p);
 			}
 
-			//GMapRoute route = new GMapRoute(points, drawingObject.Name);
-			//Pen pen = new Pen(ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(1) / 10f);
-			//Brush brush = new HatchBrush(HatchStyle.DashedHorizontal, Color.Black);
-			//Brush brush = new LinearGradientBrush(new Point(0, 10), new Point(200, 10), Color.FromArgb(255, 255, 0, 0), Color.FromArgb(255, 0, 0, 255));
-			//Bitmap bitmap = new Bitmap("polyline_Bound4.png");
-			//TextureBrush brush = new TextureBrush(bitmap);
-			//Pen pen = new Pen(brush, 5);
-			//route.Stroke = pen;
 
 			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, drawingObject.Name, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5));
 			overlay.Routes.Add(route);
@@ -132,6 +125,16 @@ namespace DcsBriefop.Tools
 
 			GMarkerBriefop marker = GMarkerBriefop.NewFromMizStyleName(p, drawingObject.File, ColorFromDcsString(drawingObject.ColorString), drawingObject.Name, drawingObject.Scale.GetValueOrDefault(1), drawingObject.Angle.GetValueOrDefault(0));
 			overlay.Markers.Add(marker);
+		}
+
+		private static void AddMizDrawingObjectText(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		{
+			Coordinate coordinate = theatre.GetCoordinate(drawingObject.MapY, drawingObject.MapX);
+			PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+
+			Font font = new Font(drawingObject.Font, drawingObject.FontSize.GetValueOrDefault(11));
+			GTextBriefop text = new GTextBriefop(p, drawingObject.Text, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), font, drawingObject.Angle.GetValueOrDefault(0), drawingObject.BorderThickness.GetValueOrDefault(0));
+			overlay.Markers.Add(text);
 		}
 
 		private static Color ColorFromDcsString(string sDcsString)
@@ -147,7 +150,7 @@ namespace DcsBriefop.Tools
 		#region Image Generation
 		public static Bitmap GenerateMapImage(BriefopCustomMap mapData)
 		{
-			GMapProvider mapProvider = ElementMapValue.MapProvider;
+			GMapProvider mapProvider = ElementMapValue.DefaultMapProvider;
 			List<GMapOverlay> overlays = new List<GMapOverlay>();
 			overlays.Add(mapData.MapOverlayCustom);
 			overlays.AddRange(mapData.AdditionalMapOverlays);

@@ -179,7 +179,14 @@
     <Compile Include="FrmComs.Designer.cs">
       <DependentUpon>FrmComs.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmOptionsMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmOptionsMap.Designer.cs">
+      <DependentUpon>FrmOptionsMap.cs</DependentUpon>
+    </Compile>
     <Compile Include="Map\ConfigMapTemplateObjects.cs" />
+    <Compile Include="Map\GTextBriefop.cs" />
     <Compile Include="Map\GRouteBriefop.cs" />
     <Compile Include="Map\MapTemplateRoute.cs" />
     <Compile Include="MissionManager.cs" />
@@ -307,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmOptionsMap.resx">
+      <DependentUpon>FrmOptionsMap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

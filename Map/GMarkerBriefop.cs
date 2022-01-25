@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Tools;
+﻿using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System;
@@ -12,10 +13,6 @@ namespace DcsBriefop.Map
 	public class GMarkerBriefop : GMapMarker, ISerializable, IDeserializationCallback
 	{
 		#region Fields
-		private Font m_font = new Font("Arial", 11);
-		private Pen m_penSelected = new Pen(Color.Blue, 1);
-		private Pen m_penMouseOver = new Pen(Color.CadetBlue, 1);
-
 		private MapTemplateMarker m_template;
 		private Bitmap m_bitmap;
 		#endregion
@@ -102,71 +99,109 @@ namespace DcsBriefop.Map
 		#region Render
 		public override void OnRender(Graphics g)
 		{
-			Rectangle rect = new Rectangle(LocalPosition.X, LocalPosition.Y, Size.Width, Size.Height);
+			Render2(g);
+		}
 
+		private void Render2(Graphics g)
+		{
+			Point pointCenter = new Point(LocalPosition.X + Size.Width / 2, LocalPosition.Y + Size.Height / 2);
+
+			GraphicsState state = g.Save();
+			g.TranslateTransform(pointCenter.X, pointCenter.Y);
 			if (Angle != 0)
 			{
-				Point[] rotatedRect = RotateRectangle(rect, Angle);
-				Point[] pointsDest = { rotatedRect[0], rotatedRect[1], rotatedRect[3] };
-				lock (m_bitmap) { g.DrawImage(m_bitmap, pointsDest); }
+				g.RotateTransform(Angle);
 			}
-			else
-			{
-				lock (m_bitmap) { g.DrawImage(m_bitmap, rect); }
-			}
+
+			Rectangle targetRectangle = new Rectangle(-Size.Width / 2, -Size.Height / 2, Size.Width, Size.Height);
+
+			lock (m_bitmap) { g.DrawImage(m_bitmap, targetRectangle); }
 
 			if (!string.IsNullOrEmpty(Label))
-				{
-					Color textColor = TintColor.GetValueOrDefault(Color.Black);
-					Color shadowColor = Color.FromArgb(120, textColor);
-
-					using (Brush textBrush = new SolidBrush(textColor))
-					using (Brush shadowBrush = new SolidBrush(shadowColor))
-					{
-						g.DrawString(Label, m_font, shadowBrush, rect.Left + 1, rect.Bottom + 1);
-						g.DrawString(Label, m_font, textBrush, rect.Left, rect.Bottom);
-					}
-				}
+			{
+				Point pointCenterString = new Point(0, Size.Height / 2);
+				ToolsImage.DrawStringAngledCentered(g, pointCenterString, Label, ElementMapValue.DefaultFont, TintColor.GetValueOrDefault(Color.Black), true, 0, 0);
+			}
 
 			if (IsSelected)
 			{
-				g.DrawRectangle(m_penSelected, rect);
+				g.DrawRectangle(ElementMapValue.PenSelected, targetRectangle);
 			}
 			else if (IsHovered)
 			{
-				g.DrawRectangle(m_penMouseOver, rect);
+				g.DrawRectangle(ElementMapValue.PenMouseOver, targetRectangle);
 			}
+
+			g.Restore(state);
 		}
 
-		static Point RotatePoint(Point pointToRotate, Point centerPoint, double angleInDegrees)
-		{
-			double angleInRadians = angleInDegrees * (Math.PI / 180);
-			double cosTheta = Math.Cos(angleInRadians);
-			double sinTheta = Math.Sin(angleInRadians);
-			return new Point
-			{
-				X =
-							(int)
-							(cosTheta * (pointToRotate.X - centerPoint.X) -
-							sinTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.X),
-				Y =
-							(int)
-							(sinTheta * (pointToRotate.X - centerPoint.X) +
-							cosTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.Y)
-			};
-		}
+		//private void Render1(Graphics g)
+		//{
+		//	Rectangle rect = new Rectangle(LocalPosition.X, LocalPosition.Y, Size.Width, Size.Height);
 
-		private Point[] RotateRectangle(Rectangle rect, int iAngle)
-		{
-			Point pCenter = new Point((rect.X + rect.Width / 2), (rect.Y + rect.Height / 2));
+		//	if (Angle != 0)
+		//	{
+		//		Point[] rotatedRect = RotateRectangle(rect, Angle);
+		//		Point[] pointsDest = { rotatedRect[0], rotatedRect[1], rotatedRect[3] };
+		//		lock (m_bitmap) { g.DrawImage(m_bitmap, pointsDest); }
+		//	}
+		//	else
+		//	{
+		//		lock (m_bitmap) { g.DrawImage(m_bitmap, rect); }
+		//	}
 
-			Point pointTopLeft = RotatePoint(new Point(rect.X, rect.Y), pCenter, iAngle);
-			Point pointTopRight = RotatePoint(new Point(rect.X + rect.Width, rect.Y), pCenter, iAngle);
-			Point pointBottomRight = RotatePoint(new Point(rect.X + rect.Width, rect.Y + rect.Height), pCenter, iAngle);
-			Point pointBottomLeft = RotatePoint(new Point(rect.X, rect.Y + rect.Height), pCenter, iAngle);
+		//	if (!string.IsNullOrEmpty(Label))
+		//	{
+		//		Color textColor = TintColor.GetValueOrDefault(Color.Black);
+		//		Color shadowColor = Color.FromArgb(120, textColor);
 
-			return new Point[] { pointTopLeft, pointTopRight, pointBottomRight, pointBottomLeft };
-		}
+		//		using (Brush textBrush = new SolidBrush(textColor))
+		//		using (Brush shadowBrush = new SolidBrush(shadowColor))
+		//		{
+		//			g.DrawString(Label, ElementMapValue.Font, shadowBrush, rect.Left + 1, rect.Bottom + 1);
+		//			g.DrawString(Label, ElementMapValue.Font, textBrush, rect.Left, rect.Bottom);
+		//		}
+		//	}
+
+		//	if (IsSelected)
+		//	{
+		//		g.DrawRectangle(ElementMapValue.PenSelected, rect);
+		//	}
+		//	else if (IsHovered)
+		//	{
+		//		g.DrawRectangle(ElementMapValue.PenMouseOver, rect);
+		//	}
+		//}
+
+		//private Point RotatePoint(Point pointToRotate, Point centerPoint, double angleInDegrees)
+		//{
+		//	double angleInRadians = angleInDegrees * (Math.PI / 180);
+		//	double cosTheta = Math.Cos(angleInRadians);
+		//	double sinTheta = Math.Sin(angleInRadians);
+		//	return new Point
+		//	{
+		//		X =
+		//					(int)
+		//					(cosTheta * (pointToRotate.X - centerPoint.X) -
+		//					sinTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.X),
+		//		Y =
+		//					(int)
+		//					(sinTheta * (pointToRotate.X - centerPoint.X) +
+		//					cosTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.Y)
+		//	};
+		//}
+
+		//private Point[] RotateRectangle(Rectangle rect, int iAngle)
+		//{
+		//	Point pCenter = new Point((rect.X + rect.Width / 2), (rect.Y + rect.Height / 2));
+
+		//	Point pointTopLeft = RotatePoint(new Point(rect.X, rect.Y), pCenter, iAngle);
+		//	Point pointTopRight = RotatePoint(new Point(rect.X + rect.Width, rect.Y), pCenter, iAngle);
+		//	Point pointBottomRight = RotatePoint(new Point(rect.X + rect.Width, rect.Y + rect.Height), pCenter, iAngle);
+		//	Point pointBottomLeft = RotatePoint(new Point(rect.X, rect.Y + rect.Height), pCenter, iAngle);
+
+		//	return new Point[] { pointTopLeft, pointTopRight, pointBottomRight, pointBottomLeft };
+		//}
 		#endregion
 
 		#region ISerializable Members

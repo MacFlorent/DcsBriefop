@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Tools;
+﻿using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System;
@@ -14,8 +15,6 @@ namespace DcsBriefop.Map
 	public class GRouteBriefop : GMapRoute, ISerializable, IDeserializationCallback
 	{
 		#region Fields
-		private Font m_font = new Font("Arial", 11);
-		private double m_dRadian90 = Math.PI / 2; // 1.5707963268;
 		private MapTemplateRoute m_template;
 		private Bitmap m_bitmap;
 		#endregion
@@ -118,6 +117,10 @@ namespace DcsBriefop.Map
 
 		private void DrawSegment(Graphics g, Point pointStart, Point pointEnd)
 		{
+			//g.DrawString("*", m_font, Brushes.Red, pointStart.X, pointStart.Y);
+			//g.DrawString("+", m_font, Brushes.Red, pointEnd.X, pointEnd.Y);
+			//g.DrawLine(new Pen(Color.Red, 1), pointStart, pointEnd);
+
 			if (m_bitmap is object && m_template.DashOverride is null)
 				DrawSegmentBitmap(g, pointStart, pointEnd);
 			else
@@ -136,41 +139,21 @@ namespace DcsBriefop.Map
 
 		private void DrawStringAngledCentered(Graphics g, Point pointStart, Point pointEnd, string sLabel)
 		{
-			double dAngle = ComputeVerticalAngle(pointStart, pointEnd) - m_dRadian90;
-			float dDegrees = (float)(dAngle * 180 / Math.PI);
-			Point pMiddle = new Point(pointStart.X + (pointEnd.X - pointStart.X) / 2, pointStart.Y + (pointEnd.Y - pointStart.Y) / 2);
+			double dAngleRad = ComputeAngleRad(pointStart, pointEnd);
+			float fAngle = (float)(dAngleRad * 180 / Math.PI);
+			Point pointCenter = new Point(pointStart.X + (pointEnd.X - pointStart.X) / 2, pointStart.Y + (pointEnd.Y - pointStart.Y) / 2);
 
-			GraphicsState state = g.Save();
-			g.TranslateTransform(pMiddle.X, pMiddle.Y);
-			g.RotateTransform(dDegrees);
-
-			g.SmoothingMode = SmoothingMode.HighQuality;
-			g.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
-
-			SizeF textSize = g.MeasureString(sLabel, m_font);
-
-			Color textColor = TintColor.GetValueOrDefault(Color.Black);
-			Color shadowColor = Color.FromArgb(120, textColor);
-
-			using (Brush textBrush = new SolidBrush(textColor))
-			using (Brush shadowBrush = new SolidBrush(shadowColor))
-			{
-				//g.DrawString(Label, m_font, shadowBrush, new PointF(-(textSize.Width / 2) + 1, 1));
-				g.DrawString(Label, m_font, textBrush, new PointF(-(textSize.Width / 2), 0));
-
-			}
-
-			g.Restore(state);
+			ToolsImage.DrawStringAngledCentered(g, pointCenter, sLabel, ElementMapValue.DefaultFont, TintColor.GetValueOrDefault(Color.Black), true, fAngle, Thickness/2);
 		}
 
 
 		private void DrawSegmentBitmap(Graphics g, Point pointStart, Point pointEnd)
 		{
-			//double dSegmentAngle = ComputeVerticalAngle(pointStart, pointEnd);
-			//double dSegmentWidth = ComputePointDistance(pointStart, pointEnd);
 			double dHeight = Thickness;
 
-			// drawing a border around the full segment
+			//Point pEndTest = new Point(pointStart.X, pointStart.Y + 100); // horizontal forward
+			//g.DrawString($"{ComputeAngle(pointStart, pointEnd) * 180 / Math.PI}°", m_font, Brushes.Red, pointStart);
+			//g.DrawString($"{ComputeAngle(pointStart, pointEnd)} rad", m_font, Brushes.Red, pointEnd.X, pointEnd.Y + 15);
 			//g.DrawPolygon(new Pen(Brushes.Red, 1), ComputeAngledPoints(pointStart, pointEnd, dHeight));
 
 			// drawing the image multiple times to fill the segment
@@ -195,8 +178,6 @@ namespace DcsBriefop.Map
 						p2 = TranslatePoint(p1, pointEnd, dDrawWidth);
 
 					//g.DrawPolygon(new Pen(Brushes.Chartreuse, 1), ComputeAngledPoints(p1, p2, dHeight));
-					//g.DrawLine(new Pen(Brushes.Chartreuse, 1), p1, p2);
-					//g.DrawString($"{ComputeVerticalAngle(p1, p2) - m_dRadian90}", m_font, Brushes.Aqua, p1);
 					DrawBitmapBetweenPoints(g, m_bitmap, p1, p2, dHeight, dDrawWidth);
 
 					p1 = p2;
@@ -210,19 +191,9 @@ namespace DcsBriefop.Map
 
 			// points from ComputeAngledPoints are topLeft, topRight, bottomRight, bottomLeft
 			// points for DrawImage are topLeft, topRight, bottomLeft
-			// here they are switched to draw the image in the same orientation as DCS does
-			//Point[] pointsDest = { points[0], points[1], points[3] }; // this is not matching the DCS orientation
-			Point[] pointsDest = { points[2], points[3], points[1] }; // this is matching the DCS orientation
+			Point[] pointsDest = { points[0], points[1], points[3] };
 			Rectangle rectSource = new Rectangle(0, 0, (int)(dDistance * m_bitmap.Height / dHeight), bitmap.Height);
 			g.DrawImage(bitmap, pointsDest, rectSource, GraphicsUnit.Pixel);
-		}
-
-		private Point TranslatePoint(Point pointOrigin, Point pointTowards, double dDistance)
-		{
-			double dAngle = ComputeVerticalAngle(pointOrigin, pointTowards) - m_dRadian90;
-
-			return new Point(pointOrigin.X + (int)Math.Round(dDistance * Math.Cos(dAngle), MidpointRounding.AwayFromZero),
-												pointOrigin.Y + (int)Math.Round(dDistance * Math.Sin(dAngle), MidpointRounding.AwayFromZero));
 		}
 
 		private double ComputePointDistance(Point p1, Point p2)
@@ -230,12 +201,19 @@ namespace DcsBriefop.Map
 			return Math.Sqrt((Math.Pow(p2.X - p1.X, 2) + Math.Pow(p2.Y - p1.Y, 2)));
 		}
 
+		private Point TranslatePoint(Point pointOrigin, Point pointTowards, double dDistance)
+		{
+			double dAngle = ComputeAngleRad(pointOrigin, pointTowards);
+			return new Point(pointOrigin.X + (int)Math.Round(dDistance * Math.Cos(dAngle), MidpointRounding.AwayFromZero),
+												pointOrigin.Y + (int)Math.Round(dDistance * Math.Sin(dAngle), MidpointRounding.AwayFromZero));
+		}
+
 		private Point[] ComputeAngledPoints(Point pointStart, Point pointEnd, double dHeight)
 		{
 			// get array of points defining a rectangle angled along the vector running from pointStart to pointEnd
-			// with dHeight being the size of the sides crossing the vector
+			// with dHeight being the size of the sides crossing the vector perpendicularly
 			// points returned are topLeft, topRight, bottomRight, bottomLeft
-			double dAngle = ComputeVerticalAngle(pointStart, pointEnd);
+			double dAngle = ComputeAngleRad(pointStart, pointEnd) - Math.PI / 2; // get the perpendicular angle
 			double dHalfHeight = dHeight / 2;
 
 			double dXTranslate = dHalfHeight * Math.Cos(dAngle);
@@ -249,12 +227,13 @@ namespace DcsBriefop.Map
 			return new Point[] { pointTopLeft, pointTopRight, pointBottomRight, pointBottomLeft };
 		}
 
-		private double ComputeVerticalAngle(Point pointStart, Point pointEnd)
+		private double ComputeAngleRad(Point pointStart, Point pointEnd)
 		{
-			// angle clockwise from 12 o'clock to the line from pointStart to pointEnd, in radian
-			int iSpacingX = pointStart.X - pointEnd.X;
-			int iSpacingY = pointStart.Y - pointEnd.Y;
-			return Math.Atan2(iSpacingY, iSpacingX) - m_dRadian90; // remove 90° (in radians) for vertical angle
+			int iSpacingX = pointEnd.X - pointStart.X;
+			int iSpacingY = pointEnd.Y - pointStart.Y;
+			// Atan2 with these parameters, will return the angle of the vector running from pointStart to pointEnd
+			// The angle is trigonometric, in radian, but as the drawing referential is inverted on Y (Y increments when going down) it is clockwise
+			return Math.Atan2(iSpacingY, iSpacingX);
 		}
 		#endregion
 

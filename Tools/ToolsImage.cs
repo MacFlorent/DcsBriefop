@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 
@@ -8,6 +9,7 @@ namespace DcsBriefop.Tools
 {
 	internal static class ToolsImage
 	{
+		#region Bitmap
 		private static Dictionary<string, Bitmap> m_bitmapCache = new Dictionary<string, Bitmap>();
 		public static Bitmap GetCachedBitmap(string sBitmapName)
 		{
@@ -32,6 +34,24 @@ namespace DcsBriefop.Tools
 			return bmp;
 		}
 
+		public static Icon GetIconResource(string sResource)
+		{
+			Icon ico = null;
+			object oResource = Properties.Resources.ResourceManager.GetObject(sResource, Properties.Resources.Culture);
+			if (oResource is Icon i)
+				ico = i;
+			else if (oResource is Bitmap b)
+			{
+				IntPtr icH = b.GetHicon();
+				ico = Icon.FromHandle(icH);
+				//DestroyIcon(icH);
+			}
+
+			return ico;
+		}
+		#endregion
+
+		#region Color
 		public static Bitmap ColorTint(this Bitmap sourceBitmap, Color colorTint)
 		{
 			float fRedTint = colorTint.R / 255f;
@@ -112,7 +132,7 @@ namespace DcsBriefop.Tools
 				if (red < 0)
 				{ red = 0; }
 
-				if (alpha <0)
+				if (alpha < 0)
 				{ alpha = 0; }
 
 				pixelBuffer[k] = (byte)blue;
@@ -166,21 +186,37 @@ namespace DcsBriefop.Tools
 			c.G * c.G * .587 +
 			c.B * c.B * .114);
 		}
+		#endregion
 
-		public static Icon GetIconResource(string sResource)
+		#region Draw
+		public static void DrawString(Graphics g, PointF position, string sString, Font font, Color color, bool bDrawShadow)
 		{
-			Icon ico = null;
-			object oResource = Properties.Resources.ResourceManager.GetObject(sResource, Properties.Resources.Culture);
-			if (oResource is Icon i)
-				ico = i;
-			else if (oResource is Bitmap b)
+			if (bDrawShadow)
 			{
-				IntPtr icH = b.GetHicon();
-				ico = Icon.FromHandle(icH);
-				//DestroyIcon(icH);
+				using (Brush shadowBrush = new SolidBrush(Color.FromArgb(120, Color.Black)))
+				{
+					g.DrawString(sString, font, shadowBrush, position.X + 1, position.Y + 1);
+				}
 			}
 
-			return ico;
+			using (Brush brush = new SolidBrush(color))
+			{
+				g.DrawString(sString, font, brush, position.X, position.Y);
+			}
 		}
+
+		public static void DrawStringAngledCentered(Graphics g, Point centerPosition, string sString, Font font, Color color, bool bDrawShadow, float fAngle, int iVerticalOffset)
+		{
+			GraphicsState state = g.Save();
+			g.TranslateTransform(centerPosition.X, centerPosition.Y);
+			if (fAngle != 0)
+				g.RotateTransform(fAngle);
+
+			SizeF textSize = g.MeasureString(sString, font);
+			DrawString(g, new PointF(-(textSize.Width / 2), iVerticalOffset), sString, font, color, bDrawShadow);
+
+			g.Restore(state);
+		}
+		#endregion
 	}
 }

@@ -137,6 +137,7 @@ namespace DcsBriefop
 			this.Controls.Add(this.TbLocalDirectory);
 			this.Controls.Add(this.CkLocalDirectory);
 			this.Controls.Add(this.CkMizFile);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Name = "FrmGenerateFiles";
 			this.ShowInTaskbar = false;
 			this.Text = "FrmGenerateFiles";

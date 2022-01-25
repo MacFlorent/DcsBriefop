@@ -53,6 +53,7 @@ namespace DcsBriefop.DataMiz
 			public static readonly string FillColorString = "fillColorString";
 			public static readonly string Font = "font";
 			public static readonly string FontSize = "fontSize";
+			public static readonly string BorderThickness = "borderThickness";
 
 			public static readonly string Points = "points";
 			public static readonly string Closed = "closed";
@@ -75,6 +76,7 @@ namespace DcsBriefop.DataMiz
 		public string FillColorString { get; set; }
 		public string Font { get; set; }
 		public int? FontSize { get; set; }
+		public int? BorderThickness { get; set; }
 
 		public bool? Closed { get; set; }
 		public int? Thickness { get; set; }
@@ -101,6 +103,7 @@ namespace DcsBriefop.DataMiz
 			FillColorString = ToolsLson.IfExistsString(m_lsd, LuaNode.FillColorString);
 			Font = ToolsLson.IfExistsString(m_lsd, LuaNode.Font);
 			FontSize = ToolsLson.IfExistsInt(m_lsd, LuaNode.FontSize);
+			BorderThickness = ToolsLson.IfExistsInt(m_lsd, LuaNode.BorderThickness);
 
 			Closed = ToolsLson.IfExistsBool (m_lsd, LuaNode.Closed);
 			Thickness = ToolsLson.IfExistsInt(m_lsd, LuaNode.Thickness);

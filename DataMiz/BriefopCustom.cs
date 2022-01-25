@@ -53,6 +53,7 @@ namespace DcsBriefop.DataMiz
 
 	internal class BriefopCustomMap
 	{
+		public string Provider { get; set; }
 		public double CenterLatitude { get; set; }
 		public double CenterLongitude { get; set; }
 		public double Zoom { get; set; }

@@ -58,11 +58,17 @@ namespace DcsBriefop.Data
 
 	internal static class ElementMapValue
 	{
-		public static readonly GMapProvider MapProvider = BingMapProvider.Instance;
+		public static readonly GMapProvider DefaultMapProvider = BingMapProvider.Instance;
 		public static readonly int MinZoom = 1;
 		public static readonly int MaxZoom = 18;
 		public static readonly int DefaultZoom = 9;
 		public static readonly string OverlayStatic = "static";
+
+		public static readonly Font DefaultFont = new Font("Arial", 11);
+		public static readonly Pen PenSelected = new Pen(Color.Blue, 1);
+		public static readonly Pen PenMouseOver = new Pen(Color.CadetBlue, 1);
+
+
 	}
 
 	internal static class ElementImageSize

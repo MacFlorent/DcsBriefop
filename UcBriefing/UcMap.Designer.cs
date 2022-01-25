@@ -30,6 +30,9 @@ namespace DcsBriefop.UcBriefing
 		private void InitializeComponent()
 		{
 			this.PnMapControls = new System.Windows.Forms.Panel();
+			this.CbMapProvider = new System.Windows.Forms.ComboBox();
+			this.LbMapDisplay = new System.Windows.Forms.Label();
+			this.LbTheater = new System.Windows.Forms.Label();
 			this.BtZoomIn = new System.Windows.Forms.Button();
 			this.BtZoomOut = new System.Windows.Forms.Button();
 			this.LbTitle = new System.Windows.Forms.Label();
@@ -39,12 +42,13 @@ namespace DcsBriefop.UcBriefing
 			this.BtAreaRecall = new System.Windows.Forms.Button();
 			this.BtAreaSet = new System.Windows.Forms.Button();
 			this.Map = new GMap.NET.WindowsForms.GMapControl();
-			this.LbTheater = new System.Windows.Forms.Label();
 			this.PnMapControls.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// PnMapControls
 			// 
+			this.PnMapControls.Controls.Add(this.CbMapProvider);
+			this.PnMapControls.Controls.Add(this.LbMapDisplay);
 			this.PnMapControls.Controls.Add(this.LbTheater);
 			this.PnMapControls.Controls.Add(this.BtZoomIn);
 			this.PnMapControls.Controls.Add(this.BtZoomOut);
@@ -60,9 +64,37 @@ namespace DcsBriefop.UcBriefing
 			this.PnMapControls.Size = new System.Drawing.Size(235, 929);
 			this.PnMapControls.TabIndex = 6;
 			// 
+			// CbMapProvider
+			// 
+			this.CbMapProvider.FormattingEnabled = true;
+			this.CbMapProvider.Location = new System.Drawing.Point(78, 66);
+			this.CbMapProvider.Name = "CbMapProvider";
+			this.CbMapProvider.Size = new System.Drawing.Size(143, 21);
+			this.CbMapProvider.TabIndex = 21;
+			this.CbMapProvider.SelectionChangeCommitted += new System.EventHandler(this.CbMapProvider_SelectionChangeCommitted);
+			this.CbMapProvider.DropDownClosed += new System.EventHandler(this.CbMapProvider_DropDownClosed);
+			// 
+			// LbMapDisplay
+			// 
+			this.LbMapDisplay.AutoSize = true;
+			this.LbMapDisplay.Location = new System.Drawing.Point(3, 69);
+			this.LbMapDisplay.Name = "LbMapDisplay";
+			this.LbMapDisplay.Size = new System.Drawing.Size(69, 13);
+			this.LbMapDisplay.TabIndex = 22;
+			this.LbMapDisplay.Text = "Map provider";
+			// 
+			// LbTheater
+			// 
+			this.LbTheater.Location = new System.Drawing.Point(3, 0);
+			this.LbTheater.Name = "LbTheater";
+			this.LbTheater.Size = new System.Drawing.Size(226, 23);
+			this.LbTheater.TabIndex = 10;
+			this.LbTheater.Text = "title";
+			this.LbTheater.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// BtZoomIn
 			// 
-			this.BtZoomIn.Location = new System.Drawing.Point(103, 148);
+			this.BtZoomIn.Location = new System.Drawing.Point(113, 200);
 			this.BtZoomIn.Name = "BtZoomIn";
 			this.BtZoomIn.Size = new System.Drawing.Size(78, 23);
 			this.BtZoomIn.TabIndex = 9;
@@ -72,7 +104,7 @@ namespace DcsBriefop.UcBriefing
 			// 
 			// BtZoomOut
 			// 
-			this.BtZoomOut.Location = new System.Drawing.Point(19, 148);
+			this.BtZoomOut.Location = new System.Drawing.Point(29, 200);
 			this.BtZoomOut.Name = "BtZoomOut";
 			this.BtZoomOut.Size = new System.Drawing.Size(78, 23);
 			this.BtZoomOut.TabIndex = 8;
@@ -91,7 +123,7 @@ namespace DcsBriefop.UcBriefing
 			// 
 			// BtRefresh
 			// 
-			this.BtRefresh.Location = new System.Drawing.Point(38, 119);
+			this.BtRefresh.Location = new System.Drawing.Point(48, 171);
 			this.BtRefresh.Name = "BtRefresh";
 			this.BtRefresh.Size = new System.Drawing.Size(134, 23);
 			this.BtRefresh.TabIndex = 6;
@@ -112,7 +144,7 @@ namespace DcsBriefop.UcBriefing
 			// CkAddMarker
 			// 
 			this.CkAddMarker.AutoSize = true;
-			this.CkAddMarker.Location = new System.Drawing.Point(38, 186);
+			this.CkAddMarker.Location = new System.Drawing.Point(48, 238);
 			this.CkAddMarker.Name = "CkAddMarker";
 			this.CkAddMarker.Size = new System.Drawing.Size(80, 17);
 			this.CkAddMarker.TabIndex = 2;
@@ -121,7 +153,7 @@ namespace DcsBriefop.UcBriefing
 			// 
 			// BtAreaRecall
 			// 
-			this.BtAreaRecall.Location = new System.Drawing.Point(38, 90);
+			this.BtAreaRecall.Location = new System.Drawing.Point(48, 142);
 			this.BtAreaRecall.Name = "BtAreaRecall";
 			this.BtAreaRecall.Size = new System.Drawing.Size(134, 23);
 			this.BtAreaRecall.TabIndex = 1;
@@ -131,7 +163,7 @@ namespace DcsBriefop.UcBriefing
 			// 
 			// BtAreaSet
 			// 
-			this.BtAreaSet.Location = new System.Drawing.Point(38, 61);
+			this.BtAreaSet.Location = new System.Drawing.Point(48, 113);
 			this.BtAreaSet.Name = "BtAreaSet";
 			this.BtAreaSet.Size = new System.Drawing.Size(134, 23);
 			this.BtAreaSet.TabIndex = 0;
@@ -174,15 +206,6 @@ namespace DcsBriefop.UcBriefing
 			this.Map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Map_MouseMove);
 			this.Map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Map_MouseUp);
 			// 
-			// LbTheater
-			// 
-			this.LbTheater.Location = new System.Drawing.Point(3, 0);
-			this.LbTheater.Name = "LbTheater";
-			this.LbTheater.Size = new System.Drawing.Size(226, 23);
-			this.LbTheater.TabIndex = 10;
-			this.LbTheater.Text = "title";
-			this.LbTheater.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
 			// UcMap
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,5 +232,7 @@ namespace DcsBriefop.UcBriefing
 		private System.Windows.Forms.Button BtZoomIn;
 		private System.Windows.Forms.Button BtZoomOut;
 		private System.Windows.Forms.Label LbTheater;
+		private System.Windows.Forms.ComboBox CbMapProvider;
+		private System.Windows.Forms.Label LbMapDisplay;
 	}
 }
