@@ -68,6 +68,7 @@ namespace DcsBriefop.DataMiz
 		public string CoalitionName { get; set; }
 		public bool Included { get; set; }
 		public string BullseyeDescription { get; set; }
+		public bool BullseyeWaypoint { get; set; }
 		public BriefopCustomMap MapData { get; set; }
 		public ListComPreset ComPresets { get; set; }
 	}

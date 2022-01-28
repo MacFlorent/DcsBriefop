@@ -4,11 +4,11 @@ namespace DcsBriefop.DataMiz
 {
 	internal abstract class BaseMiz
 	{
-		protected LsonDict m_lsd;
+		public LsonDict Lsd { get; set; }
 
 		public BaseMiz(LsonDict lsd)
 		{
-			m_lsd = lsd;
+			Lsd = lsd;
 			FromLua();
 		}
 

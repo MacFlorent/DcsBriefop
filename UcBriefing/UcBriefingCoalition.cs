@@ -44,6 +44,7 @@ namespace DcsBriefop.UcBriefing
 		{
 			TbBullseyeCoordinates.Text = Coalition.GetBullseyeCoordinatesString();
 			TbBullseyeDescription.Text = Coalition.BullseyeDescription;
+			CkBullseyeWaypoint.Checked = Coalition.BullseyeWaypoint;
 			TbTask.Text = Coalition.Task;
 
 			TcAssets.TabPages.Clear();
@@ -152,6 +153,7 @@ namespace DcsBriefop.UcBriefing
 		{
 			Coalition.BullseyeDescription = TbBullseyeDescription.Text;
 			Coalition.Task = TbTask.Text;
+			Coalition.BullseyeWaypoint = CkBullseyeWaypoint.Checked;
 		}
 
 		private void RefreshGridRow(DataGridView dgv, Asset asset)
@@ -301,6 +303,12 @@ namespace DcsBriefop.UcBriefing
 			Coalition.ResetBullseyeMarkerDescription();
 		}
 
+		private void CkBullseyeWaypoint_CheckedChanged(object sender, EventArgs e)
+		{
+			Coalition.BullseyeWaypoint = CkBullseyeWaypoint.Checked;
+			Coalition.InitializeBullseyeWaypoints();
+		}
+
 		private void BtComPresets_Click(object sender, EventArgs e)
 		{
 			
@@ -310,8 +318,7 @@ namespace DcsBriefop.UcBriefing
 				DataToScreen();
 			}
 		}
+
 		#endregion
-
-
 	}
 }

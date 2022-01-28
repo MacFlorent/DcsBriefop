@@ -162,10 +162,11 @@ namespace DcsBriefop.Data
 
 		public List<int> GetAirdromeIds()
 		{
-			IEnumerable<int> grouped = m_mizGroup.RoutePoints
+			IEnumerable<int> grouped = MapPoints.OfType<AssetRoutePoint>()
 				.Where(_rp => _rp.AirdromeId is object
 					&& (_rp.Type == ElementRoutePointType.TakeOff || _rp.Type == ElementRoutePointType.TakeOffParking || _rp.Type == ElementRoutePointType.TakeOffParkingHot || _rp.Type == ElementRoutePointType.Land))
 				.GroupBy(_rp => _rp.AirdromeId).Select(_g => _g.Key.Value);
+
 
 			return grouped.ToList();
 		}
@@ -177,7 +178,7 @@ namespace DcsBriefop.Data
 
 		public List<AssetShip> GetCarrierAssets()
 		{
-			IEnumerable<int> grouped = m_mizGroup.RoutePoints
+			IEnumerable<int> grouped = MapPoints.OfType<AssetRoutePoint>()
 				.Where(_rp => _rp.HelipadId is object
 					&& (_rp.Type == ElementRoutePointType.TakeOff || _rp.Type == ElementRoutePointType.TakeOffParking || _rp.Type == ElementRoutePointType.TakeOffParkingHot || _rp.Type == ElementRoutePointType.Land))
 				.GroupBy(_rp => _rp.HelipadId).Select(_g => _g.Key.Value);
@@ -209,9 +210,51 @@ namespace DcsBriefop.Data
 			else
 				RemoveMissionData();
 		}
+
+		private void AddBullseyeWaypoint()
+		{
+			AssetRoutePoint bullsPoint = MapPoints.OfType<AssetRoutePoint>().Where(_mp => _mp.Name == m_sBullsPointName).FirstOrDefault();
+
+			if (bullsPoint is null)
+			{
+				MizRoutePoint mizRoutePoint = MizRoutePoint.NewFromLuaTemplate();
+				mizRoutePoint.Y = Coalition.MizCoalition.BullseyeY;
+				mizRoutePoint.X = Coalition.MizCoalition.BullseyeX;
+
+				AssetRoutePoint routePoint = new AssetRoutePoint(Core, 0, this, mizRoutePoint);
+				routePoint.Name = m_sBullsPointName;
+
+				MapPoints.Insert(0, routePoint);
+			}
+
+			NumberMapPoints();
+		}
+
+		private void RemoveBullseyeWaypoint()
+		{
+			AssetRoutePoint bullsPoint = MapPoints.OfType<AssetRoutePoint>().Where(_mp => _mp.Name == m_sBullsPointName).FirstOrDefault();
+			if (bullsPoint is object)
+				MapPoints.Remove(bullsPoint);
+
+			NumberMapPoints();
+		}
+
+		public void InitializeBullseyeWaypoint(bool bWithWaypoint)
+		{
+			//dataCartridge F18
+			// bullseye m2000
+
+			if (bWithWaypoint && Playable)
+				AddBullseyeWaypoint();
+			else
+				RemoveBullseyeWaypoint();
+
+			InitializeMapOverlay();
+			RemoveMissionData();
+			SetMissionData();
+		}
 		#endregion
 	}
-
 
 	internal class AssetFlightMission : BaseBriefing
 	{

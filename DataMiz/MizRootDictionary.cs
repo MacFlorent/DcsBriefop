@@ -30,20 +30,20 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Sortie = m_lsd[LuaNode.Sortie].GetString();
-			Description = m_lsd[LuaNode.Description].GetString();
-			RedTask = m_lsd[LuaNode.RedTask].GetString();
-			BlueTask = m_lsd[LuaNode.BlueTask].GetString();
-			NeutralTask = m_lsd[LuaNode.NeutralTask].GetString();
+			Sortie = Lsd[LuaNode.Sortie].GetString();
+			Description = Lsd[LuaNode.Description].GetString();
+			RedTask = Lsd[LuaNode.RedTask].GetString();
+			BlueTask = Lsd[LuaNode.BlueTask].GetString();
+			NeutralTask = Lsd[LuaNode.NeutralTask].GetString();
 		}
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Sortie] = Sortie;
-			m_lsd[LuaNode.Description] = Description;
-			m_lsd[LuaNode.RedTask] = RedTask;
-			m_lsd[LuaNode.BlueTask] = BlueTask;
-			m_lsd[LuaNode.NeutralTask] = NeutralTask;
+			Lsd[LuaNode.Sortie] = Sortie;
+			Lsd[LuaNode.Description] = Description;
+			Lsd[LuaNode.RedTask] = RedTask;
+			Lsd[LuaNode.BlueTask] = BlueTask;
+			Lsd[LuaNode.NeutralTask] = NeutralTask;
 		}
 	}
 }

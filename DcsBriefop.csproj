@@ -155,6 +155,7 @@
     <Compile Include="DataMiz\BriefopCustomAsset.cs" />
     <Compile Include="DataMiz\BriefopCustomMission.cs" />
     <Compile Include="DataMiz\Miz.cs" />
+    <Compile Include="DataMiz\MizDataCartridge.cs" />
     <Compile Include="DataMiz\MizDrawing.cs" />
     <Compile Include="DataMiz\MizRadio.cs" />
     <Compile Include="Data\Airdrome.cs" />

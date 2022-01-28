@@ -31,16 +31,16 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Id = m_lsd[LuaNode.Id].GetInt();
-			Name = m_lsd[LuaNode.Name].GetString();
-			LateActivation = m_lsd.IfExistsBool(LuaNode.LateActivation).GetValueOrDefault();
-			Y = m_lsd[LuaNode.Y].GetDecimal();
-			X = m_lsd[LuaNode.X].GetDecimal();
+			Id = Lsd[LuaNode.Id].GetInt();
+			Name = Lsd[LuaNode.Name].GetString();
+			LateActivation = Lsd.IfExistsBool(LuaNode.LateActivation).GetValueOrDefault();
+			Y = Lsd[LuaNode.Y].GetDecimal();
+			X = Lsd[LuaNode.X].GetDecimal();
 
-			if (m_lsd.ContainsKey(LuaNode.Route))
+			if (Lsd.ContainsKey(LuaNode.Route))
 			{
-				LsonDict lsdRoutePoints = m_lsd[LuaNode.Route][LuaNode.Points].GetDict();
-				foreach (LsonValue lsv in lsdRoutePoints.Values)
+				LsonDict lsdRoutePoints = Lsd[LuaNode.Route][LuaNode.Points].GetDict();
+				foreach (LsonValue lsv in ToolsLson.GetOrderedValueList(lsdRoutePoints))
 				{
 					RoutePoints.Add(new MizRoutePoint(lsv.GetDict()));
 				}
@@ -49,14 +49,23 @@ namespace DcsBriefop.DataMiz
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Id] = Id;
-			m_lsd[LuaNode.Name] = Name;
+			Lsd[LuaNode.Id] = Id;
+			Lsd[LuaNode.Name] = Name;
 
-			m_lsd.SetOrAddBool(LuaNode.LateActivation, LateActivation);
+			Lsd.SetOrAddBool(LuaNode.LateActivation, LateActivation);
 
-			foreach (MizRoutePoint rp in RoutePoints)
+			if (Lsd.ContainsKey(LuaNode.Route))
 			{
-				rp.ToLua();
+				LsonDict lsdRoutePoints = Lsd[LuaNode.Route][LuaNode.Points].GetDict();
+				lsdRoutePoints.Clear();
+
+				int i = 0;
+				foreach (MizRoutePoint rp in RoutePoints)
+				{
+					rp.ToLua();
+					lsdRoutePoints.Add(i, rp.Lsd);
+					i++;
+				}
 			}
 		}
 	}
@@ -81,11 +90,11 @@ namespace DcsBriefop.DataMiz
 		{
 			base.FromLua();
 
-			Task = m_lsd[LuaNode.Task].GetString();
-			RadioFrequency = m_lsd[LuaNode.RadioFrequency].GetDecimal();
-			RadioModulation = m_lsd[LuaNode.RadioModulation].GetInt();
+			Task = Lsd[LuaNode.Task].GetString();
+			RadioFrequency = Lsd[LuaNode.RadioFrequency].GetDecimal();
+			RadioModulation = Lsd[LuaNode.RadioModulation].GetInt();
 
-			LsonDict lsdUnits = m_lsd[LuaNode.Units].GetDict();
+			LsonDict lsdUnits = Lsd[LuaNode.Units].GetDict();
 			foreach (LsonValue lsv in lsdUnits.Values)
 			{
 				Units.Add(new MizUnitFlight(lsv.GetDict()));
@@ -96,9 +105,9 @@ namespace DcsBriefop.DataMiz
 		{
 			base.ToLua();
 
-			m_lsd[LuaNode.Task] = Task;
-			m_lsd[LuaNode.RadioFrequency] = RadioFrequency;
-			m_lsd[LuaNode.RadioModulation] = RadioModulation;
+			Lsd[LuaNode.Task] = Task;
+			Lsd[LuaNode.RadioFrequency] = RadioFrequency;
+			Lsd[LuaNode.RadioModulation] = RadioModulation;
 
 			foreach (MizUnitFlight unit in Units.OfType<MizUnitFlight>())
 			{
@@ -119,7 +128,7 @@ namespace DcsBriefop.DataMiz
 		public override void FromLua()
 		{
 			base.FromLua();
-			LsonDict lsdUnits = m_lsd[LuaNode.Units].GetDict();
+			LsonDict lsdUnits = Lsd[LuaNode.Units].GetDict();
 			foreach (LsonValue lsv in lsdUnits.Values)
 			{
 				Units.Add(new MizUnitShip(lsv.GetDict()));
@@ -149,7 +158,7 @@ namespace DcsBriefop.DataMiz
 		public override void FromLua()
 		{
 			base.FromLua();
-			LsonDict lsdUnits = m_lsd[LuaNode.Units].GetDict();
+			LsonDict lsdUnits = Lsd[LuaNode.Units].GetDict();
 			foreach (LsonValue lsv in lsdUnits.Values)
 			{
 				Units.Add(new MizUnitVehicle(lsv.GetDict()));
@@ -179,7 +188,7 @@ namespace DcsBriefop.DataMiz
 		public override void FromLua()
 		{
 			base.FromLua();
-			LsonDict lsdUnits = m_lsd[LuaNode.Units].GetDict();
+			LsonDict lsdUnits = Lsd[LuaNode.Units].GetDict();
 			foreach (LsonValue lsv in lsdUnits.Values)
 			{
 				Units.Add(new MizUnitStatic(lsv.GetDict()));
@@ -196,4 +205,4 @@ namespace DcsBriefop.DataMiz
 			}
 		}
 	}
-	}
+}

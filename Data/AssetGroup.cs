@@ -73,11 +73,23 @@ namespace DcsBriefop.Data
 				iNumber++;
 			}
 		}
+
+		protected void NumberMapPoints()
+		{
+			int iNumber = 0;
+			foreach (AssetRoutePoint rp in MapPoints.OfType<AssetRoutePoint>())
+			{
+				rp.Number = iNumber;
+				iNumber++;
+			}
+		}
 		#endregion
 
 		#region Methods
 		public override void Persist()
 		{
+			base.Persist();
+
 			m_briefopCustomGroup.Usage = (int)Usage;
 			m_briefopCustomGroup.MapDisplay = (int)MapDisplay;
 			m_briefopCustomGroup.Information = m_customInformation;
@@ -85,6 +97,13 @@ namespace DcsBriefop.Data
 			foreach (AssetUnit unit in Units)
 			{
 				unit.Persist();
+			}
+
+			m_mizGroup.RoutePoints.Clear();
+			foreach (AssetRoutePoint routePoint in MapPoints.OfType<AssetRoutePoint>())
+			{
+				routePoint.Persist();
+				m_mizGroup.RoutePoints.Add(routePoint.MizRoutePoint);
 			}
 		}
 

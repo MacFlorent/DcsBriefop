@@ -22,10 +22,10 @@ namespace DcsBriefop.DataMiz
 		
 		public override void FromLua()
 		{
-			Visible = m_lsd[LuaNode.Visible].GetBool();
-			Name = m_lsd[LuaNode.Name].GetString();
+			Visible = Lsd[LuaNode.Visible].GetBool();
+			Name = Lsd[LuaNode.Name].GetString();
 
-			LsonDict lsdObjects = m_lsd[LuaNode.Objects].GetDict();
+			LsonDict lsdObjects = Lsd[LuaNode.Objects].GetDict();
 			foreach (LsonValue lsv in lsdObjects.Values)
 			{
 				Objects.Add(new MizDrawingObject(lsv.GetDict()));
@@ -89,30 +89,30 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Visible = m_lsd[LuaNode.Visible].GetBool();
-			Name = m_lsd[LuaNode.Name].GetString();
-			PrimitiveType = m_lsd[LuaNode.PrimitiveType].GetString();
-			MapY = m_lsd[LuaNode.MapY].GetDecimal();
-			MapX = m_lsd[LuaNode.MapX].GetDecimal();
-			ColorString = m_lsd[LuaNode.ColorString].GetString();
+			Visible = Lsd[LuaNode.Visible].GetBool();
+			Name = Lsd[LuaNode.Name].GetString();
+			PrimitiveType = Lsd[LuaNode.PrimitiveType].GetString();
+			MapY = Lsd[LuaNode.MapY].GetDecimal();
+			MapX = Lsd[LuaNode.MapX].GetDecimal();
+			ColorString = Lsd[LuaNode.ColorString].GetString();
 
-			Angle = ToolsLson.IfExistsInt(m_lsd, LuaNode.Angle);
-			File = ToolsLson.IfExistsString(m_lsd, LuaNode.File);
-			Scale = ToolsLson.IfExistsInt(m_lsd, LuaNode.Scale);
-			Text = ToolsLson.IfExistsString(m_lsd, LuaNode.Text);
-			FillColorString = ToolsLson.IfExistsString(m_lsd, LuaNode.FillColorString);
-			Font = ToolsLson.IfExistsString(m_lsd, LuaNode.Font);
-			FontSize = ToolsLson.IfExistsInt(m_lsd, LuaNode.FontSize);
-			BorderThickness = ToolsLson.IfExistsInt(m_lsd, LuaNode.BorderThickness);
+			Angle = ToolsLson.IfExistsInt(Lsd, LuaNode.Angle);
+			File = ToolsLson.IfExistsString(Lsd, LuaNode.File);
+			Scale = ToolsLson.IfExistsInt(Lsd, LuaNode.Scale);
+			Text = ToolsLson.IfExistsString(Lsd, LuaNode.Text);
+			FillColorString = ToolsLson.IfExistsString(Lsd, LuaNode.FillColorString);
+			Font = ToolsLson.IfExistsString(Lsd, LuaNode.Font);
+			FontSize = ToolsLson.IfExistsInt(Lsd, LuaNode.FontSize);
+			BorderThickness = ToolsLson.IfExistsInt(Lsd, LuaNode.BorderThickness);
 
-			Closed = ToolsLson.IfExistsBool (m_lsd, LuaNode.Closed);
-			Thickness = ToolsLson.IfExistsInt(m_lsd, LuaNode.Thickness);
-			Style = ToolsLson.IfExistsString(m_lsd, LuaNode.Style);
-			LineMode = ToolsLson.IfExistsString(m_lsd, LuaNode.LineMode);
+			Closed = ToolsLson.IfExistsBool (Lsd, LuaNode.Closed);
+			Thickness = ToolsLson.IfExistsInt(Lsd, LuaNode.Thickness);
+			Style = ToolsLson.IfExistsString(Lsd, LuaNode.Style);
+			LineMode = ToolsLson.IfExistsString(Lsd, LuaNode.LineMode);
 
-			if (m_lsd.ContainsKey(LuaNode.Points))
+			if (Lsd.ContainsKey(LuaNode.Points))
 			{
-				LsonDict lsdPoints = m_lsd[LuaNode.Points].GetDict();
+				LsonDict lsdPoints = Lsd[LuaNode.Points].GetDict();
 				foreach (LsonValue lsv in ToolsLson.GetOrderedValueList(lsdPoints))
 				{
 					Points.Add(new MizDrawingPoint(lsv.GetDict()));
@@ -138,8 +138,8 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Y = m_lsd[LuaNode.Y].GetDecimal();
-			X = m_lsd[LuaNode.X].GetDecimal();
+			Y = Lsd[LuaNode.Y].GetDecimal();
+			X = Lsd[LuaNode.X].GetDecimal();
 		}
 
 		public override void ToLua() { }

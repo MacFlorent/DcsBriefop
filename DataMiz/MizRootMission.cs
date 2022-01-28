@@ -40,19 +40,19 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Date = new DateTime(m_lsd[LuaNode.Date][LuaNode.Year].GetInt(), m_lsd[LuaNode.Date][LuaNode.Month].GetInt(), m_lsd[LuaNode.Date][LuaNode.Day].GetInt());
-			StartTime = m_lsd[LuaNode.StartTime].GetInt();
-			Theatre = m_lsd[LuaNode.Theater].GetString();
-			Map = new MizMap(m_lsd[LuaNode.Map].GetDict());
-			Weather = new MizWeather(m_lsd[LuaNode.Weather].GetDict());
+			Date = new DateTime(Lsd[LuaNode.Date][LuaNode.Year].GetInt(), Lsd[LuaNode.Date][LuaNode.Month].GetInt(), Lsd[LuaNode.Date][LuaNode.Day].GetInt());
+			StartTime = Lsd[LuaNode.StartTime].GetInt();
+			Theatre = Lsd[LuaNode.Theater].GetString();
+			Map = new MizMap(Lsd[LuaNode.Map].GetDict());
+			Weather = new MizWeather(Lsd[LuaNode.Weather].GetDict());
 
-			LsonDict lsdCoalitions = m_lsd[LuaNode.Coalition].GetDict();
+			LsonDict lsdCoalitions = Lsd[LuaNode.Coalition].GetDict();
 			foreach (LsonValue lsv in lsdCoalitions.Values)
 			{
 				Coalitions.Add(new MizCoalition(lsv.GetDict()));
 			}
 
-			LsonDict lsdDrawings = m_lsd[LuaNode.Drawings][LuaNode.Layers].GetDict();
+			LsonDict lsdDrawings = Lsd[LuaNode.Drawings][LuaNode.Layers].GetDict();
 			foreach (LsonValue lsv in lsdDrawings.Values)
 			{
 				DrawingLayers.Add(new MizDrawingLayer(lsv.GetDict()));
@@ -61,11 +61,11 @@ namespace DcsBriefop.DataMiz
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Date][LuaNode.Year] = Date.Year;
-			m_lsd[LuaNode.Date][LuaNode.Month] = Date.Month;
-			m_lsd[LuaNode.Date][LuaNode.Day] = Date.Day;
-			m_lsd[LuaNode.StartTime] = StartTime;
-			m_lsd[LuaNode.Theater] = Theatre;
+			Lsd[LuaNode.Date][LuaNode.Year] = Date.Year;
+			Lsd[LuaNode.Date][LuaNode.Month] = Date.Month;
+			Lsd[LuaNode.Date][LuaNode.Day] = Date.Day;
+			Lsd[LuaNode.StartTime] = StartTime;
+			Lsd[LuaNode.Theater] = Theatre;
 			Map.ToLua();
 			Weather.ToLua();
 

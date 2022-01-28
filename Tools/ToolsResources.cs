@@ -16,19 +16,19 @@ namespace DcsBriefop.Tools
 		{
 			string sBaseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 			string sResourceFilePath = Path.Combine(sBaseDirectory, ElementGlobalData.ResourcesDirectory, $"{sResourceName}.{sExtension}");
-			string sJsonStream = null;
+			string sContent = null;
 
 			if (File.Exists(sResourceFilePath))
 			{
-				sJsonStream = File.ReadAllText(sResourceFilePath);
+				sContent = File.ReadAllText(sResourceFilePath);
 			}
 			else
 			{
-				try { sJsonStream = Properties.Resources.ResourceManager.GetString(sResourceName, Properties.Resources.Culture); }
-				catch (Exception) { sJsonStream = null; }
+				try { sContent = Properties.Resources.ResourceManager.GetString(sResourceName, Properties.Resources.Culture); }
+				catch (Exception) { sContent = null; }
 			}
 
-			return sJsonStream;
+			return sContent;
 		}
 	}
 }

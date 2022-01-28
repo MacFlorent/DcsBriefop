@@ -14,17 +14,19 @@ namespace DcsBriefop.Data
 	internal class BriefingCoalition : BaseBriefing
 	{
 		#region Fields
-		private MizCoalition m_mizCoalition;
 		private MizCoalition m_mizOpposingCoalition;
 		private BriefopCustomCoalition m_briefopCustomCoalition;
 		private GMarkerBriefop m_markerkBullseye;
 		#endregion
 
 		#region Properties
+		public MizCoalition MizCoalition { get; set; }
+
 		public string CoalitionName { get; set; }
 		public bool Included { get; set; }
 		public Coordinate Bullseye { get; set; }
 		public string BullseyeDescription { get; set; }
+		public bool BullseyeWaypoint { get; set; }
 		public string Task { get; set; }
 
 		public Color OwnColor { get; set; }
@@ -43,7 +45,7 @@ namespace DcsBriefop.Data
 		{
 			CoalitionName = sCoalitionName;
 			string sOpposingCoalitionName = ToolsBriefop.GetOpposingCoalitionName(CoalitionName);
-			m_mizCoalition = Core.Miz.RootMission.Coalitions.Where(c => c.Name == CoalitionName).FirstOrDefault();
+			MizCoalition = Core.Miz.RootMission.Coalitions.Where(c => c.Name == CoalitionName).FirstOrDefault();
 			m_mizOpposingCoalition = Core.Miz.RootMission.Coalitions.Where(c => c.Name == sOpposingCoalitionName).FirstOrDefault();
 
 			Initialize();
@@ -57,6 +59,7 @@ namespace DcsBriefop.Data
 			InitializeData();
 
 			ComPresets?.Compute(this);
+
 		}
 
 		private void InitializeDataCustom()
@@ -78,7 +81,7 @@ namespace DcsBriefop.Data
 		{
 			string sOpposingCoalitionName = m_mizOpposingCoalition.Name;
 
-			Bullseye = Core.Theatre.GetCoordinate(m_mizCoalition.BullseyeY, m_mizCoalition.BullseyeX);
+			Bullseye = Core.Theatre.GetCoordinate(MizCoalition.BullseyeY, MizCoalition.BullseyeX);
 			if (CoalitionName == ElementCoalition.Red)
 				Task = Core.Miz.RootDictionary.RedTask;
 			else if (CoalitionName == ElementCoalition.Blue)
@@ -90,10 +93,11 @@ namespace DcsBriefop.Data
 			OpposingColor = ToolsBriefop.GetCoalitionColor(sOpposingCoalitionName);
 
 			BullseyeDescription = m_briefopCustomCoalition.BullseyeDescription;
+			BullseyeWaypoint = m_briefopCustomCoalition.BullseyeWaypoint;
 
 			InitializeMapData();
 
-			OwnAssets = BuildCoalitionAssets(m_mizCoalition, ElementAssetSide.Own);
+			OwnAssets = BuildCoalitionAssets(MizCoalition, ElementAssetSide.Own);
 			OpposingAssets = BuildCoalitionAssets(m_mizOpposingCoalition, ElementAssetSide.Opposing);
 
 			// airdromes must be intialized after assets so they can refer assets lists to determine if they are a base
@@ -156,6 +160,14 @@ namespace DcsBriefop.Data
 				asset.SetMissionData();
 			}
 		}
+
+		public void InitializeBullseyeWaypoints()
+		{
+			foreach (AssetFlight flight in OwnAssets.OfType<AssetFlight>())
+			{
+				flight.InitializeBullseyeWaypoint(BullseyeWaypoint);
+			}
+		}
 		#endregion
 
 		#region Methods
@@ -170,6 +182,7 @@ namespace DcsBriefop.Data
 
 			m_briefopCustomCoalition.Included = Included;
 			m_briefopCustomCoalition.BullseyeDescription = BullseyeDescription;
+			m_briefopCustomCoalition.BullseyeWaypoint = BullseyeWaypoint;
 
 			if (ComPresets is object && ComPresets.Count > 0)
 				m_briefopCustomCoalition.ComPresets = ComPresets.GetCopy();

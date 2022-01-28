@@ -39,20 +39,20 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Name = m_lsd.IfExistsString(LuaNode.Name);
-			Type = m_lsd[LuaNode.Type].GetString();
-			Action = m_lsd[LuaNode.Action].GetString();
-			Altitude = m_lsd[LuaNode.Altitude].GetDecimal();
-			AltitudeType = m_lsd.IfExistsString(LuaNode.AltitudeType);
-			Y = m_lsd[LuaNode.Y].GetDecimal();
-			X = m_lsd[LuaNode.X].GetDecimal();
-			AirdromeId = m_lsd.IfExistsInt(LuaNode.AirdromeId);
-			HelipadId = m_lsd.IfExistsInt(LuaNode.HelipadId);
-			LinkUnitId = m_lsd.IfExistsInt(LuaNode.LinkUnit);
+			Name = Lsd.IfExistsString(LuaNode.Name);
+			Type = Lsd[LuaNode.Type].GetString();
+			Action = Lsd[LuaNode.Action].GetString();
+			Altitude = Lsd[LuaNode.Altitude].GetDecimal();
+			AltitudeType = Lsd.IfExistsString(LuaNode.AltitudeType);
+			Y = Lsd[LuaNode.Y].GetDecimal();
+			X = Lsd[LuaNode.X].GetDecimal();
+			AirdromeId = Lsd.IfExistsInt(LuaNode.AirdromeId);
+			HelipadId = Lsd.IfExistsInt(LuaNode.HelipadId);
+			LinkUnitId = Lsd.IfExistsInt(LuaNode.LinkUnit);
 
-			if (m_lsd.ContainsKey(LuaNode.Task))
+			if (Lsd.ContainsKey(LuaNode.Task))
 			{
-				LsonDict lsdRouteTasks = m_lsd[LuaNode.Task][LuaNode.Params][LuaNode.Tasks].GetDict();
+				LsonDict lsdRouteTasks = Lsd[LuaNode.Task][LuaNode.Params][LuaNode.Tasks].GetDict();
 				foreach (LsonValue lsv in lsdRouteTasks.Values)
 				{
 					RouteTasks.Add(new MizRouteTask(lsv.GetDict()));
@@ -62,21 +62,33 @@ namespace DcsBriefop.DataMiz
 
 		public override void ToLua()
 		{
-			m_lsd.SetOrAddString(LuaNode.Name, Name);
-			m_lsd[LuaNode.Type] = Type;
-			m_lsd[LuaNode.Action] = Action;
-			m_lsd[LuaNode.Altitude] = Altitude;
-			m_lsd[LuaNode.AltitudeType] = AltitudeType;
-			m_lsd[LuaNode.Y] = Y;
-			m_lsd[LuaNode.X] = X;
-			m_lsd.SetOrAddInt(LuaNode.AirdromeId, AirdromeId);
-			m_lsd.SetOrAddInt(LuaNode.HelipadId, HelipadId);
+			Lsd.SetOrAddString(LuaNode.Name, Name);
+			Lsd[LuaNode.Type] = Type;
+			Lsd[LuaNode.Action] = Action;
+			Lsd[LuaNode.Altitude] = Altitude;
+			Lsd[LuaNode.AltitudeType] = AltitudeType;
+			Lsd[LuaNode.Y] = Y;
+			Lsd[LuaNode.X] = X;
+			Lsd.SetOrAddInt(LuaNode.AirdromeId, AirdromeId);
+			Lsd.SetOrAddInt(LuaNode.HelipadId, HelipadId);
 
-			LsonDict lsdRouteTasks = m_lsd[LuaNode.Task][LuaNode.Params][LuaNode.Tasks].GetDict();
 			foreach (MizRouteTask rt in RouteTasks)
 			{
 				rt.ToLua();
 			}
 		}
+
+		public static string GetLuaTemplate()
+		{
+			return ToolsResources.GetTextResourceContent("MizRoutePoint", "lua");
+		}
+
+		public static MizRoutePoint NewFromLuaTemplate()
+		{
+			string sLuaTemplate = GetLuaTemplate();
+			Dictionary<string, LsonValue> l = LsonVars.Parse(sLuaTemplate);
+			return new MizRoutePoint(l["template"].GetDict());
+		}
+
 	}
 }

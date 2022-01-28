@@ -26,18 +26,18 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Name = m_lsd[LuaNode.Name].GetString();
+			Name = Lsd[LuaNode.Name].GetString();
 
-			BullseyeY = m_lsd[LuaNode.Bullseye][LuaNode.BullseyeY].GetDecimal();
-			BullseyeX = m_lsd[LuaNode.Bullseye][LuaNode.BullseyeX].GetDecimal();
+			BullseyeY = Lsd[LuaNode.Bullseye][LuaNode.BullseyeY].GetDecimal();
+			BullseyeX = Lsd[LuaNode.Bullseye][LuaNode.BullseyeX].GetDecimal();
 
-			LsonDict lsdInitialPoints = m_lsd[LuaNode.NavPoints].GetDict();
+			LsonDict lsdInitialPoints = Lsd[LuaNode.NavPoints].GetDict();
 			foreach (LsonValue lsv in lsdInitialPoints.Values)
 			{
 				InitialPoints.Add(new MizInitialPoint(lsv.GetDict()));
 			}
 
-			LsonDict lsdCountries = m_lsd[LuaNode.Country].GetDict();
+			LsonDict lsdCountries = Lsd[LuaNode.Country].GetDict();
 			foreach (LsonValue lsv in lsdCountries.Values)
 			{
 				Countries.Add(new MizCountry(lsv.GetDict()));
@@ -46,10 +46,10 @@ namespace DcsBriefop.DataMiz
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Name] = Name;
+			Lsd[LuaNode.Name] = Name;
 
-			m_lsd[LuaNode.Bullseye][LuaNode.BullseyeY] = BullseyeY;
-			m_lsd[LuaNode.Bullseye][LuaNode.BullseyeX] = BullseyeX;
+			Lsd[LuaNode.Bullseye][LuaNode.BullseyeY] = BullseyeY;
+			Lsd[LuaNode.Bullseye][LuaNode.BullseyeX] = BullseyeX;
 
 			foreach (MizInitialPoint ip in InitialPoints)
 			{

@@ -12,6 +12,7 @@ namespace DcsBriefop.Data
 	internal abstract class Asset : BaseBriefing
 	{
 		#region Fields
+		protected static readonly string m_sBullsPointName = "BULLS";
 		#endregion
 
 		#region Properties
@@ -159,7 +160,7 @@ namespace DcsBriefop.Data
 		{
 			List<PointLatLng> points = new List<PointLatLng>();
 
-			foreach (AssetMapPoint mapPoint in MapPoints)
+			foreach (AssetMapPoint mapPoint in MapPoints.Where(_mp => _mp.Name != m_sBullsPointName))
 			{
 				PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
 				GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, Color, $"{mapPoint.Number}:{mapPoint.Name}", 1, 0);

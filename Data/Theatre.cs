@@ -21,6 +21,8 @@ namespace DcsBriefop.Data
 		private List<PointCoordinate> m_coordinatesLut;
 		private List<decimal> m_coordinatesLutValuesY;
 		private List<decimal> m_coordinatesLutValuesX;
+		//private List<decimal> m_coordinatesLutValuesLat;
+		//private List<decimal> m_coordinatesLutValuesLong;
 
 		public List<Airdrome> Airdromes;
 
@@ -33,11 +35,19 @@ namespace DcsBriefop.Data
 
 		public CoordinateSharp.Coordinate GetCoordinate(decimal dY, decimal dX)
 		{
-			PointCoordinate pc = GetPointInterpolated(dY, dX);
+			PointCoordinate pc = GetPointInterpolatedYX(dY, dX);
 			return new CoordinateSharp.Coordinate(decimal.ToDouble(pc.Latitude), decimal.ToDouble(pc.Longitude));
 		}
 
-		private PointCoordinate GetPointInterpolated(decimal dY, decimal dX)
+		//public void GetYX(out decimal dY, out decimal dX, CoordinateSharp.Coordinate coordinate)
+		//{
+		//	PointCoordinate pc = GetPointInterpolatedLatLong((decimal)coordinate.Latitude.ToDouble(), (decimal)coordinate.Longitude.ToDouble());
+		//	dY = pc.Y;
+		//	dX = pc.X;
+		//}
+
+
+		private PointCoordinate GetPointInterpolatedYX(decimal dY, decimal dX)
 		{
 			if (m_coordinatesLut is null || m_coordinatesLut.Count < 0)
 				return null;
@@ -158,7 +168,6 @@ namespace DcsBriefop.Data
 				m_coordinatesLutValuesY.Add(pc.Y);
 			if (!m_coordinatesLutValuesX.Contains(pc.X))
 				m_coordinatesLutValuesX.Add(pc.X);
-
 		}
 
 		private decimal InitializeCoordinatesLut_GetLineItem(string sLine, string sItem)

@@ -40,37 +40,61 @@ namespace DcsBriefop.Data
 	internal class AssetRoutePoint : AssetMapPoint
 	{
 		#region Fields
-		protected MizRoutePoint m_routePoint;
 		#endregion
 
 		#region Properties
+		public MizRoutePoint MizRoutePoint { get; set; }
+
+		public string Label
+		{
+			get
+			{
+				if (!string.IsNullOrEmpty(Name))
+					return Name;
+				else
+					return $"WP{Number}";
+			}
+		}
 		public string AltitudeFeet { get; set; }
+		public string Type { get; set; }
 		public string Action { get; set; }
+		public int? AirdromeId { get; set; }
+		public int? HelipadId { get; set; }
 
 		public List<MizRouteTask> RouteTasks
 		{
-			get { return m_routePoint.RouteTasks; }
+			get { return MizRoutePoint.RouteTasks; }
 		}
 		#endregion
 
 		#region CTOR
 		public AssetRoutePoint(BaseBriefingCore core, int iNumber, AssetGroup asset, MizRoutePoint routePoint) : base(core, iNumber)
 		{
-			m_routePoint = routePoint;
+			MizRoutePoint = routePoint;
 
-			if (!string.IsNullOrEmpty(m_routePoint.Name))
-				Name = m_routePoint.Name;
-			else
-				Name = $"WP{Number}";
+			Name = MizRoutePoint.Name;
+			Coordinate = Core.Theatre.GetCoordinate(MizRoutePoint.Y, MizRoutePoint.X);
 
-			Coordinate = Core.Theatre.GetCoordinate(m_routePoint.Y, m_routePoint.X);
-
-			AltitudeFeet = $"{UnitsNet.UnitConverter.Convert(m_routePoint.Altitude, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot):0} ft";
-			Action = m_routePoint.Action;
+			AltitudeFeet = $"{UnitsNet.UnitConverter.Convert(MizRoutePoint.Altitude, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot):0} ft";
+			Action = MizRoutePoint.Action;
+			Type = MizRoutePoint.Type;
+			AirdromeId = MizRoutePoint.AirdromeId;
+			HelipadId = MizRoutePoint.HelipadId;
 		}
 		#endregion
 
 		#region Methods
+		public override void Persist()
+		{
+			base.Persist();
+			//Core.Theatre.GetYX(out decimal dY, out decimal dX, Coordinate);
+			//MizRoutePoint.Y = dY;
+			//MizRoutePoint.X = dX;
+
+			MizRoutePoint.Name = Name;
+			MizRoutePoint.Action = Action;
+			MizRoutePoint.Type = Type;
+		}
 		public override bool IsOrbitStart()
 		{
 			return RouteTasks.Where(_rt => _rt.Id == ElementRouteTask.Orbit).Any();

@@ -37,6 +37,7 @@ namespace DcsBriefop.UcBriefing
 			this.BtComPresets = new System.Windows.Forms.Button();
 			this.TcAssets = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.CkBullseyeWaypoint = new System.Windows.Forms.CheckBox();
 			this.TcAssets.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -68,7 +69,7 @@ namespace DcsBriefop.UcBriefing
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.LbBullseye.Location = new System.Drawing.Point(3, 0);
 			this.LbBullseye.Name = "LbBullseye";
-			this.LbBullseye.Size = new System.Drawing.Size(659, 22);
+			this.LbBullseye.Size = new System.Drawing.Size(300, 22);
 			this.LbBullseye.TabIndex = 5;
 			this.LbBullseye.Text = "Bullseye";
 			this.LbBullseye.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -130,10 +131,22 @@ namespace DcsBriefop.UcBriefing
 			this.tabPage1.Text = "tabPage1";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
+			// CkBullseyeWaypoint
+			// 
+			this.CkBullseyeWaypoint.AutoSize = true;
+			this.CkBullseyeWaypoint.Location = new System.Drawing.Point(155, 4);
+			this.CkBullseyeWaypoint.Name = "CkBullseyeWaypoint";
+			this.CkBullseyeWaypoint.Size = new System.Drawing.Size(148, 17);
+			this.CkBullseyeWaypoint.TabIndex = 11;
+			this.CkBullseyeWaypoint.Text = "Add Bulls as first waypoint";
+			this.CkBullseyeWaypoint.UseVisualStyleBackColor = true;
+			this.CkBullseyeWaypoint.CheckedChanged += new System.EventHandler(this.CkBullseyeWaypoint_CheckedChanged);
+			// 
 			// UcBriefingCoalition
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.CkBullseyeWaypoint);
 			this.Controls.Add(this.TcAssets);
 			this.Controls.Add(this.BtComPresets);
 			this.Controls.Add(this.TbBullseyeDescription);
@@ -158,5 +171,6 @@ namespace DcsBriefop.UcBriefing
 		private System.Windows.Forms.Button BtComPresets;
 		private System.Windows.Forms.TabControl TcAssets;
 		private System.Windows.Forms.TabPage tabPage1;
+		private System.Windows.Forms.CheckBox CkBullseyeWaypoint;
 	}
 }

@@ -43,36 +43,36 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			AtmosphereType = m_lsd[LuaNode.AtmosphereType].GetInt();
-			TypeWeather = m_lsd[LuaNode.TypeWeather].GetInt();
-			GroundTurbulence = m_lsd[LuaNode.GroundTurbulence].GetDecimal();
-			VisibilityDistance = m_lsd[LuaNode.Visibility][LuaNode.VisibilityDistance].GetInt();
-			Temperature = m_lsd[LuaNode.Season][LuaNode.Temperature].GetDecimal();
-			Qnh = m_lsd[LuaNode.Qnh].GetDecimal();
-			Dust = m_lsd[LuaNode.DustEnable].GetBool();
+			AtmosphereType = Lsd[LuaNode.AtmosphereType].GetInt();
+			TypeWeather = Lsd[LuaNode.TypeWeather].GetInt();
+			GroundTurbulence = Lsd[LuaNode.GroundTurbulence].GetDecimal();
+			VisibilityDistance = Lsd[LuaNode.Visibility][LuaNode.VisibilityDistance].GetInt();
+			Temperature = Lsd[LuaNode.Season][LuaNode.Temperature].GetDecimal();
+			Qnh = Lsd[LuaNode.Qnh].GetDecimal();
+			Dust = Lsd[LuaNode.DustEnable].GetBool();
 
-			LsonDict lsdWinds = m_lsd[LuaNode.Wind].GetDict();
+			LsonDict lsdWinds = Lsd[LuaNode.Wind].GetDict();
 			WindAtGround = new MizWeatherWind(lsdWinds[LuaNode.WindAtGround].GetDict());
 			WindAt2000 = new MizWeatherWind(lsdWinds[LuaNode.WindAt2000].GetDict());
 			WindAt8000 = new MizWeatherWind(lsdWinds[LuaNode.WindAt8000].GetDict());
 
-			Cloud = new MizWeatherCloud(m_lsd[LuaNode.Clouds].GetDict());
+			Cloud = new MizWeatherCloud(Lsd[LuaNode.Clouds].GetDict());
 
-			if (m_lsd[LuaNode.FogEnable].GetBool())
-				Fog = new MizWeatherFog(m_lsd[LuaNode.Fog].GetDict());
+			if (Lsd[LuaNode.FogEnable].GetBool())
+				Fog = new MizWeatherFog(Lsd[LuaNode.Fog].GetDict());
 			else
 				Fog = null;
 		}
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.AtmosphereType] = AtmosphereType;
-			m_lsd[LuaNode.TypeWeather] = TypeWeather;
-			m_lsd[LuaNode.GroundTurbulence] = GroundTurbulence;
-			m_lsd[LuaNode.Visibility][LuaNode.VisibilityDistance] = VisibilityDistance;
-			m_lsd[LuaNode.Season][LuaNode.Temperature] = Temperature;
-			m_lsd[LuaNode.Qnh] = Qnh;
-			m_lsd[LuaNode.DustEnable] = Dust;
+			Lsd[LuaNode.AtmosphereType] = AtmosphereType;
+			Lsd[LuaNode.TypeWeather] = TypeWeather;
+			Lsd[LuaNode.GroundTurbulence] = GroundTurbulence;
+			Lsd[LuaNode.Visibility][LuaNode.VisibilityDistance] = VisibilityDistance;
+			Lsd[LuaNode.Season][LuaNode.Temperature] = Temperature;
+			Lsd[LuaNode.Qnh] = Qnh;
+			Lsd[LuaNode.DustEnable] = Dust;
 
 			WindAtGround.ToLua();
 			WindAt2000.ToLua();
@@ -82,12 +82,12 @@ namespace DcsBriefop.DataMiz
 
 			if (Fog is object)
 			{
-				m_lsd[LuaNode.FogEnable] = true;
+				Lsd[LuaNode.FogEnable] = true;
 				Fog.ToLua();
 			}
 			else
 			{
-				m_lsd[LuaNode.FogEnable] = false;
+				Lsd[LuaNode.FogEnable] = false;
 			}
 		}
 	}
@@ -107,14 +107,14 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Speed = m_lsd[LuaNode.Speed].GetDecimal();
-			Direction = m_lsd[LuaNode.Direction].GetInt();
+			Speed = Lsd[LuaNode.Speed].GetDecimal();
+			Direction = Lsd[LuaNode.Direction].GetInt();
 		}
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Speed] = Speed;
-			m_lsd[LuaNode.Direction] = Direction;
+			Lsd[LuaNode.Speed] = Speed;
+			Lsd[LuaNode.Direction] = Direction;
 		}
 	}
 
@@ -139,21 +139,21 @@ namespace DcsBriefop.DataMiz
 		
 		public override void FromLua()
 		{
-			if (m_lsd.ContainsKey(LuaNode.Preset))
-				Preset = m_lsd[LuaNode.Preset].GetString();
-			Density = m_lsd[LuaNode.Density].GetInt();
-			Thickness = m_lsd[LuaNode.Thickness].GetInt();
-			Base = m_lsd[LuaNode.Base].GetInt();
-			Precipitations = m_lsd[LuaNode.Precipitations].GetInt();
+			if (Lsd.ContainsKey(LuaNode.Preset))
+				Preset = Lsd[LuaNode.Preset].GetString();
+			Density = Lsd[LuaNode.Density].GetInt();
+			Thickness = Lsd[LuaNode.Thickness].GetInt();
+			Base = Lsd[LuaNode.Base].GetInt();
+			Precipitations = Lsd[LuaNode.Precipitations].GetInt();
 		}
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Preset] = Preset;
-			m_lsd[LuaNode.Density] = Density;
-			m_lsd[LuaNode.Thickness] = Thickness;
-			m_lsd[LuaNode.Base] = Base;
-			m_lsd[LuaNode.Precipitations] = Precipitations;
+			Lsd[LuaNode.Preset] = Preset;
+			Lsd[LuaNode.Density] = Density;
+			Lsd[LuaNode.Thickness] = Thickness;
+			Lsd[LuaNode.Base] = Base;
+			Lsd[LuaNode.Precipitations] = Precipitations;
 		}
 	}
 
@@ -172,14 +172,14 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Thickness = m_lsd[LuaNode.Thickness].GetInt();
-			Visibility = m_lsd[LuaNode.Visibility].GetInt();
+			Thickness = Lsd[LuaNode.Thickness].GetInt();
+			Visibility = Lsd[LuaNode.Visibility].GetInt();
 		}
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Thickness] = Thickness;
-			m_lsd[LuaNode.Visibility] = Visibility;
+			Lsd[LuaNode.Thickness] = Thickness;
+			Lsd[LuaNode.Visibility] = Visibility;
 		}
 	}
 }

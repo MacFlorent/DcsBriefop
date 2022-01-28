@@ -30,16 +30,16 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Id = m_lsd[LuaNode.Id].GetInt();
-			Name = m_lsd[LuaNode.Name].GetString();
-			Type = m_lsd[LuaNode.Type].GetString();
-			Skill = m_lsd.IfExistsString(LuaNode.Skill);
-			Y = m_lsd[LuaNode.Y].GetDecimal();
-			X = m_lsd[LuaNode.X].GetDecimal();
+			Id = Lsd[LuaNode.Id].GetInt();
+			Name = Lsd[LuaNode.Name].GetString();
+			Type = Lsd[LuaNode.Type].GetString();
+			Skill = Lsd.IfExistsString(LuaNode.Skill);
+			Y = Lsd[LuaNode.Y].GetDecimal();
+			X = Lsd[LuaNode.X].GetDecimal();
 
-			if (m_lsd.ContainsKey(LuaNode.Radio))
+			if (Lsd.ContainsKey(LuaNode.Radio))
 			{
-				LsonDict lsdRadios = m_lsd[LuaNode.Radio].GetDict();
+				LsonDict lsdRadios = Lsd[LuaNode.Radio].GetDict();
 				Radios = new MizRadio[lsdRadios.Count + 1];
 				foreach (KeyValuePair<LsonValue, LsonValue> kvp in lsdRadios)
 				{
@@ -50,10 +50,10 @@ namespace DcsBriefop.DataMiz
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Id] = Id;
-			m_lsd[LuaNode.Name] = Name;
-			m_lsd[LuaNode.Type] = Type;
-			m_lsd[LuaNode.Skill] = Skill;
+			Lsd[LuaNode.Id] = Id;
+			Lsd[LuaNode.Name] = Name;
+			Lsd[LuaNode.Type] = Type;
+			Lsd[LuaNode.Skill] = Skill;
 
 			if (Radios is object)
 			{
@@ -83,16 +83,16 @@ namespace DcsBriefop.DataMiz
 		{
 			base.FromLua();
 
-			Callsign = m_lsd[LuaNode.Callsign][LuaNode.Name].GetString();
-			Modex = m_lsd[LuaNode.Modex].GetString();
+			Callsign = Lsd[LuaNode.Callsign][LuaNode.Name].GetString();
+			Modex = Lsd[LuaNode.Modex].GetString();
 		}
 
 		public override void ToLua()
 		{
 			base.ToLua();
 
-			m_lsd[LuaNode.Callsign][LuaNode.Name] = Callsign;
-			m_lsd[LuaNode.Modex] = Modex;
+			Lsd[LuaNode.Callsign][LuaNode.Name] = Callsign;
+			Lsd[LuaNode.Modex] = Modex;
 		}
 	}
 
@@ -113,16 +113,16 @@ namespace DcsBriefop.DataMiz
 		{
 			base.FromLua();
 
-			RadioFrequency = m_lsd[LuaNode.RadioFrequency].GetDecimal();
-			RadioModulation = m_lsd[LuaNode.RadioModulation].GetInt();
+			RadioFrequency = Lsd[LuaNode.RadioFrequency].GetDecimal();
+			RadioModulation = Lsd[LuaNode.RadioModulation].GetInt();
 		}
 
 		public override void ToLua()
 		{
 			base.ToLua();
 
-			m_lsd[LuaNode.RadioFrequency] = RadioFrequency;
-			m_lsd[LuaNode.RadioModulation] = RadioModulation;
+			Lsd[LuaNode.RadioFrequency] = RadioFrequency;
+			Lsd[LuaNode.RadioModulation] = RadioModulation;
 		}
 	}
 

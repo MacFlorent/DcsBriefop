@@ -23,20 +23,20 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Id = m_lsd[LuaNode.Id].GetInt();
-			Callsign = m_lsd[LuaNode.Callsign].GetString();
-			Y = m_lsd[LuaNode.Y].GetDecimal();
-			X = m_lsd[LuaNode.X].GetDecimal();
-			Comment = m_lsd[LuaNode.Comment].GetString();
+			Id = Lsd[LuaNode.Id].GetInt();
+			Callsign = Lsd[LuaNode.Callsign].GetString();
+			Y = Lsd[LuaNode.Y].GetDecimal();
+			X = Lsd[LuaNode.X].GetDecimal();
+			Comment = Lsd[LuaNode.Comment].GetString();
 		}
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Id] = Id;
-			m_lsd[LuaNode.Callsign] = Callsign;
-			m_lsd[LuaNode.Y] = Y;
-			m_lsd[LuaNode.X] = X;
-			m_lsd[LuaNode.Comment] = Comment;
+			Lsd[LuaNode.Id] = Id;
+			Lsd[LuaNode.Callsign] = Callsign;
+			Lsd[LuaNode.Y] = Y;
+			Lsd[LuaNode.X] = X;
+			Lsd[LuaNode.Comment] = Comment;
 		}
 	}
 }

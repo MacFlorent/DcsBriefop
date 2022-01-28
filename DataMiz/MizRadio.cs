@@ -19,14 +19,14 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			LsonDict lsdModulations = m_lsd[LuaNode.Modulations].GetDict();
+			LsonDict lsdModulations = Lsd[LuaNode.Modulations].GetDict();
 			Modulations = new int[lsdModulations.Count + 1];
 			foreach (KeyValuePair<LsonValue, LsonValue> kvp in lsdModulations)
 			{
 				Modulations[kvp.Key.GetInt()] = kvp.Value.GetInt();
 			}
 
-			LsonDict lsdChannels = m_lsd[LuaNode.Channels].GetDict();
+			LsonDict lsdChannels = Lsd[LuaNode.Channels].GetDict();
 			Channels = new decimal[lsdChannels.Count + 1];
 			foreach (KeyValuePair<LsonValue, LsonValue> kvp in lsdChannels)
 			{
@@ -36,7 +36,7 @@ namespace DcsBriefop.DataMiz
 
 		public override void ToLua()
 		{
-			LsonDict lsdModulations = m_lsd[LuaNode.Modulations].GetDict();
+			LsonDict lsdModulations = Lsd[LuaNode.Modulations].GetDict();
 			for (int i = 0; i < Modulations.Length; i++)
 			{
 				if (lsdModulations.ContainsKey(i))
@@ -45,7 +45,7 @@ namespace DcsBriefop.DataMiz
 				}
 			}
 
-			LsonDict lsdChannels = m_lsd[LuaNode.Channels].GetDict();
+			LsonDict lsdChannels = Lsd[LuaNode.Channels].GetDict();
 			for (int i = 0; i < Channels.Length; i++)
 			{
 				if (lsdChannels.ContainsKey(i))

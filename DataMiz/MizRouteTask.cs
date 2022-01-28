@@ -23,20 +23,20 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Id = m_lsd[LuaNode.Id].GetString();
-			Number = m_lsd[LuaNode.Number].GetInt();
-			Enabled = m_lsd[LuaNode.Enabled].GetBool();
+			Id = Lsd[LuaNode.Id].GetString();
+			Number = Lsd[LuaNode.Number].GetInt();
+			Enabled = Lsd[LuaNode.Enabled].GetBool();
 
-			LsonDict lsdAction = m_lsd[LuaNode.Params].GetDict().IfExists(LuaNode.Action)?.GetDict();
+			LsonDict lsdAction = Lsd[LuaNode.Params].GetDict().IfExists(LuaNode.Action)?.GetDict();
 			if (lsdAction is object)
 				Action = new MizRouteTaskAction(lsdAction);
 		}
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Id] = Id;
-			m_lsd[LuaNode.Number] = Number;
-			m_lsd[LuaNode.Enabled] = Enabled;
+			Lsd[LuaNode.Id] = Id;
+			Lsd[LuaNode.Number] = Number;
+			Lsd[LuaNode.Enabled] = Enabled;
 
 			Action?.ToLua();
 		}
@@ -77,20 +77,20 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Id = m_lsd[LuaNode.Id].GetString();
-			ParamType = m_lsd[LuaNode.Params].GetDict().IfExistsInt(LuaNode.ParamType);
-			ParamUnitId = m_lsd[LuaNode.Params].GetDict().IfExistsInt(LuaNode.ParamUnitId);
-			ParamCallsign = m_lsd[LuaNode.Params].GetDict().IfExistsString(LuaNode.ParamCallsign);
-			ParamModeChannel = m_lsd[LuaNode.Params].GetDict().IfExistsString(LuaNode.ParamModeChannel);
-			ParamChannel = m_lsd[LuaNode.Params].GetDict().IfExistsInt(LuaNode.ParamChannel);
-			ParamFrequency = m_lsd[LuaNode.Params].GetDict().IfExistsInt(LuaNode.ParamFrequency);
+			Id = Lsd[LuaNode.Id].GetString();
+			ParamType = Lsd[LuaNode.Params].GetDict().IfExistsInt(LuaNode.ParamType);
+			ParamUnitId = Lsd[LuaNode.Params].GetDict().IfExistsInt(LuaNode.ParamUnitId);
+			ParamCallsign = Lsd[LuaNode.Params].GetDict().IfExistsString(LuaNode.ParamCallsign);
+			ParamModeChannel = Lsd[LuaNode.Params].GetDict().IfExistsString(LuaNode.ParamModeChannel);
+			ParamChannel = Lsd[LuaNode.Params].GetDict().IfExistsInt(LuaNode.ParamChannel);
+			ParamFrequency = Lsd[LuaNode.Params].GetDict().IfExistsInt(LuaNode.ParamFrequency);
 		}
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Id] = Id;
+			Lsd[LuaNode.Id] = Id;
 
-			LsonDict lsdParams = m_lsd[LuaNode.Params].GetDict();
+			LsonDict lsdParams = Lsd[LuaNode.Params].GetDict();
 			lsdParams.SetOrAddInt(LuaNode.ParamType, ParamType);
 			lsdParams.SetOrAddInt(LuaNode.ParamType, ParamType);
 			lsdParams.SetOrAddInt(LuaNode.ParamUnitId, ParamUnitId);

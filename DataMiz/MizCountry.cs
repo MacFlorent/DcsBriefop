@@ -26,47 +26,47 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Name = m_lsd[LuaNode.Name].GetString();
+			Name = Lsd[LuaNode.Name].GetString();
 
-			if (m_lsd.ContainsKey(LuaNode.Plane))
+			if (Lsd.ContainsKey(LuaNode.Plane))
 			{
-				LsonDict lsdGroupPlanes = m_lsd[LuaNode.Plane][LuaNode.Group].GetDict();
+				LsonDict lsdGroupPlanes = Lsd[LuaNode.Plane][LuaNode.Group].GetDict();
 				foreach (LsonValue lsv in lsdGroupPlanes.Values)
 				{
 					GroupFlights.Add(new MizGroupFlight(lsv.GetDict()));
 				}
 			}
 
-			if (m_lsd.ContainsKey(LuaNode.Helicopter))
+			if (Lsd.ContainsKey(LuaNode.Helicopter))
 			{
-				LsonDict lsdGroupHelicopters = m_lsd[LuaNode.Helicopter][LuaNode.Group].GetDict();
+				LsonDict lsdGroupHelicopters = Lsd[LuaNode.Helicopter][LuaNode.Group].GetDict();
 				foreach (LsonValue lsv in lsdGroupHelicopters.Values)
 				{
 					GroupFlights.Add(new MizGroupFlight(lsv.GetDict()));
 				}
 			}
 
-			if (m_lsd.ContainsKey(LuaNode.Ship))
+			if (Lsd.ContainsKey(LuaNode.Ship))
 			{
-				LsonDict lsdGroupShips = m_lsd[LuaNode.Ship][LuaNode.Group].GetDict();
+				LsonDict lsdGroupShips = Lsd[LuaNode.Ship][LuaNode.Group].GetDict();
 				foreach (LsonValue lsv in lsdGroupShips.Values)
 				{
 					GroupShips.Add(new MizGroupShip(lsv.GetDict()));
 				}
 			}
 
-			if (m_lsd.ContainsKey(LuaNode.Vehicle))
+			if (Lsd.ContainsKey(LuaNode.Vehicle))
 			{
-				LsonDict lsdGroupVehicles = m_lsd[LuaNode.Vehicle][LuaNode.Group].GetDict();
+				LsonDict lsdGroupVehicles = Lsd[LuaNode.Vehicle][LuaNode.Group].GetDict();
 				foreach (LsonValue lsv in lsdGroupVehicles.Values)
 				{
 					GroupVehicles.Add(new MizGroupVehicle(lsv.GetDict()));
 				}
 			}
 
-			if (m_lsd.ContainsKey(LuaNode.Static))
+			if (Lsd.ContainsKey(LuaNode.Static))
 			{
-				LsonDict lsdGroupStatics = m_lsd[LuaNode.Static][LuaNode.Group].GetDict();
+				LsonDict lsdGroupStatics = Lsd[LuaNode.Static][LuaNode.Group].GetDict();
 				foreach (LsonValue lsv in lsdGroupStatics.Values)
 				{
 					GroupStatics.Add(new MizGroupStatic(lsv.GetDict()));
@@ -76,7 +76,7 @@ namespace DcsBriefop.DataMiz
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.Name] = Name;
+			Lsd[LuaNode.Name] = Name;
 
 			foreach (MizGroupFlight gp in GroupFlights)
 			{

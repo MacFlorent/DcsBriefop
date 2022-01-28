@@ -19,16 +19,16 @@ namespace DcsBriefop.DataMiz
 		
 		public override void FromLua()
 		{
-			CenterY = m_lsd[LuaNode.CenterY].GetDecimal();
-			CenterX = m_lsd[LuaNode.CenterX].GetDecimal();
-			Zoom = m_lsd[LuaNode.Zoom].GetDecimal();
+			CenterY = Lsd[LuaNode.CenterY].GetDecimal();
+			CenterX = Lsd[LuaNode.CenterX].GetDecimal();
+			Zoom = Lsd[LuaNode.Zoom].GetDecimal();
 		}
 
 		public override void ToLua()
 		{
-			m_lsd[LuaNode.CenterY] = CenterY;
-			m_lsd[LuaNode.CenterX] = CenterX;
-			m_lsd[LuaNode.Zoom] = Zoom;
+			Lsd[LuaNode.CenterY] = CenterY;
+			Lsd[LuaNode.CenterX] = CenterX;
+			Lsd[LuaNode.Zoom] = Zoom;
 		}
 	}
 }
