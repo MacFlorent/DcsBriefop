@@ -2,6 +2,7 @@
 using DcsBriefop.Tools;
 using DcsBriefop.UcBriefing;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace DcsBriefop
@@ -33,12 +34,14 @@ namespace DcsBriefop
 		{
 			using (OpenFileDialog ofd = new OpenFileDialog())
 			{
-				ofd.InitialDirectory = @"d:\projects";
+				ofd.InitialDirectory = ToolsSettings.GetWorkingDirectory();
 				ofd.Filter = m_sDcsFileFilter;
 				ofd.RestoreDirectory = true;
 
 				if (ofd.ShowDialog() == DialogResult.OK)
 				{
+					ToolsSettings.SetWorkingDirectory(Path.GetDirectoryName(ofd.FileName));
+
 					m_missionManager = new MissionManager(ofd.FileName);
 					m_briefingContainer = new BriefingContainer(m_missionManager.Miz);
 					BuildMenu();
@@ -135,8 +138,8 @@ namespace DcsBriefop
 
 		private void Test()
 		{
-			string sJsonStream = ToolsResources.GetJsonResourceContent("Routes");
-			Map.ConfigMapTemplateRoutes test = Newtonsoft.Json.JsonConvert.DeserializeObject<Map.ConfigMapTemplateRoutes>(sJsonStream);
+			//string sJsonStream = ToolsResources.GetJsonResourceContent("Routes");
+			//Map.ConfigMapTemplateRoutes test = Newtonsoft.Json.JsonConvert.DeserializeObject<Map.ConfigMapTemplateRoutes>(sJsonStream);
 
 			//SplitContainer.Panel1.Controls.Clear();
 			//FlowLayoutPanel f = new FlowLayoutPanel();

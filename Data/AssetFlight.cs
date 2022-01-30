@@ -28,8 +28,8 @@ namespace DcsBriefop.Data
 		protected override void InitializeData()
 		{
 			base.InitializeData();
-		
-			MapMarker = ElementMapTemplateMarker.Aircraft;
+
+			MapMarker = GetMarkerFromUnit() ?? ElementMapTemplateMarker.Aircraft;
 
 			Task = GroupFlight.Task;
 			Type = GroupFlight.Units.OfType<MizUnitFlight>().FirstOrDefault()?.Type;
@@ -224,7 +224,7 @@ namespace DcsBriefop.Data
 				AssetRoutePoint routePoint = new AssetRoutePoint(Core, 0, this, mizRoutePoint);
 				routePoint.Name = m_sBullsPointName;
 
-				MapPoints.Insert(0, routePoint);
+				MapPoints.Insert(1, routePoint);
 			}
 
 			NumberMapPoints();
@@ -342,7 +342,9 @@ namespace DcsBriefop.Data
 			foreach (AssetGroup target in Coalition.OpposingAssets.OfType<AssetGroup>())
 			{
 				if (target.Units.Select(_u => _u.Id).Intersect(TargetIds).Any())
-					MapData.AdditionalMapOverlays.Add(target.MapOverlayStatic);
+				{
+					target.InitializeMapDataPoint(staticOverlay);
+				}
 			}
 		}
 		#endregion

@@ -20,8 +20,8 @@ namespace DcsBriefop.Data
 		public ElementAssetSide Side { get; set; }
 
 
-		protected string MapMarker { get; set; }
-		protected Color Color { get; set; }
+		public string MapMarker { get; set; }
+		public Color Color { get; set; }
 		public ElementAssetUsage Usage { get; set; }
 		public ElementAssetMapDisplay MapDisplay { get; set; }
 		public int Id { get; set; }
@@ -70,7 +70,7 @@ namespace DcsBriefop.Data
 		protected virtual void InitializeData()
 		{
 			MapMarker = ElementMapTemplateMarker.Mark;
-			
+
 			if (Side == ElementAssetSide.Own)
 			{
 				Color = Coalition.OwnColor;

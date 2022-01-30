@@ -2,25 +2,37 @@
    {
      "Type": "S-300PS 54K6 cp",
      "Description": "S-300PS/SA-10B command post",
-     "Marker": null,
+     "MapMarker": "P91000009",
      "Information": null
    },
    {
     "Type": "S-300PS 64H6E sr",
     "Description": "S-300PS/SA-10B acquisition radar",
-    "Marker": null,
+    "Marker": "P91000009",
     "Information": "Big Bird RWR=BB HARM=104"
   },
   {
     "Type": "S-300PS 40B6M tr",
-    "Name": "S-300PS/SA-10B Fire Control Radar",
-    "Marker": null,
+    "Description": "S-300PS/SA-10B Fire Control Radar",
+    "MapMarker": "P91000009",
     "Information": "Flap Lid RWR=10 HARM=110"
   },
   {
     "Type": "S-300PS 40B6MD sr",
-    "Name": "S-300PS/SA-10B Specialized Radar ",
-    "Marker": null,
+    "Description": "S-300PS/SA-10B Specialized Radar",
+    "MapMarker": "P91000009",
     "Information": "Clam Shell RWR=CS HARM=103"
+  },
+  {
+    "Type": "p-19 s-125 sr",
+    "Description": "P19 Search Radar",
+    "MapMarker": "P91000083",
+    "Information": "Flat Face RWR=S/FF HARM=122"
+  },
+
+  {
+    "Type": "FA-18C_hornet",
+    "MapMarker": "P91000024",
+    "KneeboardFolder": "FA-18C_hornet"
   }
- ]
+]

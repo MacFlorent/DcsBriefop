@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using DcsBriefop.Configuration;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
 
 namespace DcsBriefop.Tools
@@ -17,6 +21,13 @@ namespace DcsBriefop.Tools
 			MessageBox.Show(sMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
+		public static void ShowMessageBoxAndLogException(string sMessage, Exception e)
+		{
+			ToolsMisc.ShowMessageBoxError(sMessage);
+			Log.Error(sMessage);
+			Log.Exception(e);
+		}
+
 		public static void SetDataGridViewProperties(DataGridView dgv)
 		{
 			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -24,6 +35,27 @@ namespace DcsBriefop.Tools
 			dgv.AllowUserToAddRows = false;
 			dgv.RowHeadersVisible = false;
 			dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+		}
+
+		public static string GetDirectoryFullPath(string sDirectoryString)
+		{
+			string sExecutionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+			if (sDirectoryString == ".")
+				sDirectoryString = sExecutionPath;
+			else if (sDirectoryString.StartsWith(@".\"))
+				sDirectoryString = sDirectoryString.Replace(@".\", $@"{sExecutionPath}\");
+
+			return sDirectoryString;
+		}
+
+		public static string GetDirectoryDcsSave()
+		{
+			return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Saved Games\DCS");
+		}
+
+		public static string GetDirectoryDcsBetaSave()
+		{
+			return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Saved Games\DCS.openbeta");
 		}
 	}
 }

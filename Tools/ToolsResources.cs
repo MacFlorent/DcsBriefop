@@ -16,7 +16,7 @@ namespace DcsBriefop.Tools
 		{
 			string sBaseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 			string sResourceFilePath = Path.Combine(sBaseDirectory, ElementGlobalData.ResourcesDirectory, $"{sResourceName}.{sExtension}");
-			string sContent = null;
+			string sContent;
 
 			if (File.Exists(sResourceFilePath))
 			{

@@ -63,9 +63,7 @@ namespace DcsBriefop.Map
 				m_directory = config.Directory ?? m_directory;
 			}
 
-			string sBaseDirectory = m_directory;
-			if (sBaseDirectory.StartsWith(@".\"))
-				sBaseDirectory = sBaseDirectory.Replace(@".\", $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\");
+			string sBaseDirectory = ToolsMisc.GetDirectoryFullPath(m_directory);
 
 			if (Directory.Exists(sBaseDirectory))
 			{

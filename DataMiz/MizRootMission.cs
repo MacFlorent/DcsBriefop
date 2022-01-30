@@ -52,10 +52,13 @@ namespace DcsBriefop.DataMiz
 				Coalitions.Add(new MizCoalition(lsv.GetDict()));
 			}
 
-			LsonDict lsdDrawings = Lsd[LuaNode.Drawings][LuaNode.Layers].GetDict();
-			foreach (LsonValue lsv in lsdDrawings.Values)
+			if (Lsd.ContainsKey(LuaNode.Drawings))
 			{
-				DrawingLayers.Add(new MizDrawingLayer(lsv.GetDict()));
+				LsonDict lsdDrawings = Lsd[LuaNode.Drawings][LuaNode.Layers].GetDict();
+				foreach (LsonValue lsv in lsdDrawings.Values)
+				{
+					DrawingLayers.Add(new MizDrawingLayer(lsv.GetDict()));
+				}
 			}
 		}
 

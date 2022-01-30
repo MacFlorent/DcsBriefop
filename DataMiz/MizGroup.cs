@@ -59,7 +59,7 @@ namespace DcsBriefop.DataMiz
 				LsonDict lsdRoutePoints = Lsd[LuaNode.Route][LuaNode.Points].GetDict();
 				lsdRoutePoints.Clear();
 
-				int i = 0;
+				int i = 1;
 				foreach (MizRoutePoint rp in RoutePoints)
 				{
 					rp.ToLua();

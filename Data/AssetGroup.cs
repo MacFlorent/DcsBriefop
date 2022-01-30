@@ -73,16 +73,6 @@ namespace DcsBriefop.Data
 				iNumber++;
 			}
 		}
-
-		protected void NumberMapPoints()
-		{
-			int iNumber = 0;
-			foreach (AssetRoutePoint rp in MapPoints.OfType<AssetRoutePoint>())
-			{
-				rp.Number = iNumber;
-				iNumber++;
-			}
-		}
 		#endregion
 
 		#region Methods
@@ -124,6 +114,29 @@ namespace DcsBriefop.Data
 
 			return null;
 		}
+
+		protected string GetMarkerFromUnit()
+		{
+			string sMarker = null;
+
+			DcsUnit dcsUnit = DcsUnitManager.GetUnit(Units.FirstOrDefault()?.Type);
+			if (dcsUnit is object)
+				sMarker = dcsUnit.MapMarker;
+
+			return sMarker;
+		}
+
+		protected void NumberMapPoints()
+		{
+			int iNumber = 0;
+			foreach (AssetRoutePoint rp in MapPoints.OfType<AssetRoutePoint>())
+			{
+				rp.Number = iNumber;
+				iNumber++;
+			}
+		}
+
+
 		#endregion
 	}
 }

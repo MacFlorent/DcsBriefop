@@ -53,10 +53,6 @@ namespace DcsBriefop
 		private static class KneeboardFolders
 		{
 			public static readonly string Images = "IMAGES";
-			public static Dictionary<string, string> DictionaryAircrafts = new Dictionary<string, string>()
-			{
-
-			};
 		}
 
 		#region Fields
@@ -117,7 +113,13 @@ namespace DcsBriefop
 
 			foreach (AssetFlight asset in coalition.OwnAssets.OfType<AssetFlight>().Where(_a => _a.MissionData is object))
 			{
-				sKneeboardFolder = KneeboardFolders.Images; // TODO aircraft specific kneeboard folder
+				DcsUnit dcsUnit = DcsUnitManager.GetUnit(asset.Type);
+				if (dcsUnit is object && !string.IsNullOrEmpty(dcsUnit.KneeboardFolder))
+					sKneeboardFolder = dcsUnit.KneeboardFolder;
+				else
+					sKneeboardFolder = asset.Type;
+
+				sKneeboardFolder = $@"{sKneeboardFolder}/{KneeboardFolders.Images}";
 
 				if (exportFileTypes.Contains(ElementExportFileType.Missions))
 					AddFileHtml($"{GenerateFileName(ElementExportFileType.Missions, coalition.CoalitionName)}_{asset.Id}", sKneeboardFolder, GenerateHtmlMission(coalition, asset));

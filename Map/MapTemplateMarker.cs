@@ -84,9 +84,7 @@ namespace DcsBriefop.Map
 				ElementMapTemplateMarker.Bullseye = config.DefaultBullseye ?? ElementMapTemplateMarker.Bullseye;
 			}
 
-			string sBaseDirectory = m_directory;
-			if (sBaseDirectory.StartsWith(@".\"))
-				sBaseDirectory = sBaseDirectory.Replace(@".\", $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\");
+			string sBaseDirectory = ToolsMisc.GetDirectoryFullPath(m_directory);
 
 			if (Directory.Exists(sBaseDirectory))
 			{

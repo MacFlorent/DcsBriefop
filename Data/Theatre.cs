@@ -36,7 +36,10 @@ namespace DcsBriefop.Data
 		public CoordinateSharp.Coordinate GetCoordinate(decimal dY, decimal dX)
 		{
 			PointCoordinate pc = GetPointInterpolatedYX(dY, dX);
-			return new CoordinateSharp.Coordinate(decimal.ToDouble(pc.Latitude), decimal.ToDouble(pc.Longitude));
+			if (pc is object)
+				return new CoordinateSharp.Coordinate(decimal.ToDouble(pc.Latitude), decimal.ToDouble(pc.Longitude));
+			else
+				return new CoordinateSharp.Coordinate(0, 0);
 		}
 
 		//public void GetYX(out decimal dY, out decimal dX, CoordinateSharp.Coordinate coordinate)
@@ -145,8 +148,7 @@ namespace DcsBriefop.Data
 			}
 			catch (Exception e)
 			{
-				Log.Error("Failed to build point LUT. Coordinates will not be managed");
-				Log.Exception(e);
+				ToolsMisc.ShowMessageBoxAndLogException("Failed to build points LUT. Coordinates will not be managed", e);
 				m_coordinatesLut = null;
 				m_coordinatesLutValuesY = m_coordinatesLutValuesX = null;
 			}
@@ -196,10 +198,11 @@ namespace DcsBriefop.Data
 			}
 			catch (Exception e)
 			{
-				Log.Error("Failed to build airdrome data. Airdrome informations will not be available");
-				Log.Exception(e);
-				Airdromes = null;
+				ToolsMisc.ShowMessageBoxAndLogException("Failed to build airdrome data. Airdrome informations will not be available", e);
 			}
+
+			if (Airdromes is null)
+				Airdromes = new List<Airdrome>();
 		}
 
 		public Airdrome GetAirdrome(int iId)

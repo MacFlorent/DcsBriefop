@@ -6,12 +6,14 @@ using System.Linq;
 
 namespace DcsBriefop.Data
 {
+	//https://wiki.hoggitworld.com/view/Threat_Database
 	internal class DcsUnit
 	{
 		public string Type { get; set; }
 		public string Description { get; set; }
 		public string MapMarker { get; set; }
 		public string Information { get; set; }
+		public string KneeboardFolder { get; set; }
 	}
 
 	internal static class DcsUnitManager
@@ -27,10 +29,13 @@ namespace DcsBriefop.Data
 			}
 			catch (Exception e)
 			{
-				Log.Error("Failed to build unit data. Unit informations will not be available");
+				ToolsMisc.ShowMessageBoxAndLogException("Failed to build unit data. Unit informations will not be available", e);
 				Log.Exception(e);
 				DcsUnits = null;
 			}
+
+			if (DcsUnits is null)
+				DcsUnits = new List<DcsUnit>();
 		}
 
 		public static DcsUnit GetUnit(string sType)
