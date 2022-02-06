@@ -26,6 +26,11 @@ namespace DcsBriefop.DataMiz
 
 		public string SerializeToJson(Formatting formatting)
 		{
+			//MapData = null;
+			//Coalitions = null;
+			//AssetGroups = null;
+			//AssetAirdromes = null;
+			//Missions = null;
 			return JsonConvert.SerializeObject(this, formatting, m_serializeConverters);
 		}
 

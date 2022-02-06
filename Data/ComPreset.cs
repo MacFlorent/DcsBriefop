@@ -219,7 +219,7 @@ namespace DcsBriefop.Data
 					dFrequency += 0.1m;
 
 					preset.Mode = ElementComPresetMode.Free;
-					preset.Label = flight.GetCallsign();
+					preset.Label = flight.Callsign;
 					preset.Radio = new Radio(dFrequency, ElementRadioModulation.AM);
 					preset.Compute(coalition);
 				}

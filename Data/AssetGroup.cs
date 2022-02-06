@@ -105,10 +105,10 @@ namespace DcsBriefop.Data
 
 		public string GetTacanString()
 		{
-			foreach (AssetRoutePoint brp in MapPoints.OfType<AssetRoutePoint>())
+			foreach (AssetRoutePoint routePoint in MapPoints.OfType<AssetRoutePoint>())
 			{
-				MizRouteTask rtBeacon = brp.RouteTasks.Where(_rt => _rt.Action?.Id == ElementRouteTask.ActivateBeacon).FirstOrDefault();
-				if (rtBeacon?.Action is MizRouteTaskAction rta)
+				MizRouteTask taskBeacon = routePoint.MizRoutePoint.RouteTaskHolder.Tasks.Where(_rt => _rt.Params.Action?.Id == ElementRouteTask.ActivateBeacon).FirstOrDefault();
+				if (taskBeacon?.Params.Action is MizRouteTaskAction rta)
 					return new Tacan() { Channel = rta.ParamChannel.GetValueOrDefault(), Mode = rta.ParamModeChannel, Identifier = rta.ParamCallsign }.ToString();
 			}
 

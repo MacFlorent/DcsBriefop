@@ -1,5 +1,7 @@
 ﻿using DcsBriefop.Tools;
 using System;
+using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -12,6 +14,7 @@ namespace DcsBriefop
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+			InitializeCulture();
 
 			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
@@ -24,9 +27,17 @@ namespace DcsBriefop
 			Application.Run(f);
 		}
 
-		private static void ManageException(Exception ex)
+		private static void InitializeCulture()
 		{
-			Log.Exception(ex);
+			CultureInfo cultureInfo = CultureInfo.InvariantCulture;
+			//CultureInfo cultureInfo = new CultureInfo("fr-FR"); ;
+			CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+			Thread.CurrentThread.CurrentCulture = cultureInfo;
+		}
+
+		private static void ManageException(Exception ex, [CallerMemberName] string sMemberName = "", [CallerLineNumber] int iLineNumber = 0)
+		{
+			Log.Exception(ex, sMemberName, iLineNumber);
 			string sMessage = $"Unhandled error.{Environment.NewLine}{ex?.Message}{Environment.NewLine}{Environment.NewLine}{ex?.InnerException}";
 			ToolsMisc.ShowMessageBoxError (sMessage);
 		}

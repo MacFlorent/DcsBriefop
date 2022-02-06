@@ -119,7 +119,7 @@ namespace DcsBriefop.Tools
 	{
 		public override void WriteJson(JsonWriter writer, List<BriefopCustomGroup> value, JsonSerializer serializer)
 		{
-			if (value is object && value.Count > 0)
+			if (value is object && value.Count >= 0)
 			{
 				JArray ja = new JArray();
 				foreach (BriefopCustomGroup customDataAsset in value.Where(_a => !_a.IsDefaultData()))
@@ -141,7 +141,7 @@ namespace DcsBriefop.Tools
 	{
 		public override void WriteJson(JsonWriter writer, List<BriefopCustomAirdrome> value, JsonSerializer serializer)
 		{
-			if (value is object && value.Count > 0)
+			if (value is object && value.Count >= 0)
 			{
 				JArray ja = new JArray();
 				foreach (BriefopCustomAirdrome customDataAsset in value.Where(_a => !_a.IsDefaultData()))

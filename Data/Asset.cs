@@ -126,15 +126,28 @@ namespace DcsBriefop.Data
 		public List<PointLatLng> InitializeMapDataOrbit(GMapOverlay staticOverlay)
 		{
 			List<PointLatLng> points = new List<PointLatLng>();
-
+			bool bDone = false;
+			int iCount = 0;
 			foreach (AssetMapPoint mapPoint in MapPoints)
 			{
-				if (points.Count > 1)
+				iCount++;
+
+				if (bDone)
 					break;
-				else if (points.Count <= 0 && mapPoint.IsOrbitStart())
+				else if (points.Count <= 0 && mapPoint.GetOrbitPattern() is string sPattern)
 				{
 					PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
-					GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, Color, null, 1, 0);
+					GMarkerBriefop marker;
+					if (sPattern == "Circle" || iCount == MapPoints.Count)
+					{
+						marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Circle, Color, Name, 2, 0);
+						bDone = true;
+					}
+					else
+					{
+						marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, Color, null, 1, 0);
+					}
+					
 					staticOverlay.Markers.Add(marker);
 					points.Add(p);
 				}
@@ -144,6 +157,7 @@ namespace DcsBriefop.Data
 					GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, Color, null, 1, 0);
 					staticOverlay.Markers.Add(marker);
 					points.Add(p);
+					bDone = true;
 				}
 			}
 

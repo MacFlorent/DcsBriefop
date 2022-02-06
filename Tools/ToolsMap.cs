@@ -132,7 +132,15 @@ namespace DcsBriefop.Tools
 			Coordinate coordinate = theatre.GetCoordinate(drawingObject.MapY, drawingObject.MapX);
 			PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
 
-			Font font = new Font(drawingObject.Font, drawingObject.FontSize.GetValueOrDefault(11));
+			float fFontSize = 11;
+			if (drawingObject.FontSize is object)
+			{
+				fFontSize = drawingObject.FontSize.Value - 3;
+				if (fFontSize < 1)
+					fFontSize = 1;
+			}
+			Font font = new Font(drawingObject.Font, fFontSize);
+
 			GTextBriefop text = new GTextBriefop(p, drawingObject.Text, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), font, drawingObject.Angle.GetValueOrDefault(0), drawingObject.BorderThickness.GetValueOrDefault(0));
 			overlay.Markers.Add(text);
 		}
@@ -150,7 +158,7 @@ namespace DcsBriefop.Tools
 		#region Image Generation
 		public static Bitmap GenerateMapImage(BriefopCustomMap mapData)
 		{
-			GMapProvider mapProvider = ElementMapValue.DefaultMapProvider;
+			GMapProvider mapProvider = GMapProviders.TryGetProvider(mapData.Provider) ?? ElementMapValue.DefaultMapProvider;
 			List<GMapOverlay> overlays = new List<GMapOverlay>();
 			overlays.Add(mapData.MapOverlayCustom);
 			overlays.AddRange(mapData.AdditionalMapOverlays);

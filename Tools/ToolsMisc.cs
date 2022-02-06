@@ -1,7 +1,7 @@
-﻿using DcsBriefop.Configuration;
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
 
@@ -21,11 +21,11 @@ namespace DcsBriefop.Tools
 			MessageBox.Show(sMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
-		public static void ShowMessageBoxAndLogException(string sMessage, Exception e)
+		public static void ShowMessageBoxAndLogException(string sMessage, Exception e, [CallerMemberName] string sMemberName = "", [CallerLineNumber] int iLineNumber = 0)
 		{
-			ToolsMisc.ShowMessageBoxError(sMessage);
-			Log.Error(sMessage);
-			Log.Exception(e);
+			ShowMessageBoxError($"{sMessage}{Environment.NewLine}{Environment.NewLine}{e.Message}");
+			Log.Error(sMessage, sMemberName, iLineNumber);
+			Log.Exception(e, sMemberName, iLineNumber);
 		}
 
 		public static void SetDataGridViewProperties(DataGridView dgv)

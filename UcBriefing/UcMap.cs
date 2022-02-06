@@ -40,6 +40,8 @@ namespace DcsBriefop.UcBriefing
 			CbMapProvider.ValueMember = "Name";
 			CbMapProvider.DataSource = GMapProviders.List;
 			CbMapProvider.SelectedItem = Map.MapProvider;
+
+			
 		}
 		#endregion
 
@@ -62,6 +64,7 @@ namespace DcsBriefop.UcBriefing
 
 			MapData = mapData;
 			RefreshOverlays();
+			//Map.MapProvider = WMSProvider.Instance;
 			Map.MapProvider = GMapProviders.TryGetProvider(mapData.Provider) ?? ElementMapValue.DefaultMapProvider;
 			Map.Position = new PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
 			Map.Zoom = MapData.Zoom;

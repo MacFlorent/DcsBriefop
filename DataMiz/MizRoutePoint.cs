@@ -19,8 +19,6 @@ namespace DcsBriefop.DataMiz
 			public static readonly string HelipadId = "helipadId";
 			public static readonly string LinkUnit = "linkUnit";
 			public static readonly string Task = "task";
-			public static readonly string Params = "params";
-			public static readonly string Tasks = "tasks";
 		}
 
 		public string Name { get; set; }
@@ -33,7 +31,7 @@ namespace DcsBriefop.DataMiz
 		public int? AirdromeId { get; set; }
 		public int? HelipadId { get; set; }
 		public int? LinkUnitId { get; set; }
-		public List<MizRouteTask> RouteTasks { get; set; } = new List<MizRouteTask>();
+		public MizRouteTaskHolder RouteTaskHolder { get; set; }
 
 		public MizRoutePoint(LsonDict lsd) : base(lsd) { }
 
@@ -51,13 +49,7 @@ namespace DcsBriefop.DataMiz
 			LinkUnitId = Lsd.IfExistsInt(LuaNode.LinkUnit);
 
 			if (Lsd.ContainsKey(LuaNode.Task))
-			{
-				LsonDict lsdRouteTasks = Lsd[LuaNode.Task][LuaNode.Params][LuaNode.Tasks].GetDict();
-				foreach (LsonValue lsv in lsdRouteTasks.Values)
-				{
-					RouteTasks.Add(new MizRouteTask(lsv.GetDict()));
-				}
-			}
+				RouteTaskHolder = new MizRouteTaskHolder(Lsd[LuaNode.Task].GetDict());
 		}
 
 		public override void ToLua()
@@ -72,10 +64,7 @@ namespace DcsBriefop.DataMiz
 			Lsd.SetOrAddInt(LuaNode.AirdromeId, AirdromeId);
 			Lsd.SetOrAddInt(LuaNode.HelipadId, HelipadId);
 
-			foreach (MizRouteTask rt in RouteTasks)
-			{
-				rt.ToLua();
-			}
+			RouteTaskHolder?.ToLua();
 		}
 
 		public static string GetLuaTemplate()

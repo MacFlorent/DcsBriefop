@@ -1,0 +1,10 @@
+[
+  {"Id": 1, "Name": "Rota Intl", "Latitude": 14.174, "Longitude": 145.241, "Radios": [ { "Frequency": 250, "Modulation": 0 }, { "Frequency": 123.6, "Modulation": 0 } ]},
+  {"Id": 2, "Name": "Saipan Intl", "Latitude": 15.119, "Longitude": 145.729, "Radios": [ { "Frequency": 256.9, "Modulation": 0 }, { "Frequency": 125.7, "Modulation": 0 } ]},
+  {"Id": 3, "Name": "Tinian Intl", "Latitude": 14.999, "Longitude": 145.619, "Radios": [ { "Frequency": 250.05, "Modulation": 0 }, { "Frequency": 123.65, "Modulation": 0 } ]},
+  {"Id": 4, "Name": "Antonio B. Won Pat Intl", "Latitude": 13.485, "Longitude": 144.797, "Radios": [ { "Frequency": 340.2, "Modulation": 0 }, { "Frequency": 118.1, "Modulation": 0 } ]},
+  {"Id": 5, "Name": "Olf Orote ", "Latitude": 13.438, "Longitude": 144.642},
+  {"Id": 6, "Name": "Andersen AFB", "Latitude": 13.582, "Longitude": 144.931, "Radios": [ { "Frequency": 250.1, "Modulation": 0 }, { "Frequency": 126.2, "Modulation": 0 } ], "Tacan": { "Channel": 54, "Mode": "X" }},
+  {"Id": 7, "Name": "Pagan Airstrip", "Latitude": 18.123, "Longitude": 145.763},
+  {"Id": 8, "Name": "North West Field", "Latitude": 13.625, "Longitude": 144.858}
+]

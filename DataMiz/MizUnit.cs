@@ -71,11 +71,12 @@ namespace DcsBriefop.DataMiz
 		{
 			public static readonly string Callsign = "callsign";
 			public static readonly string Name = "name";
-			public static readonly string Modex = "onboard_num";
+			public static readonly string OnboardNum = "onboard_num";
 		}
 
-		public string Callsign { get; set; }
-		public string Modex { get; set; }
+		public int? CallsignNumber { get; set; }
+		public MizCallsign Callsign { get; set; }
+		public string OnboardNum { get; set; }
 
 		public MizUnitFlight(LsonDict lsd) : base(lsd) { }
 
@@ -83,16 +84,25 @@ namespace DcsBriefop.DataMiz
 		{
 			base.FromLua();
 
-			Callsign = Lsd[LuaNode.Callsign][LuaNode.Name].GetString();
-			Modex = Lsd[LuaNode.Modex].GetString();
+			LsonValue lsvCallsign = Lsd[LuaNode.Callsign];
+			if (lsvCallsign is LsonDict lsdCallsign)
+				Callsign = new MizCallsign(lsdCallsign);
+			else
+				CallsignNumber = lsvCallsign.GetIntLenientSafe();
+
+			OnboardNum = Lsd[LuaNode.OnboardNum].GetString();
 		}
 
 		public override void ToLua()
 		{
 			base.ToLua();
 
-			Lsd[LuaNode.Callsign][LuaNode.Name] = Callsign;
-			Lsd[LuaNode.Modex] = Modex;
+			if (Callsign is object)
+				Callsign.ToLua();
+			if(CallsignNumber is object)
+				Lsd[LuaNode.Callsign] = CallsignNumber;
+
+			Lsd[LuaNode.OnboardNum] = OnboardNum;
 		}
 	}
 

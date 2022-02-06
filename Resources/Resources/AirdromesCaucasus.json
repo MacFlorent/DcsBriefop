@@ -1,0 +1,23 @@
+[
+{"Id": 1, "Name": "Anapa", "Latitude": 45.013, "Longitude": 37.36, "Radios": [ { "Frequency": 250, "Modulation": 0 }, { "Frequency": 121, "Modulation": 0 } ]},
+{"Id": 11, "Name": "Batumi", "Latitude": 41.603, "Longitude": 41.609, "Radios": [ { "Frequency": 260, "Modulation": 0 }, { "Frequency": 131, "Modulation": 0 } ], "Tacan": { "Channel": 16, "Mode": "X" }},
+{"Id": 21, "Name": "Beslan", "Latitude": 43.208, "Longitude": 44.589, "Radios": [ { "Frequency": 270, "Modulation": 0 }, { "Frequency": 141, "Modulation": 0 } ]},
+{"Id": 6, "Name": "Gelendzhik", "Latitude": 44.568, "Longitude": 38.004, "Radios": [ { "Frequency": 255, "Modulation": 0 }, { "Frequency": 126, "Modulation": 0 } ]},
+{"Id": 10, "Name": "Gudauta", "Latitude": 43.124, "Longitude": 40.564, "Radios": [ { "Frequency": 259, "Modulation": 0 }, { "Frequency": 130, "Modulation": 0 } ]},
+{"Id": 13, "Name": "Kobuleti", "Latitude": 41.932, "Longitude": 41.876, "Radios": [ { "Frequency": 262, "Modulation": 0 }, { "Frequency": 133, "Modulation": 0 } ], "Tacan": { "Channel": 67, "Mode": "X" }},
+{"Id": 2, "Name": "Krasnodar-Center", "Latitude": 45.087, "Longitude": 38.925, "Radios": [ { "Frequency": 251, "Modulation": 0 }, { "Frequency": 122, "Modulation": 0 } ]},
+{"Id": 8, "Name": "Krasnodar-Pashkovsky", "Latitude": 45.046, "Longitude": 39.203, "Radios": [ { "Frequency": 257, "Modulation": 0 }, { "Frequency": 128, "Modulation": 0 } ]},
+{"Id": 4, "Name": "Krymsk", "Latitude": 44.961, "Longitude": 37.986, "Radios": [ { "Frequency": 253, "Modulation": 0 }, { "Frequency": 124, "Modulation": 0 } ]},
+{"Id": 14, "Name": "Kutaisi", "Latitude": 42.179, "Longitude": 42.496, "Radios": [ { "Frequency": 263, "Modulation": 0 }, { "Frequency": 134, "Modulation": 0 } ], "Tacan": { "Channel": 44, "Mode": "X" }},
+{"Id": 5, "Name": "Maykop", "Latitude": 44.671, "Longitude": 40.021, "Radios": [ { "Frequency": 254, "Modulation": 0 }, { "Frequency": 125, "Modulation": 0 } ]},
+{"Id": 15, "Name": "Mineral'nye Vody", "Latitude": 41.219, "Longitude": 43.101, "Radios": [ { "Frequency": 264, "Modulation": 0 }, { "Frequency": 135, "Modulation": 0 } ]},
+{"Id": 17, "Name": "Mozdok", "Latitude": 43.791, "Longitude": 44.62, "Radios": [ { "Frequency": 266, "Modulation": 0 }, { "Frequency": 137, "Modulation": 0 } ]},
+{"Id": 16, "Name": "Nalchik", "Latitude": 43.51, "Longitude": 43.625, "Radios": [ { "Frequency": 265, "Modulation": 0 }, { "Frequency": 136, "Modulation": 0 } ]},
+{"Id": 3, "Name": "Novorossiysk", "Latitude": 44.673, "Longitude": 37.786, "Radios": [ { "Frequency": 252, "Modulation": 0 }, { "Frequency": 123, "Modulation": 0 } ]},
+{"Id": 12, "Name": "Senaki", "Latitude": 42.239, "Longitude": 42.061, "Radios": [ { "Frequency": 261, "Modulation": 0 }, { "Frequency": 132, "Modulation": 0 } ], "Tacan": { "Channel": 31, "Mode": "X" }},
+{"Id": 7, "Name": "Sochi-Adler", "Latitude": 43.439, "Longitude": 39.924, "Radios": [ { "Frequency": 256, "Modulation": 0 }, { "Frequency": 127, "Modulation": 0 } ]},
+{"Id": 19, "Name": "Soganlug", "Latitude": 41.641, "Longitude": 44.947, "Radios": [ { "Frequency": 268, "Modulation": 0 }, { "Frequency": 139, "Modulation": 0 } ]},
+{"Id": 9, "Name": "Sukhumi-Babushara", "Latitude": 42.853, "Longitude": 41.142, "Radios": [ { "Frequency": 258, "Modulation": 0 }, { "Frequency": 129, "Modulation": 0 } ]},
+{"Id": 18, "Name": "Tblisi", "Latitude": 41.674, "Longitude": 44.947, "Radios": [ { "Frequency": 267, "Modulation": 0 }, { "Frequency": 138, "Modulation": 0 } ], "Tacan": { "Channel": 25, "Mode": "X" }},
+{"Id": 20, "Name": "Vaziani", "Latitude": 41.638, "Longitude": 45.019, "Radios": [ { "Frequency": 269, "Modulation": 0 }, { "Frequency": 140, "Modulation": 0 } ], "Tacan": { "Channel": 22, "Mode": "X" }}
+]

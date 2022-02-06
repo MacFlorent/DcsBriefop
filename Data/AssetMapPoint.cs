@@ -1,6 +1,5 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.DataMiz;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DcsBriefop.Data
@@ -30,9 +29,9 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Methods
-		public virtual bool IsOrbitStart()
+		public virtual string GetOrbitPattern()
 		{
-			return false;
+			return null;
 		}
 		#endregion
 	}
@@ -60,11 +59,6 @@ namespace DcsBriefop.Data
 		public string Action { get; set; }
 		public int? AirdromeId { get; set; }
 		public int? HelipadId { get; set; }
-
-		public List<MizRouteTask> RouteTasks
-		{
-			get { return MizRoutePoint.RouteTasks; }
-		}
 		#endregion
 
 		#region CTOR
@@ -95,9 +89,27 @@ namespace DcsBriefop.Data
 			MizRoutePoint.Action = Action;
 			MizRoutePoint.Type = Type;
 		}
-		public override bool IsOrbitStart()
+		public override string GetOrbitPattern()
 		{
-			return RouteTasks.Where(_rt => _rt.Id == ElementRouteTask.Orbit).Any();
+			string sOrbitPattern = null;
+			if (MizRoutePoint.RouteTaskHolder is object)
+			{
+				foreach (MizRouteTask mizTask in MizRoutePoint.RouteTaskHolder.Tasks)
+				{
+					if (mizTask.Id == ElementRouteTask.Orbit)
+					{
+						sOrbitPattern = mizTask.Params.Pattern;
+						break;
+					}
+					else if (mizTask.Params.Task is object && mizTask.Params.Task.Id == ElementRouteTask.Orbit)
+					{
+						sOrbitPattern = mizTask.Params.Task.Params.Pattern;
+						break;
+					}
+				}
+			}
+
+			return sOrbitPattern;
 		}
 		#endregion
 	}

@@ -136,7 +136,11 @@ namespace DcsBriefop.Data
 				m_coordinatesLutValuesY = new List<decimal>();
 				m_coordinatesLutValuesX = new List<decimal>();
 
-				string sResourceContent = ToolsResources.GetTextResourceContent($"Points{Name}", "txt");
+				string sLutResource = $"Points{Name}";
+				string sResourceContent = ToolsResources.GetTextResourceContent(sLutResource, "txt");
+				if (string.IsNullOrEmpty(sResourceContent))
+					throw new ExceptionDcsBriefop($"Empty or absent LUT data resource: {sLutResource}.");
+
 				string[] resourceContentLines = sResourceContent.Split('\n');
 				foreach (string sLine in resourceContentLines)
 				{
@@ -148,7 +152,7 @@ namespace DcsBriefop.Data
 			}
 			catch (Exception e)
 			{
-				ToolsMisc.ShowMessageBoxAndLogException("Failed to build points LUT. Coordinates will not be managed", e);
+				ToolsMisc.ShowMessageBoxAndLogException("Failed to build points LUT. Coordinates will not be managed.", e);
 				m_coordinatesLut = null;
 				m_coordinatesLutValuesY = m_coordinatesLutValuesX = null;
 			}
@@ -183,7 +187,7 @@ namespace DcsBriefop.Data
 
 			if (!decimal.TryParse(sLine.Substring(iIndexStart, iLength), out decimal dItemValue))
 			{
-				throw new ExceptionDcsBriefop($"Item {sItem} was not decoded from line {sLine} in point LUT resource");
+				throw new ExceptionDcsBriefop($"Item {sItem} was not decoded from line {sLine} in point LUT resource.");
 			}
 
 			return dItemValue;
@@ -193,12 +197,16 @@ namespace DcsBriefop.Data
 		{
 			try
 			{
-				string sJsonStream = ToolsResources.GetJsonResourceContent($"Airdromes{Name}");
+				string sResource = $"Airdromes{Name}";
+				string sJsonStream = ToolsResources.GetJsonResourceContent(sResource);
+				if (string.IsNullOrEmpty(sJsonStream))
+					throw new ExceptionDcsBriefop($"Empty or absent airdrome resource: {sResource}.");
+
 				Airdromes = JsonConvert.DeserializeObject<List<Airdrome>>(sJsonStream);
 			}
 			catch (Exception e)
 			{
-				ToolsMisc.ShowMessageBoxAndLogException("Failed to build airdrome data. Airdrome informations will not be available", e);
+				ToolsMisc.ShowMessageBoxAndLogException("Failed to build airdrome data. Airdrome informations will not be available.", e);
 			}
 
 			if (Airdromes is null)

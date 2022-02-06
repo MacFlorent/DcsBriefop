@@ -22,13 +22,35 @@ namespace DcsBriefop.Tools
 			return lsd.IfExists(sKey)?.GetIntSafe();
 		}
 
+		public static decimal? IfExistsDecimal(this LsonDict lsd, string sKey)
+		{
+			return lsd.IfExists(sKey)?.GetDecimalSafe();
+		}
+
+
 		public static string IfExistsString(this LsonDict lsd, string sKey)
 		{
 			return lsd.IfExists(sKey)?.GetString();
 		}
 
+		public static void SetIfExists(this LsonDict lsd, string sKey, LsonValue value)
+		{
+			if (lsd.ContainsKey(sKey))
+				lsd[sKey] = value;
+		}
+
+		public static void SetOrAdd(this LsonDict lsd, string sKey, LsonValue value)
+		{
+			if (lsd.ContainsKey(sKey))
+				lsd[sKey] = value;
+			else if (value is object)
+				lsd.Add(sKey, value);
+		}
+
 		public static void SetOrAddBool(this LsonDict lsd, string sKey, bool? bValue)
 		{
+			if (bValue is object)
+				lsd.SetOrAdd(sKey, bValue.Value);
 			bool bNotNull = bValue.GetValueOrDefault(false);
 
 			if (lsd.ContainsKey(sKey))

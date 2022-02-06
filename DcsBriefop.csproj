@@ -158,6 +158,7 @@
     <Compile Include="DataMiz\MizDataCartridge.cs" />
     <Compile Include="DataMiz\MizDrawing.cs" />
     <Compile Include="DataMiz\MizRadio.cs" />
+    <Compile Include="DataMiz\MizCallsign.cs" />
     <Compile Include="Data\Airdrome.cs" />
     <Compile Include="Data\Asset.cs" />
     <Compile Include="Data\AssetAirdrome.cs" />
@@ -187,6 +188,7 @@
       <DependentUpon>FrmOptionsMap.cs</DependentUpon>
     </Compile>
     <Compile Include="Map\ConfigMapTemplateObjects.cs" />
+    <Compile Include="Map\GProviderBriefop.cs" />
     <Compile Include="Map\GTextBriefop.cs" />
     <Compile Include="Map\GRouteBriefop.cs" />
     <Compile Include="Map\MapTemplateRoute.cs" />

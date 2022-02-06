@@ -21,6 +21,7 @@ namespace DcsBriefop.Map
 		public static string Ship { get; set; } = "P91000057";
 		public static string Waypoint { get; set; } = "navigation_point";
 		public static string Bullseye { get; set; } = "P0091000347";
+		public static string Circle { get; set; } = "P91000042";
 	}
 
 	public class MapTemplateMarker

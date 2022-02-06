@@ -15,7 +15,8 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Properties
-		private MizGroupFlight GroupFlight { get { return m_mizGroup as MizGroupFlight; } }
+		private MizGroupFlight MizGroupFlight { get { return m_mizGroup as MizGroupFlight; } }
+		public string Callsign { get; set; }
 		public AssetFlightMission MissionData { get; set; }
 		public Radio Radio { get; set; }
 		#endregion
@@ -31,10 +32,16 @@ namespace DcsBriefop.Data
 
 			MapMarker = GetMarkerFromUnit() ?? ElementMapTemplateMarker.Aircraft;
 
-			Task = GroupFlight.Task;
-			Type = GroupFlight.Units.OfType<MizUnitFlight>().FirstOrDefault()?.Type;
-			Description = $"{GetCallsign()} | {m_mizGroup.Name}";
-			Radio = new Radio() { Frequency = GroupFlight.RadioFrequency, Modulation = GroupFlight.RadioModulation };
+			MizUnitFlight mizUnitFlight = MizGroupFlight.Units.OfType<MizUnitFlight>().FirstOrDefault();
+			if (mizUnitFlight is object && mizUnitFlight.Callsign is MizCallsign callsign)
+				Callsign = callsign.Name.Substring(0, callsign.Name.Length - 1);
+			else if (mizUnitFlight is object && mizUnitFlight.CallsignNumber is object)
+				Callsign = mizUnitFlight.CallsignNumber.ToString();
+
+			Task = MizGroupFlight.Task;
+			Type = MizGroupFlight.Units.OfType<MizUnitFlight>().FirstOrDefault()?.Type;
+			Description = $"{Callsign} | {m_mizGroup.Name}";
+			Radio = new Radio() { Frequency = MizGroupFlight.RadioFrequency, Modulation = MizGroupFlight.RadioModulation };
 		}
 
 		protected override void InitializeDataCustom()
@@ -80,8 +87,8 @@ namespace DcsBriefop.Data
 		{
 			base.Persist();
 
-			GroupFlight.RadioFrequency = Radio.Frequency;
-			GroupFlight.RadioModulation = Radio.Modulation;
+			MizGroupFlight.RadioFrequency = Radio.Frequency;
+			MizGroupFlight.RadioModulation = Radio.Modulation;
 
 			MissionData?.Persist();
 		}
@@ -119,14 +126,14 @@ namespace DcsBriefop.Data
 			return GetBaseInformation();
 		}
 
-		public string GetCallsign()
-		{
-			string sCallsign = m_mizGroup.Units.OfType<MizUnitFlight>().FirstOrDefault()?.Callsign;
-			if (!string.IsNullOrEmpty(sCallsign))
-				return sCallsign.Substring(0, sCallsign.Length - 1);
-			else
-				return null;
-		}
+		//public string GetCallsign()
+		//{
+		//	string sCallsign = Units.OfType<MizUnitFlight>().FirstOrDefault()?.Callsign;
+		//	if (!string.IsNullOrEmpty(sCallsign))
+		//		return sCallsign.Substring(0, sCallsign.Length - 1);
+		//	else
+		//		return null;
+		//}
 
 		private string GetBaseInformation()
 		{
@@ -167,13 +174,13 @@ namespace DcsBriefop.Data
 					&& (_rp.Type == ElementRoutePointType.TakeOff || _rp.Type == ElementRoutePointType.TakeOffParking || _rp.Type == ElementRoutePointType.TakeOffParkingHot || _rp.Type == ElementRoutePointType.Land))
 				.GroupBy(_rp => _rp.AirdromeId).Select(_g => _g.Key.Value);
 
-
 			return grouped.ToList();
 		}
 
 		public List<AssetAirdrome> GetAirdromeAssets()
 		{
-			return GetAirdromeIds().Select(_i => Coalition.Airdromes.Where(_a => _a.Id == _i).FirstOrDefault()).ToList();
+			List<int> flightAirdromes = GetAirdromeIds();
+			return Coalition.Airdromes.Where(_a => flightAirdromes.Contains(_a.Id)).ToList();
 		}
 
 		public List<AssetShip> GetCarrierAssets()
