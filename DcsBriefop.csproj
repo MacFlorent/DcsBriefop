@@ -359,69 +359,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Theatre\PointsPersianGulf.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\bullseye.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\factory.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\pin.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\aircraft.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\airport.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\dot.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\helicopter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\ship.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\tank.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\triangle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icon16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\P91000025.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\P91000041.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\P91000044.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\P91000057.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\P91000065.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\airdrome_class_2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\ground.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\P0091000347.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Markers\airdrome_class_none.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

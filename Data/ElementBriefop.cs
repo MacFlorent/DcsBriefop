@@ -36,7 +36,6 @@ namespace DcsBriefop.Data
 
 	internal enum ElementExportFileType
 	{
-		Situation,
 		SituationMap,
 		Operations,
 		Coms,

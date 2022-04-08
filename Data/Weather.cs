@@ -98,16 +98,14 @@ namespace DcsBriefop.Data
 		{
 			StringBuilder sb = new StringBuilder();
 			// wind
-			sb.AppendWithSeparator(ToString_Wind(0, WindGround), sNewLine);
-			sb.AppendWithSeparator(ToString_Wind(2000, Wind2000), sNewLine);
-			sb.AppendWithSeparator(ToString_Wind(8000, Wind8000), sNewLine);
+			sb.AppendWithSeparator($"Wind: {ToString_Wind(0, WindGround)} - {ToString_Wind(2000, Wind2000)} - {ToString_Wind(8000, Wind8000)}", sNewLine);
 
 			// visibility and clouds
 			int iVisibilityKilometer = VisibilityMeter / 1000;
 			if (iVisibilityKilometer > 10)
 				iVisibilityKilometer = 10;
 
-			sb.AppendWithSeparator($"Visibility {iVisibilityKilometer} kilometers", sNewLine);
+			sb.AppendWithSeparator($"Visibility {iVisibilityKilometer} km", sNewLine);
 			if (Precipitation)
 				sb.Append(" precipitations");
 			if (Fog)
@@ -116,7 +114,7 @@ namespace DcsBriefop.Data
 				sb.Append(" dust");
 
 			if (CloudDensityOkta <= 0)
-				sb.AppendWithSeparator($"No clouds", sNewLine);
+				sb.Append(" - No clouds");
 			else
 			{
 				string sDensity;
@@ -130,18 +128,18 @@ namespace DcsBriefop.Data
 					sDensity = "Overcast";
 
 				int CloudBaseRoundedFoot = CloudBaseFoot / 1000 * 1000;
-				sb.AppendWithSeparator($"{sDensity} clouds at {CloudBaseRoundedFoot} feet", sNewLine);
+				sb.Append($" - {sDensity} clouds at {CloudBaseRoundedFoot} ft");
 			}
 
 			//T° and QNH
-			sb.Append($"Temperature {TemperatureCelcius:0}°C / QNH {QnhHpa:0} hPa - {QnhInHg:00.00} inHg");
+			sb.AppendWithSeparator($"{TemperatureCelcius:0}°C - QNH {QnhHpa:0} hPa - {QnhInHg:00.00} inHg", sNewLine);
 
 			return sb.ToString();
 		}
 
 		private string ToString_Wind(int iAltitudeFoot, WeatherWind ww)
 		{
-			return $"Wind {iAltitudeFoot} feet : {ww.DirectionTrue:000}° @ {ww.SpeedKnot:00} kt";
+			return $"{iAltitudeFoot} ft: {ww.DirectionTrue:000}° @ {ww.SpeedKnot:00} kt";
 		}
 	}
 

@@ -8,6 +8,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text;
 using TheArtOfDev.HtmlRenderer.WinForms;
 
 namespace DcsBriefop
@@ -59,6 +60,7 @@ namespace DcsBriefop
 		private BriefingContainer m_briefingContainer;
 		private MissionManager m_missionManager;
 		private List<BriefingFile> m_listFiles = new List<BriefingFile>();
+		private Color BackColor = Color.WhiteSmoke;
 		#endregion
 
 		#region CTOR
@@ -92,7 +94,7 @@ namespace DcsBriefop
 
 		private void GenerateAllFiles(List<ElementExportFileType> exportFileTypes)
 		{
-			foreach(BriefingCoalition coalition in m_briefingContainer.BriefingCoalitions)
+			foreach (BriefingCoalition coalition in m_briefingContainer.BriefingCoalitions)
 			{
 				GenerateAllFilesCoalition(exportFileTypes, coalition);
 			}
@@ -102,8 +104,6 @@ namespace DcsBriefop
 		{
 			string sKneeboardFolder = KneeboardFolders.Images;
 
-			if (exportFileTypes.Contains(ElementExportFileType.Situation))
-				AddFileHtml(GenerateFileName(ElementExportFileType.Situation, coalition.CoalitionName), sKneeboardFolder, GenerateHtmlSituation(coalition));
 			if (exportFileTypes.Contains(ElementExportFileType.SituationMap))
 				AddMapData(GenerateFileName(ElementExportFileType.SituationMap, coalition.CoalitionName), sKneeboardFolder, coalition.MapData);
 			if (exportFileTypes.Contains(ElementExportFileType.Operations))
@@ -122,139 +122,287 @@ namespace DcsBriefop
 				sKneeboardFolder = $@"{sKneeboardFolder}/{KneeboardFolders.Images}";
 
 				if (exportFileTypes.Contains(ElementExportFileType.Missions))
-					AddFileHtml($"{GenerateFileName(ElementExportFileType.Missions, coalition.CoalitionName)}_{asset.Id}", sKneeboardFolder, GenerateHtmlMission(coalition, asset));
+					AddFileHtml($"{GenerateFileName(ElementExportFileType.Missions, coalition.CoalitionName)}_{asset.Id}", sKneeboardFolder, GenerateHtmlMissionCard(coalition, asset));
 				if (exportFileTypes.Contains(ElementExportFileType.MissionMaps))
 					AddMapData($"{GenerateFileName(ElementExportFileType.MissionMaps, coalition.CoalitionName)}_{asset.Id}", sKneeboardFolder, asset.MissionData.MapData);
 			}
 		}
 
-		private HtmlBuilder.HtmlDocument GenerateHtmlSituation(BriefingCoalition coalition)
+		private string PlaceholderGet(string sPlaceholder)
 		{
-			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.OwnColor);
-
-			//hb.AppendHeader(m_briefingPack.Sortie, 3);
-			hb.AppendHeader("SITUATION", 2);
-			hb.AppendParagraphJustified(m_briefingContainer.Mission.Description);
-			hb.AppendHeader("TASKS", 3);
-			hb.AppendParagraphJustified(coalition.Task);
-			hb.AppendHeader("WEATHER", 3);
-			hb.AppendParagraphCentered(m_briefingContainer.Mission.Weather.ToString());
-
-			hb.FinalizeDocument();
-			return hb;
+			return $"__{sPlaceholder}__";
 		}
 
-		private HtmlBuilder.HtmlDocument GenerateHtmlOperations(BriefingCoalition coalition)
+		private void PlaceholderReplace(ref string sString, string sPlaceholder, string sValue)
 		{
-			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.OwnColor);
+			sString = sString.Replace(PlaceholderGet(sPlaceholder), sValue?.Replace(Environment.NewLine, "<br>"));
+		}
 
-			//hb.AppendHeader(m_briefingPack.Sortie, 3);
-			hb.AppendHeader("OPERATIONS", 2);
-			hb.AppendHeader("BULLSEYE", 3);
-			hb.AppendParagraphCentered(coalition.GetBullseyeCoordinatesString());
-			hb.AppendParagraphCentered(coalition.BullseyeDescription);
+		private void PlaceholderReplaceStyle(ref string sString, Color color)
+		{
+			string sStyle = ToolsResources.GetTextResourceContent("briefingTemplate", "css");
+			PlaceholderReplace(ref sStyle, "colorDark", ColorTranslator.ToHtml(color));
+			PlaceholderReplace(ref sStyle, "colorLight", ColorTranslator.ToHtml(color.Lerp(Color.White, 0.85f)));
+			PlaceholderReplace(ref sStyle, "colorBack", ColorTranslator.ToHtml(BackColor));
+
+			sString = sString.Replace("<link href=\"briefingTemplate.css\" rel=\"stylesheet\">", $"<style>{sStyle}</style>");
+		}
+
+		private void PlaceholderGetLine(out string sLineRaw, out string sLineCleaned, string sString, string sPlaceholder)
+		{
+			string sStart = PlaceholderGet($"{sPlaceholder}Start");
+			string sEnd = PlaceholderGet($"{sPlaceholder}End");
+
+			int iStart = sString.IndexOf(sStart);
+			int iEnd = sString.IndexOf(sEnd);
+			sLineRaw = sString.Substring(iStart, iEnd - iStart + sEnd.Length);
+			sLineCleaned = sLineRaw.Replace(sStart, "").Replace(sEnd, "");
+		}
+
+		private void GenerateHtmlOperationsMissionLine(StringBuilder sbAssets, string sLineCleaned, Asset asset)
+		{
+			string sAssetLine = sLineCleaned;
+			PlaceholderReplace(ref sAssetLine, "missionDescription", asset.Description);
+			PlaceholderReplace(ref sAssetLine, "missionTask", asset.Task);
+			PlaceholderReplace(ref sAssetLine, "missionType", asset.Type);
+			PlaceholderReplace(ref sAssetLine, "missionNotes", asset.Information);
+			sbAssets.Append(sAssetLine);
+		}
+
+		private void GenerateHtmlOperationsSupportLine(StringBuilder sbAssets, string sLineCleaned, Asset asset)
+		{
+			string sAssetLine = sLineCleaned;
+			PlaceholderReplace(ref sAssetLine, "supportDescription", asset.Description);
+			PlaceholderReplace(ref sAssetLine, "supportTask", asset.Task);
+			PlaceholderReplace(ref sAssetLine, "supportType", asset.Type);
+			PlaceholderReplace(ref sAssetLine, "supportRadio", asset.GetRadioString());
+			PlaceholderReplace(ref sAssetLine, "supportNotes", asset.Information);
+			sbAssets.Append(sAssetLine);
+		}
+
+		private string GenerateHtmlOperations(BriefingCoalition coalition)
+		{
+			string sHtml = ToolsResources.GetTextResourceContent("briefingTemplateOperations", "html");
+
+			PlaceholderReplaceStyle(ref sHtml, coalition.OwnColor);
+			PlaceholderReplace(ref sHtml, "coalition", coalition.CoalitionName);
+			PlaceholderReplace(ref sHtml, "weather", m_briefingContainer.Mission.Weather.ToString());
+			PlaceholderReplace(ref sHtml, "bullseye", coalition.GetBullseyeCoordinatesString());
+			PlaceholderReplace(ref sHtml, "generalSortie", m_briefingContainer.Mission.Sortie);
+			PlaceholderReplace(ref sHtml, "generalSituation", m_briefingContainer.Mission.Description);
+			PlaceholderReplace(ref sHtml, "generalTask", coalition.Task);
 			
-			hb.AppendHeader("MISSIONS", 3);
-			hb.OpenTable("Name", "Task", "Type", "Notes");
+
+			string sLineRaw, sLineCleaned;
+			PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "missionLine");
+			StringBuilder sb = new StringBuilder();
 			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.MissionWithDetail))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
+				GenerateHtmlOperationsMissionLine(sb, sLineCleaned, asset);
 			}
 			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Mission))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
+				GenerateHtmlOperationsMissionLine(sb, sLineCleaned, asset);
 			}
-			hb.CloseTable();
+			sHtml = sHtml.Replace(sLineRaw, sb.ToString());
 
-			hb.AppendHeader("SUPPORT", 3);
-			hb.OpenTable("Name", "Task", "Type", "Radio", "Notes");
-			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Support))
+			PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "supportLine");
+			sb.Clear();
+			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Support))
 			{
-				hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.GetRadioString(), asset.Information);
+				GenerateHtmlOperationsSupportLine(sb, sLineCleaned, supportAsset);
 			}
-			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Base))
+			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Base))
 			{
-				hb.AppendTableRow(asset.Name, "Base", asset.Type, asset.GetRadioString(), asset.Information);
+				GenerateHtmlOperationsSupportLine(sb, sLineCleaned, supportAsset);
 			}
-			foreach (Asset asset in coalition.Airdromes.Where(_a => _a.Usage == ElementAssetUsage.Base && _a.Side == ElementAssetSide.Own))
+			foreach (Asset supportAsset in coalition.Airdromes.Where(_a => _a.Usage == ElementAssetUsage.Base && _a.Side == ElementAssetSide.Own))
 			{
-				hb.AppendTableRow(asset.Name, "Base", asset.Type, asset.GetRadioString(), asset.Information);
+				GenerateHtmlOperationsSupportLine(sb, sLineCleaned, supportAsset);
 			}
+			sHtml = sHtml.Replace(sLineRaw, sb.ToString());
 
-			hb.CloseTable();
-
-			hb.FinalizeDocument();
-			return hb;
+			return sHtml;
 		}
 
-		private HtmlBuilder.HtmlDocument GenerateHtmlMission(BriefingCoalition coalition, AssetFlight asset)
+		#region Coms
+		private void GenerateHtmlComsLine(StringBuilder sbComs, string sLineCleaned, ComPreset preset)
 		{
-			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.OwnColor);
-
-			hb.AppendHeader($"MISSION {asset.Name} | {asset.Task}", 2);
-			hb.AppendParagraphCentered(asset.MissionData.MissionInformation);
-
-			hb.AppendHeader("WAYPOINTS", 3);
-			hb.OpenTable("#", "Waypoint", "Action", "Alt.");
-			foreach (AssetRoutePoint routePoint in asset.MapPoints.OfType<AssetRoutePoint>())
-			{
-				hb.AppendTableRow(routePoint.Number.ToString(), routePoint.Name, routePoint.Action, routePoint.AltitudeFeet);
-			}
-			hb.CloseTable();
-
-			List<AssetUnit> targets = asset.MissionData.GetListTargetUnits();
-			if (targets.Count > 0)
-			{
-				hb.AppendHeader("TARGETS", 3);
-				hb.OpenTable("Name", "Type", "Localication", "Information");
-				foreach (AssetUnit unit in asset.MissionData.GetListTargetUnits())
-				{
-					hb.AppendTableRow(unit.AssetGroup.Name, unit.Type, unit.GetLocalisation(), unit.Information);
-				}
-				hb.CloseTable();
-			}
-
-			hb.FinalizeDocument();
-			return hb;
+			string sRadioLine = sLineCleaned;
+			PlaceholderReplace(ref sRadioLine, "radioNumber", preset.PresetNumber.ToString());
+			PlaceholderReplace(ref sRadioLine, "radioLabel", preset.Label);
+			PlaceholderReplace(ref sRadioLine, "radioFrequency", preset.Radio.ToString());
+			sbComs.Append(sRadioLine);
 		}
 
-		private HtmlBuilder.HtmlDocument GenerateHtmlComs(BriefingCoalition coalition)
+		private void GenerateHtmlComsTable(ref string sString, BriefingCoalition coalition, int iRadio)
 		{
-			HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.OwnColor);
-
-			hb.AppendHeader("COMMUNICATIONS", 2);
-			hb.OpenTable("Radio 1", "Radio 2");
-			hb.OpenTag("tr");
-			hb.OpenTag("td");
-			AppendTableComsRadio(hb, coalition, 1);
-			hb.CloseTag();
-			hb.OpenTag("td");
-			AppendTableComsRadio(hb, coalition, 2);
-			hb.CloseTag();
-			hb.CloseTag();
-			hb.CloseTable();
-
-			hb.FinalizeDocument();
-			return hb;
-		}
-
-		private void AppendTableComsRadio(HtmlBuilder.HtmlDocument hb, BriefingCoalition coalition, int iRadio)
-		{
-			hb.OpenTable("#", "Label", "Freq.");
+			PlaceholderGetLine(out string sLineRaw, out string sLineCleaned, sString, $"radio{iRadio}Line");
+			StringBuilder sb = new StringBuilder();
 			for (int iNumber = 1; iNumber <= ListComPreset.PresetsCount; iNumber++)
 			{
 				ComPreset preset = coalition.ComPresets.GetPreset(iRadio, iNumber);
-				hb.AppendTableRow(preset.PresetNumber.ToString(), preset.Label, preset.Radio.ToString());
+				GenerateHtmlComsLine(sb, sLineCleaned, preset);
 			}
-			hb.CloseTable();
+
+			sString = sString.Replace(sLineRaw, sb.ToString());
 		}
 
+		private string GenerateHtmlComs(BriefingCoalition coalition)
+		{
+			string sHtml = ToolsResources.GetTextResourceContent("briefingTemplateComs", "html");
+
+			PlaceholderReplaceStyle(ref sHtml, coalition.OwnColor);
+			PlaceholderReplace(ref sHtml, "coalition", coalition.CoalitionName);
+
+			GenerateHtmlComsTable(ref sHtml, coalition, 1);
+			GenerateHtmlComsTable(ref sHtml, coalition, 2);
+
+			return sHtml;
+		}
+		#endregion
+
+		#region MissionCard
+		private void GenerateHtmlMissionCardAssetLine(StringBuilder sbAssets, string sLineCleaned, Asset asset)
+		{
+			string sAssetLine = sLineCleaned;
+			PlaceholderReplace(ref sAssetLine, "supportDescription", asset.Description);
+			PlaceholderReplace(ref sAssetLine, "supportTask", asset.Task);
+			PlaceholderReplace(ref sAssetLine, "supportType", asset.Type);
+			PlaceholderReplace(ref sAssetLine, "supportRadio", asset.GetRadioString());
+			PlaceholderReplace(ref sAssetLine, "supportNotes", asset.Information);
+			sbAssets.Append(sAssetLine);
+		}
+
+		private string GenerateHtmlMissionCard(BriefingCoalition coalition, AssetFlight asset)
+		{
+			string sHtml = ToolsResources.GetTextResourceContent("briefingTemplateMissionCard", "html");
+
+			PlaceholderReplaceStyle(ref sHtml, coalition.OwnColor);
+			PlaceholderReplace(ref sHtml, "coalition", coalition.CoalitionName);
+			PlaceholderReplace(ref sHtml, "assetDescription", asset.Description);
+			PlaceholderReplace(ref sHtml, "task", asset.Task);
+			PlaceholderReplace(ref sHtml, "taskDetail", asset.MissionData?.MissionInformation);
+			PlaceholderReplace(ref sHtml, "weather", m_briefingContainer.Mission.Weather.ToString());
+			PlaceholderReplace(ref sHtml, "bullseye", coalition.GetBullseyeCoordinatesString());
+
+			string sLineRaw, sLineCleaned;
+			PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "supportLine");
+			StringBuilder sb = new StringBuilder();
+			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Support))
+			{
+				GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
+			}
+			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Base))
+			{
+				GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
+			}
+			foreach (Asset supportAsset in coalition.Airdromes.Where(_a => _a.Usage == ElementAssetUsage.Base && _a.Side == ElementAssetSide.Own))
+			{
+				GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
+			}
+			sHtml = sHtml.Replace(sLineRaw, sb.ToString());
+
+			PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "waypointLine");
+			sb.Clear();
+			foreach (AssetRoutePoint routePoint in asset.MapPoints.OfType<AssetRoutePoint>())
+			{
+				string sWaypointLine = sLineCleaned;
+				PlaceholderReplace(ref sWaypointLine, "waypointNumber", routePoint.Number.ToString());
+				PlaceholderReplace(ref sWaypointLine, "waypointName", routePoint.Name);
+				PlaceholderReplace(ref sWaypointLine, "waypointAction", routePoint.Action);
+				PlaceholderReplace(ref sWaypointLine, "waypointAltitude", routePoint.AltitudeFeet);
+				sb.Append(sWaypointLine);
+			}
+			sHtml = sHtml.Replace(sLineRaw, sb.ToString());
+
+			PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "targetLine");
+			sb.Clear();
+			foreach (AssetUnit unit in asset.MissionData.GetListTargetUnits())
+			{
+				string sTargetLine = sLineCleaned;
+				PlaceholderReplace(ref sTargetLine, "targetName", unit.AssetGroup.Name);
+				PlaceholderReplace(ref sTargetLine, "targetType", unit.Type);
+				PlaceholderReplace(ref sTargetLine, "targetLocalisation", unit.GetLocalisation());
+				PlaceholderReplace(ref sTargetLine, "targetNotes", unit.Information);
+				sb.Append(sTargetLine);
+			}
+			sHtml = sHtml.Replace(sLineRaw, sb.ToString());
+
+			return sHtml;
+		}
+		#endregion
+
+		//private HtmlBuilder.HtmlDocument GenerateHtmlSituation(BriefingCoalition coalition)
+		//{
+		//	HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.OwnColor);
+
+		//	//hb.AppendHeader(m_briefingPack.Sortie, 3);
+		//	hb.AppendHeader("SITUATION", 2);
+		//	hb.AppendParagraphJustified(m_briefingContainer.Mission.Description);
+		//	hb.AppendHeader("TASKS", 3);
+		//	hb.AppendParagraphJustified(coalition.Task);
+		//	hb.AppendHeader("WEATHER", 3);
+		//	hb.AppendParagraphCentered(m_briefingContainer.Mission.Weather.ToString());
+
+		//	hb.FinalizeDocument();
+		//	return hb;
+		//}
+
+		//private HtmlBuilder.HtmlDocument GenerateHtmlOperations(BriefingCoalition coalition)
+		//{
+		//	HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.OwnColor);
+
+		//	//hb.AppendHeader(m_briefingPack.Sortie, 3);
+		//	hb.AppendHeader("OPERATIONS", 2);
+		//	hb.AppendHeader("BULLSEYE", 3);
+		//	hb.AppendParagraphCentered(coalition.GetBullseyeCoordinatesString());
+		//	hb.AppendParagraphCentered(coalition.BullseyeDescription);
+
+		//	hb.AppendHeader("MISSIONS", 3);
+		//	hb.OpenTable("Name", "Task", "Type", "Notes");
+		//	foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.MissionWithDetail))
+		//	{
+		//		hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
+		//	}
+		//	foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Mission))
+		//	{
+		//		hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
+		//	}
+		//	hb.CloseTable();
+
+		//	hb.AppendHeader("SUPPORT", 3);
+		//	hb.OpenTable("Name", "Task", "Type", "Radio", "Notes");
+		//	foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Support))
+		//	{
+		//		hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.GetRadioString(), asset.Information);
+		//	}
+		//	foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Base))
+		//	{
+		//		hb.AppendTableRow(asset.Name, "Base", asset.Type, asset.GetRadioString(), asset.Information);
+		//	}
+		//	foreach (Asset asset in coalition.Airdromes.Where(_a => _a.Usage == ElementAssetUsage.Base && _a.Side == ElementAssetSide.Own))
+		//	{
+		//		hb.AppendTableRow(asset.Name, "Base", asset.Type, asset.GetRadioString(), asset.Information);
+		//	}
+
+		//	hb.CloseTable();
+
+		//	hb.FinalizeDocument();
+		//	return hb;
+		//}
+
+		private void AddFileHtml(string sFileName, string sKneeboardFolder, string sHtml)
+		{
+			BriefingFileHtml bf = new BriefingFileHtml() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, HtmlContent = sHtml };
+			bf.BitmapContent = HtmlRender.RenderToImage(sHtml, new Size(ElementImageSize.Width, ElementImageSize.Height), BackColor) as Bitmap;
+			//bf.BitmapContent = HtmlRender.RenderToImageGdiPlus(sHtml, new Size(ElementImageSize.Width, ElementImageSize.Height), System.Drawing.Text.TextRenderingHint.AntiAlias) as Bitmap;
+			m_listFiles.Add(bf);
+		}
+		
 		private void AddFileHtml(string sFileName, string sKneeboardFolder, HtmlBuilder.HtmlDocument hb)
 		{
-			string sHtmlContent = hb.ToString();
-			BriefingFileHtml bf = new BriefingFileHtml() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, HtmlContent = sHtmlContent };
-			bf.BitmapContent = HtmlRender.RenderToImage(sHtmlContent, new Size(ElementImageSize.Width, ElementImageSize.Height), Color.LightGray) as Bitmap;
-			m_listFiles.Add(bf);
+			AddFileHtml(sFileName, sKneeboardFolder, hb.ToString());
 		}
 
 		private void AddMapData(string sFileName, string sKneeboardFolder, BriefopCustomMap mapData)
@@ -286,7 +434,7 @@ namespace DcsBriefop
 						File.Delete(sFilePath);
 
 					briefingFile.BitmapContent.Save(sFilePath, ImageFormat.Jpeg);
-					
+
 					if (!bKeepHtml)
 					{
 						File.Delete(sHtmlFilePath);
@@ -339,12 +487,12 @@ namespace DcsBriefop
 			using (ZipArchive za = ZipFile.Open(m_missionManager.MizFilePath, ZipArchiveMode.Update))
 			{
 				List<string> listToDelete = new List<string>();
-				foreach (ZipArchiveEntry entry in za.Entries.Where(_ze =>_ze.Name.StartsWith(m_sFilePrefix)))
+				foreach (ZipArchiveEntry entry in za.Entries.Where(_ze => _ze.Name.StartsWith(m_sFilePrefix)))
 				{
 					listToDelete.Add(entry.FullName);
 				}
 
-				foreach(string sEntry in listToDelete)
+				foreach (string sEntry in listToDelete)
 				{
 					ToolsZip.RemoveZipEntries(za, sEntry);
 				}

@@ -91,12 +91,12 @@ namespace DcsBriefop.Data
 				if (asset is AssetFlight flight)
 				{
 					Radio = flight.Radio;
-					Label = flight.Name;
+					Label = flight.Description;
 				}
 				else if (asset is AssetShip ship)
 				{
 					Radio = ship.Radio;
-					Label = ship.Name;
+					Label = ship.Description;
 				}
 				else
 				{
@@ -129,9 +129,9 @@ namespace DcsBriefop.Data
 	{
 		#region Properties
 		public static readonly int RadiosCount = 2;
-		public static readonly int PresetsCount = 15;
-
+		public static readonly int PresetsCount = 20;
 		#endregion
+
 		#region CTOR
 		#endregion
 

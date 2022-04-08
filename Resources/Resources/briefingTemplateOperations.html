@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link href="briefingTemplate.css" rel="stylesheet">
+</head>
+<body>
+<div id="wrapper">
+	<div class="header">
+		<h1>Operations</h1>
+	</div>
+    <div class="content">
+        <table>
+            <tr>
+                <td class="header">Weather</td>
+                <td>__weather__</td>
+            </tr>
+            <tr>
+                <td class="header">Bullseye</td>
+                <td>__bullseye__</td>
+            </tr>
+        </table>    
+    </div>
+    <div id="content">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Mission</th>
+                    <th>Task</th>
+                    <th>Type</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+            __missionLineStart__<tr>
+                <td>__missionDescription__</td>
+                <td>__missionTask__</td>
+                <td>__missionType__</td>
+                <td>__missionNotes__</td>
+            </tr>__missionLineEnd__
+        </tbody>
+        </table>   
+    </div>
+    <div class="content">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th>Support</th>
+                    <th>Task</th>
+                    <th>Type</th>
+                    <th>Radio</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+            __supportLineStart__<tr>
+                <td>__supportDescription__</td>
+                <td>__supportTask__</td>
+                <td>__supportType__</td>
+                <td>__supportRadio__</td>
+                <td>__supportNotes__</td>
+            </tr>__supportLineEnd__
+        </tbody>
+        </table>    
+    </div>
+    <div id="content">
+        <h2>__generalSortie__</h2>
+		<p>__generalSituation__</p>
+        <h2>Tasks</h2>
+        <p>__generalTask__</p>
+	</div>
+</div>
+</body>
+</html>

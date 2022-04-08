@@ -78,7 +78,7 @@ namespace DcsBriefop.Data
 		{
 			string sInformation = "";
 			if (Side == ElementAssetSide.Own)
-				sInformation = $"TCN={GetTacanString()}";
+				sInformation = $"{GetTacanString()}";
 
 			return sInformation;
 		}

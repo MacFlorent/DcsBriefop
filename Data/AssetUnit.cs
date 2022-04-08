@@ -49,11 +49,14 @@ namespace DcsBriefop.Data
 			{
 				foreach(ComPreset comPreset in AssetGroup.Coalition.ComPresets)
 				{
-					MizRadio mizRadio = m_unit.Radios[comPreset.PresetRadio];
-					if (comPreset.PresetNumber < mizRadio.Modulations.Length)
-						mizRadio.Modulations[comPreset.PresetNumber] = comPreset.Radio.Modulation;
-					if (comPreset.PresetNumber < mizRadio.Channels.Length)
-						mizRadio.Channels[comPreset.PresetNumber] = comPreset.Radio.Frequency;
+					if (m_unit.Radios.Length > comPreset.PresetRadio)
+					{
+						MizRadio mizRadio = m_unit.Radios[comPreset.PresetRadio];
+						if (comPreset.PresetNumber < mizRadio.Modulations.Length)
+							mizRadio.Modulations[comPreset.PresetNumber] = comPreset.Radio.Modulation;
+						if (comPreset.PresetNumber < mizRadio.Channels.Length)
+							mizRadio.Channels[comPreset.PresetNumber] = comPreset.Radio.Frequency;
+					}
 				}
 			}
 		}

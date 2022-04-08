@@ -6,6 +6,7 @@ using System.Text;
 using DcsBriefop.Map;
 using GMap.NET.WindowsForms;
 using GMap.NET;
+using System;
 
 namespace DcsBriefop.Data
 {
@@ -103,10 +104,10 @@ namespace DcsBriefop.Data
 
 				if (Task == ElementTask.Refueling)
 				{
-					sbInformation.AppendWithSeparator($"TCN={GetTacanString()}", " ");
+					sbInformation.AppendWithSeparator($"{GetTacanString()}", " ");
 				}
 
-				sbInformation.AppendWithSeparator(GetBaseInformation(), " ");
+				//sbInformation.AppendWithSeparator(GetBaseInformation(), Environment.NewLine);
 				sInformation = sbInformation.ToString();
 			}
 
@@ -125,15 +126,6 @@ namespace DcsBriefop.Data
 		{
 			return GetBaseInformation();
 		}
-
-		//public string GetCallsign()
-		//{
-		//	string sCallsign = Units.OfType<MizUnitFlight>().FirstOrDefault()?.Callsign;
-		//	if (!string.IsNullOrEmpty(sCallsign))
-		//		return sCallsign.Substring(0, sCallsign.Length - 1);
-		//	else
-		//		return null;
-		//}
 
 		private string GetBaseInformation()
 		{

@@ -24,7 +24,7 @@ namespace DcsBriefop.Data
 		{
 			Weather = new Weather(Core.Miz.RootMission.Weather);
 			Sortie = Core.Miz.RootDictionary.Sortie;
-			Description = Core.Miz.RootDictionary.Description;
+			Description = Core.Miz.RootDictionary.Description.Replace("\\\n", Environment.NewLine);
 			Date = new DateTime(Core.Miz.RootMission.Date.Year, Core.Miz.RootMission.Date.Month, Core.Miz.RootMission.Date.Day).AddSeconds(Core.Miz.RootMission.StartTime);
 		}
 		#endregion
@@ -33,7 +33,7 @@ namespace DcsBriefop.Data
 		public override void Persist()
 		{
 			Core.Miz.RootDictionary.Sortie = Sortie;
-			Core.Miz.RootDictionary.Description = Description;
+			Core.Miz.RootDictionary.Description = Description.Replace(Environment.NewLine, "\\\n");
 			Core.Miz.RootMission.Date = new DateTime(Date.Year, Date.Month, Date.Day);
 			Core.Miz.RootMission.StartTime = Convert.ToInt32((Date - Core.Miz.RootMission.Date).TotalSeconds);
 		}

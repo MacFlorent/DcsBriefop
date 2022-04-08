@@ -154,7 +154,7 @@ namespace DcsBriefop
 			}
 
 			dgvr.Cells[GridColumn.Selected].Value = m_asset.MissionData.IsTarget(unit.Id);
-			dgvr.Cells[GridColumn.Asset].Value = target.Name;
+			dgvr.Cells[GridColumn.Asset].Value = target.Description;
 			dgvr.Cells[GridColumn.Id].Value = unit.Id;
 			dgvr.Cells[GridColumn.Type].Value = unit.Type;
 			dgvr.Cells[GridColumn.Localisation].Value = unit.GetLocalisation();

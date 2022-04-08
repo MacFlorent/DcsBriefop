@@ -1,5 +1,5 @@
-﻿using LsonLib;
-using System.Collections;
+﻿using DcsBriefop.Tools;
+using LsonLib;
 using System.Collections.Generic;
 
 namespace DcsBriefop.DataMiz
@@ -19,11 +19,16 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			LsonDict lsdModulations = Lsd[LuaNode.Modulations].GetDict();
-			Modulations = new int[lsdModulations.Count + 1];
-			foreach (KeyValuePair<LsonValue, LsonValue> kvp in lsdModulations)
+			LsonDict lsdModulations = Lsd.IfExists(LuaNode.Modulations)?.GetDict();
+			if (lsdModulations is null)
+				Modulations = new int[0];
+			else
 			{
-				Modulations[kvp.Key.GetInt()] = kvp.Value.GetInt();
+				Modulations = new int[lsdModulations.Count + 1];
+				foreach (KeyValuePair<LsonValue, LsonValue> kvp in lsdModulations)
+				{
+					Modulations[kvp.Key.GetInt()] = kvp.Value.GetIntLenientSafe().GetValueOrDefault(0);
+				}
 			}
 
 			LsonDict lsdChannels = Lsd[LuaNode.Channels].GetDict();
@@ -36,12 +41,15 @@ namespace DcsBriefop.DataMiz
 
 		public override void ToLua()
 		{
-			LsonDict lsdModulations = Lsd[LuaNode.Modulations].GetDict();
-			for (int i = 0; i < Modulations.Length; i++)
+			LsonDict lsdModulations = Lsd.IfExists(LuaNode.Modulations)?.GetDict();
+			if (lsdModulations is object)
 			{
-				if (lsdModulations.ContainsKey(i))
+				for (int i = 0; i < Modulations.Length; i++)
 				{
-					lsdModulations[i] = Modulations[i];
+					if (lsdModulations.ContainsKey(i))
+					{
+						lsdModulations[i] = Modulations[i];
+					}
 				}
 			}
 

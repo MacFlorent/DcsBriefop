@@ -6,7 +6,6 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 //https://stackoverflow.com/questions/9308673/how-to-draw-circle-on-the-map-using-gmap-net-in-c-sharp

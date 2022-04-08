@@ -45,7 +45,7 @@ namespace DcsBriefop.UcBriefing
 			TbBullseyeCoordinates.Text = Coalition.GetBullseyeCoordinatesString();
 			TbBullseyeDescription.Text = Coalition.BullseyeDescription;
 			CkBullseyeWaypoint.Checked = Coalition.BullseyeWaypoint;
-			TbTask.Text = Coalition.Task;
+			TbTask.Text = Coalition.Task.Replace("\\\n", Environment.NewLine);
 
 			TcAssets.TabPages.Clear();
 
@@ -86,6 +86,13 @@ namespace DcsBriefop.UcBriefing
 			}
 
 			SetComPresetButton();
+		}
+
+		public override void ScreenToData()
+		{
+			Coalition.BullseyeDescription = TbBullseyeDescription.Text;
+			Coalition.Task = TbTask.Text.Replace(Environment.NewLine, "\\\n"); ;
+			Coalition.BullseyeWaypoint = CkBullseyeWaypoint.Checked;
 		}
 
 		private void SetComPresetButton()
@@ -147,13 +154,6 @@ namespace DcsBriefop.UcBriefing
 			dgv.Columns.Add(GridColumn.Data, "");
 
 			dgv.Columns[GridColumn.Data].Visible = false;
-		}
-
-		public override void ScreenToData()
-		{
-			Coalition.BullseyeDescription = TbBullseyeDescription.Text;
-			Coalition.Task = TbTask.Text;
-			Coalition.BullseyeWaypoint = CkBullseyeWaypoint.Checked;
 		}
 
 		private void RefreshGridRow(DataGridView dgv, Asset asset)

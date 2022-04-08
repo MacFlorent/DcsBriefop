@@ -117,7 +117,7 @@ namespace DcsBriefop.Data
 		public List<PointLatLng> InitializeMapDataPoint(GMapOverlay staticOverlay)
 		{
 			PointLatLng p = new PointLatLng(MapPoints[0].Coordinate.Latitude.DecimalDegree, MapPoints[0].Coordinate.Longitude.DecimalDegree);
-			GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName (p, MapMarker, Color, Name, 1, 0);
+			GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName (p, MapMarker, Color, Description, 1, 0);
 			staticOverlay.Markers.Add(marker);
 
 			return new List<PointLatLng>() { p };
@@ -140,7 +140,7 @@ namespace DcsBriefop.Data
 					GMarkerBriefop marker;
 					if (sPattern == "Circle" || iCount == MapPoints.Count)
 					{
-						marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Circle, Color, Name, 2, 0);
+						marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Circle, Color, Description, 2, 0);
 						bDone = true;
 					}
 					else
@@ -163,7 +163,7 @@ namespace DcsBriefop.Data
 
 			if (points.Count > 1)
 			{
-				GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, Name, ElementMapTemplateRoute.DashDot, Color, 2);
+				GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, Description, ElementMapTemplateRoute.DashDot, Color, 2);
 				staticOverlay.Routes.Add(route);
 			}
 
@@ -184,7 +184,7 @@ namespace DcsBriefop.Data
 
 			if (points.Count > 1)
 			{
-				GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, Name, ElementMapTemplateRoute.DashDot, Color, 2);
+				GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, Description, ElementMapTemplateRoute.DashDot, Color, 2);
 				staticOverlay.Routes.Add(route);
 			}
 

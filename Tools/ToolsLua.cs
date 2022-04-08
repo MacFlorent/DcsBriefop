@@ -9,13 +9,13 @@ namespace DcsBriefop.Tools
 		public static string ReadLuaFileContent(string sFilePath)
 		{
 			string sFileContent = File.ReadAllText(sFilePath);
-			return sFileContent.Replace("\\\n", "\r\n");
+			sFileContent = sFileContent.Replace("\r\n", "\n");
+			return sFileContent;
 		}
 
 		public static string LsonRootToCorrectedString(Dictionary<string, LsonValue> root)
 		{
 			string s = LsonVars.ToString(root);
-			s = s.Replace("\\r\\n", "\\\n");
 			s = s.Replace("\r\n", "\n");
 			s = s.Replace("\t", "    ");
 
