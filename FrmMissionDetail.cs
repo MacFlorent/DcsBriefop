@@ -45,6 +45,7 @@ namespace DcsBriefop
 			DgvRoutePoints.ReadOnly = true;
 
 			DataToScreen();
+			ToolsStyle.ApplyStyle(this);
 		}
 		#endregion
 
@@ -63,8 +64,6 @@ namespace DcsBriefop
 			DataToScreenTargets();
 
 			UpdateMapControl();
-
-			ToolsStyle.ApplyStyle(this);
 		}
 
 		private void DataToScreenRoutePoints()

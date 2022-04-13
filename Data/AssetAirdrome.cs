@@ -41,19 +41,19 @@ namespace DcsBriefop.Data
 
 				if (IsAssetBase())
 				{
-					m_briefopCustomAirdrome.Usage = (int)ElementAssetUsage.Base;
+					m_briefopCustomAirdrome.Included = true;
 					m_briefopCustomAirdrome.MapDisplay = (int)ElementAssetMapDisplay.Point;
 				}
 				else
 				{
-					m_briefopCustomAirdrome.Usage = (int)ElementAssetUsage.Excluded;
+					m_briefopCustomAirdrome.Included = false;
 					m_briefopCustomAirdrome.MapDisplay = (int)ElementAssetMapDisplay.None;
 				}
 
 				m_briefopCustomAirdrome.SetDefaultData();
 			}
 
-			Usage = (ElementAssetUsage)m_briefopCustomAirdrome.Usage;
+			Included = m_briefopCustomAirdrome.Included;
 			MapDisplay = (ElementAssetMapDisplay)m_briefopCustomAirdrome.MapDisplay;
 		}
 
@@ -62,6 +62,7 @@ namespace DcsBriefop.Data
 			base.InitializeData();
 			
 			MapMarker = ElementMapTemplateMarker.Airdrome;
+			Function = ElementAssetFunction.Base;
 
 			Id = m_airdrome.Id;
 			Name = Description = m_airdrome.Name;
@@ -86,7 +87,7 @@ namespace DcsBriefop.Data
 		#region Methods
 		public override void Persist()
 		{
-			m_briefopCustomAirdrome.Usage = (int)Usage;
+			m_briefopCustomAirdrome.Included = Included;
 			m_briefopCustomAirdrome.MapDisplay = (int)MapDisplay;
 			m_briefopCustomAirdrome.Information = m_customInformation;
 		}

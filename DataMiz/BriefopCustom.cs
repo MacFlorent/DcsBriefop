@@ -13,6 +13,7 @@ namespace DcsBriefop.DataMiz
 
 		public List<BriefopCustomCoalition> Coalitions { get; private set; } = new List<BriefopCustomCoalition>();
 		public List<BriefopCustomGroup> AssetGroups { get; set; } = new List<BriefopCustomGroup>();
+		public List<BriefopCustomUnit> AssetUnits { get; set; } = new List<BriefopCustomUnit>();
 		public List<BriefopCustomAirdrome> AssetAirdromes { get; set; } = new List<BriefopCustomAirdrome>();
 		public List<BriefopCustomMission> Missions { get; set; } = new List<BriefopCustomMission>();
 
@@ -26,11 +27,6 @@ namespace DcsBriefop.DataMiz
 
 		public string SerializeToJson(Formatting formatting)
 		{
-			//MapData = null;
-			//Coalitions = null;
-			//AssetGroups = null;
-			//AssetAirdromes = null;
-			//Missions = null;
 			return JsonConvert.SerializeObject(this, formatting, m_serializeConverters);
 		}
 
@@ -42,6 +38,11 @@ namespace DcsBriefop.DataMiz
 		public BriefopCustomGroup GetGroup(int iAssetId, string sCoalitionName)
 		{
 			return AssetGroups.Where(_g => _g.Id == iAssetId && _g.CoalitionName == sCoalitionName).FirstOrDefault();
+		}
+
+		public BriefopCustomUnit GetUnit(int iUnitId, string sCoalitionName)
+		{
+			return AssetUnits.Where(_u => _u.Id == iUnitId && _u.CoalitionName == sCoalitionName).FirstOrDefault();
 		}
 
 		public BriefopCustomAirdrome GetAirdrome(int iAssetId, string sCoalitionName)

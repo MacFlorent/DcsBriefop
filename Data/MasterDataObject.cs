@@ -34,24 +34,24 @@ namespace DcsBriefop.Data
 
 		static MasterDataRepository()
 		{
-			m_repository.Add(MasterDataType.AssetUsage, BuildListAssetUsage());
+			//m_repository.Add(MasterDataType.AssetUsage, BuildListAssetUsage());
 			m_repository.Add(MasterDataType.AssetMapDisplay, BuildListAssetMapDisplay());
 			m_repository.Add(MasterDataType.ExportFileType, BuildListExportFileTypes());
 			m_repository.Add(MasterDataType.RadioModulation, BuildListRadioModulation());
 			m_repository.Add(MasterDataType.ComPresetMode, BuildListComPresetMode());
 		}
 
-		private static List<MasterDataObject> BuildListAssetUsage()
-		{
-			return new List<MasterDataObject>()
-			{
-				new MasterDataObject() { Id = (int)ElementAssetUsage.Excluded, Label = "Excluded" },
-				new MasterDataObject() { Id = (int)ElementAssetUsage.MissionWithDetail, Label = "Mission with detail" },
-				new MasterDataObject() { Id = (int)ElementAssetUsage.Mission, Label = "Mission" },
-				new MasterDataObject() { Id = (int)ElementAssetUsage.Support, Label = "Support" },
-				new MasterDataObject() { Id = (int)ElementAssetUsage.Base, Label = "Base" }
-			};
-		}
+		//private static List<MasterDataObject> BuildListAssetUsage()
+		//{
+		//	return new List<MasterDataObject>()
+		//	{
+		//		new MasterDataObject() { Id = (int)ElementAssetUsage.Excluded, Label = "Excluded" },
+		//		new MasterDataObject() { Id = (int)ElementAssetUsage.MissionWithDetail, Label = "Mission with detail" },
+		//		new MasterDataObject() { Id = (int)ElementAssetUsage.Mission, Label = "Mission" },
+		//		new MasterDataObject() { Id = (int)ElementAssetUsage.Support, Label = "Support" },
+		//		new MasterDataObject() { Id = (int)ElementAssetUsage.Base, Label = "Base" }
+		//	};
+		//}
 
 		private static List<MasterDataObject> BuildListAssetMapDisplay()
 		{

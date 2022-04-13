@@ -171,7 +171,7 @@ namespace DcsBriefop.Data
 				}
 			}
 
-			foreach (AssetShip ship in coalition.OwnAssets.OfType<AssetShip>().Where(_s => _s.Usage == ElementAssetUsage.Base))
+			foreach (AssetShip ship in coalition.OwnAssets.OfType<AssetShip>().Where(_s => _s.Included))
 			{
 				iNumber++;
 				preset = GetPreset(iRadio, iNumber);
@@ -183,7 +183,7 @@ namespace DcsBriefop.Data
 				}
 			}
 
-			foreach (AssetFlight flight in coalition.OwnAssets.OfType<AssetFlight>().Where(_f => _f.Usage == ElementAssetUsage.Support))
+			foreach (AssetFlight flight in coalition.OwnAssets.OfType<AssetFlight>().Where(_f => _f.Included))
 			{
 
 				iNumber++;

@@ -18,11 +18,12 @@ namespace DcsBriefop.Data
 		#region Properties
 		public BriefingCoalition Coalition { get; protected set; }
 		public ElementAssetSide Side { get; set; }
+		public ElementAssetFunction Function { get; set; }
 
 
 		public string MapMarker { get; set; }
 		public Color Color { get; set; }
-		public ElementAssetUsage Usage { get; set; }
+		public bool Included { get; set; }
 		public ElementAssetMapDisplay MapDisplay { get; set; }
 		public int Id { get; set; }
 		public string Name { get; set; }
@@ -70,6 +71,7 @@ namespace DcsBriefop.Data
 		protected virtual void InitializeData()
 		{
 			MapMarker = ElementMapTemplateMarker.Mark;
+			Function = ElementAssetFunction.Other;
 
 			if (Side == ElementAssetSide.Own)
 			{
@@ -87,7 +89,7 @@ namespace DcsBriefop.Data
 
 		protected virtual void InitializeDataCustom()
 		{
-			Usage = ElementAssetUsage.Excluded;
+			Included = false;
 			MapDisplay = ElementAssetMapDisplay.None;
 		}
 

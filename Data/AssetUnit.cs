@@ -9,10 +9,12 @@ namespace DcsBriefop.Data
 	{
 		#region Fields
 		private MizUnit m_unit;
+		private BriefopCustomUnit m_briefopCustomUnit;
 		#endregion
 
 		#region Properties
 		public AssetGroup AssetGroup { get; set; }
+		public bool Included { get; set; }
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public string GroupName { get; set; }
@@ -28,9 +30,23 @@ namespace DcsBriefop.Data
 			m_unit = unit;
 			AssetGroup = group;
 
+			Initialize();
+		}
+		#endregion
+
+		#region Initialize
+		protected void Initialize()
+		{
+			InitializeData();
+			InitializeDataCustom();
+		}
+
+		protected void InitializeData()
+		{
 			Id = m_unit.Id;
 			Name = m_unit.Name;
 			Type = m_unit.Type;
+			Description = m_unit.Type;
 			Coordinate = Core.Theatre.GetCoordinate(m_unit.Y, m_unit.X);
 
 			DcsUnit dcsUnit = DcsUnitManager.GetUnit(Type);
@@ -40,11 +56,32 @@ namespace DcsBriefop.Data
 				Information = dcsUnit.Information;
 			}
 		}
+
+		protected void InitializeDataCustom()
+		{
+			m_briefopCustomUnit = Core.Miz.BriefopCustomData.GetUnit(Id, AssetGroup.Coalition.CoalitionName);
+
+			if (m_briefopCustomUnit is null)
+			{
+				m_briefopCustomUnit = new BriefopCustomUnit(Id, AssetGroup.Coalition.CoalitionName);
+				Core.Miz.BriefopCustomData.AssetUnits.Add(m_briefopCustomUnit);
+
+				m_briefopCustomUnit.Included = false;
+
+				m_briefopCustomUnit.SetDefaultData();
+			}
+
+			Included = m_briefopCustomUnit.Included;
+		}
 		#endregion
 
 		#region Methods
 		public override void Persist()
 		{
+			base.Persist();
+			
+			m_briefopCustomUnit.Included = Included;
+
 			if (m_unit.Radios is object && m_unit.Radios.Length > 0 && AssetGroup.Coalition.ComPresets is object && AssetGroup.Coalition.ComPresets.Count > 0)
 			{
 				foreach(ComPreset comPreset in AssetGroup.Coalition.ComPresets)

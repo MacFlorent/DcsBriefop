@@ -27,14 +27,16 @@ namespace DcsBriefop.Data
 			base.InitializeData();
 			
 			MapMarker = GetMarkerFromUnit() ?? ElementMapTemplateMarker.Ship;
-			
 
-			MainUnit = GroupShip.Units.OfType<MizUnitShip>().Where(_us => _us.Type.StartsWith("CVN")).FirstOrDefault();
+				MainUnit = GroupShip.Units.OfType<MizUnitShip>().Where(_us => _us.Type.StartsWith("CVN")).FirstOrDefault();
 			if (MainUnit is null)
 				MainUnit = GroupShip.Units.OfType<MizUnitShip>().FirstOrDefault();
 
 			Type = MainUnit.Type;
 			Radio = new Radio() { Frequency = MainUnit.RadioFrequency / 1000000, Modulation = MainUnit.RadioModulation };
+
+			if (Type.StartsWith("CVN"))
+				Function = ElementAssetFunction.Base;
 		}
 
 		protected override void InitializeDataCustom()
@@ -46,21 +48,21 @@ namespace DcsBriefop.Data
 				m_briefopCustomGroup = new BriefopCustomGroup(Id, Coalition.CoalitionName);
 				Core.Miz.BriefopCustomData.AssetGroups.Add(m_briefopCustomGroup);
 
-				if (Type.StartsWith("CVN"))
+				if (Function == ElementAssetFunction.Base)
 				{
-					m_briefopCustomGroup.Usage = (int)ElementAssetUsage.Base;
+					m_briefopCustomGroup.Included = (Side == ElementAssetSide.Own);
 					m_briefopCustomGroup.MapDisplay = (int)ElementAssetMapDisplay.Point;
 				}
 				else
 				{
-					m_briefopCustomGroup.Usage = (int)ElementAssetUsage.Excluded;
+					m_briefopCustomGroup.Included = false;
 					m_briefopCustomGroup.MapDisplay = (int)ElementAssetMapDisplay.None;
 				}
 
 				m_briefopCustomGroup.SetDefaultData();
 			}
 
-			Usage = (ElementAssetUsage)m_briefopCustomGroup.Usage;
+			Included = m_briefopCustomGroup.Included;
 			MapDisplay = (ElementAssetMapDisplay)m_briefopCustomGroup.MapDisplay;
 		}
 		#endregion

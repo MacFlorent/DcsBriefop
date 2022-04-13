@@ -107,7 +107,7 @@ namespace DcsBriefop.Data
 			}
 
 			InitializeMapDataChildrenOverlays();
-			InitializeFlightDataMissions();
+			//InitializeFlightDataMissions();
 		}
 
 		private void InitializeMapData()
@@ -153,13 +153,13 @@ namespace DcsBriefop.Data
 			}
 		}
 
-		private void InitializeFlightDataMissions()
-		{
-			foreach (AssetFlight asset in OwnAssets.OfType<AssetFlight>())
-			{
-				asset.SetMissionData();
-			}
-		}
+		//private void InitializeFlightDataMissions()
+		//{
+		//	foreach (AssetFlight asset in OwnAssets.OfType<AssetFlight>())
+		//	{
+		//		asset.SetMissionData();
+		//	}
+		//}
 
 		public void InitializeBullseyeWaypoints()
 		{

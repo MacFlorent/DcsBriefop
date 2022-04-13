@@ -38,6 +38,11 @@ namespace DcsBriefop.UcBriefing
 			this.TcAssets = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.CkBullseyeWaypoint = new System.Windows.Forms.CheckBox();
+			this.CkFilterFlights = new System.Windows.Forms.CheckBox();
+			this.CkFilterVehicles = new System.Windows.Forms.CheckBox();
+			this.CkFilterShips = new System.Windows.Forms.CheckBox();
+			this.CkFilterStatics = new System.Windows.Forms.CheckBox();
+			this.CkFilterExcluded = new System.Windows.Forms.CheckBox();
 			this.TcAssets.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -49,7 +54,7 @@ namespace DcsBriefop.UcBriefing
 			this.TbTask.Multiline = true;
 			this.TbTask.Name = "TbTask";
 			this.TbTask.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbTask.Size = new System.Drawing.Size(659, 151);
+			this.TbTask.Size = new System.Drawing.Size(659, 114);
 			this.TbTask.TabIndex = 3;
 			// 
 			// LbTask
@@ -115,10 +120,10 @@ namespace DcsBriefop.UcBriefing
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.TcAssets.Controls.Add(this.tabPage1);
-			this.TcAssets.Location = new System.Drawing.Point(8, 280);
+			this.TcAssets.Location = new System.Drawing.Point(8, 246);
 			this.TcAssets.Name = "TcAssets";
 			this.TcAssets.SelectedIndex = 0;
-			this.TcAssets.Size = new System.Drawing.Size(654, 281);
+			this.TcAssets.Size = new System.Drawing.Size(654, 297);
 			this.TcAssets.TabIndex = 10;
 			// 
 			// tabPage1
@@ -126,7 +131,7 @@ namespace DcsBriefop.UcBriefing
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(646, 255);
+			this.tabPage1.Size = new System.Drawing.Size(646, 271);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "tabPage1";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -142,10 +147,85 @@ namespace DcsBriefop.UcBriefing
 			this.CkBullseyeWaypoint.UseVisualStyleBackColor = true;
 			this.CkBullseyeWaypoint.CheckedChanged += new System.EventHandler(this.CkBullseyeWaypoint_CheckedChanged);
 			// 
+			// CkFilterFlights
+			// 
+			this.CkFilterFlights.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.CkFilterFlights.AutoSize = true;
+			this.CkFilterFlights.Checked = true;
+			this.CkFilterFlights.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.CkFilterFlights.Location = new System.Drawing.Point(68, 545);
+			this.CkFilterFlights.Name = "CkFilterFlights";
+			this.CkFilterFlights.Size = new System.Drawing.Size(56, 17);
+			this.CkFilterFlights.TabIndex = 12;
+			this.CkFilterFlights.Text = "Flights";
+			this.CkFilterFlights.UseVisualStyleBackColor = true;
+			this.CkFilterFlights.CheckedChanged += new System.EventHandler(this.CkAssetFilter_CheckedChanged);
+			// 
+			// CkFilterVehicles
+			// 
+			this.CkFilterVehicles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.CkFilterVehicles.AutoSize = true;
+			this.CkFilterVehicles.Checked = true;
+			this.CkFilterVehicles.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.CkFilterVehicles.Location = new System.Drawing.Point(130, 545);
+			this.CkFilterVehicles.Name = "CkFilterVehicles";
+			this.CkFilterVehicles.Size = new System.Drawing.Size(66, 17);
+			this.CkFilterVehicles.TabIndex = 13;
+			this.CkFilterVehicles.Text = "Vehicles";
+			this.CkFilterVehicles.UseVisualStyleBackColor = true;
+			this.CkFilterVehicles.CheckedChanged += new System.EventHandler(this.CkAssetFilter_CheckedChanged);
+			// 
+			// CkFilterShips
+			// 
+			this.CkFilterShips.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.CkFilterShips.AutoSize = true;
+			this.CkFilterShips.Checked = true;
+			this.CkFilterShips.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.CkFilterShips.Location = new System.Drawing.Point(202, 545);
+			this.CkFilterShips.Name = "CkFilterShips";
+			this.CkFilterShips.Size = new System.Drawing.Size(52, 17);
+			this.CkFilterShips.TabIndex = 14;
+			this.CkFilterShips.Text = "Ships";
+			this.CkFilterShips.UseVisualStyleBackColor = true;
+			this.CkFilterShips.CheckedChanged += new System.EventHandler(this.CkAssetFilter_CheckedChanged);
+			// 
+			// CkFilterStatics
+			// 
+			this.CkFilterStatics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.CkFilterStatics.AutoSize = true;
+			this.CkFilterStatics.Checked = true;
+			this.CkFilterStatics.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.CkFilterStatics.Location = new System.Drawing.Point(260, 545);
+			this.CkFilterStatics.Name = "CkFilterStatics";
+			this.CkFilterStatics.Size = new System.Drawing.Size(58, 17);
+			this.CkFilterStatics.TabIndex = 15;
+			this.CkFilterStatics.Text = "Statics";
+			this.CkFilterStatics.UseVisualStyleBackColor = true;
+			this.CkFilterStatics.CheckedChanged += new System.EventHandler(this.CkAssetFilter_CheckedChanged);
+			// 
+			// CkFilterExcluded
+			// 
+			this.CkFilterExcluded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.CkFilterExcluded.AutoSize = true;
+			this.CkFilterExcluded.Checked = true;
+			this.CkFilterExcluded.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.CkFilterExcluded.Location = new System.Drawing.Point(324, 545);
+			this.CkFilterExcluded.Name = "CkFilterExcluded";
+			this.CkFilterExcluded.Size = new System.Drawing.Size(70, 17);
+			this.CkFilterExcluded.TabIndex = 16;
+			this.CkFilterExcluded.Text = "Excluded";
+			this.CkFilterExcluded.UseVisualStyleBackColor = true;
+			this.CkFilterExcluded.CheckedChanged += new System.EventHandler(this.CkAssetFilter_CheckedChanged);
+			// 
 			// UcBriefingCoalition
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.CkFilterExcluded);
+			this.Controls.Add(this.CkFilterStatics);
+			this.Controls.Add(this.CkFilterShips);
+			this.Controls.Add(this.CkFilterVehicles);
+			this.Controls.Add(this.CkFilterFlights);
 			this.Controls.Add(this.CkBullseyeWaypoint);
 			this.Controls.Add(this.TcAssets);
 			this.Controls.Add(this.BtComPresets);
@@ -172,5 +252,10 @@ namespace DcsBriefop.UcBriefing
 		private System.Windows.Forms.TabControl TcAssets;
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.CheckBox CkBullseyeWaypoint;
+		private System.Windows.Forms.CheckBox CkFilterFlights;
+		private System.Windows.Forms.CheckBox CkFilterVehicles;
+		private System.Windows.Forms.CheckBox CkFilterShips;
+		private System.Windows.Forms.CheckBox CkFilterStatics;
+		private System.Windows.Forms.CheckBox CkFilterExcluded;
 	}
 }

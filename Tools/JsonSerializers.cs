@@ -137,6 +137,28 @@ namespace DcsBriefop.Tools
 		}
 	}
 
+	internal class ListBriefopCustomUnitJsonConverter : JsonConverter<List<BriefopCustomUnit>>
+	{
+		public override void WriteJson(JsonWriter writer, List<BriefopCustomUnit> value, JsonSerializer serializer)
+		{
+			if (value is object && value.Count >= 0)
+			{
+				JArray ja = new JArray();
+				foreach (BriefopCustomUnit customDataUnit in value.Where(_u => !_u.IsDefaultData()))
+				{
+					ja.Add(JToken.FromObject(customDataUnit, serializer));
+				}
+
+				ja.WriteTo(writer);
+			}
+		}
+
+		public override List<BriefopCustomUnit> ReadJson(JsonReader reader, Type objectType, List<BriefopCustomUnit> existingValue, bool hasExistingValue, JsonSerializer serializer)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
 	internal class ListBriefopCustomAirdromeJsonConverter : JsonConverter<List<BriefopCustomAirdrome>>
 	{
 		public override void WriteJson(JsonWriter writer, List<BriefopCustomAirdrome> value, JsonSerializer serializer)

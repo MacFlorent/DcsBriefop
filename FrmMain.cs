@@ -24,7 +24,7 @@ namespace DcsBriefop
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			this.Icon = Tools.ToolsImage.GetIconResource("icon16");
+			this.Icon = ToolsResources.GetIconResource("icon16");
 			BuildMenu();
 		}
 		#endregion
@@ -42,10 +42,13 @@ namespace DcsBriefop
 				{
 					ToolsSettings.SetWorkingDirectory(Path.GetDirectoryName(ofd.FileName));
 
-					m_missionManager = new MissionManager(ofd.FileName);
-					m_briefingContainer = new BriefingContainer(m_missionManager.Miz);
-					BuildMenu();
-					DataToScreen();
+					using (new WaitDialog(this))
+					{
+						m_missionManager = new MissionManager(ofd.FileName);
+						m_briefingContainer = new BriefingContainer(m_missionManager.Miz);
+						BuildMenu();
+						DataToScreen();
+					}
 				}
 			}
 		}
@@ -55,10 +58,13 @@ namespace DcsBriefop
 			if (m_missionManager is null)
 				throw new ExceptionDcsBriefop("No mission is currently loaded");
 
-			m_missionManager.MizLoad();
-			m_briefingContainer = new BriefingContainer(m_missionManager.Miz);
-			BuildMenu();
-			DataToScreen();
+			using (new WaitDialog(this))
+			{
+				m_missionManager.MizLoad();
+				m_briefingContainer = new BriefingContainer(m_missionManager.Miz);
+				BuildMenu();
+				DataToScreen();
+			}
 		}
 
 		private void MizSave(string sMizFilePath)
@@ -66,10 +72,14 @@ namespace DcsBriefop
 			if (m_missionManager is null)
 				throw new ExceptionDcsBriefop("No mission is currently loaded");
 
-			ScreenToData();
+			using (new WaitDialog(this))
+			{
+				ScreenToData();
 
-			m_briefingContainer.Persist();
-			m_missionManager.MizSave(sMizFilePath);
+				m_briefingContainer.Persist();
+				m_missionManager.MizSave(sMizFilePath);
+			}
+			
 			MizReload();
 		}
 
@@ -212,19 +222,22 @@ namespace DcsBriefop
 
 		private void CoalitionMenuClick(ToolStripMenuItem tsmiBriefingCoalition, string sCoalitionName)
 		{
-			BriefingCoalition coalition = m_briefingContainer.GetCoalition(sCoalitionName);
-			if (coalition is null)
+			using (new WaitDialog(this))
 			{
-				m_briefingContainer.AddCoalition(sCoalitionName);
-				coalition = m_briefingContainer.GetCoalition(sCoalitionName);
-				coalition.Included = false;
+				BriefingCoalition coalition = m_briefingContainer.GetCoalition(sCoalitionName);
+				if (coalition is null)
+				{
+					m_briefingContainer.AddCoalition(sCoalitionName);
+					coalition = m_briefingContainer.GetCoalition(sCoalitionName);
+					coalition.Included = false;
+				}
+
+				coalition.Included = !coalition.Included;
+				tsmiBriefingCoalition.Checked = coalition.Included;
+
+				ScreenToData();
+				DataToScreen();
 			}
-
-			coalition.Included = !coalition.Included;
-			tsmiBriefingCoalition.Checked = coalition.Included;
-
-			ScreenToData();
-			DataToScreen();
 		}
 
 		#endregion

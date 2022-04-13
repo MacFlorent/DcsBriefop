@@ -10,13 +10,20 @@ namespace DcsBriefop.Data
 		Opposing = 2
 	}
 
-	internal enum ElementAssetUsage
+	//internal enum ElementAssetUsage
+	//{
+	//	Excluded = 0,
+	//	MissionWithDetail = 1,
+	//	Mission = 2,
+	//	Support = 3,
+	//	Base = 4
+	//}
+
+	internal enum ElementAssetFunction
 	{
-		Excluded = 0,
-		MissionWithDetail = 1,
-		Mission = 2,
-		Support = 3,
-		Base = 4
+		Other = 0,
+		Support = 1,
+		Base = 2
 	}
 
 	internal enum ElementAssetMapDisplay

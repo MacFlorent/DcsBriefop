@@ -54,13 +54,13 @@ namespace DcsBriefop.Data
 				m_briefopCustomGroup = new BriefopCustomGroup(Id, Coalition.CoalitionName);
 				Core.Miz.BriefopCustomData.AssetGroups.Add(m_briefopCustomGroup);
 
-				m_briefopCustomGroup.Usage = (int)ElementAssetUsage.Excluded;
+				m_briefopCustomGroup.Included = false;
 				m_briefopCustomGroup.MapDisplay = (int)ElementAssetMapDisplay.None;
 
 				m_briefopCustomGroup.SetDefaultData();
 			}
 
-			Usage = (ElementAssetUsage)m_briefopCustomGroup.Usage;
+			Included = m_briefopCustomGroup.Included;
 			MapDisplay = (ElementAssetMapDisplay)m_briefopCustomGroup.MapDisplay;
 		}
 
@@ -80,7 +80,7 @@ namespace DcsBriefop.Data
 		{
 			base.Persist();
 
-			m_briefopCustomGroup.Usage = (int)Usage;
+			m_briefopCustomGroup.Included = Included;
 			m_briefopCustomGroup.MapDisplay = (int)MapDisplay;
 			m_briefopCustomGroup.Information = m_customInformation;
 

@@ -43,6 +43,9 @@ namespace DcsBriefop.Data
 			Type = MizGroupFlight.Units.OfType<MizUnitFlight>().FirstOrDefault()?.Type;
 			Description = $"{Callsign} | {m_mizGroup.Name}";
 			Radio = new Radio() { Frequency = MizGroupFlight.RadioFrequency, Modulation = MizGroupFlight.RadioModulation };
+
+			if (Task == ElementTask.Awacs || Task == ElementTask.Refueling)
+				Function = ElementAssetFunction.Support;
 		}
 
 		protected override void InitializeDataCustom()
@@ -56,29 +59,29 @@ namespace DcsBriefop.Data
 
 				if (Side != ElementAssetSide.Own)
 				{
-					m_briefopCustomGroup.Usage = (int)ElementAssetUsage.Excluded;
+					m_briefopCustomGroup.Included = false;
 					m_briefopCustomGroup.MapDisplay = (int)ElementAssetMapDisplay.None;
 				}
 				else if (Playable)
 				{
-					m_briefopCustomGroup.Usage = (int)ElementAssetUsage.MissionWithDetail;
+					m_briefopCustomGroup.Included = false;
 					m_briefopCustomGroup.MapDisplay = (int)ElementAssetMapDisplay.None;
 				}
-				else if (Task == ElementTask.Awacs || Task == ElementTask.Refueling)
+				else if (Function == ElementAssetFunction.Support)
 				{
-					m_briefopCustomGroup.Usage = (int)ElementAssetUsage.Support;
+					m_briefopCustomGroup.Included = true;
 					m_briefopCustomGroup.MapDisplay = (int)ElementAssetMapDisplay.Orbit;
 				}
 				else
 				{
-					m_briefopCustomGroup.Usage = (int)ElementAssetUsage.Mission;
+					m_briefopCustomGroup.Included = false;
 					m_briefopCustomGroup.MapDisplay = (int)ElementAssetMapDisplay.None;
 				}
 
 				m_briefopCustomGroup.SetDefaultData();
 			}
 
-			Usage = (ElementAssetUsage)m_briefopCustomGroup.Usage;
+			Included = m_briefopCustomGroup.Included;
 			MapDisplay = (ElementAssetMapDisplay)m_briefopCustomGroup.MapDisplay;
 		}
 		#endregion
@@ -202,13 +205,13 @@ namespace DcsBriefop.Data
 			}
 		}
 
-		public void SetMissionData()
-		{
-			if (Usage == ElementAssetUsage.MissionWithDetail)
-				AddMissionData();
-			else
-				RemoveMissionData();
-		}
+		//public void SetMissionData()
+		//{
+		//	if (Usage == ElementAssetUsage.MissionWithDetail)
+		//		AddMissionData();
+		//	else
+		//		RemoveMissionData();
+		//}
 
 		private void AddBullseyeWaypoint()
 		{
@@ -250,7 +253,7 @@ namespace DcsBriefop.Data
 
 			InitializeMapOverlay();
 			RemoveMissionData();
-			SetMissionData();
+			//SetMissionData();
 		}
 		#endregion
 	}

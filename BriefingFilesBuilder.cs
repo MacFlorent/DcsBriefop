@@ -196,11 +196,7 @@ namespace DcsBriefop
 			string sLineRaw, sLineCleaned;
 			PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "missionLine");
 			StringBuilder sb = new StringBuilder();
-			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.MissionWithDetail))
-			{
-				GenerateHtmlOperationsMissionLine(sb, sLineCleaned, asset);
-			}
-			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Mission))
+			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Other))
 			{
 				GenerateHtmlOperationsMissionLine(sb, sLineCleaned, asset);
 			}
@@ -208,15 +204,15 @@ namespace DcsBriefop
 
 			PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "supportLine");
 			sb.Clear();
-			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Support))
+			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Support))
 			{
 				GenerateHtmlOperationsSupportLine(sb, sLineCleaned, supportAsset);
 			}
-			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Base))
+			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base))
 			{
 				GenerateHtmlOperationsSupportLine(sb, sLineCleaned, supportAsset);
 			}
-			foreach (Asset supportAsset in coalition.Airdromes.Where(_a => _a.Usage == ElementAssetUsage.Base && _a.Side == ElementAssetSide.Own))
+			foreach (Asset supportAsset in coalition.Airdromes.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base && _a.Side == ElementAssetSide.Own))
 			{
 				GenerateHtmlOperationsSupportLine(sb, sLineCleaned, supportAsset);
 			}
@@ -289,15 +285,15 @@ namespace DcsBriefop
 			string sLineRaw, sLineCleaned;
 			PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "supportLine");
 			StringBuilder sb = new StringBuilder();
-			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Support))
+			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Support))
 			{
 				GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
 			}
-			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Base))
+			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base))
 			{
 				GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
 			}
-			foreach (Asset supportAsset in coalition.Airdromes.Where(_a => _a.Usage == ElementAssetUsage.Base && _a.Side == ElementAssetSide.Own))
+			foreach (Asset supportAsset in coalition.Airdromes.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base && _a.Side == ElementAssetSide.Own))
 			{
 				GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
 			}

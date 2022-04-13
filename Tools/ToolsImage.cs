@@ -33,22 +33,6 @@ namespace DcsBriefop.Tools
 
 			return bmp;
 		}
-
-		public static Icon GetIconResource(string sResource)
-		{
-			Icon ico = null;
-			object oResource = Properties.Resources.ResourceManager.GetObject(sResource, Properties.Resources.Culture);
-			if (oResource is Icon i)
-				ico = i;
-			else if (oResource is Bitmap b)
-			{
-				IntPtr icH = b.GetHicon();
-				ico = Icon.FromHandle(icH);
-				//DestroyIcon(icH);
-			}
-
-			return ico;
-		}
 		#endregion
 
 		#region Color

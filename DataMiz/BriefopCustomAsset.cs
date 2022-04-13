@@ -4,7 +4,7 @@
 	{
 		public int Id { get; set; }
 		public string CoalitionName { get; set; }
-		public int Usage { get; set; }
+		public bool Included { get; set; }
 		public int MapDisplay { get; set; }
 		public string Information { get; set; }
 
@@ -23,5 +23,18 @@
 	internal class BriefopCustomGroup : BriefopCustomAsset
 	{
 		public BriefopCustomGroup(int iId, string sCoalitionName) : base(iId, sCoalitionName) { }
+	}
+
+	internal class BriefopCustomUnit : BaseBriefopCustomWithDefault
+	{
+		public int Id { get; set; }
+		public string CoalitionName { get; set; }
+		public bool Included { get; set; }
+
+		public BriefopCustomUnit(int iId, string sCoalitionName)
+		{
+			Id = iId;
+			CoalitionName = sCoalitionName;
+		}
 	}
 }

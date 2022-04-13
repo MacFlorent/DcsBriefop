@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 13px;
+    font-family: 'Verdana';
+}
+
+#wrapper {
+    color: dimgray;
+    background-color: __colorBack__;
+    width: 100%;
+}
+
+div.header {
+    color: __colorDark__;
+    background-color: __colorLight__;
+    border-bottom: 2px solid __colorDark__;
+    padding: 5px 0px 5px 0px;
+    text-align: center;
+}
+
+div.content {
+    border-bottom: 1px solid __colorDark__;
+    padding: 5px 0px 5px 0px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 120%;
+}
+
+h2 {
+    margin: 0;
+    font-size: 110%;
+    font-style: italic;
+}
+
+p {
+    margin: 0;
+    padding-left: 5px;
+    text-align: justify;
+}
+
+table {
+    border-collapse: collapse;
+    border: 2px solid __colorDark__;
+}
+
+td.header,
+th {
+    background-color: __colorLight__;
+    font-weight: bold;
+}
+th,
+td {
+    padding: 8px;
+    border:1px dashed __colorDark__
+}
