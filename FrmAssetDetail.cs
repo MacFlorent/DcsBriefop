@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace DcsBriefop
@@ -154,15 +155,15 @@ namespace DcsBriefop
 			if (e.RowIndex < 0)
 				return;
 
-			DataGridView grid = (sender as DataGridView);
-			if (grid is null)
+			DataGridView dgv = (sender as DataGridView);
+			if (dgv is null)
 				return;
 
-			DataGridViewColumn column = grid.Columns[e.ColumnIndex];
+			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
 			if (column.Name == GridColumn.Included)
 			{
-				DataGridViewCell cell = grid.Rows[e.RowIndex].Cells[e.ColumnIndex];
-				AssetUnit unit = grid.Rows[e.RowIndex].Cells[GridColumn.Data].Value as AssetUnit;
+				DataGridViewCell cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+				AssetUnit unit = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as AssetUnit;
 				unit.Included = (bool)cell.Value;
 			}
 		}
@@ -177,6 +178,31 @@ namespace DcsBriefop
 			{
 				(sender as DataGridView).EndEdit();
 			}
+		}
+
+		private void DgvUnits_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+		{
+			if (e.RowIndex < 0)
+				return;
+			DataGridView dgv = sender as DataGridView;
+			if (dgv == null)
+				return;
+
+			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
+			AssetUnit unit = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as AssetUnit;
+			DataGridViewCell dgvc = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+			DataGridViewCellStyle cellStyle = dgvc.InheritedStyle;
+			if (column.Name == GridColumn.Included)
+			{
+				if (unit.Included)
+				{
+					cellStyle.BackColor = Color.LightGreen;
+					cellStyle.SelectionBackColor = ToolsImage.Lerp(cellStyle.BackColor, dgv.DefaultCellStyle.SelectionBackColor, 0.2f);
+				}
+			}
+
+			e.CellStyle = cellStyle;
 		}
 
 		private void FrmAssetDetail_FormClosing(object sender, FormClosingEventArgs e)

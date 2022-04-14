@@ -372,6 +372,7 @@ namespace DcsBriefop
 			this.DgvUnits.Size = new System.Drawing.Size(525, 272);
 			this.DgvUnits.TabIndex = 30;
 			this.DgvUnits.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvUnits_CellEndEdit);
+			this.DgvUnits.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DgvUnits_CellFormatting);
 			this.DgvUnits.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvUnits_CellMouseUp);
 			// 
 			// LbUnits

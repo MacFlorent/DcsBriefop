@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using System.Drawing;
+using System.Linq;
 
 namespace DcsBriefop.Tools
 {
@@ -24,5 +25,12 @@ namespace DcsBriefop.Tools
 			else
 				return null;
 		}
+
+		public static bool AssetOrUnitIncluded(Asset asset)
+		{
+			return asset is object &&
+				(asset.Included || ((asset as AssetGroup)?.Units.Where(_u => _u.Included).Any()).GetValueOrDefault(false));
+		}
+
 	}
 }

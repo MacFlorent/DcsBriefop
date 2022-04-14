@@ -121,6 +121,8 @@ namespace DcsBriefop.UcBriefing
 
 			dgv.CellEndEdit += DgvAssets_CellEndEdit;
 			dgv.CellMouseUp += DgvAssets_CellMouseUp;
+			dgv.CellDoubleClick += DgvAssets_CellDoubleClick;
+			dgv.CellFormatting += DgvAssets_CellFormatting;
 		}
 
 		private void InitializeGridAsset(DataGridView dgv)
@@ -183,7 +185,7 @@ namespace DcsBriefop.UcBriefing
 					continue;
 				if (asset is AssetStatic && !CkFilterStatics.Checked)
 					continue;
-				if (!asset.Included && !CkFilterExcluded.Checked)
+				if (!ToolsBriefop.AssetOrUnitIncluded(asset) && !CkFilterExcluded.Checked)
 					continue;
 
 				RefreshGridRow(dgv, asset);
@@ -237,19 +239,6 @@ namespace DcsBriefop.UcBriefing
 			FrmMissionDetail f = new FrmMissionDetail(asset);
 			f.ShowDialog();
 		}
-
-		//private void SetUsage(List<Asset> assets, ElementAssetUsage usage, DataGridView dgv)
-		//{
-		//	foreach (Asset asset in assets)
-		//	{
-		//		if (asset.Usage != usage)
-		//		{
-		//			asset.Usage = usage;
-		//			(asset as AssetFlight)?.SetMissionData();
-		//			RefreshGridRow(dgv, asset);
-		//		}
-		//	}
-		//}
 
 		private void SetIncluded(List<Asset> assets, bool bIncluded, DataGridView dgv)
 		{
@@ -326,21 +315,6 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 
 		#region Events
-		private void DgvFlights_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-		{
-			//MessageBox.Show("Flight detail - choose included, preset frequencies, additional info, targets for briefing");
-			//UcMap.Overlays.Clear();
-			//if (sender is DataGridView dgv)
-			//{
-			//	object o = dgv.Rows[e.RowIndex].Cells["_data"].Value;
-			//	if (o is BriefingGroup bg)
-			//	{
-			//		UcMap.Overlays.Add(bg.MapOverlay);
-			//		UcMap.Refresh();
-			//	}
-			//}
-		}
-
 		private void TbBullseyeDescription_Validated(object sender, System.EventArgs e)
 		{
 			Coalition.BullseyeDescription = TbBullseyeDescription.Text;
@@ -373,15 +347,15 @@ namespace DcsBriefop.UcBriefing
 			if (e.RowIndex < 0)
 				return;
 
-			DataGridView grid = (sender as DataGridView);
-			if (grid is null)
+			DataGridView dgv = (sender as DataGridView);
+			if (dgv is null)
 				return;
 
-			DataGridViewColumn column = grid.Columns[e.ColumnIndex];
+			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
 			if (column.Name == GridColumn.Included)
 			{
-				DataGridViewCell cell = grid.Rows[e.RowIndex].Cells[e.ColumnIndex];
-				Asset asset = grid.Rows[e.RowIndex].Cells[GridColumn.Data].Value as Asset;
+				DataGridViewCell cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+				Asset asset = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as Asset;
 				asset.Included = (bool)cell.Value;
 			}
 		}
@@ -396,6 +370,48 @@ namespace DcsBriefop.UcBriefing
 			{
 				(sender as DataGridView).EndEdit();
 			}
+		}
+
+		private void DgvAssets_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex < 0)
+				return;
+
+			DataGridView dgv = (sender as DataGridView);
+			if (dgv is null)
+				return;
+
+			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
+			if (column.Name != GridColumn.Included)
+			{
+				Asset asset = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as Asset;
+				ShowDetail(asset, dgv);
+			}
+		}
+
+		private void DgvAssets_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+		{
+			if (e.RowIndex < 0)
+				return;
+			DataGridView dgv = sender as DataGridView;
+			if (dgv == null)
+				return;
+
+			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
+			Asset asset = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as Asset;
+			DataGridViewCell dgvc = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+			DataGridViewCellStyle cellStyle = dgvc.InheritedStyle;
+			if (column.Name == GridColumn.Included)
+			{
+				if (ToolsBriefop.AssetOrUnitIncluded(asset))
+				{
+					cellStyle.BackColor = Color.LightGreen;
+					cellStyle.SelectionBackColor = ToolsImage.Lerp(cellStyle.BackColor, dgv.DefaultCellStyle.SelectionBackColor, 0.2f);
+				}
+			}
+
+			e.CellStyle = cellStyle;
 		}
 		#endregion
 	}

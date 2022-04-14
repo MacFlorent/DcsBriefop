@@ -2,26 +2,27 @@
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 13px;
+    font-size: 16px;
     font-family: 'Verdana';
+    letter-spacing: 2px;
 }
 
 #wrapper {
-    color: dimgray;
-    background-color: __colorBack__;
+    color: whitesmoke;
+    background-color: dimgray;
     width: 100%;
 }
 
 div.header {
-    color: __colorDark__;
-    background-color: __colorLight__;
-    border-bottom: 2px solid __colorDark__;
+    color: orange;
+    background-color: palegoldenrod;
+    border-bottom: 2px solid orange;
     padding: 5px 0px 5px 0px;
     text-align: center;
 }
 
 div.content {
-    border-bottom: 1px solid __colorDark__;
+    border-bottom: 1px solid orange;
     padding: 5px 0px 5px 0px;
 }
 
@@ -44,16 +45,17 @@ p {
 
 table {
     border-collapse: collapse;
-    border: 2px solid __colorDark__;
+    border: 2px solid orange;
 }
 
 td.header,
 th {
-    background-color: __colorLight__;
+    color: dimgray;
+    background-color: palegoldenrod;
     font-weight: bold;
 }
 th,
 td {
     padding: 8px;
-    border:1px dashed __colorDark__
+    border:1px solid orange
 }

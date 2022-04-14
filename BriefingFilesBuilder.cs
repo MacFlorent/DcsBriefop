@@ -108,6 +108,9 @@ namespace DcsBriefop
 				AddMapData(GenerateFileName(ElementExportFileType.SituationMap, coalition.CoalitionName), sKneeboardFolder, coalition.MapData);
 			if (exportFileTypes.Contains(ElementExportFileType.Operations))
 				AddFileHtml(GenerateFileName(ElementExportFileType.Operations, coalition.CoalitionName), sKneeboardFolder, GenerateHtmlOperations(coalition));
+			if (exportFileTypes.Contains(ElementExportFileType.Opposition))
+				AddFileHtml(GenerateFileName(ElementExportFileType.Opposition, coalition.CoalitionName), sKneeboardFolder, GenerateHtmlOpposition(coalition));
+
 			if (exportFileTypes.Contains(ElementExportFileType.Coms) && coalition.ComPresets is object && coalition.ComPresets.Count > 0)
 				AddFileHtml(GenerateFileName(ElementExportFileType.Coms, coalition.CoalitionName), sKneeboardFolder, GenerateHtmlComs(coalition));
 
@@ -148,17 +151,47 @@ namespace DcsBriefop
 			sString = sString.Replace("<link href=\"briefingTemplate.css\" rel=\"stylesheet\">", $"<style>{sStyle}</style>");
 		}
 
-		private void PlaceholderGetLine(out string sLineRaw, out string sLineCleaned, string sString, string sPlaceholder)
+		private bool PlaceholderGetBlock(out string sBlockRaw, out string sBlockCleaned, string sString, string sPlaceholder)
 		{
-			string sStart = PlaceholderGet($"{sPlaceholder}Start");
-			string sEnd = PlaceholderGet($"{sPlaceholder}End");
+			sBlockRaw = sBlockCleaned = null;
+
+			string sStart = $"<!--{PlaceholderGet($"{sPlaceholder}Start")}-->";
+			string sEnd = $"<!--{PlaceholderGet($"{sPlaceholder}End")}-->";
 
 			int iStart = sString.IndexOf(sStart);
 			int iEnd = sString.IndexOf(sEnd);
-			sLineRaw = sString.Substring(iStart, iEnd - iStart + sEnd.Length);
-			sLineCleaned = sLineRaw.Replace(sStart, "").Replace(sEnd, "");
+
+			if (iStart >= 0 && iEnd > iStart)
+			{
+				sBlockRaw = sString.Substring(iStart, iEnd - iStart + sEnd.Length);
+				sBlockCleaned = sBlockRaw.Replace(sStart, "").Replace(sEnd, "");
+				return true;
+			}
+			else
+				return false;
 		}
 
+		private void AddFileHtml(string sFileName, string sKneeboardFolder, string sHtml)
+		{
+			BriefingFileHtml bf = new BriefingFileHtml() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, HtmlContent = sHtml };
+			bf.BitmapContent = HtmlRender.RenderToImage(sHtml, new Size(ElementImageSize.Width, ElementImageSize.Height), BackColor) as Bitmap;
+			//bf.BitmapContent = HtmlRender.RenderToImageGdiPlus(sHtml, new Size(ElementImageSize.Width, ElementImageSize.Height), System.Drawing.Text.TextRenderingHint.AntiAlias) as Bitmap;
+			m_listFiles.Add(bf);
+		}
+
+		private void AddFileHtml(string sFileName, string sKneeboardFolder, HtmlBuilder.HtmlDocument hb)
+		{
+			AddFileHtml(sFileName, sKneeboardFolder, hb.ToString());
+		}
+
+		private void AddMapData(string sFileName, string sKneeboardFolder, BriefopCustomMap mapData)
+		{
+			BriefingFile bf = new BriefingFile() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, BitmapContent = ToolsMap.GenerateMapImage(mapData) };
+			m_listFiles.Add(bf);
+		}
+		#endregion
+
+		#region Operations
 		private void GenerateHtmlOperationsMissionLine(StringBuilder sbAssets, string sLineCleaned, Asset asset)
 		{
 			string sAssetLine = sLineCleaned;
@@ -191,35 +224,152 @@ namespace DcsBriefop
 			PlaceholderReplace(ref sHtml, "generalSortie", m_briefingContainer.Mission.Sortie);
 			PlaceholderReplace(ref sHtml, "generalSituation", m_briefingContainer.Mission.Description);
 			PlaceholderReplace(ref sHtml, "generalTask", coalition.Task);
-			
 
-			string sLineRaw, sLineCleaned;
-			PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "missionLine");
 			StringBuilder sb = new StringBuilder();
-			foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Other))
-			{
-				GenerateHtmlOperationsMissionLine(sb, sLineCleaned, asset);
-			}
-			sHtml = sHtml.Replace(sLineRaw, sb.ToString());
+			string sBlockRaw, sBlockCleaned;
 
-			PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "supportLine");
-			sb.Clear();
-			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Support))
+			if (PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "mission"))
 			{
-				GenerateHtmlOperationsSupportLine(sb, sLineCleaned, supportAsset);
+				IEnumerable<Asset> assetsMission = coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Other);
+				if (assetsMission.Count() <= 0)
+				{
+					sHtml = sHtml.Replace(sBlockRaw, "");
+				}
+				else
+				{
+					sb.Clear();
+					PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "missionLine");
+					foreach (Asset asset in assetsMission)
+					{
+						GenerateHtmlOperationsMissionLine(sb, sBlockCleaned, asset);
+					}
+					sHtml = sHtml.Replace(sBlockRaw, sb.ToString());
+				}
 			}
-			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base))
-			{
-				GenerateHtmlOperationsSupportLine(sb, sLineCleaned, supportAsset);
-			}
-			foreach (Asset supportAsset in coalition.Airdromes.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base && _a.Side == ElementAssetSide.Own))
-			{
-				GenerateHtmlOperationsSupportLine(sb, sLineCleaned, supportAsset);
-			}
-			sHtml = sHtml.Replace(sLineRaw, sb.ToString());
 
+			if (PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "supportLine"))
+			{
+				IEnumerable<Asset> assetsSupport = coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Support);
+				IEnumerable<Asset> assetsBase = coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base);
+				IEnumerable<Asset> assetsAirdrome = coalition.Airdromes.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base && _a.Side == ElementAssetSide.Own);
+
+				if (assetsSupport.Count() <= 0 || assetsBase.Count() <= 0 || assetsAirdrome.Count() <= 0)
+				{
+					sHtml = sHtml.Replace(sBlockRaw, "");
+				}
+				else
+				{
+					sb.Clear();
+					foreach (Asset supportAsset in assetsSupport)
+					{
+						GenerateHtmlOperationsSupportLine(sb, sBlockCleaned, supportAsset);
+					}
+					foreach (Asset supportAsset in assetsBase)
+					{
+						GenerateHtmlOperationsSupportLine(sb, sBlockCleaned, supportAsset);
+					}
+					foreach (Asset supportAsset in assetsAirdrome)
+					{
+						GenerateHtmlOperationsSupportLine(sb, sBlockCleaned, supportAsset);
+					}
+					sHtml = sHtml.Replace(sBlockRaw, sb.ToString());
+				}
+			}
 			return sHtml;
 		}
+		#endregion
+
+		#region Opposition
+		private void GenerateHtmlOppositionThreatLine(StringBuilder sbAssets, string sLineCleaned, Asset asset)
+		{
+			string sType = asset.Type;
+			if (asset is AssetGroup group && group.Units.Count > 0)
+				sType = group.Units.FirstOrDefault()?.Type;
+
+			string sAssetLine = sLineCleaned;
+			PlaceholderReplace(ref sAssetLine, "threatDescription", $"{asset.Description}<br>{sType}");
+			PlaceholderReplace(ref sAssetLine, "threatLocalisation", asset.GetLocalisation());
+			PlaceholderReplace(ref sAssetLine, "threatNotes", asset.Information);
+			sbAssets.Append(sAssetLine);
+		}
+
+		private void GenerateHtmlOppositionThreatLineUnit(StringBuilder sbAssets, string sLineCleaned, AssetUnit unit)
+		{
+			string sAssetLine = sLineCleaned;
+			PlaceholderReplace(ref sAssetLine, "threatDescription", $"{unit.AssetGroup.Description}<br>{unit.Description}");
+			PlaceholderReplace(ref sAssetLine, "threatLocalisation", unit.GetLocalisation());
+			PlaceholderReplace(ref sAssetLine, "threatNotes", unit.Information);
+			sbAssets.Append(sAssetLine);
+		}
+
+		private string GenerateHtmlOpposition(BriefingCoalition coalition)
+		{
+			string sHtml = ToolsResources.GetTextResourceContent("briefingTemplateOpposition", "html");
+
+			PlaceholderReplaceStyle(ref sHtml, coalition.OwnColor);
+
+			StringBuilder sb = new StringBuilder();
+			string sBlockRaw, sBlockCleaned;
+
+			if (PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "threat"))
+			{
+				IEnumerable<Asset> assetsThreat = coalition.OpposingAssets.Where(_a => ToolsBriefop.AssetOrUnitIncluded(_a));
+				if (assetsThreat.Count() <= 0)
+				{
+					sHtml = sHtml.Replace(sBlockRaw, "");
+				}
+				else
+				{
+					sb.Clear();
+					PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "threatLine");
+					foreach (Asset asset in assetsThreat)
+					{
+						if (asset.Included)
+							GenerateHtmlOppositionThreatLine(sb, sBlockCleaned, asset);
+
+						if (asset is AssetGroup group)
+						{
+							foreach (AssetUnit unit in (group.Units.Where(_u => _u.Included)))
+							{
+								GenerateHtmlOppositionThreatLineUnit(sb, sBlockCleaned, unit);
+							}
+						}
+					}
+					sHtml = sHtml.Replace(sBlockRaw, sb.ToString());
+				}
+			}
+
+			if (PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "supportLine"))
+			{
+				IEnumerable<Asset> assetsSupport = coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Support);
+				IEnumerable<Asset> assetsBase = coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base);
+				IEnumerable<Asset> assetsAirdrome = coalition.Airdromes.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base && _a.Side == ElementAssetSide.Own);
+
+				if (assetsSupport.Count() <= 0 || assetsBase.Count() <= 0 || assetsAirdrome.Count() <= 0)
+				{
+					sHtml = sHtml.Replace(sBlockRaw, "");
+				}
+				else
+				{
+					sb.Clear();
+					foreach (Asset supportAsset in assetsSupport)
+					{
+						GenerateHtmlOperationsSupportLine(sb, sBlockCleaned, supportAsset);
+					}
+					foreach (Asset supportAsset in assetsBase)
+					{
+						GenerateHtmlOperationsSupportLine(sb, sBlockCleaned, supportAsset);
+					}
+					foreach (Asset supportAsset in assetsAirdrome)
+					{
+						GenerateHtmlOperationsSupportLine(sb, sBlockCleaned, supportAsset);
+					}
+					sHtml = sHtml.Replace(sBlockRaw, sb.ToString());
+				}
+			}
+			return sHtml;
+		}
+		#endregion
 
 		#region Coms
 		private void GenerateHtmlComsLine(StringBuilder sbComs, string sLineCleaned, ComPreset preset)
@@ -233,15 +383,15 @@ namespace DcsBriefop
 
 		private void GenerateHtmlComsTable(ref string sString, BriefingCoalition coalition, int iRadio)
 		{
-			PlaceholderGetLine(out string sLineRaw, out string sLineCleaned, sString, $"radio{iRadio}Line");
-			StringBuilder sb = new StringBuilder();
-			for (int iNumber = 1; iNumber <= ListComPreset.PresetsCount; iNumber++)
-			{
-				ComPreset preset = coalition.ComPresets.GetPreset(iRadio, iNumber);
-				GenerateHtmlComsLine(sb, sLineCleaned, preset);
-			}
+			//PlaceholderGetLine(out string sLineRaw, out string sLineCleaned, sString, $"radio{iRadio}Line");
+			//StringBuilder sb = new StringBuilder();
+			//for (int iNumber = 1; iNumber <= ListComPreset.PresetsCount; iNumber++)
+			//{
+			//	ComPreset preset = coalition.ComPresets.GetPreset(iRadio, iNumber);
+			//	GenerateHtmlComsLine(sb, sLineCleaned, preset);
+			//}
 
-			sString = sString.Replace(sLineRaw, sb.ToString());
+			//sString = sString.Replace(sLineRaw, sb.ToString());
 		}
 
 		private string GenerateHtmlComs(BriefingCoalition coalition)
@@ -274,139 +424,62 @@ namespace DcsBriefop
 		{
 			string sHtml = ToolsResources.GetTextResourceContent("briefingTemplateMissionCard", "html");
 
-			PlaceholderReplaceStyle(ref sHtml, coalition.OwnColor);
-			PlaceholderReplace(ref sHtml, "coalition", coalition.CoalitionName);
-			PlaceholderReplace(ref sHtml, "assetDescription", asset.Description);
-			PlaceholderReplace(ref sHtml, "task", asset.Task);
-			PlaceholderReplace(ref sHtml, "taskDetail", asset.MissionData?.MissionInformation);
-			PlaceholderReplace(ref sHtml, "weather", m_briefingContainer.Mission.Weather.ToString());
-			PlaceholderReplace(ref sHtml, "bullseye", coalition.GetBullseyeCoordinatesString());
+			//PlaceholderReplaceStyle(ref sHtml, coalition.OwnColor);
+			//PlaceholderReplace(ref sHtml, "coalition", coalition.CoalitionName);
+			//PlaceholderReplace(ref sHtml, "assetDescription", asset.Description);
+			//PlaceholderReplace(ref sHtml, "task", asset.Task);
+			//PlaceholderReplace(ref sHtml, "taskDetail", asset.MissionData?.MissionInformation);
+			//PlaceholderReplace(ref sHtml, "weather", m_briefingContainer.Mission.Weather.ToString());
+			//PlaceholderReplace(ref sHtml, "bullseye", coalition.GetBullseyeCoordinatesString());
 
-			string sLineRaw, sLineCleaned;
-			PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "supportLine");
-			StringBuilder sb = new StringBuilder();
-			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Support))
-			{
-				GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
-			}
-			foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base))
-			{
-				GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
-			}
-			foreach (Asset supportAsset in coalition.Airdromes.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base && _a.Side == ElementAssetSide.Own))
-			{
-				GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
-			}
-			sHtml = sHtml.Replace(sLineRaw, sb.ToString());
+			//string sLineRaw, sLineCleaned;
+			//PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "supportLine");
+			//StringBuilder sb = new StringBuilder();
+			//foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Support))
+			//{
+			//	GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
+			//}
+			//foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base))
+			//{
+			//	GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
+			//}
+			//foreach (Asset supportAsset in coalition.Airdromes.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base && _a.Side == ElementAssetSide.Own))
+			//{
+			//	GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
+			//}
+			//sHtml = sHtml.Replace(sLineRaw, sb.ToString());
 
-			PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "waypointLine");
-			sb.Clear();
-			foreach (AssetRoutePoint routePoint in asset.MapPoints.OfType<AssetRoutePoint>())
-			{
-				string sWaypointLine = sLineCleaned;
-				PlaceholderReplace(ref sWaypointLine, "waypointNumber", routePoint.Number.ToString());
-				PlaceholderReplace(ref sWaypointLine, "waypointName", routePoint.Name);
-				PlaceholderReplace(ref sWaypointLine, "waypointAction", routePoint.Action);
-				PlaceholderReplace(ref sWaypointLine, "waypointAltitude", routePoint.AltitudeFeet);
-				sb.Append(sWaypointLine);
-			}
-			sHtml = sHtml.Replace(sLineRaw, sb.ToString());
+			//PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "waypointLine");
+			//sb.Clear();
+			//foreach (AssetRoutePoint routePoint in asset.MapPoints.OfType<AssetRoutePoint>())
+			//{
+			//	string sWaypointLine = sLineCleaned;
+			//	PlaceholderReplace(ref sWaypointLine, "waypointNumber", routePoint.Number.ToString());
+			//	PlaceholderReplace(ref sWaypointLine, "waypointName", routePoint.Name);
+			//	PlaceholderReplace(ref sWaypointLine, "waypointAction", routePoint.Action);
+			//	PlaceholderReplace(ref sWaypointLine, "waypointAltitude", routePoint.AltitudeFeet);
+			//	sb.Append(sWaypointLine);
+			//}
+			//sHtml = sHtml.Replace(sLineRaw, sb.ToString());
 
-			PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "targetLine");
-			sb.Clear();
-			foreach (AssetUnit unit in asset.MissionData.GetListTargetUnits())
-			{
-				string sTargetLine = sLineCleaned;
-				PlaceholderReplace(ref sTargetLine, "targetName", unit.AssetGroup.Name);
-				PlaceholderReplace(ref sTargetLine, "targetType", unit.Type);
-				PlaceholderReplace(ref sTargetLine, "targetLocalisation", unit.GetLocalisation());
-				PlaceholderReplace(ref sTargetLine, "targetNotes", unit.Information);
-				sb.Append(sTargetLine);
-			}
-			sHtml = sHtml.Replace(sLineRaw, sb.ToString());
+			//PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "targetLine");
+			//sb.Clear();
+			//foreach (AssetUnit unit in asset.MissionData.GetListTargetUnits())
+			//{
+			//	string sTargetLine = sLineCleaned;
+			//	PlaceholderReplace(ref sTargetLine, "targetName", unit.AssetGroup.Name);
+			//	PlaceholderReplace(ref sTargetLine, "targetType", unit.Type);
+			//	PlaceholderReplace(ref sTargetLine, "targetLocalisation", unit.GetLocalisation());
+			//	PlaceholderReplace(ref sTargetLine, "targetNotes", unit.Information);
+			//	sb.Append(sTargetLine);
+			//}
+			//sHtml = sHtml.Replace(sLineRaw, sb.ToString());
 
 			return sHtml;
 		}
 		#endregion
 
-		//private HtmlBuilder.HtmlDocument GenerateHtmlSituation(BriefingCoalition coalition)
-		//{
-		//	HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.OwnColor);
-
-		//	//hb.AppendHeader(m_briefingPack.Sortie, 3);
-		//	hb.AppendHeader("SITUATION", 2);
-		//	hb.AppendParagraphJustified(m_briefingContainer.Mission.Description);
-		//	hb.AppendHeader("TASKS", 3);
-		//	hb.AppendParagraphJustified(coalition.Task);
-		//	hb.AppendHeader("WEATHER", 3);
-		//	hb.AppendParagraphCentered(m_briefingContainer.Mission.Weather.ToString());
-
-		//	hb.FinalizeDocument();
-		//	return hb;
-		//}
-
-		//private HtmlBuilder.HtmlDocument GenerateHtmlOperations(BriefingCoalition coalition)
-		//{
-		//	HtmlBuilder.HtmlDocument hb = new HtmlBuilder.HtmlDocument(coalition.OwnColor);
-
-		//	//hb.AppendHeader(m_briefingPack.Sortie, 3);
-		//	hb.AppendHeader("OPERATIONS", 2);
-		//	hb.AppendHeader("BULLSEYE", 3);
-		//	hb.AppendParagraphCentered(coalition.GetBullseyeCoordinatesString());
-		//	hb.AppendParagraphCentered(coalition.BullseyeDescription);
-
-		//	hb.AppendHeader("MISSIONS", 3);
-		//	hb.OpenTable("Name", "Task", "Type", "Notes");
-		//	foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.MissionWithDetail))
-		//	{
-		//		hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
-		//	}
-		//	foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Mission))
-		//	{
-		//		hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.Information);
-		//	}
-		//	hb.CloseTable();
-
-		//	hb.AppendHeader("SUPPORT", 3);
-		//	hb.OpenTable("Name", "Task", "Type", "Radio", "Notes");
-		//	foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Support))
-		//	{
-		//		hb.AppendTableRow(asset.Name, asset.Task, asset.Type, asset.GetRadioString(), asset.Information);
-		//	}
-		//	foreach (Asset asset in coalition.OwnAssets.Where(_a => _a.Usage == ElementAssetUsage.Base))
-		//	{
-		//		hb.AppendTableRow(asset.Name, "Base", asset.Type, asset.GetRadioString(), asset.Information);
-		//	}
-		//	foreach (Asset asset in coalition.Airdromes.Where(_a => _a.Usage == ElementAssetUsage.Base && _a.Side == ElementAssetSide.Own))
-		//	{
-		//		hb.AppendTableRow(asset.Name, "Base", asset.Type, asset.GetRadioString(), asset.Information);
-		//	}
-
-		//	hb.CloseTable();
-
-		//	hb.FinalizeDocument();
-		//	return hb;
-		//}
-
-		private void AddFileHtml(string sFileName, string sKneeboardFolder, string sHtml)
-		{
-			BriefingFileHtml bf = new BriefingFileHtml() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, HtmlContent = sHtml };
-			bf.BitmapContent = HtmlRender.RenderToImage(sHtml, new Size(ElementImageSize.Width, ElementImageSize.Height), BackColor) as Bitmap;
-			//bf.BitmapContent = HtmlRender.RenderToImageGdiPlus(sHtml, new Size(ElementImageSize.Width, ElementImageSize.Height), System.Drawing.Text.TextRenderingHint.AntiAlias) as Bitmap;
-			m_listFiles.Add(bf);
-		}
-		
-		private void AddFileHtml(string sFileName, string sKneeboardFolder, HtmlBuilder.HtmlDocument hb)
-		{
-			AddFileHtml(sFileName, sKneeboardFolder, hb.ToString());
-		}
-
-		private void AddMapData(string sFileName, string sKneeboardFolder, BriefopCustomMap mapData)
-		{
-			BriefingFile bf = new BriefingFile() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, BitmapContent = ToolsMap.GenerateMapImage(mapData) };
-			m_listFiles.Add(bf);
-		}
-
+		#region Export
 		private void ExportFilesToPath(string sPath, bool bKeepHtml)
 		{
 			if (!Directory.Exists(sPath))
@@ -496,6 +569,7 @@ namespace DcsBriefop
 		}
 		#endregion
 
+		#region Dispose
 		public void Dispose()
 		{
 			Dispose(true);
@@ -512,5 +586,6 @@ namespace DcsBriefop
 				}
 			}
 		}
+		#endregion
 	}
 }

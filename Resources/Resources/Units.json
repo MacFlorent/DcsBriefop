@@ -1,35 +1,104 @@
 [
-   {
+  {
+    "Type": "1L13",
+    "Description": "1L3 EWR 'Box Spring'",
+    "MapMarker": "P91000083",
+    "Information": "RWR=S HARM=101"
+  },
+  {
+    "Type": "55G6",
+    "Description": "55G6 EWR 'Tall Rack'",
+    "MapMarker": "P91000083",
+    "Information": "RWR=S HARM=102"
+  },
+
+  {
+    "Type": "p-19 s-125 sr",
+    "Description": "P19 SR 'Flat Face'",
+    "MapMarker": "P91000083",
+    "Information": "RWR=S/FF HARM=122"
+  },
+
+  {
+    "Type": "SNR_75V",
+    "Description": "S-75/SA-2 TR SNR-75 'Fan Song'",
+    "MapMarker": "P91000083",
+    "Information": "RWR=2 HARM=126"
+  },
+  {
+    "Type": "S_75M_Volhov",
+    "Description": "S-75/SA-2 LN 'Guideline'",
+    "MapMarker": "P91000080"
+  },
+  {
+    "Type": "Kub 1S91 str",
+    "Description": "2K12/SA-6 STR 1S91 'Straight Flush'",
+    "MapMarker": "P91000083",
+    "Information": "RWR=6 HARM=108"
+  },
+  {
+    "Type": "Kub 2P25 ln",
+    "Description": "2K12/SA-6 LN 'Gainful'",
+    "MapMarker": "P91000080"
+  },
+ 
+  {
+    "Type": "Dog Ear radar",
+    "Description": "9K33/SA-8 SR 'Dog Ear'",
+    "MapMarker": "P91000083",
+    "Information": "RWR=DE HARM=109"
+  },
+  {
+    "Type": "Osa 9A33 ln",
+    "Description": "9K33/SA-8 'Gecko'",
+    "MapMarker": "P91000018",
+    "Information": "RWR=8 HARM=117"
+  },
+  
+  {
      "Type": "S-300PS 54K6 cp",
-     "Description": "S-300PS/SA-10B command post",
-     "MapMarker": "P91000009",
+     "Description": "S-300PS/SA-10B CP",
+     "MapMarker": "P91000047",
      "Information": null
-   },
-   {
+  },
+  {
     "Type": "S-300PS 64H6E sr",
-    "Description": "S-300PS/SA-10B acquisition radar",
-    "Marker": "P91000009",
-    "Information": "Big Bird RWR=BB HARM=104"
+    "Description": "S-300PS/SA-10B TR 64H6E 'Big Bird'",
+    "Marker": "P91000083",
+    "Information": "RWR=BB HARM=104"
   },
   {
     "Type": "S-300PS 40B6M tr",
-    "Description": "S-300PS/SA-10B Fire Control Radar",
-    "MapMarker": "P91000009",
-    "Information": "Flap Lid RWR=10 HARM=110"
+    "Description": "S-300PS/SA-10B TR 30N6E 'Flap Lid'",
+    "MapMarker": "P91000083",
+    "Information": "RWR=10 HARM=110"
   },
   {
     "Type": "S-300PS 40B6MD sr",
-    "Description": "S-300PS/SA-10B Specialized Radar",
-    "MapMarker": "P91000009",
-    "Information": "Clam Shell RWR=CS HARM=103"
+    "Description": "S-300PS/SA-10B SR 76N6 'Clam Shell'",
+    "MapMarker": "P91000083",
+    "Information": "RWR=CS HARM=103"
   },
   {
-    "Type": "p-19 s-125 sr",
-    "Description": "P19 Search Radar",
-    "MapMarker": "P91000083",
-    "Information": "Flat Face RWR=S/FF HARM=122"
+    "Type": "S-300PS 5P85D ln",
+    "Description": "S-300PS/SA-10B TEL 'Grumble'",
+    "MapMarker": "P91000080"
   },
 
+  {
+    "Type": "Tor 9A331",
+    "Description": "9K331/SA-15 'Tor'",
+    "MapMarker": "P91000018",
+    "Information": "RWR=15 HARM=119"
+  },
+
+  {
+    "Type": "ZSU-23-4 Shilka",
+    "Description": "ZSU-23-4 Shilka",
+    "MapMarker": "P91000017",
+    "Information": "RWR=A HARM=121"
+  },
+   
   {
     "Type": "FA-18C_hornet",
     "MapMarker": "P91000024",

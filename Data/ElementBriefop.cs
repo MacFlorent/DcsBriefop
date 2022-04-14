@@ -45,6 +45,7 @@ namespace DcsBriefop.Data
 	{
 		SituationMap,
 		Operations,
+		Opposition,
 		Coms,
 		Missions,
 		MissionMaps,
