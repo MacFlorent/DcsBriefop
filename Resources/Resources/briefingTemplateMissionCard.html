@@ -21,31 +21,9 @@
         </table>    
     </div>
     <div id="content">
-		<h2>Task: __task__</h2>
-		<p>__taskDetail__</p>
+		<!--__taskStart__--><h2>Task: __task__</h2><!--__taskEnd__-->
+		<!--__taskDetailStart__--><p>__taskDetail__</p><!--__taskDetailEnd__-->
 	</div>
-    <div class="content">
-        <table width="100%">
-            <thead>
-                <tr>
-                    <th>Support</th>
-                    <th>Task</th>
-                    <th>Type</th>
-                    <th>Radio</th>
-                    <th>Notes</th>
-                </tr>
-            </thead>
-            <tbody>
-            __supportLineStart__<tr>
-                <td>__supportDescription__</td>
-                <td>__supportTask__</td>
-                <td>__supportType__</td>
-                <td>__supportRadio__</td>
-                <td>__supportNotes__</td>
-            </tr>__supportLineEnd__
-        </tbody>
-        </table>    
-    </div>
     <div class="content">
         <table width="100%">
             <thead>
@@ -57,35 +35,39 @@
                 </tr>
             </thead>
             <tbody>
-            __waypointLineStart__<tr>
+            <!--__waypointLineStart__-->
+            <tr>
                 <td>__waypointNumber__</td>
                 <td>__waypointName__</td>
                 <td>__waypointAction__</td>
                 <td>__waypointAltitude__</td>
-            </tr>__waypointLineEnd__
+            </tr>
+            <!--__waypointLineEnd__-->
         </tbody>
         </table>   
     </div>
+    <!--__threatStart__-->
     <div class="content">
         <table width="100%">
             <thead>
                 <tr>
-                    <th>Target</th>
-                    <th>Type</th>
-                    <th width=35%>Localication</th>
+                    <th>Threat</th>
+                    <th>Localisation</th>
                     <th>Notes</th>
                 </tr>
             </thead>
             <tbody>
-            __targetLineStart__<tr>
-                <td>__targetName__</td>
-                <td>__targetType__</td>
-                <td nowrap>__targetLocalisation__</td>
-                <td>__targetNotes__</td>
-            </tr>__targetLineEnd__
+            <!--__threatLineStart__-->
+            <tr>
+                <td>__threatDescription__</td>
+                <td nowrap>__threatLocalisation__</td>
+                <td>__threatNotes__</td>
+            </tr>
+            <!--__threatLineEnd__-->
         </tbody>
         </table>
     </div>
+    <!--__threatEnd__-->
 </div>
 </body>
 </html>

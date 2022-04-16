@@ -16,6 +16,8 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Properties
+		public override string Class { get; protected set; } = "Airdrome";
+
 		public Coordinate Coordinate { get; set; }
 		public Tacan Tacan { get; set; }
 		public List<Radio> Radios { get { return m_airdrome?.Radios; } }

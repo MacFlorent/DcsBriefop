@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using DcsBriefop.UcBriefing;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -10,16 +11,18 @@ namespace DcsBriefop
 	{
 		private static class GridColumn
 		{
+			public static readonly string Included = "Included";
 			public static readonly string Id = "Id";
-			public static readonly string Selected = "Selected";
-			public static readonly string Number = "Number";
 			public static readonly string Asset = "Asset";
+			public static readonly string Unit = "Unit";
+			public static readonly string Localisation = "Localisation";
+			public static readonly string Information = "Information";
+	
+			public static readonly string Number = "Number";
 			public static readonly string Name = "Name";
 			public static readonly string Action = "Action";
 			public static readonly string Altitude = "Altitude";
-			public static readonly string Type = "Type";
-			public static readonly string Localisation = "Localisation";
-			public static readonly string Information = "Information";
+
 			public static readonly string Data = "Data";
 		}
 
@@ -37,11 +40,11 @@ namespace DcsBriefop
 
 			m_ucMap = new UcMap();
 			m_ucMap.Dock = DockStyle.Fill;
-			PnMissionMap.Controls.Clear();
-			PnMissionMap.Controls.Add(m_ucMap);
+			SplitContainer.Panel2.Controls.Clear();
+			SplitContainer.Panel2.Controls.Add(m_ucMap);
 
 			ToolsMisc.SetDataGridViewProperties(DgvRoutePoints);
-			ToolsMisc.SetDataGridViewProperties(DgvTargets);
+			ToolsMisc.SetDataGridViewProperties(DgvThreats);
 			DgvRoutePoints.ReadOnly = true;
 
 			DataToScreen();
@@ -54,14 +57,14 @@ namespace DcsBriefop
 		{
 			Text = $"Mission detail : {m_asset.Name}";
 			TbId.Text = m_asset.Id.ToString();
-			TbName.Text = m_asset.Name;
+			TbDescription.Text = m_asset.Description;
 			TbTask.Text = m_asset.Task;
 			TbType.Text = m_asset.Type;
 			TbAssetInformation.Text = m_asset.Information;
 			TbInformation.Text = m_asset.MissionData.MissionInformation;
 
 			DataToScreenRoutePoints();
-			DataToScreenTargets();
+			DataToScreenThreats();
 
 			UpdateMapControl();
 		}
@@ -106,38 +109,39 @@ namespace DcsBriefop
 			dgvr.Cells[GridColumn.Altitude].Value = missionPoint.AltitudeFeet;
 		}
 
-		private void DataToScreenTargets()
+		private void DataToScreenThreats()
 		{
-			DataGridViewCheckBoxColumn col = new DataGridViewCheckBoxColumn() { Name = GridColumn.Selected, HeaderText = "Selected" };
-			DgvTargets.Columns.Add(col);
-			DgvTargets.Columns.Add(GridColumn.Asset, "Asset");
-			DgvTargets.Columns.Add(GridColumn.Id, "Id");
-			DgvTargets.Columns.Add(GridColumn.Type, "Type");
-			DgvTargets.Columns.Add(GridColumn.Localisation, "Localisation");
-			DgvTargets.Columns.Add(GridColumn.Information, "Information");
-			DgvTargets.Columns.Add(GridColumn.Data, "Data");
+			DataGridViewCheckBoxColumn colIncluded = new DataGridViewCheckBoxColumn() { Name = GridColumn.Included, HeaderText = "Included" };
+			colIncluded.ValueType = typeof(bool);
 
-			DgvTargets.Columns[GridColumn.Selected].ValueType = typeof(bool);
-			DgvTargets.Columns[GridColumn.Asset].ReadOnly = true;
-			DgvTargets.Columns[GridColumn.Id].ReadOnly = true;
-			DgvTargets.Columns[GridColumn.Type].ReadOnly = true;
-			DgvTargets.Columns[GridColumn.Localisation].ReadOnly = true;
-			DgvTargets.Columns[GridColumn.Information].ReadOnly = true;
-			DgvTargets.Columns[GridColumn.Data].Visible = false;
+			DgvThreats.Columns.Add(colIncluded);
+			DgvThreats.Columns.Add(GridColumn.Id, "ID");
+			DgvThreats.Columns.Add(GridColumn.Asset, "Asset");
+			DgvThreats.Columns.Add(GridColumn.Unit, "Unit");
+			DgvThreats.Columns.Add(GridColumn.Localisation, "Localisation");
+			DgvThreats.Columns.Add(GridColumn.Information, "Information");
+			DgvThreats.Columns.Add(GridColumn.Data, "Data");
 
-			foreach (AssetGroup target in m_asset.Coalition.OpposingAssets.OfType<AssetGroup>())
+			DgvThreats.Columns[GridColumn.Id].ReadOnly = true;
+			DgvThreats.Columns[GridColumn.Asset].ReadOnly = true;
+			DgvThreats.Columns[GridColumn.Unit].ReadOnly = true;
+			DgvThreats.Columns[GridColumn.Localisation].ReadOnly = true;
+			DgvThreats.Columns[GridColumn.Information].ReadOnly = true;
+			DgvThreats.Columns[GridColumn.Data].Visible = false;
+
+			foreach (AssetGroup group in m_asset.Coalition.OpposingAssets.OfType<AssetGroup>())
 			{
-				foreach (AssetUnit unit in target.Units)
+				foreach (AssetUnit unit in group.Units)
 				{
-					RefreshGridRowTarget(target, unit);
+					RefreshGridRowThreat(group, unit);
 				}
 			}
 		}
 
-		private void RefreshGridRowTarget(AssetGroup target, AssetUnit unit)
+		private void RefreshGridRowThreat(AssetGroup group, AssetUnit unit)
 		{
 			DataGridViewRow dgvr = null;
-			foreach (DataGridViewRow existingRow in DgvTargets.Rows)
+			foreach (DataGridViewRow existingRow in DgvThreats.Rows)
 			{
 				if (existingRow.Cells[GridColumn.Data].Value == unit)
 				{
@@ -147,15 +151,15 @@ namespace DcsBriefop
 			}
 			if (dgvr is null)
 			{
-				int iNewRowIndex = DgvTargets.Rows.Add();
-				dgvr = DgvTargets.Rows[iNewRowIndex];
+				int iNewRowIndex = DgvThreats.Rows.Add();
+				dgvr = DgvThreats.Rows[iNewRowIndex];
 				dgvr.Cells[GridColumn.Data].Value = unit;
 			}
 
-			dgvr.Cells[GridColumn.Selected].Value = m_asset.MissionData.IsTarget(unit.Id);
-			dgvr.Cells[GridColumn.Asset].Value = target.Description;
+			dgvr.Cells[GridColumn.Included].Value = m_asset.MissionData.IsThreatIncluded(unit.Id);
 			dgvr.Cells[GridColumn.Id].Value = unit.Id;
-			dgvr.Cells[GridColumn.Type].Value = unit.Type;
+			dgvr.Cells[GridColumn.Asset].Value = group.Description;			
+			dgvr.Cells[GridColumn.Unit].Value = unit.Description;
 			dgvr.Cells[GridColumn.Localisation].Value = unit.GetLocalisation();
 			dgvr.Cells[GridColumn.Information].Value = unit.Information;
 		}
@@ -163,7 +167,6 @@ namespace DcsBriefop
 		private void ScreenToData()
 		{
 			m_asset.MissionData.MissionInformation = TbInformation.Text;
-
 			UpdateMapControl();
 		}
 
@@ -174,22 +177,6 @@ namespace DcsBriefop
 		#endregion
 
 		#region Events
-		private void CbUsage_SelectionChangeCommitted(object sender, System.EventArgs e)
-		{
-			ScreenToData();
-		}
-
-		private void CbMapDisplay_SelectionChangeCommitted(object sender, System.EventArgs e)
-		{
-			ScreenToData();
-		}
-		#endregion
-
-		private void TbInformation_TextChanged(object sender, System.EventArgs e)
-		{
-			ScreenToData();
-		}
-
 		private void DgvTargets_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0)
@@ -200,11 +187,11 @@ namespace DcsBriefop
 				return;
 
 			DataGridViewColumn column = grid.Columns[e.ColumnIndex];
-			if (column.Name == GridColumn.Selected)
+			if (column.Name == GridColumn.Included)
 			{
 				DataGridViewCell cell = grid.Rows[e.RowIndex].Cells[e.ColumnIndex];
 				AssetUnit unit = grid.Rows[e.RowIndex].Cells[GridColumn.Data].Value as AssetUnit;
-				m_asset.MissionData.SetTarget(unit.Id, (bool)cell.Value);
+				m_asset.MissionData.IncludeThreat(unit.Id, (bool)cell.Value);
 				m_asset.MissionData.InitializeMapData();
 				UpdateMapControl();
 			}
@@ -216,10 +203,41 @@ namespace DcsBriefop
 				return;
 
 			DataGridViewColumn column = (sender as DataGridView).Columns[e.ColumnIndex];
-			if (column.Name == GridColumn.Selected)
+			if (column.Name == GridColumn.Included)
 			{
 				(sender as DataGridView).EndEdit();
 			}
 		}
+
+		private void DgvThreats_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+		{
+			if (e.RowIndex < 0)
+				return;
+			DataGridView dgv = sender as DataGridView;
+			if (dgv == null)
+				return;
+
+			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
+			AssetUnit unit = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as AssetUnit;
+			DataGridViewCell dgvc = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+			DataGridViewCellStyle cellStyle = dgvc.InheritedStyle;
+			if (column.Name == GridColumn.Included)
+			{
+				if (m_asset.MissionData.IsThreatIncluded(unit.Id))
+				{
+					cellStyle.BackColor = Color.LightGreen;
+					cellStyle.SelectionBackColor = ToolsImage.Lerp(cellStyle.BackColor, dgv.DefaultCellStyle.SelectionBackColor, 0.2f);
+				}
+			}
+
+			e.CellStyle = cellStyle;
+		}
+
+		private void FrmMissionDetail_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			ScreenToData();
+		}
+		#endregion
 	}
 }

@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Tools;
 using LsonLib;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace DcsBriefop.DataMiz
@@ -15,6 +14,7 @@ namespace DcsBriefop.DataMiz
 			public static readonly string Skill = "skill";
 			public static readonly string Y = "y";
 			public static readonly string X = "x";
+			public static readonly string Alt = "alt";
 			public static readonly string Radio = "Radio";
 		}
 
@@ -24,6 +24,7 @@ namespace DcsBriefop.DataMiz
 		public string Skill { get; set; }
 		public decimal Y { get; set; }
 		public decimal X { get; set; }
+		public decimal? Altitude { get; set; }
 		public MizRadio[] Radios { get; set; }
 
 		public MizUnit(LsonDict lsd) : base(lsd) { }
@@ -36,6 +37,7 @@ namespace DcsBriefop.DataMiz
 			Skill = Lsd.IfExistsString(LuaNode.Skill);
 			Y = Lsd[LuaNode.Y].GetDecimal();
 			X = Lsd[LuaNode.X].GetDecimal();
+			Altitude = Lsd.IfExistsDecimal(LuaNode.Alt);
 
 			if (Lsd.ContainsKey(LuaNode.Radio))
 			{

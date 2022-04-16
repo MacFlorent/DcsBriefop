@@ -16,6 +16,7 @@ namespace DcsBriefop.UcBriefing
 		{
 			public static readonly string Included = "Usage";
 			public static readonly string MapDisplay = "MapDisplay";
+			public static readonly string Mission = "Mission";
 			public static readonly string Side = "Side";
 			public static readonly string Function = "Function";
 			public static readonly string Id = "Id";
@@ -129,8 +130,12 @@ namespace DcsBriefop.UcBriefing
 		{
 			dgv.Columns.Clear();
 
-			DataGridViewCheckBoxColumn col = new DataGridViewCheckBoxColumn() { Name = GridColumn.Included, HeaderText = "Included" };
-			dgv.Columns.Add(col);
+			DataGridViewCheckBoxColumn colIncluded = new DataGridViewCheckBoxColumn() { Name = GridColumn.Included, HeaderText = "Included" };
+			DataGridViewCheckBoxColumn colMission = new DataGridViewCheckBoxColumn() { Name = GridColumn.Mission, HeaderText = "Mission" };
+			colIncluded.ValueType = colMission.ValueType = typeof(bool); ;
+
+			dgv.Columns.Add(colIncluded);
+			dgv.Columns.Add(colMission);
 			dgv.Columns.Add(GridColumn.MapDisplay, "Map");
 			dgv.Columns.Add(GridColumn.Id, "ID");
 			dgv.Columns.Add(GridColumn.Function, "Function");
@@ -141,7 +146,6 @@ namespace DcsBriefop.UcBriefing
 			dgv.Columns.Add(GridColumn.Notes, "Notes");
 			dgv.Columns.Add(GridColumn.Data, "");
 
-			dgv.Columns[GridColumn.Included].ValueType = typeof(bool);
 			dgv.Columns[GridColumn.MapDisplay].ReadOnly = true;
 			dgv.Columns[GridColumn.Id].ReadOnly = true;
 			dgv.Columns[GridColumn.Function].ReadOnly = true;
@@ -156,17 +160,23 @@ namespace DcsBriefop.UcBriefing
 		private void InitializeGridOwnAsset(DataGridView dgv)
 		{
 			InitializeGridAsset(dgv);
+			dgv.Columns[GridColumn.Included].ToolTipText = "Included in Operations page";
 		}
 
 		private void InitializeGridOpposingAsset(DataGridView dgv)
 		{
 			InitializeGridAsset(dgv);
+			dgv.Columns[GridColumn.Included].ToolTipText = "Included in Opposition page";
+
+			dgv.Columns[GridColumn.Mission].Visible = false;
 			dgv.Columns[GridColumn.Radio].Visible = false;
 		}
 
 		private void InitializeGridAirdrome(DataGridView dgv)
 		{
 			InitializeGridAsset(dgv);
+
+			dgv.Columns[GridColumn.Mission].Visible = false;
 			dgv.Columns[GridColumn.Task].Visible = false;
 			dgv.Columns[GridColumn.Type].Visible = false;
 		}
@@ -185,7 +195,7 @@ namespace DcsBriefop.UcBriefing
 					continue;
 				if (asset is AssetStatic && !CkFilterStatics.Checked)
 					continue;
-				if (!ToolsBriefop.AssetOrUnitIncluded(asset) && !CkFilterExcluded.Checked)
+				if (!ToolsBriefop.AssetOrUnitIncluded(asset) && !((asset as AssetFlight)?.MissionData is object) && !CkFilterExcluded.Checked)
 					continue;
 
 				RefreshGridRow(dgv, asset);
@@ -211,6 +221,10 @@ namespace DcsBriefop.UcBriefing
 			}
 
 			RefreshGridRowContent(dgvr, GridColumn.Included, asset.Included);
+
+			dgvr.Cells[GridColumn.Mission].ReadOnly = !(asset is AssetFlight);
+			RefreshGridRowContent(dgvr, GridColumn.Mission, (asset as AssetFlight)?.MissionData is object);
+
 			RefreshGridRowContent(dgvr, GridColumn.MapDisplay, MasterDataRepository.GetById(MasterDataType.AssetMapDisplay, (int)asset.MapDisplay)?.Label);
 			RefreshGridRowContent(dgvr, GridColumn.Function, asset.Function);
 			RefreshGridRowContent(dgvr, GridColumn.Id, asset.Id);
@@ -297,7 +311,7 @@ namespace DcsBriefop.UcBriefing
 
 				menu.Items.AddMenuSeparator();
 
-				ToolStripMenuItem tmsiUsage = menu.Items.AddMenuItem("Include", null);
+				ToolStripMenuItem tmsiUsage = menu.Items.AddMenuItem("Inclusion", null);
 				tmsiUsage.DropDownItems.AddMenuItem("Excluded", (object _sender, EventArgs _e) => { SetIncluded(selectedAssets, false, dgv); });
 				tmsiUsage.DropDownItems.AddMenuItem("Included", (object _sender, EventArgs _e) => { SetIncluded(selectedAssets, true, dgv); });
 
@@ -352,12 +366,28 @@ namespace DcsBriefop.UcBriefing
 				return;
 
 			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
+			DataGridViewCell cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+			Asset asset = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as Asset;
+
 			if (column.Name == GridColumn.Included)
 			{
-				DataGridViewCell cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-				Asset asset = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as Asset;
 				asset.Included = (bool)cell.Value;
 			}
+			else if (column.Name == GridColumn.Mission)
+			{
+				if (asset is AssetFlight flight)
+				{
+					if ((bool)cell.Value && flight.MissionData is null)
+					{
+						flight.AddMissionData();
+					}
+					else if (!(bool)cell.Value && flight.MissionData is object)
+					{
+						flight.RemoveMissionData();
+					}
+				}
+			}
+
 		}
 
 		private void DgvAssets_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
@@ -366,7 +396,7 @@ namespace DcsBriefop.UcBriefing
 				return;
 
 			DataGridViewColumn column = (sender as DataGridView).Columns[e.ColumnIndex];
-			if (column.Name == GridColumn.Included)
+			if (column.Name == GridColumn.Included || column.Name == GridColumn.Mission)
 			{
 				(sender as DataGridView).EndEdit();
 			}
@@ -382,7 +412,7 @@ namespace DcsBriefop.UcBriefing
 				return;
 
 			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
-			if (column.Name != GridColumn.Included)
+			if (column.Name != GridColumn.Included && column.Name != GridColumn.Mission)
 			{
 				Asset asset = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as Asset;
 				ShowDetail(asset, dgv);
@@ -405,6 +435,14 @@ namespace DcsBriefop.UcBriefing
 			if (column.Name == GridColumn.Included)
 			{
 				if (ToolsBriefop.AssetOrUnitIncluded(asset))
+				{
+					cellStyle.BackColor = Color.LightGreen;
+					cellStyle.SelectionBackColor = ToolsImage.Lerp(cellStyle.BackColor, dgv.DefaultCellStyle.SelectionBackColor, 0.2f);
+				}
+			}
+			else if (column.Name == GridColumn.Mission)
+			{
+				if (asset is AssetFlight flight && flight.MissionData is object)
 				{
 					cellStyle.BackColor = Color.LightGreen;
 					cellStyle.SelectionBackColor = ToolsImage.Lerp(cellStyle.BackColor, dgv.DefaultCellStyle.SelectionBackColor, 0.2f);

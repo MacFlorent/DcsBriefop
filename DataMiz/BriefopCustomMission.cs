@@ -7,7 +7,7 @@ namespace DcsBriefop.DataMiz
 		public int Id { get; set; }
 		public string CoalitionName { get; set; }
 		public string MissionInformation { get; set; }
-		public List<int> TargetIds { get; set; } = new List<int>();
+		public List<int> ThreatIds { get; set; } = new List<int>();
 		public Dictionary<int, string> WaypointNotes { get; set; } = new Dictionary<int, string>();
 
 		public BriefopCustomMap MapData { get; set; }

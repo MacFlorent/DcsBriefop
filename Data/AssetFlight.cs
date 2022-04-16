@@ -16,6 +16,8 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Properties
+		public override string Class { get; protected set; } = "Flight";
+
 		private MizGroupFlight MizGroupFlight { get { return m_mizGroup as MizGroupFlight; } }
 		public string Callsign { get; set; }
 		public AssetFlightMission MissionData { get; set; }
@@ -64,6 +66,7 @@ namespace DcsBriefop.Data
 				}
 				else if (Playable)
 				{
+					AddMissionData();
 					m_briefopCustomGroup.Included = false;
 					m_briefopCustomGroup.MapDisplay = (int)ElementAssetMapDisplay.None;
 				}
@@ -205,14 +208,6 @@ namespace DcsBriefop.Data
 			}
 		}
 
-		//public void SetMissionData()
-		//{
-		//	if (Usage == ElementAssetUsage.MissionWithDetail)
-		//		AddMissionData();
-		//	else
-		//		RemoveMissionData();
-		//}
-
 		private void AddBullseyeWaypoint()
 		{
 			AssetRoutePoint bullsPoint = MapPoints.OfType<AssetRoutePoint>().Where(_mp => _mp.Name == m_sBullsPointName).FirstOrDefault();
@@ -271,7 +266,7 @@ namespace DcsBriefop.Data
 		
 		
 		public BriefopCustomMap MapData { get { return m_briefopCustomMission?.MapData; } }
-		public List<int> TargetIds { get { return m_briefopCustomMission?.TargetIds; } }
+		public List<int> ThreatIds { get { return m_briefopCustomMission?.ThreatIds; } }
 		public Dictionary<int, string> WaypointNotes { get { return m_briefopCustomMission?.WaypointNotes; } }
 
 		#endregion
@@ -341,11 +336,11 @@ namespace DcsBriefop.Data
 			{
 				MapData.AdditionalMapOverlays.Add(carrier.MapOverlayStatic);
 			}
-			foreach (AssetGroup target in Coalition.OpposingAssets.OfType<AssetGroup>())
+			foreach (AssetGroup group in Coalition.OpposingAssets.OfType<AssetGroup>())
 			{
-				if (target.Units.Select(_u => _u.Id).Intersect(TargetIds).Any())
+				if (group.Units.Select(_u => _u.Id).Intersect(ThreatIds).Any())
 				{
-					target.InitializeMapDataPoint(staticOverlay);
+					group.InitializeMapDataPoint(staticOverlay);
 				}
 			}
 		}
@@ -363,25 +358,25 @@ namespace DcsBriefop.Data
 				Core.Miz.BriefopCustomData.Missions.Contains(m_briefopCustomMission);
 		}
 
-		public bool IsTarget(int iTargetId)
+		public bool IsThreatIncluded(int iUnitId)
 		{
-			return TargetIds.Contains(iTargetId);
+			return ThreatIds.Contains(iUnitId);
 		}
 
-		public void SetTarget(int iTargetId, bool bSelected)
+		public void IncludeThreat(int iUnitId, bool bSelected)
 		{
-			if (bSelected && !IsTarget(iTargetId))
-				TargetIds.Add(iTargetId);
-			else if (!bSelected && IsTarget(iTargetId))
-				TargetIds.Remove(iTargetId);
+			if (bSelected && !IsThreatIncluded(iUnitId))
+				ThreatIds.Add(iUnitId);
+			else if (!bSelected && IsThreatIncluded(iUnitId))
+				ThreatIds.Remove(iUnitId);
 		}
 
-		public List<AssetUnit> GetListTargetUnits()
+		public List<AssetUnit> GetListThreatUnits()
 		{
 			List<AssetUnit> list = new List<AssetUnit>();
-			foreach (AssetGroup target in Coalition.OpposingAssets.OfType<AssetGroup>())
+			foreach (AssetGroup group in Coalition.OpposingAssets.OfType<AssetGroup>())
 			{
-				foreach (AssetUnit unit in target.Units.Where(_u => IsTarget(_u.Id)))
+				foreach (AssetUnit unit in group.Units.Where(_u => IsThreatIncluded(_u.Id)))
 				{
 					list.Add(unit);
 				}

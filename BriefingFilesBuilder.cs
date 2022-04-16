@@ -423,57 +423,70 @@ namespace DcsBriefop
 		private string GenerateHtmlMissionCard(BriefingCoalition coalition, AssetFlight asset)
 		{
 			string sHtml = ToolsResources.GetTextResourceContent("briefingTemplateMissionCard", "html");
+			StringBuilder sb = new StringBuilder();
+			string sBlockRaw, sBlockCleaned;
 
-			//PlaceholderReplaceStyle(ref sHtml, coalition.OwnColor);
-			//PlaceholderReplace(ref sHtml, "coalition", coalition.CoalitionName);
-			//PlaceholderReplace(ref sHtml, "assetDescription", asset.Description);
-			//PlaceholderReplace(ref sHtml, "task", asset.Task);
-			//PlaceholderReplace(ref sHtml, "taskDetail", asset.MissionData?.MissionInformation);
-			//PlaceholderReplace(ref sHtml, "weather", m_briefingContainer.Mission.Weather.ToString());
-			//PlaceholderReplace(ref sHtml, "bullseye", coalition.GetBullseyeCoordinatesString());
+			PlaceholderReplaceStyle(ref sHtml, coalition.OwnColor);
+			PlaceholderReplace(ref sHtml, "coalition", coalition.CoalitionName);
+			PlaceholderReplace(ref sHtml, "assetDescription", asset.Description);
+			PlaceholderReplace(ref sHtml, "task", asset.Task);
+			PlaceholderReplace(ref sHtml, "weather", m_briefingContainer.Mission.Weather.ToString());
+			PlaceholderReplace(ref sHtml, "bullseye", coalition.GetBullseyeCoordinatesString());
 
-			//string sLineRaw, sLineCleaned;
-			//PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "supportLine");
-			//StringBuilder sb = new StringBuilder();
-			//foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Support))
-			//{
-			//	GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
-			//}
-			//foreach (Asset supportAsset in coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base))
-			//{
-			//	GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
-			//}
-			//foreach (Asset supportAsset in coalition.Airdromes.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base && _a.Side == ElementAssetSide.Own))
-			//{
-			//	GenerateHtmlMissionCardAssetLine(sb, sLineCleaned, supportAsset);
-			//}
-			//sHtml = sHtml.Replace(sLineRaw, sb.ToString());
 
-			//PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "waypointLine");
-			//sb.Clear();
-			//foreach (AssetRoutePoint routePoint in asset.MapPoints.OfType<AssetRoutePoint>())
-			//{
-			//	string sWaypointLine = sLineCleaned;
-			//	PlaceholderReplace(ref sWaypointLine, "waypointNumber", routePoint.Number.ToString());
-			//	PlaceholderReplace(ref sWaypointLine, "waypointName", routePoint.Name);
-			//	PlaceholderReplace(ref sWaypointLine, "waypointAction", routePoint.Action);
-			//	PlaceholderReplace(ref sWaypointLine, "waypointAltitude", routePoint.AltitudeFeet);
-			//	sb.Append(sWaypointLine);
-			//}
-			//sHtml = sHtml.Replace(sLineRaw, sb.ToString());
+			if (PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "task"))
+			{
+				if (string.IsNullOrEmpty(asset.Task) || string.Equals(asset.Task, "nothing", StringComparison.OrdinalIgnoreCase))
+					sHtml = sHtml.Replace(sBlockRaw, "");
+				else
+					PlaceholderReplace(ref sHtml, "task", asset.MissionData?.MissionInformation);
+			}
 
-			//PlaceholderGetLine(out sLineRaw, out sLineCleaned, sHtml, "targetLine");
-			//sb.Clear();
-			//foreach (AssetUnit unit in asset.MissionData.GetListTargetUnits())
-			//{
-			//	string sTargetLine = sLineCleaned;
-			//	PlaceholderReplace(ref sTargetLine, "targetName", unit.AssetGroup.Name);
-			//	PlaceholderReplace(ref sTargetLine, "targetType", unit.Type);
-			//	PlaceholderReplace(ref sTargetLine, "targetLocalisation", unit.GetLocalisation());
-			//	PlaceholderReplace(ref sTargetLine, "targetNotes", unit.Information);
-			//	sb.Append(sTargetLine);
-			//}
-			//sHtml = sHtml.Replace(sLineRaw, sb.ToString());
+			if (PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "taskDetail"))
+			{
+				if (string.IsNullOrEmpty(asset.MissionData?.MissionInformation))
+					sHtml = sHtml.Replace(sBlockRaw, "");
+				else
+					PlaceholderReplace(ref sHtml, "taskDetail", asset.MissionData?.MissionInformation);
+			}
+
+			if (PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "waypointLine"))
+			{
+				sb.Clear();
+				foreach (AssetRoutePoint routePoint in asset.MapPoints.OfType<AssetRoutePoint>())
+				{
+					string sWaypointLine = sBlockCleaned;
+					PlaceholderReplace(ref sWaypointLine, "waypointNumber", routePoint.Number.ToString());
+					PlaceholderReplace(ref sWaypointLine, "waypointName", routePoint.Name);
+					PlaceholderReplace(ref sWaypointLine, "waypointAction", routePoint.Action);
+					PlaceholderReplace(ref sWaypointLine, "waypointAltitude", routePoint.AltitudeFeet);
+					sb.Append(sWaypointLine);
+				}
+				sHtml = sHtml.Replace(sBlockRaw, sb.ToString());
+			}
+
+			if (PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "threatLine"))
+			{
+				List<AssetUnit> threats = asset.MissionData.GetListThreatUnits();
+				if (threats.Count < 0)
+				{
+					sHtml = sHtml.Replace(sBlockRaw, "");
+				}
+				else
+				{
+					sb.Clear();
+					PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "threatLine");
+					foreach (AssetUnit threat in threats)
+					{
+						string sThreatLine = sBlockCleaned;
+						PlaceholderReplace(ref sThreatLine, "threatDescription", $"{threat.AssetGroup.Description}<br>{threat.Description}");
+						PlaceholderReplace(ref sThreatLine, "threatLocalisation", threat.GetLocalisation());
+						PlaceholderReplace(ref sThreatLine, "threatNotes", threat.Information);
+						sb.Append(sThreatLine);
+					}
+					sHtml = sHtml.Replace(sBlockRaw, sb.ToString());
+				}
+			}
 
 			return sHtml;
 		}

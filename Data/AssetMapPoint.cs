@@ -1,6 +1,7 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.DataMiz;
-using System.Linq;
+using DcsBriefop.Tools;
+using System;
 
 namespace DcsBriefop.Data
 {
@@ -32,6 +33,12 @@ namespace DcsBriefop.Data
 		public virtual string GetOrbitPattern()
 		{
 			return null;
+		}
+
+		public virtual string GetLocalisationString()
+		{
+			//sLocalisation = $"{point.Coordinate.ToStringDMS()}{Environment.NewLine}{point.Coordinate.ToStringDDM()}{Environment.NewLine}{point.Coordinate.ToStringMGRS()}";
+			return Coordinate.ToStringMGRS();
 		}
 		#endregion
 	}
@@ -110,6 +117,12 @@ namespace DcsBriefop.Data
 			}
 
 			return sOrbitPattern;
+		}
+
+		public override string GetLocalisationString()
+		{
+			//sLocalisation = $"{point.Coordinate.ToStringDMS()}{Environment.NewLine}{point.Coordinate.ToStringDDM()}{Environment.NewLine}{point.Coordinate.ToStringMGRS()}";
+			return $"{Coordinate.ToStringMGRS()}{Environment.NewLine}{AltitudeFeet} ft";
 		}
 		#endregion
 	}

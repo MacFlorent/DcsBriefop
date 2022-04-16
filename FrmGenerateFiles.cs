@@ -121,6 +121,7 @@ namespace DcsBriefop
 		#region Events
 		private void BtGenerate_Click(object sender, System.EventArgs e)
 		{
+			using (new WaitDialog(this))
 			using (BriefingFilesBuilder builder = new BriefingFilesBuilder(m_briefingContainer, m_missionManager))
 			{
 				builder.Generate(GetListSelectedFileTypes(), CkMizFile.Checked, CkLocalDirectory.Checked, CkLocalDirectoryHtml.Checked, TbLocalDirectory.Text);

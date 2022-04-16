@@ -16,6 +16,8 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Properties
+		public virtual string Class { get; protected set; } = "Asset";
+
 		public BriefingCoalition Coalition { get; protected set; }
 		public ElementAssetSide Side { get; set; }
 		public ElementAssetFunction Function { get; set; }
@@ -211,7 +213,8 @@ namespace DcsBriefop.Data
 			AssetMapPoint point = MapPoints.FirstOrDefault();
 			if (point is object)
 			{
-				sLocalisation = $"{point.Coordinate.ToStringDMS()}{Environment.NewLine}{point.Coordinate.ToStringDDM()}{Environment.NewLine}{point.Coordinate.ToStringMGRS()}";
+				//sLocalisation = $"{point.Coordinate.ToStringDMS()}{Environment.NewLine}{point.Coordinate.ToStringDDM()}{Environment.NewLine}{point.Coordinate.ToStringMGRS()}";
+				sLocalisation = point.GetLocalisationString();
 			}
 
 			return sLocalisation;

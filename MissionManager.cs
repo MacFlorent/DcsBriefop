@@ -21,7 +21,7 @@ namespace DcsBriefop
 		public bool ExportLocalDirectoryActive { get; set; } = true;
 		public bool ExportLocalDirectoryBitmaps { get; set; } = false;
 		public string ExportLocalDirectoryPath { get; set; }
-		public List<ElementExportFileType> ExportFileTypes { get; set; } = new List<ElementExportFileType>() { ElementExportFileType.Operations, ElementExportFileType.Opposition, ElementExportFileType.Coms };
+		public List<ElementExportFileType> ExportFileTypes { get; set; } = new List<ElementExportFileType>() { ElementExportFileType.Operations, ElementExportFileType.Opposition, ElementExportFileType.Missions };
 
 		public DataMiz.Miz Miz { get; private set; }
 		#endregion

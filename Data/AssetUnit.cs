@@ -2,6 +2,7 @@
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 using System;
+using System.Linq;
 
 namespace DcsBriefop.Data
 {
@@ -79,12 +80,12 @@ namespace DcsBriefop.Data
 		public override void Persist()
 		{
 			base.Persist();
-			
+
 			m_briefopCustomUnit.Included = Included;
 
 			if (m_unit.Radios is object && m_unit.Radios.Length > 0 && AssetGroup.Coalition.ComPresets is object && AssetGroup.Coalition.ComPresets.Count > 0)
 			{
-				foreach(ComPreset comPreset in AssetGroup.Coalition.ComPresets)
+				foreach (ComPreset comPreset in AssetGroup.Coalition.ComPresets)
 				{
 					if (m_unit.Radios.Length > comPreset.PresetRadio)
 					{
@@ -100,7 +101,13 @@ namespace DcsBriefop.Data
 
 		public virtual string GetLocalisation()
 		{
-			return $"{Coordinate.ToStringDMS()}{Environment.NewLine}{Coordinate.ToStringDDM()}{Environment.NewLine}{Coordinate.ToStringMGRS()}";
+			string sAltitude = "";
+			if (AssetGroup.MapPoints.FirstOrDefault() is AssetRoutePoint routePoint)
+			{
+				sAltitude = $"{Environment.NewLine}{routePoint.AltitudeFeet}";
+			}
+
+			return $"{Coordinate.ToStringMGRS()}{sAltitude}";
 		}
 		#endregion
 	}

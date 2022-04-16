@@ -45,7 +45,7 @@ namespace DcsBriefop
 			TbDescription.Text = m_asset.Description;
 			TbSide.Text = m_asset.Side.ToString();
 
-			TbAssetClass.Text = m_asset.GetType().ToString();
+			TbAssetClass.Text = m_asset.Class;
 			TbFunction.Text = m_asset.Function.ToString();
 			CkIncluded.Checked = m_asset.Included;
 			CbMapDisplay.SelectedValue = (int)m_asset.MapDisplay;
@@ -95,11 +95,15 @@ namespace DcsBriefop
 			DgvUnits.Columns.Add(GridColumn.Data, "Data");
 
 			DgvUnits.Columns[GridColumn.Included].ValueType = typeof(bool);
+			DgvUnits.Columns[GridColumn.Included].Visible = (m_asset is AssetShip || m_asset is AssetVehicle);
 			DgvUnits.Columns[GridColumn.Type].ReadOnly = true;
 			DgvUnits.Columns[GridColumn.Description].ReadOnly = true;
 			DgvUnits.Columns[GridColumn.Localisation].ReadOnly = true;
+			DgvUnits.Columns[GridColumn.Localisation].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 			DgvUnits.Columns[GridColumn.Information].ReadOnly = true;
 			DgvUnits.Columns[GridColumn.Data].Visible = false;
+
+			DgvUnits.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 		}
 
 		private void RefreshGridRowUnit(AssetUnit unit)
