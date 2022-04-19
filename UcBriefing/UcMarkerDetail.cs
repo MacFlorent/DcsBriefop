@@ -27,7 +27,7 @@ namespace DcsBriefop.UcBriefing
 
 		public void DataToScreen()
 		{
-			TbColor.TextChanged -= TbColor_TextChanged;
+			UcTintColor.ColorChanged -= UcTintColor_ColorChanged;
 			TbLabel.TextChanged -= TbLabel_TextChanged;
 			UdScale.ValueChanged -= UdScale_ValueChanged;
 			UdAngle.ValueChanged -= UdAngle_ValueChanged;
@@ -37,12 +37,9 @@ namespace DcsBriefop.UcBriefing
 			UdScale.Value = m_marker.Scale;
 			UdAngle.Value = m_marker.Angle;
 
-			if (m_marker.TintColor is object)
-				TbColor.Text = ColorTranslator.ToHtml(m_marker.TintColor.Value);
-			else
-				TbColor.Text = "";
+			UcTintColor.SelectedColor = m_marker.TintColor;
 
-			TbColor.TextChanged += TbColor_TextChanged;
+			UcTintColor.ColorChanged += UcTintColor_ColorChanged;
 			TbLabel.TextChanged += TbLabel_TextChanged;
 			UdScale.ValueChanged += UdScale_ValueChanged;
 			UdAngle.ValueChanged += UdAngle_ValueChanged;
@@ -55,22 +52,10 @@ namespace DcsBriefop.UcBriefing
 			m_marker.Scale = (int)UdScale.Value;
 			m_marker.Angle = (int)UdAngle.Value;
 
-			m_marker.TintColor = GetSelectedColor();
+			m_marker.TintColor = UcTintColor.SelectedColor;
 
 			m_marker.LoadBitmap();
 			m_map.Refresh();
-		}
-
-		private Color? GetSelectedColor()
-		{
-			Color? color = null;
-			if (!string.IsNullOrEmpty(TbColor.Text))
-			{
-				try { color = ColorTranslator.FromHtml(TbColor.Text); }
-				catch (Exception) { color = null; }
-			}
-
-			return color;
 		}
 
 		#region Events
@@ -98,20 +83,10 @@ namespace DcsBriefop.UcBriefing
 		{
 			ScreenToData();
 		}
-
-		private void BtColor_Click(object sender, EventArgs e)
+		private void UcTintColor_ColorChanged(object sender, EventArgs e)
 		{
-			ColorDialog cd = new ColorDialog();
-			cd.AllowFullOpen = false;
-			cd.Color = GetSelectedColor() ?? Color.Black;
-
-			if (cd.ShowDialog() == DialogResult.OK)
-			{
-				TbColor.Text = ColorTranslator.ToHtml(cd.Color);
-				ScreenToData();
-			}
+			ScreenToData();
 		}
-
 		#endregion
 
 

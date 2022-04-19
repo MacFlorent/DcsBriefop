@@ -31,6 +31,5 @@ namespace DcsBriefop.Tools
 			return asset is object &&
 				(asset.Included || ((asset as AssetGroup)?.Units.Where(_u => _u.Included).Any()).GetValueOrDefault(false));
 		}
-
 	}
 }

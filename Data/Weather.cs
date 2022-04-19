@@ -155,7 +155,7 @@ namespace DcsBriefop.Data
 		public WeatherWind(DataMiz.MizWeatherWind lson)
 		{
 			SpeedMs = lson.Speed;
-			DirectionTrue = (lson.Direction + 180) % 360;
+			DirectionTrue = ((int)Math.Round(lson.Direction) + 180) % 360;
 		}
 	}
 }

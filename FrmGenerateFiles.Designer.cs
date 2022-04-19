@@ -37,7 +37,15 @@ namespace DcsBriefop
 			this.CkLocalDirectoryHtml = new System.Windows.Forms.CheckBox();
 			this.BtLocalDirectoryReset = new System.Windows.Forms.Button();
 			this.DgvFileTypes = new System.Windows.Forms.DataGridView();
+			this.LbImageSize = new System.Windows.Forms.Label();
+			this.LbImageBackgroundColor = new System.Windows.Forms.Label();
+			this.LbImageSizeX = new System.Windows.Forms.Label();
+			this.UcImageBackgroundColor = new DcsBriefop.UcBriefing.UcColor();
+			this.UdImageWidth = new System.Windows.Forms.NumericUpDown();
+			this.UdImageHeight = new System.Windows.Forms.NumericUpDown();
 			((System.ComponentModel.ISupportInitialize)(this.DgvFileTypes)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.UdImageWidth)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.UdImageHeight)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// CkMizFile
@@ -118,17 +126,102 @@ namespace DcsBriefop
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.DgvFileTypes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
 			this.DgvFileTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DgvFileTypes.Location = new System.Drawing.Point(12, 56);
+			this.DgvFileTypes.Location = new System.Drawing.Point(12, 80);
 			this.DgvFileTypes.Name = "DgvFileTypes";
 			this.DgvFileTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.DgvFileTypes.Size = new System.Drawing.Size(544, 167);
+			this.DgvFileTypes.Size = new System.Drawing.Size(544, 143);
 			this.DgvFileTypes.TabIndex = 25;
+			// 
+			// LbImageSize
+			// 
+			this.LbImageSize.AutoSize = true;
+			this.LbImageSize.Location = new System.Drawing.Point(9, 51);
+			this.LbImageSize.Name = "LbImageSize";
+			this.LbImageSize.Size = new System.Drawing.Size(57, 13);
+			this.LbImageSize.TabIndex = 28;
+			this.LbImageSize.Text = "Image size";
+			// 
+			// LbImageBackgroundColor
+			// 
+			this.LbImageBackgroundColor.AutoSize = true;
+			this.LbImageBackgroundColor.Location = new System.Drawing.Point(257, 55);
+			this.LbImageBackgroundColor.Name = "LbImageBackgroundColor";
+			this.LbImageBackgroundColor.Size = new System.Drawing.Size(91, 13);
+			this.LbImageBackgroundColor.TabIndex = 29;
+			this.LbImageBackgroundColor.Text = "Background color";
+			// 
+			// LbImageSizeX
+			// 
+			this.LbImageSizeX.AutoSize = true;
+			this.LbImageSizeX.Location = new System.Drawing.Point(130, 51);
+			this.LbImageSizeX.Name = "LbImageSizeX";
+			this.LbImageSizeX.Size = new System.Drawing.Size(12, 13);
+			this.LbImageSizeX.TabIndex = 32;
+			this.LbImageSizeX.Text = "x";
+			// 
+			// UcImageBackgroundColor
+			// 
+			this.UcImageBackgroundColor.Location = new System.Drawing.Point(364, 51);
+			this.UcImageBackgroundColor.Name = "UcImageBackgroundColor";
+			this.UcImageBackgroundColor.SelectedColor = null;
+			this.UcImageBackgroundColor.Size = new System.Drawing.Size(154, 23);
+			this.UcImageBackgroundColor.TabIndex = 33;
+			// 
+			// UdImageWidth
+			// 
+			this.UdImageWidth.Location = new System.Drawing.Point(73, 51);
+			this.UdImageWidth.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+			this.UdImageWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.UdImageWidth.Name = "UdImageWidth";
+			this.UdImageWidth.Size = new System.Drawing.Size(51, 20);
+			this.UdImageWidth.TabIndex = 34;
+			this.UdImageWidth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// UdImageHeight
+			// 
+			this.UdImageHeight.Location = new System.Drawing.Point(148, 51);
+			this.UdImageHeight.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+			this.UdImageHeight.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.UdImageHeight.Name = "UdImageHeight";
+			this.UdImageHeight.Size = new System.Drawing.Size(51, 20);
+			this.UdImageHeight.TabIndex = 35;
+			this.UdImageHeight.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// FrmGenerateFiles
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(561, 259);
+			this.Controls.Add(this.UdImageHeight);
+			this.Controls.Add(this.UdImageWidth);
+			this.Controls.Add(this.UcImageBackgroundColor);
+			this.Controls.Add(this.LbImageSizeX);
+			this.Controls.Add(this.LbImageBackgroundColor);
+			this.Controls.Add(this.LbImageSize);
 			this.Controls.Add(this.DgvFileTypes);
 			this.Controls.Add(this.BtLocalDirectoryReset);
 			this.Controls.Add(this.CkLocalDirectoryHtml);
@@ -142,6 +235,8 @@ namespace DcsBriefop
 			this.ShowInTaskbar = false;
 			this.Text = "FrmGenerateFiles";
 			((System.ComponentModel.ISupportInitialize)(this.DgvFileTypes)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.UdImageWidth)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.UdImageHeight)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -157,5 +252,11 @@ namespace DcsBriefop
 		private System.Windows.Forms.CheckBox CkLocalDirectoryHtml;
 		private System.Windows.Forms.Button BtLocalDirectoryReset;
 		private System.Windows.Forms.DataGridView DgvFileTypes;
+		private System.Windows.Forms.Label LbImageSize;
+		private System.Windows.Forms.Label LbImageBackgroundColor;
+		private System.Windows.Forms.Label LbImageSizeX;
+		private UcBriefing.UcColor UcImageBackgroundColor;
+		private System.Windows.Forms.NumericUpDown UdImageWidth;
+		private System.Windows.Forms.NumericUpDown UdImageHeight;
 	}
 }

@@ -2,6 +2,7 @@
 using DcsBriefop.Tools;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 
@@ -21,6 +22,8 @@ namespace DcsBriefop
 		public bool ExportLocalDirectoryActive { get; set; } = true;
 		public bool ExportLocalDirectoryBitmaps { get; set; } = false;
 		public string ExportLocalDirectoryPath { get; set; }
+		public Size ExportImageSize { get; set; } = new Size(ElementImageSize.Width, ElementImageSize.Height);
+		public Color? ExportImageBackgroundColor { get; set; } = null;
 		public List<ElementExportFileType> ExportFileTypes { get; set; } = new List<ElementExportFileType>() { ElementExportFileType.Operations, ElementExportFileType.Opposition, ElementExportFileType.Missions };
 
 		public DataMiz.Miz Miz { get; private set; }

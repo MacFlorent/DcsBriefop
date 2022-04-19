@@ -252,6 +252,9 @@
     <Compile Include="Tools\ToolsSettings.cs" />
     <Compile Include="Tools\ToolsStyle.cs" />
     <Compile Include="Tools\ToolsZip.cs" />
+    <Compile Include="UcBriefing\GridAsset.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UcBriefing\TabPageBriefing.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -301,6 +304,12 @@
     <Compile Include="UcBriefing\UcBriefingSituation.Designer.cs">
       <DependentUpon>UcBriefingSituation.cs</DependentUpon>
     </Compile>
+    <Compile Include="UcBriefing\UcColor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcBriefing\UcColor.Designer.cs">
+      <DependentUpon>UcColor.cs</DependentUpon>
+    </Compile>
     <Compile Include="UcBriefing\UcMap.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -347,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UcBriefing\UcBriefingSituation.resx">
       <DependentUpon>UcBriefingSituation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcBriefing\UcColor.resx">
+      <DependentUpon>UcColor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UcBriefing\UcMap.resx">
       <DependentUpon>UcMap.cs</DependentUpon>

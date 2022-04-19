@@ -101,14 +101,14 @@ namespace DcsBriefop.DataMiz
 		}
 
 		public decimal Speed { get; set; } // Speed in m/s
-		public int Direction { get; set; } // Direction the wind is goind towards, in degrees true
+		public decimal Direction { get; set; } // Direction the wind is goind towards, in degrees true
 
 		public MizWeatherWind(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
 			Speed = Lsd[LuaNode.Speed].GetDecimal();
-			Direction = Lsd[LuaNode.Direction].GetInt();
+			Direction = Lsd[LuaNode.Direction].GetDecimal();
 		}
 
 		public override void ToLua()

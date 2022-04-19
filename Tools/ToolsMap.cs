@@ -156,21 +156,21 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region Image Generation
-		public static Bitmap GenerateMapImage(BriefopCustomMap mapData)
+		public static Bitmap GenerateMapImage(BriefopCustomMap mapData, Size outputSize)
 		{
 			GMapProvider mapProvider = GMapProviders.TryGetProvider(mapData.Provider) ?? ElementMapValue.DefaultMapProvider;
 			List<GMapOverlay> overlays = new List<GMapOverlay>();
 			overlays.Add(mapData.MapOverlayCustom);
 			overlays.AddRange(mapData.AdditionalMapOverlays);
 			PointLatLng centerLatLng = new PointLatLng(mapData.CenterLatitude, mapData.CenterLongitude);
-			return GenerateMapImage(centerLatLng, (int)mapData.Zoom, mapProvider, overlays, ElementImageSize.Width, ElementImageSize.Height);
+			return GenerateMapImage(centerLatLng, (int)mapData.Zoom, mapProvider, overlays, outputSize);
 		}
 
-		public static Bitmap GenerateMapImage(PointLatLng centerLatLng, int iZoom, GMapProvider mapProvider, List<GMapOverlay> overlays, int iOutputWidth, int iOutputHeight)
+		public static Bitmap GenerateMapImage(PointLatLng centerLatLng, int iZoom, GMapProvider mapProvider, List<GMapOverlay> overlays, Size outputSize)
 		{
 			GPoint centerPoint = mapProvider.Projection.FromLatLngToPixel(centerLatLng, iZoom);
-			GPoint topLeft = new GPoint(centerPoint.X - iOutputWidth / 2, centerPoint.Y - iOutputHeight / 2);
-			GPoint bottomRight = new GPoint(topLeft.X + iOutputWidth, topLeft.Y + iOutputHeight);
+			GPoint topLeft = new GPoint(centerPoint.X - outputSize.Width / 2, centerPoint.Y - outputSize.Height / 2);
+			GPoint bottomRight = new GPoint(topLeft.X + outputSize.Width, topLeft.Y + outputSize.Height);
 
 			PointLatLng topLeftLatLng = mapProvider.Projection.FromPixelToLatLng(topLeft, iZoom);
 			PointLatLng bottomRightLatLng = mapProvider.Projection.FromPixelToLatLng(bottomRight, iZoom);

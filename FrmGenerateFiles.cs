@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace DcsBriefop
@@ -44,6 +45,10 @@ namespace DcsBriefop
 			CkLocalDirectory.Checked = m_missionManager.ExportLocalDirectoryActive;
 			CkLocalDirectoryHtml.Checked = m_missionManager.ExportLocalDirectoryBitmaps;
 			TbLocalDirectory.Text = m_missionManager.ExportLocalDirectoryPath;
+
+			UdImageWidth.Value = m_missionManager.ExportImageSize.Width;
+			UdImageHeight.Value = m_missionManager.ExportImageSize.Height;
+			UcImageBackgroundColor.SelectedColor = m_missionManager.ExportImageBackgroundColor;
 
 			DataToScreenFileTypes();
 			DisplayCurrentLocaDirectory();
@@ -95,6 +100,9 @@ namespace DcsBriefop
 			m_missionManager.ExportLocalDirectoryBitmaps = CkLocalDirectoryHtml.Checked;
 			m_missionManager.ExportLocalDirectoryPath = TbLocalDirectory.Text;
 
+			m_missionManager.ExportImageSize = new Size ((int)UdImageWidth.Value, (int)UdImageHeight.Value);
+			m_missionManager.ExportImageBackgroundColor = UcImageBackgroundColor.SelectedColor;
+
 			m_missionManager.ExportFileTypes = GetListSelectedFileTypes();
 		}
 
@@ -124,7 +132,15 @@ namespace DcsBriefop
 			using (new WaitDialog(this))
 			using (BriefingFilesBuilder builder = new BriefingFilesBuilder(m_briefingContainer, m_missionManager))
 			{
-				builder.Generate(GetListSelectedFileTypes(), CkMizFile.Checked, CkLocalDirectory.Checked, CkLocalDirectoryHtml.Checked, TbLocalDirectory.Text);
+				builder.UpdateMiz = CkMizFile.Checked;
+				builder.LocalExportDirectoryActive = CkLocalDirectory.Checked;
+				builder.LocalExportDirectoryWithHtml = CkLocalDirectoryHtml.Checked;
+				builder.LocalExportDirectory = TbLocalDirectory.Text;
+				builder.ExportFileTypes = GetListSelectedFileTypes();
+				builder.ImageSize = new Size((int)UdImageWidth.Value, (int)UdImageHeight.Value);
+				builder.ImageBackColor = UcImageBackgroundColor.SelectedColor ?? Color.Black;
+
+				builder.Generate();
 			}
 
 			ScreenToData();
@@ -155,6 +171,5 @@ namespace DcsBriefop
 			DisplayCurrentLocaDirectory();
 		}
 		#endregion
-
 	}
 }
