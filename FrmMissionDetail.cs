@@ -11,18 +11,10 @@ namespace DcsBriefop
 	{
 		private static class GridColumn
 		{
-			public static readonly string Included = "Included";
-			public static readonly string Id = "Id";
-			public static readonly string Asset = "Asset";
-			public static readonly string Unit = "Unit";
-			public static readonly string Localisation = "Localisation";
-			public static readonly string Information = "Information";
-	
 			public static readonly string Number = "Number";
 			public static readonly string Name = "Name";
 			public static readonly string Action = "Action";
 			public static readonly string Altitude = "Altitude";
-
 			public static readonly string Data = "Data";
 		}
 
@@ -111,58 +103,37 @@ namespace DcsBriefop
 
 		private void DataToScreenThreats()
 		{
-			DataGridViewCheckBoxColumn colIncluded = new DataGridViewCheckBoxColumn() { Name = GridColumn.Included, HeaderText = "Included" };
-			colIncluded.ValueType = typeof(bool);
-
-			DgvThreats.Columns.Add(colIncluded);
-			DgvThreats.Columns.Add(GridColumn.Id, "ID");
-			DgvThreats.Columns.Add(GridColumn.Asset, "Asset");
-			DgvThreats.Columns.Add(GridColumn.Unit, "Unit");
-			DgvThreats.Columns.Add(GridColumn.Localisation, "Localisation");
-			DgvThreats.Columns.Add(GridColumn.Information, "Information");
-			DgvThreats.Columns.Add(GridColumn.Data, "Data");
-
-			DgvThreats.Columns[GridColumn.Id].ReadOnly = true;
-			DgvThreats.Columns[GridColumn.Asset].ReadOnly = true;
-			DgvThreats.Columns[GridColumn.Unit].ReadOnly = true;
-			DgvThreats.Columns[GridColumn.Localisation].ReadOnly = true;
-			DgvThreats.Columns[GridColumn.Information].ReadOnly = true;
-			DgvThreats.Columns[GridColumn.Data].Visible = false;
-
-			foreach (AssetGroup group in m_asset.Coalition.OpposingAssets.OfType<AssetGroup>())
-			{
-				foreach (AssetUnit unit in group.Units)
-				{
-					RefreshGridRowThreat(group, unit);
-				}
-			}
+			GridAssetManager gam = new GridAssetManager(DgvThreats, m_asset.Coalition.OpposingAssets.Where(_a => _a is AssetGroup).ToList(), m_asset.MissionData);
+			gam.ColumnsDisplayed = GridAssetManager.ColumnsDisplayedUnit;
+			gam.DisplayFilters = GridAssetManager.DisplayFilterAllClassesAndExcluded | GridAssetManager.DisplayFilter.Units;
+			gam.Initialize();
 		}
 
-		private void RefreshGridRowThreat(AssetGroup group, AssetUnit unit)
-		{
-			DataGridViewRow dgvr = null;
-			foreach (DataGridViewRow existingRow in DgvThreats.Rows)
-			{
-				if (existingRow.Cells[GridColumn.Data].Value == unit)
-				{
-					dgvr = existingRow;
-					break;
-				}
-			}
-			if (dgvr is null)
-			{
-				int iNewRowIndex = DgvThreats.Rows.Add();
-				dgvr = DgvThreats.Rows[iNewRowIndex];
-				dgvr.Cells[GridColumn.Data].Value = unit;
-			}
+		//private void RefreshGridRowThreat(AssetGroup group, AssetUnit unit)
+		//{
+		//	DataGridViewRow dgvr = null;
+		//	foreach (DataGridViewRow existingRow in DgvThreats.Rows)
+		//	{
+		//		if (existingRow.Cells[GridColumn.Data].Value == unit)
+		//		{
+		//			dgvr = existingRow;
+		//			break;
+		//		}
+		//	}
+		//	if (dgvr is null)
+		//	{
+		//		int iNewRowIndex = DgvThreats.Rows.Add();
+		//		dgvr = DgvThreats.Rows[iNewRowIndex];
+		//		dgvr.Cells[GridColumn.Data].Value = unit;
+		//	}
 
-			dgvr.Cells[GridColumn.Included].Value = m_asset.MissionData.IsThreatIncluded(unit.Id);
-			dgvr.Cells[GridColumn.Id].Value = unit.Id;
-			dgvr.Cells[GridColumn.Asset].Value = group.Description;			
-			dgvr.Cells[GridColumn.Unit].Value = unit.Description;
-			dgvr.Cells[GridColumn.Localisation].Value = unit.GetLocalisation();
-			dgvr.Cells[GridColumn.Information].Value = unit.Information;
-		}
+		//	dgvr.Cells[GridColumn.Included].Value = m_asset.MissionData.IsThreatIncluded(unit.Id);
+		//	dgvr.Cells[GridColumn.Id].Value = unit.Id;
+		//	dgvr.Cells[GridColumn.Asset].Value = group.Description;			
+		//	dgvr.Cells[GridColumn.Unit].Value = unit.Description;
+		//	dgvr.Cells[GridColumn.Localisation].Value = unit.GetLocalisation();
+		//	dgvr.Cells[GridColumn.Information].Value = unit.Information;
+		//}
 
 		private void ScreenToData()
 		{
@@ -179,59 +150,34 @@ namespace DcsBriefop
 		#region Events
 		private void DgvTargets_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
-			if (e.RowIndex < 0)
-				return;
+			//if (e.RowIndex < 0)
+			//	return;
 
-			DataGridView grid = (sender as DataGridView);
-			if (grid is null)
-				return;
+			//DataGridView grid = (sender as DataGridView);
+			//if (grid is null)
+			//	return;
 
-			DataGridViewColumn column = grid.Columns[e.ColumnIndex];
-			if (column.Name == GridColumn.Included)
-			{
-				DataGridViewCell cell = grid.Rows[e.RowIndex].Cells[e.ColumnIndex];
-				AssetUnit unit = grid.Rows[e.RowIndex].Cells[GridColumn.Data].Value as AssetUnit;
-				m_asset.MissionData.IncludeThreat(unit.Id, (bool)cell.Value);
-				m_asset.MissionData.InitializeMapData();
-				UpdateMapControl();
-			}
+			//DataGridViewColumn column = grid.Columns[e.ColumnIndex];
+			//if (column.Name == GridColumn.Included)
+			//{
+			//	DataGridViewCell cell = grid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+			//	AssetUnit unit = grid.Rows[e.RowIndex].Cells[GridColumn.Data].Value as AssetUnit;
+			//	m_asset.MissionData.IncludeThreat(unit.Id, (bool)cell.Value);
+			//	m_asset.MissionData.InitializeMapData();
+			//	UpdateMapControl();
+			//}
 		}
 
 		private void DgvTargets_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			if (e.RowIndex < 0)
-				return;
+			//if (e.RowIndex < 0)
+			//	return;
 
-			DataGridViewColumn column = (sender as DataGridView).Columns[e.ColumnIndex];
-			if (column.Name == GridColumn.Included)
-			{
-				(sender as DataGridView).EndEdit();
-			}
-		}
-
-		private void DgvThreats_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-		{
-			if (e.RowIndex < 0)
-				return;
-			DataGridView dgv = sender as DataGridView;
-			if (dgv == null)
-				return;
-
-			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
-			AssetUnit unit = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as AssetUnit;
-			DataGridViewCell dgvc = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-			DataGridViewCellStyle cellStyle = dgvc.InheritedStyle;
-			if (column.Name == GridColumn.Included)
-			{
-				if (m_asset.MissionData.IsThreatIncluded(unit.Id))
-				{
-					cellStyle.BackColor = Color.LightGreen;
-					cellStyle.SelectionBackColor = ToolsImage.Lerp(cellStyle.BackColor, dgv.DefaultCellStyle.SelectionBackColor, 0.2f);
-				}
-			}
-
-			e.CellStyle = cellStyle;
+			//DataGridViewColumn column = (sender as DataGridView).Columns[e.ColumnIndex];
+			//if (column.Name == GridColumn.Included)
+			//{
+			//	(sender as DataGridView).EndEdit();
+			//}
 		}
 
 		private void FrmMissionDetail_FormClosing(object sender, FormClosingEventArgs e)

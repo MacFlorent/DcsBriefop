@@ -252,9 +252,7 @@
     <Compile Include="Tools\ToolsSettings.cs" />
     <Compile Include="Tools\ToolsStyle.cs" />
     <Compile Include="Tools\ToolsZip.cs" />
-    <Compile Include="UcBriefing\GridAsset.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="UcBriefing\GridAssetManager.cs" />
     <Compile Include="UcBriefing\TabPageBriefing.cs">
       <SubType>Component</SubType>
     </Compile>

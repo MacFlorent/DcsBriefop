@@ -145,7 +145,6 @@ namespace DcsBriefop
 			this.DgvThreats.Size = new System.Drawing.Size(445, 356);
 			this.DgvThreats.TabIndex = 24;
 			this.DgvThreats.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvTargets_CellEndEdit);
-			this.DgvThreats.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DgvThreats_CellFormatting);
 			this.DgvThreats.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvTargets_CellMouseUp);
 			// 
 			// LbThreats

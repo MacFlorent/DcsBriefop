@@ -363,11 +363,11 @@ namespace DcsBriefop.Data
 			return ThreatIds.Contains(iUnitId);
 		}
 
-		public void IncludeThreat(int iUnitId, bool bSelected)
+		public void IncludeThreat(int iUnitId, bool bIncluded)
 		{
-			if (bSelected && !IsThreatIncluded(iUnitId))
+			if (bIncluded && !IsThreatIncluded(iUnitId))
 				ThreatIds.Add(iUnitId);
-			else if (!bSelected && IsThreatIncluded(iUnitId))
+			else if (!bIncluded && IsThreatIncluded(iUnitId))
 				ThreatIds.Remove(iUnitId);
 		}
 
