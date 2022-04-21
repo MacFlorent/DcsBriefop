@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
-using System.Drawing;
+using DcsBriefop.UcBriefing;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace DcsBriefop
@@ -20,6 +21,7 @@ namespace DcsBriefop
 
 		#region Fields
 		private Asset m_asset;
+		private GridAssetManager m_gamUnits;
 		#endregion
 
 		#region CTOR
@@ -74,62 +76,10 @@ namespace DcsBriefop
 
 		private void DataToScreenUnits()
 		{
-			InitializeGridUnits();
-			if (m_asset is AssetGroup group)
-				foreach (AssetUnit unit in group.Units)
-				{
-					RefreshGridRowUnit(unit);
-				}
-		}
-
-		private void InitializeGridUnits()
-		{
-			DgvUnits.Columns.Clear();
-			DataGridViewCheckBoxColumn col = new DataGridViewCheckBoxColumn() { Name = GridColumn.Included, HeaderText = "Included" };
-			DgvUnits.Columns.Add(col);
-			DgvUnits.Columns.Add(GridColumn.Id, "ID");
-			DgvUnits.Columns.Add(GridColumn.Type, "Type");
-			DgvUnits.Columns.Add(GridColumn.Description, "Description");
-			DgvUnits.Columns.Add(GridColumn.Localisation, "Localisation");
-			DgvUnits.Columns.Add(GridColumn.Information, "Information");
-			DgvUnits.Columns.Add(GridColumn.Data, "Data");
-
-			DgvUnits.Columns[GridColumn.Included].ValueType = typeof(bool);
-			DgvUnits.Columns[GridColumn.Included].Visible = (m_asset is AssetShip || m_asset is AssetVehicle);
-			DgvUnits.Columns[GridColumn.Type].ReadOnly = true;
-			DgvUnits.Columns[GridColumn.Description].ReadOnly = true;
-			DgvUnits.Columns[GridColumn.Localisation].ReadOnly = true;
-			DgvUnits.Columns[GridColumn.Localisation].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-			DgvUnits.Columns[GridColumn.Information].ReadOnly = true;
-			DgvUnits.Columns[GridColumn.Data].Visible = false;
-
-			DgvUnits.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-		}
-
-		private void RefreshGridRowUnit(AssetUnit unit)
-		{
-			DataGridViewRow dgvr = null;
-			foreach (DataGridViewRow existingRow in DgvUnits.Rows)
-			{
-				if (existingRow.Cells[GridColumn.Data].Value == unit)
-				{
-					dgvr = existingRow;
-					break;
-				}
-			}
-			if (dgvr is null)
-			{
-				int iNewRowIndex = DgvUnits.Rows.Add();
-				dgvr = DgvUnits.Rows[iNewRowIndex];
-				dgvr.Cells[GridColumn.Data].Value = unit;
-			}
-
-			dgvr.Cells[GridColumn.Included].Value = unit.Included;
-			dgvr.Cells[GridColumn.Id].Value = unit.Id;
-			dgvr.Cells[GridColumn.Type].Value = unit.Type;
-			dgvr.Cells[GridColumn.Description].Value = unit.Description;
-			dgvr.Cells[GridColumn.Localisation].Value = unit.GetLocalisation();
-			dgvr.Cells[GridColumn.Information].Value = unit.Information;
+			m_gamUnits = new GridAssetManager(DgvUnits, new List<Asset>() { m_asset }, null);
+			m_gamUnits.ColumnsDisplayed = GridAssetManager.ColumnsDisplayedUnit;
+			m_gamUnits.DisplayFilters = GetUnitDisplayFilter();
+			m_gamUnits.Initialize();
 		}
 
 		private void ScreenToData()
@@ -145,6 +95,16 @@ namespace DcsBriefop
 
 			m_asset.Information = TbInformation.Text;
 		}
+
+		private GridAssetManager.DisplayFilter GetUnitDisplayFilter()
+		{
+			GridAssetManager.DisplayFilter filter = GridAssetManager.DisplayFilter.Units | GridAssetManager.DisplayFilterAllClasses;
+
+			if (CkFilterExcluded.Checked)
+				filter |= GridAssetManager.DisplayFilter.Excluded;
+
+			return filter;
+		}
 		#endregion
 
 		#region Events
@@ -154,59 +114,9 @@ namespace DcsBriefop
 			TbInformation.Text = m_asset.Information;
 		}
 
-		private void DgvUnits_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+		private void CkFilterExcluded_CheckedChanged(object sender, System.EventArgs e)
 		{
-			if (e.RowIndex < 0)
-				return;
-
-			DataGridView dgv = (sender as DataGridView);
-			if (dgv is null)
-				return;
-
-			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
-			if (column.Name == GridColumn.Included)
-			{
-				DataGridViewCell cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-				AssetUnit unit = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as AssetUnit;
-				unit.Included = (bool)cell.Value;
-			}
-		}
-
-		private void DgvUnits_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
-		{
-			if (e.RowIndex < 0)
-				return;
-
-			DataGridViewColumn column = (sender as DataGridView).Columns[e.ColumnIndex];
-			if (column.Name == GridColumn.Included)
-			{
-				(sender as DataGridView).EndEdit();
-			}
-		}
-
-		private void DgvUnits_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-		{
-			if (e.RowIndex < 0)
-				return;
-			DataGridView dgv = sender as DataGridView;
-			if (dgv == null)
-				return;
-
-			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
-			AssetUnit unit = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as AssetUnit;
-			DataGridViewCell dgvc = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-			DataGridViewCellStyle cellStyle = dgvc.InheritedStyle;
-			if (column.Name == GridColumn.Included)
-			{
-				if (unit.Included)
-				{
-					cellStyle.BackColor = Color.LightGreen;
-					cellStyle.SelectionBackColor = ToolsImage.Lerp(cellStyle.BackColor, dgv.DefaultCellStyle.SelectionBackColor, 0.2f);
-				}
-			}
-
-			e.CellStyle = cellStyle;
+			m_gamUnits.DisplayFilters = GetUnitDisplayFilter();
 		}
 
 		private void FrmAssetDetail_FormClosing(object sender, FormClosingEventArgs e)
@@ -214,5 +124,6 @@ namespace DcsBriefop
 			ScreenToData();
 		}
 		#endregion
+
 	}
 }

@@ -22,6 +22,8 @@
 
 	internal class BriefopCustomGroup : BriefopCustomAsset
 	{
+		public bool WithMissionData { get; set; }
+
 		public BriefopCustomGroup(int iId, string sCoalitionName) : base(iId, sCoalitionName) { }
 	}
 

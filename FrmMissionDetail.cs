@@ -1,7 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using DcsBriefop.UcBriefing;
-using System.Drawing;
+using System;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -21,6 +21,7 @@ namespace DcsBriefop
 		#region Fields
 		private AssetFlight m_asset;
 		private UcMap m_ucMap;
+		private GridAssetManager m_gamThreats;
 		#endregion
 
 		#region CTOR
@@ -103,81 +104,46 @@ namespace DcsBriefop
 
 		private void DataToScreenThreats()
 		{
-			GridAssetManager gam = new GridAssetManager(DgvThreats, m_asset.Coalition.OpposingAssets.Where(_a => _a is AssetGroup).ToList(), m_asset.MissionData);
-			gam.ColumnsDisplayed = GridAssetManager.ColumnsDisplayedUnit;
-			gam.DisplayFilters = GridAssetManager.DisplayFilterAllClassesAndExcluded | GridAssetManager.DisplayFilter.Units;
-			gam.Initialize();
+			m_gamThreats = new GridAssetManager(DgvThreats, m_asset.Coalition.OpposingAssets.Where(_a => _a is AssetGroup).ToList(), m_asset.MissionData);
+			m_gamThreats.ColumnsDisplayed = GridAssetManager.ColumnsDisplayedUnit;
+			m_gamThreats.DisplayFilters = GetThreatDisplayFilter();
+			m_gamThreats.UnitModified += (o, e) => { UpdateMapControl(); };
+			m_gamThreats.Initialize();
 		}
-
-		//private void RefreshGridRowThreat(AssetGroup group, AssetUnit unit)
-		//{
-		//	DataGridViewRow dgvr = null;
-		//	foreach (DataGridViewRow existingRow in DgvThreats.Rows)
-		//	{
-		//		if (existingRow.Cells[GridColumn.Data].Value == unit)
-		//		{
-		//			dgvr = existingRow;
-		//			break;
-		//		}
-		//	}
-		//	if (dgvr is null)
-		//	{
-		//		int iNewRowIndex = DgvThreats.Rows.Add();
-		//		dgvr = DgvThreats.Rows[iNewRowIndex];
-		//		dgvr.Cells[GridColumn.Data].Value = unit;
-		//	}
-
-		//	dgvr.Cells[GridColumn.Included].Value = m_asset.MissionData.IsThreatIncluded(unit.Id);
-		//	dgvr.Cells[GridColumn.Id].Value = unit.Id;
-		//	dgvr.Cells[GridColumn.Asset].Value = group.Description;			
-		//	dgvr.Cells[GridColumn.Unit].Value = unit.Description;
-		//	dgvr.Cells[GridColumn.Localisation].Value = unit.GetLocalisation();
-		//	dgvr.Cells[GridColumn.Information].Value = unit.Information;
-		//}
 
 		private void ScreenToData()
 		{
 			m_asset.MissionData.MissionInformation = TbInformation.Text;
-			UpdateMapControl();
 		}
 
 		private void UpdateMapControl()
 		{
 			m_ucMap.SetMapData(m_asset.MissionData.MapData, m_asset.Core.Theatre.Name, "Mission map", false);
 		}
+
+		private GridAssetManager.DisplayFilter GetThreatDisplayFilter()
+		{
+			GridAssetManager.DisplayFilter filter = GridAssetManager.DisplayFilter.Units;
+
+			if (CkFilterFlights.Checked)
+				filter |= GridAssetManager.DisplayFilter.Flights;
+			if (CkFilterVehicles.Checked)
+				filter |= GridAssetManager.DisplayFilter.Vehicles;
+			if (CkFilterShips.Checked)
+				filter |= GridAssetManager.DisplayFilter.Ships;
+			if (CkFilterStatics.Checked)
+				filter |= GridAssetManager.DisplayFilter.Statics;
+			if (CkFilterExcluded.Checked)
+				filter |= GridAssetManager.DisplayFilter.Excluded;
+
+			return filter;
+		}
 		#endregion
 
 		#region Events
-		private void DgvTargets_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+		private void CkThreatFilter_CheckedChanged(object sender, EventArgs e)
 		{
-			//if (e.RowIndex < 0)
-			//	return;
-
-			//DataGridView grid = (sender as DataGridView);
-			//if (grid is null)
-			//	return;
-
-			//DataGridViewColumn column = grid.Columns[e.ColumnIndex];
-			//if (column.Name == GridColumn.Included)
-			//{
-			//	DataGridViewCell cell = grid.Rows[e.RowIndex].Cells[e.ColumnIndex];
-			//	AssetUnit unit = grid.Rows[e.RowIndex].Cells[GridColumn.Data].Value as AssetUnit;
-			//	m_asset.MissionData.IncludeThreat(unit.Id, (bool)cell.Value);
-			//	m_asset.MissionData.InitializeMapData();
-			//	UpdateMapControl();
-			//}
-		}
-
-		private void DgvTargets_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
-		{
-			//if (e.RowIndex < 0)
-			//	return;
-
-			//DataGridViewColumn column = (sender as DataGridView).Columns[e.ColumnIndex];
-			//if (column.Name == GridColumn.Included)
-			//{
-			//	(sender as DataGridView).EndEdit();
-			//}
+			m_gamThreats.DisplayFilters = GetThreatDisplayFilter();
 		}
 
 		private void FrmMissionDetail_FormClosing(object sender, FormClosingEventArgs e)

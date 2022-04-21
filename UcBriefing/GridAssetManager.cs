@@ -125,8 +125,10 @@ namespace DcsBriefop.UcBriefing
 				column.ReadOnly = true;
 
 			m_dgv.Columns[GridColumn.Included].ReadOnly = false;
-
 			m_dgv.Columns[GridColumn.Data].Visible = false;
+			m_dgv.Columns[GridColumn.Localisation].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+			m_dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 		}
 
 		private void Fill()
@@ -149,22 +151,22 @@ namespace DcsBriefop.UcBriefing
 				if (asset is AssetAirdrome && (DisplayFilters & DisplayFilter.Airdromes) == 0)
 					continue;
 
-				if ((DisplayFilters & DisplayFilter.Excluded) == 0)
-				{
-					bool bIncluded = AssetOrUnitIncluded(asset);
-					bool bWithMission = m_missionData is null && (asset as AssetFlight)?.MissionData is object;
-
-					if (!bIncluded && !bWithMission)
-						continue;
-				}
+				bool bFilterExcluded = ((DisplayFilters & DisplayFilter.Excluded) == 0);
+				bool bAssetIncluded = AssetOrUnitIncluded(asset);
+				bool bWithMission = m_missionData is null && (asset as AssetFlight)?.MissionData is object;
 
 				if ((DisplayFilters & DisplayFilter.Assets) != 0)
-					RefreshAsset(asset);
+				{
+					if (!bFilterExcluded || bAssetIncluded || bWithMission)
+						RefreshAsset(asset);
+				}
+
 				if ((DisplayFilters & DisplayFilter.Units) != 0 && asset is AssetGroup group)
 				{
 					foreach (AssetUnit unit in group.Units)
 					{
-						RefreshUnit(unit);
+						if (!bFilterExcluded || UnitIncluded(unit))
+							RefreshUnit(unit);
 					}
 				}
 			}
@@ -382,6 +384,7 @@ namespace DcsBriefop.UcBriefing
 		{
 			FrmAssetDetail f = new FrmAssetDetail(asset);
 			f.ShowDialog();
+			AssetModified?.Invoke(this, new EventArgsAsset() { Asset = asset });
 			RefreshAsset(asset);
 		}
 
@@ -450,6 +453,18 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 
 		#region Events
+		public class EventArgsAsset : EventArgs
+		{
+			public Asset Asset { get; set; }
+		}
+		public class EventArgsUnit : EventArgs
+		{
+			public AssetUnit Unit { get; set; }
+		}
+
+		public event EventHandler<EventArgsAsset> AssetModified;
+		public event EventHandler<EventArgsUnit> UnitModified;
+
 		private void CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0)
@@ -467,9 +482,15 @@ namespace DcsBriefop.UcBriefing
 			if (column.Name == GridColumn.Included)
 			{
 				if (asset is object)
+				{
 					SetIncludedAsset(asset, (bool)cell.Value);
+					AssetModified?.Invoke(this, new EventArgsAsset() { Asset = asset });
+				}
 				else if (unit is object)
+				{
 					SetIncludedUnit(unit, (bool)cell.Value);
+					UnitModified?.Invoke(this, new EventArgsUnit() { Unit = unit });
+				}
 			}
 			else if (column.Name == GridColumn.Mission)
 			{
@@ -478,10 +499,12 @@ namespace DcsBriefop.UcBriefing
 					if ((bool)cell.Value && flight.MissionData is null)
 					{
 						flight.AddMissionData();
+						AssetModified?.Invoke(this, new EventArgsAsset() { Asset = asset });
 					}
 					else if (!(bool)cell.Value && flight.MissionData is object)
 					{
 						flight.RemoveMissionData();
+						AssetModified?.Invoke(this, new EventArgsAsset() { Asset = asset });
 					}
 				}
 			}

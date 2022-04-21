@@ -100,8 +100,6 @@ namespace DcsBriefop.UcBriefing
 			dgv.Dock = DockStyle.Fill;
 		}
 
-
-
 		private GridAssetManager.DisplayFilter GetDisplayFilter()
 		{
 			GridAssetManager.DisplayFilter filter = GridAssetManager.DisplayFilter.Assets | GridAssetManager.DisplayFilter.Airdromes;
@@ -140,8 +138,8 @@ namespace DcsBriefop.UcBriefing
 			{
 				gam.DisplayFilters = GetDisplayFilter();
 			}
-			
 		}
+
 		private void BtComPresets_Click(object sender, EventArgs e)
 		{
 
