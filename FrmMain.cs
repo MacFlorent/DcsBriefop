@@ -78,6 +78,11 @@ namespace DcsBriefop
 
 				m_briefingContainer.Persist();
 				m_missionManager.MizSave(sMizFilePath);
+				if (m_missionManager.Miz.BriefopCustomData.ExportOnSave)
+				{
+					using (BriefingFilesBuilder builder = new BriefingFilesBuilder(m_briefingContainer, m_missionManager))
+						builder.Generate();
+				}
 			}
 			
 			MizReload();
@@ -101,7 +106,7 @@ namespace DcsBriefop
 			}
 		}
 
-		private void GenerateBriefingFiles()
+		private void OpenGenerateFilesForm()
 		{
 			if (m_missionManager is null)
 				throw new ExceptionDcsBriefop("No mission is currently loaded");
@@ -111,6 +116,20 @@ namespace DcsBriefop
 			FrmGenerateFiles f = new FrmGenerateFiles(m_briefingContainer, m_missionManager);
 			f.ShowDialog();
 
+		}
+
+		private void GenerateFiles()
+		{
+			if (m_missionManager is null)
+				throw new ExceptionDcsBriefop("No mission is currently loaded");
+
+			using (new WaitDialog(this))
+			{
+				ScreenToData();
+
+				using (BriefingFilesBuilder builder = new BriefingFilesBuilder(m_briefingContainer, m_missionManager))
+					builder.Generate();
+			}
 		}
 
 		private void DataToScreen()
@@ -208,7 +227,8 @@ namespace DcsBriefop
 			AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Red);
 			AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Blue);
 			//AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Neutral);
-			tsmiBriefing.DropDownItems.AddMenuItem("Generate", (object _sender, EventArgs _e) => { GenerateBriefingFiles(); });
+			tsmiBriefing.DropDownItems.AddMenuItem("Open generate files config", (object _sender, EventArgs _e) => { OpenGenerateFilesForm(); });
+			tsmiBriefing.DropDownItems.AddMenuItem("Generate files", (object _sender, EventArgs _e) => { GenerateFiles(); });
 		}
 
 		private void AddMenuCoalition(ToolStripMenuItem tsmiBriefingCoalitions, string sCoalitionName)

@@ -40,18 +40,27 @@ namespace DcsBriefop
 			this.LbImageSize = new System.Windows.Forms.Label();
 			this.LbImageBackgroundColor = new System.Windows.Forms.Label();
 			this.LbImageSizeX = new System.Windows.Forms.Label();
-			this.UcImageBackgroundColor = new DcsBriefop.UcBriefing.UcColor();
 			this.UdImageWidth = new System.Windows.Forms.NumericUpDown();
 			this.UdImageHeight = new System.Windows.Forms.NumericUpDown();
+			this.CkGenerateOnSave = new System.Windows.Forms.CheckBox();
+			this.GbImage = new System.Windows.Forms.GroupBox();
+			this.CkImageRatioLock = new System.Windows.Forms.CheckBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.UdImageRatio = new System.Windows.Forms.NumericUpDown();
+			this.UcImageBackgroundColor = new DcsBriefop.UcBriefing.UcColor();
+			this.label2 = new System.Windows.Forms.Label();
+			this.BtClose = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DgvFileTypes)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.UdImageWidth)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.UdImageHeight)).BeginInit();
+			this.GbImage.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.UdImageRatio)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// CkMizFile
 			// 
 			this.CkMizFile.AutoSize = true;
-			this.CkMizFile.Location = new System.Drawing.Point(12, 12);
+			this.CkMizFile.Location = new System.Drawing.Point(12, 35);
 			this.CkMizFile.Name = "CkMizFile";
 			this.CkMizFile.Size = new System.Drawing.Size(115, 17);
 			this.CkMizFile.TabIndex = 0;
@@ -61,7 +70,7 @@ namespace DcsBriefop
 			// CkLocalDirectory
 			// 
 			this.CkLocalDirectory.AutoSize = true;
-			this.CkLocalDirectory.Location = new System.Drawing.Point(12, 31);
+			this.CkLocalDirectory.Location = new System.Drawing.Point(12, 58);
 			this.CkLocalDirectory.Name = "CkLocalDirectory";
 			this.CkLocalDirectory.Size = new System.Drawing.Size(149, 17);
 			this.CkLocalDirectory.TabIndex = 1;
@@ -71,17 +80,17 @@ namespace DcsBriefop
 			// 
 			// TbLocalDirectory
 			// 
-			this.TbLocalDirectory.Location = new System.Drawing.Point(260, 29);
+			this.TbLocalDirectory.Location = new System.Drawing.Point(158, 56);
 			this.TbLocalDirectory.Name = "TbLocalDirectory";
-			this.TbLocalDirectory.Size = new System.Drawing.Size(220, 20);
+			this.TbLocalDirectory.Size = new System.Drawing.Size(110, 20);
 			this.TbLocalDirectory.TabIndex = 2;
 			// 
 			// BtGenerate
 			// 
-			this.BtGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.BtGenerate.Location = new System.Drawing.Point(12, 229);
+			this.BtGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.BtGenerate.Location = new System.Drawing.Point(341, 211);
 			this.BtGenerate.Name = "BtGenerate";
-			this.BtGenerate.Size = new System.Drawing.Size(544, 23);
+			this.BtGenerate.Size = new System.Drawing.Size(82, 23);
 			this.BtGenerate.TabIndex = 3;
 			this.BtGenerate.Text = "Generate";
 			this.BtGenerate.UseVisualStyleBackColor = true;
@@ -89,7 +98,7 @@ namespace DcsBriefop
 			// 
 			// BtLocalDirectoryBrowse
 			// 
-			this.BtLocalDirectoryBrowse.Location = new System.Drawing.Point(486, 27);
+			this.BtLocalDirectoryBrowse.Location = new System.Drawing.Point(269, 54);
 			this.BtLocalDirectoryBrowse.Name = "BtLocalDirectoryBrowse";
 			this.BtLocalDirectoryBrowse.Size = new System.Drawing.Size(32, 23);
 			this.BtLocalDirectoryBrowse.TabIndex = 4;
@@ -100,7 +109,7 @@ namespace DcsBriefop
 			// CkLocalDirectoryHtml
 			// 
 			this.CkLocalDirectoryHtml.AutoSize = true;
-			this.CkLocalDirectoryHtml.Location = new System.Drawing.Point(167, 31);
+			this.CkLocalDirectoryHtml.Location = new System.Drawing.Point(29, 81);
 			this.CkLocalDirectoryHtml.Name = "CkLocalDirectoryHtml";
 			this.CkLocalDirectoryHtml.Size = new System.Drawing.Size(91, 17);
 			this.CkLocalDirectoryHtml.TabIndex = 5;
@@ -109,7 +118,7 @@ namespace DcsBriefop
 			// 
 			// BtLocalDirectoryReset
 			// 
-			this.BtLocalDirectoryReset.Location = new System.Drawing.Point(524, 27);
+			this.BtLocalDirectoryReset.Location = new System.Drawing.Point(302, 54);
 			this.BtLocalDirectoryReset.Name = "BtLocalDirectoryReset";
 			this.BtLocalDirectoryReset.Size = new System.Drawing.Size(32, 23);
 			this.BtLocalDirectoryReset.TabIndex = 6;
@@ -126,25 +135,25 @@ namespace DcsBriefop
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.DgvFileTypes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
 			this.DgvFileTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DgvFileTypes.Location = new System.Drawing.Point(12, 80);
+			this.DgvFileTypes.Location = new System.Drawing.Point(340, 35);
 			this.DgvFileTypes.Name = "DgvFileTypes";
 			this.DgvFileTypes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.DgvFileTypes.Size = new System.Drawing.Size(544, 143);
+			this.DgvFileTypes.Size = new System.Drawing.Size(174, 170);
 			this.DgvFileTypes.TabIndex = 25;
 			// 
 			// LbImageSize
 			// 
 			this.LbImageSize.AutoSize = true;
-			this.LbImageSize.Location = new System.Drawing.Point(9, 51);
+			this.LbImageSize.Location = new System.Drawing.Point(7, 19);
 			this.LbImageSize.Name = "LbImageSize";
-			this.LbImageSize.Size = new System.Drawing.Size(57, 13);
+			this.LbImageSize.Size = new System.Drawing.Size(27, 13);
 			this.LbImageSize.TabIndex = 28;
-			this.LbImageSize.Text = "Image size";
+			this.LbImageSize.Text = "Size";
 			// 
 			// LbImageBackgroundColor
 			// 
 			this.LbImageBackgroundColor.AutoSize = true;
-			this.LbImageBackgroundColor.Location = new System.Drawing.Point(257, 55);
+			this.LbImageBackgroundColor.Location = new System.Drawing.Point(7, 72);
 			this.LbImageBackgroundColor.Name = "LbImageBackgroundColor";
 			this.LbImageBackgroundColor.Size = new System.Drawing.Size(91, 13);
 			this.LbImageBackgroundColor.TabIndex = 29;
@@ -153,23 +162,15 @@ namespace DcsBriefop
 			// LbImageSizeX
 			// 
 			this.LbImageSizeX.AutoSize = true;
-			this.LbImageSizeX.Location = new System.Drawing.Point(130, 51);
+			this.LbImageSizeX.Location = new System.Drawing.Point(97, 17);
 			this.LbImageSizeX.Name = "LbImageSizeX";
 			this.LbImageSizeX.Size = new System.Drawing.Size(12, 13);
 			this.LbImageSizeX.TabIndex = 32;
 			this.LbImageSizeX.Text = "x";
 			// 
-			// UcImageBackgroundColor
-			// 
-			this.UcImageBackgroundColor.Location = new System.Drawing.Point(364, 51);
-			this.UcImageBackgroundColor.Name = "UcImageBackgroundColor";
-			this.UcImageBackgroundColor.SelectedColor = null;
-			this.UcImageBackgroundColor.Size = new System.Drawing.Size(154, 23);
-			this.UcImageBackgroundColor.TabIndex = 33;
-			// 
 			// UdImageWidth
 			// 
-			this.UdImageWidth.Location = new System.Drawing.Point(73, 51);
+			this.UdImageWidth.Location = new System.Drawing.Point(40, 17);
 			this.UdImageWidth.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -188,10 +189,11 @@ namespace DcsBriefop
             0,
             0,
             0});
+			this.UdImageWidth.ValueChanged += new System.EventHandler(this.UdImageWidth_ValueChanged);
 			// 
 			// UdImageHeight
 			// 
-			this.UdImageHeight.Location = new System.Drawing.Point(148, 51);
+			this.UdImageHeight.Location = new System.Drawing.Point(115, 17);
 			this.UdImageHeight.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -210,18 +212,121 @@ namespace DcsBriefop
             0,
             0,
             0});
+			this.UdImageHeight.ValueChanged += new System.EventHandler(this.UdImageHeight_ValueChanged);
+			// 
+			// CkGenerateOnSave
+			// 
+			this.CkGenerateOnSave.AutoSize = true;
+			this.CkGenerateOnSave.Location = new System.Drawing.Point(12, 12);
+			this.CkGenerateOnSave.Name = "CkGenerateOnSave";
+			this.CkGenerateOnSave.Size = new System.Drawing.Size(111, 17);
+			this.CkGenerateOnSave.TabIndex = 36;
+			this.CkGenerateOnSave.Text = "Generate on save";
+			this.CkGenerateOnSave.UseVisualStyleBackColor = true;
+			// 
+			// GbImage
+			// 
+			this.GbImage.Controls.Add(this.CkImageRatioLock);
+			this.GbImage.Controls.Add(this.label1);
+			this.GbImage.Controls.Add(this.UdImageRatio);
+			this.GbImage.Controls.Add(this.UdImageWidth);
+			this.GbImage.Controls.Add(this.LbImageSize);
+			this.GbImage.Controls.Add(this.UcImageBackgroundColor);
+			this.GbImage.Controls.Add(this.LbImageBackgroundColor);
+			this.GbImage.Controls.Add(this.UdImageHeight);
+			this.GbImage.Controls.Add(this.LbImageSizeX);
+			this.GbImage.Location = new System.Drawing.Point(12, 106);
+			this.GbImage.Name = "GbImage";
+			this.GbImage.Size = new System.Drawing.Size(322, 100);
+			this.GbImage.TabIndex = 38;
+			this.GbImage.TabStop = false;
+			this.GbImage.Text = "Image";
+			// 
+			// CkImageRatioLock
+			// 
+			this.CkImageRatioLock.AutoSize = true;
+			this.CkImageRatioLock.Location = new System.Drawing.Point(245, 20);
+			this.CkImageRatioLock.Name = "CkImageRatioLock";
+			this.CkImageRatioLock.Size = new System.Drawing.Size(73, 17);
+			this.CkImageRatioLock.TabIndex = 38;
+			this.CkImageRatioLock.Text = "Lock ratio";
+			this.CkImageRatioLock.UseVisualStyleBackColor = true;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(40, 42);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(230, 13);
+			this.label1.TabIndex = 37;
+			this.label1.Text = "Recommended ratio for DCS kneeboard is 0.66";
+			// 
+			// UdImageRatio
+			// 
+			this.UdImageRatio.DecimalPlaces = 2;
+			this.UdImageRatio.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.UdImageRatio.Location = new System.Drawing.Point(188, 17);
+			this.UdImageRatio.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+			this.UdImageRatio.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.UdImageRatio.Name = "UdImageRatio";
+			this.UdImageRatio.Size = new System.Drawing.Size(51, 20);
+			this.UdImageRatio.TabIndex = 36;
+			this.UdImageRatio.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.UdImageRatio.ValueChanged += new System.EventHandler(this.UdImageRatio_ValueChanged);
+			// 
+			// UcImageBackgroundColor
+			// 
+			this.UcImageBackgroundColor.Location = new System.Drawing.Point(104, 66);
+			this.UcImageBackgroundColor.Name = "UcImageBackgroundColor";
+			this.UcImageBackgroundColor.SelectedColor = null;
+			this.UcImageBackgroundColor.Size = new System.Drawing.Size(154, 23);
+			this.UcImageBackgroundColor.TabIndex = 33;
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(337, 16);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(85, 13);
+			this.label2.TabIndex = 39;
+			this.label2.Text = "Files to generate";
+			// 
+			// BtClose
+			// 
+			this.BtClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.BtClose.Location = new System.Drawing.Point(432, 211);
+			this.BtClose.Name = "BtClose";
+			this.BtClose.Size = new System.Drawing.Size(82, 23);
+			this.BtClose.TabIndex = 40;
+			this.BtClose.Text = "Close";
+			this.BtClose.UseVisualStyleBackColor = true;
+			this.BtClose.Click += new System.EventHandler(this.BtClose_Click);
 			// 
 			// FrmGenerateFiles
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(561, 259);
-			this.Controls.Add(this.UdImageHeight);
-			this.Controls.Add(this.UdImageWidth);
-			this.Controls.Add(this.UcImageBackgroundColor);
-			this.Controls.Add(this.LbImageSizeX);
-			this.Controls.Add(this.LbImageBackgroundColor);
-			this.Controls.Add(this.LbImageSize);
+			this.ClientSize = new System.Drawing.Size(526, 241);
+			this.Controls.Add(this.BtClose);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.GbImage);
+			this.Controls.Add(this.CkGenerateOnSave);
 			this.Controls.Add(this.DgvFileTypes);
 			this.Controls.Add(this.BtLocalDirectoryReset);
 			this.Controls.Add(this.CkLocalDirectoryHtml);
@@ -233,10 +338,13 @@ namespace DcsBriefop
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Name = "FrmGenerateFiles";
 			this.ShowInTaskbar = false;
-			this.Text = "FrmGenerateFiles";
+			this.Text = "Briefing files generation";
 			((System.ComponentModel.ISupportInitialize)(this.DgvFileTypes)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.UdImageWidth)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.UdImageHeight)).EndInit();
+			this.GbImage.ResumeLayout(false);
+			this.GbImage.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.UdImageRatio)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -258,5 +366,12 @@ namespace DcsBriefop
 		private UcBriefing.UcColor UcImageBackgroundColor;
 		private System.Windows.Forms.NumericUpDown UdImageWidth;
 		private System.Windows.Forms.NumericUpDown UdImageHeight;
+		private System.Windows.Forms.CheckBox CkGenerateOnSave;
+		private System.Windows.Forms.GroupBox GbImage;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.NumericUpDown UdImageRatio;
+		private System.Windows.Forms.CheckBox CkImageRatioLock;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Button BtClose;
 	}
 }

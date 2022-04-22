@@ -30,9 +30,6 @@ namespace DcsBriefop
 			m_briefingContainer = briefingContainer;
 			m_missionManager = missionManager;
 
-			if (string.IsNullOrEmpty(m_missionManager.ExportLocalDirectoryPath))
-				m_missionManager.ExportLocalDirectoryPath = m_missionManager.MizFileDirectory;
-
 			ToolsMisc.SetDataGridViewProperties(DgvFileTypes);
 			DataToScreen();
 		}
@@ -41,24 +38,39 @@ namespace DcsBriefop
 		#region Methods
 		private void DataToScreen()
 		{
-			CkMizFile.Checked = m_missionManager.ExportMizActive;
-			CkLocalDirectory.Checked = m_missionManager.ExportLocalDirectoryActive;
-			CkLocalDirectoryHtml.Checked = m_missionManager.ExportLocalDirectoryBitmaps;
-			TbLocalDirectory.Text = m_missionManager.ExportLocalDirectoryPath;
+			UdImageWidth.ValueChanged -= UdImageWidth_ValueChanged;
+			UdImageHeight.ValueChanged -= UdImageHeight_ValueChanged;
+			UdImageRatio.ValueChanged -= UdImageRatio_ValueChanged;
 
-			UdImageWidth.Value = m_missionManager.ExportImageSize.Width;
-			UdImageHeight.Value = m_missionManager.ExportImageSize.Height;
-			UcImageBackgroundColor.SelectedColor = m_missionManager.ExportImageBackgroundColor;
+			CkGenerateOnSave.Checked = m_missionManager.Miz.BriefopCustomData.ExportOnSave;
+			CkMizFile.Checked = m_missionManager.Miz.BriefopCustomData.ExportMiz;
+			CkLocalDirectory.Checked = m_missionManager.Miz.BriefopCustomData.ExportLocalDirectory;
+			CkLocalDirectoryHtml.Checked = m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryHtml;
+
+			if (string.IsNullOrEmpty(m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryPath))
+				TbLocalDirectory.Text = m_missionManager.MizFileDirectory;
+			else
+				TbLocalDirectory.Text = m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryPath;
+
+			UdImageWidth.Value = m_missionManager.Miz.BriefopCustomData.ExportImageSize.Width;
+			UdImageHeight.Value = m_missionManager.Miz.BriefopCustomData.ExportImageSize.Height;
+			UdImageRatio.Value = (decimal)m_missionManager.Miz.BriefopCustomData.ExportImageSize.Width / (decimal)m_missionManager.Miz.BriefopCustomData.ExportImageSize.Height;
+			CkImageRatioLock.Checked = true;
+			UcImageBackgroundColor.SelectedColor = ColorTranslator.FromHtml(m_missionManager.Miz.BriefopCustomData.ExportImageBackgroundColor);
 
 			DataToScreenFileTypes();
 			DisplayCurrentLocaDirectory();
+
+			UdImageWidth.ValueChanged += UdImageWidth_ValueChanged;
+			UdImageHeight.ValueChanged += UdImageHeight_ValueChanged;
+			UdImageRatio.ValueChanged += UdImageRatio_ValueChanged;
 		}
 
 		private void DataToScreenFileTypes()
 		{
 			DataGridViewCheckBoxColumn col = new DataGridViewCheckBoxColumn() { Name = GridColumn.Selected, HeaderText = "Selected" };
 			DgvFileTypes.Columns.Add(col);
-			DgvFileTypes.Columns.Add(GridColumn.FileType, "Biefop file");
+			DgvFileTypes.Columns.Add(GridColumn.FileType, "Briefop file");
 			DgvFileTypes.Columns.Add(GridColumn.Data, "Data");
 
 			DgvFileTypes.Columns[GridColumn.Selected].ValueType = typeof(bool);
@@ -89,21 +101,26 @@ namespace DcsBriefop
 				dgvr.Cells[GridColumn.Data].Value = fileType.Id;
 			}
 
-			dgvr.Cells[GridColumn.Selected].Value = m_missionManager.ExportFileTypes.Contains((ElementExportFileType)fileType.Id);
+			dgvr.Cells[GridColumn.Selected].Value = m_missionManager.Miz.BriefopCustomData.ExportFileTypes.Contains((ElementExportFileType)fileType.Id);
 			dgvr.Cells[GridColumn.FileType].Value = fileType.Label;
 		}
 
 		private void ScreenToData()
 		{
-			m_missionManager.ExportMizActive = CkMizFile.Checked;
-			m_missionManager.ExportLocalDirectoryActive = CkLocalDirectory.Checked;
-			m_missionManager.ExportLocalDirectoryBitmaps = CkLocalDirectoryHtml.Checked;
-			m_missionManager.ExportLocalDirectoryPath = TbLocalDirectory.Text;
+			m_missionManager.Miz.BriefopCustomData.ExportOnSave = CkGenerateOnSave.Checked;
+			m_missionManager.Miz.BriefopCustomData.ExportMiz = CkMizFile.Checked;
+			m_missionManager.Miz.BriefopCustomData.ExportLocalDirectory = CkLocalDirectory.Checked;
+			m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryHtml = CkLocalDirectoryHtml.Checked;
+			m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryPath = TbLocalDirectory.Text;
 
-			m_missionManager.ExportImageSize = new Size ((int)UdImageWidth.Value, (int)UdImageHeight.Value);
-			m_missionManager.ExportImageBackgroundColor = UcImageBackgroundColor.SelectedColor;
+			m_missionManager.Miz.BriefopCustomData.ExportImageSize = new Size((int)UdImageWidth.Value, (int)UdImageHeight.Value);
 
-			m_missionManager.ExportFileTypes = GetListSelectedFileTypes();
+			if (UcImageBackgroundColor.SelectedColor is object)
+				m_missionManager.Miz.BriefopCustomData.ExportImageBackgroundColor = ColorTranslator.ToHtml(UcImageBackgroundColor.SelectedColor.Value);
+			else
+				m_missionManager.Miz.BriefopCustomData.ExportImageBackgroundColor = null;
+
+			m_missionManager.Miz.BriefopCustomData.ExportFileTypes = GetListSelectedFileTypes();
 		}
 
 		private List<ElementExportFileType> GetListSelectedFileTypes()
@@ -129,20 +146,19 @@ namespace DcsBriefop
 		#region Events
 		private void BtGenerate_Click(object sender, System.EventArgs e)
 		{
+			ScreenToData();
+
 			using (new WaitDialog(this))
 			using (BriefingFilesBuilder builder = new BriefingFilesBuilder(m_briefingContainer, m_missionManager))
 			{
-				builder.UpdateMiz = CkMizFile.Checked;
-				builder.LocalExportDirectoryActive = CkLocalDirectory.Checked;
-				builder.LocalExportDirectoryWithHtml = CkLocalDirectoryHtml.Checked;
-				builder.LocalExportDirectory = TbLocalDirectory.Text;
-				builder.ExportFileTypes = GetListSelectedFileTypes();
-				builder.ImageSize = new Size((int)UdImageWidth.Value, (int)UdImageHeight.Value);
-				builder.ImageBackColor = UcImageBackgroundColor.SelectedColor ?? Color.Black;
-
 				builder.Generate();
 			}
 
+			Close();
+		}
+
+		private void BtClose_Click(object sender, System.EventArgs e)
+		{
 			ScreenToData();
 			Close();
 		}
@@ -169,6 +185,50 @@ namespace DcsBriefop
 		private void CkLocalDirectory_CheckedChanged(object sender, System.EventArgs e)
 		{
 			DisplayCurrentLocaDirectory();
+		}
+
+		private void UdImageWidth_ValueChanged(object sender, System.EventArgs e)
+		{
+			if (CkImageRatioLock.Checked)
+			{
+				decimal dRatio = (UdImageRatio.Value as decimal?).GetValueOrDefault(1);
+				decimal dWidth = (UdImageWidth.Value as decimal?).GetValueOrDefault(0);
+				decimal dHeight = dWidth / dRatio;
+				UdImageHeight.Value = dHeight;
+			}
+			else
+			{
+				decimal dWidth = (UdImageWidth.Value as decimal?).GetValueOrDefault(0);
+				decimal dHeight = (UdImageHeight.Value as decimal?).GetValueOrDefault(1);
+				decimal dRatio = dWidth / dHeight;
+				UdImageRatio.Value = dRatio;
+			}
+		}
+
+		private void UdImageHeight_ValueChanged(object sender, System.EventArgs e)
+		{
+			if (CkImageRatioLock.Checked)
+			{
+				decimal dRatio = (UdImageRatio.Value as decimal?).GetValueOrDefault(1);
+				decimal dHeight = (UdImageHeight.Value as decimal?).GetValueOrDefault(0);
+				decimal dWidth = dHeight * dRatio;
+				UdImageWidth.Value = dWidth;
+			}
+			else
+			{
+				decimal dWidth = (UdImageWidth.Value as decimal?).GetValueOrDefault(0);
+				decimal dHeight = (UdImageHeight.Value as decimal?).GetValueOrDefault(1);
+				decimal dRatio = dWidth / dHeight;
+				UdImageRatio.Value = dRatio;
+			}
+		}
+
+		private void UdImageRatio_ValueChanged(object sender, System.EventArgs e)
+		{
+			decimal dRatio = (UdImageRatio.Value as decimal?).GetValueOrDefault(1);
+			decimal dWidth = (UdImageWidth.Value as decimal?).GetValueOrDefault(0);
+			decimal dHeight = dWidth / dRatio;
+			UdImageHeight.Value = dHeight;
 		}
 		#endregion
 	}

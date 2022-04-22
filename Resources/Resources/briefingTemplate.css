@@ -2,20 +2,20 @@
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 14px;
-    font-family: 'Verdana';
+    font-size: 16px;
+    font-family: 'Arial';
     font-weight: bold;
 }
 
 #wrapper {
     color: white;
-    background-color: black;
+    background-color: __colorBack__;
     width: 100%;
 }
 
 div.header {
-    color: red;
-    background-color: black;
+    color: __colorLight__;
+    background-color: __colorDark__;
     border-bottom: 2px solid yellow;
     padding: 5px 0px 5px 0px;
     text-align: center;

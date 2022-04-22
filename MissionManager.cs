@@ -18,14 +18,6 @@ namespace DcsBriefop
 		public string MizFileDirectory { get { return Path.GetDirectoryName(MizFilePath); } }
 		public string MizFileName { get { return Path.GetFileName(MizFilePath); } }
 
-		public bool ExportMizActive { get; set; } = true;
-		public bool ExportLocalDirectoryActive { get; set; } = true;
-		public bool ExportLocalDirectoryBitmaps { get; set; } = false;
-		public string ExportLocalDirectoryPath { get; set; }
-		public Size ExportImageSize { get; set; } = new Size(ElementImageSize.Width, ElementImageSize.Height);
-		public Color? ExportImageBackgroundColor { get; set; } = null;
-		public List<ElementExportFileType> ExportFileTypes { get; set; } = new List<ElementExportFileType>() { ElementExportFileType.Operations, ElementExportFileType.Opposition, ElementExportFileType.Missions };
-
 		public DataMiz.Miz Miz { get; private set; }
 		#endregion
 

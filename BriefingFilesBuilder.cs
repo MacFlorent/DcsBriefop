@@ -60,16 +60,11 @@ namespace DcsBriefop
 		private BriefingContainer m_briefingContainer;
 		private MissionManager m_missionManager;
 		private List<BriefingFile> m_listFiles = new List<BriefingFile>();
+		private Color m_backgroundColor = Color.Black;
 		#endregion
 
 		#region Properties
-		public List<ElementExportFileType> ExportFileTypes { get; set; }
-		public bool UpdateMiz { get; set; } = true;
-		public bool LocalExportDirectoryActive { get; set; } = false;
-		public bool LocalExportDirectoryWithHtml { get; set; } = false;
-		public string LocalExportDirectory { get; set; } = null;
-		public Color ImageBackColor { get; set; } = Color.WhiteSmoke;
-		public Size ImageSize { get; set; } = new Size (ElementImageSize.Width, ElementImageSize.Height);
+		private BriefopCustom BriefopCustomData { get { return m_missionManager.Miz.BriefopCustomData; } }
 		#endregion
 
 		#region CTOR
@@ -77,22 +72,23 @@ namespace DcsBriefop
 		{
 			m_briefingContainer = briefingContainer;
 			m_missionManager = missionManager;
+			m_backgroundColor = ColorTranslator.FromHtml(BriefopCustomData.ExportImageBackgroundColor);
 		}
 		#endregion
 
 		#region Methods
 		public void Generate()
 		{
-			if (LocalExportDirectoryActive && !Directory.Exists(LocalExportDirectory))
-			{
-				throw new ExceptionDcsBriefop($"Local export directory not found {LocalExportDirectory}.");
-			}
-
 			GenerateAllFiles();
 
-			if (LocalExportDirectoryActive)
-				ExportFilesToPath(LocalExportDirectory, LocalExportDirectoryWithHtml);
-			if (UpdateMiz)
+			if (BriefopCustomData.ExportLocalDirectory)
+			{
+				if (!Directory.Exists(BriefopCustomData.ExportLocalDirectoryPath))
+					Log.Error($"Local directory export cannot be done : directory {BriefopCustomData.ExportLocalDirectoryPath} not found.");
+				else
+					ExportFilesToPath(BriefopCustomData.ExportLocalDirectoryPath, BriefopCustomData.ExportLocalDirectoryHtml);
+			}
+			if (BriefopCustomData.ExportMiz)
 				ExportFilesToMiz();
 		}
 
@@ -113,14 +109,14 @@ namespace DcsBriefop
 		{
 			string sKneeboardFolder = KneeboardFolders.Images;
 
-			if (ExportFileTypes.Contains(ElementExportFileType.SituationMap))
+			if (BriefopCustomData.ExportFileTypes.Contains(ElementExportFileType.SituationMap))
 				AddMapData(GenerateFileName(ElementExportFileType.SituationMap, coalition.CoalitionName), sKneeboardFolder, coalition.MapData);
-			if (ExportFileTypes.Contains(ElementExportFileType.Operations))
+			if (BriefopCustomData.ExportFileTypes.Contains(ElementExportFileType.Operations))
 				AddFileHtml(GenerateFileName(ElementExportFileType.Operations, coalition.CoalitionName), sKneeboardFolder, GenerateHtmlOperations(coalition));
-			if (ExportFileTypes.Contains(ElementExportFileType.Opposition))
+			if (BriefopCustomData.ExportFileTypes.Contains(ElementExportFileType.Opposition) && coalition.OpposingAssets.Where(_a => ToolsBriefop.AssetOrUnitIncluded(_a)).Any())
 				AddFileHtml(GenerateFileName(ElementExportFileType.Opposition, coalition.CoalitionName), sKneeboardFolder, GenerateHtmlOpposition(coalition));
 
-			if (ExportFileTypes.Contains(ElementExportFileType.Coms) && coalition.ComPresets is object && coalition.ComPresets.Count > 0)
+			if (BriefopCustomData.ExportFileTypes.Contains(ElementExportFileType.Coms) && coalition.ComPresets is object && coalition.ComPresets.Count > 0)
 				AddFileHtml(GenerateFileName(ElementExportFileType.Coms, coalition.CoalitionName), sKneeboardFolder, GenerateHtmlComs(coalition));
 
 			foreach (AssetFlight asset in coalition.OwnAssets.OfType<AssetFlight>().Where(_a => _a.MissionData is object))
@@ -133,10 +129,10 @@ namespace DcsBriefop
 
 				sKneeboardFolder = $@"{sKneeboardFolder}/{KneeboardFolders.Images}";
 
-				if (ExportFileTypes.Contains(ElementExportFileType.Missions))
+				if (BriefopCustomData.ExportFileTypes.Contains(ElementExportFileType.Missions))
 					AddFileHtml($"{GenerateFileName(ElementExportFileType.Missions, coalition.CoalitionName)}_{asset.Id}", sKneeboardFolder, GenerateHtmlMissionCard(coalition, asset));
-				if (ExportFileTypes.Contains(ElementExportFileType.MissionMaps))
-					AddMapData($"{GenerateFileName(ElementExportFileType.MissionMaps, coalition.CoalitionName)}_{asset.Id}", sKneeboardFolder, asset.MissionData.MapData);
+				if (BriefopCustomData.ExportFileTypes.Contains(ElementExportFileType.MissionMaps))
+					AddMapData($"{GenerateFileName(ElementExportFileType.Missions, coalition.CoalitionName)}_{asset.Id}_map", sKneeboardFolder, asset.MissionData.MapData);
 			}
 		}
 
@@ -155,7 +151,7 @@ namespace DcsBriefop
 			string sStyle = ToolsResources.GetTextResourceContent("briefingTemplate", "css");
 			PlaceholderReplace(ref sStyle, "colorDark", ColorTranslator.ToHtml(color));
 			PlaceholderReplace(ref sStyle, "colorLight", ColorTranslator.ToHtml(color.Lerp(Color.White, 0.85f)));
-			PlaceholderReplace(ref sStyle, "colorBack", ColorTranslator.ToHtml(ImageBackColor));
+			PlaceholderReplace(ref sStyle, "colorBack", BriefopCustomData.ExportImageBackgroundColor);
 
 			sString = sString.Replace("<link href=\"briefingTemplate.css\" rel=\"stylesheet\">", $"<style>{sStyle}</style>");
 		}
@@ -183,7 +179,7 @@ namespace DcsBriefop
 		private void AddFileHtml(string sFileName, string sKneeboardFolder, string sHtml)
 		{
 			BriefingFileHtml bf = new BriefingFileHtml() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, HtmlContent = sHtml };
-			bf.BitmapContent = HtmlRender.RenderToImage(sHtml, new Size(ImageSize.Width, ImageSize.Height), ImageBackColor) as Bitmap;
+			bf.BitmapContent = HtmlRender.RenderToImage(sHtml, new Size(BriefopCustomData.ExportImageSize.Width, BriefopCustomData.ExportImageSize.Height), m_backgroundColor) as Bitmap;
 			//bf.BitmapContent = HtmlRender.RenderToImageGdiPlus(sHtml, new Size(ElementImageSize.Width, ElementImageSize.Height), System.Drawing.Text.TextRenderingHint.AntiAlias) as Bitmap;
 			m_listFiles.Add(bf);
 		}
@@ -195,7 +191,7 @@ namespace DcsBriefop
 
 		private void AddMapData(string sFileName, string sKneeboardFolder, BriefopCustomMap mapData)
 		{
-			BriefingFile bf = new BriefingFile() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, BitmapContent = ToolsMap.GenerateMapImage(mapData, ImageSize) };
+			BriefingFile bf = new BriefingFile() { FileName = sFileName, KneeboardFolder = sKneeboardFolder, BitmapContent = ToolsMap.GenerateMapImage(mapData, BriefopCustomData.ExportImageSize) };
 			m_listFiles.Add(bf);
 		}
 		#endregion

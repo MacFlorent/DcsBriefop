@@ -2,6 +2,7 @@
 using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace DcsBriefop.DataMiz
@@ -10,6 +11,15 @@ namespace DcsBriefop.DataMiz
 	{
 		#region Properties
 		public BriefopCustomMap MapData { get; set; }
+
+		public bool ExportOnSave { get; set; } = true;
+		public bool ExportMiz { get; set; } = true;
+		public bool ExportLocalDirectory { get; set; } = true;
+		public bool ExportLocalDirectoryHtml { get; set; } = false;
+		public string ExportLocalDirectoryPath { get; set; }
+		public Size ExportImageSize { get; set; } = new Size(ElementImageSize.Width, ElementImageSize.Height);
+		public string ExportImageBackgroundColor { get; set; }
+		public List<ElementExportFileType> ExportFileTypes { get; set; } = new List<ElementExportFileType>() { ElementExportFileType.Operations, ElementExportFileType.Opposition, ElementExportFileType.Missions };
 
 		public List<BriefopCustomCoalition> Coalitions { get; private set; } = new List<BriefopCustomCoalition>();
 		public List<BriefopCustomGroup> AssetGroups { get; set; } = new List<BriefopCustomGroup>();

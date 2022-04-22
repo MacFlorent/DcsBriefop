@@ -80,7 +80,7 @@ namespace DcsBriefop.Data
 
 	internal static class ElementImageSize
 	{
-		public static readonly int Width = 800;
-		public static readonly int Height = 1200;
+		public static readonly int Width = 720;
+		public static readonly int Height = 1085;
 	}
 }
