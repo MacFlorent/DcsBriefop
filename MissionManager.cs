@@ -109,8 +109,8 @@ namespace DcsBriefop
 
 			using (ZipArchive za = ZipFile.Open(sFilePath, ZipArchiveMode.Update))
 			{
-				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.DictionaryZipEntryFullName, ToolsLua.LsonRootToCorrectedString(Miz.RootDictionary.RootLua));
-				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.MissionFileName, ToolsLua.LsonRootToCorrectedString(Miz.RootMission.RootLua));
+				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.DictionaryZipEntryFullName, ToolsLua.LsonRootToDcs(Miz.RootDictionary.RootLua));
+				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.MissionFileName, ToolsLua.LsonRootToDcs(Miz.RootMission.RootLua));
 				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.BriefopCustomZipEntryFullName, Miz.BriefopCustomData.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
 			}
 		}

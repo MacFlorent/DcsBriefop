@@ -72,7 +72,9 @@ namespace DcsBriefop
 		{
 			m_briefingContainer = briefingContainer;
 			m_missionManager = missionManager;
-			m_backgroundColor = ColorTranslator.FromHtml(BriefopCustomData.ExportImageBackgroundColor);
+
+			if (!string.IsNullOrEmpty (BriefopCustomData.ExportImageBackgroundColor))
+				m_backgroundColor = ColorTranslator.FromHtml(BriefopCustomData.ExportImageBackgroundColor);
 		}
 		#endregion
 
@@ -151,7 +153,7 @@ namespace DcsBriefop
 			string sStyle = ToolsResources.GetTextResourceContent("briefingTemplate", "css");
 			PlaceholderReplace(ref sStyle, "colorDark", ColorTranslator.ToHtml(color));
 			PlaceholderReplace(ref sStyle, "colorLight", ColorTranslator.ToHtml(color.Lerp(Color.White, 0.85f)));
-			PlaceholderReplace(ref sStyle, "colorBack", BriefopCustomData.ExportImageBackgroundColor);
+			PlaceholderReplace(ref sStyle, "colorBack", ColorTranslator.ToHtml(m_backgroundColor));
 
 			sString = sString.Replace("<link href=\"briefingTemplate.css\" rel=\"stylesheet\">", $"<style>{sStyle}</style>");
 		}
@@ -228,10 +230,17 @@ namespace DcsBriefop
 			PlaceholderReplace(ref sHtml, "bullseye", coalition.GetBullseyeCoordinatesString());
 			PlaceholderReplace(ref sHtml, "generalSortie", m_briefingContainer.Mission.Sortie);
 			PlaceholderReplace(ref sHtml, "generalSituation", m_briefingContainer.Mission.Description);
-			PlaceholderReplace(ref sHtml, "generalTask", coalition.Task);
 
 			StringBuilder sb = new StringBuilder();
 			string sBlockRaw, sBlockCleaned;
+
+			if (PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "generalTask"))
+			{
+				if (string.IsNullOrEmpty(coalition.Task))
+					sHtml = sHtml.Replace(sBlockRaw, "");
+				else
+					PlaceholderReplace(ref sHtml, "generalTask", coalition.Task);
+			}
 
 			if (PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "mission"))
 			{
@@ -258,7 +267,7 @@ namespace DcsBriefop
 				IEnumerable<Asset> assetsBase = coalition.OwnAssets.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base);
 				IEnumerable<Asset> assetsAirdrome = coalition.Airdromes.Where(_a => _a.Included && _a.Function == ElementAssetFunction.Base && _a.Side == ElementAssetSide.Own);
 
-				if (assetsSupport.Count() <= 0 || assetsBase.Count() <= 0 || assetsAirdrome.Count() <= 0)
+				if (assetsSupport.Count() <= 0 && assetsBase.Count() <= 0 && assetsAirdrome.Count() <= 0)
 				{
 					sHtml = sHtml.Replace(sBlockRaw, "");
 				}

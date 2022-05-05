@@ -167,8 +167,12 @@ namespace DcsBriefop
 
 		private void Test()
 		{
-			//string sJsonStream = ToolsResources.GetJsonResourceContent("Routes");
-			//Map.ConfigMapTemplateRoutes test = Newtonsoft.Json.JsonConvert.DeserializeObject<Map.ConfigMapTemplateRoutes>(sJsonStream);
+			//string sFilePath = @"D:\Projects\dictionary.txt";
+			//string sFileContent = File.ReadAllText(sFilePath);
+			//string sLsonIn = ToolsLua.ReadLuaFileContent(sFilePath);
+			//Dictionary<string, LsonValue> lsd = LsonVars.Parse(sLsonIn);
+			//string sLsonOut = ToolsLua.LsonRootToDcs(lsd);
+
 
 			//SplitContainer.Panel1.Controls.Clear();
 			//FlowLayoutPanel f = new FlowLayoutPanel();
@@ -176,31 +180,33 @@ namespace DcsBriefop
 			//f.Dock = DockStyle.Fill;
 			//SplitContainer.Panel1.Controls.Add(f);
 
-			//TextBox tb1 = new TextBox();
-			//tb1.Multiline = true;
-			//tb1.Height = 500;
-			//tb1.Width = f.Width;
-			//TextBox tb2 = new TextBox();
-			//tb2.Multiline = true;
-			//tb2.Height = 500;
-			//tb2.Width = f.Width;
-			//f.Controls.Add(tb1);
-			//f.Controls.Add(tb2);
+			//string ToLiteral(string sText)
+			//{
+			//	using (var writer = new StringWriter())
+			//	{
+			//		using (var provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp"))
+			//		{
+			//			provider.GenerateCodeFromExpression(new System.CodeDom.CodePrimitiveExpression(sText), writer, null);
+			//			return writer.ToString();
+			//		}
+			//	}
+			//}
 
-			//string sFilePath = @"D:\Projects\dictionary";
-			//string s = MissionManager.ReadLuaFileContent(sFilePath);
-			//var v = LsonLib.LsonVars.Parse(s);
+			//TextBox AppendTextBox(string sText)
+			//{
+			//	TextBox tb = new TextBox();
+			//	tb.Multiline = true;
+			//	tb.Height = 100;
+			//	tb.Width = f.Width;
+			//	tb.Text = sText;
+			//	f.Controls.Add(tb);
+			//	return tb;
+			//}
 
-			//LsonLib.LsonDict root = v["dictionary"].GetDict();
-			//s = root["DictKey_descriptionText_1"].GetString();
-
-			//tb1.Text = s;
-
-			//s = MissionManager.LsonRootToCorrectedString(v);
-
-			//tb2.Text = s;
+			//AppendTextBox(ToLiteral(sFileContent));
+			//AppendTextBox(ToLiteral(sLsonIn));
+			//AppendTextBox(ToLiteral(sLsonOut));
 			//System.IO.File.WriteAllText(sFilePath + "_mod", s);
-
 		}
 		#endregion
 

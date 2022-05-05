@@ -320,7 +320,6 @@ namespace LsonLib
                                 case 'r': sb.Append('\r'); break;
                                 case 't': sb.Append('\t'); break;
                                 case 'v': sb.Append('\v'); break;
-                                case '\n': sb.Append("\\\n"); break; // FG - for dcs strings with simple \ as a line break indicator before the line feed
                                 default:
                                     if (Cur >= '0' && Cur <= '9')
                                         throw new LsonParseException(this, "String escapes like \\d - \\ddd are not yet implemented.");

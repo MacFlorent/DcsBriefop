@@ -89,6 +89,8 @@ namespace DcsBriefop.Data
 			else if (CoalitionName == ElementCoalition.Neutral)
 				Task = Core.Miz.RootDictionary.NeutralTask;
 
+			Task = ToolsLua.DcsTextToDisplay(Task);
+
 			OwnColor = ToolsBriefop.GetCoalitionColor(CoalitionName);
 			OpposingColor = ToolsBriefop.GetCoalitionColor(sOpposingCoalitionName);
 
@@ -174,11 +176,11 @@ namespace DcsBriefop.Data
 		public override void Persist()
 		{
 			if (CoalitionName == ElementCoalition.Red)
-				Core.Miz.RootDictionary.RedTask = Task;
+				Core.Miz.RootDictionary.RedTask = ToolsLua.DisplayToDcsText(Task);
 			else if (CoalitionName == ElementCoalition.Blue)
-				Core.Miz.RootDictionary.BlueTask = Task;
+				Core.Miz.RootDictionary.BlueTask = ToolsLua.DisplayToDcsText(Task);
 			else if (CoalitionName == ElementCoalition.Neutral)
-				Core.Miz.RootDictionary.NeutralTask = Task;
+				Core.Miz.RootDictionary.NeutralTask = ToolsLua.DisplayToDcsText(Task);
 
 			m_briefopCustomCoalition.Included = Included;
 			m_briefopCustomCoalition.BullseyeDescription = BullseyeDescription;

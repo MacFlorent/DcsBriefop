@@ -1,12 +1,15 @@
 ﻿using DcsBriefop.DataMiz;
 using System.Linq;
 using DcsBriefop.Map;
+using System.Text;
+using DcsBriefop.Tools;
 
 namespace DcsBriefop.Data
 {
 	internal class AssetShip : AssetGroup
 	{
 		#region Fields
+		private int m_iFrequencyRatio = 1000000;
 		#endregion
 
 		#region Properties
@@ -33,7 +36,7 @@ namespace DcsBriefop.Data
 				MainUnit = GroupShip.Units.OfType<MizUnitShip>().FirstOrDefault();
 
 			Type = MainUnit.Type;
-			Radio = new Radio() { Frequency = MainUnit.RadioFrequency / 1000000, Modulation = MainUnit.RadioModulation };
+			Radio = new Radio() { Frequency = MainUnit.RadioFrequency / m_iFrequencyRatio, Modulation = MainUnit.RadioModulation };
 
 			if (Type.StartsWith("CVN"))
 				Function = ElementAssetFunction.Base;
@@ -72,7 +75,7 @@ namespace DcsBriefop.Data
 		{
 			base.Persist();
 
-			MainUnit.RadioFrequency = Radio.Frequency * 1000000;
+			MainUnit.RadioFrequency = Radio.Frequency * m_iFrequencyRatio;
 			MainUnit.RadioModulation = Radio.Modulation;
 		}
 
@@ -80,7 +83,30 @@ namespace DcsBriefop.Data
 		{
 			string sInformation = "";
 			if (Side == ElementAssetSide.Own)
-				sInformation = $"{GetTacanString()}";
+			{
+				string sIcls = null, sLink4 = null;
+				foreach (AssetRoutePoint routePoint in MapPoints.OfType<AssetRoutePoint>())
+				{
+					if (string.IsNullOrEmpty(sIcls))
+					{
+						MizRouteTask taskIcls = routePoint.MizRoutePoint.RouteTaskHolder.Tasks.Where(_rt => _rt.Params.Action?.Id == ElementRouteTask.ActivateIcls).FirstOrDefault();
+						if (taskIcls?.Params.Action is MizRouteTaskAction rta)
+							sIcls = $"ICLS {rta.ParamChannel}";
+					}
+					if (string.IsNullOrEmpty(sLink4))
+					{
+						MizRouteTask taskLink4 = routePoint.MizRoutePoint.RouteTaskHolder.Tasks.Where(_rt => _rt.Params.Action?.Id == ElementRouteTask.ActivateLink4).FirstOrDefault();
+						if (taskLink4?.Params.Action is MizRouteTaskAction rta)
+							sLink4 = $"LNK4 {rta.ParamFrequency / m_iFrequencyRatio:###.00}";
+					}
+				}
+
+				StringBuilder sb = new StringBuilder($"{GetTacanString()}");
+				sb.AppendWithSeparator(sIcls, " ");
+				sb.AppendWithSeparator(sLink4, " ");
+
+				sInformation = sb.ToString();
+			}
 
 			return sInformation;
 		}

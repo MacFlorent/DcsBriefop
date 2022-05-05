@@ -36,6 +36,8 @@ namespace DcsBriefop.Data
 	internal static class ElementRouteTask
 	{
 		public static readonly string ActivateBeacon = "ActivateBeacon";
+		public static readonly string ActivateIcls = "ActivateICLS";
+		public static readonly string ActivateLink4 = "ActivateLink4";
 		public static readonly string Orbit = "Orbit";
 	}
 

@@ -113,6 +113,7 @@ namespace DcsBriefop.UcBriefing
 			this.BtComPresets.Text = "Communications";
 			this.BtComPresets.UseVisualStyleBackColor = true;
 			this.BtComPresets.Click += new System.EventHandler(this.BtComPresets_Click);
+			this.BtComPresets.Paint += new System.Windows.Forms.PaintEventHandler(this.BtComPresets_Paint);
 			// 
 			// TcAssets
 			// 

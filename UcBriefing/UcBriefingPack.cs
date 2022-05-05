@@ -15,7 +15,12 @@ namespace DcsBriefop.UcBriefing
 
 		public override void DataToScreen()
 		{
-			TcMissionData.TabPages.Clear();
+			int iSelectedIndex = -1;
+			if (TcMissionData.TabPages.Count > 0)
+			{
+				iSelectedIndex = TcMissionData.SelectedIndex;
+				TcMissionData.TabPages.Clear();
+			}
 
 			UcBriefingSituation ucbs = new UcBriefingSituation(UcMap, BriefingContainer);
 			TabPageBriefing tpb = new TabPageBriefing("situation", ucbs);
@@ -26,6 +31,9 @@ namespace DcsBriefop.UcBriefing
 			{
 				DataToScreen_AddCoalitionTab(coalition);
 			}
+
+			if (iSelectedIndex >= 0 && iSelectedIndex < TcMissionData.TabCount)
+				TcMissionData.SelectedIndex = iSelectedIndex;
 
 			DisplayCurrentTabMap();
 		}
