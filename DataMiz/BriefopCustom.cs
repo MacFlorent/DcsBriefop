@@ -19,7 +19,7 @@ namespace DcsBriefop.DataMiz
 		public string ExportLocalDirectoryPath { get; set; }
 		public Size ExportImageSize { get; set; } = new Size(ElementImageSize.Width, ElementImageSize.Height);
 		public string ExportImageBackgroundColor { get; set; }
-		public List<ElementExportFileType> ExportFileTypes { get; set; } = new List<ElementExportFileType>() { ElementExportFileType.Operations, ElementExportFileType.Opposition, ElementExportFileType.Missions };
+		public List<ElementExportFileType> ExportFileTypes { get; set; } = new List<ElementExportFileType>();
 
 		public List<BriefopCustomCoalition> Coalitions { get; private set; } = new List<BriefopCustomCoalition>();
 		public List<BriefopCustomGroup> AssetGroups { get; set; } = new List<BriefopCustomGroup>();
@@ -30,6 +30,14 @@ namespace DcsBriefop.DataMiz
 		#endregion
 
 		#region Methods
+		public void InitializeDefault()
+		{
+			ExportFileTypes.Clear();
+			ExportFileTypes.Add(ElementExportFileType.Operations);
+			ExportFileTypes.Add(ElementExportFileType.Opposition);
+			ExportFileTypes.Add(ElementExportFileType.Missions);
+		}
+
 		public static BriefopCustom DeserializeJson(string sJson)
 		{
 			return JsonConvert.DeserializeObject<BriefopCustom>(sJson, m_deserializeConverters);

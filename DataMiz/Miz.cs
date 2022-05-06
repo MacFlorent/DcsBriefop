@@ -34,7 +34,10 @@ namespace DcsBriefop.DataMiz
 			if (!string.IsNullOrEmpty(sJsonBriefopCustom))
 				BriefopCustomData = BriefopCustom.DeserializeJson(sJsonBriefopCustom);
 			else
+			{
 				BriefopCustomData = new BriefopCustom();
+				BriefopCustomData.InitializeDefault();
+			}
 		}
 		#endregion
 

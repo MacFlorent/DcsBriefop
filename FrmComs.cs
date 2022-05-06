@@ -127,8 +127,8 @@ namespace DcsBriefop
 			RefreshGridRowContent(dgvr, GridColumn.Mode, MasterDataRepository.GetById(MasterDataType.ComPresetMode, (int)preset.Mode)?.Label);
 			RefreshGridRowContent(dgvr, GridColumn.Asset, preset.AssetId);
 			RefreshGridRowContent(dgvr, GridColumn.Label, preset.Label);
-			RefreshGridRowContent(dgvr, GridColumn.Frequency, preset.Radio.Frequency);
-			RefreshGridRowContent(dgvr, GridColumn.Modulation, preset.Radio.Modulation);
+			RefreshGridRowContent(dgvr, GridColumn.Frequency, preset.Radio?.Frequency);
+			RefreshGridRowContent(dgvr, GridColumn.Modulation, preset.Radio?.Modulation);
 
 			if (preset.Mode == ElementComPresetMode.Free)
 			{
@@ -252,9 +252,9 @@ namespace DcsBriefop
 			DataGridViewCell cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
 			if (column.Name == GridColumn.Frequency)
-				preset.Radio.Frequency = (decimal)cell.Value;
+				preset.RadioFrequency = cell.Value as decimal?;
 			else if (column.Name == GridColumn.Modulation)
-				preset.Radio.Modulation = (int)(cell as DataGridViewComboBoxCell).Value;
+				preset.RadioModulation = (cell as DataGridViewComboBoxCell).Value as int?;
 			else if (column.Name == GridColumn.Asset)
 				preset.AssetId = (int)cell.Value;
 			else if (column.Name == GridColumn.Label)

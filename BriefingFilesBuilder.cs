@@ -397,15 +397,18 @@ namespace DcsBriefop
 
 		private void GenerateHtmlComsTable(ref string sString, BriefingCoalition coalition, int iRadio)
 		{
-			//PlaceholderGetLine(out string sLineRaw, out string sLineCleaned, sString, $"radio{iRadio}Line");
-			//StringBuilder sb = new StringBuilder();
-			//for (int iNumber = 1; iNumber <= ListComPreset.PresetsCount; iNumber++)
-			//{
-			//	ComPreset preset = coalition.ComPresets.GetPreset(iRadio, iNumber);
-			//	GenerateHtmlComsLine(sb, sLineCleaned, preset);
-			//}
+			if (PlaceholderGetBlock(out string sBlockRaw, out string sBlockCleaned, sString, $"radio{iRadio}Line"))
+			{
+				StringBuilder sb = new StringBuilder();
+				for (int iNumber = 1; iNumber <= ListComPreset.PresetsCount; iNumber++)
+				{
+					ComPreset preset = coalition.ComPresets.GetPreset(iRadio, iNumber);
+					if (preset.Radio is object)
+						GenerateHtmlComsLine(sb, sBlockCleaned, preset);
+				}
 
-			//sString = sString.Replace(sLineRaw, sb.ToString());
+				sString = sString.Replace(sBlockRaw, sb.ToString());
+			}
 		}
 
 		private string GenerateHtmlComs(BriefingCoalition coalition)

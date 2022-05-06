@@ -85,7 +85,7 @@ namespace DcsBriefop.Data
 
 			if (m_unit.Radios is object && m_unit.Radios.Length > 0 && AssetGroup.Coalition.ComPresets is object && AssetGroup.Coalition.ComPresets.Count > 0)
 			{
-				foreach (ComPreset comPreset in AssetGroup.Coalition.ComPresets)
+				foreach (ComPreset comPreset in AssetGroup.Coalition.ComPresets.Where(_cp => _cp.Radio is object))
 				{
 					if (m_unit.Radios.Length > comPreset.PresetRadio)
 					{

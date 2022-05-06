@@ -26,10 +26,42 @@ namespace DcsBriefop.Data
 		public int AssetId { get; set; }
 		public string Label { get; set; }
 		public Radio Radio { get; set; }
+		public decimal? RadioFrequency
+		{
+			get
+			{ return Radio?.Frequency; }
+			set
+			{
+				if (value is null)
+					Radio = null;
+				else
+				{
+					if (Radio is null)
+						Radio = new Radio();
+					Radio.Frequency = value.Value;
+				}
+			}
+		}
+		public int? RadioModulation
+		{
+			get
+			{ return Radio?.Modulation; }
+			set
+			{
+				if (value is null)
+					Radio = null;
+				else
+				{
+					if (Radio is null)
+						Radio = new Radio();
+					Radio.Modulation = value.Value;
+				}
+			}
+		}
 		#endregion
 
 		#region CTOR
-		public ComPreset() : this (0, 0) { }
+		public ComPreset() : this(0, 0) { }
 
 		public ComPreset(int iRadio, int iNumber) : this(iRadio, iNumber, new Radio()) { }
 
@@ -47,7 +79,7 @@ namespace DcsBriefop.Data
 		#region Methods
 		public ComPreset GetCopy()
 		{
-			ComPreset copy = new ComPreset(PresetRadio, PresetNumber, Radio.GetCopy());
+			ComPreset copy = new ComPreset(PresetRadio, PresetNumber, Radio?.GetCopy());
 			copy.Mode = Mode;
 			copy.AssetId = AssetId;
 			copy.Label = Label;
@@ -108,7 +140,7 @@ namespace DcsBriefop.Data
 			{
 				Mode = ElementComPresetMode.Free;
 				AssetId = 0;
-				Radio.Normalize();
+				Radio?.Normalize();
 			}
 
 		}
@@ -143,7 +175,7 @@ namespace DcsBriefop.Data
 			{
 				for (int iNumber = 1; iNumber <= PresetsCount; iNumber++)
 				{
-					Add(new ComPreset(iRadio, iNumber, new Radio(255, ElementRadioModulation.AM)));
+					Add(new ComPreset(iRadio, iNumber, null));
 				}
 			}
 		}
@@ -219,7 +251,7 @@ namespace DcsBriefop.Data
 					dFrequency += 0.1m;
 
 					preset.Mode = ElementComPresetMode.Free;
-					preset.Label = flight.Callsign;
+					preset.Label = flight.Description;
 					preset.Radio = new Radio(dFrequency, ElementRadioModulation.AM);
 					preset.Compute(coalition);
 				}
@@ -228,13 +260,13 @@ namespace DcsBriefop.Data
 
 		public void Compute(BriefingCoalition coalition)
 		{
-			foreach(ComPreset preset in this)
+			foreach (ComPreset preset in this)
 			{
 				preset.Compute(coalition);
 			}
 
-	
-			foreach(AssetFlight flight in coalition.OwnAssets.OfType<AssetFlight>().Where (_f => _f.Playable))
+
+			foreach (AssetFlight flight in coalition.OwnAssets.OfType<AssetFlight>().Where(_f => _f.Playable))
 			{
 				int iRadio = 1;
 				if (flight.Type.StartsWith("F-14"))

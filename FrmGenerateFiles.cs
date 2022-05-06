@@ -153,8 +153,6 @@ namespace DcsBriefop
 			{
 				builder.Generate();
 			}
-
-			Close();
 		}
 
 		private void BtClose_Click(object sender, System.EventArgs e)
