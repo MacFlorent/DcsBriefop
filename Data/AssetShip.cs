@@ -36,7 +36,7 @@ namespace DcsBriefop.Data
 				MainUnit = GroupShip.Units.OfType<MizUnitShip>().FirstOrDefault();
 
 			Type = MainUnit.Type;
-			Radio = new Radio() { Frequency = MainUnit.RadioFrequency / m_iFrequencyRatio, Modulation = MainUnit.RadioModulation };
+			Radio = new Radio() { Frequency = MainUnit.RadioFrequency / m_iFrequencyRatio, Modulation = MainUnit.RadioModulation ?? ElementRadioModulation.AM };
 
 			if (Type.StartsWith("CVN"))
 				Function = ElementAssetFunction.Base;

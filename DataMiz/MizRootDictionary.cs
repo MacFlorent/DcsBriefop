@@ -1,4 +1,5 @@
-﻿using LsonLib;
+﻿using DcsBriefop.Tools;
+using LsonLib;
 using System;
 using System.Collections.Generic;
 
@@ -30,20 +31,20 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Sortie = Lsd[LuaNode.Sortie].GetString();
-			Description = Lsd[LuaNode.Description].GetString();
-			RedTask = Lsd[LuaNode.RedTask].GetString();
-			BlueTask = Lsd[LuaNode.BlueTask].GetString();
-			NeutralTask = Lsd[LuaNode.NeutralTask].GetString();
+			Sortie = ToolsLson.IfExistsString(Lsd, LuaNode.Sortie);
+			Description = ToolsLson.IfExistsString(Lsd, LuaNode.Description);
+			RedTask = ToolsLson.IfExistsString(Lsd, LuaNode.RedTask);
+			BlueTask = ToolsLson.IfExistsString(Lsd, LuaNode.BlueTask);
+			NeutralTask = ToolsLson.IfExistsString(Lsd, LuaNode.NeutralTask);
 		}
 
 		public override void ToLua()
 		{
-			Lsd[LuaNode.Sortie] = Sortie;
-			Lsd[LuaNode.Description] = Description;
-			Lsd[LuaNode.RedTask] = RedTask;
-			Lsd[LuaNode.BlueTask] = BlueTask;
-			Lsd[LuaNode.NeutralTask] = NeutralTask;
+			Lsd.SetOrAddString(LuaNode.Sortie, Sortie);
+			Lsd.SetOrAddString(LuaNode.Description, Description);
+			Lsd.SetOrAddString(LuaNode.RedTask, RedTask);
+			Lsd.SetOrAddString(LuaNode.BlueTask, BlueTask);
+			Lsd.SetOrAddString(LuaNode.NeutralTask, NeutralTask);
 		}
 	}
 }

@@ -71,12 +71,12 @@ namespace DcsBriefop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Bitmap icon16 {
+        internal static System.Drawing.Icon icon256 {
             get {
-                object obj = ResourceManager.GetObject("icon16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("icon256", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

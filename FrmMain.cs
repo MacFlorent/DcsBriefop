@@ -24,7 +24,8 @@ namespace DcsBriefop
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			this.Icon = ToolsResources.GetIconResource("icon16");
+			this.Icon = ToolsResources.GetIconResource("icon256");
+			SetStatusStrip();
 			BuildMenu();
 		}
 		#endregion
@@ -152,8 +153,7 @@ namespace DcsBriefop
 			else
 				m_ucBriefingPack.BriefingContainer = m_briefingContainer;
 
-			StatusStrip.Items.Clear();
-			StatusStrip.Items.Add(m_missionManager.MizFilePath);
+			SetStatusStrip();
 
 			m_ucBriefingPack.DataToScreen();
 
@@ -165,47 +165,58 @@ namespace DcsBriefop
 			m_ucBriefingPack.ScreenToData();
 		}
 
+		private void SetStatusStrip()
+		{
+			System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+			System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+
+			StatusStrip.Items.Clear();
+			StatusStrip.Items.Add(fvi.FileVersion);
+			if (m_missionManager is object)
+				StatusStrip.Items.Add(m_missionManager.MizFilePath);
+		}
+
 		private void Test()
 		{
-			//string sFilePath = @"D:\Projects\dictionary.txt";
-			//string sFileContent = File.ReadAllText(sFilePath);
-			//string sLsonIn = ToolsLua.ReadLuaFileContent(sFilePath);
-			//Dictionary<string, LsonValue> lsd = LsonVars.Parse(sLsonIn);
-			//string sLsonOut = ToolsLua.LsonRootToDcs(lsd);
+			string sFilePath = @"D:\Projects\dictionary.txt";
+			string sFileContent = File.ReadAllText(sFilePath);
+			string sLsonIn = ToolsLua.ReadLuaFileContent(sFilePath);
+			System.Collections.Generic.Dictionary<string, LsonLib.LsonValue> lsd = LsonLib.LsonVars.Parse(sLsonIn);
+			string sLsonOut = ToolsLua.LsonRootToDcs(lsd);
 
 
-			//SplitContainer.Panel1.Controls.Clear();
-			//FlowLayoutPanel f = new FlowLayoutPanel();
-			//f.FlowDirection = FlowDirection.LeftToRight;
-			//f.Dock = DockStyle.Fill;
-			//SplitContainer.Panel1.Controls.Add(f);
+			SplitContainer.Panel1.Controls.Clear();
+			FlowLayoutPanel f = new FlowLayoutPanel();
+			f.FlowDirection = FlowDirection.LeftToRight;
+			f.Dock = DockStyle.Fill;
+			SplitContainer.Panel1.Controls.Add(f);
 
-			//string ToLiteral(string sText)
-			//{
-			//	using (var writer = new StringWriter())
-			//	{
-			//		using (var provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp"))
-			//		{
-			//			provider.GenerateCodeFromExpression(new System.CodeDom.CodePrimitiveExpression(sText), writer, null);
-			//			return writer.ToString();
-			//		}
-			//	}
-			//}
+			string ToLiteral(string sText)
+			{
+				using (var writer = new StringWriter())
+				{
+					using (var provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp"))
+					{
+						provider.GenerateCodeFromExpression(new System.CodeDom.CodePrimitiveExpression(sText), writer, null);
+						return writer.ToString();
+					}
+				}
+			}
 
-			//TextBox AppendTextBox(string sText)
-			//{
-			//	TextBox tb = new TextBox();
-			//	tb.Multiline = true;
-			//	tb.Height = 100;
-			//	tb.Width = f.Width;
-			//	tb.Text = sText;
-			//	f.Controls.Add(tb);
-			//	return tb;
-			//}
+			TextBox AppendTextBox(string sText)
+			{
+				TextBox tb = new TextBox();
+				tb.Multiline = true;
+				tb.Height = 100;
+				tb.Width = f.Width;
+				tb.Text = sText;
+				f.Controls.Add(tb);
+				return tb;
+			}
 
-			//AppendTextBox(ToLiteral(sFileContent));
-			//AppendTextBox(ToLiteral(sLsonIn));
-			//AppendTextBox(ToLiteral(sLsonOut));
+			AppendTextBox(ToLiteral(sFileContent));
+			AppendTextBox(ToLiteral(sLsonIn));
+			AppendTextBox(ToLiteral(sLsonOut));
 			//System.IO.File.WriteAllText(sFilePath + "_mod", s);
 		}
 		#endregion

@@ -17,7 +17,9 @@ namespace DcsBriefop.Tools
 		{
 			// In DCS mission dictionnary, multi-line strings - like the mission description - represent new lines by a backslash and a line feed
 			// This is not supported by LsonLib, so we replace them by an escaped line feed which is ok
+			sDcsLsonContent = sDcsLsonContent.Replace("\\\r\n", "\\n");
 			sDcsLsonContent = sDcsLsonContent.Replace("\\\n", "\\n");
+			
 			return sDcsLsonContent;
 		}
 
@@ -40,12 +42,12 @@ namespace DcsBriefop.Tools
 		public static string DcsTextToDisplay(string sDcsText)
 		{
 			// As in the multi-line strings we have simple \n for new lines, we want to replace them by correct Environment.Newline before putting them to display
-			return sDcsText.Replace("\n", Environment.NewLine);
+			return sDcsText?.Replace("\n", Environment.NewLine);
 		}
 		public static string DisplayToDcsText(string sDisplay)
 		{
 			// And vice versa
-			return sDisplay.Replace(Environment.NewLine, "\n");
+			return sDisplay?.Replace(Environment.NewLine, "\n");
 		}
 
 	}

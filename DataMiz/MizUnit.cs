@@ -101,7 +101,7 @@ namespace DcsBriefop.DataMiz
 
 			if (Callsign is object)
 				Callsign.ToLua();
-			if(CallsignNumber is object)
+			if (CallsignNumber is object)
 				Lsd[LuaNode.Callsign] = CallsignNumber;
 
 			Lsd[LuaNode.OnboardNum] = OnboardNum;
@@ -117,7 +117,7 @@ namespace DcsBriefop.DataMiz
 		}
 
 		public decimal RadioFrequency { get; set; }
-		public int RadioModulation { get; set; }
+		public int? RadioModulation { get; set; }
 
 		public MizUnitShip(LsonDict lsd) : base(lsd) { }
 
@@ -126,7 +126,7 @@ namespace DcsBriefop.DataMiz
 			base.FromLua();
 
 			RadioFrequency = Lsd[LuaNode.RadioFrequency].GetDecimal();
-			RadioModulation = Lsd[LuaNode.RadioModulation].GetInt();
+			RadioModulation = ToolsLson.IfExistsInt(Lsd, LuaNode.RadioModulation);
 		}
 
 		public override void ToLua()
@@ -134,7 +134,7 @@ namespace DcsBriefop.DataMiz
 			base.ToLua();
 
 			Lsd[LuaNode.RadioFrequency] = RadioFrequency;
-			Lsd[LuaNode.RadioModulation] = RadioModulation;
+			Lsd.SetOrAddInt(LuaNode.RadioModulation, RadioModulation);
 		}
 	}
 
