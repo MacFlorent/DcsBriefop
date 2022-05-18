@@ -7,7 +7,7 @@
   {"Id": 27, "Name": "Aleppo Int Airport", "Latitude": 36.182, "Longitude": 37.21, "Radios": [ { "Frequency": 250.75, "Modulation": 0 }, { "Frequency": 119.1, "Modulation": 0 } ]},
   {"Id": 4, "Name": "An Nasiriyah AB", "Latitude": 33.926, "Longitude": 36.875, "Radios": [ { "Frequency": 251.35, "Modulation": 0 }, { "Frequency": 122.3, "Modulation": 0 } ]},
   {"Id": 21, "Name": "Bassel Al-Assad Int Airport", "Latitude": 35.411, "Longitude": 35.948, "Radios": [ { "Frequency": 250.45, "Modulation": 0 }, { "Frequency": 118.1, "Modulation": 0 } ]},
-  {"Id": 6, "Name": "Beirut-Rafic Hariri Int", "Latitude": 33.837, "Longitude": 35.487, "Radios": [ { "Frequency": 251.4, "Modulation": 0 }, { "Frequency": 118.9, "Modulation": 0 } ]},
+  {"Id": 6, "Name": "Beirut-Rafic Hariri Int", "Latitude": 33.837, "Longitude": 35.487, "Radios": [ { "Frequency": 252.6, "Modulation": 0 }, { "Frequency": 118.9, "Modulation": 0 } ]},
   {"Id": 7, "Name": "Damascus Int Airport", "Latitude": 33.415, "Longitude": 36.504, "Radios": [ { "Frequency": 251.45, "Modulation": 0 }, { "Frequency": 118.5, "Modulation": 0 } ]},
   {"Id": 48, "Name": "Ercan", "Latitude": 35.155, "Longitude": 33.502, "Radios": [ { "Frequency": 251.95, "Modulation": 0 }, { "Frequency": 120.2, "Modulation": 0 } ]},
   {"Id": 10, "Name": "Eyn Shemer", "Latitude": 32.442, "Longitude": 35.002, "Radios": [ { "Frequency": 250, "Modulation": 0 }, { "Frequency": 123.4, "Modulation": 0 } ]},

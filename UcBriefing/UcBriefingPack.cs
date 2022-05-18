@@ -52,7 +52,7 @@ namespace DcsBriefop.UcBriefing
 				tpb.UcBriefing.ScreenToData();
 		}
 
-		private void DisplayCurrentTabMap()
+		public void DisplayCurrentTabMap()
 		{
 			if (TcMissionData.SelectedIndex >= 0 && TcMissionData.TabPages[TcMissionData.SelectedIndex] is TabPageBriefing tp)
 			{

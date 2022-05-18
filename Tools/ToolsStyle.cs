@@ -23,7 +23,7 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region General
-			public static void ApplyStyle(Control control)
+		public static void ApplyStyle(Control control)
 		{
 			if (control is Label label)
 				LabelDefault(label);

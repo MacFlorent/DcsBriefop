@@ -40,7 +40,7 @@ namespace DcsBriefop.UcBriefing
 			// 
 			this.DtpDate.CustomFormat = "dd/MM/yyyy HH:mm";
 			this.DtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-			this.DtpDate.Location = new System.Drawing.Point(63, 10);
+			this.DtpDate.Location = new System.Drawing.Point(63, 4);
 			this.DtpDate.Name = "DtpDate";
 			this.DtpDate.Size = new System.Drawing.Size(143, 20);
 			this.DtpDate.TabIndex = 1;
@@ -50,30 +50,30 @@ namespace DcsBriefop.UcBriefing
 			this.TbDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbDescription.Location = new System.Drawing.Point(3, 228);
+			this.TbDescription.Location = new System.Drawing.Point(3, 118);
 			this.TbDescription.Multiline = true;
 			this.TbDescription.Name = "TbDescription";
 			this.TbDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbDescription.Size = new System.Drawing.Size(969, 455);
+			this.TbDescription.Size = new System.Drawing.Size(1036, 564);
 			this.TbDescription.TabIndex = 3;
 			// 
 			// TbWeather
 			// 
 			this.TbWeather.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbWeather.Location = new System.Drawing.Point(3, 36);
+			this.TbWeather.Location = new System.Drawing.Point(3, 28);
 			this.TbWeather.Multiline = true;
 			this.TbWeather.Name = "TbWeather";
 			this.TbWeather.ReadOnly = true;
 			this.TbWeather.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbWeather.Size = new System.Drawing.Size(969, 186);
+			this.TbWeather.Size = new System.Drawing.Size(1036, 84);
 			this.TbWeather.TabIndex = 2;
 			this.TbWeather.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
 			// LbDate
 			// 
 			this.LbDate.AutoSize = true;
-			this.LbDate.Location = new System.Drawing.Point(27, 13);
+			this.LbDate.Location = new System.Drawing.Point(27, 7);
 			this.LbDate.Name = "LbDate";
 			this.LbDate.Size = new System.Drawing.Size(30, 13);
 			this.LbDate.TabIndex = 0;
@@ -84,9 +84,9 @@ namespace DcsBriefop.UcBriefing
 			// 
 			this.TbSortie.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbSortie.Location = new System.Drawing.Point(212, 10);
+			this.TbSortie.Location = new System.Drawing.Point(212, 4);
 			this.TbSortie.Name = "TbSortie";
-			this.TbSortie.Size = new System.Drawing.Size(760, 20);
+			this.TbSortie.Size = new System.Drawing.Size(827, 20);
 			this.TbSortie.TabIndex = 4;
 			// 
 			// UcBriefingSituation
@@ -99,7 +99,7 @@ namespace DcsBriefop.UcBriefing
 			this.Controls.Add(this.TbDescription);
 			this.Controls.Add(this.TbWeather);
 			this.Name = "UcBriefingSituation";
-			this.Size = new System.Drawing.Size(975, 686);
+			this.Size = new System.Drawing.Size(1042, 685);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

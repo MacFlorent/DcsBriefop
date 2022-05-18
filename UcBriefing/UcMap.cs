@@ -29,7 +29,7 @@ namespace DcsBriefop.UcBriefing
 		{
 			InitializeComponent();
 
-			Map.MapProvider = ElementMapValue.DefaultMapProvider;
+			Map.MapProvider = GMapProviders.TryGetProvider(Preferences.PreferencesManager.Preferences.Map.DefaultProvider);
 			GMaps.Instance.Mode = AccessMode.ServerOnly;
 			//Map.ShowTileGridLines = true;
 			Map.Position = new PointLatLng(26.1702778, 56.24);
@@ -38,9 +38,7 @@ namespace DcsBriefop.UcBriefing
 
 			CbMapProvider.ValueMember = "Name";
 			CbMapProvider.DataSource = GMapProviders.List;
-			CbMapProvider.SelectedItem = Map.MapProvider;
-
-			
+			CbMapProvider.SelectedItem = Map.MapProvider;			
 		}
 		#endregion
 
@@ -60,15 +58,28 @@ namespace DcsBriefop.UcBriefing
 			LbTitle.Text = sTitle;
 
 			CkAddMarker.Enabled = BtAreaSet.Enabled = BtAreaRecall.Enabled = !m_bViewOnly;
-
 			MapData = mapData;
+			RefreshMapData();
+		}
+
+		public void RefreshMapData()
+		{
 			RefreshOverlays();
-			//Map.MapProvider = WMSProvider.Instance;
-			Map.MapProvider = GMapProviders.TryGetProvider(mapData.Provider) ?? ElementMapValue.DefaultMapProvider;
+			Map.MapProvider = MapData.GetMapProvider();
 			Map.Position = new PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
 			Map.Zoom = MapData.Zoom;
 
 			CbMapProvider.SelectedItem = Map.MapProvider;
+		}
+
+		public void ForceRefresh()
+		{
+			RefreshOverlays();
+			Map.Refresh();
+
+			// TODO find a better way to refresh...
+			Map.Zoom += 1;
+			Map.Zoom -= 1;
 		}
 
 		public void RefreshOverlays()
@@ -280,12 +291,7 @@ namespace DcsBriefop.UcBriefing
 
 		private void BtRefresh_Click(object sender, System.EventArgs e)
 		{
-			RefreshOverlays();
-			Map.Refresh();
-
-			// TODO fin a better way to refresh...
-			Map.Zoom += 1;
-			Map.Zoom -= 1;
+			ForceRefresh();
 		}
 
 		private void BtZoomOut_Click(object sender, System.EventArgs e)
@@ -298,11 +304,6 @@ namespace DcsBriefop.UcBriefing
 		{
 			Map.Zoom += 0.1;
 			Map.Refresh();
-		}
-
-		private void CbMapProvider_DropDownClosed(object sender, System.EventArgs e)
-		{
-
 		}
 
 		private void CbMapProvider_SelectionChangeCommitted(object sender, System.EventArgs e)

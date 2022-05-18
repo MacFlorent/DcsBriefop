@@ -72,7 +72,6 @@ namespace DcsBriefop.UcBriefing
 			this.CbMapProvider.Size = new System.Drawing.Size(143, 21);
 			this.CbMapProvider.TabIndex = 21;
 			this.CbMapProvider.SelectionChangeCommitted += new System.EventHandler(this.CbMapProvider_SelectionChangeCommitted);
-			this.CbMapProvider.DropDownClosed += new System.EventHandler(this.CbMapProvider_DropDownClosed);
 			// 
 			// LbMapDisplay
 			// 

@@ -35,24 +35,28 @@ namespace DcsBriefop
 		{
 			using (OpenFileDialog ofd = new OpenFileDialog())
 			{
-				ofd.InitialDirectory = ToolsSettings.GetWorkingDirectory();
+				ofd.InitialDirectory = Preferences.PreferencesManager.Preferences.General.WorkingDirectory;
 				ofd.Filter = m_sDcsFileFilter;
 				ofd.RestoreDirectory = true;
 
 				if (ofd.ShowDialog() == DialogResult.OK)
 				{
-					ToolsSettings.SetWorkingDirectory(Path.GetDirectoryName(ofd.FileName));
-
-					using (new WaitDialog(this))
-					{
-						m_missionManager = new MissionManager(ofd.FileName);
-						m_briefingContainer = new BriefingContainer(m_missionManager.Miz);
-						BuildMenu();
-						DataToScreen();
-					}
+					MizOpen(ofd.FileName);
 				}
 			}
 		}
+
+		private void MizOpen(string sMizFilePath)
+		{
+			using (new WaitDialog(this))
+			{
+				m_missionManager = new MissionManager(sMizFilePath);
+				m_briefingContainer = new BriefingContainer(m_missionManager.Miz);
+				BuildMenu();
+				DataToScreen();
+			}
+		}
+
 
 		private void MizReload()
 		{
@@ -85,7 +89,7 @@ namespace DcsBriefop
 						builder.Generate();
 				}
 			}
-			
+
 			MizReload();
 		}
 
@@ -107,16 +111,35 @@ namespace DcsBriefop
 			}
 		}
 
-		private void OpenGenerateFilesForm()
+		private void OpenPreferences()
+		{
+			FrmPreferences f = new FrmPreferences();
+			f.ShowDialog();
+		}
+
+		private void OpenPreferencesMiz()
 		{
 			if (m_missionManager is null)
 				throw new ExceptionDcsBriefop("No mission is currently loaded");
 
 			ScreenToData();
 
-			FrmGenerateFiles f = new FrmGenerateFiles(m_briefingContainer, m_missionManager);
-			f.ShowDialog();
+			FrmPreferencesMiz f = new FrmPreferencesMiz(m_briefingContainer, delegate () { m_ucMap.RefreshMapData(); });
+			if (f.ShowDialog() == DialogResult.OK)
+			{
+				DataToScreen();
+			}
+		}
 
+		private void OpenPreferencesMizGenerate()
+		{
+			if (m_missionManager is null)
+				throw new ExceptionDcsBriefop("No mission is currently loaded");
+
+			ScreenToData();
+
+			FrmPreferencesMizGenerate f = new FrmPreferencesMizGenerate(m_briefingContainer, m_missionManager);
+			f.ShowDialog();
 		}
 
 		private void GenerateFiles()
@@ -232,11 +255,19 @@ namespace DcsBriefop
 			tsmiMiz.DropDownItems.AddMenuItem("Reload", (object _sender, EventArgs _e) => { MizReload(); });
 			tsmiMiz.DropDownItems.AddMenuItem("Save", (object _sender, EventArgs _e) => { MizSave(null); });
 			tsmiMiz.DropDownItems.AddMenuItem("Save as", (object _sender, EventArgs _e) => { MizSaveAs(); });
+			//tsmiMiz.DropDownItems.AddMenuSeparator();
+			//tsmiMiz.DropDownItems.AddMenuItem("Test", (object _sender, EventArgs _e) => { Test(); });
 			tsmiMiz.DropDownItems.AddMenuSeparator();
-			tsmiMiz.DropDownItems.AddMenuItem("Test", (object _sender, EventArgs _e) => { Test(); });
+			tsmiMiz.DropDownItems.AddMenuItem("Preferences", (object _sender, EventArgs _e) => { OpenPreferences(); });
+			if (Preferences.PreferencesManager.Preferences.General.RecentMiz.Count > 0)
+			{
+				tsmiMiz.DropDownItems.AddMenuSeparator();
+				foreach(string sRecentMizFilePath in Preferences.PreferencesManager.Preferences.General.RecentMiz)
+					tsmiMiz.DropDownItems.AddMenuItem(sRecentMizFilePath, (object _sender, EventArgs _e) => { MizOpen(sRecentMizFilePath); });
+			}
 			tsmiMiz.DropDownItems.AddMenuSeparator();
 			tsmiMiz.DropDownItems.AddMenuItem("Exit", (object _sender, EventArgs _e) => { Application.Exit(); });
-			
+
 			ToolStripMenuItem tsmiBriefing = MainMenu.Items.AddMenuItem("Briefing", null);
 			MainMenu.Items.Add(tsmiBriefing);
 			ToolStripMenuItem tsmiBriefingCoalitions = tsmiBriefing.DropDownItems.AddMenuItem("Coalitions", null);
@@ -244,7 +275,8 @@ namespace DcsBriefop
 			AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Red);
 			AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Blue);
 			//AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Neutral);
-			tsmiBriefing.DropDownItems.AddMenuItem("Open generate files config", (object _sender, EventArgs _e) => { OpenGenerateFilesForm(); });
+			tsmiBriefing.DropDownItems.AddMenuItem("Mission preferences", (object _sender, EventArgs _e) => { OpenPreferencesMiz(); });
+			tsmiBriefing.DropDownItems.AddMenuItem("File generation preferences", (object _sender, EventArgs _e) => { OpenPreferencesMizGenerate(); });
 			tsmiBriefing.DropDownItems.AddMenuItem("Generate files", (object _sender, EventArgs _e) => { GenerateFiles(); });
 		}
 

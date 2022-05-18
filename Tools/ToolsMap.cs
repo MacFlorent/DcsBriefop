@@ -158,7 +158,7 @@ namespace DcsBriefop.Tools
 		#region Image Generation
 		public static Bitmap GenerateMapImage(BriefopCustomMap mapData, Size outputSize)
 		{
-			GMapProvider mapProvider = GMapProviders.TryGetProvider(mapData.Provider) ?? ElementMapValue.DefaultMapProvider;
+			GMapProvider mapProvider = mapData.GetMapProvider(); ;
 			List<GMapOverlay> overlays = new List<GMapOverlay>();
 			overlays.Add(mapData.MapOverlayCustom);
 			overlays.AddRange(mapData.AdditionalMapOverlays);

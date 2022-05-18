@@ -1,10 +1,8 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
-using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 
 namespace DcsBriefop.Data
@@ -46,10 +44,11 @@ namespace DcsBriefop.Data
 			if (MapData is null)
 			{
 				Core.Miz.BriefopCustomData.MapData = new BriefopCustomMap();
+				Core.Miz.BriefopCustomData.MapData.Provider = Core.Miz.BriefopCustomData.DefaultMapProvider;
 				Coordinate coordinateCenter = Core.Theatre.GetCoordinate(Core.Miz.RootMission.Map.CenterY, Core.Miz.RootMission.Map.CenterX);
 				MapData.CenterLatitude = coordinateCenter.Latitude.DecimalDegree;
 				MapData.CenterLongitude = coordinateCenter.Longitude.DecimalDegree;
-				MapData.Zoom = ElementMapValue.DefaultZoom;
+				MapData.Zoom = Preferences.PreferencesManager.Preferences.Map.DefaultZoom;
 				MapData.MapOverlayCustom = new GMapOverlay();
 			}
 
@@ -80,8 +79,6 @@ namespace DcsBriefop.Data
 					AddCoalition(sCoalitionName);
 			}
 		}
-
-
 		#endregion
 
 		#region Methods
@@ -102,6 +99,15 @@ namespace DcsBriefop.Data
 		public BriefingCoalition GetCoalition(string sCoalitionName)
 		{
 			return BriefingCoalitions.Where(c => c.CoalitionName == sCoalitionName).FirstOrDefault();
+		}
+
+		public void SetMapProvider(string sProviderName)
+		{
+			MapData.Provider = sProviderName;
+			foreach(BriefingCoalition coalition in BriefingCoalitions)
+			{
+				coalition.SetMapProvider(sProviderName);
+			}
 		}
 		#endregion
 

@@ -8,6 +8,13 @@ namespace DcsBriefop.Tools
 {
 	internal static class ToolsResources
 	{
+		public static string GetResourceFileFullPath(string sResourceName, string sExtension)
+		{
+			string sBaseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+			string sResourceFilePath = Path.Combine(sBaseDirectory, ElementGlobalData.ResourcesDirectory, $"{sResourceName}.{sExtension}");
+			return sResourceFilePath;
+		}
+
 		public static string GetJsonResourceContent(string sResourceName)
 		{
 			return GetTextResourceContent(sResourceName, "json");
@@ -15,8 +22,7 @@ namespace DcsBriefop.Tools
 
 		public static string GetTextResourceContent(string sResourceName, string sExtension)
 		{
-			string sBaseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-			string sResourceFilePath = Path.Combine(sBaseDirectory, ElementGlobalData.ResourcesDirectory, $"{sResourceName}.{sExtension}");
+			string sResourceFilePath = GetResourceFileFullPath(sResourceName, sExtension);
 			string sContent;
 
 			if (File.Exists(sResourceFilePath))

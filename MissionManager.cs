@@ -81,6 +81,10 @@ namespace DcsBriefop
 				sJsonBriefopCustom = File.ReadAllText(sCustomFilePath);
 
 			Miz = new DataMiz.Miz(sLuaMission, sLuaDictionnary, sJsonBriefopCustom);
+
+			Preferences.PreferencesManager.Preferences.General.WorkingDirectory = Path.GetDirectoryName(MizFilePath);
+			Preferences.PreferencesManager.Preferences.General.AddRecentMiz(MizFilePath);
+			Preferences.PreferencesManager.Save();
 		}
 
 		public void MizSave(string sFilePath)

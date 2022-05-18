@@ -1,13 +1,15 @@
-﻿using System;
+﻿using DcsBriefop.Tools;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace DcsBriefop.UcBriefing
 {
-	public partial class UcColor : UserControl
+	public partial class UcColor : UserControl, ICustomStylable
 	{
 		#region Properties
+		private Color m_defaultColor = Color.Black;
 		private Color? m_color;
 		public Color? SelectedColor
 		{
@@ -25,26 +27,56 @@ namespace DcsBriefop.UcBriefing
 				TbColor.TextChanged += TbColor_TextChanged;
 			}
 		}
+
+		public string SelectedColorHtml
+		{
+			get
+			{
+				if (SelectedColor is object)
+					return ColorTranslator.ToHtml(SelectedColor.Value);
+				else
+					return null;
+			}
+			set
+			{
+				SelectedColor = GetColorFromHtml(value);
+			}
+		}
 		#endregion
 
-		#region CTOR
+			#region CTOR
 		public UcColor()
 		{
 			InitializeComponent();
 		}
 		#endregion
 
+		#region ICustomStylable
+		public void ApplyCustomStyle()
+		{
+			ToolsStyle.TextBoxDefault(TbColor);
+			ToolsStyle.ButtonDefault(BtColor);
+		}
+		#endregion
+
 		#region Methods
 		private void UpdateSelectedColorFromTextbox ()
 		{
-			if (string.IsNullOrEmpty(TbColor.Text))
-				SelectedColor = null;
-			else
-			{
-				try { SelectedColor = ColorTranslator.FromHtml(TbColor.Text); }
-				catch (Exception) { SelectedColor = null; }
-			}
+			SelectedColor = GetColorFromHtml(TbColor.Text);
 		}
+
+		private Color? GetColorFromHtml(string sHtmlColor)
+		{
+			Color? color = null;
+			if (!string.IsNullOrEmpty(sHtmlColor))
+			{
+				try { color = ColorTranslator.FromHtml(sHtmlColor); }
+				catch (Exception) { color = null; }
+			}
+
+			return color;
+		}
+
 		#endregion
 
 		#region Events
@@ -57,7 +89,7 @@ namespace DcsBriefop.UcBriefing
 		{
 			ColorDialog cd = new ColorDialog();
 			cd.AllowFullOpen = false;
-			cd.Color = SelectedColor ?? Color.Black;
+			cd.Color = SelectedColor ?? m_defaultColor;
 
 			if (cd.ShowDialog() == DialogResult.OK)
 			{

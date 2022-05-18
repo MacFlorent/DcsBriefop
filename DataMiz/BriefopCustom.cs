@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Data;
+using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -12,13 +13,15 @@ namespace DcsBriefop.DataMiz
 		#region Properties
 		public BriefopCustomMap MapData { get; set; }
 
-		public bool ExportOnSave { get; set; } = true;
-		public bool ExportMiz { get; set; } = true;
-		public bool ExportLocalDirectory { get; set; } = true;
-		public bool ExportLocalDirectoryHtml { get; set; } = false;
+		public string DefaultMapProvider { get; set; } = Preferences.PreferencesManager.Preferences.Map.DefaultProvider;
+		public bool NoCallsignForPlayableFlights { get; set; } = Preferences.PreferencesManager.Preferences.General.NoCallsignForPlayableFlights;
+		public bool ExportOnSave { get; set; } = Preferences.PreferencesManager.Preferences.Generation.ExportOnSave;
+		public bool ExportMiz { get; set; } = Preferences.PreferencesManager.Preferences.Generation.ExportMiz;
+		public bool ExportLocalDirectory { get; set; } = Preferences.PreferencesManager.Preferences.Generation.ExportLocalDirectory;
+		public bool ExportLocalDirectoryHtml { get; set; } = Preferences.PreferencesManager.Preferences.Generation.ExportLocalDirectoryHtml;
 		public string ExportLocalDirectoryPath { get; set; }
-		public Size ExportImageSize { get; set; } = new Size(ElementImageSize.Width, ElementImageSize.Height);
-		public string ExportImageBackgroundColor { get; set; }
+		public Size ExportImageSize { get; set; } = Preferences.PreferencesManager.Preferences.Generation.ExportImageSize;
+		public string ExportImageBackgroundColor { get; set; } = Preferences.PreferencesManager.Preferences.Generation.ExportImageBackgroundColor;
 		public List<ElementExportFileType> ExportFileTypes { get; set; } = new List<ElementExportFileType>();
 
 		public List<BriefopCustomCoalition> Coalitions { get; private set; } = new List<BriefopCustomCoalition>();
@@ -32,10 +35,7 @@ namespace DcsBriefop.DataMiz
 		#region Methods
 		public void InitializeDefault()
 		{
-			ExportFileTypes.Clear();
-			ExportFileTypes.Add(ElementExportFileType.Operations);
-			ExportFileTypes.Add(ElementExportFileType.Opposition);
-			ExportFileTypes.Add(ElementExportFileType.Missions);
+			ExportFileTypes = Preferences.PreferencesManager.Preferences.Generation.ExportFileTypes;
 		}
 
 		public static BriefopCustom DeserializeJson(string sJson)
@@ -72,6 +72,15 @@ namespace DcsBriefop.DataMiz
 		{
 			return Missions?.Where(_m => _m.Id == iAssetId && _m.CoalitionName == sCoalitionName).FirstOrDefault();
 		}
+
+		public GMapProvider GetDefaultMapProvider()
+		{
+			string sMapProvider = DefaultMapProvider;
+			if (string.IsNullOrEmpty(sMapProvider))
+				sMapProvider = Preferences.PreferencesManager.Preferences.Map.DefaultProvider;
+
+			return GMapProviders.TryGetProvider(sMapProvider);
+		}
 		#endregion
 	}
 
@@ -85,6 +94,15 @@ namespace DcsBriefop.DataMiz
 		public GMapOverlay MapOverlayCustom { get; set; }
 		[JsonIgnore]
 		public List<GMapOverlay> AdditionalMapOverlays { get; private set; } = new List<GMapOverlay>();
+		
+		public GMapProvider GetMapProvider()
+		{
+			string sMapProvider = Provider;
+			if (string.IsNullOrEmpty(sMapProvider))
+				sMapProvider = Preferences.PreferencesManager.Preferences.Map.DefaultProvider;
+
+			return GMapProviders.TryGetProvider(sMapProvider);
+		}
 	}
 
 	internal class BriefopCustomCoalition

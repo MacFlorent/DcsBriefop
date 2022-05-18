@@ -1,4 +1,6 @@
 ﻿using DcsBriefop.Data;
+using GMap.NET.MapProviders;
+using System.Linq;
 
 namespace DcsBriefop.UcBriefing
 {

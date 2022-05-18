@@ -9,6 +9,12 @@ namespace DcsBriefop
 {
 	static class Program
 	{
+		//public class Options
+		//{
+		//	[CommandLine.Option('m', "mode", Required = false, HelpText = "Set output to verbose messages.")]
+		//	public bool  { get; set; }
+		//}
+
 		[STAThread]
 		static void Main()
 		{

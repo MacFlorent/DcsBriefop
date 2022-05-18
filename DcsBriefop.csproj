@@ -36,11 +36,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon256.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="CommandLine, Version=2.8.0.0, Culture=neutral, PublicKeyToken=5a870481e358d379, processorArchitecture=MSIL">
+      <HintPath>packages\CommandLineParser.2.8.0\lib\net461\CommandLine.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
@@ -144,16 +148,12 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UnitsNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=f8601875a1f041da, processorArchitecture=MSIL">
-      <HintPath>packages\UnitsNet.4.128.0\lib\net47\UnitsNet.dll</HintPath>
+      <HintPath>packages\UnitsNet.4.129.0\lib\net47\UnitsNet.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BriefingFilesBuilder.cs" />
-    <Compile Include="Configuration\BriefopConfigSection.cs" />
-    <Compile Include="Configuration\BriefopRoutesElement.cs" />
-    <Compile Include="Configuration\BriefopRouteElement.cs" />
-    <Compile Include="Configuration\BriefopRouteCollection.cs" />
     <Compile Include="DataMiz\BaseBriefopCustomSerializable.cs" />
     <Compile Include="DataMiz\BriefopCustomAsset.cs" />
     <Compile Include="DataMiz\BriefopCustomMission.cs" />
@@ -172,6 +172,14 @@
     <Compile Include="Data\AssetStatic.cs" />
     <Compile Include="Data\AssetVehicle.cs" />
     <Compile Include="Data\BaseBriefing.cs" />
+    <Compile Include="FrmPreferencesMiz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPreferencesMiz.Designer.cs">
+      <DependentUpon>FrmPreferencesMiz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Preferences\Preferences.cs" />
+    <Compile Include="Preferences\PreferencesManager.cs" />
     <Compile Include="Data\ComPreset.cs" />
     <Compile Include="Data\BriefingContainer.cs" />
     <Compile Include="DataMiz\BriefopCustom.cs" />
@@ -184,11 +192,11 @@
     <Compile Include="FrmComs.Designer.cs">
       <DependentUpon>FrmComs.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmOptionsMap.cs">
+    <Compile Include="FrmPreferences.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmOptionsMap.Designer.cs">
-      <DependentUpon>FrmOptionsMap.cs</DependentUpon>
+    <Compile Include="FrmPreferences.Designer.cs">
+      <DependentUpon>FrmPreferences.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmWait.cs">
       <SubType>Form</SubType>
@@ -204,15 +212,12 @@
     <Compile Include="MissionManager.cs" />
     <Compile Include="Data\Weather.cs" />
     <Compile Include="Data\Radio.cs" />
-    <Compile Include="Configuration\BriefopMarkersElement.cs" />
-    <Compile Include="Configuration\BriefopMarkerCollection.cs" />
-    <Compile Include="Configuration\BriefopMarkerElement.cs" />
     <Compile Include="Data\DcsUnit.cs" />
-    <Compile Include="FrmGenerateFiles.cs">
+    <Compile Include="FrmPreferencesMizGenerate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmGenerateFiles.Designer.cs">
-      <DependentUpon>FrmGenerateFiles.cs</DependentUpon>
+    <Compile Include="FrmPreferencesMizGenerate.Designer.cs">
+      <DependentUpon>FrmPreferencesMizGenerate.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmMissionDetail.cs">
       <SubType>Form</SubType>
@@ -252,9 +257,9 @@
     <Compile Include="Tools\ToolsMenu.cs" />
     <Compile Include="Tools\ToolsBriefop.cs" />
     <Compile Include="Tools\ToolsResources.cs" />
-    <Compile Include="Tools\ToolsSettings.cs" />
     <Compile Include="Tools\ToolsStyle.cs" />
     <Compile Include="Tools\ToolsZip.cs" />
+    <Compile Include="UcBriefing\GridFileTypeManager.cs" />
     <Compile Include="UcBriefing\GridAssetManager.cs" />
     <Compile Include="UcBriefing\TabPageBriefing.cs">
       <SubType>Component</SubType>
@@ -305,6 +310,12 @@
     <Compile Include="UcBriefing\UcBriefingSituation.Designer.cs">
       <DependentUpon>UcBriefingSituation.cs</DependentUpon>
     </Compile>
+    <Compile Include="UcBriefing\UcImageSize.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcBriefing\UcImageSize.Designer.cs">
+      <DependentUpon>UcImageSize.cs</DependentUpon>
+    </Compile>
     <Compile Include="UcBriefing\UcColor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -326,8 +337,11 @@
     <EmbeddedResource Include="FrmComs.resx">
       <DependentUpon>FrmComs.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmGenerateFiles.resx">
-      <DependentUpon>FrmGenerateFiles.cs</DependentUpon>
+    <EmbeddedResource Include="FrmPreferencesMiz.resx">
+      <DependentUpon>FrmPreferencesMiz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPreferencesMizGenerate.resx">
+      <DependentUpon>FrmPreferencesMizGenerate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMissionDetail.resx">
       <DependentUpon>FrmMissionDetail.cs</DependentUpon>
@@ -335,8 +349,8 @@
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmOptionsMap.resx">
-      <DependentUpon>FrmOptionsMap.cs</DependentUpon>
+    <EmbeddedResource Include="FrmPreferences.resx">
+      <DependentUpon>FrmPreferences.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmWait.resx">
       <DependentUpon>FrmWait.cs</DependentUpon>
@@ -357,6 +371,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UcBriefing\UcBriefingSituation.resx">
       <DependentUpon>UcBriefingSituation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcBriefing\UcImageSize.resx">
+      <DependentUpon>UcImageSize.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UcBriefing\UcColor.resx">
       <DependentUpon>UcColor.cs</DependentUpon>
@@ -391,8 +408,6 @@
     <None Include="Resources\wait2.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icon16.ico" />
-    <Content Include="icon256.ico" />
     <None Include="Resources\icon256.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

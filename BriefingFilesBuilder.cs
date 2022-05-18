@@ -64,7 +64,7 @@ namespace DcsBriefop
 		#endregion
 
 		#region Properties
-		private BriefopCustom BriefopCustomData { get { return m_missionManager.Miz.BriefopCustomData; } }
+		private BriefopCustom BriefopCustomData { get { return m_briefingContainer.Core.Miz.BriefopCustomData; } }
 		#endregion
 
 		#region CTOR

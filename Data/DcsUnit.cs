@@ -24,7 +24,7 @@ namespace DcsBriefop.Data
 		{
 			try
 			{
-				string sJsonStream = ToolsResources.GetJsonResourceContent($"Units");
+				string sJsonStream = ToolsResources.GetJsonResourceContent("Units");
 				DcsUnits = JsonConvert.DeserializeObject<List<DcsUnit>>(sJsonStream);
 			}
 			catch (Exception e)

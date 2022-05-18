@@ -109,7 +109,6 @@ namespace DcsBriefop.Data
 			}
 
 			InitializeMapDataChildrenOverlays();
-			//InitializeFlightDataMissions();
 		}
 
 		private void InitializeMapData()
@@ -124,9 +123,10 @@ namespace DcsBriefop.Data
 			if (MapData is null)
 			{
 				m_briefopCustomCoalition.MapData = new BriefopCustomMap();
+				m_briefopCustomCoalition.MapData.Provider = Core.Miz.BriefopCustomData.DefaultMapProvider;
 				MapData.CenterLatitude = Bullseye.Latitude.DecimalDegree;
 				MapData.CenterLongitude = Bullseye.Longitude.DecimalDegree;
-				MapData.Zoom = ElementMapValue.DefaultZoom;
+				MapData.Zoom = Preferences.PreferencesManager.Preferences.Map.DefaultZoom;
 				MapData.MapOverlayCustom = new GMapOverlay();
 			}
 
@@ -154,14 +154,6 @@ namespace DcsBriefop.Data
 					MapData.AdditionalMapOverlays.Add(asset.MapOverlayStatic);
 			}
 		}
-
-		//private void InitializeFlightDataMissions()
-		//{
-		//	foreach (AssetFlight asset in OwnAssets.OfType<AssetFlight>())
-		//	{
-		//		asset.SetMissionData();
-		//	}
-		//}
 
 		public void InitializeBullseyeWaypoints()
 		{
@@ -232,6 +224,15 @@ namespace DcsBriefop.Data
 		{
 			if (m_markerkBullseye is object)
 				m_markerkBullseye.Label = BullseyeDescription;
+		}
+
+		public void SetMapProvider(string sProviderName)
+		{
+			MapData.Provider = sProviderName;
+			foreach (AssetFlight flight in OwnAssets.OfType<AssetFlight>().Where(_f => _f.MissionData is object))
+			{
+				flight.MissionData.MapData.Provider = sProviderName;
+			}
 		}
 		#endregion
 	}

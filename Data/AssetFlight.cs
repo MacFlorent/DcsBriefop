@@ -47,7 +47,9 @@ namespace DcsBriefop.Data
 
 			Task = MizGroupFlight.Task;
 			Type = MizGroupFlight.Units.OfType<MizUnitFlight>().FirstOrDefault()?.Type;
-			Description = $"{Callsign} | {m_mizGroup.Name}";
+
+			SetDescription();
+
 			Radio = new Radio() { Frequency = MizGroupFlight.RadioFrequency, Modulation = MizGroupFlight.RadioModulation };
 
 			if (Task == ElementTask.Awacs || Task == ElementTask.Refueling)
@@ -106,6 +108,14 @@ namespace DcsBriefop.Data
 
 			m_briefopCustomGroup.WithMissionData = MissionData is object;
 			MissionData?.Persist();
+		}
+
+		public void SetDescription()
+		{
+			Description = $"{Callsign} | {m_mizGroup.Name}";
+			if (Playable && Core.Miz.BriefopCustomData.NoCallsignForPlayableFlights)
+				Description = m_mizGroup.Name;
+
 		}
 
 		protected override string GetDefaultInformation()
@@ -313,7 +323,7 @@ namespace DcsBriefop.Data
 			if (MapData is null)
 			{
 				m_briefopCustomMission.MapData = new BriefopCustomMap();
-
+				m_briefopCustomMission.MapData.Provider = Core.Miz.BriefopCustomData.DefaultMapProvider;
 				PointLatLng? centerPoint = ToolsMap.GetPointsCenter(points);
 				if (centerPoint is object)
 				{
@@ -325,7 +335,7 @@ namespace DcsBriefop.Data
 					MapData.CenterLatitude = Coalition.Bullseye.Latitude.DecimalDegree;
 					MapData.CenterLongitude = Coalition.Bullseye.Longitude.DecimalDegree;
 				}
-				MapData.Zoom = ElementMapValue.DefaultZoom;
+				MapData.Zoom = Preferences.PreferencesManager.Preferences.Map.DefaultZoom;
 				MapData.MapOverlayCustom = new GMapOverlay();
 			}
 
