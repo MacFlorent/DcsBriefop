@@ -1,8 +1,10 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 
 namespace DcsBriefop.Preferences
 {
@@ -37,7 +39,11 @@ namespace DcsBriefop.Preferences
 
 		public void AddRecentMiz(string sRecentMizPath)
 		{
-			if(RecentMiz.Count >= 10)
+			foreach (string s in RecentMiz.Where(s => string.Equals(s, sRecentMizPath, StringComparison.OrdinalIgnoreCase)).ToList())
+				RecentMiz.Remove(s);
+
+			RecentMiz.Remove(sRecentMizPath);
+			if (RecentMiz.Count >= 10)
 				RecentMiz.RemoveAt(RecentMiz.Count - 1);
 			
 			RecentMiz.Insert(0, sRecentMizPath);

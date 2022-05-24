@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace DcsBriefop.UcBriefing
@@ -136,6 +135,8 @@ namespace DcsBriefop.UcBriefing
 			if (m_dgv.Columns.Count <= 0)
 				return;
 
+			Log.Debug($">>> start asset fill {m_dgv.Name}");
+			m_dgv.SuspendDrawing();
 			m_dgv.Rows.Clear();
 
 			foreach (Asset asset in m_assets)
@@ -170,6 +171,9 @@ namespace DcsBriefop.UcBriefing
 					}
 				}
 			}
+
+			m_dgv.ResumeDrawing();
+			Log.Debug($"<<< end asset fill {m_dgv.Name}");
 		}
 
 		private void RefreshColumnsDisplayed()

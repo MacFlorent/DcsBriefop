@@ -9,14 +9,8 @@ namespace DcsBriefop
 {
 	static class Program
 	{
-		//public class Options
-		//{
-		//	[CommandLine.Option('m', "mode", Required = false, HelpText = "Set output to verbose messages.")]
-		//	public bool  { get; set; }
-		//}
-
 		[STAThread]
-		static void Main()
+		static int Main(string[] args)
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
@@ -25,12 +19,19 @@ namespace DcsBriefop
 			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
+			if (!ToolsCommandLine.ParseCommandLine(args))
+			{
+				return -1;
+			}
+
 			Log.ApplicationStart();
 
 			FrmMain f = new FrmMain();
 			f.Show(null);
 			f.FormClosed += MainFormClosed;
 			Application.Run(f);
+
+			return 1;
 		}
 
 		private static void InitializeCulture()
@@ -45,7 +46,7 @@ namespace DcsBriefop
 		{
 			Log.Exception(ex, sMemberName, iLineNumber);
 			string sMessage = $"Unhandled error.{Environment.NewLine}{ex?.Message}{Environment.NewLine}{Environment.NewLine}{ex?.InnerException}";
-			ToolsMisc.ShowMessageBoxError (sMessage);
+			ToolsMisc.ShowMessageBoxError(sMessage);
 		}
 
 		private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

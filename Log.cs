@@ -1,4 +1,5 @@
 ﻿using log4net;
+using log4net.Repository.Hierarchy;
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -7,35 +8,56 @@ namespace DcsBriefop
 {
 	internal class Log
 	{
-		private static readonly ILog logger = LogManager.GetLogger("MainLogger");
+		#region Fields
+		private static readonly ILog m_logger = LogManager.GetLogger("MainLogger");
+		#endregion
 
+		#region Properties
+		public static string LogLevel
+		{
+			get
+			{
+				return ((Logger)m_logger.Logger)?.Level.Name;
+			}
+			set
+			{
+				Logger currentLogger = (Logger)m_logger.Logger;
+				currentLogger.Level = currentLogger.Hierarchy.LevelMap[value];
+			}
+		}
+
+		#endregion
+
+		#region CTOR
 		static Log()
 		{
 			log4net.Config.XmlConfigurator.Configure();
 		}
+		#endregion
 
+		#region Methods
 		////// Logs
 		public static void Error(string sMessage, [CallerMemberName] string sMemberName = "", [CallerLineNumber] int iLineNumber = 0)
 		{
-			logger.Error(FormatWithCallerInformation(sMemberName, iLineNumber, sMessage));
+			m_logger.Error(FormatWithCallerInformation(sMemberName, iLineNumber, sMessage));
 		}
 		public static void Exception(Exception ex, [CallerMemberName] string sMemberName = "", [CallerLineNumber] int iLineNumber = 0)
 		{
-			logger.Error(FormatWithCallerInformation(sMemberName, iLineNumber, ex.Message));
-			logger.Error(ex.StackTrace);
+			m_logger.Error(FormatWithCallerInformation(sMemberName, iLineNumber, ex.Message));
+			m_logger.Error(ex.StackTrace);
 		}
 		public static void Warning(string sMessage)
 		{
-			logger.Warn(sMessage);
+			m_logger.Warn(sMessage);
 		}
 
 		public static void Info(string sMessage)
 		{
-			logger.Info(sMessage);
+			m_logger.Info(sMessage);
 		}
 		public static void Debug(string sMessage)
 		{
-			logger.Debug(sMessage);
+			m_logger.Debug(sMessage);
 		}
 
 		////// Application events
@@ -78,5 +100,6 @@ namespace DcsBriefop
 			string sCallerInformation = ($"{sMemberName}{sLineNumber}").PadRight(10, ' ');
 			return $"{sCallerInformation} {sMessage}";
 		}
+		#endregion
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using DcsBriefop.UcBriefing;
+using MoreLinq;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -201,46 +202,55 @@ namespace DcsBriefop
 
 		private void Test()
 		{
-			string sFilePath = @"D:\Projects\dictionary.txt";
-			string sFileContent = File.ReadAllText(sFilePath);
-			string sLsonIn = ToolsLua.ReadLuaFileContent(sFilePath);
-			System.Collections.Generic.Dictionary<string, LsonLib.LsonValue> lsd = LsonLib.LsonVars.Parse(sLsonIn);
-			string sLsonOut = ToolsLua.LsonRootToDcs(lsd);
-
-
 			SplitContainer.Panel1.Controls.Clear();
-			FlowLayoutPanel f = new FlowLayoutPanel();
-			f.FlowDirection = FlowDirection.LeftToRight;
-			f.Dock = DockStyle.Fill;
-			SplitContainer.Panel1.Controls.Add(f);
+			//FlowLayoutPanel f = new FlowLayoutPanel();
+			//f.FlowDirection = FlowDirection.LeftToRight;
+			//f.Dock = DockStyle.Fill;
+			//SplitContainer.Panel1.Controls.Add(f);
 
-			string ToLiteral(string sText)
-			{
-				using (var writer = new StringWriter())
-				{
-					using (var provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp"))
-					{
-						provider.GenerateCodeFromExpression(new System.CodeDom.CodePrimitiveExpression(sText), writer, null);
-						return writer.ToString();
-					}
-				}
-			}
+			if (m_missionManager is null)
+				throw new ExceptionDcsBriefop("No mission is currently loaded");
 
-			TextBox AppendTextBox(string sText)
-			{
-				TextBox tb = new TextBox();
-				tb.Multiline = true;
-				tb.Height = 100;
-				tb.Width = f.Width;
-				tb.Text = sText;
-				f.Controls.Add(tb);
-				return tb;
-			}
+			Zuby.ADGV.AdvancedDataGridView dgv = new Zuby.ADGV.AdvancedDataGridView();
+			dgv.Dock = DockStyle.Fill;
+			SplitContainer.Panel1.Controls.Add(dgv);
 
-			AppendTextBox(ToLiteral(sFileContent));
-			AppendTextBox(ToLiteral(sLsonIn));
-			AppendTextBox(ToLiteral(sLsonOut));
-			//System.IO.File.WriteAllText(sFilePath + "_mod", s);
+			GridAssetManager2 gam = new GridAssetManager2(dgv, m_briefingContainer.GetCoalition(ElementCoalition.Blue).OpposingAssets, null);
+			gam.ColumnsDisplayed = GridAssetManager2.ColumnsDisplayedOpposing;
+			gam.Initialize();
+			//string sFilePath = @"D:\Projects\dictionary.txt";
+			//string sFileContent = File.ReadAllText(sFilePath);
+			//string sLsonIn = ToolsLua.ReadLuaFileContent(sFilePath);
+			//System.Collections.Generic.Dictionary<string, LsonLib.LsonValue> lsd = LsonLib.LsonVars.Parse(sLsonIn);
+			//string sLsonOut = ToolsLua.LsonRootToDcs(lsd);
+
+			//string ToLiteral(string sText)
+			//{
+			//	using (var writer = new StringWriter())
+			//	{
+			//		using (var provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider("CSharp"))
+			//		{
+			//			provider.GenerateCodeFromExpression(new System.CodeDom.CodePrimitiveExpression(sText), writer, null);
+			//			return writer.ToString();
+			//		}
+			//	}
+			//}
+
+			//TextBox AppendTextBox(string sText)
+			//{
+			//	TextBox tb = new TextBox();
+			//	tb.Multiline = true;
+			//	tb.Height = 100;
+			//	tb.Width = f.Width;
+			//	tb.Text = sText;
+			//	f.Controls.Add(tb);
+			//	return tb;
+			//}
+
+			//AppendTextBox(ToLiteral(sFileContent));
+			//AppendTextBox(ToLiteral(sLsonIn));
+			//AppendTextBox(ToLiteral(sLsonOut));
+			////System.IO.File.WriteAllText(sFilePath + "_mod", s);
 		}
 		#endregion
 
@@ -255,8 +265,8 @@ namespace DcsBriefop
 			tsmiMiz.DropDownItems.AddMenuItem("Reload", (object _sender, EventArgs _e) => { MizReload(); });
 			tsmiMiz.DropDownItems.AddMenuItem("Save", (object _sender, EventArgs _e) => { MizSave(null); });
 			tsmiMiz.DropDownItems.AddMenuItem("Save as", (object _sender, EventArgs _e) => { MizSaveAs(); });
-			//tsmiMiz.DropDownItems.AddMenuSeparator();
-			//tsmiMiz.DropDownItems.AddMenuItem("Test", (object _sender, EventArgs _e) => { Test(); });
+			tsmiMiz.DropDownItems.AddMenuSeparator();
+			tsmiMiz.DropDownItems.AddMenuItem("Test", (object _sender, EventArgs _e) => { Test(); });
 			tsmiMiz.DropDownItems.AddMenuSeparator();
 			tsmiMiz.DropDownItems.AddMenuItem("Preferences", (object _sender, EventArgs _e) => { OpenPreferences(); });
 			if (Preferences.PreferencesManager.Preferences.General.RecentMiz.Count > 0)

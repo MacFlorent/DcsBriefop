@@ -1,6 +1,8 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Tools;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace DcsBriefop.UcBriefing
 {
@@ -19,7 +21,7 @@ namespace DcsBriefop.UcBriefing
 			if (TcMissionData.TabPages.Count > 0)
 			{
 				iSelectedIndex = TcMissionData.SelectedIndex;
-				TcMissionData.TabPages.Clear();
+				TcMissionData.DisposeAndClearTabs();
 			}
 
 			UcBriefingSituation ucbs = new UcBriefingSituation(UcMap, BriefingContainer);
@@ -27,7 +29,7 @@ namespace DcsBriefop.UcBriefing
 			TcMissionData.TabPages.Add(tpb);
 			tpb.UcBriefing.DataToScreen();
 
-			foreach(BriefingCoalition coalition in BriefingContainer.BriefingCoalitions.Where(_c => _c.Included))
+			foreach (BriefingCoalition coalition in BriefingContainer.BriefingCoalitions.Where(_c => _c.Included))
 			{
 				DataToScreen_AddCoalitionTab(coalition);
 			}

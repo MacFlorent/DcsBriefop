@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Zuby.ADGV;
 
 namespace DcsBriefop.UcBriefing
 {
 	internal partial class UcBriefingCoalition : UcBaseBriefing
 	{
 		#region Fields
-		private List<GridAssetManager> m_gridAssetManagers = new List<GridAssetManager>();
+		private List<GridAssetManager2> m_gridAssetManagers = new List<GridAssetManager2>();
 		#endregion
 
 		#region Properties
@@ -45,13 +46,24 @@ namespace DcsBriefop.UcBriefing
 			if (TcAssets.TabPages.Count > 0)
 			{
 				iSelectedIndex = TcAssets.SelectedIndex;
-				TcAssets.TabPages.Clear();
+				TcAssets.DisposeAndClearTabs();
 			}
 
 			m_gridAssetManagers.Clear();
-			DataToScreenAddGridTab("Own assets", Coalition.OwnAssets, GridAssetManager.ColumnsDisplayedOwn);
-			DataToScreenAddGridTab("Opposing assets", Coalition.OpposingAssets, GridAssetManager.ColumnsDisplayedOpposing);
-			DataToScreenAddGridTab("Airdromes", Coalition.Airdromes.OfType<Asset>().ToList(), GridAssetManager.ColumnsDisplayedAirdrome);
+			DataToScreenAddGridTab("Own assets", Coalition.OwnAssets, GridAssetManager2.ColumnsDisplayedOwn);
+			DataToScreenAddGridTab("Opposing assets", Coalition.OpposingAssets, GridAssetManager2.ColumnsDisplayedOpposing);
+			DataToScreenAddGridTab("Airdromes", Coalition.Airdromes.OfType<Asset>().ToList(), GridAssetManager2.ColumnsDisplayedAirdrome);
+
+			//TabPage tp = new TabPage("test");
+			//TcAssets.TabPages.Add(tp);
+			//Zuby.ADGV.AdvancedDataGridView dgv = new Zuby.ADGV.AdvancedDataGridView();
+			////DataGridView dgv = new DataGridView();
+			//dgv.Dock = DockStyle.Fill;
+			//this.Controls.Add(dgv);
+
+			//GridAssetManager2 gam = new GridAssetManager2(dgv, BriefingContainer.GetCoalition(ElementCoalition.Blue).OpposingAssets, null);
+			//gam.ColumnsDisplayed = GridAssetManager2.ColumnsDisplayedOpposing;
+			//gam.Initialize();
 
 			if (iSelectedIndex >= 0 && iSelectedIndex < TcAssets.TabCount)
 				TcAssets.SelectedIndex = iSelectedIndex;
@@ -61,13 +73,13 @@ namespace DcsBriefop.UcBriefing
 		{
 			TabPage tp = new TabPage(sTabText);
 			TcAssets.TabPages.Add(tp);
-			DataGridView dgv = new DataGridView();
-			SetGridProperties(dgv);
+			AdvancedDataGridView dgv = new AdvancedDataGridView();
+			dgv.ReadOnly = false;
+			dgv.Dock = DockStyle.Fill;
 			tp.Controls.Add(dgv);
 
-			GridAssetManager gam = new GridAssetManager(dgv, assets, null);
+			GridAssetManager2 gam = new GridAssetManager2(dgv, assets, null);
 			gam.ColumnsDisplayed = columnsDisplayed;
-			gam.DisplayFilters = GetDisplayFilter();
 			gam.Initialize();
 
 			m_gridAssetManagers.Add(gam);
@@ -126,10 +138,6 @@ namespace DcsBriefop.UcBriefing
 
 		private void CkAssetFilter_CheckedChanged(object sender, EventArgs e)
 		{
-			foreach(GridAssetManager gam in m_gridAssetManagers)
-			{
-				gam.DisplayFilters = GetDisplayFilter();
-			}
 		}
 
 		private void BtComPresets_Click(object sender, EventArgs e)
