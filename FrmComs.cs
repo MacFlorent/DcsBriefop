@@ -204,7 +204,7 @@ namespace DcsBriefop
 		private void ContextMenuOpening(ContextMenuStrip menu, DataGridView dgv, CancelEventArgs e)
 		{
 			List<ComPreset> selectedPresets = new List<ComPreset>();
-			foreach (DataGridViewRow row in dgv.SelectedRows)
+			foreach (DataGridViewRow row in dgv.SelectedCells.Cast<DataGridViewCell>().Select(_dgvc => _dgvc.OwningRow).Distinct())
 			{
 				if (row.Cells[GridColumn.Data].Value is ComPreset preset)
 				{
