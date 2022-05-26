@@ -12,7 +12,7 @@ namespace DcsBriefop.UcBriefing
 	internal partial class UcBriefingCoalition : UcBaseBriefing
 	{
 		#region Fields
-		private List<GridAssetManager2> m_gridAssetManagers = new List<GridAssetManager2>();
+		private List<GridManagerAsset> m_gridAssetManagers = new List<GridManagerAsset>();
 		#endregion
 
 		#region Properties
@@ -50,20 +50,9 @@ namespace DcsBriefop.UcBriefing
 			}
 
 			m_gridAssetManagers.Clear();
-			DataToScreenAddGridTab("Own assets", Coalition.OwnAssets, GridAssetManager2.ColumnsDisplayedOwn);
-			DataToScreenAddGridTab("Opposing assets", Coalition.OpposingAssets, GridAssetManager2.ColumnsDisplayedOpposing);
-			DataToScreenAddGridTab("Airdromes", Coalition.Airdromes.OfType<Asset>().ToList(), GridAssetManager2.ColumnsDisplayedAirdrome);
-
-			//TabPage tp = new TabPage("test");
-			//TcAssets.TabPages.Add(tp);
-			//Zuby.ADGV.AdvancedDataGridView dgv = new Zuby.ADGV.AdvancedDataGridView();
-			////DataGridView dgv = new DataGridView();
-			//dgv.Dock = DockStyle.Fill;
-			//this.Controls.Add(dgv);
-
-			//GridAssetManager2 gam = new GridAssetManager2(dgv, BriefingContainer.GetCoalition(ElementCoalition.Blue).OpposingAssets, null);
-			//gam.ColumnsDisplayed = GridAssetManager2.ColumnsDisplayedOpposing;
-			//gam.Initialize();
+			DataToScreenAddGridTab("Own assets", Coalition.OwnAssets, GridManagerAsset.ColumnsDisplayedOwn);
+			DataToScreenAddGridTab("Opposing assets", Coalition.OpposingAssets, GridManagerAsset.ColumnsDisplayedOpposing);
+			DataToScreenAddGridTab("Airdromes", Coalition.Airdromes.OfType<Asset>().ToList(), GridManagerAsset.ColumnsDisplayedAirdrome);
 
 			if (iSelectedIndex >= 0 && iSelectedIndex < TcAssets.TabCount)
 				TcAssets.SelectedIndex = iSelectedIndex;
@@ -78,7 +67,7 @@ namespace DcsBriefop.UcBriefing
 			dgv.Dock = DockStyle.Fill;
 			tp.Controls.Add(dgv);
 
-			GridAssetManager2 gam = new GridAssetManager2(dgv, assets, null);
+			GridManagerAsset gam = new GridManagerAsset(dgv, assets, null);
 			gam.ColumnsDisplayed = columnsDisplayed;
 			gam.Initialize();
 
@@ -95,31 +84,6 @@ namespace DcsBriefop.UcBriefing
 		private void SetComPresetButton()
 		{
 
-		}
-
-		private void SetGridProperties(DataGridView dgv)
-		{
-			ToolsMisc.SetDataGridViewProperties(dgv);
-			dgv.ReadOnly = false;
-			dgv.Dock = DockStyle.Fill;
-		}
-
-		private GridAssetManager.DisplayFilter GetDisplayFilter()
-		{
-			GridAssetManager.DisplayFilter filter = GridAssetManager.DisplayFilter.Assets | GridAssetManager.DisplayFilter.Airdromes;
-
-			if (CkFilterFlights.Checked)
-				filter |= GridAssetManager.DisplayFilter.Flights;
-			if (CkFilterVehicles.Checked)
-				filter |= GridAssetManager.DisplayFilter.Vehicles;
-			if (CkFilterShips.Checked)
-				filter |= GridAssetManager.DisplayFilter.Ships;
-			if (CkFilterStatics.Checked)
-				filter |= GridAssetManager.DisplayFilter.Statics;
-			if (CkFilterExcluded.Checked)
-				filter |= GridAssetManager.DisplayFilter.Excluded;
-
-			return filter;
 		}
 		#endregion
 

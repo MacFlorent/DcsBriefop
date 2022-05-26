@@ -21,7 +21,6 @@ namespace DcsBriefop
 
 		#region Fields
 		private Asset m_asset;
-		private GridAssetManager m_gamUnits;
 		#endregion
 
 		#region CTOR
@@ -33,7 +32,6 @@ namespace DcsBriefop
 			m_asset = asset;
 
 			MasterDataRepository.FillCombo(MasterDataType.AssetMapDisplay, CbMapDisplay);
-			ToolsMisc.SetDataGridViewProperties(DgvUnits);
 
 			DataToScreen();
 		}
@@ -76,10 +74,12 @@ namespace DcsBriefop
 
 		private void DataToScreenUnits()
 		{
-			m_gamUnits = new GridAssetManager(DgvUnits, new List<Asset>() { m_asset }, null);
-			m_gamUnits.ColumnsDisplayed = GridAssetManager.ColumnsDisplayedUnit;
-			m_gamUnits.DisplayFilters = GetUnitDisplayFilter();
-			m_gamUnits.Initialize();
+			if (m_asset is AssetGroup group)
+			{
+				GridManagerUnit gamUnits = new GridManagerUnit(AdgvUnits, group.Units, null);
+				gamUnits.ColumnsDisplayed = GridManagerUnit.ColumnsDisplayedUnit;
+				gamUnits.Initialize();
+			}
 		}
 
 		private void ScreenToData()
@@ -95,16 +95,6 @@ namespace DcsBriefop
 
 			m_asset.Information = TbInformation.Text;
 		}
-
-		private GridAssetManager.DisplayFilter GetUnitDisplayFilter()
-		{
-			GridAssetManager.DisplayFilter filter = GridAssetManager.DisplayFilter.Units | GridAssetManager.DisplayFilterAllClasses;
-
-			if (CkFilterExcluded.Checked)
-				filter |= GridAssetManager.DisplayFilter.Excluded;
-
-			return filter;
-		}
 		#endregion
 
 		#region Events
@@ -112,11 +102,6 @@ namespace DcsBriefop
 		{
 			m_asset.Information = null;
 			TbInformation.Text = m_asset.Information;
-		}
-
-		private void CkFilterExcluded_CheckedChanged(object sender, System.EventArgs e)
-		{
-			m_gamUnits.DisplayFilters = GetUnitDisplayFilter();
 		}
 
 		private void FrmAssetDetail_FormClosing(object sender, FormClosingEventArgs e)

@@ -29,7 +29,7 @@ namespace DcsBriefop.Data
 			}
 			catch (Exception e)
 			{
-				ToolsMisc.ShowMessageBoxAndLogException("Failed to build unit data. Unit informations will not be available", e);
+				ToolsControls.ShowMessageBoxAndLogException("Failed to build unit data. Unit informations will not be available", e);
 				Log.Exception(e);
 				DcsUnits = null;
 			}

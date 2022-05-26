@@ -1,15 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DcsBriefop.Tools
 {
 	internal static class ToolsControls
 	{
+		#region MessageBox
+		public static void ShowMessageBoxInfo(string sMessage)
+		{
+			MessageBox.Show(sMessage, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+
+		public static bool ShowMessageBoxQuestion(string sMessage)
+		{
+			return MessageBox.Show(sMessage, "Question", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK;
+		}
+
+		public static void ShowMessageBoxError(string sMessage)
+		{
+			MessageBox.Show(sMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+
+		public static void ShowMessageBoxAndLogException(string sMessage, Exception e, [CallerMemberName] string sMemberName = "", [CallerLineNumber] int iLineNumber = 0)
+		{
+			ShowMessageBoxError($"{sMessage}{Environment.NewLine}{Environment.NewLine}{e.Message}");
+			Log.Error(sMessage, sMemberName, iLineNumber);
+			Log.Exception(e, sMemberName, iLineNumber);
+		}
+		#endregion
+
+		#region DataGridView
+		public static void SetDataGridViewProperties(DataGridView dgv)
+		{
+			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+			dgv.AllowUserToResizeColumns = true;
+			dgv.AllowUserToAddRows = false;
+			dgv.RowHeadersVisible = false;
+			dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
+		}
+		#endregion
+
 		#region Redraw Suspend/Resume
 		[DllImport("user32.dll", EntryPoint = "SendMessageA", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
 		private static extern int SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);

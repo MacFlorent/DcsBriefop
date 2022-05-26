@@ -25,7 +25,7 @@ namespace DcsBriefop
 			m_briefingContainer = briefingContainer;
 			m_missionManager = missionManager;
 
-			ToolsMisc.SetDataGridViewProperties(DgvFileTypes);
+			ToolsControls.SetDataGridViewProperties(DgvFileTypes);
 			m_gridFileTypeManager = new GridFileTypeManager(DgvFileTypes);
 			m_gridFileTypeManager.Initialize();
 

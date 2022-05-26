@@ -426,17 +426,6 @@ namespace DcsBriefop
 		#endregion
 
 		#region MissionCard
-		private void GenerateHtmlMissionCardAssetLine(StringBuilder sbAssets, string sLineCleaned, Asset asset)
-		{
-			string sAssetLine = sLineCleaned;
-			PlaceholderReplace(ref sAssetLine, "supportDescription", asset.Description);
-			PlaceholderReplace(ref sAssetLine, "supportTask", asset.Task);
-			PlaceholderReplace(ref sAssetLine, "supportType", asset.Type);
-			PlaceholderReplace(ref sAssetLine, "supportRadio", asset.GetRadioString());
-			PlaceholderReplace(ref sAssetLine, "supportNotes", asset.Information);
-			sbAssets.Append(sAssetLine);
-		}
-
 		private string GenerateHtmlMissionCard(BriefingCoalition coalition, AssetFlight asset)
 		{
 			string sHtml = ToolsResources.GetTextResourceContent("briefingTemplateMissionCard", "html");

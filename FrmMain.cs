@@ -89,6 +89,10 @@ namespace DcsBriefop
 					using (BriefingFilesBuilder builder = new BriefingFilesBuilder(m_briefingContainer, m_missionManager))
 						builder.Generate();
 				}
+				if (Preferences.PreferencesManager.Preferences.General.GenerateBatchCommandOnSave)
+				{
+					m_missionManager.MizBatchCommand();
+				}
 			}
 
 			MizReload();
@@ -157,6 +161,21 @@ namespace DcsBriefop
 			}
 		}
 
+		private void GenerateBatchCommand()
+		{
+			if (m_missionManager is null)
+				throw new ExceptionDcsBriefop("No mission is currently loaded");
+
+			string sCommandFilePath = m_missionManager.MizBatchCommandFileName();
+			if (ToolsControls.ShowMessageBoxQuestion($"The following command file will be generated in the mission directory :{Environment.NewLine}  {sCommandFilePath}{Environment.NewLine}{Environment.NewLine}You can execute this command file to generate the kneeboard contents for the mission. This file will also be generated each time the mission is saved in DcsBriefop if the relevant preference is active."))
+			{
+				using (new WaitDialog(this))
+				{
+					m_missionManager.MizBatchCommand();
+				}
+			}
+		}
+
 		private void DataToScreen()
 		{
 			if (m_ucMap is null)
@@ -215,8 +234,8 @@ namespace DcsBriefop
 			dgv.Dock = DockStyle.Fill;
 			SplitContainer.Panel1.Controls.Add(dgv);
 
-			GridAssetManager2 gam = new GridAssetManager2(dgv, m_briefingContainer.GetCoalition(ElementCoalition.Blue).OpposingAssets, null);
-			gam.ColumnsDisplayed = GridAssetManager2.ColumnsDisplayedOpposing;
+			GridManagerAsset gam = new GridManagerAsset(dgv, m_briefingContainer.GetCoalition(ElementCoalition.Blue).OpposingAssets, null);
+			gam.ColumnsDisplayed = GridManagerAsset.ColumnsDisplayedOpposing;
 			gam.Initialize();
 			//string sFilePath = @"D:\Projects\dictionary.txt";
 			//string sFileContent = File.ReadAllText(sFilePath);
@@ -285,9 +304,12 @@ namespace DcsBriefop
 			AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Red);
 			AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Blue);
 			//AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Neutral);
+			tsmiBriefing.DropDownItems.AddMenuItem("Generate kneeboard", (object _sender, EventArgs _e) => { GenerateFiles(); });
+			tsmiBriefing.DropDownItems.AddMenuItem("Generate batch command", (object _sender, EventArgs _e) => { GenerateBatchCommand(); });
+			tsmiBriefing.DropDownItems.AddMenuSeparator();
+			tsmiBriefing.DropDownItems.AddMenuItem("Kneeboard generation preferences", (object _sender, EventArgs _e) => { OpenPreferencesMizGenerate(); });
 			tsmiBriefing.DropDownItems.AddMenuItem("Mission preferences", (object _sender, EventArgs _e) => { OpenPreferencesMiz(); });
-			tsmiBriefing.DropDownItems.AddMenuItem("File generation preferences", (object _sender, EventArgs _e) => { OpenPreferencesMizGenerate(); });
-			tsmiBriefing.DropDownItems.AddMenuItem("Generate files", (object _sender, EventArgs _e) => { GenerateFiles(); });
+			
 		}
 
 		private void AddMenuCoalition(ToolStripMenuItem tsmiBriefingCoalitions, string sCoalitionName)

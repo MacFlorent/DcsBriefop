@@ -152,7 +152,7 @@ namespace DcsBriefop.Data
 			}
 			catch (Exception e)
 			{
-				ToolsMisc.ShowMessageBoxAndLogException("Failed to build points LUT. Coordinates will not be managed.", e);
+				ToolsControls.ShowMessageBoxAndLogException("Failed to build points LUT. Coordinates will not be managed.", e);
 				m_coordinatesLut = null;
 				m_coordinatesLutValuesY = m_coordinatesLutValuesX = null;
 			}
@@ -206,7 +206,7 @@ namespace DcsBriefop.Data
 			}
 			catch (Exception e)
 			{
-				ToolsMisc.ShowMessageBoxAndLogException("Failed to build airdrome data. Airdrome informations will not be available.", e);
+				ToolsControls.ShowMessageBoxAndLogException("Failed to build airdrome data. Airdrome informations will not be available.", e);
 			}
 
 			if (Airdromes is null)

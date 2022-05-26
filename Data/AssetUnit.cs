@@ -18,7 +18,6 @@ namespace DcsBriefop.Data
 		public bool Included { get; set; }
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public string GroupName { get; set; }
 		public string Type { get; set; }
 		public Coordinate Coordinate { get; set; }
 		public string Description { get; set; }

@@ -7,11 +7,10 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Zuby.ADGV;
 
 namespace DcsBriefop.UcBriefing
 {
-	internal class GridAssetManager2
+	internal class GridManagerAsset : GridManager
 	{
 		#region Columns
 		public static class GridColumn
@@ -20,10 +19,10 @@ namespace DcsBriefop.UcBriefing
 			public static readonly string Mission = "Mission";
 			public static readonly string MapDisplay = "MapDisplay";
 			public static readonly string Id = "Id";
-			public static readonly string Description = "Description";
-			public static readonly string Localisation = "Localisation";
 			public static readonly string Side = "Side";
 			public static readonly string Class = "Class";
+			public static readonly string Description = "Description";
+			public static readonly string Localisation = "Localisation";
 			public static readonly string Function = "Function";
 			public static readonly string Type = "Type";
 			public static readonly string Task = "Task";
@@ -37,44 +36,33 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 
 		#region Fields
-		private DataGridView m_dgv;
 		private List<Asset> m_assets;
-		private DataTable m_dtSource;
 		private AssetFlightMission m_missionData;
 		#endregion
 
 		#region Properties
-		public List<string> ColumnsDisplayed { get; set; } = null;
 		#endregion
 
 		#region CTOR
-		public GridAssetManager2(DataGridView dgvAsset, List<Asset> assets, AssetFlightMission missionData)
+		public GridManagerAsset(DataGridView dgv, List<Asset> assets, AssetFlightMission missionData) : base(dgv)
 		{
-			m_dgv = dgvAsset;
 			m_assets = assets;
 			m_missionData = missionData;
-
-			ToolsMisc.SetDataGridViewProperties(m_dgv);
-			m_dgv.AutoGenerateColumns = true;
-			m_dgv.DataSource = new BindingSource();
 
 			m_dgv.CellEndEdit += CellEndEdit;
 			m_dgv.CellMouseUp += CellMouseUp;
 			m_dgv.CellDoubleClick += CellDoubleClick;
-			m_dgv.CellFormatting += CellFormatting;
 		}
 		#endregion
 
 		#region Methods
-		public void Initialize()
+		public override void Initialize()
 		{
+			base.Initialize();
 			InitializeContextMenu();
-			InitializeDataSource();
-			Fill();
-			PostInitializeColumns();
 		}
 
-		private void InitializeDataSource()
+		protected override void InitializeDataSource()
 		{
 			m_dtSource = new DataTable();
 			m_dtSource.Columns.Add(GridColumn.Included, typeof(bool));
@@ -105,7 +93,7 @@ namespace DcsBriefop.UcBriefing
 				m_dtSource.Rows.Add(dr);
 			}
 
-			dr.SetField(GridColumn.Included, AssetOrUnitIncluded(asset));
+			dr.SetField(GridColumn.Included, asset.Included);
 			dr.SetField(GridColumn.Mission, (asset as AssetFlight)?.MissionData is object);
 			dr.SetField(GridColumn.MapDisplay, MasterDataRepository.GetById(MasterDataType.AssetMapDisplay, (int)asset.MapDisplay)?.Label);
 			dr.SetField(GridColumn.Id, asset.Id);
@@ -119,30 +107,18 @@ namespace DcsBriefop.UcBriefing
 			dr.SetField(GridColumn.Notes, asset.Information);
 		}
 
-		private void PostInitializeColumns()
+		protected override void PostInitializeColumns()
 		{
+			base.PostInitializeColumns();
+
 			foreach (DataGridViewColumn column in m_dgv.Columns)
 			{
-				if (ColumnsDisplayed is object && !ColumnsDisplayed.Contains(column.DataPropertyName))
-					column.Visible = false;
-
 				column.ReadOnly = true;
 			}
 
 			m_dgv.Columns[GridColumn.Included].ReadOnly = false;
 			m_dgv.Columns[GridColumn.Mission].ReadOnly = false;
 			m_dgv.Columns[GridColumn.Data].Visible = false;
-		}
-
-		private void Fill()
-		{
-			try
-			{
-				m_dgv.ColumnHeadersHeight = 25; // not ideal, but if the header is to narrow, it will be widened by AdvancedDataGridView.OnColumnAdded, and sometimes it will cause problems that I don't understand
-				//m_dgv.DataSource = new BindingSource();
-				(m_dgv.DataSource as BindingSource).DataSource = m_dtSource.DefaultView;
-			}
-			catch (Exception ex) { ToolsMisc.ShowMessageBoxError(ex.Message); } // to check the problem addressed by "m_dgv.ColumnHeadersHeight = 25"
 		}
 
 		private bool AssetOrUnitIncluded(Asset asset)
@@ -157,7 +133,7 @@ namespace DcsBriefop.UcBriefing
 			}
 		}
 
-		private void SetIncludedAsset(Asset asset, bool bIncluded)
+		private void SetIncluded(Asset asset, bool bIncluded)
 		{
 			if (m_missionData is object)
 			{
@@ -169,6 +145,7 @@ namespace DcsBriefop.UcBriefing
 				{
 					asset.Included = bIncluded;
 					RefreshDataSourceRow(asset);
+					(m_dgv.DataSource as BindingSource).EndEdit();
 				}
 			}
 		}
@@ -177,7 +154,7 @@ namespace DcsBriefop.UcBriefing
 		{
 			foreach (Asset asset in assets)
 			{
-				SetIncludedAsset(asset, bIncluded);
+				SetIncluded(asset, bIncluded);
 			}
 		}
 
@@ -190,6 +167,7 @@ namespace DcsBriefop.UcBriefing
 					asset.MapDisplay = mapDisplay;
 					asset.InitializeMapOverlay();
 					RefreshDataSourceRow(asset);
+					(m_dgv.DataSource as BindingSource).EndEdit();
 				}
 			}
 		}
@@ -200,12 +178,38 @@ namespace DcsBriefop.UcBriefing
 			f.ShowDialog();
 			AssetModified?.Invoke(this, new EventArgsAsset() { Asset = asset });
 			RefreshDataSourceRow(asset);
+			(m_dgv.DataSource as BindingSource).EndEdit();
 		}
 
 		private void ShowMission(AssetFlight asset)
 		{
 			FrmMissionDetail f = new FrmMissionDetail(asset);
 			f.ShowDialog();
+		}
+
+		protected override DataGridViewCellStyle CellFormatting(DataGridViewCell dgvc)
+		{
+			DataGridViewCellStyle cellStyle = base.CellFormatting(dgvc);
+
+			DataGridViewColumn column = dgvc.DataGridView.Columns[dgvc.ColumnIndex];
+			Asset asset = dgvc.DataGridView.Rows[dgvc.RowIndex].Cells[GridColumn.Data].Value as Asset;
+
+			if (column.DataPropertyName == GridColumn.Included)
+			{
+				if ((asset is object && AssetOrUnitIncluded(asset)))
+				{
+					cellStyle.BackColor = Color.LightGreen;
+				}
+			}
+			else if (column.DataPropertyName == GridColumn.Mission)
+			{
+				if (asset is AssetFlight flight && flight.MissionData is object)
+				{
+					cellStyle.BackColor = Color.LightGreen;
+				}
+			}
+
+			return cellStyle;
 		}
 		#endregion
 
@@ -219,7 +223,7 @@ namespace DcsBriefop.UcBriefing
 		private void ContextMenuOpening(ContextMenuStrip menu, DataGridView dgv, CancelEventArgs e)
 		{
 			List<Asset> selectedAssets = new List<Asset>();
-			foreach (DataGridViewRow row in dgv.SelectedRows)
+			foreach (DataGridViewRow row in GetSelectedRows())
 			{
 				if (row.Cells[GridColumn.Data].Value is Asset asset)
 				{
@@ -284,7 +288,7 @@ namespace DcsBriefop.UcBriefing
 			{
 				if (asset is object)
 				{
-					SetIncludedAsset(asset, (bool)cell.Value);
+					SetIncluded(asset, (bool)cell.Value);
 					AssetModified?.Invoke(this, new EventArgsAsset() { Asset = asset });
 				}
 			}
@@ -334,39 +338,6 @@ namespace DcsBriefop.UcBriefing
 				if (asset is object)
 					ShowAssetDetail(asset);
 			}
-		}
-
-		private void CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-		{
-			if (e.RowIndex < 0)
-				return;
-			DataGridView dgv = sender as DataGridView;
-			if (dgv == null)
-				return;
-
-			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
-			DataGridViewCell dgvc = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-			Asset asset = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as Asset;
-
-			DataGridViewCellStyle cellStyle = dgvc.InheritedStyle;
-			if (column.DataPropertyName == GridColumn.Included)
-			{
-				if ((asset is object && AssetOrUnitIncluded(asset)))
-				{
-					cellStyle.BackColor = Color.LightGreen;
-					cellStyle.SelectionBackColor = ToolsImage.Lerp(cellStyle.BackColor, dgv.DefaultCellStyle.SelectionBackColor, 0.2f);
-				}
-			}
-			else if (column.DataPropertyName == GridColumn.Mission)
-			{
-				if (asset is AssetFlight flight && flight.MissionData is object)
-				{
-					cellStyle.BackColor = Color.LightGreen;
-					cellStyle.SelectionBackColor = ToolsImage.Lerp(cellStyle.BackColor, dgv.DefaultCellStyle.SelectionBackColor, 0.2f);
-				}
-			}
-
-			e.CellStyle = cellStyle;
 		}
 		#endregion
 	}

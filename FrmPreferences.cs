@@ -21,7 +21,7 @@ namespace DcsBriefop
 			ToolsStyle.ButtonOk(BtSave);
 			ToolsStyle.ButtonCancel(BtCancel);
 
-			ToolsMisc.SetDataGridViewProperties(DgvFileTypes);
+			ToolsControls.SetDataGridViewProperties(DgvFileTypes);
 
 			CbMapProvider.ValueMember = "Name";
 			CbMapProvider.DataSource = GMapProviders.List;
@@ -37,6 +37,8 @@ namespace DcsBriefop
 		private void DataToScreen()
 		{
 			CkNoCallsignForPlayableFlights.Checked = Preferences.PreferencesManager.Preferences.General.NoCallsignForPlayableFlights;
+			CkBackupBeforeOverwrite.Checked = Preferences.PreferencesManager.Preferences.General.BackupBeforeOverwrite;
+			CkGenerateBatchCommandOnSave.Checked = Preferences.PreferencesManager.Preferences.General.GenerateBatchCommandOnSave;
 
 			CbMapProvider.SelectedItem = GMapProviders.TryGetProvider(Preferences.PreferencesManager.Preferences.Map.DefaultProvider);
 			UdMapDefaultZoom.Value = (decimal)Preferences.PreferencesManager.Preferences.Map.DefaultZoom;
@@ -55,6 +57,8 @@ namespace DcsBriefop
 		private void ScreenToData()
 		{
 			Preferences.PreferencesManager.Preferences.General.NoCallsignForPlayableFlights = CkNoCallsignForPlayableFlights.Checked;
+			Preferences.PreferencesManager.Preferences.General.BackupBeforeOverwrite = CkBackupBeforeOverwrite.Checked;
+			Preferences.PreferencesManager.Preferences.General.GenerateBatchCommandOnSave = CkGenerateBatchCommandOnSave.Checked;
 
 			Preferences.PreferencesManager.Preferences.Map.DefaultProvider = (CbMapProvider.SelectedItem as GMapProvider)?.Name;
 			Preferences.PreferencesManager.Preferences.Map.DefaultZoom = (double)UdMapDefaultZoom.Value;

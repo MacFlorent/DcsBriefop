@@ -37,7 +37,6 @@ namespace DcsBriefop
 			this.LbAssetInformation = new System.Windows.Forms.Label();
 			this.DgvRoutePoints = new System.Windows.Forms.DataGridView();
 			this.LbWaypoints = new System.Windows.Forms.Label();
-			this.DgvThreats = new System.Windows.Forms.DataGridView();
 			this.LbThreats = new System.Windows.Forms.Label();
 			this.TbInformation = new System.Windows.Forms.TextBox();
 			this.LbInformation = new System.Windows.Forms.Label();
@@ -46,18 +45,14 @@ namespace DcsBriefop
 			this.LbId = new System.Windows.Forms.Label();
 			this.TbId = new System.Windows.Forms.TextBox();
 			this.SplitContainer = new System.Windows.Forms.SplitContainer();
-			this.CkFilterExcluded = new System.Windows.Forms.CheckBox();
 			this.PnFlight = new System.Windows.Forms.Panel();
-			this.CkFilterStatics = new System.Windows.Forms.CheckBox();
-			this.CkFilterShips = new System.Windows.Forms.CheckBox();
-			this.CkFilterVehicles = new System.Windows.Forms.CheckBox();
-			this.CkFilterFlights = new System.Windows.Forms.CheckBox();
+			this.AdgvThreats = new Zuby.ADGV.AdvancedDataGridView();
 			((System.ComponentModel.ISupportInitialize)(this.DgvRoutePoints)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.DgvThreats)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).BeginInit();
 			this.SplitContainer.Panel1.SuspendLayout();
 			this.SplitContainer.SuspendLayout();
 			this.PnFlight.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.AdgvThreats)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// LbDescription
@@ -135,21 +130,6 @@ namespace DcsBriefop
 			this.LbWaypoints.TabIndex = 25;
 			this.LbWaypoints.Text = "Waypoints";
 			// 
-			// DgvThreats
-			// 
-			this.DgvThreats.AllowUserToAddRows = false;
-			this.DgvThreats.AllowUserToDeleteRows = false;
-			this.DgvThreats.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.DgvThreats.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-			this.DgvThreats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DgvThreats.Location = new System.Drawing.Point(6, 320);
-			this.DgvThreats.Name = "DgvThreats";
-			this.DgvThreats.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.DgvThreats.Size = new System.Drawing.Size(445, 336);
-			this.DgvThreats.TabIndex = 24;
-			// 
 			// LbThreats
 			// 
 			this.LbThreats.AutoSize = true;
@@ -221,35 +201,16 @@ namespace DcsBriefop
 			// 
 			// SplitContainer.Panel1
 			// 
-			this.SplitContainer.Panel1.Controls.Add(this.CkFilterExcluded);
+			this.SplitContainer.Panel1.Controls.Add(this.AdgvThreats);
 			this.SplitContainer.Panel1.Controls.Add(this.PnFlight);
-			this.SplitContainer.Panel1.Controls.Add(this.CkFilterStatics);
 			this.SplitContainer.Panel1.Controls.Add(this.DgvRoutePoints);
-			this.SplitContainer.Panel1.Controls.Add(this.CkFilterShips);
 			this.SplitContainer.Panel1.Controls.Add(this.LbWaypoints);
-			this.SplitContainer.Panel1.Controls.Add(this.CkFilterVehicles);
-			this.SplitContainer.Panel1.Controls.Add(this.CkFilterFlights);
-			this.SplitContainer.Panel1.Controls.Add(this.DgvThreats);
 			this.SplitContainer.Panel1.Controls.Add(this.LbThreats);
 			this.SplitContainer.Panel1.Controls.Add(this.TbInformation);
 			this.SplitContainer.Panel1.Controls.Add(this.LbInformation);
 			this.SplitContainer.Size = new System.Drawing.Size(1259, 679);
 			this.SplitContainer.SplitterDistance = 454;
 			this.SplitContainer.TabIndex = 11;
-			// 
-			// CkFilterExcluded
-			// 
-			this.CkFilterExcluded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.CkFilterExcluded.AutoSize = true;
-			this.CkFilterExcluded.Checked = true;
-			this.CkFilterExcluded.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.CkFilterExcluded.Location = new System.Drawing.Point(263, 659);
-			this.CkFilterExcluded.Name = "CkFilterExcluded";
-			this.CkFilterExcluded.Size = new System.Drawing.Size(70, 17);
-			this.CkFilterExcluded.TabIndex = 33;
-			this.CkFilterExcluded.Text = "Excluded";
-			this.CkFilterExcluded.UseVisualStyleBackColor = true;
-			this.CkFilterExcluded.CheckedChanged += new System.EventHandler(this.CkThreatFilter_CheckedChanged);
 			// 
 			// PnFlight
 			// 
@@ -271,61 +232,20 @@ namespace DcsBriefop
 			this.PnFlight.Size = new System.Drawing.Size(445, 56);
 			this.PnFlight.TabIndex = 29;
 			// 
-			// CkFilterStatics
+			// AdgvThreats
 			// 
-			this.CkFilterStatics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.CkFilterStatics.AutoSize = true;
-			this.CkFilterStatics.Checked = true;
-			this.CkFilterStatics.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.CkFilterStatics.Location = new System.Drawing.Point(199, 659);
-			this.CkFilterStatics.Name = "CkFilterStatics";
-			this.CkFilterStatics.Size = new System.Drawing.Size(58, 17);
-			this.CkFilterStatics.TabIndex = 32;
-			this.CkFilterStatics.Text = "Statics";
-			this.CkFilterStatics.UseVisualStyleBackColor = true;
-			this.CkFilterStatics.CheckedChanged += new System.EventHandler(this.CkThreatFilter_CheckedChanged);
-			// 
-			// CkFilterShips
-			// 
-			this.CkFilterShips.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.CkFilterShips.AutoSize = true;
-			this.CkFilterShips.Checked = true;
-			this.CkFilterShips.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.CkFilterShips.Location = new System.Drawing.Point(141, 659);
-			this.CkFilterShips.Name = "CkFilterShips";
-			this.CkFilterShips.Size = new System.Drawing.Size(52, 17);
-			this.CkFilterShips.TabIndex = 31;
-			this.CkFilterShips.Text = "Ships";
-			this.CkFilterShips.UseVisualStyleBackColor = true;
-			this.CkFilterShips.CheckedChanged += new System.EventHandler(this.CkThreatFilter_CheckedChanged);
-			// 
-			// CkFilterVehicles
-			// 
-			this.CkFilterVehicles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.CkFilterVehicles.AutoSize = true;
-			this.CkFilterVehicles.Checked = true;
-			this.CkFilterVehicles.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.CkFilterVehicles.Location = new System.Drawing.Point(69, 659);
-			this.CkFilterVehicles.Name = "CkFilterVehicles";
-			this.CkFilterVehicles.Size = new System.Drawing.Size(66, 17);
-			this.CkFilterVehicles.TabIndex = 30;
-			this.CkFilterVehicles.Text = "Vehicles";
-			this.CkFilterVehicles.UseVisualStyleBackColor = true;
-			this.CkFilterVehicles.CheckedChanged += new System.EventHandler(this.CkThreatFilter_CheckedChanged);
-			// 
-			// CkFilterFlights
-			// 
-			this.CkFilterFlights.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.CkFilterFlights.AutoSize = true;
-			this.CkFilterFlights.Checked = true;
-			this.CkFilterFlights.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.CkFilterFlights.Location = new System.Drawing.Point(7, 659);
-			this.CkFilterFlights.Name = "CkFilterFlights";
-			this.CkFilterFlights.Size = new System.Drawing.Size(56, 17);
-			this.CkFilterFlights.TabIndex = 29;
-			this.CkFilterFlights.Text = "Flights";
-			this.CkFilterFlights.UseVisualStyleBackColor = true;
-			this.CkFilterFlights.CheckedChanged += new System.EventHandler(this.CkThreatFilter_CheckedChanged);
+			this.AdgvThreats.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.AdgvThreats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.AdgvThreats.FilterAndSortEnabled = true;
+			this.AdgvThreats.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
+			this.AdgvThreats.Location = new System.Drawing.Point(6, 320);
+			this.AdgvThreats.Name = "AdgvThreats";
+			this.AdgvThreats.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.AdgvThreats.Size = new System.Drawing.Size(445, 356);
+			this.AdgvThreats.SortStringChangedInvokeBeforeDatasourceUpdate = true;
+			this.AdgvThreats.TabIndex = 34;
 			// 
 			// FrmMissionDetail
 			// 
@@ -339,13 +259,13 @@ namespace DcsBriefop
 			this.Text = "FrmMissionDetail";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMissionDetail_FormClosing);
 			((System.ComponentModel.ISupportInitialize)(this.DgvRoutePoints)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.DgvThreats)).EndInit();
 			this.SplitContainer.Panel1.ResumeLayout(false);
 			this.SplitContainer.Panel1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SplitContainer)).EndInit();
 			this.SplitContainer.ResumeLayout(false);
 			this.PnFlight.ResumeLayout(false);
 			this.PnFlight.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.AdgvThreats)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -365,15 +285,10 @@ namespace DcsBriefop
 		private System.Windows.Forms.Label LbThreats;
 		private System.Windows.Forms.DataGridView DgvRoutePoints;
 		private System.Windows.Forms.Label LbWaypoints;
-		private System.Windows.Forms.DataGridView DgvThreats;
 		private System.Windows.Forms.TextBox TbAssetInformation;
 		private System.Windows.Forms.Label LbAssetInformation;
 		private System.Windows.Forms.SplitContainer SplitContainer;
 		private System.Windows.Forms.Panel PnFlight;
-		private System.Windows.Forms.CheckBox CkFilterExcluded;
-		private System.Windows.Forms.CheckBox CkFilterStatics;
-		private System.Windows.Forms.CheckBox CkFilterShips;
-		private System.Windows.Forms.CheckBox CkFilterVehicles;
-		private System.Windows.Forms.CheckBox CkFilterFlights;
+		private Zuby.ADGV.AdvancedDataGridView AdgvThreats;
 	}
 }

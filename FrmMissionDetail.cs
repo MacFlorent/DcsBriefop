@@ -2,6 +2,7 @@
 using DcsBriefop.Tools;
 using DcsBriefop.UcBriefing;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -21,7 +22,6 @@ namespace DcsBriefop
 		#region Fields
 		private AssetFlight m_asset;
 		private UcMap m_ucMap;
-		private GridAssetManager m_gamThreats;
 		#endregion
 
 		#region CTOR
@@ -36,8 +36,7 @@ namespace DcsBriefop
 			SplitContainer.Panel2.Controls.Clear();
 			SplitContainer.Panel2.Controls.Add(m_ucMap);
 
-			ToolsMisc.SetDataGridViewProperties(DgvRoutePoints);
-			ToolsMisc.SetDataGridViewProperties(DgvThreats);
+			ToolsControls.SetDataGridViewProperties(DgvRoutePoints);
 			DgvRoutePoints.ReadOnly = true;
 
 			DataToScreen();
@@ -104,11 +103,10 @@ namespace DcsBriefop
 
 		private void DataToScreenThreats()
 		{
-			m_gamThreats = new GridAssetManager(DgvThreats, m_asset.Coalition.OpposingAssets.Where(_a => _a is AssetGroup).ToList(), m_asset.MissionData);
-			m_gamThreats.ColumnsDisplayed = GridAssetManager.ColumnsDisplayedUnit;
-			m_gamThreats.DisplayFilters = GetThreatDisplayFilter();
-			m_gamThreats.UnitModified += (o, e) => { UpdateMapControl(); };
-			m_gamThreats.Initialize();
+			GridManagerUnit gamThreats = new GridManagerUnit(AdgvThreats, m_asset.Coalition.OpposingAssets, m_asset.MissionData);
+			gamThreats.ColumnsDisplayed = GridManagerUnit.ColumnsDisplayedUnit;
+			gamThreats.UnitModified += (o, e) => { UpdateMapControl(); };
+			gamThreats.Initialize();
 		}
 
 		private void ScreenToData()
@@ -120,32 +118,9 @@ namespace DcsBriefop
 		{
 			m_ucMap.SetMapData(m_asset.MissionData.MapData, m_asset.Core.Theatre.Name, "Mission map", false);
 		}
-
-		private GridAssetManager.DisplayFilter GetThreatDisplayFilter()
-		{
-			GridAssetManager.DisplayFilter filter = GridAssetManager.DisplayFilter.Units;
-
-			if (CkFilterFlights.Checked)
-				filter |= GridAssetManager.DisplayFilter.Flights;
-			if (CkFilterVehicles.Checked)
-				filter |= GridAssetManager.DisplayFilter.Vehicles;
-			if (CkFilterShips.Checked)
-				filter |= GridAssetManager.DisplayFilter.Ships;
-			if (CkFilterStatics.Checked)
-				filter |= GridAssetManager.DisplayFilter.Statics;
-			if (CkFilterExcluded.Checked)
-				filter |= GridAssetManager.DisplayFilter.Excluded;
-
-			return filter;
-		}
 		#endregion
 
 		#region Events
-		private void CkThreatFilter_CheckedChanged(object sender, EventArgs e)
-		{
-			m_gamThreats.DisplayFilters = GetThreatDisplayFilter();
-		}
-
 		private void FrmMissionDetail_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			ScreenToData();

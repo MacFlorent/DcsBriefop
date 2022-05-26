@@ -49,6 +49,8 @@ namespace DcsBriefop
 			this.BtSave = new System.Windows.Forms.Button();
 			this.BtCancel = new System.Windows.Forms.Button();
 			this.CkNoCallsignForPlayableFlights = new System.Windows.Forms.CheckBox();
+			this.CkBackupBeforeOverwrite = new System.Windows.Forms.CheckBox();
+			this.CkGenerateBatchCommandOnSave = new System.Windows.Forms.CheckBox();
 			this.GbImage.SuspendLayout();
 			this.GbMap.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.UdMapDefaultZoom)).BeginInit();
@@ -81,7 +83,7 @@ namespace DcsBriefop
 			this.GbImage.Controls.Add(this.label1);
 			this.GbImage.Controls.Add(this.UcImageBackgroundColor);
 			this.GbImage.Controls.Add(this.LbImageBackgroundColor);
-			this.GbImage.Location = new System.Drawing.Point(12, 343);
+			this.GbImage.Location = new System.Drawing.Point(12, 388);
 			this.GbImage.Name = "GbImage";
 			this.GbImage.Size = new System.Drawing.Size(322, 100);
 			this.GbImage.TabIndex = 39;
@@ -129,7 +131,7 @@ namespace DcsBriefop
 			this.GbMap.Controls.Add(this.LbMapDefaultZoom);
 			this.GbMap.Controls.Add(this.CbMapProvider);
 			this.GbMap.Controls.Add(this.LbMapDisplay);
-			this.GbMap.Location = new System.Drawing.Point(12, 35);
+			this.GbMap.Location = new System.Drawing.Point(12, 80);
 			this.GbMap.Name = "GbMap";
 			this.GbMap.Size = new System.Drawing.Size(322, 78);
 			this.GbMap.TabIndex = 40;
@@ -175,7 +177,7 @@ namespace DcsBriefop
 			this.GbGeneration.Controls.Add(this.CkLocalDirectoryHtml);
 			this.GbGeneration.Controls.Add(this.CkLocalDirectory);
 			this.GbGeneration.Controls.Add(this.CkMizFile);
-			this.GbGeneration.Location = new System.Drawing.Point(12, 119);
+			this.GbGeneration.Location = new System.Drawing.Point(12, 164);
 			this.GbGeneration.Name = "GbGeneration";
 			this.GbGeneration.Size = new System.Drawing.Size(322, 218);
 			this.GbGeneration.TabIndex = 41;
@@ -248,7 +250,7 @@ namespace DcsBriefop
 			// 
 			// BtSave
 			// 
-			this.BtSave.Location = new System.Drawing.Point(176, 449);
+			this.BtSave.Location = new System.Drawing.Point(176, 494);
 			this.BtSave.Name = "BtSave";
 			this.BtSave.Size = new System.Drawing.Size(75, 23);
 			this.BtSave.TabIndex = 42;
@@ -258,7 +260,7 @@ namespace DcsBriefop
 			// 
 			// BtCancel
 			// 
-			this.BtCancel.Location = new System.Drawing.Point(259, 449);
+			this.BtCancel.Location = new System.Drawing.Point(259, 494);
 			this.BtCancel.Name = "BtCancel";
 			this.BtCancel.Size = new System.Drawing.Size(75, 23);
 			this.BtCancel.TabIndex = 43;
@@ -276,11 +278,33 @@ namespace DcsBriefop
 			this.CkNoCallsignForPlayableFlights.Text = "No callsign for playable flights";
 			this.CkNoCallsignForPlayableFlights.UseVisualStyleBackColor = true;
 			// 
+			// CkBackupBeforeOverwrite
+			// 
+			this.CkBackupBeforeOverwrite.AutoSize = true;
+			this.CkBackupBeforeOverwrite.Location = new System.Drawing.Point(12, 35);
+			this.CkBackupBeforeOverwrite.Name = "CkBackupBeforeOverwrite";
+			this.CkBackupBeforeOverwrite.Size = new System.Drawing.Size(209, 17);
+			this.CkBackupBeforeOverwrite.TabIndex = 47;
+			this.CkBackupBeforeOverwrite.Text = "Make backup when overwriting miz file";
+			this.CkBackupBeforeOverwrite.UseVisualStyleBackColor = true;
+			// 
+			// CkGenerateBatchCommandOnSave
+			// 
+			this.CkGenerateBatchCommandOnSave.AutoSize = true;
+			this.CkGenerateBatchCommandOnSave.Location = new System.Drawing.Point(12, 57);
+			this.CkGenerateBatchCommandOnSave.Name = "CkGenerateBatchCommandOnSave";
+			this.CkGenerateBatchCommandOnSave.Size = new System.Drawing.Size(190, 17);
+			this.CkGenerateBatchCommandOnSave.TabIndex = 48;
+			this.CkGenerateBatchCommandOnSave.Text = "Generate batch command on save";
+			this.CkGenerateBatchCommandOnSave.UseVisualStyleBackColor = true;
+			// 
 			// FrmPreferences
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(349, 480);
+			this.ClientSize = new System.Drawing.Size(349, 528);
+			this.Controls.Add(this.CkGenerateBatchCommandOnSave);
+			this.Controls.Add(this.CkBackupBeforeOverwrite);
 			this.Controls.Add(this.CkNoCallsignForPlayableFlights);
 			this.Controls.Add(this.BtCancel);
 			this.Controls.Add(this.BtSave);
@@ -325,5 +349,7 @@ namespace DcsBriefop
 		private System.Windows.Forms.Button BtCancel;
 		private UcBriefing.UcImageSize UcDefaultImageSize;
 		private System.Windows.Forms.CheckBox CkNoCallsignForPlayableFlights;
+		private System.Windows.Forms.CheckBox CkBackupBeforeOverwrite;
+		private System.Windows.Forms.CheckBox CkGenerateBatchCommandOnSave;
 	}
 }

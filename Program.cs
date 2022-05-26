@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Tools;
+﻿using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -19,12 +20,25 @@ namespace DcsBriefop
 			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-			if (!ToolsCommandLine.ParseCommandLine(args))
+			OptionsCommon commandLineOptions = ToolsCommandLine.ParseCommandLine(args);
+			if (commandLineOptions is OptionsBatch optionsBatch)
+			{
+				return MainBatch(optionsBatch);
+			}
+			else if (commandLineOptions is OptionsApp optionsApp)
+			{
+				return MainApp(optionsApp);
+			}
+			else
 			{
 				return -1;
 			}
+		}
 
+		private static int MainApp(OptionsApp optionsApp)
+		{
 			Log.ApplicationStart();
+			Log.Info("Starting app verb");
 
 			FrmMain f = new FrmMain();
 			f.Show(null);
@@ -32,6 +46,32 @@ namespace DcsBriefop
 			Application.Run(f);
 
 			return 1;
+		}
+
+		private static int MainBatch(OptionsBatch optionsBatch)
+		{
+			Log.ApplicationStart();
+			Log.Info($"Starting batch verb for {optionsBatch.MizFile}");
+
+			try
+			{
+				Log.Info($"Reading miz file content");
+				MissionManager missionManager = new MissionManager(optionsBatch.MizFile);
+				Log.Info($"Building DcsBriefop data for miz file");
+				BriefingContainer briefingContainer = new BriefingContainer(missionManager.Miz);
+
+				Log.Info($"Generating kneeboard briefing files");
+				using (BriefingFilesBuilder builder = new BriefingFilesBuilder(briefingContainer, missionManager))
+					builder.Generate();
+
+				Log.ApplicationEnd();
+				return 1;
+			}
+			catch(Exception ex)
+			{
+				Log.Exception(ex);
+				return -1;
+			}
 		}
 
 		private static void InitializeCulture()
@@ -46,7 +86,7 @@ namespace DcsBriefop
 		{
 			Log.Exception(ex, sMemberName, iLineNumber);
 			string sMessage = $"Unhandled error.{Environment.NewLine}{ex?.Message}{Environment.NewLine}{Environment.NewLine}{ex?.InnerException}";
-			ToolsMisc.ShowMessageBoxError(sMessage);
+			ToolsControls.ShowMessageBoxError(sMessage);
 		}
 
 		private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

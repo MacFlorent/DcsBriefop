@@ -46,10 +46,10 @@ namespace DcsBriefop
 				m_listComPresets.InitializeEmpty();
 			}
 
-			ToolsMisc.SetDataGridViewProperties(DgvRadio1);
+			ToolsControls.SetDataGridViewProperties(DgvRadio1);
 			DgvRadio1.CellEndEdit += DgvCellEndEdit;
 			InitializeContextMenu(DgvRadio1);
-			ToolsMisc.SetDataGridViewProperties(DgvRadio2);
+			ToolsControls.SetDataGridViewProperties(DgvRadio2);
 			DgvRadio2.CellEndEdit += DgvCellEndEdit;
 			InitializeContextMenu(DgvRadio2);
 
@@ -97,6 +97,7 @@ namespace DcsBriefop
 			dgv.Columns[GridColumn.Mode].ReadOnly = true;
 			dgv.Columns[GridColumn.Asset].ValueType = typeof(int);
 			dgv.Columns[GridColumn.Frequency].ValueType = typeof(decimal);
+			dgv.Columns[GridColumn.Label].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 			dgv.Columns[GridColumn.Data].Visible = false;
 
 			foreach (ComPreset preset in m_listComPresets.Where(_p => _p.PresetRadio == iRadio))

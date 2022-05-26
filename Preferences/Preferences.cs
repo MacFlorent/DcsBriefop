@@ -27,6 +27,8 @@ namespace DcsBriefop.Preferences
 		public string WorkingDirectory { get; set; }
 		public List<string> RecentMiz { get; set; } = new List<string>();
 		public bool NoCallsignForPlayableFlights = true;
+		public bool BackupBeforeOverwrite = true;
+		public bool GenerateBatchCommandOnSave = true;
 
 		public void InitializeDefault()
 		{

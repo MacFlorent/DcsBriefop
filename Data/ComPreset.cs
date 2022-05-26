@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DcsBriefop.Data
@@ -119,11 +120,13 @@ namespace DcsBriefop.Data
 			}
 			else if (Mode == ElementComPresetMode.Group)
 			{
-				Asset asset = GetAsset(coalition) as Asset;
+				Asset asset = GetAsset(coalition);
 				if (asset is AssetFlight flight)
 				{
 					Radio = flight.Radio;
 					Label = flight.Description;
+					if (flight.Task == ElementTask.Refueling)
+						Label = $"{Label}{Environment.NewLine}[{flight.GetTacanString()}] [{flight.Type}]";
 				}
 				else if (asset is AssetShip ship)
 				{

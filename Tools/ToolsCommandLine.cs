@@ -32,41 +32,36 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region Methods
-		public static bool ParseCommandLine(string[] args)
+		public static OptionsCommon ParseCommandLine(string[] args)
 		{
 			Parser parser = new Parser(config =>{	config.HelpWriter = m_parserTextWriter;	});
 			return parser.ParseArguments<OptionsApp, OptionsBatch>(args)
 					 .MapResult(
-							 (OptionsApp o) => { return ApplyOptionsApp(o); },
-							 (OptionsBatch o) => { return ApplyOptionsBatch(o); ; },
-							 errors => { return ParseError(errors); });
+							 (OptionsApp o) => { ApplyOptionsApp(o); return o; },
+							 (OptionsBatch o) => { ApplyOptionsBatch(o); return o; },
+							 errors => { ParseError(errors); return null as OptionsCommon; });
 		}
 
-		private static bool ApplyOptionsCommon(OptionsCommon o)
+		private static void ApplyOptionsCommon(OptionsCommon o)
 		{
 			if (!string.IsNullOrEmpty(o.LogLevel))
 				Log.LogLevel = o.LogLevel;
-			
-			return true;
 		}
 
-		private static bool ApplyOptionsApp(OptionsApp o)
+		private static void ApplyOptionsApp(OptionsApp o)
 		{
 			ApplyOptionsCommon(o);
-			return true;
 		}
 
-		private static bool ApplyOptionsBatch(OptionsBatch o)
+		private static void ApplyOptionsBatch(OptionsBatch o)
 		{
 			ApplyOptionsCommon(o);
-			return true;
 		}
 
-		private static bool ParseError(IEnumerable errors)
+		private static void ParseError(IEnumerable errors)
 		{
 			Log.Error(m_parserTextBuilder.ToString());
-			ToolsMisc.ShowMessageBoxError(m_parserTextBuilder.ToString());
-			return false;
+			ToolsControls.ShowMessageBoxError(m_parserTextBuilder.ToString());
 		}
 		#endregion
 	}

@@ -231,7 +231,7 @@ namespace DcsBriefop
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Name = "FrmPreferencesMizGenerate";
 			this.ShowInTaskbar = false;
-			this.Text = "Mission briefing generation preferences";
+			this.Text = "Kneeboard generation preferences";
 			((System.ComponentModel.ISupportInitialize)(this.DgvFileTypes)).EndInit();
 			this.GbImage.ResumeLayout(false);
 			this.GbImage.PerformLayout();

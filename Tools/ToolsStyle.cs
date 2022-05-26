@@ -17,7 +17,7 @@ namespace DcsBriefop.Tools
 		public static readonly Font TextFontSmall = new Font(TextFont.FontFamily, TextFont.Size - 1, FontStyle.Regular);
 
 		public static readonly Color ColorMain = Color.Blue;
-		public static readonly Color ColorDark = ColorMain.Lerp(Color.Black, 0.15f);
+		public static readonly Color ColorDark = Color.Black.Lerp(ColorMain, 0.15f);
 		public static readonly Color ColorLight = Color.Gainsboro.Lerp(ColorMain, 0.15f);
 		public static readonly Color ColorLightLight = Color.WhiteSmoke.Lerp(ColorMain, 0.05f);
 		#endregion
@@ -145,6 +145,13 @@ namespace DcsBriefop.Tools
 		public static void GridDefault(DataGridView dgv)
 		{
 			dgv.Font = TextFont;
+			dgv.BackgroundColor = Color.WhiteSmoke;
+			dgv.ForeColor = ColorDark;
+
+			dgv.DefaultCellStyle.ForeColor = ColorDark;
+			dgv.DefaultCellStyle.BackColor = Color.WhiteSmoke;
+			dgv.DefaultCellStyle.SelectionForeColor = ColorDark;
+			dgv.DefaultCellStyle.SelectionBackColor = ColorLight;
 		}
 		#endregion
 	}

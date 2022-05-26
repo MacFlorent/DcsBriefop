@@ -37,8 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>icon256.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -159,7 +158,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UnitsNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=f8601875a1f041da, processorArchitecture=MSIL">
-      <HintPath>packages\UnitsNet.4.130.0\lib\net47\UnitsNet.dll</HintPath>
+      <HintPath>packages\UnitsNet.4.131.0\lib\net47\UnitsNet.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -272,9 +271,11 @@
     <Compile Include="Tools\ToolsResources.cs" />
     <Compile Include="Tools\ToolsStyle.cs" />
     <Compile Include="Tools\ToolsZip.cs" />
-    <Compile Include="UcBriefing\GridAssetManager2.cs" />
+    <Compile Include="UcBriefing\GridManager.cs" />
+    <Compile Include="UcBriefing\GridManagerComPreset.cs" />
+    <Compile Include="UcBriefing\GridManagerUnit.cs" />
+    <Compile Include="UcBriefing\GridManagerAsset.cs" />
     <Compile Include="UcBriefing\GridFileTypeManager.cs" />
-    <Compile Include="UcBriefing\GridAssetManager.cs" />
     <Compile Include="UcBriefing\TabPageBriefing.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -413,6 +414,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\DcsBriefopBatch.cmd" />
     <None Include="Resources\Markers\P91000043.png" />
   </ItemGroup>
   <ItemGroup>
@@ -423,6 +425,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon256.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon256.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

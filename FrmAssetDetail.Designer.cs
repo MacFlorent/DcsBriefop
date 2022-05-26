@@ -34,7 +34,6 @@ namespace DcsBriefop
 			this.TbType = new System.Windows.Forms.TextBox();
 			this.LbType = new System.Windows.Forms.Label();
 			this.PnData = new System.Windows.Forms.Panel();
-			this.CkFilterExcluded = new System.Windows.Forms.CheckBox();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.LbClass = new System.Windows.Forms.Label();
 			this.TbAssetClass = new System.Windows.Forms.TextBox();
@@ -59,12 +58,12 @@ namespace DcsBriefop
 			this.CkLateActivation = new System.Windows.Forms.CheckBox();
 			this.LbTask = new System.Windows.Forms.Label();
 			this.TbTask = new System.Windows.Forms.TextBox();
-			this.DgvUnits = new System.Windows.Forms.DataGridView();
 			this.LbUnits = new System.Windows.Forms.Label();
+			this.AdgvUnits = new Zuby.ADGV.AdvancedDataGridView();
 			this.PnData.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.PnDcsData.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DgvUnits)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.AdgvUnits)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// LbName
@@ -103,30 +102,15 @@ namespace DcsBriefop
 			// 
 			// PnData
 			// 
-			this.PnData.Controls.Add(this.CkFilterExcluded);
+			this.PnData.Controls.Add(this.AdgvUnits);
 			this.PnData.Controls.Add(this.panel1);
 			this.PnData.Controls.Add(this.PnDcsData);
-			this.PnData.Controls.Add(this.DgvUnits);
 			this.PnData.Controls.Add(this.LbUnits);
 			this.PnData.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.PnData.Location = new System.Drawing.Point(0, 0);
 			this.PnData.Name = "PnData";
 			this.PnData.Size = new System.Drawing.Size(531, 516);
 			this.PnData.TabIndex = 10;
-			// 
-			// CkFilterExcluded
-			// 
-			this.CkFilterExcluded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.CkFilterExcluded.AutoSize = true;
-			this.CkFilterExcluded.Checked = true;
-			this.CkFilterExcluded.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.CkFilterExcluded.Location = new System.Drawing.Point(7, 496);
-			this.CkFilterExcluded.Name = "CkFilterExcluded";
-			this.CkFilterExcluded.Size = new System.Drawing.Size(70, 17);
-			this.CkFilterExcluded.TabIndex = 34;
-			this.CkFilterExcluded.Text = "Excluded";
-			this.CkFilterExcluded.UseVisualStyleBackColor = true;
-			this.CkFilterExcluded.CheckedChanged += new System.EventHandler(this.CkFilterExcluded_CheckedChanged);
 			// 
 			// panel1
 			// 
@@ -373,21 +357,6 @@ namespace DcsBriefop
 			this.TbTask.Size = new System.Drawing.Size(100, 20);
 			this.TbTask.TabIndex = 14;
 			// 
-			// DgvUnits
-			// 
-			this.DgvUnits.AllowUserToAddRows = false;
-			this.DgvUnits.AllowUserToDeleteRows = false;
-			this.DgvUnits.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.DgvUnits.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-			this.DgvUnits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DgvUnits.Location = new System.Drawing.Point(3, 241);
-			this.DgvUnits.Name = "DgvUnits";
-			this.DgvUnits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.DgvUnits.Size = new System.Drawing.Size(525, 250);
-			this.DgvUnits.TabIndex = 30;
-			// 
 			// LbUnits
 			// 
 			this.LbUnits.AutoSize = true;
@@ -396,6 +365,21 @@ namespace DcsBriefop
 			this.LbUnits.Size = new System.Drawing.Size(31, 13);
 			this.LbUnits.TabIndex = 29;
 			this.LbUnits.Text = "Units";
+			// 
+			// AdgvUnits
+			// 
+			this.AdgvUnits.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.AdgvUnits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.AdgvUnits.FilterAndSortEnabled = true;
+			this.AdgvUnits.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
+			this.AdgvUnits.Location = new System.Drawing.Point(5, 241);
+			this.AdgvUnits.Name = "AdgvUnits";
+			this.AdgvUnits.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.AdgvUnits.Size = new System.Drawing.Size(523, 272);
+			this.AdgvUnits.SortStringChangedInvokeBeforeDatasourceUpdate = true;
+			this.AdgvUnits.TabIndex = 33;
 			// 
 			// FrmAssetDetail
 			// 
@@ -414,7 +398,7 @@ namespace DcsBriefop
 			this.panel1.PerformLayout();
 			this.PnDcsData.ResumeLayout(false);
 			this.PnDcsData.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DgvUnits)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.AdgvUnits)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -441,7 +425,6 @@ namespace DcsBriefop
 		private System.Windows.Forms.TextBox TbInformation;
 		private System.Windows.Forms.TextBox TbDescription;
 		private System.Windows.Forms.CheckBox CkIncluded;
-		private System.Windows.Forms.DataGridView DgvUnits;
 		private System.Windows.Forms.Label LbUnits;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Label LbDescription;
@@ -452,6 +435,6 @@ namespace DcsBriefop
 		private System.Windows.Forms.TextBox TbFunction;
 		private System.Windows.Forms.Label LbFunction;
 		private System.Windows.Forms.Label LbClass;
-		private System.Windows.Forms.CheckBox CkFilterExcluded;
+		private Zuby.ADGV.AdvancedDataGridView AdgvUnits;
 	}
 }

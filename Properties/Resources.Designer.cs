@@ -61,6 +61,31 @@ namespace DcsBriefop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to @echo off
+        ///
+        ///set mizPath=%~dp0
+        ///set mizFile=%1
+        ///set pathDcsBriefop=%2
+        ///
+        ///::set execution directory to the DcsBriefop installation path
+        ///pushd %pathDcsBriefop%
+        ///
+        ///@echo on
+        ///start &quot;&quot; %pathDcsBriefop% batch -m%mizPath%%mizName%
+        ///@echo off
+        ///
+        ///::reset execution directory
+        ///popd
+        ///
+        ///::pause.
+        /// </summary>
+        internal static string DcsBriefopBatch {
+            get {
+                return ResourceManager.GetString("DcsBriefopBatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap defaultMark {

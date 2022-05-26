@@ -79,7 +79,7 @@ namespace DcsBriefop
 			string sJsonBriefopCustom = "";
 			if (File.Exists(sCustomFilePath))
 				sJsonBriefopCustom = File.ReadAllText(sCustomFilePath);
-
+			
 			Miz = new DataMiz.Miz(sLuaMission, sLuaDictionnary, sJsonBriefopCustom);
 
 			Preferences.PreferencesManager.Preferences.General.WorkingDirectory = Path.GetDirectoryName(MizFilePath);
@@ -98,9 +98,12 @@ namespace DcsBriefop
 			if (MizFilePath.Equals(sFilePath))
 			{
 				// saving as the loaded file
-				string sArchivePath = $"{sFilePath}.{DateTime.Now:yyyyMMdd_HHmmss}";
-				Log.Info($"Archiving {sFilePath} as {sArchivePath}");
-				File.Copy(sFilePath, sArchivePath);
+				if (Preferences.PreferencesManager.Preferences.General.BackupBeforeOverwrite)
+				{
+					string sArchivePath = $"{sFilePath}.{DateTime.Now:yyyyMMdd_HHmmss}";
+					Log.Info($"Archiving {sFilePath} as {sArchivePath}");
+					File.Copy(sFilePath, sArchivePath);
+				}
 			}
 			else
 			{
@@ -118,6 +121,24 @@ namespace DcsBriefop
 				ToolsZip.ReplaceZipEntry(za, DataMiz.Miz.BriefopCustomZipEntryFullName, Miz.BriefopCustomData.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
 			}
 		}
+
+		public string MizBatchCommandFileName()
+		{
+			string sMizName = Path.GetFileNameWithoutExtension(MizFileName);
+			return Path.Combine(MizFileDirectory, $"{sMizName}.cmd");
+		}
+
+		public void MizBatchCommand()
+		{
+			string sCommandFilePath = MizBatchCommandFileName();
+			string sCommandFileContent = ToolsResources.GetTextResourceContent("DcsBriefopBatch", "cmd");
+			sCommandFileContent = sCommandFileContent.Replace("%1", MizFileName);
+			sCommandFileContent = sCommandFileContent.Replace("%2", System.Reflection.Assembly.GetExecutingAssembly().Location);
+			StreamWriter sw = File.CreateText(sCommandFilePath);
+			sw.Write(sCommandFileContent);
+			sw.Close();
+		}
+
 		#endregion
 	}
 }
