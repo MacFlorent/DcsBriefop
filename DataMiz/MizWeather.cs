@@ -131,8 +131,8 @@ namespace DcsBriefop.DataMiz
 
 		public string Preset { get; set; }
 		public int Density { get; set; } // Density over a 1-10 scale (does not apply with presets)
-		public int Thickness { get; set; } // Thickness in meters (does not apply with presets)
-		public int Base { get; set; } // Base in meters
+		public decimal Thickness { get; set; } // Thickness in meters (does not apply with presets)
+		public decimal Base { get; set; } // Base in meters
 		public int Precipitations { get; set; } // 0=none, 1=rain (does not apply with presets)
 
 		public MizWeatherCloud(LsonDict lsd) : base(lsd) { }
@@ -142,8 +142,8 @@ namespace DcsBriefop.DataMiz
 			if (Lsd.ContainsKey(LuaNode.Preset))
 				Preset = Lsd[LuaNode.Preset].GetString();
 			Density = Lsd[LuaNode.Density].GetInt();
-			Thickness = Lsd[LuaNode.Thickness].GetInt();
-			Base = Lsd[LuaNode.Base].GetInt();
+			Thickness = Lsd[LuaNode.Thickness].GetDecimal();
+			Base = Lsd[LuaNode.Base].GetDecimal();
 			Precipitations = Lsd[LuaNode.Precipitations].GetInt();
 		}
 
@@ -165,15 +165,15 @@ namespace DcsBriefop.DataMiz
 			public static readonly string Visibility = "visibility";
 		}
 
-		public int Thickness { get; set; } // Thickness in meters
-		public int Visibility { get; set; } // Visibility in meters
+		public decimal Thickness { get; set; } // Thickness in meters
+		public decimal Visibility { get; set; } // Visibility in meters
 
 		public MizWeatherFog(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
-			Thickness = Lsd[LuaNode.Thickness].GetInt();
-			Visibility = Lsd[LuaNode.Visibility].GetInt();
+			Thickness = Lsd[LuaNode.Thickness].GetDecimal();
+			Visibility = Lsd[LuaNode.Visibility].GetDecimal();
 		}
 
 		public override void ToLua()

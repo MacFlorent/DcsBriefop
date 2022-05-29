@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Tools;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -39,16 +40,22 @@ namespace DcsBriefop.UcBriefing
 			InitializeDataSource();
 			SetDataSource();
 			PostInitializeColumns();
+			InitializeContextMenu();
 		}
 
 		protected abstract void InitializeDataSource();
 
 		protected virtual void PostInitializeColumns()
 		{
-			foreach (DataGridViewColumn column in m_dgv.Columns)
+			if (ColumnsDisplayed is object)
 			{
-				if (ColumnsDisplayed is object && !ColumnsDisplayed.Contains(column.DataPropertyName))
-					column.Visible = false;
+				foreach (DataGridViewColumn column in m_dgv.Columns)
+				{
+					if (!ColumnsDisplayed.Contains(column.DataPropertyName))
+						column.Visible = false;
+					else
+						column.DisplayIndex = ColumnsDisplayed.IndexOf(column.DataPropertyName);
+				}
 			}
 		}
 
@@ -74,6 +81,16 @@ namespace DcsBriefop.UcBriefing
 			DataGridViewCellStyle cellStyle = dgvc.InheritedStyle;
 			return cellStyle;
 		}
+		#endregion
+
+		#region Menus
+		private void InitializeContextMenu()
+		{
+			m_dgv.ContextMenuStrip = new ContextMenuStrip();
+			m_dgv.ContextMenuStrip.Opening += (object sender, CancelEventArgs e) => { ContextMenuOpening(sender as ContextMenuStrip, m_dgv, e); };
+		}
+
+		protected virtual void ContextMenuOpening(ContextMenuStrip menu, DataGridView dgv, CancelEventArgs e) {}
 		#endregion
 
 		#region Events

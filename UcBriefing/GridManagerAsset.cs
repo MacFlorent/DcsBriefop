@@ -56,12 +56,6 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 
 		#region Methods
-		public override void Initialize()
-		{
-			base.Initialize();
-			InitializeContextMenu();
-		}
-
 		protected override void InitializeDataSource()
 		{
 			m_dtSource = new DataTable();
@@ -214,13 +208,7 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 
 		#region Menus
-		private void InitializeContextMenu()
-		{
-			m_dgv.ContextMenuStrip = new ContextMenuStrip();
-			m_dgv.ContextMenuStrip.Opening += (object sender, CancelEventArgs e) => { ContextMenuOpening(sender as ContextMenuStrip, m_dgv, e); };
-		}
-
-		private void ContextMenuOpening(ContextMenuStrip menu, DataGridView dgv, CancelEventArgs e)
+		protected override void ContextMenuOpening(ContextMenuStrip menu, DataGridView dgv, CancelEventArgs e)
 		{
 			List<Asset> selectedAssets = new List<Asset>();
 			foreach (DataGridViewRow row in GetSelectedRows())

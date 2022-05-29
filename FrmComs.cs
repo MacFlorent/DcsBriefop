@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
+using DcsBriefop.UcBriefing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -73,6 +74,8 @@ namespace DcsBriefop
 		private void DataToScreen()
 		{
 			DataToScreenGrid(DgvRadio1, 1);
+			//GridManagerComPreset gmcp = new GridManagerComPreset(DgvRadio1, m_listComPresets.Where(_p => _p.PresetRadio == 1).ToList(), m_briefingCoalition);
+			//gmcp.Initialize();
 			DataToScreenGrid(DgvRadio2, 2);
 		}
 

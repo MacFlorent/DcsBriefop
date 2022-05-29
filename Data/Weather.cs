@@ -48,7 +48,7 @@ namespace DcsBriefop.Data
 		public Weather(DataMiz.MizWeather mizWeather)
 		{
 			Preset = null;
-			if (WeatherPreset.WeatherPresets.TryGetValue(mizWeather.Cloud.Preset, out WeatherPreset wp))
+			if (!string.IsNullOrEmpty(mizWeather.Cloud.Preset) && WeatherPreset.WeatherPresets.TryGetValue(mizWeather.Cloud.Preset, out WeatherPreset wp))
 				Preset = wp;
 
 			WindGround = new WeatherWind(mizWeather.WindAtGround);
@@ -60,13 +60,13 @@ namespace DcsBriefop.Data
 			{
 				Fog = true;
 				if (mizWeather.Fog.Visibility < VisibilityMeter)
-					VisibilityMeter = mizWeather.Fog.Visibility;
+					VisibilityMeter = (int)mizWeather.Fog.Visibility;
 			}
 
 			if (Preset is object)
 			{
 				CloudDensityOkta = Preset.Density;
-				CloudBaseMeter = mizWeather.Cloud.Base;
+				CloudBaseMeter = (int)mizWeather.Cloud.Base;
 				if (Preset.Visibility is object && Preset.Visibility < VisibilityMeter)
 					VisibilityMeter = Preset.Visibility.Value;
 
@@ -79,7 +79,7 @@ namespace DcsBriefop.Data
 				else
 					CloudDensityOkta = mizWeather.Cloud.Density * 8 / 10; // density in mission editor is on a scale of 10
 
-				CloudBaseMeter = mizWeather.Cloud.Base;
+				CloudBaseMeter = (int)mizWeather.Cloud.Base;
 				Precipitation = mizWeather.Cloud.Precipitations > 0;
 			}
 
