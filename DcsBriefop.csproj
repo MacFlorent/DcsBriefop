@@ -270,6 +270,7 @@
     <Compile Include="Tools\ToolsBriefop.cs" />
     <Compile Include="Tools\ToolsResources.cs" />
     <Compile Include="Tools\ToolsStyle.cs" />
+    <Compile Include="Tools\ToolsTests.cs" />
     <Compile Include="Tools\ToolsZip.cs" />
     <Compile Include="UcBriefing\GridManager.cs" />
     <Compile Include="UcBriefing\GridManagerComPreset.cs" />

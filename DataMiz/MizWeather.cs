@@ -140,7 +140,7 @@ namespace DcsBriefop.DataMiz
 		public override void FromLua()
 		{
 			if (Lsd.ContainsKey(LuaNode.Preset))
-				Preset = Lsd[LuaNode.Preset].GetString();
+				Preset = Lsd[LuaNode.Preset]?.GetString();
 			Density = Lsd[LuaNode.Density].GetInt();
 			Thickness = Lsd[LuaNode.Thickness].GetDecimal();
 			Base = Lsd[LuaNode.Base].GetDecimal();

@@ -7,6 +7,7 @@ using System.Linq;
 namespace DcsBriefop.Data
 {
 	//https://wiki.hoggitworld.com/view/Threat_Database
+	//https://github.com/mrSkortch/DCS-miscScripts/tree/master/ObjectDB
 	internal class DcsUnit
 	{
 		public string Type { get; set; }
@@ -25,6 +26,7 @@ namespace DcsBriefop.Data
 			try
 			{
 				string sJsonStream = ToolsResources.GetJsonResourceContent("Units");
+				//string sJsonStream = ToolsResources.GetTextResourceContent("everyObject", "lua");
 				DcsUnits = JsonConvert.DeserializeObject<List<DcsUnit>>(sJsonStream);
 			}
 			catch (Exception e)

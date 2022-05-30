@@ -71,9 +71,35 @@ namespace DcsBriefop.UcBriefing
 			catch (Exception ex) { ToolsControls.ShowMessageBoxError(ex.Message); } // to check the problem addressed by "m_dgv.ColumnHeadersHeight = 25"
 		}
 
+		protected void ReplaceColumnWithComboBox(string sColumnName, string sHeaderText, object dataSource, string sValueMember, string sDisplayMember)
+		{
+			if (!m_dgv.Columns.Contains(sColumnName))
+				return;
+
+			DataGridViewColumn dgvc = m_dgv.Columns[sColumnName];
+			int iDisplayIndex = dgvc.DisplayIndex;
+			m_dgv.Columns.Remove(dgvc);
+
+			DataGridViewComboBoxColumn dgvcComboBox = new DataGridViewComboBoxColumn() { Name = sColumnName, DataPropertyName = sColumnName, HeaderText = sHeaderText };
+			if (dataSource is object)
+			{
+				dgvcComboBox.DataSource = dataSource;
+				dgvcComboBox.ValueMember = sValueMember;
+				dgvcComboBox.DisplayMember = sDisplayMember;
+			}
+
+			dgvcComboBox.DisplayIndex = iDisplayIndex;
+			m_dgv.Columns.Add(dgvcComboBox);
+		}
+
 		protected IEnumerable<DataGridViewRow> GetSelectedRows()
 		{
 			return m_dgv.SelectedCells.Cast<DataGridViewCell>().Select(_dgvc => _dgvc.OwningRow).Distinct();
+		}
+
+		protected IEnumerable<DataRow> GetSelectedDataRows()
+		{
+			return GetSelectedRows().Select(_dgvr => (_dgvr.DataBoundItem as DataRowView)?.Row).Where(_r => _r is object);
 		}
 
 		protected virtual DataGridViewCellStyle CellFormatting(DataGridViewCell dgvc)

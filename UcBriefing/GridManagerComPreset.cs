@@ -27,6 +27,9 @@ namespace DcsBriefop.UcBriefing
 		#region Fields
 		private List<ComPreset> m_comPresets;
 		private BriefingCoalition m_briefingCoalition;
+		private List<MasterDataObject> AssetEmpty = new List<MasterDataObject>() { new MasterDataObject() { Id = 0, Label = "None" } };
+		private List<MasterDataObject> AssetAirdromes = new List<MasterDataObject>();
+		private List<MasterDataObject> AssetGroups = new List<MasterDataObject>();
 		#endregion
 
 		#region Properties
@@ -38,11 +41,20 @@ namespace DcsBriefop.UcBriefing
 			m_comPresets = comPresets;
 			m_briefingCoalition = briefingCoalition;
 
+			AssetAirdromes.Add(new MasterDataObject() { Id = 0, Label = "-invalid airdrome-" });
+			foreach (AssetAirdrome airdrome in m_briefingCoalition.Airdromes)
+				AssetAirdromes.Add(new MasterDataObject() { Id = airdrome.Id, Label = airdrome.Name });
+
+			AssetGroups.Add(new MasterDataObject() { Id = 0, Label = "-invalid group-" });
+			foreach (AssetGroup group in m_briefingCoalition.OwnAssets.OfType<AssetGroup>().Where(_g => !string.IsNullOrEmpty (_g.GetRadioString())))
+				AssetGroups.Add(new MasterDataObject() { Id = group.Id, Label = group.Name });
+
 			m_dgv.CellEndEdit += CellEndEdit;
-			//m_dgv.DataError += CellDataError;
-			m_dgv.EditingControlShowing += CellEditingControlShowing;
-			m_dgv.DataBindingComplete += (sender, e) => { RefreshGridRowsReadOnly(); };
+			m_dgv.CellValueChanged += CellValueChangedEvent;
+			m_dgv.DataError += CellDataError;
+			m_dgv.DataBindingComplete += (sender, e) => { RefreshGridRows(); };
 		}
+
 		#endregion
 
 		#region Methods
@@ -51,7 +63,7 @@ namespace DcsBriefop.UcBriefing
 			m_dtSource = new DataTable();
 
 			m_dtSource.Columns.Add(GridColumn.PresetNumber, typeof(int));
-			m_dtSource.Columns.Add(GridColumn.Mode, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.Mode, typeof(ElementComPresetMode));
 			m_dtSource.Columns.Add(GridColumn.Asset, typeof(int));
 			m_dtSource.Columns.Add(GridColumn.Label, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Frequency, typeof(decimal));
@@ -59,91 +71,15 @@ namespace DcsBriefop.UcBriefing
 			m_dtSource.Columns.Add(GridColumn.Data, typeof(ComPreset));
 
 			foreach (ComPreset preset in m_comPresets)
-				RefreshDataSourceRow(preset);
+				InitializeDataSourceAddRow(preset);
 		}
 
-		private void RefreshDataSourceRow(ComPreset preset)
+		private void InitializeDataSourceAddRow(ComPreset preset)
 		{
-			DataRow dr = m_dtSource.AsEnumerable().Where(_dr => _dr.Field<ComPreset>(GridColumn.Data) == preset).FirstOrDefault();
-
-			if (dr is null)
-			{
-				dr = m_dtSource.NewRow();
-				dr.SetField(GridColumn.Data, preset);
-				m_dtSource.Rows.Add(dr);
-			}
-
-			dr.ClearErrors();
-
-			dr.SetField(GridColumn.PresetNumber, preset.PresetNumber);
-			dr.SetField(GridColumn.Mode, MasterDataRepository.GetById(MasterDataType.ComPresetMode, (int)preset.Mode)?.Label);
-			dr.SetField(GridColumn.Asset, preset.AssetId);
-			dr.SetField(GridColumn.Label, preset.Label);
-			dr.SetField(GridColumn.Frequency, preset.Radio?.Frequency);
-			dr.SetField(GridColumn.Modulation, preset.Radio?.Modulation);
-		}
-
-		private void RefreshGridRowsReadOnly()
-		{
-			foreach (DataGridViewRow dgvr in m_dgv.Rows)
-				RefreshGridRowReadOnly(dgvr);
-		}
-
-		private void RefreshGridRowReadOnly(DataGridViewRow dgvr)
-		{
-			ComPreset preset = dgvr.Cells[GridColumn.Data].Value as ComPreset;
-			if (preset is null)
-			{
-				dgvr.Cells[GridColumn.Asset].ReadOnly = true;
-				dgvr.Cells[GridColumn.Label].ReadOnly = true;
-				dgvr.Cells[GridColumn.Frequency].ReadOnly = true;
-				dgvr.Cells[GridColumn.Modulation].ReadOnly = true;
-			}
-			else if (preset.Mode == ElementComPresetMode.Free)
-			{
-				dgvr.Cells[GridColumn.Asset].ReadOnly = true;
-				dgvr.Cells[GridColumn.Label].ReadOnly = false;
-				dgvr.Cells[GridColumn.Frequency].ReadOnly = false;
-				dgvr.Cells[GridColumn.Modulation].ReadOnly = false;
-			}
-			else
-			{
-				dgvr.Cells[GridColumn.Asset].ReadOnly = false;
-				dgvr.Cells[GridColumn.Label].ReadOnly = true;
-
-				Asset asset = preset.GetAsset(m_briefingCoalition);
-				if (asset is AssetAirdrome airdrome && (airdrome.Radios is null || airdrome.Radios.Count <= 0))
-				{
-					dgvr.Cells[GridColumn.Frequency].ReadOnly = false;
-					dgvr.Cells[GridColumn.Modulation].ReadOnly = false;
-				}
-				else
-				{
-					dgvr.Cells[GridColumn.Frequency].ReadOnly = true;
-					dgvr.Cells[GridColumn.Modulation].ReadOnly = true;
-				}
-			}
-		}
-
-		private void ReplaceColumnWithComboBox(string sColumnName, string sHeaderText, object dataSource, string sValueMember, string sDisplayMember)
-		{
-			if (!m_dgv.Columns.Contains(sColumnName))
-				return;
-
-			DataGridViewColumn dgvc = m_dgv.Columns[sColumnName];
-			int iDisplayIndex = dgvc.DisplayIndex;
-			m_dgv.Columns.Remove(dgvc);
-
-			DataGridViewComboBoxColumn dgvcComboBox = new DataGridViewComboBoxColumn() { Name = sColumnName, DataPropertyName = sColumnName, HeaderText = sHeaderText };
-			if (dataSource is object)
-			{
-				dgvcComboBox.DataSource = dataSource;
-				dgvcComboBox.ValueMember = sValueMember;
-				dgvcComboBox.DisplayMember = sDisplayMember;
-			}
-
-			dgvcComboBox.DisplayIndex = iDisplayIndex;
-			m_dgv.Columns.Add(dgvcComboBox);
+			DataRow dr = m_dtSource.NewRow();
+			dr.SetField(GridColumn.Data, preset);
+			m_dtSource.Rows.Add(dr);
+			ObjectToDataRow(dr);
 		}
 
 		protected override void PostInitializeColumns()
@@ -151,7 +87,7 @@ namespace DcsBriefop.UcBriefing
 			base.PostInitializeColumns();
 
 			ReplaceColumnWithComboBox(GridColumn.Modulation, "Mod.", MasterDataRepository.GetMasterDataList(MasterDataType.RadioModulation), MasterDataColumn.Id, MasterDataColumn.Label);
-		//https://stackoverflow.com/questions/27201551/datagridview-comboboxcolumn-different-values-for-each-row
+			ReplaceColumnWithComboBox(GridColumn.Mode, "Mode", MasterDataRepository.GetMasterDataList(MasterDataType.ComPresetMode), MasterDataColumn.Id, MasterDataColumn.Label);
 			ReplaceColumnWithComboBox(GridColumn.Asset, "Asset", null, "Id", "Name");
 			//m_dgv.Columns.Remove(m_dgv.Columns[GridColumn.Modulation]);
 			//DataGridViewComboBoxColumn colModulation = new DataGridViewComboBoxColumn() { Name = GridColumn.Modulation, DataPropertyName = GridColumn.Modulation, HeaderText = "Mod." };
@@ -161,7 +97,7 @@ namespace DcsBriefop.UcBriefing
 			//m_dgv.Columns.Add(colModulation);
 
 			m_dgv.Columns[GridColumn.PresetNumber].ReadOnly = true;
-			m_dgv.Columns[GridColumn.Mode].ReadOnly = true;
+			//m_dgv.Columns[GridColumn.Mode].ReadOnly = true;
 			m_dgv.Columns[GridColumn.Data].Visible = false;
 			m_dgv.Columns[GridColumn.Label].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 			m_dgv.Columns[GridColumn.Frequency].DefaultCellStyle.Format = "##0.000";
@@ -170,53 +106,149 @@ namespace DcsBriefop.UcBriefing
 			//m_dgv.Columns[GridColumn.Asset].HeaderText = "Asset ID";
 		}
 
-		private void SetMode(List<ComPreset> presets, ElementComPresetMode mode, DataGridView dgv)
+		private void ObjectToDataRow(DataRow dr)
 		{
-			foreach (ComPreset preset in presets)
+			ComPreset preset = dr.Field<ComPreset>(GridColumn.Data);
+
+			dr.SetField(GridColumn.PresetNumber, preset.PresetNumber);
+			dr.SetField(GridColumn.Mode,preset.Mode);
+			dr.SetField(GridColumn.Asset, preset.AssetId);
+			dr.SetField(GridColumn.Label, preset.Label);
+			dr.SetField(GridColumn.Frequency, preset.RadioFrequency);
+			dr.SetField(GridColumn.Modulation, preset.RadioModulation);
+		}
+
+		private void DataRowToObject(DataRow dr)
+		{
+			ComPreset preset = dr.Field<ComPreset>(GridColumn.Data);
+
+			preset.PresetNumber = dr.Field<int>(GridColumn.PresetNumber);
+			preset.Mode = dr.Field<ElementComPresetMode>(GridColumn.Mode);
+			preset.AssetId = dr.Field<int>(GridColumn.Asset);
+			preset.Label = dr.Field<string>(GridColumn.Label);
+			preset.RadioFrequency = dr.Field<decimal?>(GridColumn.Frequency);
+			preset.RadioModulation = dr.Field<int?>(GridColumn.Modulation);
+			preset.Compute(m_briefingCoalition);
+		}
+
+		private void RefreshGridRows()
+		{
+			foreach (DataGridViewRow dgvr in m_dgv.Rows)
+				RefreshGridRow(dgvr);
+		}
+		
+		private void RefreshGridRow(DataGridViewRow dgvr)
+		{
+			ComPreset preset = dgvr.Cells[GridColumn.Data].Value as ComPreset;
+
+			DataGridViewComboBoxCell cbAsset = dgvr.Cells[GridColumn.Asset] as DataGridViewComboBoxCell;
+			if (cbAsset is null)
+				return;
+
+			dgvr.Cells[GridColumn.Asset].ReadOnly = true;
+			dgvr.Cells[GridColumn.Label].ReadOnly = true;
+			dgvr.Cells[GridColumn.Frequency].ReadOnly = true;
+			dgvr.Cells[GridColumn.Modulation].ReadOnly = true;
+
+			if (preset is object)
 			{
-				if (preset.Mode != mode)
+				if (preset.Mode == ElementComPresetMode.Free)
 				{
-					preset.Mode = mode;
-					preset.Compute(m_briefingCoalition);
-					RefreshDataSourceRow(preset);
+					cbAsset.DataSource = AssetEmpty;
+					cbAsset.ValueMember = MasterDataColumn.Id;
+					cbAsset.DisplayMember = MasterDataColumn.Label;
+
+					dgvr.Cells[GridColumn.Asset].ReadOnly = true;
+					dgvr.Cells[GridColumn.Label].ReadOnly = false;
+					dgvr.Cells[GridColumn.Frequency].ReadOnly = false;
+					dgvr.Cells[GridColumn.Modulation].ReadOnly = false;
+				}
+				else if (preset.Mode == ElementComPresetMode.Airdrome)
+				{
+					cbAsset.DataSource = AssetAirdromes;
+					cbAsset.ValueMember = MasterDataColumn.Id;
+					cbAsset.DisplayMember = MasterDataColumn.Label;
+
+					dgvr.Cells[GridColumn.Asset].ReadOnly = false;
+					dgvr.Cells[GridColumn.Label].ReadOnly = true;
+
+					Asset asset = preset.GetAsset(m_briefingCoalition);
+					if (asset is AssetAirdrome airdrome && (airdrome.Radios is null || airdrome.Radios.Count <= 0))
+					{
+						dgvr.Cells[GridColumn.Frequency].ReadOnly = false;
+						dgvr.Cells[GridColumn.Modulation].ReadOnly = false;
+					}
+					else
+					{
+						dgvr.Cells[GridColumn.Frequency].ReadOnly = true;
+						dgvr.Cells[GridColumn.Modulation].ReadOnly = true;
+					}
+				}
+				else if (preset.Mode == ElementComPresetMode.Group)
+				{
+					cbAsset.DataSource = AssetGroups;
+					cbAsset.ValueMember = MasterDataColumn.Id;
+					cbAsset.DisplayMember = MasterDataColumn.Label;
+
+					dgvr.Cells[GridColumn.Asset].ReadOnly = false;
+					dgvr.Cells[GridColumn.Label].ReadOnly = true;
+					dgvr.Cells[GridColumn.Frequency].ReadOnly = true;
+					dgvr.Cells[GridColumn.Modulation].ReadOnly = true;
 				}
 			}
 		}
 
-		private void SetRadio(ComPreset preset, Radio radio, DataGridView dgv)
+		private void SetMode(IEnumerable<DataGridViewRow> dgvrl, ElementComPresetMode mode)
 		{
+			foreach (DataGridViewRow dgvr in dgvrl)
+			{
+				DataRow dr = (dgvr.DataBoundItem as DataRowView)?.Row;
+				ComPreset preset = dr.Field<ComPreset>(GridColumn.Data);
+				if (preset.Mode != mode)
+				{
+					preset.Mode = mode;
+					preset.Compute(m_briefingCoalition);
+					ObjectToDataRow(dr);
+					RefreshGridRow(dgvr);
+				}
+			}
+		}
+
+		private void SetRadio(DataGridViewRow dgvr, Radio radio)
+		{
+			DataRow dr = (dgvr.DataBoundItem as DataRowView)?.Row;
+			ComPreset preset = dr.Field<ComPreset>(GridColumn.Data);
 			preset.Radio = radio.GetCopy();
-			RefreshDataSourceRow(preset);
+			ObjectToDataRow(dr);
+			RefreshGridRow(dgvr);
 		}
 		#endregion
 
 		#region Menus
 		protected override void ContextMenuOpening(ContextMenuStrip menu, DataGridView dgv, CancelEventArgs e)
 		{
-			List<ComPreset> selectedPresets = new List<ComPreset>();
-			foreach (DataGridViewRow row in GetSelectedRows())
-			{
-				if (row.Cells[GridColumn.Data].Value is ComPreset preset)
-				{
-					selectedPresets.Add(preset);
-				}
-			}
-			ComPreset singleSelected = selectedPresets.Count == 1 ? selectedPresets[0] as ComPreset : null;
+			IEnumerable<DataGridViewRow> dgvrlSelected = GetSelectedRows();
+			DataGridViewRow dgvrSingleSelected = dgvrlSelected.Count() == 1 ? dgvrlSelected.First() : null;
 
 			menu.Items.Clear();
 
-			if (selectedPresets.Count > 0)
+			if (dgvrlSelected.Count() > 0)
 			{
-				menu.Items.AddMenuItem("Free", (object _sender, EventArgs _e) => { SetMode(selectedPresets, ElementComPresetMode.Free, dgv); });
-				menu.Items.AddMenuItem("Airdrome", (object _sender, EventArgs _e) => { SetMode(selectedPresets, ElementComPresetMode.Airdrome, dgv); });
-				menu.Items.AddMenuItem("Group", (object _sender, EventArgs _e) => { SetMode(selectedPresets, ElementComPresetMode.Group, dgv); });
+				menu.Items.AddMenuItem("Free", (object _sender, EventArgs _e) => { SetMode(dgvrlSelected, ElementComPresetMode.Free); });
+				menu.Items.AddMenuItem("Airdrome", (object _sender, EventArgs _e) => { SetMode(dgvrlSelected, ElementComPresetMode.Airdrome); });
+				menu.Items.AddMenuItem("Group", (object _sender, EventArgs _e) => { SetMode(dgvrlSelected, ElementComPresetMode.Group); });
 
-				if (singleSelected is object && singleSelected.GetAsset(m_briefingCoalition) is AssetAirdrome airdrome && airdrome.Radios is object && airdrome.Radios.Count() > 1)
+				if (dgvrSingleSelected is object)
 				{
-					menu.Items.AddMenuSeparator();
-					foreach (Radio radio in airdrome.Radios)
+					DataRow dr = (dgvrSingleSelected.DataBoundItem as DataRowView)?.Row;
+					ComPreset preset = dr.Field<ComPreset>(GridColumn.Data);
+					if (preset.GetAsset(m_briefingCoalition) is AssetAirdrome airdrome && airdrome.Radios is object && airdrome.Radios.Count() > 1)
 					{
-						menu.Items.AddMenuItem($"Set radio {radio}", (object _sender, EventArgs _e) => { SetRadio(singleSelected, radio, dgv); });
+						menu.Items.AddMenuSeparator();
+						foreach (Radio radio in airdrome.Radios)
+						{
+							menu.Items.AddMenuItem($"Set radio {radio}", (object _sender, EventArgs _e) => { SetRadio(dgvrSingleSelected, radio); });
+						}
 					}
 				}
 			}
@@ -242,64 +274,55 @@ namespace DcsBriefop.UcBriefing
 			if (dgv is null)
 				return;
 
-			ComPreset preset = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as ComPreset;
+			DataGridViewRow dgvr = dgv.Rows[e.RowIndex];
+			DataRow dr = (dgvr.DataBoundItem as DataRowView)?.Row;
 
-			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
-			DataGridViewCell cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-			if (column.DataPropertyName == GridColumn.Frequency)
-				preset.RadioFrequency = cell.Value as decimal?;
-			else if (column.DataPropertyName == GridColumn.Modulation)
-				preset.RadioModulation = (cell as DataGridViewComboBoxCell).Value as int?;
-			else if (column.DataPropertyName == GridColumn.Asset)
-				preset.AssetId = (int)cell.Value;
-			else if (column.DataPropertyName == GridColumn.Label)
-				preset.Label = cell.Value as string;
-
-			preset.Compute(m_briefingCoalition);
-			RefreshDataSourceRow(preset);
-			RefreshGridRowReadOnly(cell.OwningRow);
-			ComPresetModified?.Invoke(this, new EventArgsComPreset() { ComPreset = preset });
-		}
-
-		//private void CellDataError(object sender, DataGridViewDataErrorEventArgs e)
-		//{
-		//	DataGridView dgv = (sender as DataGridView); 
-		//	DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
-		//	DataGridViewRow row = dgv.Rows[e.RowIndex];
-		//	DataRow drSource = (row.DataBoundItem as DataRowView)?.Row;
-
-		//	if (column.DataPropertyName == GridColumn.Asset)
-		//		drSource.SetColumnError(column.DataPropertyName, "invalid asset");
-		//	else if (column.DataPropertyName == GridColumn.Modulation)
-		//		drSource.SetColumnError(column.DataPropertyName, "invalid modulation");
-		//	else
-		//		e.ThrowException = true;
-		//}
-
-		private void CellEditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-		{
-			DataGridView dgv = (sender as DataGridView);
-			DataGridViewCell cell = dgv.CurrentCell;
-			DataGridViewColumn column = cell.OwningColumn;
-			DataGridViewRow row = cell.OwningRow;
-			DataRow drSource = (row.DataBoundItem as DataRowView)?.Row;
-			ComPreset preset = row.Cells[GridColumn.Data].Value as ComPreset;
-
-			if (column.DataPropertyName == GridColumn.Asset && e.Control is ComboBox cb)
+			if (dr is object)
 			{
-				cb.DropDownStyle = ComboBoxStyle.DropDownList;
-				if (preset.Mode == ElementComPresetMode.Airdrome)
-				{
-					cb.DataSource = m_briefingCoalition.Airdromes;
-				}
-				if (preset.Mode == ElementComPresetMode.Group)
-				{
-					cb.DataSource = m_briefingCoalition.OwnAssets;
-				}
+				DataRowToObject(dr);
+				ObjectToDataRow(dr);
+				RefreshGridRow(dgvr);
+
+				ComPresetModified?.Invoke(this, new EventArgsComPreset() { ComPreset = dr.Field<ComPreset>(GridColumn.Data) });
 			}
 		}
 
+		private void CellValueChangedEvent(object sender, DataGridViewCellEventArgs e)
+		{
+			//if (e.RowIndex < 0)
+			//	return;
+
+			//DataGridView dgv = (sender as DataGridView);
+			//if (dgv is null)
+			//	return;
+
+			//DataGridViewRow dgvr = dgv.Rows[e.RowIndex];
+			//DataRow dr = (dgvr.DataBoundItem as DataRowView)?.Row;
+
+			//if (dr is object)
+			//{
+			//	DataRowToObject(dr);
+			//	ObjectToDataRow(dr);
+			//	RefreshGridRow(dgvr);
+
+			//	ComPresetModified?.Invoke(this, new EventArgsComPreset() { ComPreset = dr.Field<ComPreset>(GridColumn.Data) });
+			//}
+		}
+
+		private void CellDataError(object sender, DataGridViewDataErrorEventArgs e)
+		{
+			//DataGridView dgv = (sender as DataGridView);
+			//DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
+			//DataGridViewRow row = dgv.Rows[e.RowIndex];
+			//DataRow drSource = (row.DataBoundItem as DataRowView)?.Row;
+
+			//if (column.DataPropertyName == GridColumn.Asset)
+			//	drSource.SetColumnError(column.DataPropertyName, "invalid asset");
+			//else if (column.DataPropertyName == GridColumn.Modulation)
+			//	drSource.SetColumnError(column.DataPropertyName, "invalid modulation");
+			//else
+			//	e.ThrowException = true;
+		}
 		#endregion
 	}
 }
