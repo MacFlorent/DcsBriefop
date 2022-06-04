@@ -96,6 +96,7 @@ namespace DcsBriefop.Data
 			MizRoutePoint.Action = Action;
 			MizRoutePoint.Type = Type;
 		}
+
 		public override string GetOrbitPattern()
 		{
 			string sOrbitPattern = null;
@@ -123,6 +124,13 @@ namespace DcsBriefop.Data
 		{
 			//sLocalisation = $"{point.Coordinate.ToStringDMS()}{Environment.NewLine}{point.Coordinate.ToStringDDM()}{Environment.NewLine}{point.Coordinate.ToStringMGRS()}";
 			return $"{Coordinate.ToStringMGRS()}{Environment.NewLine}{AltitudeFeet} ft";
+		}
+
+		public void SetYX(decimal dY, decimal dX)
+		{
+			MizRoutePoint.Y = dY;
+			MizRoutePoint.X = dX;
+			Coordinate = Core.Theatre.GetCoordinate(MizRoutePoint.Y, MizRoutePoint.X);
 		}
 		#endregion
 	}

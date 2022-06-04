@@ -49,7 +49,7 @@ namespace DcsBriefop.Data
 			Description = m_unit.Type;
 			Coordinate = Core.Theatre.GetCoordinate(m_unit.Y, m_unit.X);
 
-			DcsUnit dcsUnit = DcsUnitManager.GetUnit(Type);
+			DcsObject dcsUnit = DcsObjectManager.GetObject(Type);
 			if (dcsUnit is object)
 			{
 				Description = dcsUnit.Description;

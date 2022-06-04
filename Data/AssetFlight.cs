@@ -37,7 +37,7 @@ namespace DcsBriefop.Data
 		{
 			base.InitializeData();
 
-			MapMarker = GetMarkerFromUnit() ?? ElementMapTemplateMarker.Aircraft;
+			MapMarker = GetMarkerFromUnit();
 
 			MizUnitFlight mizUnitFlight = MizGroupFlight.Units.OfType<MizUnitFlight>().FirstOrDefault();
 			if (mizUnitFlight is object && mizUnitFlight.Callsign is MizCallsign callsign)
@@ -240,9 +240,12 @@ namespace DcsBriefop.Data
 				routePoint.Name = m_sBullsPointName;
 
 				MapPoints.Insert(1, routePoint);
+				NumberMapPoints();
 			}
-
-			NumberMapPoints();
+			else
+			{
+				bullsPoint.SetYX(Coalition.MizCoalition.BullseyeY, Coalition.MizCoalition.BullseyeX);
+			}
 		}
 
 		private void RemoveBullseyeWaypoint()
@@ -258,7 +261,7 @@ namespace DcsBriefop.Data
 		{
 			//dataCartridge F18
 			// bullseye m2000
-
+			Log.Info("Updating BULLS waypoints status");
 			if (bWithWaypoint && Playable)
 				AddBullseyeWaypoint();
 			else

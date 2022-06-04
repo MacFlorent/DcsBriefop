@@ -29,7 +29,7 @@ namespace DcsBriefop.Data
 		{
 			base.InitializeData();
 			
-			MapMarker = GetMarkerFromUnit() ?? ElementMapTemplateMarker.Ship;
+			MapMarker = GetMarkerFromUnit();
 
 				MainUnit = GroupShip.Units.OfType<MizUnitShip>().Where(_us => _us.Type.StartsWith("CVN")).FirstOrDefault();
 			if (MainUnit is null)

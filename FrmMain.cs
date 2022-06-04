@@ -1,7 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
 using DcsBriefop.UcBriefing;
-using MoreLinq;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -114,6 +113,12 @@ namespace DcsBriefop
 					MizSave(sfd.FileName);
 				}
 			}
+		}
+
+		private void OpenDatabaseUnits()
+		{
+			FrmDatabaseDcsObject f = new FrmDatabaseDcsObject();
+			f.ShowDialog();
 		}
 
 		private void OpenPreferences()
@@ -238,12 +243,11 @@ namespace DcsBriefop
 			tsmiMiz.DropDownItems.AddMenuItem("Save as", (object _sender, EventArgs _e) => { MizSaveAs(); });
 			tsmiMiz.DropDownItems.AddMenuSeparator();
 			tsmiMiz.DropDownItems.AddMenuItem("Test (do not use)", (object _sender, EventArgs _e) => { Test(); });
-			tsmiMiz.DropDownItems.AddMenuSeparator();
-			tsmiMiz.DropDownItems.AddMenuItem("Preferences", (object _sender, EventArgs _e) => { OpenPreferences(); });
+
 			if (Preferences.PreferencesManager.Preferences.General.RecentMiz.Count > 0)
 			{
 				tsmiMiz.DropDownItems.AddMenuSeparator();
-				foreach(string sRecentMizFilePath in Preferences.PreferencesManager.Preferences.General.RecentMiz)
+				foreach (string sRecentMizFilePath in Preferences.PreferencesManager.Preferences.General.RecentMiz)
 					tsmiMiz.DropDownItems.AddMenuItem(sRecentMizFilePath, (object _sender, EventArgs _e) => { MizOpen(sRecentMizFilePath); });
 			}
 			tsmiMiz.DropDownItems.AddMenuSeparator();
@@ -261,7 +265,13 @@ namespace DcsBriefop
 			tsmiBriefing.DropDownItems.AddMenuSeparator();
 			tsmiBriefing.DropDownItems.AddMenuItem("Kneeboard generation preferences", (object _sender, EventArgs _e) => { OpenPreferencesMizGenerate(); });
 			tsmiBriefing.DropDownItems.AddMenuItem("Mission preferences", (object _sender, EventArgs _e) => { OpenPreferencesMiz(); });
-			
+
+			ToolStripMenuItem tsmiTools = MainMenu.Items.AddMenuItem("Tools", null);
+			MainMenu.Items.Add(tsmiTools);
+			tsmiTools.DropDownItems.AddMenuItem("Preferences", (object _sender, EventArgs _e) => { OpenPreferences(); });
+			tsmiTools.DropDownItems.AddMenuSeparator();
+			tsmiTools.DropDownItems.AddMenuItem("Unit database", (object _sender, EventArgs _e) => { OpenDatabaseUnits(); });
+
 		}
 
 		private void AddMenuCoalition(ToolStripMenuItem tsmiBriefingCoalitions, string sCoalitionName)

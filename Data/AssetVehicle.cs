@@ -22,7 +22,7 @@ namespace DcsBriefop.Data
 		{
 			base.InitializeData();
 
-			MapMarker = GetMarkerFromUnit() ?? ElementMapTemplateMarker.Ground;
+			MapMarker = GetMarkerFromUnit();
 
 			Type = GroupVehicle.Units.FirstOrDefault()?.Type;
 		}

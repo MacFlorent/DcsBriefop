@@ -58,6 +58,7 @@ namespace DcsBriefop.Data
 			InitializeDataCustom();
 			InitializeData();
 
+			InitializeBullseyeWaypoints();
 			ComPresets?.Compute(this);
 
 		}

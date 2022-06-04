@@ -6,7 +6,7 @@ namespace DcsBriefop.Preferences
 {
 	internal class PreferencesManager
 	{
-		private static readonly string mN_sPreferencesResourceName = "preferences";
+		private static readonly string m_sPreferencesResourceName = "preferences";
 		private static Preferences m_preferences;
 
 		public static Preferences Preferences
@@ -23,7 +23,7 @@ namespace DcsBriefop.Preferences
 
 		public static void Load()
 		{
-			string sJsonStream = ToolsResources.GetJsonResourceContent(mN_sPreferencesResourceName);
+			string sJsonStream = ToolsResources.GetJsonResourceContent(m_sPreferencesResourceName);
 			if (string.IsNullOrEmpty(sJsonStream))
 			{
 				m_preferences = new Preferences();
@@ -37,7 +37,7 @@ namespace DcsBriefop.Preferences
 
 		public static void Save()
 		{
-			string sResourceFilePath = ToolsResources.GetResourceFileFullPath(mN_sPreferencesResourceName, "json");
+			string sResourceFilePath = ToolsResources.GetResourceFileFullPath(m_sPreferencesResourceName, "json");
 			File.WriteAllText(sResourceFilePath, JsonConvert.SerializeObject(Preferences, Formatting.Indented));
 		}
 	}

@@ -119,9 +119,9 @@ namespace DcsBriefop.Data
 		{
 			string sMarker = null;
 
-			DcsUnit dcsUnit = DcsUnitManager.GetUnit(Units.FirstOrDefault()?.Type);
-			if (dcsUnit is object)
-				sMarker = dcsUnit.MapMarker;
+			DcsObject dcsObject = DcsObjectManager.GetObject(Units.FirstOrDefault()?.Type);
+			if (dcsObject is object)
+				sMarker = dcsObject.MapMarker;
 
 			return sMarker;
 		}

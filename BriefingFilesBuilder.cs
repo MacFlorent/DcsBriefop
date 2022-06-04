@@ -123,7 +123,7 @@ namespace DcsBriefop
 
 			foreach (AssetFlight asset in coalition.OwnAssets.OfType<AssetFlight>().Where(_a => _a.MissionData is object))
 			{
-				DcsUnit dcsUnit = DcsUnitManager.GetUnit(asset.Type);
+				DcsObject dcsUnit = DcsObjectManager.GetObject(asset.Type);
 				if (dcsUnit is object && !string.IsNullOrEmpty(dcsUnit.KneeboardFolder))
 					sKneeboardFolder = dcsUnit.KneeboardFolder;
 				else
