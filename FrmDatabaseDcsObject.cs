@@ -12,7 +12,7 @@ namespace DcsBriefop
 		private static class GridColumn
 		{
 			public static readonly string Type = "Type";
-			public static readonly string Description = "Description";
+			public static readonly string DisplayName = "DisplayName";
 			public static readonly string Class = "Class";
 			public static readonly string Attributes = "Attributes";
 			public static readonly string MapMarker = "MapMarker";
@@ -32,9 +32,6 @@ namespace DcsBriefop
 		{
 			InitializeComponent();
 
-			AdgvDatabase.SetDataGridViewProperties();
-			AdgvDatabase.AutoGenerateColumns = false;
-
 			ToolsStyle.ApplyStyle(this);
 			ToolsStyle.ButtonOk(BtSave);
 			ToolsStyle.ButtonCancel(BtClose);
@@ -49,7 +46,7 @@ namespace DcsBriefop
 		{
 			m_dtGridSource = new DataTable();
 			m_dtGridSource.Columns.Add(GridColumn.Type, typeof(string));
-			m_dtGridSource.Columns.Add(GridColumn.Description, typeof(string));
+			m_dtGridSource.Columns.Add(GridColumn.DisplayName, typeof(string));
 			m_dtGridSource.Columns.Add(GridColumn.Class, typeof(string));
 			m_dtGridSource.Columns.Add(GridColumn.Attributes, typeof(string));
 			m_dtGridSource.Columns.Add(GridColumn.MapMarker, typeof(string));
@@ -71,7 +68,7 @@ namespace DcsBriefop
 		{
 			DcsObject dcsObject = dr.Field<DcsObject>(GridColumn.Data);
 			dr.SetField(GridColumn.Type, dcsObject.TypeName);
-			dr.SetField(GridColumn.Description, dcsObject.Description);
+			dr.SetField(GridColumn.DisplayName, dcsObject.DisplayName);
 			dr.SetField(GridColumn.Class, dcsObject.Class.ToString());
 			dr.SetField(GridColumn.Attributes, dcsObject.Attributes.ToString());
 			dr.SetField(GridColumn.MapMarker, dcsObject.CustomMapMarker);
@@ -83,7 +80,7 @@ namespace DcsBriefop
 		private void DataRowToObject(DataRow dr)
 		{
 			DcsObject dcsObject = dr.Field<DcsObject>(GridColumn.Data);
-			dcsObject.Description = dr.Field<string>(GridColumn.Description);
+			dcsObject.DisplayName = dr.Field<string>(GridColumn.DisplayName);
 			dcsObject.CustomMapMarker = dr.Field<string>(GridColumn.MapMarker);
 			dcsObject.Information = dr.Field<string>(GridColumn.Information);
 			dcsObject.MainInGroup = dr.Field<bool>(GridColumn.MainInGroup);
@@ -92,26 +89,26 @@ namespace DcsBriefop
 
 		private void InitializeGridColumns()
 		{
-			AdgvDatabase.Columns.Clear();
+			DgvDatabase.Columns.Clear();
 
-			AdgvDatabase.AddColumn<string>(GridColumn.Type, "Type").ReadOnly = true;
-			AdgvDatabase.AddColumn<string>(GridColumn.Description, "Description");
-			AdgvDatabase.AddColumn<string>(GridColumn.Class, "Class").ReadOnly = true;
-			AdgvDatabase.AddColumn<string>(GridColumn.Attributes, "Attributes").ReadOnly = true;
-			AdgvDatabase.AddColumn<string>(GridColumn.MapMarker, "Map marker");
-			AdgvDatabase.AddColumn<string>(GridColumn.Information, "Information");
-			AdgvDatabase.AddColumn<bool>(GridColumn.MainInGroup, "Main in group");
-			AdgvDatabase.AddColumn<string>(GridColumn.KneeboardFolder, "KneeboardFolder");
+			DgvDatabase.AddColumn<string>(GridColumn.Type, "Type").ReadOnly = true;
+			DgvDatabase.AddColumn<string>(GridColumn.DisplayName, "Display name");
+			DgvDatabase.AddColumn<string>(GridColumn.Class, "Class").ReadOnly = true;
+			DgvDatabase.AddColumn<string>(GridColumn.Attributes, "Attributes").ReadOnly = true;
+			DgvDatabase.AddColumn<string>(GridColumn.MapMarker, "Map marker");
+			DgvDatabase.AddColumn<string>(GridColumn.Information, "Information");
+			DgvDatabase.AddColumn<bool>(GridColumn.MainInGroup, "Main in group");
+			DgvDatabase.AddColumn<string>(GridColumn.KneeboardFolder, "KneeboardFolder");
 		}
 
 		private void DataToScreen()
 		{
-			AdgvDatabase.CellValueChanged -= AdgvDatabase_CellValueChanged;
+			DgvDatabase.CellValueChanged -= FdgvDatabase_CellValueChanged;
 
 			InitializeGridColumns();
-			AdgvDatabase.SetDataSource(m_dtGridSource);
+			DgvDatabase.DtSource = m_dtGridSource;
 
-			AdgvDatabase.CellValueChanged += AdgvDatabase_CellValueChanged;
+			DgvDatabase.CellValueChanged += FdgvDatabase_CellValueChanged;
 		}
 
 		private void ScreenToData()
@@ -137,7 +134,7 @@ namespace DcsBriefop
 		}
 		#endregion
 
-		private void AdgvDatabase_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+		private void FdgvDatabase_CellValueChanged(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0)
 				return;
@@ -150,8 +147,8 @@ namespace DcsBriefop
 			if (dr is object)
 			{
 				DcsObject dcsObject = dr.Field<DcsObject>(GridColumn.Data);
-				if (string.IsNullOrEmpty(dr.Field<string>(GridColumn.Description)))
-					dr.SetField(GridColumn.Description, dcsObject.Description);
+				if (string.IsNullOrEmpty(dr.Field<string>(GridColumn.DisplayName)))
+					dr.SetField(GridColumn.DisplayName, dcsObject.DisplayName);
 			}
 		}
 	}

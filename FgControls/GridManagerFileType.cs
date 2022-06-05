@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace DcsBriefop.UcBriefing
 {
-	internal class GridFileTypeManager
+	internal class GridManagerFileType
 	{
 		private static class GridColumn
 		{
@@ -43,7 +43,7 @@ namespace DcsBriefop.UcBriefing
 		#endregion
 
 		#region CTOR
-		public GridFileTypeManager(DataGridView dgvFileType)
+		public GridManagerFileType(DataGridView dgvFileType)
 		{
 			m_dgv = dgvFileType;
 		}

@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.DataMiz;
 using System.Linq;
-using DcsBriefop.Map;
 using System.Text;
 using DcsBriefop.Tools;
 
@@ -13,9 +12,7 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Properties
-		private MizGroupShip GroupShip { get { return m_mizGroup as MizGroupShip; } }
-		public MizUnitShip MainUnit { get; set; }
-		public string UnitName { get { return MainUnit.Name; } }
+		public override ElementDcsObjectClass Class { get { return base.Class == ElementDcsObjectClass.None ? ElementDcsObjectClass.Sea : base.Class; } }
 		public Radio Radio { get; set; }
 
 		#endregion
@@ -29,17 +26,15 @@ namespace DcsBriefop.Data
 		{
 			base.InitializeData();
 			
-			MapMarker = GetMarkerFromUnit();
-
-				MainUnit = GroupShip.Units.OfType<MizUnitShip>().Where(_us => _us.Type.StartsWith("CVN")).FirstOrDefault();
-			if (MainUnit is null)
-				MainUnit = GroupShip.Units.OfType<MizUnitShip>().FirstOrDefault();
-
-			Type = MainUnit.Type;
-			Radio = new Radio() { Frequency = MainUnit.RadioFrequency / m_iFrequencyRatio, Modulation = MainUnit.RadioModulation ?? ElementRadioModulation.AM };
-
-			if (Type.StartsWith("CVN"))
+			AssetUnit carrierUnit = Units.Where(_u => (_u.DcsObject.Attributes & ElementDcsObjectAttribute.AircraftCarrier) != 0).FirstOrDefault();
+			if (carrierUnit is object)
+			{
+				MainUnit = carrierUnit;
 				Function = ElementAssetFunction.Base;
+				Type = MainUnit.Type;
+			}
+
+			Radio = new Radio() { Frequency = (MainUnit.MizUnit as MizUnitShip).RadioFrequency / m_iFrequencyRatio, Modulation = (MainUnit.MizUnit as MizUnitShip).RadioModulation ?? ElementRadioModulation.AM };
 		}
 
 		protected override void InitializeDataCustom()
@@ -75,8 +70,8 @@ namespace DcsBriefop.Data
 		{
 			base.Persist();
 
-			MainUnit.RadioFrequency = Radio.Frequency * m_iFrequencyRatio;
-			MainUnit.RadioModulation = Radio.Modulation;
+			(MainUnit.MizUnit as MizUnitShip).RadioFrequency = Radio.Frequency * m_iFrequencyRatio;
+			(MainUnit.MizUnit as MizUnitShip).RadioModulation = Radio.Modulation;
 		}
 
 		protected override string GetDefaultInformation()

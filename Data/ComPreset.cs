@@ -124,14 +124,14 @@ namespace DcsBriefop.Data
 				if (asset is AssetFlight flight)
 				{
 					Radio = flight.Radio;
-					Label = flight.Description;
+					Label = flight.DisplayName;
 					if (flight.Task == ElementTask.Refueling)
 						Label = $"{Label}{Environment.NewLine}[{flight.GetTacanString()}] [{flight.Type}]";
 				}
 				else if (asset is AssetShip ship)
 				{
 					Radio = ship.Radio;
-					Label = ship.Description;
+					Label = ship.DisplayName;
 				}
 				else
 				{
@@ -254,7 +254,7 @@ namespace DcsBriefop.Data
 					dFrequency += 0.1m;
 
 					preset.Mode = ElementComPresetMode.Free;
-					preset.Label = flight.Description;
+					preset.Label = flight.DisplayName;
 					preset.Radio = new Radio(dFrequency, ElementRadioModulation.AM);
 					preset.Compute(coalition);
 				}

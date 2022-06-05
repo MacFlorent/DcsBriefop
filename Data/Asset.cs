@@ -1,8 +1,6 @@
 ﻿using DcsBriefop.Map;
-using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -16,7 +14,7 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Properties
-		public virtual string Class { get; protected set; } = "Asset";
+		public virtual ElementDcsObjectClass Class { get; protected set; } = ElementDcsObjectClass.None;
 
 		public BriefingCoalition Coalition { get; protected set; }
 		public ElementAssetSide Side { get; set; }
@@ -29,7 +27,7 @@ namespace DcsBriefop.Data
 		public ElementAssetMapDisplay MapDisplay { get; set; }
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public string Description { get; set; }
+		public string DisplayName { get; set; }
 		public string Task { get; set; }
 		public string Type { get; set; }
 
@@ -121,7 +119,7 @@ namespace DcsBriefop.Data
 		public List<PointLatLng> InitializeMapDataPoint(GMapOverlay staticOverlay)
 		{
 			PointLatLng p = new PointLatLng(MapPoints[0].Coordinate.Latitude.DecimalDegree, MapPoints[0].Coordinate.Longitude.DecimalDegree);
-			GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName (p, MapMarker, Color, Description, 1, 0);
+			GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName (p, MapMarker, Color, DisplayName, 1, 0);
 			staticOverlay.Markers.Add(marker);
 
 			return new List<PointLatLng>() { p };
@@ -144,7 +142,7 @@ namespace DcsBriefop.Data
 					GMarkerBriefop marker;
 					if (sPattern == "Circle" || iCount == MapPoints.Count)
 					{
-						marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Circle, Color, Description, 2, 0);
+						marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Circle, Color, DisplayName, 2, 0);
 						bDone = true;
 					}
 					else
@@ -167,7 +165,7 @@ namespace DcsBriefop.Data
 
 			if (points.Count > 1)
 			{
-				GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, Description, ElementMapTemplateRoute.DashDot, Color, 2);
+				GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, DisplayName, ElementMapTemplateRoute.DashDot, Color, 2);
 				staticOverlay.Routes.Add(route);
 			}
 
@@ -188,7 +186,7 @@ namespace DcsBriefop.Data
 
 			if (points.Count > 1)
 			{
-				GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, Description, ElementMapTemplateRoute.DashDot, Color, 2);
+				GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, DisplayName, ElementMapTemplateRoute.DashDot, Color, 2);
 				staticOverlay.Routes.Add(route);
 			}
 

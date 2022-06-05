@@ -13,10 +13,12 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Properties
+		public override ElementDcsObjectClass Class { get { return MainUnit?.Class ?? ElementDcsObjectClass.None; } }
 		public bool Playable { get; set; }
 		public bool LateActivation { get; set; }
 		public Coordinate Coordinate { get; set; }
 		public List<AssetUnit> Units { get; set; } = new List<AssetUnit>();
+		public AssetUnit MainUnit { get; set; }
 		#endregion
 
 		#region CTOR
@@ -33,16 +35,23 @@ namespace DcsBriefop.Data
 			base.InitializeData();
 
 			Id = m_mizGroup.Id;
-			Name = Description = m_mizGroup.Name;
-			Type = "Group";
+			Name = DisplayName = m_mizGroup.Name;
 			Playable = m_mizGroup.Units.Where(u => u.Skill == ElementSkill.Player || u.Skill == ElementSkill.Client).Any();
 			LateActivation = m_mizGroup.LateActivation;
 			Coordinate = Core.Theatre.GetCoordinate(m_mizGroup.Y, m_mizGroup.X);
 
 			foreach (MizUnit unit in m_mizGroup.Units)
 			{
-				Units.Add(new AssetUnit(Core, unit, this));
+				AssetUnit assetUnit = new AssetUnit(Core, unit, this);
+				Units.Add(assetUnit);
+				if (MainUnit is null)
+					MainUnit = assetUnit;
+				else if (!(MainUnit.DcsObject?.MainInGroup).GetValueOrDefault(false) && (assetUnit.DcsObject?.MainInGroup).GetValueOrDefault(false))
+					MainUnit = assetUnit;
 			}
+
+			Type = string.Join(",", Units.GroupBy(u => u.Type).Select(g => g.Key));
+			MapMarker = MainUnit.DcsObject?.MapMarker ?? MapMarker;
 		}
 
 		protected override void InitializeDataCustom()
@@ -97,12 +106,6 @@ namespace DcsBriefop.Data
 			}
 		}
 
-		public string GetUnitTypes()
-		{
-			IEnumerable<string> grouped = m_mizGroup.Units.GroupBy(u => u.Type).Select(g => g.Key);
-			return string.Join(",", grouped);
-		}
-
 		public string GetTacanString()
 		{
 			foreach (AssetRoutePoint routePoint in MapPoints.OfType<AssetRoutePoint>())
@@ -115,17 +118,6 @@ namespace DcsBriefop.Data
 			return null;
 		}
 
-		protected string GetMarkerFromUnit()
-		{
-			string sMarker = null;
-
-			DcsObject dcsObject = DcsObjectManager.GetObject(Units.FirstOrDefault()?.Type);
-			if (dcsObject is object)
-				sMarker = dcsObject.MapMarker;
-
-			return sMarker;
-		}
-
 		protected void NumberMapPoints()
 		{
 			int iNumber = 0;
@@ -135,8 +127,6 @@ namespace DcsBriefop.Data
 				iNumber++;
 			}
 		}
-
-
 		#endregion
 	}
 }

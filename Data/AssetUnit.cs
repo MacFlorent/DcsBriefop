@@ -9,25 +9,29 @@ namespace DcsBriefop.Data
 	internal class AssetUnit : BaseBriefing
 	{
 		#region Fields
-		private MizUnit m_unit;
 		private BriefopCustomUnit m_briefopCustomUnit;
 		#endregion
 
 		#region Properties
-		public AssetGroup AssetGroup { get; set; }
+		public MizUnit MizUnit { get; private set; }
+		public AssetGroup AssetGroup { get; private set; }
+		public DcsObject DcsObject { get; private set; }
+
 		public bool Included { get; set; }
 		public int Id { get; set; }
 		public string Name { get; set; }
+		public ElementDcsObjectClass Class { get { return DcsObject?.Class ?? ElementDcsObjectClass.None; } }
 		public string Type { get; set; }
+		public ElementDcsObjectAttribute Attributes { get { return DcsObject?.Attributes ?? ElementDcsObjectAttribute.None; } }
 		public Coordinate Coordinate { get; set; }
-		public string Description { get; set; }
-		public string Information { get; set; }
+		public string DisplayName { get { return DcsObject?.DisplayName ?? Name; } }
+		public string Information { get { return DcsObject?.Information; } }
 		#endregion
 
 		#region CTOR
 		public AssetUnit(BaseBriefingCore core, MizUnit unit, AssetGroup group) : base(core)
 		{
-			m_unit = unit;
+			MizUnit = unit;
 			AssetGroup = group;
 
 			Initialize();
@@ -43,18 +47,12 @@ namespace DcsBriefop.Data
 
 		protected void InitializeData()
 		{
-			Id = m_unit.Id;
-			Name = m_unit.Name;
-			Type = m_unit.Type;
-			Description = m_unit.Type;
-			Coordinate = Core.Theatre.GetCoordinate(m_unit.Y, m_unit.X);
+			Id = MizUnit.Id;
+			Name = MizUnit.Name;
+			Type = MizUnit.Type;
+			Coordinate = Core.Theatre.GetCoordinate(MizUnit.Y, MizUnit.X);
 
-			DcsObject dcsUnit = DcsObjectManager.GetObject(Type);
-			if (dcsUnit is object)
-			{
-				Description = dcsUnit.Description;
-				Information = dcsUnit.Information;
-			}
+			DcsObject = DcsObjectManager.GetObject(Type);
 		}
 
 		protected void InitializeDataCustom()
@@ -82,13 +80,13 @@ namespace DcsBriefop.Data
 
 			m_briefopCustomUnit.Included = Included;
 
-			if (m_unit.Radios is object && m_unit.Radios.Length > 0 && AssetGroup.Coalition.ComPresets is object && AssetGroup.Coalition.ComPresets.Count > 0)
+			if (MizUnit.Radios is object && MizUnit.Radios.Length > 0 && AssetGroup.Coalition.ComPresets is object && AssetGroup.Coalition.ComPresets.Count > 0)
 			{
 				foreach (ComPreset comPreset in AssetGroup.Coalition.ComPresets.Where(_cp => _cp.Radio is object))
 				{
-					if (m_unit.Radios.Length > comPreset.PresetRadio)
+					if (MizUnit.Radios.Length > comPreset.PresetRadio)
 					{
-						MizRadio mizRadio = m_unit.Radios[comPreset.PresetRadio];
+						MizRadio mizRadio = MizUnit.Radios[comPreset.PresetRadio];
 						if (comPreset.PresetNumber < mizRadio.Modulations.Length)
 							mizRadio.Modulations[comPreset.PresetNumber] = comPreset.Radio.Modulation;
 						if (comPreset.PresetNumber < mizRadio.Channels.Length)

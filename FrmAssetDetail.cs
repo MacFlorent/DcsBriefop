@@ -1,7 +1,6 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.FgControls;
 using DcsBriefop.Tools;
-using DcsBriefop.UcBriefing;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace DcsBriefop
@@ -40,12 +39,12 @@ namespace DcsBriefop
 		#region Methods
 		private void DataToScreen()
 		{
-			Text = $"Asset detail : {m_asset.Description}";
+			Text = $"Asset detail : {m_asset.DisplayName}";
 
-			TbDescription.Text = m_asset.Description;
+			TbDescription.Text = m_asset.DisplayName;
 			TbSide.Text = m_asset.Side.ToString();
 
-			TbAssetClass.Text = m_asset.Class;
+			TbAssetClass.Text = m_asset.Class.ToString();
 			TbFunction.Text = m_asset.Function.ToString();
 			CkIncluded.Checked = m_asset.Included;
 			CbMapDisplay.SelectedValue = (int)m_asset.MapDisplay;
@@ -76,9 +75,7 @@ namespace DcsBriefop
 		{
 			if (m_asset is AssetGroup group)
 			{
-				GridManagerUnit gamUnits = new GridManagerUnit(AdgvUnits, group.Units, null);
-				gamUnits.ColumnsDisplayed = GridManagerUnit.ColumnsDisplayedUnit;
-				gamUnits.Initialize();
+				GridManagerUnit gm = GridManagerUnit.CreateManager (DgvUnits, GridManagerUnit.ColumnsDisplayedUnit, group.Units, null);
 			}
 		}
 

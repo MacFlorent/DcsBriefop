@@ -10,7 +10,7 @@ namespace DcsBriefop
 	internal partial class FrmPreferencesMizGenerate : Form
 	{
 		#region Fields
-		private GridFileTypeManager m_gridFileTypeManager;
+		private GridManagerFileType m_gridFileTypeManager;
 		private BriefingContainer m_briefingContainer;
 		private MissionManager m_missionManager;
 		#endregion
@@ -26,7 +26,7 @@ namespace DcsBriefop
 			m_missionManager = missionManager;
 
 			ToolsControls.SetDataGridViewProperties(DgvFileTypes);
-			m_gridFileTypeManager = new GridFileTypeManager(DgvFileTypes);
+			m_gridFileTypeManager = new GridManagerFileType(DgvFileTypes);
 			m_gridFileTypeManager.Initialize();
 
 			DataToScreen();

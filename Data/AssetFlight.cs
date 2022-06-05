@@ -1,12 +1,11 @@
 ﻿using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
+using GMap.NET;
+using GMap.NET.WindowsForms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DcsBriefop.Map;
-using GMap.NET.WindowsForms;
-using GMap.NET;
-using System;
 
 namespace DcsBriefop.Data
 {
@@ -16,28 +15,20 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Properties
-		public override string Class { get; protected set; } = "Flight";
-
+		public override ElementDcsObjectClass Class { get { return base.Class == ElementDcsObjectClass.None ? ElementDcsObjectClass.Air : base.Class; } }
 		private MizGroupFlight MizGroupFlight { get { return m_mizGroup as MizGroupFlight; } }
 		public string Callsign { get; set; }
-		public AssetFlightMission MissionData { get; set; }
 		public Radio Radio { get; set; }
 		#endregion
 
 		#region CTOR
-		public AssetFlight(BaseBriefingCore core, BriefingCoalition coalition, ElementAssetSide side, MizGroupFlight group) : base(core, coalition, side, group)
-		{
-			if (m_briefopCustomGroup.WithMissionData)
-				AddMissionData();
-		}
+		public AssetFlight(BaseBriefingCore core, BriefingCoalition coalition, ElementAssetSide side, MizGroupFlight group) : base(core, coalition, side, group) { }
 		#endregion
 
 		#region Initialize
 		protected override void InitializeData()
 		{
 			base.InitializeData();
-
-			MapMarker = GetMarkerFromUnit();
 
 			MizUnitFlight mizUnitFlight = MizGroupFlight.Units.OfType<MizUnitFlight>().FirstOrDefault();
 			if (mizUnitFlight is object && mizUnitFlight.Callsign is MizCallsign callsign)
@@ -48,7 +39,7 @@ namespace DcsBriefop.Data
 			Task = MizGroupFlight.Task;
 			Type = MizGroupFlight.Units.OfType<MizUnitFlight>().FirstOrDefault()?.Type;
 
-			SetDescription();
+			SetDisplayName();
 
 			Radio = new Radio() { Frequency = MizGroupFlight.RadioFrequency, Modulation = MizGroupFlight.RadioModulation };
 
@@ -68,25 +59,22 @@ namespace DcsBriefop.Data
 				if (Side != ElementAssetSide.Own)
 				{
 					m_briefopCustomGroup.Included = false;
-					m_briefopCustomGroup.WithMissionData = false;
 					m_briefopCustomGroup.MapDisplay = (int)ElementAssetMapDisplay.None;
 				}
 				else if (Playable)
 				{
 					m_briefopCustomGroup.Included = false;
-					m_briefopCustomGroup.WithMissionData = true;
+					//m_briefopCustomGroup.WithMissionData = true;
 					m_briefopCustomGroup.MapDisplay = (int)ElementAssetMapDisplay.None;
 				}
 				else if (Function == ElementAssetFunction.Support)
 				{
 					m_briefopCustomGroup.Included = true;
-					m_briefopCustomGroup.WithMissionData = false;
 					m_briefopCustomGroup.MapDisplay = (int)ElementAssetMapDisplay.Orbit;
 				}
 				else
 				{
 					m_briefopCustomGroup.Included = false;
-					m_briefopCustomGroup.WithMissionData = false;
 					m_briefopCustomGroup.MapDisplay = (int)ElementAssetMapDisplay.None;
 				}
 
@@ -105,16 +93,13 @@ namespace DcsBriefop.Data
 
 			MizGroupFlight.RadioFrequency = Radio.Frequency;
 			MizGroupFlight.RadioModulation = Radio.Modulation;
-
-			m_briefopCustomGroup.WithMissionData = MissionData is object;
-			MissionData?.Persist();
 		}
 
-		public void SetDescription()
+		public void SetDisplayName()
 		{
-			Description = $"{Callsign} | {m_mizGroup.Name}";
+			DisplayName = $"{Callsign} | {m_mizGroup.Name}";
 			if (Playable && Core.Miz.BriefopCustomData.NoCallsignForPlayableFlights)
-				Description = m_mizGroup.Name;
+				DisplayName = m_mizGroup.Name;
 
 		}
 
@@ -209,22 +194,22 @@ namespace DcsBriefop.Data
 			return Coalition.OwnAssets.OfType<AssetShip>().Where(_a => grouped.Contains(_a.MainUnit.Id)).ToList();
 		}
 
-		public void AddMissionData()
-		{
-			if (MissionData is null)
-			{
-				MissionData = new AssetFlightMission(Core, Coalition, this);
-			}
-		}
+		//public void AddMissionData()
+		//{
+		//	if (MissionData is null)
+		//	{
+		//		MissionData = new AssetFlightMission(Core, Coalition, this);
+		//	}
+		//}
 
-		public void RemoveMissionData()
-		{
-			if (MissionData is object)
-			{
-				MissionData.Remove();
-				MissionData = null;
-			}
-		}
+		//public void RemoveMissionData()
+		//{
+		//	if (MissionData is object)
+		//	{
+		//		MissionData.Remove();
+		//		MissionData = null;
+		//	}
+		//}
 
 		private void AddBullseyeWaypoint()
 		{
@@ -268,149 +253,6 @@ namespace DcsBriefop.Data
 				RemoveBullseyeWaypoint();
 
 			InitializeMapOverlay();
-		}
-		#endregion
-	}
-
-	internal class AssetFlightMission : BaseBriefing
-	{
-		#region Fields
-		private AssetFlight m_flight;
-		private BriefopCustomMission m_briefopCustomMission;
-		#endregion
-
-		#region Properties
-		public BriefingCoalition Coalition { get; protected set; }
-		public string MissionInformation { get; set; }
-		
-		
-		public BriefopCustomMap MapData { get { return m_briefopCustomMission?.MapData; } }
-		public List<int> ThreatIds { get { return m_briefopCustomMission?.ThreatIds; } }
-		public Dictionary<int, string> WaypointNotes { get { return m_briefopCustomMission?.WaypointNotes; } }
-
-		#endregion
-
-		#region CTOR
-		public AssetFlightMission(BaseBriefingCore core, BriefingCoalition coalition, AssetFlight flight) : base(core)
-		{
-			m_flight = flight;
-			Coalition = coalition;
-
-			InitializeDataCustom();
-			InitializeData();
-			InitializeMapData();
-		}
-		#endregion
-
-		#region Initialize
-		private void InitializeDataCustom()
-		{
-			m_briefopCustomMission = Core.Miz.BriefopCustomData.GetMission(m_flight.Id, Coalition.CoalitionName);
-			if (m_briefopCustomMission is null)
-			{
-				m_briefopCustomMission = new BriefopCustomMission(m_flight.Id, Coalition.CoalitionName);
-				Core.Miz.BriefopCustomData.Missions.Add(m_briefopCustomMission);
-			}
-		}
-
-		private void InitializeData()
-		{
-			MissionInformation = m_briefopCustomMission.MissionInformation;
-		}
-
-		public void InitializeMapData()
-		{
-			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
-			List<PointLatLng> points = m_flight.InitializeMapDataFullRoute(staticOverlay);
-
-			if (MapData is null)
-			{
-				m_briefopCustomMission.MapData = new BriefopCustomMap();
-				m_briefopCustomMission.MapData.Provider = Core.Miz.BriefopCustomData.DefaultMapProvider;
-				PointLatLng? centerPoint = ToolsMap.GetPointsCenter(points);
-				if (centerPoint is object)
-				{
-					MapData.CenterLatitude = centerPoint.Value.Lat;
-					MapData.CenterLongitude = centerPoint.Value.Lng;
-				}
-				else
-				{
-					MapData.CenterLatitude = Coalition.Bullseye.Latitude.DecimalDegree;
-					MapData.CenterLongitude = Coalition.Bullseye.Longitude.DecimalDegree;
-				}
-				MapData.Zoom = Preferences.PreferencesManager.Preferences.Map.DefaultZoom;
-				MapData.MapOverlayCustom = new GMapOverlay();
-			}
-
-			MapData.AdditionalMapOverlays.Clear();
-			MapData.AdditionalMapOverlays.Add(staticOverlay);
-			MapData.AdditionalMapOverlays.Add(Core.Miz.BriefopCustomData.MapData.MapOverlayCustom);
-			MapData.AdditionalMapOverlays.Add(Core.Miz.BriefopCustomData.MapData.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault());
-			MapData.AdditionalMapOverlays.Add(Coalition.MapData.MapOverlayCustom);
-			MapData.AdditionalMapOverlays.Add(Coalition.MapData.AdditionalMapOverlays.Where(_o => _o.Id == ElementMapValue.OverlayStatic).FirstOrDefault());
-
-			foreach (AssetAirdrome airdrome in m_flight.GetAirdromeAssets())
-			{
-				MapData.AdditionalMapOverlays.Add(airdrome.MapOverlayStatic);
-			}
-			foreach (AssetShip carrier in m_flight.GetCarrierAssets())
-			{
-				MapData.AdditionalMapOverlays.Add(carrier.MapOverlayStatic);
-			}
-			foreach (AssetGroup group in Coalition.OpposingAssets.OfType<AssetGroup>())
-			{
-				if (group.Units.Select(_u => _u.Id).Intersect(ThreatIds).Any())
-				{
-					group.InitializeMapDataPoint(staticOverlay);
-				}
-			}
-		}
-		#endregion
-
-		#region Methods
-		public override void Persist()
-		{
-			m_briefopCustomMission.MissionInformation = MissionInformation;
-		}
-
-		public void Remove()
-		{
-			if (Core.Miz.BriefopCustomData.Missions.Contains(m_briefopCustomMission))
-				Core.Miz.BriefopCustomData.Missions.Contains(m_briefopCustomMission);
-		}
-
-		public bool IsThreatIncluded(int iUnitId)
-		{
-			return ThreatIds.Contains(iUnitId);
-		}
-
-		public void IncludeThreat(int iUnitId, bool bIncluded)
-		{
-			if (bIncluded && !IsThreatIncluded(iUnitId))
-			{
-				ThreatIds.Add(iUnitId);
-				InitializeMapData();
-			}
-			else if (!bIncluded && IsThreatIncluded(iUnitId))
-			{
-				ThreatIds.Remove(iUnitId);
-				InitializeMapData();
-			}
-				
-		}
-
-		public List<AssetUnit> GetListThreatUnits()
-		{
-			List<AssetUnit> list = new List<AssetUnit>();
-			foreach (AssetGroup group in Coalition.OpposingAssets.OfType<AssetGroup>())
-			{
-				foreach (AssetUnit unit in group.Units.Where(_u => IsThreatIncluded(_u.Id)))
-				{
-					list.Add(unit);
-				}
-			}
-
-			return list;
 		}
 		#endregion
 	}

@@ -16,7 +16,7 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Properties
-		public override string Class { get; protected set; } = "Airdrome";
+		public override ElementDcsObjectClass Class { get; protected set; } = ElementDcsObjectClass.Airdrome;
 
 		public Coordinate Coordinate { get; set; }
 		public Tacan Tacan { get; set; }
@@ -67,7 +67,7 @@ namespace DcsBriefop.Data
 			Function = ElementAssetFunction.Base;
 
 			Id = m_airdrome.Id;
-			Name = Description = m_airdrome.Name;
+			Name = DisplayName = m_airdrome.Name;
 			Type = "Airbase";
 
 			Coordinate = new Coordinate(m_airdrome.Latitude, m_airdrome.Longitude);

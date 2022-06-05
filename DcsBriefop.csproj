@@ -180,6 +180,14 @@
     <Compile Include="Data\AssetVehicle.cs" />
     <Compile Include="Data\BaseBriefing.cs" />
     <Compile Include="Data\DcsObject.cs" />
+    <Compile Include="Data\FlightMission.cs" />
+    <Compile Include="FgControls\FgDataGridView.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmDatabaseDcsObject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,12 +283,11 @@
     <Compile Include="Tools\ToolsStyle.cs" />
     <Compile Include="Tools\ToolsTests.cs" />
     <Compile Include="Tools\ToolsZip.cs" />
-    <Compile Include="UcBriefing\FgDataGridView.cs" />
-    <Compile Include="UcBriefing\GridManager.cs" />
-    <Compile Include="UcBriefing\GridManagerComPreset.cs" />
-    <Compile Include="UcBriefing\GridManagerUnit.cs" />
-    <Compile Include="UcBriefing\GridManagerAsset.cs" />
-    <Compile Include="UcBriefing\GridFileTypeManager.cs" />
+    <Compile Include="FgControls\GridManager.cs" />
+    <Compile Include="FgControls\GridManagerComPreset.cs" />
+    <Compile Include="FgControls\GridManagerUnit.cs" />
+    <Compile Include="FgControls\GridManagerAsset.cs" />
+    <Compile Include="FgControls\GridManagerFileType.cs" />
     <Compile Include="UcBriefing\TabPageBriefing.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -354,6 +361,9 @@
     <Compile Include="UcBriefing\UcMarkerDetail.Designer.cs">
       <DependentUpon>UcMarkerDetail.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmComs.resx">
       <DependentUpon>FrmComs.cs</DependentUpon>
     </EmbeddedResource>

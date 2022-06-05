@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.FgControls;
 using DcsBriefop.UcBriefing;
 using LsonLib;
 using System.Collections.Generic;
@@ -21,20 +22,25 @@ namespace DcsBriefop.Tools
 			}
 		}
 
-		public static void Adgv(SplitContainer splitContainer, MissionManager missionManager, BriefingContainer briefingContainer)
+		public static void GridManager(SplitContainer splitContainer, MissionManager missionManager, BriefingContainer briefingContainer)
 		{
 			if (missionManager is null)
 				throw new ExceptionDcsBriefop("No mission is currently loaded");
 
 			splitContainer.Panel1.Controls.Clear();
 
-			Zuby.ADGV.AdvancedDataGridView dgv = new Zuby.ADGV.AdvancedDataGridView();
+			FgDataGridView dgv = new FgDataGridView();
 			dgv.Dock = DockStyle.Fill;
 			splitContainer.Panel1.Controls.Add(dgv);
 
-			GridManagerAsset gam = new GridManagerAsset(dgv, briefingContainer.GetCoalition(ElementCoalition.Blue).OpposingAssets, null);
-			gam.ColumnsDisplayed = GridManagerAsset.ColumnsDisplayedOpposing;
+			GridManagerAsset gam = new GridManagerAsset(dgv, null, briefingContainer.GetCoalition(ElementCoalition.Blue).OpposingAssets, null);
 			gam.Initialize();
+		}
+
+		public static void TestForm()
+		{
+			FrmDatabaseDcsObject f = new FrmDatabaseDcsObject();
+			f.ShowDialog();
 		}
 
 		public static void LsonText(SplitContainer splitContainer)

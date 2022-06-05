@@ -226,7 +226,8 @@ namespace DcsBriefop
 
 		private void Test()
 		{
-			ToolsTests.LsonText(SplitContainer);
+			//ToolsTests.TestForm();
+			ToolsTests.GridManager(SplitContainer, m_missionManager, m_briefingContainer);
 		}
 		#endregion
 

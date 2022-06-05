@@ -4,17 +4,17 @@ namespace DcsBriefop.DataMiz
 {
 	internal class BriefopCustomMission
 	{
-		public int Id { get; set; }
+		public string TypeName { get; set; }
 		public string CoalitionName { get; set; }
 		public string MissionInformation { get; set; }
-		public List<int> ThreatIds { get; set; } = new List<int>();
-		public Dictionary<int, string> WaypointNotes { get; set; } = new Dictionary<int, string>();
+		public List<int> OpposingAssetIds { get; set; } = new List<int>();
+		public List<int> OpposingUnitIds { get; set; } = new List<int>();
 
 		public BriefopCustomMap MapData { get; set; }
 
-		public BriefopCustomMission(int iId, string sCoalitionName)
+		public BriefopCustomMission(string sTypeName, string sCoalitionName)
 		{
-			Id = iId;
+			TypeName = sTypeName;
 			CoalitionName = sCoalitionName;
 		}
 	}

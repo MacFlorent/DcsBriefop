@@ -9,7 +9,7 @@ namespace DcsBriefop
 	internal partial class FrmPreferences : Form
 	{
 		#region Fields
-		private GridFileTypeManager m_gridFileTypeManager;
+		private GridManagerFileType m_gridFileTypeManager;
 		#endregion
 
 		#region CTOR
@@ -26,7 +26,7 @@ namespace DcsBriefop
 			CbMapProvider.ValueMember = "Name";
 			CbMapProvider.DataSource = GMapProviders.List;
 
-			m_gridFileTypeManager = new GridFileTypeManager(DgvFileTypes);
+			m_gridFileTypeManager = new GridManagerFileType(DgvFileTypes);
 			m_gridFileTypeManager.Initialize();
 
 			DataToScreen();

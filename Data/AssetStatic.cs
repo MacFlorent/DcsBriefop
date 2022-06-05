@@ -1,5 +1,4 @@
 ﻿using DcsBriefop.DataMiz;
-using DcsBriefop.Map;
 using System.Linq;
 
 namespace DcsBriefop.Data
@@ -10,7 +9,7 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Properties
-		private MizGroupStatic GroupStatic { get { return m_mizGroup as MizGroupStatic; } }
+		private MizGroupStatic MizGroupStatic { get { return m_mizGroup as MizGroupStatic; } }
 		#endregion
 
 		#region CTOR
@@ -22,9 +21,7 @@ namespace DcsBriefop.Data
 		{
 			base.InitializeData();
 
-			MapMarker = GetMarkerFromUnit();
-
-			Type = GroupStatic.Units.FirstOrDefault()?.Type;
+			Type = MizGroupStatic.Units.FirstOrDefault()?.Type;
 		}
 		#endregion
 

@@ -74,7 +74,7 @@ namespace DcsBriefop
 			foreach (BriefingCoalition coalition in m_briefingContainer.BriefingCoalitions)
 			{
 				foreach (AssetFlight flight in coalition.OwnAssets.OfType<AssetFlight>())
-					flight.SetDescription();
+					flight.SetDisplayName();
 			}
 		}
 

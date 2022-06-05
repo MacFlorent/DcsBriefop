@@ -29,16 +29,17 @@ namespace DcsBriefop
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.BtSave = new System.Windows.Forms.Button();
 			this.BtClose = new System.Windows.Forms.Button();
-			this.AdgvDatabase = new Zuby.ADGV.AdvancedDataGridView();
-			((System.ComponentModel.ISupportInitialize)(this.AdgvDatabase)).BeginInit();
+			this.DgvDatabase = new DcsBriefop.FgControls.FgDataGridView();
+			((System.ComponentModel.ISupportInitialize)(this.DgvDatabase)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// BtSave
 			// 
 			this.BtSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtSave.Location = new System.Drawing.Point(546, 509);
+			this.BtSave.Location = new System.Drawing.Point(843, 509);
 			this.BtSave.Name = "BtSave";
 			this.BtSave.Size = new System.Drawing.Size(158, 23);
 			this.BtSave.TabIndex = 42;
@@ -49,7 +50,7 @@ namespace DcsBriefop
 			// BtClose
 			// 
 			this.BtClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtClose.Location = new System.Drawing.Point(710, 509);
+			this.BtClose.Location = new System.Drawing.Point(1007, 509);
 			this.BtClose.Name = "BtClose";
 			this.BtClose.Size = new System.Drawing.Size(75, 23);
 			this.BtClose.TabIndex = 43;
@@ -57,34 +58,33 @@ namespace DcsBriefop
 			this.BtClose.UseVisualStyleBackColor = true;
 			this.BtClose.Click += new System.EventHandler(this.BtClose_Click);
 			// 
-			// AdgvDatabase
+			// DgvDatabase
 			// 
-			this.AdgvDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.AdgvDatabase.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.AdgvDatabase.FilterAndSortEnabled = true;
-			this.AdgvDatabase.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.AdgvDatabase.Location = new System.Drawing.Point(12, 12);
-			this.AdgvDatabase.Name = "AdgvDatabase";
-			this.AdgvDatabase.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.AdgvDatabase.Size = new System.Drawing.Size(773, 491);
-			this.AdgvDatabase.SortStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.AdgvDatabase.TabIndex = 44;
-			this.AdgvDatabase.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.AdgvDatabase_CellValueChanged);
+			this.DgvDatabase.AutoGenerateColumns = false;
+			this.DgvDatabase.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.DgvDatabase.DtSource = null;
+			this.DgvDatabase.FilterAndSortEnabled = true;
+			this.DgvDatabase.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
+			this.DgvDatabase.Location = new System.Drawing.Point(12, 12);
+			this.DgvDatabase.Name = "DgvDatabase";
+			this.DgvDatabase.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.DgvDatabase.Size = new System.Drawing.Size(1070, 491);
+			this.DgvDatabase.SortStringChangedInvokeBeforeDatasourceUpdate = true;
+			this.DgvDatabase.TabIndex = 44;
+			this.DgvDatabase.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.FdgvDatabase_CellValueChanged);
 			// 
-			// FrmDatabaseDcsObject
+			// FrmDatabaseDcsObject2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(797, 535);
-			this.Controls.Add(this.AdgvDatabase);
+			this.ClientSize = new System.Drawing.Size(1094, 535);
+			this.Controls.Add(this.DgvDatabase);
 			this.Controls.Add(this.BtClose);
 			this.Controls.Add(this.BtSave);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-			this.Name = "FrmDatabaseDcsObject";
+			this.Name = "FrmDatabaseDcsObject2";
 			this.Text = "Database : DCS objects";
-			((System.ComponentModel.ISupportInitialize)(this.AdgvDatabase)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DgvDatabase)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -92,6 +92,6 @@ namespace DcsBriefop
 		#endregion
 		private System.Windows.Forms.Button BtSave;
 		private System.Windows.Forms.Button BtClose;
-		private Zuby.ADGV.AdvancedDataGridView AdgvDatabase;
+		private FgControls.FgDataGridView DgvDatabase;
 	}
 }

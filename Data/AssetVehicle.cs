@@ -10,7 +10,7 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Properties
-		private MizGroupVehicle GroupVehicle { get { return m_mizGroup as MizGroupVehicle; } }
+		public override ElementDcsObjectClass Class { get { return base.Class == ElementDcsObjectClass.None ? ElementDcsObjectClass.Ground : base.Class; } }
 		#endregion
 
 		#region CTOR
@@ -21,10 +21,6 @@ namespace DcsBriefop.Data
 		protected override void InitializeData()
 		{
 			base.InitializeData();
-
-			MapMarker = GetMarkerFromUnit();
-
-			Type = GroupVehicle.Units.FirstOrDefault()?.Type;
 		}
 		#endregion
 

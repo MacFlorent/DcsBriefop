@@ -59,11 +59,11 @@ namespace DcsBriefop
 			this.LbTask = new System.Windows.Forms.Label();
 			this.TbTask = new System.Windows.Forms.TextBox();
 			this.LbUnits = new System.Windows.Forms.Label();
-			this.AdgvUnits = new Zuby.ADGV.AdvancedDataGridView();
+			this.DgvUnits = new DcsBriefop.FgControls.FgDataGridView();
 			this.PnData.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.PnDcsData.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.AdgvUnits)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DgvUnits)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// LbName
@@ -102,7 +102,7 @@ namespace DcsBriefop
 			// 
 			// PnData
 			// 
-			this.PnData.Controls.Add(this.AdgvUnits);
+			this.PnData.Controls.Add(this.DgvUnits);
 			this.PnData.Controls.Add(this.panel1);
 			this.PnData.Controls.Add(this.PnDcsData);
 			this.PnData.Controls.Add(this.LbUnits);
@@ -366,20 +366,21 @@ namespace DcsBriefop
 			this.LbUnits.TabIndex = 29;
 			this.LbUnits.Text = "Units";
 			// 
-			// AdgvUnits
+			// DgvUnits
 			// 
-			this.AdgvUnits.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.DgvUnits.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.AdgvUnits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.AdgvUnits.FilterAndSortEnabled = true;
-			this.AdgvUnits.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.AdgvUnits.Location = new System.Drawing.Point(5, 241);
-			this.AdgvUnits.Name = "AdgvUnits";
-			this.AdgvUnits.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.AdgvUnits.Size = new System.Drawing.Size(523, 272);
-			this.AdgvUnits.SortStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.AdgvUnits.TabIndex = 33;
+			this.DgvUnits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.DgvUnits.DtSource = null;
+			this.DgvUnits.FilterAndSortEnabled = true;
+			this.DgvUnits.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
+			this.DgvUnits.Location = new System.Drawing.Point(5, 241);
+			this.DgvUnits.Name = "DgvUnits";
+			this.DgvUnits.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.DgvUnits.Size = new System.Drawing.Size(523, 272);
+			this.DgvUnits.SortStringChangedInvokeBeforeDatasourceUpdate = true;
+			this.DgvUnits.TabIndex = 33;
 			// 
 			// FrmAssetDetail
 			// 
@@ -398,7 +399,7 @@ namespace DcsBriefop
 			this.panel1.PerformLayout();
 			this.PnDcsData.ResumeLayout(false);
 			this.PnDcsData.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.AdgvUnits)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DgvUnits)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -435,6 +436,6 @@ namespace DcsBriefop
 		private System.Windows.Forms.TextBox TbFunction;
 		private System.Windows.Forms.Label LbFunction;
 		private System.Windows.Forms.Label LbClass;
-		private Zuby.ADGV.AdvancedDataGridView AdgvUnits;
+		private FgControls.FgDataGridView DgvUnits;
 	}
 }

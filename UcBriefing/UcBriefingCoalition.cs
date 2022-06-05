@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.FgControls;
 using DcsBriefop.Tools;
 using System;
 using System.Collections.Generic;
@@ -62,16 +63,13 @@ namespace DcsBriefop.UcBriefing
 		{
 			TabPage tp = new TabPage(sTabText);
 			TcAssets.TabPages.Add(tp);
-			AdvancedDataGridView dgv = new AdvancedDataGridView();
+			FgDataGridView dgv = new FgDataGridView();
 			dgv.ReadOnly = false;
 			dgv.Dock = DockStyle.Fill;
 			tp.Controls.Add(dgv);
 
-			GridManagerAsset gam = new GridManagerAsset(dgv, assets, null);
-			gam.ColumnsDisplayed = columnsDisplayed;
-			gam.Initialize();
-
-			m_gridAssetManagers.Add(gam);
+			GridManagerAsset gm = GridManagerAsset.CreateManager(dgv, columnsDisplayed, assets, null);
+			m_gridAssetManagers.Add(gm);
 		}
 
 		public override void ScreenToData()

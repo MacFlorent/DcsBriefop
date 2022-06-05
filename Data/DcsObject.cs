@@ -16,6 +16,7 @@ namespace DcsBriefop.Data
 		Air,
 		Ground,
 		Sea,
+		Airdrome,
 	}
 
 	[Flags]
@@ -44,18 +45,19 @@ namespace DcsBriefop.Data
 		private DcsObjectJsonCustom m_objectJsonCustom;
 		private List<DcsObjectJsonCustom> m_objectsJsonCustom;
 		private List<string> m_lsonRawAttributes = new List<string>();
+		private string m_rawDisplayName;
 		#endregion
 
 		#region Properties
 		public string TypeName { get; private set; }
-		public string DisplayName { get; private set; }
+
 		public ElementDcsObjectClass Class { get; private set; }
 		public ElementDcsObjectAttribute Attributes { get; private set; }
 
-		public string Description
+		public string DisplayName
 		{
-			get { return m_objectJsonCustom?.CustomDescription ?? DisplayName; }
-			set { GetOrAddJsonCustom().CustomDescription = value; }
+			get { return m_objectJsonCustom?.DisplayName ?? m_rawDisplayName; }
+			set { GetOrAddJsonCustom().DisplayName = value; }
 		}
 		public string CustomMapMarker
 		{
@@ -86,7 +88,7 @@ namespace DcsBriefop.Data
 			LsonDict lsdDesc = lsd["desc"].GetDict();
 
 			TypeName = ToolsLson.IfExistsString(lsdDesc, "typeName");
-			DisplayName = ToolsLson.IfExistsString(lsdDesc, "displayName");
+			m_rawDisplayName = ToolsLson.IfExistsString(lsdDesc, "displayName");
 
 			LsonDict lsdAttributes = ToolsLson.IfExists(lsdDesc, "attributes")?.GetDictSafe();
 			if (lsdAttributes is object)
@@ -196,10 +198,10 @@ namespace DcsBriefop.Data
 			if (m_objectJsonCustom is null)
 				return;
 
-			if (m_objectJsonCustom.CustomDescription == DisplayName)
-				m_objectJsonCustom.CustomDescription = null;
-			if (string.IsNullOrEmpty(m_objectJsonCustom.CustomDescription))
-				m_objectJsonCustom.CustomDescription = null;
+			if (m_objectJsonCustom.DisplayName == DisplayName)
+				m_objectJsonCustom.DisplayName = null;
+			if (string.IsNullOrEmpty(m_objectJsonCustom.DisplayName))
+				m_objectJsonCustom.DisplayName = null;
 			if (string.IsNullOrEmpty(m_objectJsonCustom.MapMarker))
 				m_objectJsonCustom.MapMarker = null;
 			if (string.IsNullOrEmpty(m_objectJsonCustom.Information))
@@ -207,7 +209,7 @@ namespace DcsBriefop.Data
 			if (string.IsNullOrEmpty(m_objectJsonCustom.KneeboardFolder))
 				m_objectJsonCustom.KneeboardFolder = null;
 
-			if (m_objectJsonCustom.CustomDescription is object)
+			if (m_objectJsonCustom.DisplayName is object)
 				return;
 			if (m_objectJsonCustom.MapMarker is object)
 				return;
@@ -229,7 +231,7 @@ namespace DcsBriefop.Data
 	internal class DcsObjectJsonCustom
 	{
 		public string TypeName { get; set; }
-		public string CustomDescription { get; set; }
+		public string DisplayName { get; set; }
 		public string MapMarker { get; set; }
 		public string Information { get; set; }
 		public bool MainInGroup { get; set; }

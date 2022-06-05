@@ -202,7 +202,7 @@ namespace DcsBriefop
 		private void GenerateHtmlOperationsMissionLine(StringBuilder sbAssets, string sLineCleaned, Asset asset)
 		{
 			string sAssetLine = sLineCleaned;
-			PlaceholderReplace(ref sAssetLine, "missionDescription", asset.Description);
+			PlaceholderReplace(ref sAssetLine, "missionDescription", asset.DisplayName);
 			PlaceholderReplace(ref sAssetLine, "missionTask", asset.Task);
 			PlaceholderReplace(ref sAssetLine, "missionType", asset.Type);
 			PlaceholderReplace(ref sAssetLine, "missionNotes", asset.Information);
@@ -212,7 +212,7 @@ namespace DcsBriefop
 		private void GenerateHtmlOperationsSupportLine(StringBuilder sbAssets, string sLineCleaned, Asset asset)
 		{
 			string sAssetLine = sLineCleaned;
-			PlaceholderReplace(ref sAssetLine, "supportDescription", asset.Description);
+			PlaceholderReplace(ref sAssetLine, "supportDescription", asset.DisplayName);
 			PlaceholderReplace(ref sAssetLine, "supportTask", asset.Task);
 			PlaceholderReplace(ref sAssetLine, "supportType", asset.Type);
 			PlaceholderReplace(ref sAssetLine, "supportRadio", asset.GetRadioString());
@@ -301,7 +301,7 @@ namespace DcsBriefop
 				sType = group.Units.FirstOrDefault()?.Type;
 
 			string sAssetLine = sLineCleaned;
-			PlaceholderReplace(ref sAssetLine, "threatDescription", $"{asset.Description}<br>{sType}");
+			PlaceholderReplace(ref sAssetLine, "threatDescription", $"{asset.DisplayName}<br>{sType}");
 			PlaceholderReplace(ref sAssetLine, "threatLocalisation", asset.GetLocalisation());
 			PlaceholderReplace(ref sAssetLine, "threatNotes", asset.Information);
 			sbAssets.Append(sAssetLine);
@@ -310,7 +310,7 @@ namespace DcsBriefop
 		private void GenerateHtmlOppositionThreatLineUnit(StringBuilder sbAssets, string sLineCleaned, AssetUnit unit)
 		{
 			string sAssetLine = sLineCleaned;
-			PlaceholderReplace(ref sAssetLine, "threatDescription", $"{unit.AssetGroup.Description}<br>{unit.Description}");
+			PlaceholderReplace(ref sAssetLine, "threatDescription", $"{unit.AssetGroup.DisplayName}<br>{unit.DisplayName}");
 			PlaceholderReplace(ref sAssetLine, "threatLocalisation", unit.GetLocalisation());
 			PlaceholderReplace(ref sAssetLine, "threatNotes", unit.Information);
 			sbAssets.Append(sAssetLine);
@@ -434,7 +434,7 @@ namespace DcsBriefop
 
 			PlaceholderReplaceStyle(ref sHtml, coalition.OwnColor);
 			PlaceholderReplace(ref sHtml, "coalition", coalition.CoalitionName);
-			PlaceholderReplace(ref sHtml, "assetDescription", asset.Description);
+			PlaceholderReplace(ref sHtml, "assetDescription", asset.DisplayName);
 			PlaceholderReplace(ref sHtml, "task", asset.Task);
 			PlaceholderReplace(ref sHtml, "weather", m_briefingContainer.Mission.Weather.ToString());
 			PlaceholderReplace(ref sHtml, "bullseye", coalition.GetBullseyeCoordinatesString());
@@ -473,7 +473,7 @@ namespace DcsBriefop
 
 			if (PlaceholderGetBlock(out sBlockRaw, out sBlockCleaned, sHtml, "threatLine"))
 			{
-				List<AssetUnit> threats = asset.MissionData.GetListThreatUnits();
+				List<AssetUnit> threats = null;// asset.MissionData.GetListThreatUnits();
 				if (threats.Count < 0)
 				{
 					sHtml = sHtml.Replace(sBlockRaw, "");
@@ -485,7 +485,7 @@ namespace DcsBriefop
 					foreach (AssetUnit threat in threats)
 					{
 						string sThreatLine = sBlockCleaned;
-						PlaceholderReplace(ref sThreatLine, "threatDescription", $"{threat.AssetGroup.Description}<br>{threat.Description}");
+						PlaceholderReplace(ref sThreatLine, "threatDescription", $"{threat.AssetGroup.DisplayName}<br>{threat.DisplayName}");
 						PlaceholderReplace(ref sThreatLine, "threatLocalisation", threat.GetLocalisation());
 						PlaceholderReplace(ref sThreatLine, "threatNotes", threat.Information);
 						sb.Append(sThreatLine);

@@ -49,7 +49,7 @@ namespace DcsBriefop
 		{
 			Text = $"Mission detail : {m_asset.Name}";
 			TbId.Text = m_asset.Id.ToString();
-			TbDescription.Text = m_asset.Description;
+			TbDescription.Text = m_asset.DisplayName;
 			TbTask.Text = m_asset.Task;
 			TbType.Text = m_asset.Type;
 			TbAssetInformation.Text = m_asset.Information;
@@ -103,10 +103,10 @@ namespace DcsBriefop
 
 		private void DataToScreenThreats()
 		{
-			GridManagerUnit gamThreats = new GridManagerUnit(AdgvThreats, m_asset.Coalition.OpposingAssets, m_asset.MissionData);
-			gamThreats.ColumnsDisplayed = GridManagerUnit.ColumnsDisplayedUnit;
-			gamThreats.UnitModified += (o, e) => { UpdateMapControl(); };
-			gamThreats.Initialize();
+			//GridManagerUnit gamThreats = new GridManagerUnit(AdgvThreats, m_asset.Coalition.OpposingAssets, m_asset.MissionData);
+			//gamThreats.ColumnsDisplayed = GridManagerUnit.ColumnsDisplayedUnit;
+			//gamThreats.UnitModified += (o, e) => { UpdateMapControl(); };
+			//gamThreats.Initialize();
 		}
 
 		private void ScreenToData()
