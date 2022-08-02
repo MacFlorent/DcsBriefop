@@ -26,7 +26,7 @@ namespace DcsBriefop.Tools
 				}
 
 				if (bmp is null)
-					throw new ExceptionDcsBriefop($"Failed to create bitmap for file {sBitmapName}");
+					throw new ExceptionBriefop($"Failed to create bitmap for file {sBitmapName}");
 
 				m_bitmapCache.Add(sBitmapName, bmp);
 			}

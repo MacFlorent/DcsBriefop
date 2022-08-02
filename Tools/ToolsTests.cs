@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.DataBriefop;
 using DcsBriefop.FgControls;
 using DcsBriefop.UcBriefing;
 using LsonLib;
@@ -22,10 +23,10 @@ namespace DcsBriefop.Tools
 			}
 		}
 
-		public static void GridManager(SplitContainer splitContainer, MissionManager missionManager, BriefingContainer briefingContainer)
+		public static void GridManager(SplitContainer splitContainer, BriefingManager missionManager, BriefingContainer briefingContainer)
 		{
 			if (missionManager is null)
-				throw new ExceptionDcsBriefop("No mission is currently loaded");
+				throw new ExceptionBriefop("No mission is currently loaded");
 
 			splitContainer.Panel1.Controls.Clear();
 
@@ -39,8 +40,21 @@ namespace DcsBriefop.Tools
 
 		public static void TestForm()
 		{
-			FrmDatabaseDcsObject f = new FrmDatabaseDcsObject();
-			f.ShowDialog();
+			using (OpenFileDialog ofd = new OpenFileDialog())
+			{
+				ofd.InitialDirectory = Preferences.PreferencesManager.Preferences.General.WorkingDirectory;
+				ofd.Filter = "DCS mission files (*.miz)|*.miz|All files (*.*)|*.*";
+				ofd.RestoreDirectory = true;
+
+				if (ofd.ShowDialog() == DialogResult.OK)
+				{
+					BriefopManager mgr = new BriefopManager(ofd.FileName);
+					FrmTest f = new FrmTest(mgr);
+					f.ShowDialog();
+
+				}
+			}
+
 		}
 
 		public static void LsonText(SplitContainer splitContainer)

@@ -161,9 +161,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BriefingFilesBuilder.cs" />
+    <Compile Include="DataBriefop\BriefopAssetFlight.cs" />
+    <Compile Include="DataBriefop\BriefopMapPoint.cs" />
+    <Compile Include="DataBriefop\BriefopAssetUnit.cs" />
+    <Compile Include="DataBriefop\BriefopAssetGroup.cs" />
+    <Compile Include="DataBriefop\BriefopAsset.cs" />
+    <Compile Include="DataBriefop\BaseBriefop.cs" />
+    <Compile Include="DataBriefop\BriefopCoalition.cs" />
+    <Compile Include="DataBriefop\BriefopMain.cs" />
+    <Compile Include="DataBriefop\BriefopGeneral.cs" />
+    <Compile Include="DataBriefop\BriefopManager.cs" />
+    <Compile Include="DataBriefop\BriefopWeather.cs" />
     <Compile Include="DataMiz\BaseBriefopCustomSerializable.cs" />
     <Compile Include="DataMiz\BriefopCustomAsset.cs" />
-    <Compile Include="DataMiz\BriefopCustomMission.cs" />
     <Compile Include="DataMiz\Miz.cs" />
     <Compile Include="DataMiz\MizDataCartridge.cs" />
     <Compile Include="DataMiz\MizDrawing.cs" />
@@ -231,7 +241,7 @@
     <Compile Include="Map\GTextBriefop.cs" />
     <Compile Include="Map\GRouteBriefop.cs" />
     <Compile Include="Map\MapTemplateRoute.cs" />
-    <Compile Include="MissionManager.cs" />
+    <Compile Include="BriefingManager.cs" />
     <Compile Include="Data\Weather.cs" />
     <Compile Include="Data\Radio.cs" />
     <Compile Include="FrmPreferencesMizGenerate.cs">
@@ -307,7 +317,7 @@
     <Compile Include="DataMiz\BaseMiz.cs" />
     <Compile Include="DataMiz\MizRootMission.cs" />
     <Compile Include="DataMiz\MizWeather.cs" />
-    <Compile Include="ExceptionDcsBriefop.cs" />
+    <Compile Include="ExceptionBriefop.cs" />
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>

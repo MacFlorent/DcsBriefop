@@ -33,27 +33,27 @@ namespace DcsBriefop.FgControls
 
 		#region Fields
 		private List<AssetUnit> m_units;
-		private FlightMission m_flightMission;
+		private AssetFlightMission m_flightMission;
 		#endregion
 
 		#region Properties
 		#endregion
 
 		#region CTOR
-		public GridManagerUnit(FgDataGridView dgv, List<string> columnsDisplayed, List<AssetUnit> units, FlightMission flightMission) : base(dgv, columnsDisplayed)
+		public GridManagerUnit(FgDataGridView dgv, List<string> columnsDisplayed, List<AssetUnit> units, AssetFlightMission flightMission) : base(dgv, columnsDisplayed)
 		{
 			m_units = units;
 			m_flightMission = flightMission;
 		}
 
-		public static GridManagerUnit CreateManager(FgDataGridView dgv, List<string> columnsDisplayed, List<AssetUnit> units, FlightMission flightMission)
+		public static GridManagerUnit CreateManager(FgDataGridView dgv, List<string> columnsDisplayed, List<AssetUnit> units, AssetFlightMission flightMission)
 		{
 			GridManagerUnit gm = new GridManagerUnit(dgv, columnsDisplayed, units, flightMission);
 			gm.Initialize();
 			return gm;
 		}
 
-		public static GridManagerUnit CreateManager(FgDataGridView dgv, List<string> columnsDisplayed, List<Asset> assets, FlightMission flightMission)
+		public static GridManagerUnit CreateManager(FgDataGridView dgv, List<string> columnsDisplayed, List<Asset> assets, AssetFlightMission flightMission)
 		{
 			List<AssetUnit> units = assets.OfType<AssetGroup>().Select(_g => _g.Units).Aggregate((aggregated, toAggregate) => { return aggregated.Concat(toAggregate).ToList(); });
 			return CreateManager(dgv, columnsDisplayed, units, flightMission);
@@ -124,7 +124,7 @@ namespace DcsBriefop.FgControls
 
 			if (m_flightMission is object)
 			{
-				return m_flightMission.OpposingUnitIds.Contains(unit.Id);
+				return m_flightMission.ThreatUnitIds.Contains(unit.Id);
 			}
 			else
 			{
@@ -141,7 +141,7 @@ namespace DcsBriefop.FgControls
 
 			if (m_flightMission is object)
 			{
-				m_flightMission.IncludeOpposingUnit(unit.Id, bIncluded);
+				m_flightMission.IncludeThreatUnit(unit.Id, bIncluded);
 			}
 			else
 			{

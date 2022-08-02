@@ -1,6 +1,7 @@
 ﻿using log4net;
 using log4net.Repository.Hierarchy;
 using System;
+using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -37,41 +38,41 @@ namespace DcsBriefop
 
 		#region Methods
 		////// Logs
-		public static void Error(string sMessage, [CallerMemberName] string sMemberName = "", [CallerLineNumber] int iLineNumber = 0)
+		public static void Error(string sMessage, [CallerFilePath] string sCallerFilePath = null, [CallerLineNumber] int iLineNumber = 0, [CallerMemberName] string sCallerMemberName = null)
 		{
-			m_logger.Error(FormatWithCallerInformation(sMemberName, iLineNumber, sMessage));
+			m_logger.Error(FormatWithCallerInformation(sCallerFilePath, iLineNumber, sCallerMemberName, sMessage));
 		}
-		public static void Exception(Exception ex, [CallerMemberName] string sMemberName = "", [CallerLineNumber] int iLineNumber = 0)
+		public static void Exception(Exception ex, [CallerFilePath] string sCallerFilePath = null, [CallerLineNumber] int iLineNumber = 0, [CallerMemberName] string sCallerMemberName = null)
 		{
-			m_logger.Error(FormatWithCallerInformation(sMemberName, iLineNumber, ex.Message));
+			m_logger.Error(FormatWithCallerInformation(sCallerFilePath, iLineNumber, sCallerMemberName, ex.Message));
 			m_logger.Error(ex.StackTrace);
 		}
-		public static void Warning(string sMessage)
+		public static void Warning(string sMessage, [CallerFilePath] string sCallerFilePath = null, [CallerLineNumber] int iLineNumber = 0, [CallerMemberName] string sCallerMemberName = null)
 		{
-			m_logger.Warn(sMessage);
+			m_logger.Warn(FormatWithCallerInformation(sCallerFilePath, iLineNumber, sCallerMemberName, sMessage));
 		}
 
-		public static void Info(string sMessage)
+		public static void Info(string sMessage, [CallerFilePath] string sCallerFilePath = null, [CallerLineNumber] int iLineNumber = 0, [CallerMemberName] string sCallerMemberName = null)
 		{
-			m_logger.Info(sMessage);
+			m_logger.Info(FormatWithCallerInformation(sCallerFilePath, iLineNumber, sCallerMemberName, sMessage));
 		}
-		public static void Debug(string sMessage)
+		public static void Debug(string sMessage, [CallerFilePath] string sCallerFilePath = null, [CallerLineNumber] int iLineNumber = 0, [CallerMemberName] string sCallerMemberName = null)
 		{
-			m_logger.Debug(sMessage);
+			m_logger.Debug(FormatWithCallerInformation(sCallerFilePath, iLineNumber, sCallerMemberName, sMessage));
 		}
 
 		////// Application events
-		public static void ApplicationStart([CallerMemberName] string sMemberName = "", [CallerLineNumber] int iLineNumber = 0)
+		public static void ApplicationStart([CallerFilePath] string sCallerFilePath = null, [CallerLineNumber] int iLineNumber = 0, [CallerMemberName] string sCallerMemberName = null)
 		{
-			ApplicationEvent(true, sMemberName, iLineNumber);
+			ApplicationEvent(true, sCallerFilePath, iLineNumber, sCallerMemberName);
 		}
 
-		public static void ApplicationEnd([CallerMemberName] string sMemberName = "", [CallerLineNumber] int iLineNumber = 0)
+		public static void ApplicationEnd([CallerFilePath] string sCallerFilePath = null, [CallerLineNumber] int iLineNumber = 0, [CallerMemberName] string sCallerMemberName = null)
 		{
-			ApplicationEvent(false, sMemberName, iLineNumber);
+			ApplicationEvent(false, sCallerFilePath, iLineNumber, sCallerMemberName);
 		}
 
-		private static void ApplicationEvent(bool bStart, string sMemberName, int iLineNumber)
+		private static void ApplicationEvent(bool bStart, string sCallerFilePath, int iLineNumber, string sCallerMemberName)
 		{
 			string sEvent = bStart ? "START" : "END";
 			char c = bStart ? '>' : '<';
@@ -85,19 +86,28 @@ namespace DcsBriefop
 
 			if (bStart)
 			{
-				Info("");
+				Info("", sCallerFilePath, iLineNumber, sCallerMemberName);
 			}
-			Info($"{sMainLineStatic}{sMainLineVariable}{sMainLineStatic}");
+			Info($"{sMainLineStatic}{sMainLineVariable}{sMainLineStatic}", sCallerFilePath, iLineNumber, sCallerMemberName);
 		}
 
 		////// Tools
-		private static string FormatWithCallerInformation(string sMemberName, int iLineNumber, string sMessage)
+		private static string FormatWithCallerInformation(string sFilePath, int iLineNumber, string sMemberName, string sMessage)
 		{
-			string sLineNumber = "";
-			if (iLineNumber > 0)
-				sLineNumber = $":{iLineNumber:d3}";
+			string sFileInformation = "", sMemberInformation = "";
 
-			string sCallerInformation = ($"{sMemberName}{sLineNumber}").PadRight(10, ' ');
+			if (!string.IsNullOrEmpty(sFilePath))
+				sFileInformation = Path.GetFileName(sFilePath);
+			if (iLineNumber > 0)
+				sFileInformation = $"{sFileInformation}:{iLineNumber:d3}";
+
+			if (!string.IsNullOrEmpty(sFileInformation))
+				sFileInformation = sFileInformation.PadRight(30, ' ');
+
+			if (!string.IsNullOrEmpty(sMemberName))
+				sMemberInformation = sMemberName.PadRight(15, ' ');
+
+			string sCallerInformation = ($"{sFileInformation}{sMemberInformation}");
 			return $"{sCallerInformation} {sMessage}";
 		}
 		#endregion

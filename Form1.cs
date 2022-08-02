@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DcsBriefop.DataBriefop;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,11 +11,17 @@ using System.Windows.Forms;
 
 namespace DcsBriefop
 {
-	public partial class Form1 : Form
+	internal partial class FrmTest : Form
 	{
-		public Form1()
+		#region Fields
+		private BriefopManager m_briefopManager;
+		#endregion
+
+		public FrmTest(BriefopManager manager)
 		{
 			InitializeComponent();
+
+			m_briefopManager = manager;
 		}
 	}
 }

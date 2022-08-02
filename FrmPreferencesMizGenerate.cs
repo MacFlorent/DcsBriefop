@@ -12,11 +12,11 @@ namespace DcsBriefop
 		#region Fields
 		private GridManagerFileType m_gridFileTypeManager;
 		private BriefingContainer m_briefingContainer;
-		private MissionManager m_missionManager;
+		private BriefingManager m_missionManager;
 		#endregion
 
 		#region CTOR
-		public FrmPreferencesMizGenerate(BriefingContainer briefingContainer, MissionManager missionManager)
+		public FrmPreferencesMizGenerate(BriefingContainer briefingContainer, BriefingManager missionManager)
 		{
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);

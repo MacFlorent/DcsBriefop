@@ -1,6 +1,6 @@
 ﻿namespace DcsBriefop
 {
-	partial class Form1
+	partial class FrmTest
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,20 +28,22 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.fgDataGridView1 = new DcsBriefop.FgControls.FgDataGridView();
 			((System.ComponentModel.ISupportInitialize)(this.fgDataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// fgDataGridView1
 			// 
+			this.fgDataGridView1.AutoGenerateColumns = false;
 			this.fgDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.fgDataGridView1.DtSource = null;
 			this.fgDataGridView1.FilterAndSortEnabled = true;
 			this.fgDataGridView1.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.fgDataGridView1.Location = new System.Drawing.Point(511, 168);
+			this.fgDataGridView1.Location = new System.Drawing.Point(12, 12);
 			this.fgDataGridView1.Name = "fgDataGridView1";
 			this.fgDataGridView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.fgDataGridView1.Size = new System.Drawing.Size(240, 150);
+			this.fgDataGridView1.Size = new System.Drawing.Size(776, 426);
 			this.fgDataGridView1.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			this.fgDataGridView1.TabIndex = 0;
 			// 

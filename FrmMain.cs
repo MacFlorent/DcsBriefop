@@ -10,7 +10,7 @@ namespace DcsBriefop
 	public partial class FrmMain : Form
 	{
 		#region Fields
-		private MissionManager m_missionManager;
+		private BriefingManager m_missionManager;
 		private BriefingContainer m_briefingContainer;
 		private UcBriefingPack m_ucBriefingPack;
 		private UcMap m_ucMap;
@@ -50,18 +50,17 @@ namespace DcsBriefop
 		{
 			using (new WaitDialog(this))
 			{
-				m_missionManager = new MissionManager(sMizFilePath);
+				m_missionManager = new BriefingManager(sMizFilePath);
 				m_briefingContainer = new BriefingContainer(m_missionManager.Miz);
 				BuildMenu();
 				DataToScreen();
 			}
 		}
 
-
 		private void MizReload()
 		{
 			if (m_missionManager is null)
-				throw new ExceptionDcsBriefop("No mission is currently loaded");
+				throw new ExceptionBriefop("No mission is currently loaded");
 
 			using (new WaitDialog(this))
 			{
@@ -75,7 +74,7 @@ namespace DcsBriefop
 		private void MizSave(string sMizFilePath)
 		{
 			if (m_missionManager is null)
-				throw new ExceptionDcsBriefop("No mission is currently loaded");
+				throw new ExceptionBriefop("No mission is currently loaded");
 
 			using (new WaitDialog(this))
 			{
@@ -100,7 +99,7 @@ namespace DcsBriefop
 		private void MizSaveAs()
 		{
 			if (m_missionManager is null)
-				throw new ExceptionDcsBriefop("No mission is currently loaded");
+				throw new ExceptionBriefop("No mission is currently loaded");
 
 			using (SaveFileDialog sfd = new SaveFileDialog())
 			{
@@ -130,7 +129,7 @@ namespace DcsBriefop
 		private void OpenPreferencesMiz()
 		{
 			if (m_missionManager is null)
-				throw new ExceptionDcsBriefop("No mission is currently loaded");
+				throw new ExceptionBriefop("No mission is currently loaded");
 
 			ScreenToData();
 
@@ -144,7 +143,7 @@ namespace DcsBriefop
 		private void OpenPreferencesMizGenerate()
 		{
 			if (m_missionManager is null)
-				throw new ExceptionDcsBriefop("No mission is currently loaded");
+				throw new ExceptionBriefop("No mission is currently loaded");
 
 			ScreenToData();
 
@@ -155,7 +154,7 @@ namespace DcsBriefop
 		private void GenerateFiles()
 		{
 			if (m_missionManager is null)
-				throw new ExceptionDcsBriefop("No mission is currently loaded");
+				throw new ExceptionBriefop("No mission is currently loaded");
 
 			using (new WaitDialog(this))
 			{
@@ -169,7 +168,7 @@ namespace DcsBriefop
 		private void GenerateBatchCommand()
 		{
 			if (m_missionManager is null)
-				throw new ExceptionDcsBriefop("No mission is currently loaded");
+				throw new ExceptionBriefop("No mission is currently loaded");
 
 			string sCommandFilePath = m_missionManager.MizBatchCommandFileName();
 			if (ToolsControls.ShowMessageBoxQuestion($"The following command file will be generated in the mission directory :{Environment.NewLine}  {sCommandFilePath}{Environment.NewLine}{Environment.NewLine}You can execute this command file to generate the kneeboard contents for the mission. This file will also be generated each time the mission is saved in DcsBriefop if the relevant preference is active."))
@@ -226,8 +225,8 @@ namespace DcsBriefop
 
 		private void Test()
 		{
-			//ToolsTests.TestForm();
-			ToolsTests.GridManager(SplitContainer, m_missionManager, m_briefingContainer);
+			ToolsTests.TestForm();
+			//ToolsTests.GridManager(SplitContainer, m_missionManager, m_briefingContainer);
 		}
 		#endregion
 

@@ -58,7 +58,7 @@ namespace DcsBriefop
 
 		#region Fields
 		private BriefingContainer m_briefingContainer;
-		private MissionManager m_missionManager;
+		private BriefingManager m_missionManager;
 		private List<BriefingFile> m_listFiles = new List<BriefingFile>();
 		private Color m_backgroundColor = Color.Black;
 		#endregion
@@ -68,7 +68,7 @@ namespace DcsBriefop
 		#endregion
 
 		#region CTOR
-		public BriefingFilesBuilder(BriefingContainer briefingContainer, MissionManager missionManager)
+		public BriefingFilesBuilder(BriefingContainer briefingContainer, BriefingManager missionManager)
 		{
 			m_briefingContainer = briefingContainer;
 			m_missionManager = missionManager;
@@ -502,7 +502,7 @@ namespace DcsBriefop
 		private void ExportFilesToPath(string sPath, bool bKeepHtml)
 		{
 			if (!Directory.Exists(sPath))
-				throw new ExceptionDcsBriefop($"Path does not exists : {sPath}");
+				throw new ExceptionBriefop($"Path does not exists : {sPath}");
 
 			CleanFilesToPath(sPath);
 
@@ -552,7 +552,7 @@ namespace DcsBriefop
 		private void ExportFilesToMiz()
 		{
 			if (!File.Exists(m_missionManager.MizFilePath))
-				throw new ExceptionDcsBriefop($"Miz file not found : {m_missionManager.MizFilePath}");
+				throw new ExceptionBriefop($"Miz file not found : {m_missionManager.MizFilePath}");
 
 			CleanFilesToMiz();
 

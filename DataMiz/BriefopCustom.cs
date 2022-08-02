@@ -28,7 +28,7 @@ namespace DcsBriefop.DataMiz
 		public List<BriefopCustomGroup> AssetGroups { get; set; } = new List<BriefopCustomGroup>();
 		public List<BriefopCustomUnit> AssetUnits { get; set; } = new List<BriefopCustomUnit>();
 		public List<BriefopCustomAirdrome> AssetAirdromes { get; set; } = new List<BriefopCustomAirdrome>();
-		public List<BriefopCustomMission> FlightMissions { get; set; } = new List<BriefopCustomMission>();
+		public List<BriefopCustomAssetFlightMission> AssetFlightMissions { get; set; } = new List<BriefopCustomAssetFlightMission>();
 
 		#endregion
 
@@ -68,9 +68,9 @@ namespace DcsBriefop.DataMiz
 			return AssetAirdromes.Where(_a => _a.Id == iAssetId && _a.CoalitionName == sCoalitionName).FirstOrDefault();
 		}
 
-		public BriefopCustomMission GetMission(string sTypeName, string sCoalitionName)
+		public BriefopCustomAssetFlightMission GetMission(int iAssetId, string sCoalitionName)
 		{
-			return FlightMissions?.Where(_m => _m.TypeName == sTypeName && _m.CoalitionName == sCoalitionName).FirstOrDefault();
+			return AssetFlightMissions?.Where(_m => _m.Id == iAssetId && _m.CoalitionName == sCoalitionName).FirstOrDefault();
 		}
 
 		public GMapProvider GetDefaultMapProvider()

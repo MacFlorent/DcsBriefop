@@ -56,7 +56,7 @@ namespace DcsBriefop
 			try
 			{
 				Log.Info($"Reading miz file content");
-				MissionManager missionManager = new MissionManager(optionsBatch.MizFile);
+				BriefingManager missionManager = new BriefingManager(optionsBatch.MizFile);
 				Log.Info($"Building DcsBriefop data for miz file");
 				BriefingContainer briefingContainer = new BriefingContainer(missionManager.Miz);
 

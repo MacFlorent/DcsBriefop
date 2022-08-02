@@ -139,7 +139,7 @@ namespace DcsBriefop.Data
 				string sLutResource = $"Points{Name}";
 				string sResourceContent = ToolsResources.GetTextResourceContent(sLutResource, "txt");
 				if (string.IsNullOrEmpty(sResourceContent))
-					throw new ExceptionDcsBriefop($"Empty or absent LUT data resource: {sLutResource}.");
+					throw new ExceptionBriefop($"Empty or absent LUT data resource: {sLutResource}.");
 
 				string[] resourceContentLines = sResourceContent.Split('\n');
 				foreach (string sLine in resourceContentLines)
@@ -187,7 +187,7 @@ namespace DcsBriefop.Data
 
 			if (!decimal.TryParse(sLine.Substring(iIndexStart, iLength), out decimal dItemValue))
 			{
-				throw new ExceptionDcsBriefop($"Item {sItem} was not decoded from line {sLine} in point LUT resource.");
+				throw new ExceptionBriefop($"Item {sItem} was not decoded from line {sLine} in point LUT resource.");
 			}
 
 			return dItemValue;
@@ -200,7 +200,7 @@ namespace DcsBriefop.Data
 				string sResource = $"Airdromes{Name}";
 				string sJsonStream = ToolsResources.GetJsonResourceContent(sResource);
 				if (string.IsNullOrEmpty(sJsonStream))
-					throw new ExceptionDcsBriefop($"Empty or absent airdrome resource: {sResource}.");
+					throw new ExceptionBriefop($"Empty or absent airdrome resource: {sResource}.");
 
 				Airdromes = JsonConvert.DeserializeObject<List<Airdrome>>(sJsonStream);
 			}

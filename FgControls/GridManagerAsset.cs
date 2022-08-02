@@ -36,22 +36,22 @@ namespace DcsBriefop.FgControls
 
 		#region Fields
 		private List<Asset> m_assets;
-		private FlightMission m_flightMission;
+		private AssetFlightMission m_assetFlightMission;
 		#endregion
 
 		#region Properties
 		#endregion
 
 		#region CTOR
-		public GridManagerAsset(FgDataGridView dgv, List<string> columnsDisplayed, List<Asset> assets, FlightMission flightMission) : base(dgv, columnsDisplayed)
+		public GridManagerAsset(FgDataGridView dgv, List<string> columnsDisplayed, List<Asset> assets, AssetFlightMission flightMission) : base(dgv, columnsDisplayed)
 		{
 			m_assets = assets;
-			m_flightMission = flightMission;
+			m_assetFlightMission = flightMission;
 
 			m_dgv.CellDoubleClick += CellDoubleClickEvent;
 		}
 
-		public static GridManagerAsset CreateManager(FgDataGridView dgv, List<string> columnsDisplayed, List<Asset> assets, FlightMission flightMission)
+		public static GridManagerAsset CreateManager(FgDataGridView dgv, List<string> columnsDisplayed, List<Asset> assets, AssetFlightMission flightMission)
 		{
 			//columnsDisplayed = ColumnsDisplayedOwn;
 			GridManagerAsset gm = new GridManagerAsset(dgv, columnsDisplayed, assets, flightMission);
@@ -59,15 +59,15 @@ namespace DcsBriefop.FgControls
 			return gm;
 		}
 
-		public static GridManagerAsset CreateManagerOwn(FgDataGridView dgv, List<Asset> assets, FlightMission flightMission)
+		public static GridManagerAsset CreateManagerOwn(FgDataGridView dgv, List<Asset> assets, AssetFlightMission flightMission)
 		{
 			return CreateManager(dgv, ColumnsDisplayedOwn, assets, flightMission);
 		}
-		public static GridManagerAsset CreateManagerOpposing(FgDataGridView dgv, List<Asset> assets, FlightMission flightMission)
+		public static GridManagerAsset CreateManagerOpposing(FgDataGridView dgv, List<Asset> assets, AssetFlightMission flightMission)
 		{
 			return CreateManager(dgv, ColumnsDisplayedOpposing, assets, flightMission);
 		}
-		public static GridManagerAsset CreateManagerAirdrome(FgDataGridView dgv, List<Asset> assets, FlightMission flightMission)
+		public static GridManagerAsset CreateManagerAirdrome(FgDataGridView dgv, List<Asset> assets, AssetFlightMission flightMission)
 		{
 			return CreateManager(dgv, ColumnsDisplayedAirdrome, assets, flightMission);
 		}
@@ -144,9 +144,9 @@ namespace DcsBriefop.FgControls
 
 			Asset asset = dr.Field<Asset>(Column.Data);
 
-			if (m_flightMission is object)
+			if (m_assetFlightMission is object)
 			{
-				return m_flightMission.OpposingAssetIds.Contains(asset.Id);
+				return false; // only units are included in AssetFlightMissions
 			}
 			else
 			{
@@ -163,9 +163,9 @@ namespace DcsBriefop.FgControls
 				return true;
 
 			Asset asset = dr.Field<Asset>(Column.Data);
-			if (m_flightMission is object)
+			if (m_assetFlightMission is object)
 			{
-				return ((asset as AssetGroup)?.Units.Select(_u => _u.Id).Intersect(m_flightMission.OpposingUnitIds).Any()).GetValueOrDefault(false);
+				return ((asset as AssetGroup)?.Units.Select(_u => _u.Id).Intersect(m_assetFlightMission.ThreatUnitIds).Any()).GetValueOrDefault(false);
 			}
 			else
 			{
@@ -180,9 +180,9 @@ namespace DcsBriefop.FgControls
 
 			Asset asset = dr.Field<Asset>(Column.Data);
 
-			if (m_flightMission is object)
+			if (m_assetFlightMission is object)
 			{
-				m_flightMission.IncludeOpposingAsset(asset.Id, bIncluded);
+				// only units are included in AssetFlightMissions - m_assetFlightMission.IncludeThreat(asset.Id, bIncluded);
 			}
 			else
 			{

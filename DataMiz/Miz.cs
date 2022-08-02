@@ -32,9 +32,13 @@ namespace DcsBriefop.DataMiz
 			RootDictionary = new MizRootDictionary(LsonVars.Parse(sLuaDictionary));
 
 			if (!string.IsNullOrEmpty(sJsonBriefopCustom))
+			{
+				Log.Debug($"Parsing existing json custom data");
 				BriefopCustomData = BriefopCustom.DeserializeJson(sJsonBriefopCustom);
+			}
 			else
 			{
+				Log.Debug($"Initializing new default custom data");
 				BriefopCustomData = new BriefopCustom();
 				BriefopCustomData.InitializeDefault();
 			}

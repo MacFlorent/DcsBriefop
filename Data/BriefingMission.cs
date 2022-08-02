@@ -3,7 +3,7 @@ using System;
 
 namespace DcsBriefop.Data
 {
-	internal class BriefingMission : BaseBriefing
+	internal class MissionContent : BaseBriefing
 	{
 		#region Properties
 		public string Sortie { get; set; }
@@ -14,7 +14,7 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region CTOR
-		public BriefingMission(BaseBriefingCore core) : base(core)
+		public MissionContent(BaseBriefingCore core) : base(core)
 		{
 			Initialize();
 		}

@@ -10,7 +10,7 @@ namespace DcsBriefop.Data
 	internal class BriefingContainer : BaseBriefing
 	{
 		#region Properties
-		public BriefingMission Mission { get; set; }
+		public MissionContent Mission { get; set; }
 		public List<BriefingCoalition> BriefingCoalitions { get; private set; } = new List<BriefingCoalition>();
 
 		public BriefopCustomMap MapData { get { return Core.Miz.BriefopCustomData.MapData; } }
@@ -26,19 +26,22 @@ namespace DcsBriefop.Data
 		#region Initialize
 		private void Initialize()
 		{
-			Mission = new BriefingMission(Core);
-
+			var stopWatch = System.Diagnostics.Stopwatch.StartNew();
+			Log.Debug("Initialize all briefing data start");
+			Mission = new MissionContent(Core);
 			InitializeMapData(); // initialize map data before coalitions as they will need main map overlays
 
 			InitializeCoalition(ElementCoalition.Red);
 			InitializeCoalition(ElementCoalition.Blue);
 			//InitializeCoalition(ElementCoalition.Neutral);
+			stopWatch.Stop();
+			Log.Debug($@"Initialize all briefing data end [{stopWatch.Elapsed:hh\:mm\:ss\.ff}]");
 		}
 
 		private void InitializeMapData()
 		{
 			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
-			
+
 			ToolsMap.AddMizDrawingLayers(Core.Theatre, staticOverlay, Core.Miz.RootMission.DrawingLayers.Where(_dl => _dl.Name == ElementDrawingLayer.Common).ToList());
 
 			if (MapData is null)
@@ -104,7 +107,7 @@ namespace DcsBriefop.Data
 		public void SetMapProvider(string sProviderName)
 		{
 			MapData.Provider = sProviderName;
-			foreach(BriefingCoalition coalition in BriefingCoalitions)
+			foreach (BriefingCoalition coalition in BriefingCoalitions)
 			{
 				coalition.SetMapProvider(sProviderName);
 			}
