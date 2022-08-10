@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.DataBop;
 using DcsBriefop.FgControls;
 using DcsBriefop.Tools;
 using System.Windows.Forms;
@@ -19,11 +20,11 @@ namespace DcsBriefop
 		}
 
 		#region Fields
-		private Asset m_asset;
+		private BopAsset m_asset;
 		#endregion
 
 		#region CTOR
-		internal FrmAssetDetail(Asset asset)
+		internal FrmAssetDetail(BopAsset asset)
 		{
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
@@ -39,58 +40,58 @@ namespace DcsBriefop
 		#region Methods
 		private void DataToScreen()
 		{
-			Text = $"Asset detail : {m_asset.DisplayName}";
+			//Text = $"Asset detail : {m_asset.DisplayName}";
 
-			TbDescription.Text = m_asset.DisplayName;
-			TbSide.Text = m_asset.Side.ToString();
+			//TbDescription.Text = m_asset.DisplayName;
+			//TbSide.Text = m_asset.Side.ToString();
 
-			TbAssetClass.Text = m_asset.Class.ToString();
-			TbFunction.Text = m_asset.Function.ToString();
-			CkIncluded.Checked = m_asset.Included;
-			CbMapDisplay.SelectedValue = (int)m_asset.MapDisplay;
-			TbInformation.Text = m_asset.Information;
+			//TbAssetClass.Text = m_asset.Class.ToString();
+			//TbFunction.Text = m_asset.Function.ToString();
+			//CkIncluded.Checked = m_asset.Included;
+			//CbMapDisplay.SelectedValue = (int)m_asset.MapDisplay;
+			//TbInformation.Text = m_asset.Information;
 
-			TbId.Text = m_asset.Id.ToString();
-			TbName.Text = m_asset.Name;
-			TbTask.Text = m_asset.Task;
-			TbType.Text = m_asset.Type;
+			//TbId.Text = m_asset.Id.ToString();
+			//TbName.Text = m_asset.Name;
+			//TbTask.Text = m_asset.Task;
+			//TbType.Text = m_asset.Type;
 
-			CkPlayable.Visible = CkLateActivation.Visible = (m_asset is AssetGroup);
-			AssetGroup group = m_asset as AssetGroup;
-			if (group is object)
-			{
-				CkPlayable.Checked = group.Playable;
-				CkLateActivation.Checked = group.LateActivation;
-				TbRadio.Text = group.GetRadioString();
-			}
-			else if (m_asset is AssetAirdrome airdrome)
-			{
-				TbRadio.Text = airdrome.GetRadioString();
-			}
+			//CkPlayable.Visible = CkLateActivation.Visible = (m_asset is AssetGroup);
+			//AssetGroup group = m_asset as AssetGroup;
+			//if (group is object)
+			//{
+			//	CkPlayable.Checked = group.Playable;
+			//	CkLateActivation.Checked = group.LateActivation;
+			//	TbRadio.Text = group.GetRadioString();
+			//}
+			//else if (m_asset is AssetAirdrome airdrome)
+			//{
+			//	TbRadio.Text = airdrome.GetRadioString();
+			//}
 
-			DataToScreenUnits();
+			//DataToScreenUnits();
 		}
 
 		private void DataToScreenUnits()
 		{
-			if (m_asset is AssetGroup group)
-			{
-				GridManagerUnit gm = GridManagerUnit.CreateManager (DgvUnits, GridManagerUnit.ColumnsDisplayedUnit, group.Units, null);
-			}
+			//if (m_asset is AssetGroup group)
+			//{
+			//	GridManagerUnit gm = GridManagerUnit.CreateManager (DgvUnits, GridManagerUnit.ColumnsDisplayedUnit, group.Units, null);
+			//}
 		}
 
 		private void ScreenToData()
 		{
-			m_asset.Included = CkIncluded.Checked;
+			//m_asset.Included = CkIncluded.Checked;
 
-			ElementAssetMapDisplay mapDisplay = (ElementAssetMapDisplay)CbMapDisplay.SelectedValue;
-			if (mapDisplay != m_asset.MapDisplay)
-			{
-				m_asset.MapDisplay = mapDisplay;
-				m_asset.InitializeMapOverlay();
-			}
+			//ElementAssetMapDisplay mapDisplay = (ElementAssetMapDisplay)CbMapDisplay.SelectedValue;
+			//if (mapDisplay != m_asset.MapDisplay)
+			//{
+			//	m_asset.MapDisplay = mapDisplay;
+			//	m_asset.InitializeMapOverlay();
+			//}
 
-			m_asset.Information = TbInformation.Text;
+			//m_asset.Information = TbInformation.Text;
 		}
 		#endregion
 

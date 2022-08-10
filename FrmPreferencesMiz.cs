@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.DataBop;
 using DcsBriefop.Tools;
 using DcsBriefop.UcBriefing;
 using GMap.NET.MapProviders;
@@ -13,12 +14,12 @@ namespace DcsBriefop
 		public delegate void RefreshUcMapDelegate();
 
 		#region Fields
-		private BriefingContainer m_briefingContainer;
+		private BopManager m_bopManager;
 		private RefreshUcMapDelegate m_dlgtRefreshUcMap;
 		#endregion
 
 		#region CTOR
-		public FrmPreferencesMiz(BriefingContainer briefingContainer, RefreshUcMapDelegate dlgtRefreshUcMap)
+		public FrmPreferencesMiz(BopManager bopManager, RefreshUcMapDelegate dlgtRefreshUcMap)
 		{
 			InitializeComponent();
 
@@ -27,7 +28,7 @@ namespace DcsBriefop
 			ToolsStyle.ButtonCancel(BtCancel);
 
 			DialogResult = DialogResult.Cancel;
-			m_briefingContainer = briefingContainer;
+			m_bopManager = bopManager;
 			m_dlgtRefreshUcMap = dlgtRefreshUcMap;
 
 			CbMapProvider.DataSource = GMapProviders.List;
@@ -41,16 +42,16 @@ namespace DcsBriefop
 		{
 			CkNoCallsignForPlayableFlights.CheckedChanged -= CkNoCallsignForPlayableFlights_CheckedChanged;
 
-			CbMapProvider.SelectedItem = m_briefingContainer.Core.Miz.BriefopCustomData.GetDefaultMapProvider();
-			CkNoCallsignForPlayableFlights.Checked = m_briefingContainer.Core.Miz.BriefopCustomData.NoCallsignForPlayableFlights;
+			CbMapProvider.SelectedItem = m_bopManager.BopCustomMain.GetDefaultMapProvider();
+			CkNoCallsignForPlayableFlights.Checked = m_bopManager.BopCustomMain.NoCallsignForPlayableFlights;
 
 			CkNoCallsignForPlayableFlights.CheckedChanged += CkNoCallsignForPlayableFlights_CheckedChanged;
 		}
 
 		private void ScreenToData()
 		{
-			m_briefingContainer.Core.Miz.BriefopCustomData.DefaultMapProvider = (CbMapProvider.SelectedItem as GMapProvider)?.Name;
-			m_briefingContainer.Core.Miz.BriefopCustomData.NoCallsignForPlayableFlights = CkNoCallsignForPlayableFlights.Checked;
+			m_bopManager.BopCustomMain.DefaultMapProvider = (CbMapProvider.SelectedItem as GMapProvider)?.Name;
+			m_bopManager.BopCustomMain.NoCallsignForPlayableFlights = CkNoCallsignForPlayableFlights.Checked;
 		}
 		#endregion
 
@@ -70,17 +71,17 @@ namespace DcsBriefop
 
 		private void CkNoCallsignForPlayableFlights_CheckedChanged(object sender, EventArgs e)
 		{
-			m_briefingContainer.Core.Miz.BriefopCustomData.NoCallsignForPlayableFlights = CkNoCallsignForPlayableFlights.Checked;
-			foreach (BriefingCoalition coalition in m_briefingContainer.BriefingCoalitions)
-			{
-				foreach (AssetFlight flight in coalition.OwnAssets.OfType<AssetFlight>())
-					flight.SetDisplayName();
-			}
+			//m_bopManager.BopCustomMain.NoCallsignForPlayableFlights = CkNoCallsignForPlayableFlights.Checked;
+			//foreach (BopCoalition coalition in m_briefingContainer.BriefingCoalitions)
+			//{
+			//	foreach (AssetFlight flight in coalition.OwnAssets.OfType<AssetFlight>())
+			//		flight.SetDisplayName();
+			//}
 		}
 
 		private void BtMapProvider_Click(object sender, EventArgs e)
 		{
-			m_briefingContainer.SetMapProvider((CbMapProvider.SelectedItem as GMapProvider)?.Name);
+			m_bopManager.BopMain.SetMapProvider((CbMapProvider.SelectedItem as GMapProvider)?.Name);
 			m_dlgtRefreshUcMap?.Invoke();
 		}
 	}

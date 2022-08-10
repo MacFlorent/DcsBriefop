@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.DataBop;
 using DcsBriefop.Tools;
 using DcsBriefop.UcBriefing;
 using System.Collections.Generic;
@@ -11,18 +12,16 @@ namespace DcsBriefop
 	{
 		#region Fields
 		private GridManagerFileType m_gridFileTypeManager;
-		private BriefingContainer m_briefingContainer;
-		private BriefingManager m_missionManager;
+		private BopManager m_missionManager;
 		#endregion
 
 		#region CTOR
-		public FrmPreferencesMizGenerate(BriefingContainer briefingContainer, BriefingManager missionManager)
+		public FrmPreferencesMizGenerate(BopManager missionManager)
 		{
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 			ToolsStyle.ButtonOk(BtGenerate);
 
-			m_briefingContainer = briefingContainer;
 			m_missionManager = missionManager;
 
 			ToolsControls.SetDataGridViewProperties(DgvFileTypes);
@@ -36,36 +35,36 @@ namespace DcsBriefop
 		#region Methods
 		private void DataToScreen()
 		{
-			CkGenerateOnSave.Checked = m_missionManager.Miz.BriefopCustomData.ExportOnSave;
-			CkMizFile.Checked = m_missionManager.Miz.BriefopCustomData.ExportMiz;
-			CkLocalDirectory.Checked = m_missionManager.Miz.BriefopCustomData.ExportLocalDirectory;
-			CkLocalDirectoryHtml.Checked = m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryHtml;
+			//CkGenerateOnSave.Checked = m_missionManager.Miz.BriefopCustomData.ExportOnSave;
+			//CkMizFile.Checked = m_missionManager.Miz.BriefopCustomData.ExportMiz;
+			//CkLocalDirectory.Checked = m_missionManager.Miz.BriefopCustomData.ExportLocalDirectory;
+			//CkLocalDirectoryHtml.Checked = m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryHtml;
 
-			if (string.IsNullOrEmpty(m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryPath))
-				TbLocalDirectory.Text = m_missionManager.MizFileDirectory;
-			else
-				TbLocalDirectory.Text = m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryPath;
+			//if (string.IsNullOrEmpty(m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryPath))
+			//	TbLocalDirectory.Text = m_missionManager.MizFileDirectory;
+			//else
+			//	TbLocalDirectory.Text = m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryPath;
 
-			UcExportImageSize.SelectedSize = m_missionManager.Miz.BriefopCustomData.ExportImageSize;
-			UcImageBackgroundColor.SelectedColorHtml = m_missionManager.Miz.BriefopCustomData.ExportImageBackgroundColor;
+			//UcExportImageSize.SelectedSize = m_missionManager.Miz.BriefopCustomData.ExportImageSize;
+			//UcImageBackgroundColor.SelectedColorHtml = m_missionManager.Miz.BriefopCustomData.ExportImageBackgroundColor;
 
-			m_gridFileTypeManager.SelectedExportFileTypes = m_missionManager.Miz.BriefopCustomData.ExportFileTypes;
+			//m_gridFileTypeManager.SelectedExportFileTypes = m_missionManager.Miz.BriefopCustomData.ExportFileTypes;
 
-			DisplayCurrentLocaDirectory();
+			//DisplayCurrentLocaDirectory();
 		}
 
 		private void ScreenToData()
 		{
-			m_missionManager.Miz.BriefopCustomData.ExportOnSave = CkGenerateOnSave.Checked;
-			m_missionManager.Miz.BriefopCustomData.ExportMiz = CkMizFile.Checked;
-			m_missionManager.Miz.BriefopCustomData.ExportLocalDirectory = CkLocalDirectory.Checked;
-			m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryHtml = CkLocalDirectoryHtml.Checked;
-			m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryPath = TbLocalDirectory.Text;
+			//m_missionManager.Miz.BriefopCustomData.ExportOnSave = CkGenerateOnSave.Checked;
+			//m_missionManager.Miz.BriefopCustomData.ExportMiz = CkMizFile.Checked;
+			//m_missionManager.Miz.BriefopCustomData.ExportLocalDirectory = CkLocalDirectory.Checked;
+			//m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryHtml = CkLocalDirectoryHtml.Checked;
+			//m_missionManager.Miz.BriefopCustomData.ExportLocalDirectoryPath = TbLocalDirectory.Text;
 
-			m_missionManager.Miz.BriefopCustomData.ExportImageSize = UcExportImageSize.SelectedSize;
-			m_missionManager.Miz.BriefopCustomData.ExportImageBackgroundColor = UcImageBackgroundColor.SelectedColorHtml;
+			//m_missionManager.Miz.BriefopCustomData.ExportImageSize = UcExportImageSize.SelectedSize;
+			//m_missionManager.Miz.BriefopCustomData.ExportImageBackgroundColor = UcImageBackgroundColor.SelectedColorHtml;
 
-			m_missionManager.Miz.BriefopCustomData.ExportFileTypes = m_gridFileTypeManager.SelectedExportFileTypes;
+			//m_missionManager.Miz.BriefopCustomData.ExportFileTypes = m_gridFileTypeManager.SelectedExportFileTypes;
 		}
 
 		private void DisplayCurrentLocaDirectory()
@@ -79,11 +78,11 @@ namespace DcsBriefop
 		{
 			ScreenToData();
 
-			using (new WaitDialog(this))
-			using (BriefingFilesBuilder builder = new BriefingFilesBuilder(m_briefingContainer, m_missionManager))
-			{
-				builder.Generate();
-			}
+			//using (new WaitDialog(this))
+			//using (BriefingFilesBuilder builder = new BriefingFilesBuilder(m_briefingContainer, m_missionManager))
+			//{
+			//	builder.Generate();
+			//}
 		}
 
 		private void BtClose_Click(object sender, System.EventArgs e)

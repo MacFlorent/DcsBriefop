@@ -11,7 +11,7 @@ namespace DcsBriefop.FgControls
 	{
 		#region Fields
 		protected FgDataGridView m_dgv;
-		protected DataTable m_dtSource;
+		//protected DataTable m_dtSource;
 		protected List<string> m_columnsDisplayed;
 
 		protected bool m_disposedValue;
@@ -37,7 +37,7 @@ namespace DcsBriefop.FgControls
 			FinalizeGridColumns();
 
 			m_dgv.CellValueChanged -= CellValueChangedEvent;
-			m_dgv.DtSource = m_dtSource;
+			//m_dgv.DtSource = m_dtSource;
 			m_dgv.CellValueChanged += CellValueChangedEvent;
 		}
 

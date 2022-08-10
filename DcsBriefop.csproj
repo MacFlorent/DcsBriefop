@@ -161,47 +161,100 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BriefingFilesBuilder.cs" />
-    <Compile Include="DataBriefop\BriefopAssetFlight.cs" />
-    <Compile Include="DataBriefop\BriefopMapPoint.cs" />
-    <Compile Include="DataBriefop\BriefopAssetUnit.cs" />
-    <Compile Include="DataBriefop\BriefopAssetGroup.cs" />
-    <Compile Include="DataBriefop\BriefopAsset.cs" />
-    <Compile Include="DataBriefop\BaseBriefop.cs" />
-    <Compile Include="DataBriefop\BriefopCoalition.cs" />
-    <Compile Include="DataBriefop\BriefopMain.cs" />
-    <Compile Include="DataBriefop\BriefopGeneral.cs" />
-    <Compile Include="DataBriefop\BriefopManager.cs" />
-    <Compile Include="DataBriefop\BriefopWeather.cs" />
-    <Compile Include="DataMiz\BaseBriefopCustomSerializable.cs" />
-    <Compile Include="DataMiz\BriefopCustomAsset.cs" />
+    <Compile Include="DataBopCustom\BaseBopCustomSerializable.cs" />
+    <Compile Include="DataBopCustom\BopCustomMain.cs" />
+    <Compile Include="DataBopCustom\BopCustomAirdrome.cs" />
+    <Compile Include="DataBopCustom\BopCustomMap.cs" />
+    <Compile Include="DataBopCustom\BopCustomAsset.cs" />
+    <Compile Include="DataBop\BopAirdrome.cs" />
+    <Compile Include="DataBop\BopAssetFlight.cs" />
+    <Compile Include="DataBop\BopMapPoint.cs" />
+    <Compile Include="DataBop\BopAssetUnit.cs" />
+    <Compile Include="DataBop\BopAssetGroup.cs" />
+    <Compile Include="DataBop\BopAsset.cs" />
+    <Compile Include="DataBop\BaseBop.cs" />
+    <Compile Include="DataBop\BopCoalition.cs" />
+    <Compile Include="DataBop\BopMain.cs" />
+    <Compile Include="DataBop\BopGeneral.cs" />
+    <Compile Include="DataBop\BopManager.cs" />
+    <Compile Include="DataBop\BopWeather.cs" />
     <Compile Include="DataMiz\Miz.cs" />
     <Compile Include="DataMiz\MizDataCartridge.cs" />
     <Compile Include="DataMiz\MizDrawing.cs" />
     <Compile Include="DataMiz\MizRadio.cs" />
     <Compile Include="DataMiz\MizCallsign.cs" />
     <Compile Include="Data\Airdrome.cs" />
-    <Compile Include="Data\Asset.cs" />
-    <Compile Include="Data\AssetAirdrome.cs" />
-    <Compile Include="Data\AssetFlight.cs" />
-    <Compile Include="Data\AssetGroup.cs" />
-    <Compile Include="Data\AssetMapPoint.cs" />
-    <Compile Include="Data\AssetShip.cs" />
-    <Compile Include="Data\AssetStatic.cs" />
-    <Compile Include="Data\AssetVehicle.cs" />
-    <Compile Include="Data\BaseBriefing.cs" />
+    <Compile Include="DataBop\BopAssetStatic.cs" />
     <Compile Include="Data\DcsObject.cs" />
-    <Compile Include="Data\FlightMission.cs" />
     <Compile Include="FgControls\FgDataGridView.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="FgControls\GridManagerAidrome.cs" />
+    <Compile Include="FormBop\FrmBop.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormBop\FrmBop.Designer.cs">
+      <DependentUpon>FrmBop.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmDatabaseDcsObject.cs">
+    <Compile Include="FormBop\TabPageBriefing.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormBop\UcBaseBop.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormBop\UcBaseBop.Designer.cs">
+      <DependentUpon>UcBaseBop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBop\UcBopTheatre.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormBop\UcBopTheatre.Designer.cs">
+      <DependentUpon>UcBopTheatre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBop\UcBriefopCoalition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormBop\UcBriefopCoalition.Designer.cs">
+      <DependentUpon>UcBriefopCoalition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBop\UcBriefopMain.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormBop\UcBriefopMain.Designer.cs">
+      <DependentUpon>UcBriefopMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBop\UcColor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormBop\UcColor.Designer.cs">
+      <DependentUpon>UcColor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBop\UcMap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormBop\UcMap.Designer.cs">
+      <DependentUpon>UcMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBop\UcMarkerDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormBop\UcMarkerDetail.Designer.cs">
+      <DependentUpon>UcMarkerDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UcBriefing\FrmTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmDatabaseDcsObject.Designer.cs">
+    <Compile Include="UcBriefing\FrmTest.Designer.cs">
+      <DependentUpon>FrmTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBop\UcBopGeneral.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormBop\UcBopGeneral.Designer.cs">
+      <DependentUpon>UcBopGeneral.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBop\FrmDatabaseDcsObject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBop\FrmDatabaseDcsObject.Designer.cs">
       <DependentUpon>FrmDatabaseDcsObject.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmPreferencesMiz.cs">
@@ -212,12 +265,7 @@
     </Compile>
     <Compile Include="Preferences\Preferences.cs" />
     <Compile Include="Preferences\PreferencesManager.cs" />
-    <Compile Include="Data\ComPreset.cs" />
-    <Compile Include="Data\BriefingContainer.cs" />
-    <Compile Include="DataMiz\BriefopCustom.cs" />
-    <Compile Include="Data\AssetUnit.cs" />
-    <Compile Include="Data\BriefingMission.cs" />
-    <Compile Include="Data\BriefingCoalition.cs" />
+    <Compile Include="DataBop\BopComPreset.cs" />
     <Compile Include="FrmComs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,10 +278,10 @@
     <Compile Include="FrmPreferences.Designer.cs">
       <DependentUpon>FrmPreferences.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmWait.cs">
+    <Compile Include="FormBop\FrmWait.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmWait.Designer.cs">
+    <Compile Include="FormBop\FrmWait.Designer.cs">
       <DependentUpon>FrmWait.cs</DependentUpon>
     </Compile>
     <Compile Include="Map\ConfigMapTemplateObjects.cs" />
@@ -241,8 +289,6 @@
     <Compile Include="Map\GTextBriefop.cs" />
     <Compile Include="Map\GRouteBriefop.cs" />
     <Compile Include="Map\MapTemplateRoute.cs" />
-    <Compile Include="BriefingManager.cs" />
-    <Compile Include="Data\Weather.cs" />
     <Compile Include="Data\Radio.cs" />
     <Compile Include="FrmPreferencesMizGenerate.cs">
       <SubType>Form</SubType>
@@ -298,32 +344,11 @@
     <Compile Include="FgControls\GridManagerUnit.cs" />
     <Compile Include="FgControls\GridManagerAsset.cs" />
     <Compile Include="FgControls\GridManagerFileType.cs" />
-    <Compile Include="UcBriefing\TabPageBriefing.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="UcBriefing\UcBaseBriefing.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UcBriefing\UcBaseBriefing.Designer.cs">
-      <DependentUpon>UcBaseBriefing.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UcBriefing\UcBriefingPack.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UcBriefing\UcBriefingPack.Designer.cs">
-      <DependentUpon>UcBriefingPack.cs</DependentUpon>
-    </Compile>
     <Compile Include="DataMiz\MizRootDictionary.cs" />
     <Compile Include="DataMiz\BaseMiz.cs" />
     <Compile Include="DataMiz\MizRootMission.cs" />
     <Compile Include="DataMiz\MizWeather.cs" />
     <Compile Include="ExceptionBriefop.cs" />
-    <Compile Include="FrmMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmMain.Designer.cs">
-      <DependentUpon>FrmMain.cs</DependentUpon>
-    </Compile>
     <Compile Include="Log.cs" />
     <Compile Include="LsonLib\Lson.cs" />
     <Compile Include="LsonLib\OffsetToLineCol.cs" />
@@ -335,49 +360,43 @@
     <Compile Include="Tools\ToolsCoordinate.cs" />
     <Compile Include="Tools\ToolsLson.cs" />
     <Compile Include="Tools\ToolsMisc.cs" />
-    <Compile Include="UcBriefing\UcBriefingCoalition.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UcBriefing\UcBriefingCoalition.Designer.cs">
-      <DependentUpon>UcBriefingCoalition.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UcBriefing\UcBriefingSituation.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UcBriefing\UcBriefingSituation.Designer.cs">
-      <DependentUpon>UcBriefingSituation.cs</DependentUpon>
-    </Compile>
     <Compile Include="UcBriefing\UcImageSize.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UcBriefing\UcImageSize.Designer.cs">
       <DependentUpon>UcImageSize.cs</DependentUpon>
     </Compile>
-    <Compile Include="UcBriefing\UcColor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UcBriefing\UcColor.Designer.cs">
+    <EmbeddedResource Include="FormBop\FrmBop.resx">
+      <DependentUpon>FrmBop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBop\UcBopTheatre.resx">
+      <DependentUpon>UcBopTheatre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBop\UcBriefopCoalition.resx">
+      <DependentUpon>UcBriefopCoalition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBop\UcBriefopMain.resx">
+      <DependentUpon>UcBriefopMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBop\UcColor.resx">
       <DependentUpon>UcColor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UcBriefing\UcMap.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UcBriefing\UcMap.Designer.cs">
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBop\UcMap.resx">
       <DependentUpon>UcMap.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UcBriefing\UcMarkerDetail.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UcBriefing\UcMarkerDetail.Designer.cs">
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBop\UcMarkerDetail.resx">
       <DependentUpon>UcMarkerDetail.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcBriefing\FrmTest.resx">
+      <DependentUpon>FrmTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBop\UcBopGeneral.resx">
+      <DependentUpon>UcBopGeneral.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmComs.resx">
       <DependentUpon>FrmComs.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmDatabaseDcsObject.resx">
+    <EmbeddedResource Include="FormBop\FrmDatabaseDcsObject.resx">
       <DependentUpon>FrmDatabaseDcsObject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPreferencesMiz.resx">
@@ -389,13 +408,10 @@
     <EmbeddedResource Include="FrmMissionDetail.resx">
       <DependentUpon>FrmMissionDetail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMain.resx">
-      <DependentUpon>FrmMain.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmPreferences.resx">
       <DependentUpon>FrmPreferences.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmWait.resx">
+    <EmbeddedResource Include="FormBop\FrmWait.resx">
       <DependentUpon>FrmWait.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -406,26 +422,8 @@
     <EmbeddedResource Include="FrmAssetDetail.resx">
       <DependentUpon>FrmAssetDetail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UcBriefing\UcBriefingPack.resx">
-      <DependentUpon>UcBriefingPack.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UcBriefing\UcBriefingCoalition.resx">
-      <DependentUpon>UcBriefingCoalition.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UcBriefing\UcBriefingSituation.resx">
-      <DependentUpon>UcBriefingSituation.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UcBriefing\UcImageSize.resx">
       <DependentUpon>UcImageSize.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UcBriefing\UcColor.resx">
-      <DependentUpon>UcColor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UcBriefing\UcMap.resx">
-      <DependentUpon>UcMap.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UcBriefing\UcMarkerDetail.resx">
-      <DependentUpon>UcMarkerDetail.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -457,6 +455,7 @@
   <ItemGroup>
     <Content Include="icon256.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

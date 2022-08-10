@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.FormBop;
 using DcsBriefop.Tools;
 using System;
 using System.Globalization;
@@ -40,7 +41,7 @@ namespace DcsBriefop
 			Log.ApplicationStart();
 			Log.Info("Starting app verb");
 
-			FrmMain f = new FrmMain();
+			FrmBop f = new FrmBop();
 			f.Show(null);
 			f.FormClosed += MainFormClosed;
 			Application.Run(f);
@@ -55,14 +56,14 @@ namespace DcsBriefop
 
 			try
 			{
-				Log.Info($"Reading miz file content");
-				BriefingManager missionManager = new BriefingManager(optionsBatch.MizFile);
-				Log.Info($"Building DcsBriefop data for miz file");
-				BriefingContainer briefingContainer = new BriefingContainer(missionManager.Miz);
+				//Log.Info($"Reading miz file content");
+				//BriefingManager missionManager = new BriefingManager(optionsBatch.MizFile);
+				//Log.Info($"Building DcsBriefop data for miz file");
+				//BriefingContainer briefingContainer = new BriefingContainer(missionManager.Miz);
 
-				Log.Info($"Generating kneeboard briefing files");
-				using (BriefingFilesBuilder builder = new BriefingFilesBuilder(briefingContainer, missionManager))
-					builder.Generate();
+				//Log.Info($"Generating kneeboard briefing files");
+				//using (BriefingFilesBuilder builder = new BriefingFilesBuilder(briefingContainer, missionManager))
+				//	builder.Generate();
 
 				Log.ApplicationEnd();
 				return 1;

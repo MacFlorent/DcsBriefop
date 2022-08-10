@@ -1,5 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
+using DcsBriefop.DataBopCustom;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using GMap.NET;
@@ -156,7 +157,7 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region Image Generation
-		public static Bitmap GenerateMapImage(BriefopCustomMap mapData, Size outputSize)
+		public static Bitmap GenerateMapImage(BopCustomMap mapData, Size outputSize)
 		{
 			GMapProvider mapProvider = mapData.GetMapProvider(); ;
 			List<GMapOverlay> overlays = new List<GMapOverlay>();

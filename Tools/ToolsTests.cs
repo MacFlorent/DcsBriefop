@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
-using DcsBriefop.DataBriefop;
+using DcsBriefop.DataBop;
 using DcsBriefop.FgControls;
+using DcsBriefop.FormBop;
 using DcsBriefop.UcBriefing;
 using LsonLib;
 using System.Collections.Generic;
@@ -23,37 +24,25 @@ namespace DcsBriefop.Tools
 			}
 		}
 
-		public static void GridManager(SplitContainer splitContainer, BriefingManager missionManager, BriefingContainer briefingContainer)
-		{
-			if (missionManager is null)
-				throw new ExceptionBriefop("No mission is currently loaded");
+		//public static void GridManager(SplitContainer splitContainer, BriefingManager missionManager, BriefingContainer briefingContainer)
+		//{
+		//	if (missionManager is null)
+		//		throw new ExceptionBriefop("No mission is currently loaded");
 
-			splitContainer.Panel1.Controls.Clear();
+		//	splitContainer.Panel1.Controls.Clear();
 
-			FgDataGridView dgv = new FgDataGridView();
-			dgv.Dock = DockStyle.Fill;
-			splitContainer.Panel1.Controls.Add(dgv);
+		//	FgDataGridView dgv = new FgDataGridView();
+		//	dgv.Dock = DockStyle.Fill;
+		//	splitContainer.Panel1.Controls.Add(dgv);
 
-			GridManagerAsset gam = new GridManagerAsset(dgv, null, briefingContainer.GetCoalition(ElementCoalition.Blue).OpposingAssets, null);
-			gam.Initialize();
-		}
+		//	GridManagerAsset gam = new GridManagerAsset(dgv, null, briefingContainer.GetCoalition(ElementCoalition.Blue).OpposingAssets, null);
+		//	gam.Initialize();
+		//}
 
 		public static void TestForm()
 		{
-			using (OpenFileDialog ofd = new OpenFileDialog())
-			{
-				ofd.InitialDirectory = Preferences.PreferencesManager.Preferences.General.WorkingDirectory;
-				ofd.Filter = "DCS mission files (*.miz)|*.miz|All files (*.*)|*.*";
-				ofd.RestoreDirectory = true;
-
-				if (ofd.ShowDialog() == DialogResult.OK)
-				{
-					BriefopManager mgr = new BriefopManager(ofd.FileName);
-					FrmTest f = new FrmTest(mgr);
-					f.ShowDialog();
-
-				}
-			}
+			FrmBop f = new FrmBop();
+			f.ShowDialog();
 
 		}
 

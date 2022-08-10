@@ -26,10 +26,10 @@ namespace DcsBriefop.Tools
 				return null;
 		}
 
-		public static bool AssetOrUnitIncluded(Asset asset)
-		{
-			return asset is object &&
-				(asset.Included || ((asset as AssetGroup)?.Units.Where(_u => _u.Included).Any()).GetValueOrDefault(false));
-		}
+		//public static bool AssetOrUnitIncluded(Asset asset)
+		//{
+		//	return asset is object &&
+		//		(asset.Included || ((asset as AssetGroup)?.Units.Where(_u => _u.Included).Any()).GetValueOrDefault(false));
+		//}
 	}
 }

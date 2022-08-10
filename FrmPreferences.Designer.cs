@@ -34,7 +34,7 @@ namespace DcsBriefop
 			this.GbImage = new System.Windows.Forms.GroupBox();
 			this.UcDefaultImageSize = new DcsBriefop.UcBriefing.UcImageSize();
 			this.label1 = new System.Windows.Forms.Label();
-			this.UcImageBackgroundColor = new DcsBriefop.UcBriefing.UcColor();
+			this.UcImageBackgroundColor = new DcsBriefop.FormBop.UcColor();
 			this.LbImageBackgroundColor = new System.Windows.Forms.Label();
 			this.GbMap = new System.Windows.Forms.GroupBox();
 			this.UdMapDefaultZoom = new System.Windows.Forms.NumericUpDown();
@@ -333,7 +333,7 @@ namespace DcsBriefop
 		private System.Windows.Forms.Label LbMapDisplay;
 		private System.Windows.Forms.GroupBox GbImage;
 		private System.Windows.Forms.Label label1;
-		private UcBriefing.UcColor UcImageBackgroundColor;
+		private FormBop.UcColor UcImageBackgroundColor;
 		private System.Windows.Forms.Label LbImageBackgroundColor;
 		private System.Windows.Forms.GroupBox GbMap;
 		private System.Windows.Forms.NumericUpDown UdMapDefaultZoom;

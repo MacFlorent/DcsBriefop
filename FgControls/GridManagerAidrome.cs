@@ -10,7 +10,7 @@
 
 //namespace DcsBriefop.FgControls
 //{
-//	internal class GridManagerAsset : GridManager
+//	internal class GridManagerAirdrome : GridManager
 //	{
 //		#region Columns
 //		public static class Column

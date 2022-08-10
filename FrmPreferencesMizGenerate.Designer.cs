@@ -42,7 +42,7 @@ namespace DcsBriefop
 			this.GbImage = new System.Windows.Forms.GroupBox();
 			this.UcExportImageSize = new DcsBriefop.UcBriefing.UcImageSize();
 			this.label1 = new System.Windows.Forms.Label();
-			this.UcImageBackgroundColor = new DcsBriefop.UcBriefing.UcColor();
+			this.UcImageBackgroundColor = new DcsBriefop.FormBop.UcColor();
 			this.label2 = new System.Windows.Forms.Label();
 			this.BtClose = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DgvFileTypes)).BeginInit();
@@ -251,7 +251,7 @@ namespace DcsBriefop
 		private System.Windows.Forms.Button BtLocalDirectoryReset;
 		private System.Windows.Forms.DataGridView DgvFileTypes;
 		private System.Windows.Forms.Label LbImageBackgroundColor;
-		private UcBriefing.UcColor UcImageBackgroundColor;
+		private FormBop.UcColor UcImageBackgroundColor;
 		private System.Windows.Forms.CheckBox CkGenerateOnSave;
 		private System.Windows.Forms.GroupBox GbImage;
 		private System.Windows.Forms.Label label1;
