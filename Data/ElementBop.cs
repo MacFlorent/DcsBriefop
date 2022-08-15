@@ -1,21 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace DcsBriefop.Data
 {
-	internal enum ElementAssetSide
-	{
-		None = 0,
-		Own = 1,
-		Opposing = 2
-	}
-
-	internal enum ElementAssetFunction
-	{
-		Other = 0,
-		Support = 1,
-		Base = 2
-	}
-
 	internal enum ElementAssetMapDisplay
 	{
 		None = 0,
@@ -39,6 +26,20 @@ namespace DcsBriefop.Data
 		Coms,
 		Missions,
 		MissionMaps,
+	}
+
+	internal enum ElementWeatherDisplay
+	{
+		Plain,
+		Metar
+	}
+
+	[Flags]
+	internal enum ElementCoordinateDisplay
+	{
+		Dms = 1,
+		Ddm = 2,
+		Mgrs = 4
 	}
 
 	internal static class ElementGlobalData

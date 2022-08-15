@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Data;
 using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,6 +12,8 @@ namespace DcsBriefop.DataBopCustom
 		#region Properties
 		public string DefaultMapProvider { get; set; } = Preferences.PreferencesManager.Preferences.Map.DefaultProvider;
 		public bool NoCallsignForPlayableFlights { get; set; } = Preferences.PreferencesManager.Preferences.General.NoCallsignForPlayableFlights;
+		public ElementWeatherDisplay WeatherDisplay { get; set; } = Preferences.PreferencesManager.Preferences.General.WeatherDisplay;
+		public ElementCoordinateDisplay CoordinateDisplay { get; set; } = Preferences.PreferencesManager.Preferences.General.CoordinateDisplay;
 		public bool ExportOnSave { get; set; } = Preferences.PreferencesManager.Preferences.Generation.ExportOnSave;
 		public bool ExportMiz { get; set; } = Preferences.PreferencesManager.Preferences.Generation.ExportMiz;
 		public bool ExportLocalDirectory { get; set; } = Preferences.PreferencesManager.Preferences.Generation.ExportLocalDirectory;
@@ -20,14 +21,13 @@ namespace DcsBriefop.DataBopCustom
 		public string ExportLocalDirectoryPath { get; set; }
 		public Size ExportImageSize { get; set; } = Preferences.PreferencesManager.Preferences.Generation.ExportImageSize;
 		public string ExportImageBackgroundColor { get; set; } = Preferences.PreferencesManager.Preferences.Generation.ExportImageBackgroundColor;
-		public List<ElementExportFileType> ExportFileTypes { get; set; } = new List<ElementExportFileType>();
 
 		public BopCustomGeneral BopCustomGeneral { get; set; }
+		public List<BopCustomCoalition> BopCoalitions { get; private set; } = new List<BopCustomCoalition>();
+		//public List<BopCustomAirdrome> BopCustomAirdromes { get; set; } = new List<BopCustomAirdrome>();
 
-		public List<BopCustomCoalition> Coalitions { get; private set; } = new List<BopCustomCoalition>();
 		//public List<BriefopCustomGroup> AssetGroups { get; set; } = new List<BriefopCustomGroup>();
 		//public List<BriefopCustomUnit> AssetUnits { get; set; } = new List<BriefopCustomUnit>();
-		//public List<BriefopCustomAirdrome> AssetAirdromes { get; set; } = new List<BriefopCustomAirdrome>();
 		//public List<BriefopCustomAssetFlightMission> AssetFlightMissions { get; set; } = new List<BriefopCustomAssetFlightMission>();
 
 		#endregion
@@ -35,7 +35,7 @@ namespace DcsBriefop.DataBopCustom
 		#region Methods
 		public void InitializeDefault()
 		{
-			ExportFileTypes = Preferences.PreferencesManager.Preferences.Generation.ExportFileTypes;
+			
 		}
 
 		public static BopCustomMain DeserializeJson(string sJson)
@@ -50,8 +50,13 @@ namespace DcsBriefop.DataBopCustom
 
 		public BopCustomCoalition GetCoalition(string sCoalitionName)
 		{
-			return Coalitions.Where(c => c.CoalitionName == sCoalitionName).FirstOrDefault();
+			return BopCoalitions.Where(_c => _c.CoalitionName == sCoalitionName).FirstOrDefault();
 		}
+
+		//public BopCustomAirdrome GetAirdrome(int iAirdromeId)
+		//{
+		//	return BopCustomAirdromes.Where(_a => _a.Id == iAirdromeId).FirstOrDefault();
+		//}
 
 		//public BriefopCustomGroup GetGroup(int iAssetId, string sCoalitionName)
 		//{
@@ -63,10 +68,7 @@ namespace DcsBriefop.DataBopCustom
 		//	return AssetUnits.Where(_u => _u.Id == iUnitId && _u.CoalitionName == sCoalitionName).FirstOrDefault();
 		//}
 
-		//public BriefopCustomAirdrome GetAirdrome(int iAssetId, string sCoalitionName)
-		//{
-		//	return AssetAirdromes.Where(_a => _a.Id == iAssetId && _a.CoalitionName == sCoalitionName).FirstOrDefault();
-		//}
+
 
 		//public BriefopCustomAssetFlightMission GetMission(int iAssetId, string sCoalitionName)
 		//{
@@ -87,15 +89,6 @@ namespace DcsBriefop.DataBopCustom
 	internal class BopCustomGeneral
 	{
 		public BopCustomMap MapData { get; set; }
-	}
-
-	internal class BopCustomCoalition
-	{
-		public string CoalitionName { get; set; }
-		public string BullseyeDescription { get; set; }
-		public bool BullseyeWaypoint { get; set; }
-		public BopCustomMap MapData { get; set; }
-		//public ListComPreset ComPresets { get; set; }
 	}
 }
 

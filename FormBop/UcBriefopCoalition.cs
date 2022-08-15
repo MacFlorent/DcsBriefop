@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBop;
-using DcsBriefop.FgControls;
+using DcsBriefop.DataBopCustom;
+using DcsBriefop.FormBop;
 using DcsBriefop.Tools;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,11 @@ namespace DcsBriefop.FormBop
 			Coalition.BullseyeDescription = TbBullseyeDescription.Text;
 			Coalition.Task = TbTask.Text;
 			Coalition.BullseyeWaypoint = CkBullseyeWaypoint.Checked;
+		}
+
+		public override BopCustomMap GetMapData()
+		{
+			return m_bopManager.BopMain.BopGeneral.MapData;
 		}
 
 		private void SetComPresetButton()

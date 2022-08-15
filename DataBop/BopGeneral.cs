@@ -34,6 +34,28 @@ namespace DcsBriefop.DataBop
 			Description = ToolsLua.DcsTextToDisplay(ParentManager.Miz.RootDictionary.Description);
 			Date = new DateTime(ParentManager.Miz.RootMission.Date.Year, ParentManager.Miz.RootMission.Date.Month, ParentManager.Miz.RootMission.Date.Day).AddSeconds(ParentManager.Miz.RootMission.StartTime);
 		}
+
+		private void InitializeMapData()
+		{
+			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
+
+			ToolsMap.AddMizDrawingLayers(ParentManager.Theatre, staticOverlay, ParentManager.Miz.RootMission.DrawingLayers.Where(_dl => _dl.Name == ElementDrawingLayer.Common).ToList());
+
+			if (MapData is null)
+			{
+				m_customGeneral.MapData = new BopCustomMap();
+				MapData.DisplayName = "General";
+				MapData.Provider = ParentManager.BopCustomMain.DefaultMapProvider;
+				Coordinate coordinateCenter = ParentManager.Theatre.GetCoordinate(ParentManager.Miz.RootMission.Map.CenterY, ParentManager.Miz.RootMission.Map.CenterX);
+				MapData.CenterLatitude = coordinateCenter.Latitude.DecimalDegree;
+				MapData.CenterLongitude = coordinateCenter.Longitude.DecimalDegree;
+				MapData.Zoom = Preferences.PreferencesManager.Preferences.Map.DefaultZoom;
+				MapData.MapOverlayCustom = new GMapOverlay();
+			}
+
+			MapData.AdditionalMapOverlays.Clear();
+			MapData.AdditionalMapOverlays.Add(staticOverlay);
+		}
 		#endregion
 
 		#region Initialize & Persist
@@ -63,30 +85,14 @@ namespace DcsBriefop.DataBop
 		#endregion
 
 		#region Methods
-		private void InitializeMapData()
-		{
-			GMapOverlay staticOverlay = new GMapOverlay(ElementMapValue.OverlayStatic);
-
-			ToolsMap.AddMizDrawingLayers(ParentManager.Theatre, staticOverlay, ParentManager.Miz.RootMission.DrawingLayers.Where(_dl => _dl.Name == ElementDrawingLayer.Common).ToList());
-
-			if (MapData is null)
-			{
-				m_customGeneral.MapData = new BopCustomMap();
-				MapData.Provider = ParentManager.BopCustomMain.DefaultMapProvider;
-				Coordinate coordinateCenter = ParentManager.Theatre.GetCoordinate(ParentManager.Miz.RootMission.Map.CenterY, ParentManager.Miz.RootMission.Map.CenterX);
-				MapData.CenterLatitude = coordinateCenter.Latitude.DecimalDegree;
-				MapData.CenterLongitude = coordinateCenter.Longitude.DecimalDegree;
-				MapData.Zoom = Preferences.PreferencesManager.Preferences.Map.DefaultZoom;
-				MapData.MapOverlayCustom = new GMapOverlay();
-			}
-
-			MapData.AdditionalMapOverlays.Clear();
-			MapData.AdditionalMapOverlays.Add(staticOverlay);
-		}
-
 		public void SetMapProvider(string sProviderName)
 		{
 			MapData.Provider = sProviderName;
+		}
+
+		public string ToStringWeather()
+		{
+			return Weather.ToString(ParentManager.BopCustomMain.WeatherDisplay, Date);
 		}
 		#endregion
 	}

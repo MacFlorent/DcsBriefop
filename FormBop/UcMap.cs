@@ -51,11 +51,11 @@ namespace DcsBriefop.FormBop
 		#endregion
 
 		#region Methods
-		public void SetMapData(BopCustomMap mapData, string sTheater, string sTitle, bool bViewOnly)
+		public void SetMapData(BopCustomMap mapData, string sTheater, bool bViewOnly)
 		{
 			m_bViewOnly = bViewOnly;
 			LbTheater.Text = sTheater;
-			LbTitle.Text = sTitle;
+			LbTitle.Text = mapData.DisplayName;
 
 			CkAddMarker.Enabled = BtAreaSet.Enabled = BtAreaRecall.Enabled = !m_bViewOnly;
 			MapData = mapData;

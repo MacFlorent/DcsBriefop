@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DcsBriefop.UcBriefing
+namespace DcsBriefop.FormBop
 {
 	internal partial class FrmTest : Form
 	{

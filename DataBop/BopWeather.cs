@@ -2,6 +2,10 @@
 using DcsBriefop.Tools;
 using System;
 using System.Text;
+using static Common.Logging.Configuration.ArgUtils;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Windows;
+using UnitsNet;
 
 namespace DcsBriefop.DataBop
 {
@@ -52,7 +56,7 @@ namespace DcsBriefop.DataBop
 				Preset = wp;
 
 			WindGround = new BopWeatherWind(mizWeather.WindAtGround);
-			Wind2000= new BopWeatherWind(mizWeather.WindAt2000);
+			Wind2000 = new BopWeatherWind(mizWeather.WindAt2000);
 			Wind8000 = new BopWeatherWind(mizWeather.WindAt8000);
 
 			VisibilityMeter = mizWeather.VisibilityDistance;
@@ -89,16 +93,26 @@ namespace DcsBriefop.DataBop
 			TemperatureCelcius = mizWeather.Temperature;
 		}
 
-		public override string ToString()
+		public string ToString(ElementWeatherDisplay weatherDisplay, DateTime? date)
 		{
-			return ToString(Environment.NewLine);
+			if (weatherDisplay == ElementWeatherDisplay.Plain)
+				return ToStringPlain();
+			else if (weatherDisplay == ElementWeatherDisplay.Metar)
+				return ToStringMetar(date);
+			else
+				return "";
 		}
 
-		public string ToString(string sNewLine)
+		public string ToStringPlain()
+		{
+			return ToStringPlain(Environment.NewLine);
+		}
+
+		public string ToStringPlain(string sNewLine)
 		{
 			StringBuilder sb = new StringBuilder();
 			// wind
-			sb.AppendWithSeparator($"Wind: {ToString_Wind(0, WindGround)} - {ToString_Wind(2000, Wind2000)} - {ToString_Wind(8000, Wind8000)}", sNewLine);
+			sb.AppendWithSeparator($"Wind: {ToStringPlain_Wind(0, WindGround)} - {ToStringPlain_Wind(2000, Wind2000)} - {ToStringPlain_Wind(8000, Wind8000)}", sNewLine);
 
 			// visibility and clouds
 			int iVisibilityKilometer = VisibilityMeter / 1000;
@@ -137,25 +151,80 @@ namespace DcsBriefop.DataBop
 			return sb.ToString();
 		}
 
-		private string ToString_Wind(int iAltitudeFoot, BopWeatherWind ww)
+		private string ToStringPlain_Wind(int iAltitudeFoot, BopWeatherWind ww)
 		{
 			return $"{iAltitudeFoot} ft: {ww.DirectionTrue:000}° @ {ww.SpeedKnot:00} kt";
 		}
-	}
 
-	internal class BopWeatherWind
-	{
-		public decimal SpeedMs { get; private set; }
-		public decimal SpeedKnot
+		public string ToStringMetar(DateTime? date)
 		{
-			get { return Convert.ToDecimal(UnitsNet.UnitConverter.Convert(SpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.Knot)); }
+			StringBuilder sb = new StringBuilder();
+
+			if (date is object)
+			{
+				//sb.AppendWithSeparator($"{date.Value.Day:00}{date.Value.Hour:00}Z", " ");
+			}
+
+			if (WindGround.SpeedKnot < 1)
+				sb.AppendWithSeparator("00000KT", " ");
+			else
+				sb.AppendWithSeparator($"{WindGround.DirectionTrue:000}{WindGround.SpeedKnot:0}KT", " ");
+
+			if (VisibilityMeter >= 10000 && CloudBaseFoot >= 5000 && !Precipitation && !Fog && !Dust)
+				sb.Append(" CAVOK");
+			else
+			{
+				int iVisibilityDistance = VisibilityMeter;
+				if (iVisibilityDistance > 9999)
+					iVisibilityDistance = 9999;
+
+				sb.AppendWithSeparator($"{iVisibilityDistance}", " ");
+				if (Precipitation)
+					sb.Append(" RA");
+				if (Fog)
+					sb.Append(" FG");
+				if (Dust)
+					sb.Append(" DU");
+
+				if (CloudDensityOkta <= 0)
+					sb.Append(" SKC");
+				else
+				{
+					int iCloudBaseRounded = CloudBaseFoot / 100;
+
+					string sDensity;
+					if (CloudDensityOkta <= 2)
+						sDensity = "FEW";
+					else if (CloudDensityOkta <= 4)
+						sDensity = "SCT";
+					else if (CloudDensityOkta <= 6)
+						sDensity = "BKN";
+					else
+						sDensity = "OVC";
+
+					sb.AppendWithSeparator($"{sDensity}{iCloudBaseRounded:000}", " ");
+				}
+			}
+
+			sb.Append($"{TemperatureCelcius:0} {QnhHpa:0}/{QnhInHg:00.00}");
+			
+			return sb.ToString();
 		}
-		public int DirectionTrue { get; private set; } // Direction the wind is coming from
 
-		public BopWeatherWind(DataMiz.MizWeatherWind lson)
+		internal class BopWeatherWind
 		{
-			SpeedMs = lson.Speed;
-			DirectionTrue = ((int)Math.Round(lson.Direction) + 180) % 360;
+			public decimal SpeedMs { get; private set; }
+			public decimal SpeedKnot
+			{
+				get { return Convert.ToDecimal(UnitConverter.Convert(SpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.Knot)); }
+			}
+			public int DirectionTrue { get; private set; } // Direction the wind is coming from
+
+			public BopWeatherWind(DataMiz.MizWeatherWind lson)
+			{
+				SpeedMs = lson.Speed;
+				DirectionTrue = ((int)Math.Round(lson.Direction) + 180) % 360;
+			}
 		}
 	}
 }

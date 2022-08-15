@@ -12,7 +12,6 @@ namespace DcsBriefop.DataBop
 		public string CountryName { get; protected set; }
 
 		public virtual ElementDcsObjectClass Class { get; protected set; }
-		public ElementAssetFunction Function { get; set; }
 
 		public int Id { get; set; }
 		public string Name { get; set; }
@@ -32,7 +31,6 @@ namespace DcsBriefop.DataBop
 			CountryName = sCountryName;
 
 			Class = ElementDcsObjectClass.None;
-			Function = ElementAssetFunction.Other;
 			
 			MapMarker = ElementMapTemplateMarker.Mark;
 			MapPoints = new List<BopMapPoint>();

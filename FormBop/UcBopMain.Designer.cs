@@ -1,7 +1,7 @@
 ﻿
 namespace DcsBriefop.FormBop
 {
-	partial class UcBriefopMain
+	partial class UcBopMain
 	{
 		/// <summary> 
 		/// Required designer variable.
@@ -29,21 +29,21 @@ namespace DcsBriefop.FormBop
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.TcMissionData = new System.Windows.Forms.TabControl();
+			this.TcMain = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.TcMissionData.SuspendLayout();
+			this.TcMain.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// TcMissionData
 			// 
-			this.TcMissionData.Controls.Add(this.tabPage1);
-			this.TcMissionData.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TcMissionData.Location = new System.Drawing.Point(0, 0);
-			this.TcMissionData.Name = "TcMissionData";
-			this.TcMissionData.SelectedIndex = 0;
-			this.TcMissionData.Size = new System.Drawing.Size(834, 838);
-			this.TcMissionData.TabIndex = 1;
-			this.TcMissionData.SelectedIndexChanged += new System.EventHandler(this.TcMissionData_SelectedIndexChanged);
+			this.TcMain.Controls.Add(this.tabPage1);
+			this.TcMain.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TcMain.Location = new System.Drawing.Point(0, 0);
+			this.TcMain.Name = "TcMissionData";
+			this.TcMain.SelectedIndex = 0;
+			this.TcMain.Size = new System.Drawing.Size(834, 838);
+			this.TcMain.TabIndex = 1;
+			this.TcMain.SelectedIndexChanged += new System.EventHandler(this.TcMissionData_SelectedIndexChanged);
 			// 
 			// tabPage1
 			// 
@@ -59,17 +59,17 @@ namespace DcsBriefop.FormBop
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.TcMissionData);
+			this.Controls.Add(this.TcMain);
 			this.Name = "UcBriefingPack";
 			this.Size = new System.Drawing.Size(834, 838);
-			this.TcMissionData.ResumeLayout(false);
+			this.TcMain.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.TabControl TcMissionData;
+		private System.Windows.Forms.TabControl TcMain;
 		private System.Windows.Forms.TabPage tabPage1;
 	}
 }

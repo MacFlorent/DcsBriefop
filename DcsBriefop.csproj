@@ -162,12 +162,14 @@
   <ItemGroup>
     <Compile Include="BriefingFilesBuilder.cs" />
     <Compile Include="DataBopCustom\BaseBopCustomSerializable.cs" />
+    <Compile Include="DataBopCustom\BopCustomCoalition.cs" />
     <Compile Include="DataBopCustom\BopCustomMain.cs" />
-    <Compile Include="DataBopCustom\BopCustomAirdrome.cs" />
+    <Compile Include="DataBopCustom\BopCustomCoalitionAirdrome.cs" />
     <Compile Include="DataBopCustom\BopCustomMap.cs" />
     <Compile Include="DataBopCustom\BopCustomAsset.cs" />
     <Compile Include="DataBop\BopAirdrome.cs" />
     <Compile Include="DataBop\BopAssetFlight.cs" />
+    <Compile Include="DataBop\BopCoalitionAirdrome.cs" />
     <Compile Include="DataBop\BopMapPoint.cs" />
     <Compile Include="DataBop\BopAssetUnit.cs" />
     <Compile Include="DataBop\BopAssetGroup.cs" />
@@ -186,15 +188,15 @@
     <Compile Include="Data\Airdrome.cs" />
     <Compile Include="DataBop\BopAssetStatic.cs" />
     <Compile Include="Data\DcsObject.cs" />
-    <Compile Include="FgControls\FgDataGridView.cs" />
-    <Compile Include="FgControls\GridManagerAidrome.cs" />
+    <Compile Include="FormBop\BopDataGridView.cs" />
+    <Compile Include="FormBop\GridManagerAidromes.cs" />
     <Compile Include="FormBop\FrmBop.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormBop\FrmBop.Designer.cs">
       <DependentUpon>FrmBop.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormBop\TabPageBriefing.cs">
+    <Compile Include="FormBop\BopTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FormBop\UcBaseBop.cs">
@@ -215,11 +217,11 @@
     <Compile Include="FormBop\UcBriefopCoalition.Designer.cs">
       <DependentUpon>UcBriefopCoalition.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormBop\UcBriefopMain.cs">
+    <Compile Include="FormBop\UcBopMain.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FormBop\UcBriefopMain.Designer.cs">
-      <DependentUpon>UcBriefopMain.cs</DependentUpon>
+    <Compile Include="FormBop\UcBopMain.Designer.cs">
+      <DependentUpon>UcBopMain.cs</DependentUpon>
     </Compile>
     <Compile Include="FormBop\UcColor.cs">
       <SubType>UserControl</SubType>
@@ -239,10 +241,10 @@
     <Compile Include="FormBop\UcMarkerDetail.Designer.cs">
       <DependentUpon>UcMarkerDetail.cs</DependentUpon>
     </Compile>
-    <Compile Include="UcBriefing\FrmTest.cs">
+    <Compile Include="FormBop\FrmTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UcBriefing\FrmTest.Designer.cs">
+    <Compile Include="FormBop\FrmTest.Designer.cs">
       <DependentUpon>FrmTest.cs</DependentUpon>
     </Compile>
     <Compile Include="FormBop\UcBopGeneral.cs">
@@ -314,7 +316,7 @@
     <Compile Include="Map\MapTemplateMarker.cs" />
     <Compile Include="Map\GMarkerBriefop.cs" />
     <Compile Include="Data\MasterDataObject.cs" />
-    <Compile Include="Data\ElementBriefop.cs" />
+    <Compile Include="Data\ElementBop.cs" />
     <Compile Include="Data\Theatre.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -339,7 +341,7 @@
     <Compile Include="Tools\ToolsStyle.cs" />
     <Compile Include="Tools\ToolsTests.cs" />
     <Compile Include="Tools\ToolsZip.cs" />
-    <Compile Include="FgControls\GridManager.cs" />
+    <Compile Include="FormBop\GridManager.cs" />
     <Compile Include="FgControls\GridManagerComPreset.cs" />
     <Compile Include="FgControls\GridManagerUnit.cs" />
     <Compile Include="FgControls\GridManagerAsset.cs" />
@@ -360,10 +362,10 @@
     <Compile Include="Tools\ToolsCoordinate.cs" />
     <Compile Include="Tools\ToolsLson.cs" />
     <Compile Include="Tools\ToolsMisc.cs" />
-    <Compile Include="UcBriefing\UcImageSize.cs">
+    <Compile Include="FormBop\UcImageSize.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UcBriefing\UcImageSize.Designer.cs">
+    <Compile Include="FormBop\UcImageSize.Designer.cs">
       <DependentUpon>UcImageSize.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FormBop\FrmBop.resx">
@@ -375,8 +377,8 @@
     <EmbeddedResource Include="FormBop\UcBriefopCoalition.resx">
       <DependentUpon>UcBriefopCoalition.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormBop\UcBriefopMain.resx">
-      <DependentUpon>UcBriefopMain.cs</DependentUpon>
+    <EmbeddedResource Include="FormBop\UcBopMain.resx">
+      <DependentUpon>UcBopMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormBop\UcColor.resx">
       <DependentUpon>UcColor.cs</DependentUpon>
@@ -387,7 +389,7 @@
     <EmbeddedResource Include="FormBop\UcMarkerDetail.resx">
       <DependentUpon>UcMarkerDetail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UcBriefing\FrmTest.resx">
+    <EmbeddedResource Include="FormBop\FrmTest.resx">
       <DependentUpon>FrmTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormBop\UcBopGeneral.resx">
@@ -422,7 +424,7 @@
     <EmbeddedResource Include="FrmAssetDetail.resx">
       <DependentUpon>FrmAssetDetail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UcBriefing\UcImageSize.resx">
+    <EmbeddedResource Include="FormBop\UcImageSize.resx">
       <DependentUpon>UcImageSize.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

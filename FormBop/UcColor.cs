@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace DcsBriefop.FormBop
 {
-	public partial class UcColor : UserControl, ICustomStylable
+	public partial class UcColor : UserControl
 	{
 		#region Properties
 		private Color m_defaultColor = Color.Black;
@@ -44,23 +44,15 @@ namespace DcsBriefop.FormBop
 		}
 		#endregion
 
-			#region CTOR
+		#region CTOR
 		public UcColor()
 		{
 			InitializeComponent();
 		}
 		#endregion
 
-		#region ICustomStylable
-		public void ApplyCustomStyle()
-		{
-			ToolsStyle.TextBoxDefault(TbColor);
-			ToolsStyle.ButtonDefault(BtColor);
-		}
-		#endregion
-
 		#region Methods
-		private void UpdateSelectedColorFromTextbox ()
+		private void UpdateSelectedColorFromTextbox()
 		{
 			SelectedColor = GetColorFromHtml(TbColor.Text);
 		}

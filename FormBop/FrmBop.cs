@@ -11,8 +11,8 @@ namespace DcsBriefop.FormBop
 	public partial class FrmBop : Form
 	{
 		#region Fields
-		private BopManager m_briefopManager;
-		private UcBriefopMain m_ucBriefopMain;
+		private BopManager m_bopManager;
+		private UcBopMain m_ucBopMain;
 		private UcMap m_ucMap;
 
 		private string m_sDcsFileFilter = "DCS mission files (*.miz)|*.miz|All files (*.*)|*.*";
@@ -50,7 +50,7 @@ namespace DcsBriefop.FormBop
 		{
 			using (new WaitDialog(this))
 			{
-				m_briefopManager = new BopManager(sMizFilePath);
+				m_bopManager = new BopManager(sMizFilePath);
 				BuildMenu();
 				DataToScreen();
 			}
@@ -58,12 +58,12 @@ namespace DcsBriefop.FormBop
 
 		private void MizReload()
 		{
-			if (m_briefopManager is null)
+			if (m_bopManager is null)
 				throw new ExceptionBriefop("No mission is currently loaded");
 
 			using (new WaitDialog(this))
 			{
-				m_briefopManager.MizLoad();
+				m_bopManager.MizLoad();
 				BuildMenu();
 				DataToScreen();
 			}
@@ -188,17 +188,20 @@ namespace DcsBriefop.FormBop
 				SplitContainer.Panel2.Controls.Add(m_ucMap);
 			}
 
-			if (m_ucBriefopMain is null)
+			if (m_ucBopMain is null)
 			{
-				m_ucBriefopMain = new UcBriefopMain(m_ucMap, m_briefopManager);
-				m_ucBriefopMain.Dock = DockStyle.Fill;
+				m_ucBopMain = new UcBopMain(m_ucMap, m_bopManager);
+				m_ucBopMain.Dock = DockStyle.Fill;
 				SplitContainer.Panel1.Controls.Clear();
-				SplitContainer.Panel1.Controls.Add(m_ucBriefopMain);
+				SplitContainer.Panel1.Controls.Add(m_ucBopMain);
 			}
 			else
-				m_ucBriefopMain.BopManager = m_briefopManager;
+			{
+				m_ucBopMain.SetUcMap(m_ucMap);
+				m_ucBopMain.SetBopManager(m_bopManager);
+			}
 
-			m_ucBriefopMain.DataToScreen();
+			m_ucBopMain.DataToScreen();
 
 			SetStatusStrip();
 			ToolsStyle.ApplyStyle(this);
@@ -206,7 +209,7 @@ namespace DcsBriefop.FormBop
 
 		private void ScreenToData()
 		{
-			m_ucBriefopMain.ScreenToData();
+			//m_ucBopMain.ScreenToData();
 		}
 
 		private void SetStatusStrip()
@@ -216,8 +219,8 @@ namespace DcsBriefop.FormBop
 
 			StatusStrip.Items.Clear();
 			StatusStrip.Items.Add(fvi.FileVersion);
-			if (m_briefopManager is object)
-				StatusStrip.Items.Add(m_briefopManager.MizFilePath);
+			if (m_bopManager is object)
+				StatusStrip.Items.Add(m_bopManager.MizFilePath);
 		}
 
 		private void Test()

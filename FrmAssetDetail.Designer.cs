@@ -59,7 +59,7 @@ namespace DcsBriefop
 			this.LbTask = new System.Windows.Forms.Label();
 			this.TbTask = new System.Windows.Forms.TextBox();
 			this.LbUnits = new System.Windows.Forms.Label();
-			this.DgvUnits = new DcsBriefop.FgControls.FgDataGridView();
+			this.DgvUnits = new DcsBriefop.FormBop.BopDataGridView();
 			this.PnData.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.PnDcsData.SuspendLayout();
@@ -436,6 +436,6 @@ namespace DcsBriefop
 		private System.Windows.Forms.TextBox TbFunction;
 		private System.Windows.Forms.Label LbFunction;
 		private System.Windows.Forms.Label LbClass;
-		private FgControls.FgDataGridView DgvUnits;
+		private FormBop.BopDataGridView DgvUnits;
 	}
 }

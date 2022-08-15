@@ -5,20 +5,20 @@ using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
 
-namespace DcsBriefop.FgControls
+namespace DcsBriefop.FormBop
 {
 	internal abstract class GridManager : IDisposable
 	{
 		#region Fields
-		protected FgDataGridView m_dgv;
-		//protected DataTable m_dtSource;
+		protected BopDataGridView m_dgv;
+		protected DataTable m_dtSource;
 		protected List<string> m_columnsDisplayed;
 
 		protected bool m_disposedValue;
 		#endregion
 
 		#region CTOR
-		public GridManager(FgDataGridView dgv, List<string> columnsDisplayed)
+		public GridManager(BopDataGridView dgv, List<string> columnsDisplayed)
 		{
 			m_dgv = dgv;
 			m_dgv.CellFormatting += CellFormattingEvent;
@@ -37,7 +37,7 @@ namespace DcsBriefop.FgControls
 			FinalizeGridColumns();
 
 			m_dgv.CellValueChanged -= CellValueChangedEvent;
-			//m_dgv.DtSource = m_dtSource;
+			m_dgv.DtSource = m_dtSource;
 			m_dgv.CellValueChanged += CellValueChangedEvent;
 		}
 
@@ -125,7 +125,7 @@ namespace DcsBriefop.FgControls
 			if (e.RowIndex < 0)
 				return;
 
-			FgDataGridView dgv = (sender as FgDataGridView);
+			BopDataGridView dgv = (sender as BopDataGridView);
 			if (dgv is null)
 				return;
 

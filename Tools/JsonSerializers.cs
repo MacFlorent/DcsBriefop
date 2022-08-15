@@ -160,14 +160,14 @@ namespace DcsBriefop.Tools
 		}
 	}
 
-	internal class ListBopCustomAirdromeJsonConverter : JsonConverter<List<BopCustomAirdrome>>
+	internal class ListBopCustomAirdromeJsonConverter : JsonConverter<List<BopCustomCoalitionAirdrome>>
 	{
-		public override void WriteJson(JsonWriter writer, List<BopCustomAirdrome> value, JsonSerializer serializer)
+		public override void WriteJson(JsonWriter writer, List<BopCustomCoalitionAirdrome> value, JsonSerializer serializer)
 		{
 			if (value is object && value.Count >= 0)
 			{
 				JArray ja = new JArray();
-				foreach (BopCustomAirdrome customDataAsset in value.Where(_a => !_a.IsDefaultData()))
+				foreach (BopCustomCoalitionAirdrome customDataAsset in value.Where(_a => !_a.IsDefaultData()))
 				{
 					ja.Add(JToken.FromObject(customDataAsset, serializer));
 				}
@@ -176,7 +176,7 @@ namespace DcsBriefop.Tools
 			}
 		}
 
-		public override List<BopCustomAirdrome> ReadJson(JsonReader reader, Type objectType, List<BopCustomAirdrome> existingValue, bool hasExistingValue, JsonSerializer serializer)
+		public override List<BopCustomCoalitionAirdrome> ReadJson(JsonReader reader, Type objectType, List<BopCustomCoalitionAirdrome> existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
 			throw new NotImplementedException();
 		}

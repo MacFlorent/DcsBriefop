@@ -40,7 +40,7 @@ namespace DcsBriefop
 			this.LbImageBackgroundColor = new System.Windows.Forms.Label();
 			this.CkGenerateOnSave = new System.Windows.Forms.CheckBox();
 			this.GbImage = new System.Windows.Forms.GroupBox();
-			this.UcExportImageSize = new DcsBriefop.UcBriefing.UcImageSize();
+			this.UcExportImageSize = new DcsBriefop.FormBop.UcImageSize();
 			this.label1 = new System.Windows.Forms.Label();
 			this.UcImageBackgroundColor = new DcsBriefop.FormBop.UcColor();
 			this.label2 = new System.Windows.Forms.Label();
@@ -257,6 +257,6 @@ namespace DcsBriefop
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Button BtClose;
-		private UcBriefing.UcImageSize UcExportImageSize;
+		private FormBop.UcImageSize UcExportImageSize;
 	}
 }

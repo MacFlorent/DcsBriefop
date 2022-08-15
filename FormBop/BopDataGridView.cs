@@ -7,9 +7,9 @@ using System.Linq;
 using System.Windows.Forms;
 using Zuby.ADGV;
 
-namespace DcsBriefop.FgControls
+namespace DcsBriefop.FormBop
 {
-	internal class FgDataGridView : AdvancedDataGridView
+	internal class BopDataGridView : AdvancedDataGridView
 	{
 		#region Default Properties override
 		[DefaultValue(DataGridViewAutoSizeColumnsMode.AllCells)]
@@ -58,7 +58,7 @@ namespace DcsBriefop.FgControls
 		#endregion
 
 		#region CTOR
-		public FgDataGridView() : base()
+		public BopDataGridView() : base()
 		{
 			AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 			SelectionMode = DataGridViewSelectionMode.CellSelect;

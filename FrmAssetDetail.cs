@@ -1,6 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBop;
-using DcsBriefop.FgControls;
+using DcsBriefop.FormBop;
 using DcsBriefop.Tools;
 using System.Windows.Forms;
 

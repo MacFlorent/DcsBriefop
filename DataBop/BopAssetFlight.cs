@@ -39,10 +39,10 @@ namespace DcsBriefop.DataBop
 
 			Radio = new Radio() { Frequency = m_mizGroupFlight.RadioFrequency, Modulation = m_mizGroupFlight.RadioModulation };
 
-			if (Task == ElementTask.Awacs || Task == ElementTask.Refueling)
-				Function = ElementAssetFunction.Support;
-			if (Task == ElementTask.Refueling)
-				Information = GetTacanString();
+			//if (Task == ElementTask.Awacs || Task == ElementTask.Refueling)
+			//	Function = ElementAssetFunction.Support;
+			//if (Task == ElementTask.Refueling)
+			//	Information = GetTacanString();
 		}
 		#endregion
 

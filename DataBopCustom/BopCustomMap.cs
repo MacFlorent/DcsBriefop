@@ -9,6 +9,7 @@ namespace DcsBriefop.DataBopCustom
 {
 	internal class BopCustomMap
 	{
+		public string DisplayName { get; set; }
 		public string Provider { get; set; }
 		public double CenterLatitude { get; set; }
 		public double CenterLongitude { get; set; }

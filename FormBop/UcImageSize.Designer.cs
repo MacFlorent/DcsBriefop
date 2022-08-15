@@ -1,4 +1,4 @@
-﻿namespace DcsBriefop.UcBriefing
+﻿namespace DcsBriefop.FormBop
 {
 	partial class UcImageSize
 	{

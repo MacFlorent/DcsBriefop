@@ -32,7 +32,7 @@ namespace DcsBriefop.FormBop
 			this.components = new System.ComponentModel.Container();
 			this.BtSave = new System.Windows.Forms.Button();
 			this.BtClose = new System.Windows.Forms.Button();
-			this.DgvDatabase = new DcsBriefop.FgControls.FgDataGridView();
+			this.DgvDatabase = new DcsBriefop.FormBop.BopDataGridView();
 			((System.ComponentModel.ISupportInitialize)(this.DgvDatabase)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -92,6 +92,6 @@ namespace DcsBriefop.FormBop
 		#endregion
 		private System.Windows.Forms.Button BtSave;
 		private System.Windows.Forms.Button BtClose;
-		private FgControls.FgDataGridView DgvDatabase;
+		private FormBop.BopDataGridView DgvDatabase;
 	}
 }

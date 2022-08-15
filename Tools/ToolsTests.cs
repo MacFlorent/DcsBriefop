@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBop;
-using DcsBriefop.FgControls;
 using DcsBriefop.FormBop;
 using DcsBriefop.UcBriefing;
 using LsonLib;

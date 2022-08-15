@@ -28,6 +28,7 @@ namespace DcsBriefop.DataBop
 		public bool BullseyeWaypoint { get; set; }
 		public string Task { get; set; }
 
+		public List<BopCoalitionAirdrome> BopCoalitionAirdromes { get; set; }
 		//public ListComPreset ComPresets { get; set; }
 
 		public BopCustomMap MapData { get { return m_customCoalition.MapData; } }
@@ -53,6 +54,12 @@ namespace DcsBriefop.DataBop
 
 			BullseyeDescription = m_customCoalition.BullseyeDescription;
 			BullseyeWaypoint = m_customCoalition.BullseyeWaypoint;
+
+			BopCoalitionAirdromes = new List<BopCoalitionAirdrome>();
+			foreach (BopAssetFlight flight in ParentManager.BopMain.Assets.OfType<BopAssetFlight>().Where(_a => _a.CoalitionName == m_mizCoalition.Name))
+			{
+				// check if airfiled is base for an asset flight if (flight.GetAirdromeIds())
+			}
 		}
 		#endregion
 
@@ -63,7 +70,7 @@ namespace DcsBriefop.DataBop
 			if (m_customCoalition is null)
 			{
 				m_customCoalition = new BopCustomCoalition() { CoalitionName = CoalitionName };
-				ParentManager.BopCustomMain.Coalitions.Add(m_customCoalition);
+				ParentManager.BopCustomMain.BopCoalitions.Add(m_customCoalition);
 			}
 
 			//if (m_briefopCustomCoalition.ComPresets is object)

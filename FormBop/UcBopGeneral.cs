@@ -1,26 +1,68 @@
 ﻿using DcsBriefop.DataBop;
+using DcsBriefop.DataBopCustom;
+using DcsBriefop.Tools;
 
 namespace DcsBriefop.FormBop
 {
-	internal partial class UcBopGeneral : UcBaseBop
+	internal partial class UcBopGeneral : UcBaseBop, ICustomStylable
 	{
-		public UcBopGeneral(UcMap ucMap, BopManager briefopManager) : base(ucMap, briefopManager)
+		#region Properties
+		#endregion
+
+
+		#region CTOR
+		public UcBopGeneral(UcMap ucMap, BopManager bopManager) : base(ucMap, bopManager)
 		{
 			InitializeComponent();
 		}
+		#endregion
 
+		#region ICustomStylable
+		public void ApplyCustomStyle()
+		{
+			ToolsStyle.LabelHeader(LbWeather);
+			ToolsStyle.LabelHeader(LbOperations);
+		}
+		#endregion
+
+		#region Methods
 		public override void DataToScreen()
 		{
-			TbSortie.Text = BopManager.BopMain.BopGeneral.Sortie;
-			TbWeather.Text = BopManager.BopMain.BopGeneral.Weather.ToString();
-			TbDescription.Text = BopManager.BopMain.BopGeneral.Description;
-			DtpDate.Value = BopManager.BopMain.BopGeneral.Date;
+			RbWeatherDisplayPlain.CheckedChanged -= RbWeatherDisplay_CheckedChanged;
+			RbWeatherDisplayPlain.CheckedChanged -= RbWeatherDisplay_CheckedChanged;
+
+			TbSortie.Text = m_bopManager.BopMain.BopGeneral.Sortie;
+			TbDescription.Text = m_bopManager.BopMain.BopGeneral.Description;
+			DtpDate.Value = m_bopManager.BopMain.BopGeneral.Date;
+
+			RbWeatherDisplayPlain.Checked = m_bopManager.BopCustomMain.WeatherDisplay == Data.ElementWeatherDisplay.Plain;
+			RbWeatherDisplayMetar.Checked = m_bopManager.BopCustomMain.WeatherDisplay == Data.ElementWeatherDisplay.Metar;
+			TbWeather.Text = m_bopManager.BopMain.BopGeneral.ToStringWeather();
+
+			RbWeatherDisplayPlain.CheckedChanged += RbWeatherDisplay_CheckedChanged;
+			RbWeatherDisplayPlain.CheckedChanged += RbWeatherDisplay_CheckedChanged;
 		}
 		public override void ScreenToData()
 		{
-			BopManager.BopMain.BopGeneral.Sortie = TbSortie.Text;
-			BopManager.BopMain.BopGeneral.Description = TbDescription.Text;
-			BopManager.BopMain.BopGeneral.Date = DtpDate.Value;
+			m_bopManager.BopMain.BopGeneral.Sortie = TbSortie.Text;
+			m_bopManager.BopMain.BopGeneral.Description = TbDescription.Text;
+			m_bopManager.BopMain.BopGeneral.Date = DtpDate.Value;
+
+			m_bopManager.BopCustomMain.WeatherDisplay = RbWeatherDisplayMetar.Checked ? Data.ElementWeatherDisplay.Metar : Data.ElementWeatherDisplay.Plain;
 		}
+
+		public override BopCustomMap GetMapData()
+		{
+			return m_bopManager.BopMain.BopGeneral.MapData;
+		}
+		#endregion
+
+		#region Events
+		private void RbWeatherDisplay_CheckedChanged(object sender, System.EventArgs e)
+		{
+			m_bopManager.BopCustomMain.WeatherDisplay = RbWeatherDisplayMetar.Checked ? Data.ElementWeatherDisplay.Metar : Data.ElementWeatherDisplay.Plain;
+			TbWeather.Text = m_bopManager.BopMain.BopGeneral.ToStringWeather();
+		}
+		#endregion
 	}
 }

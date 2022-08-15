@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace DcsBriefop.UcBriefing
+namespace DcsBriefop.FormBop
 {
-	public partial class UcImageSize : UserControl, ICustomStylable
+	public partial class UcImageSize : UserControl
 	{
 		#region Properties
 		private Size m_size = new Size(1, 1);
@@ -28,10 +28,6 @@ namespace DcsBriefop.UcBriefing
 
 			CkRatioLock.Checked = true;
 		}
-		#endregion
-
-		#region ICustomStylable
-		public void ApplyCustomStyle() { }
 		#endregion
 
 		#region Methods

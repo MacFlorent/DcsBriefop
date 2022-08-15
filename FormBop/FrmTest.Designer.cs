@@ -1,4 +1,4 @@
-﻿namespace DcsBriefop.UcBriefing
+﻿namespace DcsBriefop.FormBop
 {
 	partial class FrmTest
 	{
@@ -29,7 +29,7 @@
 	private void InitializeComponent()
 	{
 			this.components = new System.ComponentModel.Container();
-			this.fgDataGridView1 = new DcsBriefop.FgControls.FgDataGridView();
+			this.fgDataGridView1 = new DcsBriefop.FormBop.BopDataGridView();
 			((System.ComponentModel.ISupportInitialize)(this.fgDataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -62,6 +62,6 @@
 
 	#endregion
 
-	private FgControls.FgDataGridView fgDataGridView1;
+	private FormBop.BopDataGridView fgDataGridView1;
 }
 }

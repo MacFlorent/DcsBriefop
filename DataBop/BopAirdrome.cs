@@ -1,8 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
-using DcsBriefop.Map;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DcsBriefop.DataBop
 {
@@ -15,38 +13,35 @@ namespace DcsBriefop.DataBop
 		#region Properties
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public string DisplayName { get; set; }
-		public string Information { get; set; }
-		public string Type { get; set; }
-		public string Task { get; set; }
-
-		public string MapMarker { get; set; }
-
 		public Coordinate Coordinate { get; set; }
-	
-
+		public string Information { get; set; }
+		public List<Radio> Radios { get; set; }
+		public Tacan Tacan { get; set; }
 		#endregion
 
 		#region CTOR
 		public BopAirdrome(BopManager parentManager, Airdrome airdrome) : base(parentManager)
 		{
 			m_airdrome = airdrome;
+
+			Id = m_airdrome.Id;
+			Name = m_airdrome.Name;
 			Coordinate = new Coordinate(m_airdrome.Latitude, m_airdrome.Longitude);
-}
+			Information = m_airdrome.Tacan?.ToString();
+			Tacan = m_airdrome.Tacan;
+		}
+		#endregion
+
+		#region Initialize & Persist
+		public override void Persist()
+		{
+		}
 		#endregion
 
 		#region Methods
 		public virtual string ToStringLocalisation()
 		{
-			string sLocalisation = "";
-			//BopMapPoint point = MapPoints.FirstOrDefault();
-			//if (point is object)
-			//{
-			//	//sLocalisation = $"{point.Coordinate.ToStringDMS()}{Environment.NewLine}{point.Coordinate.ToStringDDM()}{Environment.NewLine}{point.Coordinate.ToStringMGRS()}";
-			//	sLocalisation = point.ToStringLocalisation();
-			//}
-
-			return sLocalisation;
+			return ParentManager.BopMain.ToStringLocalisation(Coordinate);
 		}
 		#endregion
 	}

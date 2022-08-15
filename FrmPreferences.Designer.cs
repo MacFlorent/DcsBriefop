@@ -32,7 +32,7 @@ namespace DcsBriefop
 			this.CbMapProvider = new System.Windows.Forms.ComboBox();
 			this.LbMapDisplay = new System.Windows.Forms.Label();
 			this.GbImage = new System.Windows.Forms.GroupBox();
-			this.UcDefaultImageSize = new DcsBriefop.UcBriefing.UcImageSize();
+			this.UcDefaultImageSize = new DcsBriefop.FormBop.UcImageSize();
 			this.label1 = new System.Windows.Forms.Label();
 			this.UcImageBackgroundColor = new DcsBriefop.FormBop.UcColor();
 			this.LbImageBackgroundColor = new System.Windows.Forms.Label();
@@ -347,7 +347,7 @@ namespace DcsBriefop
 		private System.Windows.Forms.CheckBox CkMizFile;
 		private System.Windows.Forms.Button BtSave;
 		private System.Windows.Forms.Button BtCancel;
-		private UcBriefing.UcImageSize UcDefaultImageSize;
+		private FormBop.UcImageSize UcDefaultImageSize;
 		private System.Windows.Forms.CheckBox CkNoCallsignForPlayableFlights;
 		private System.Windows.Forms.CheckBox CkBackupBeforeOverwrite;
 		private System.Windows.Forms.CheckBox CkGenerateBatchCommandOnSave;

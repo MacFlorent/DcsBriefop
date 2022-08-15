@@ -14,7 +14,6 @@
 		#endregion
 
 		#region Initialize & Persist
-		//protected virtual void InitializeCustom() { }
 		public virtual void PostInitialize() { }
 		public virtual void Persist() { }
 		#endregion
