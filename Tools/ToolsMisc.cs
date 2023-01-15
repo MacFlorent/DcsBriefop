@@ -1,7 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace DcsBriefop.Tools
 {
@@ -33,6 +36,20 @@ namespace DcsBriefop.Tools
 		public static string GetDirectoryDcsBetaSave()
 		{
 			return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Saved Games\DCS.openbeta");
+		}
+
+		public static T CloneJson<T>(this T source)
+		{
+			// Don't serialize a null object, simply return the default for that object
+			if (ReferenceEquals(source, null))
+				return default;
+
+			// initialize inner objects individually
+			// for example in default constructor some list property initialized with some values,
+			// but in 'source' these items are cleaned -
+			// without ObjectCreationHandling.Replace default constructor values will be added to result
+			JsonSerializerSettings deserializeSettings = new JsonSerializerSettings { ObjectCreationHandling = ObjectCreationHandling.Replace };
+			return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(source), deserializeSettings);
 		}
 	}
 }

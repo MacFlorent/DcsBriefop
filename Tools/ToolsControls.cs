@@ -1,6 +1,8 @@
-﻿using System;
+﻿using DcsBriefop.Forms;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -133,13 +135,20 @@ namespace DcsBriefop.Tools
 		}
 		#endregion
 
+		#region Controls
 		public static void DisposeAndClearTabs(this TabControl tc)
 		{
 			while (tc.TabCount > 0)
 				tc.TabPages[0].Dispose();
 			tc.TabPages.Clear();
-
 		}
+
+		public static void CenterInParent(this Control c)
+		{
+			c.Location = new Point(c.Parent.ClientSize.Width / 2 - c.Size.Width / 2, c.Parent.ClientSize.Height / 2 - c.Size.Height / 2);
+			c.Anchor = AnchorStyles.None;
+		}
+		#endregion
 	}
 }
 

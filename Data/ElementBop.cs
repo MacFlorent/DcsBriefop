@@ -18,16 +18,6 @@ namespace DcsBriefop.Data
 		Group = 2
 	}
 
-	internal enum ElementExportFileType
-	{
-		SituationMap,
-		Operations,
-		Opposition,
-		Coms,
-		Missions,
-		MissionMaps,
-	}
-
 	internal enum ElementWeatherDisplay
 	{
 		Plain,
@@ -45,6 +35,7 @@ namespace DcsBriefop.Data
 	internal static class ElementGlobalData
 	{
 		public static readonly string ResourcesDirectory = "Resources";
+		public static readonly string DcsFileFilter = "DCS mission files (*.miz)|*.miz|All files (*.*)|*.*";
 	}
 
 	internal static class ElementCoalitionColor

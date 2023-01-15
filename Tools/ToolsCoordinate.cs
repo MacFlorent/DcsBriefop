@@ -1,4 +1,7 @@
 ﻿using CoordinateSharp;
+using DcsBriefop.Data;
+using System.Text;
+using System;
 
 namespace DcsBriefop.Tools
 {
@@ -25,6 +28,19 @@ namespace DcsBriefop.Tools
 		public static string ToStringMGRS(this Coordinate c)
 		{
 			return c.MGRS.ToString();
+		}
+
+		public static string ToStringLocalisation(this Coordinate coordinate, ElementCoordinateDisplay coordinateDisplay)
+		{
+			StringBuilder sb = new StringBuilder();
+			if ((coordinateDisplay & ElementCoordinateDisplay.Mgrs) > 0)
+				sb.AppendWithSeparator(coordinate.ToStringMGRS(), Environment.NewLine);
+			if ((coordinateDisplay & ElementCoordinateDisplay.Dms) > 0)
+				sb.AppendWithSeparator(coordinate.ToStringDMS(), Environment.NewLine);
+			if ((coordinateDisplay & ElementCoordinateDisplay.Ddm) > 0)
+				sb.AppendWithSeparator(coordinate.ToStringDDM(), Environment.NewLine);
+
+			return sb.ToString();
 		}
 	}
 }

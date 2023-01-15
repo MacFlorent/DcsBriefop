@@ -99,7 +99,7 @@ namespace DcsBriefop.Map
 
 				return template;
 			}
-			catch (ExceptionBriefop ex)
+			catch (ExceptionBop ex)
 			{
 				Log.Error($"Route template {sTemplateString} was not added");
 				Log.Exception(ex);

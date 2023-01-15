@@ -1,6 +1,11 @@
 ﻿using DcsBriefop.Data;
+using System;
 using System.Drawing;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Text;
+using System.Threading;
 
 namespace DcsBriefop.Tools
 {
@@ -26,10 +31,35 @@ namespace DcsBriefop.Tools
 				return null;
 		}
 
-		//public static bool AssetOrUnitIncluded(Asset asset)
+		//public static string MizCheck(string sMizFilePath)
 		//{
-		//	return asset is object &&
-		//		(asset.Included || ((asset as AssetGroup)?.Units.Where(_u => _u.Included).Any()).GetValueOrDefault(false));
+		//	if (!File.Exists(sMizFilePath))
+		//		throw new ExceptionBop($"Mission miz file not found : {sMizFilePath}");
+
+		//	int iCount = 0;
+		//	StringBuilder sb = new StringBuilder();
+
+		//	using (ZipArchive zipArchive = ZipFile.Open(sMizFilePath, ZipArchiveMode.Read))
+		//	{
+		//		foreach (ZipArchiveEntry zipEntryBriefopCustom in zipArchive.Entries.Where(_ze => _ze.FullName == DataMiz.Miz.BriefopCustomZipEntryFullName).ToList())
+		//		{
+		//			iCount++;
+		//			sb.AppendWithSeparator($"{zipEntryBriefopCustom.FullName} {zipEntryBriefopCustom.LastWriteTime.ToString(Thread.CurrentThread.CurrentCulture.DateTimeFormat)}", Environment.NewLine);
+		//		}
+		//	}
+
+		//	if (iCount <= 0)
+		//	{
+		//		return "No Briefop data detected";
+		//	}
+		//	else if (iCount == 1)
+		//	{
+		//		return "Briefop data detected and correct";
+		//	}
+		//	else
+		//	{
+		//		throw new ExceptionBop($"Briefop data detected and incorrect{Environment.NewLine}{sb}");
+		//	}
 		//}
 	}
 }

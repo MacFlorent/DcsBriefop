@@ -17,6 +17,7 @@ namespace DcsBriefop.Data
 		}
 
 		public string Name { get; private set; }
+		private string LutResourceName { get { return $"Points{Name}"; } }
 
 		private List<PointCoordinate> m_coordinatesLut;
 		private List<decimal> m_coordinatesLutValuesY;
@@ -35,11 +36,20 @@ namespace DcsBriefop.Data
 
 		public CoordinateSharp.Coordinate GetCoordinate(decimal dY, decimal dX)
 		{
-			PointCoordinate pc = GetPointInterpolatedYX(dY, dX);
-			if (pc is object)
-				return new CoordinateSharp.Coordinate(decimal.ToDouble(pc.Latitude), decimal.ToDouble(pc.Longitude));
-			else
-				return new CoordinateSharp.Coordinate(0, 0);
+			PointCoordinate pc = null;
+			try
+			{
+				pc = GetPointInterpolatedYX(dY, dX);
+			}
+			catch (Exception ex)
+			{
+				Log.Exception(ex);
+			}
+
+			if (pc is null)
+				pc = GetPointInterpolatedYX(0, 0);
+
+			return new CoordinateSharp.Coordinate(decimal.ToDouble(pc.Latitude), decimal.ToDouble(pc.Longitude));
 		}
 
 		//public void GetYX(out decimal dY, out decimal dX, CoordinateSharp.Coordinate coordinate)
@@ -85,7 +95,7 @@ namespace DcsBriefop.Data
 				}
 			}
 
-			// In mission files y is west-east and x is south-north
+			// In mission files y(z) is west-east and x is south-north
 			PointCoordinate lowerLeft = null, lowerRight = null;
 			PointCoordinate upperLeft = null, upperRight = null;
 
@@ -102,6 +112,9 @@ namespace DcsBriefop.Data
 				if (upperRight is null && c.Y == dRightY && c.X == dUpperX)
 					upperRight = c;
 			}
+
+			if (lowerLeft is null || lowerRight is null || upperLeft is null || upperRight is null)
+				throw new ExceptionBop($"Requested map position cannot be converted to coordinates because it is outside of the lookup table {LutResourceName}{Environment.NewLine}Y(Z)={dY} X={dX}");
 
 			decimal dRatioY = (dY - lowerLeft.Y) / (lowerRight.Y - lowerLeft.Y);
 			decimal dRatioX = (dX - lowerLeft.X) / (upperLeft.X - lowerLeft.X);
@@ -136,10 +149,10 @@ namespace DcsBriefop.Data
 				m_coordinatesLutValuesY = new List<decimal>();
 				m_coordinatesLutValuesX = new List<decimal>();
 
-				string sLutResource = $"Points{Name}";
+				string sLutResource = LutResourceName;
 				string sResourceContent = ToolsResources.GetTextResourceContent(sLutResource, "txt");
 				if (string.IsNullOrEmpty(sResourceContent))
-					throw new ExceptionBriefop($"Empty or absent LUT data resource: {sLutResource}.");
+					throw new ExceptionBop($"Empty or absent LUT data resource: {sLutResource}.");
 
 				string[] resourceContentLines = sResourceContent.Split('\n');
 				foreach (string sLine in resourceContentLines)
@@ -187,7 +200,7 @@ namespace DcsBriefop.Data
 
 			if (!decimal.TryParse(sLine.Substring(iIndexStart, iLength), out decimal dItemValue))
 			{
-				throw new ExceptionBriefop($"Item {sItem} was not decoded from line {sLine} in point LUT resource.");
+				throw new ExceptionBop($"Item {sItem} was not decoded from line {sLine} in point LUT resource.");
 			}
 
 			return dItemValue;
@@ -200,7 +213,7 @@ namespace DcsBriefop.Data
 				string sResource = $"Airdromes{Name}";
 				string sJsonStream = ToolsResources.GetJsonResourceContent(sResource);
 				if (string.IsNullOrEmpty(sJsonStream))
-					throw new ExceptionBriefop($"Empty or absent airdrome resource: {sResource}.");
+					throw new ExceptionBop($"Empty or absent airdrome resource: {sResource}.");
 
 				Airdromes = JsonConvert.DeserializeObject<List<Airdrome>>(sJsonStream);
 			}

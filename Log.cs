@@ -5,7 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace DcsBriefop
+namespace DcsBriefop.Tools
 {
 	internal class Log
 	{

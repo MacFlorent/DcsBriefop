@@ -154,5 +154,13 @@ namespace DcsBriefop.Tools
 			dgv.DefaultCellStyle.SelectionBackColor = ColorLight;
 		}
 		#endregion
+
+		#region Forms
+		public static void SetBackgroundImage(Control c)
+		{
+			c.BackgroundImage = ToolsImage.SetImageOpacity(ToolsResources.GetImageResource("icon256"), 0.15f);
+			c.BackgroundImageLayout = ImageLayout.Tile;
+		}
+		#endregion
 	}
 }

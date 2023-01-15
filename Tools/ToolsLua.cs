@@ -31,7 +31,7 @@ namespace DcsBriefop.Tools
 			// - replace the actual new lines, which are put by LsonLib with \r\n by the \n used by DCS
 			string s = LsonVars.ToString(root);
 
-			s = ReplaceDcsStringLineBreaks(s, 0);
+			ReplaceDcsStringLineBreaks(ref s);
 			s = s.Replace("\r\n", "\n");
 			s = s.Replace("\t", "    ");
 
@@ -41,15 +41,14 @@ namespace DcsBriefop.Tools
 			return s;
 		}
 
-		public static string ReplaceDcsStringLineBreaks(string s, int iStartIndex)
+		public static void ReplaceDcsStringLineBreaks(ref string s)
 		{
 			// cannot replace  simply as such s = s.Replace("\\n", "\\\n") because the first backslah may be also escaped
 			// eg : [1] = "a_do_script(\"VEAF_DYNAMIC_PATH = [[C:\\\\DEV\\\\MISSIONS\\\\operation-bluestorm\\\\node_modules\\\\veaf-mission-creation-tools\\\\]]\");",
 			// so we only want to replace if our "\\n" is following 0 or an even number of \
-			int iFoundIndex = s.IndexOf("\\n", iStartIndex);
-			if (iFoundIndex < 0)
-				return s;
-			else
+
+			int iFoundIndex = s.IndexOf("\\n", 0);
+			while (iFoundIndex >= 0)
 			{
 				int iCountBackslashBefore = 0;
 				for (int i = iFoundIndex - 1; i > 0; i--)
@@ -60,18 +59,16 @@ namespace DcsBriefop.Tools
 						break;
 				}
 
-				string sReplaced = s;
 				if (iCountBackslashBefore % 2 == 0)
 				{
+
 					StringBuilder sb = new StringBuilder(s);
 					sb[iFoundIndex] = '\\';
 					sb[iFoundIndex + 1] = '\n';
-					sReplaced = sb.ToString();
-					iFoundIndex++;
+					s = sb.ToString();
 				}
 
-
-				return ReplaceDcsStringLineBreaks(sReplaced, iFoundIndex + 1);
+				iFoundIndex = s.IndexOf("\\n", iFoundIndex + 1);
 			}
 		}
 

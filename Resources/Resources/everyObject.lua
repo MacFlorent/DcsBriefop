@@ -7,8 +7,8 @@ everyObject =
 		{
 			["life"] = 1,
 			["_origin"] = "",
-			["displayName"] = "Landmine",
 			["category"] = 4,
+			["displayName"] = "Landmine",
 			["typeName"] = "Landmine",
 			["box"] = 
 			{
@@ -33,8 +33,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "AAA S-60 57mm",
 			["speedMax"] = 0,
+			["displayName"] = "AAA S-60 57mm",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -299,14 +299,14 @@ everyObject =
 					["warhead"] = 
 					{
 						["caliber"] = 120,
-						["mass"] = 4.9,
+						["mass"] = 4.6,
 						["explosiveMass"] = 0,
 						["type"] = 0,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_AP",
-					["displayName"] = "M829A2 (120mm APFSDS-T)",
+					["typeName"] = "weapons.shells.DM33_120_AP",
+					["displayName"] = "DM33 (120mm APFSDS-T)",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 			[2] = 
@@ -339,13 +339,13 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_HE",
-					["displayName"] = "M830 (120mm HEAT-MP-T)",
+					["typeName"] = "weapons.shells.DM12_120mm_HEAT_MP_T",
+					["displayName"] = "DM12 (120mm HEAT-MP-T)",
 				}, -- end of ["desc"]
 			}, -- end of [2]
-			[3] = 
+			[4] = 
 			{
-				["count"] = 4018,
+				["count"] = 3218,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -359,6 +359,40 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 818,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
 					["displayName"] = "7.62mm",
 				}, -- end of ["desc"]
 			}, -- end of [3]
@@ -671,6 +705,8 @@ everyObject =
 			["massEmpty"] = 30000,
 			["riverCrossing"] = false,
 			["maxSlopeAngle"] = 0.46999999880791,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
@@ -686,8 +722,8 @@ everyObject =
 					["z"] = 7.3598561286926,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Loco VL80 Electric",
+			["speedMax"] = 30.549999237061,
+			["life"] = 20,
 			["attributes"] = 
 			{
 				["Ground Units Non Airdefence"] = true,
@@ -700,13 +736,11 @@ everyObject =
 				["Ground Units"] = true,
 				["Unarmed vehicles"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 20,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "RailwayObjectsPack",
-			["speedMaxOffRoad"] = 30.549999237061,
 			["category"] = 2,
+			["speedMaxOffRoad"] = 30.549999237061,
+			["_origin"] = "RailwayObjectsPack",
 			["typeName"] = "Electric locomotive",
-			["speedMax"] = 30.549999237061,
+			["displayName"] = "Loco VL80 Electric",
 		}, -- end of ["desc"]
 	}, -- end of ["Truck Electric locomotive"]
 	["uh1h_cargo"] = 
@@ -721,8 +755,8 @@ everyObject =
 				["Cargos"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "UH-1H cargo",
 			["category"] = 4,
+			["displayName"] = "UH-1H cargo",
 			["typeName"] = "uh1h_cargo",
 			["box"] = 
 			{
@@ -748,6 +782,8 @@ everyObject =
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
 			["maxSlopeAngle"] = 0,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
@@ -763,8 +799,8 @@ everyObject =
 					["z"] = 1.6223279237747,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Open Wagon",
+			["speedMax"] = 0,
+			["life"] = 3,
 			["attributes"] = 
 			{
 				["Ground Units Non Airdefence"] = true,
@@ -777,13 +813,11 @@ everyObject =
 				["Ground Units"] = true,
 				["Unarmed vehicles"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "RailwayObjectsPack",
-			["speedMaxOffRoad"] = 0,
 			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "RailwayObjectsPack",
 			["typeName"] = "Coach cargo open",
-			["speedMax"] = 0,
+			["displayName"] = "Open Wagon",
 		}, -- end of ["desc"]
 	}, -- end of ["Truck Coach cargo open"]
 	["Airshow_Crowd"] = 
@@ -793,8 +827,8 @@ everyObject =
 		{
 			["life"] = 10,
 			["_origin"] = "",
-			["displayName"] = "Airshow Crowd",
 			["category"] = 4,
+			["displayName"] = "Airshow Crowd",
 			["typeName"] = "Airshow_Crowd",
 			["box"] = 
 			{
@@ -825,8 +859,8 @@ everyObject =
 				["Cargos"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "Pipes small",
 			["category"] = 4,
+			["displayName"] = "Pipes small",
 			["typeName"] = "pipes_small_cargo",
 			["box"] = 
 			{
@@ -852,8 +886,8 @@ everyObject =
 		{
 			["life"] = 1,
 			["_origin"] = "",
-			["displayName"] = "WC",
 			["category"] = 4,
+			["displayName"] = "WC",
 			["typeName"] = "WC",
 			["box"] = 
 			{
@@ -912,7 +946,7 @@ everyObject =
 			}, -- end of [1]
 			[2] = 
 			{
-				["count"] = 305,
+				["count"] = 65,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -944,6 +978,25 @@ everyObject =
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 245,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [3]
 		}, -- end of ["weapons"]
 		["sensors"] = 
 		{
@@ -1101,8 +1154,8 @@ everyObject =
 		{
 			["life"] = 75,
 			["_origin"] = "",
-			["displayName"] = "Subsidiary structure D",
 			["category"] = 4,
+			["displayName"] = "Subsidiary structure D",
 			["typeName"] = "Subsidiary structure D",
 			["box"] = 
 			{
@@ -1128,8 +1181,8 @@ everyObject =
 		{
 			["life"] = 5,
 			["_origin"] = "",
-			["displayName"] = "FARP Ammo Storage",
 			["category"] = 4,
+			["displayName"] = "FARP Ammo Storage",
 			["typeName"] = "FARP Ammo Dump Coating",
 			["box"] = 
 			{
@@ -1155,8 +1208,8 @@ everyObject =
 		{
 			["life"] = 3,
 			["_origin"] = "",
-			["displayName"] = "Mark Tyre with Red Flag",
 			["category"] = 4,
+			["displayName"] = "Mark Tyre with Red Flag",
 			["typeName"] = "Black_Tyre_RF",
 			["box"] = 
 			{
@@ -1283,7 +1336,7 @@ everyObject =
 		{
 			[1] = 
 			{
-				["count"] = 504,
+				["count"] = 104,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -1311,10 +1364,29 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M2_12_7_T",
+					["typeName"] = "weapons.shells.M2_12_7_TR",
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 404,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.046,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.M2_12_7",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [2]
 		}, -- end of ["weapons"]
 		["desc"] = 
 		{
@@ -1628,8 +1700,8 @@ everyObject =
 				["Buildings"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "",
 			["category"] = 4,
+			["displayName"] = "",
 			["typeName"] = "CV_59_MD3",
 			["box"] = 
 			{
@@ -1655,8 +1727,8 @@ everyObject =
 		{
 			["life"] = 80,
 			["_origin"] = "",
-			["displayName"] = "Small warehouse 4",
 			["category"] = 4,
+			["displayName"] = "Small warehouse 4",
 			["typeName"] = "Small werehouse 4",
 			["box"] = 
 			{
@@ -1681,8 +1753,8 @@ everyObject =
 		{
 			["massEmpty"] = 8000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Patriot C2 ICC",
 			["speedMax"] = 20.833299636841,
+			["displayName"] = "SAM Patriot C2 ICC",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -1731,8 +1803,8 @@ everyObject =
 		{
 			["life"] = 10,
 			["_origin"] = "",
-			["displayName"] = "Subsidiary structure B",
 			["category"] = 4,
+			["displayName"] = "Subsidiary structure B",
 			["typeName"] = "Subsidiary structure B",
 			["box"] = 
 			{
@@ -2143,8 +2215,8 @@ everyObject =
 		{
 			["life"] = 50,
 			["_origin"] = "",
-			["displayName"] = "Small house 1A",
 			["category"] = 4,
+			["displayName"] = "Small house 1A",
 			["typeName"] = "Small house 1A",
 			["box"] = 
 			{
@@ -2259,8 +2331,8 @@ everyObject =
 		{
 			["massEmpty"] = 7000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-9 Strela 1 \"Gaskin\" TEL",
 			["speedMax"] = 27.777799606323,
+			["displayName"] = "SAM SA-9 Strela 1 \"Gaskin\" TEL",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -2383,8 +2455,8 @@ everyObject =
 		{
 			["life"] = 3,
 			["_origin"] = "",
-			["displayName"] = "Mark Tyre Black",
 			["category"] = 4,
+			["displayName"] = "Mark Tyre Black",
 			["typeName"] = "Black_Tyre",
 			["box"] = 
 			{
@@ -2479,6 +2551,185 @@ everyObject =
 			["category"] = 1,
 		}, -- end of ["desc"]
 	}, -- end of ["SH-60B"]
+	["leander-gun-achilles"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 3200000,
+			["RCS"] = 1156.875,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -25,
+					["x"] = -25,
+					["z"] = -25,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 25,
+					["x"] = 25,
+					["z"] = 25,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "HMS Achilles (F12)",
+			["life"] = 1000,
+			["attributes"] = 
+			{
+				["Naval"] = true,
+				["Ships"] = true,
+				["Frigates"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["DetectionByAWACS"] = true,
+				["Armed ships"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "South_Atlantic_Assets",
+			["typeName"] = "leander-gun-achilles",
+			["speedMax"] = 14.39999961853,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 150,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "130mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 33.4,
+						["type"] = 1,
+						["explosiveMass"] = 33.4,
+						["caliber"] = 130,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.A222_130",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 4000,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "DM63 (20mm APDS-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.12,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Rh202_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 32,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 6500,
+					["rangeMin"] = 100,
+					["warhead"] = 
+					{
+						["mass"] = 27.5,
+						["type"] = 1,
+						["explosiveMass"] = 19,
+						["caliber"] = 220,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 1000,
+					["RCS"] = 0.018200000748038,
+					["displayName"] = "GWS-20 Mod. 1 Sea Cat",
+					["altMin"] = 50,
+					["rangeMaxAltMin"] = 6500,
+					["fuseDist"] = 5,
+					["_origin"] = "",
+					["guidance"] = 8,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.Sea_Cat",
+					["Nmax"] = 10,
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 4000,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "DM81 (20mm HE-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.12,
+						["type"] = 1,
+						["explosiveMass"] = 0.12,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Rh202_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
+	}, -- end of ["leander-gun-achilles"]
 	["Bf-109K-4"] = 
 	{
 		["weapons"] = 
@@ -2667,23 +2918,23 @@ everyObject =
 					["z"] = 35.579544067383,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 8.5,
+			["displayName"] = "Tanker Seawise Giant",
 			["life"] = 1500,
 			["attributes"] = 
 			{
-				["Ships"] = true,
+				["Naval"] = true,
 				["HelicopterCarrier"] = true,
 				["Side approach departure"] = true,
 				["HeavyArmoredUnits"] = true,
-				["All"] = true,
+				["Ships"] = true,
 				["Unarmed ships"] = true,
-				["Naval"] = true,
+				["All"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "TechWeaponPack",
 			["typeName"] = "Seawise_Giant",
-			["displayName"] = "Tanker Seawise Giant",
+			["speedMax"] = 8.5,
 		}, -- end of ["desc"]
 	}, -- end of ["Seawise_Giant"]
 	["Small werehouse 3"] = 
@@ -2693,8 +2944,8 @@ everyObject =
 		{
 			["life"] = 80,
 			["_origin"] = "",
-			["displayName"] = "Small warehouse 3",
 			["category"] = 4,
+			["displayName"] = "Small warehouse 3",
 			["typeName"] = "Small werehouse 3",
 			["box"] = 
 			{
@@ -2833,8 +3084,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "AAA ZU-23 Insurgent Closed Emplacement",
 			["speedMax"] = 0,
+			["displayName"] = "AAA ZU-23 Insurgent Closed Emplacement",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -2974,14 +3225,14 @@ everyObject =
 					["warhead"] = 
 					{
 						["caliber"] = 120,
-						["mass"] = 4.9,
+						["mass"] = 3.89,
 						["explosiveMass"] = 0,
 						["type"] = 0,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_AP",
-					["displayName"] = "M829A2 (120mm APFSDS-T)",
+					["typeName"] = "weapons.shells.L23_120_AP",
+					["displayName"] = "L23 (120mm APFSDS-T)",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 			[2] = 
@@ -3014,13 +3265,13 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_HE",
-					["displayName"] = "M830 (120mm HEAT-MP-T)",
+					["typeName"] = "weapons.shells.L31_120mm_HESH",
+					["displayName"] = "L31 (120mm HESH)",
 				}, -- end of ["desc"]
 			}, -- end of [2]
-			[3] = 
+			[4] = 
 			{
-				["count"] = 2210,
+				["count"] = 1770,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -3034,6 +3285,40 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 450,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
 					["displayName"] = "7.62mm",
 				}, -- end of ["desc"]
 			}, -- end of [3]
@@ -3261,8 +3546,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-3 S-125 \"Low Blow\" TR",
 			["speedMax"] = 0,
+			["displayName"] = "SAM SA-3 S-125 \"Low Blow\" TR",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -3338,8 +3623,8 @@ everyObject =
 		{
 			["life"] = 400,
 			["_origin"] = "",
-			["displayName"] = "Farm B",
 			["category"] = 4,
+			["displayName"] = "Farm B",
 			["typeName"] = "Farm B",
 			["box"] = 
 			{
@@ -3365,8 +3650,8 @@ everyObject =
 		{
 			["life"] = 10,
 			["_origin"] = "",
-			["displayName"] = "GeneratorF",
 			["category"] = 4,
+			["displayName"] = "GeneratorF",
 			["typeName"] = "GeneratorF",
 			["box"] = 
 			{
@@ -3392,6 +3677,8 @@ everyObject =
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
 			["maxSlopeAngle"] = 0,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
@@ -3407,26 +3694,24 @@ everyObject =
 					["z"] = 28.246959686279,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Road outpost",
+			["speedMax"] = 0,
+			["life"] = 50,
 			["attributes"] = 
 			{
 				["Fortifications"] = true,
 				["Ground Units Non Airdefence"] = true,
-				["Armed ground units"] = true,
-				["Ground Units"] = true,
 				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["CustomAimPoint"] = true,
 				["AntiAir Armed Vehicles"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["CustomAimPoint"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 50,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 0,
 			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "",
 			["typeName"] = "outpost_road",
-			["speedMax"] = 0,
+			["displayName"] = "Road outpost",
 		}, -- end of ["desc"]
 	}, -- end of ["outpost_road"]
 	["An-30M"] = 
@@ -3480,179 +3765,51 @@ everyObject =
 	}, -- end of ["An-30M"]
 	["PERRY"] = 
 	{
+		["desc"] = 
+		{
+			["massEmpty"] = 4100000,
+			["RCS"] = 3263.7509765625,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -7.1095242500305,
+					["x"] = -69.173568725586,
+					["z"] = -9.5316305160522,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 34.83536529541,
+					["x"] = 68.78971862793,
+					["z"] = 9.5889072418213,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "FFG Oliver Hazard Perry",
+			["life"] = 2100,
+			["attributes"] = 
+			{
+				["Naval"] = true,
+				["Ships"] = true,
+				["Frigates"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["DetectionByAWACS"] = true,
+				["Armed ships"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["typeName"] = "PERRY",
+			["speedMax"] = 14.918899536133,
+		}, -- end of ["desc"]
 		["weapons"] = 
 		{
-			[1] = 
-			{
-				["count"] = 2016,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 12.7,
-						["mass"] = 0.046,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M2_12_7_T",
-					["displayName"] = "12.7mm",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 460,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.185,
-						["type"] = 1,
-						["caliber"] = 25,
-						["mass"] = 0.185,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M242_25_HE_M792",
-					["displayName"] = "M792 (25mm HEI-T)",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 142,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 25,
-						["mass"] = 0.155,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M242_25_AP_M791",
-					["displayName"] = "M791 (25mm APDS-T)",
-				}, -- end of ["desc"]
-			}, -- end of [3]
-			[4] = 
-			{
-				["count"] = 7759,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_AP",
-					["displayName"] = "20mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [4]
-			[5] = 
-			{
-				["count"] = 7759,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.1,
-						["type"] = 1,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_HE",
-					["displayName"] = "20mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [5]
-			[6] = 
+			[7] = 
 			{
 				["count"] = 24,
 				["desc"] = 
@@ -3683,20 +3840,107 @@ everyObject =
 					["displayName"] = "SM-2",
 					["altMin"] = 10,
 					["life"] = 2,
-					["missileCategory"] = 2,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 98,
-						["type"] = 1,
-						["caliber"] = 340,
 						["mass"] = 98,
+						["type"] = 1,
+						["explosiveMass"] = 98,
+						["caliber"] = 340,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 100000,
 					["typeName"] = "SM_2",
-					["_origin"] = "",
+					["missileCategory"] = 2,
 				}, -- end of ["desc"]
-			}, -- end of [6]
-			[7] = 
+			}, -- end of [7]
+			[1] = 
+			{
+				["count"] = 416,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "12.7mm",
+					["warhead"] = 
+					{
+						["mass"] = 0.046,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 12.7,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M2_12_7_TR",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 1616,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 0.046,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 12.7,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.M2_12_7",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 142,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "M791 (25mm APDS-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.155,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 25,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M242_25_AP_M791",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[8] = 
 			{
 				["count"] = 16,
 				["desc"] = 
@@ -3727,36 +3971,38 @@ everyObject =
 					["displayName"] = "RGM-84D Harpoon",
 					["altMin"] = -1,
 					["life"] = 2,
-					["missileCategory"] = 4,
+					["_origin"] = "",
 					["warhead"] = 
 					{
 						["mass"] = 90,
-						["explosiveMass"] = 90,
+						["type"] = 2,
 						["shapedExplosiveArmorThickness"] = 0.10000000149012,
 						["shapedExplosiveMass"] = 180,
+						["explosiveMass"] = 90,
 						["caliber"] = 0,
-						["type"] = 2,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 241401,
 					["typeName"] = "AGM_84S",
-					["_origin"] = "",
+					["missileCategory"] = 4,
 				}, -- end of ["desc"]
-			}, -- end of [7]
-			[8] = 
+			}, -- end of [8]
+			[9] = 
 			{
 				["count"] = 180,
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "76mm HE",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 6.3,
-						["type"] = 1,
-						["caliber"] = 76,
 						["mass"] = 6.3,
+						["type"] = 1,
+						["explosiveMass"] = 6.3,
+						["caliber"] = 76,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.MK75_76",
 					["box"] = 
 					{
 						["min"] = 
@@ -3772,54 +4018,139 @@ everyObject =
 							["z"] = 0.060612548142672,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.MK75_76",
-					["displayName"] = "76mm HE",
 				}, -- end of ["desc"]
-			}, -- end of [8]
+			}, -- end of [9]
+			[5] = 
+			{
+				["count"] = 7759,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [5]
+			[3] = 
+			{
+				["count"] = 460,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "M792 (25mm HEI-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.185,
+						["type"] = 1,
+						["explosiveMass"] = 0.185,
+						["caliber"] = 25,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M242_25_HE_M792",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[6] = 
+			{
+				["count"] = 7759,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [6]
 		}, -- end of ["weapons"]
+	}, -- end of ["PERRY"]
+	["345 Excavator"] = 
+	{
+		["shapeName"] = "cat_345l",
 		["desc"] = 
 		{
-			["massEmpty"] = 4100000,
-			["RCS"] = 3263.7509765625,
+			["life"] = 100,
+			["_origin"] = "South_Atlantic_Assets",
+			["category"] = 4,
+			["displayName"] = "Excavator",
+			["typeName"] = "345 Excavator",
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -7.1095242500305,
-					["x"] = -69.173568725586,
-					["z"] = -9.5316305160522,
+					["y"] = -0.015983028337359,
+					["x"] = -5.0904603004456,
+					["z"] = -1.7541455030441,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 34.83536529541,
-					["x"] = 68.78971862793,
-					["z"] = 9.5889072418213,
+					["y"] = 5.3597350120544,
+					["x"] = 7.6758408546448,
+					["z"] = 1.8680396080017,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 14.918899536133,
-			["life"] = 2100,
-			["attributes"] = 
-			{
-				["Heavy armed ships"] = true,
-				["Ships"] = true,
-				["Frigates"] = true,
-				["Armed ships"] = true,
-				["Armed Air Defence"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["HelicopterCarrier"] = true,
-				["Armed Ship"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["DetectionByAWACS"] = true,
-				["Naval"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["typeName"] = "PERRY",
-			["displayName"] = "FFG Oliver Hazard Perry",
 		}, -- end of ["desc"]
-	}, -- end of ["PERRY"]
+	}, -- end of ["345 Excavator"]
 	["Pump station"] = 
 	{
 		["shapeName"] = "nasos",
@@ -3827,8 +4158,8 @@ everyObject =
 		{
 			["life"] = 150,
 			["_origin"] = "",
-			["displayName"] = "Pump station",
 			["category"] = 4,
+			["displayName"] = "Pump station",
 			["typeName"] = "Pump station",
 			["box"] = 
 			{
@@ -3859,8 +4190,8 @@ everyObject =
 				["Cargos"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "Barrels",
 			["category"] = 4,
+			["displayName"] = "Barrels",
 			["typeName"] = "barrels_cargo",
 			["box"] = 
 			{
@@ -3879,6 +4210,64 @@ everyObject =
 			}, -- end of ["box"]
 		}, -- end of ["desc"]
 	}, -- end of ["barrels_cargo"]
+	["santafe"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 5300000,
+			["RCS"] = 1408.4987792969,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -5.7119731903076,
+					["x"] = -50.509410858154,
+					["z"] = -4.2848019599915,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 10.150219917297,
+					["x"] = 43.333324432373,
+					["z"] = 4.2711658477783,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "ARA Santa Fe S-21",
+			["life"] = 3,
+			["attributes"] = 
+			{
+				["Submarines"] = true,
+				["Ships"] = true,
+				["DetectionByAWACS"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed ships"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "South_Atlantic_Assets",
+			["typeName"] = "santafe",
+			["speedMax"] = 14.89999961853,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 18,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["category"] = 4,
+					["typeName"] = "weapons.torpedoes.YU-6",
+					["displayName"] = "YU-6",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+	}, -- end of ["santafe"]
 	["F-5E"] = 
 	{
 		["weapons"] = 
@@ -4198,8 +4587,8 @@ everyObject =
 		{
 			["life"] = 15,
 			["_origin"] = "",
-			["displayName"] = "Subsidiary structure C",
 			["category"] = 4,
+			["displayName"] = "Subsidiary structure C",
 			["typeName"] = "Subsidiary structure C",
 			["box"] = 
 			{
@@ -4293,8 +4682,8 @@ everyObject =
 		{
 			["life"] = 1200,
 			["_origin"] = "",
-			["displayName"] = "Military staff",
 			["category"] = 4,
+			["displayName"] = "Military staff",
 			["typeName"] = "Military staff",
 			["box"] = 
 			{
@@ -4387,7 +4776,7 @@ everyObject =
 				["Ground Units"] = true,
 				["NonArmoredUnits"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 1.0800000429153,
+			["life"] = 1.039999961853,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
 			["speedMaxOffRoad"] = 4,
@@ -4468,137 +4857,38 @@ everyObject =
 			["speedMax"] = 20.833299636841,
 		}, -- end of ["desc"]
 	}, -- end of ["Truck ZIL-4331"]
+	["HarborTug"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 1427,
+			["RCS"] = 128.74583435059,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -3.1714086532593,
+					["x"] = -11.899280548096,
+					["z"] = -4.106164932251,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 11.000502586365,
+					["x"] = 11.899280548096,
+					["z"] = 4.106164932251,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["life"] = 400,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 3,
+			["displayName"] = "Harbor Tug",
+			["_origin"] = "South_Atlantic_Assets",
+			["typeName"] = "HarborTug",
+			["speedMax"] = 13.375,
+		}, -- end of ["desc"]
+	}, -- end of ["HarborTug"]
 	["CVN_72"] = 
 	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 23277,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_AP",
-					["displayName"] = "20mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 23277,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.1,
-						["type"] = 1,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_HE",
-					["displayName"] = "20mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 16,
-				["desc"] = 
-				{
-					["missileCategory"] = 2,
-					["rangeMaxAltMax"] = 27500,
-					["rangeMin"] = 1500,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 14000,
-					["altMax"] = 24400,
-					["RCS"] = 0.079999998211861,
-					["displayName"] = "RIM-7",
-					["altMin"] = 1,
-					["life"] = 2,
-					["fuseDist"] = 10,
-					["category"] = 1,
-					["guidance"] = 4,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 39,
-						["type"] = 1,
-						["caliber"] = 203,
-						["mass"] = 39,
-					}, -- end of ["warhead"]
-					["typeName"] = "weapons.missiles.SeaSparrow",
-					["Nmax"] = 32,
-				}, -- end of ["desc"]
-			}, -- end of [3]
-			[4] = 
-			{
-				["count"] = 42,
-				["desc"] = 
-				{
-					["missileCategory"] = 2,
-					["rangeMaxAltMax"] = 10000,
-					["rangeMin"] = 500,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 10000,
-					["altMax"] = 4000,
-					["RCS"] = 0.018200000748038,
-					["displayName"] = "RIM-116A",
-					["altMin"] = -1,
-					["life"] = 2,
-					["fuseDist"] = 5,
-					["category"] = 1,
-					["guidance"] = 5,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 10,
-						["type"] = 1,
-						["caliber"] = 127,
-						["mass"] = 10,
-					}, -- end of ["warhead"]
-					["typeName"] = "weapons.missiles.RIM_116A",
-					["Nmax"] = 20,
-				}, -- end of ["desc"]
-			}, -- end of [4]
-		}, -- end of ["weapons"]
 		["desc"] = 
 		{
 			["massEmpty"] = 72916000,
@@ -4618,7 +4908,7 @@ everyObject =
 					["z"] = 41.562206268311,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 15.433300018311,
+			["displayName"] = "CVN-72 Abraham Lincoln",
 			["life"] = 7300,
 			["attributes"] = 
 			{
@@ -4629,25 +4919,154 @@ everyObject =
 				["RADAR_BAND2_FOR_ARM"] = true,
 				["AircraftCarrier With Arresting Gear"] = true,
 				["Link4"] = true,
-				["Heavy armed ships"] = true,
+				["Datalink"] = true,
 				["AircraftCarrier With Catapult"] = true,
-				["Naval"] = true,
-				["Armed Air Defence"] = true,
+				["catapult"] = true,
+				["All"] = true,
 				["Armed ships"] = true,
 				["Ships"] = true,
 				["Arresting Gear"] = true,
 				["Armed Ship"] = true,
 				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["catapult"] = true,
-				["Datalink"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "USS_Nimitz",
 			["typeName"] = "CVN_72",
-			["displayName"] = "CVN-72 Abraham Lincoln",
+			["speedMax"] = 15.433300018311,
 		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 23277,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 23277,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 42,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 10000,
+					["rangeMin"] = 500,
+					["warhead"] = 
+					{
+						["mass"] = 10,
+						["type"] = 1,
+						["explosiveMass"] = 10,
+						["caliber"] = 127,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 4000,
+					["RCS"] = 0.018200000748038,
+					["displayName"] = "RIM-116A",
+					["altMin"] = -1,
+					["rangeMaxAltMin"] = 10000,
+					["fuseDist"] = 5,
+					["_origin"] = "",
+					["guidance"] = 5,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.RIM_116A",
+					["Nmax"] = 20,
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 16,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 27500,
+					["rangeMin"] = 1500,
+					["warhead"] = 
+					{
+						["mass"] = 39,
+						["type"] = 1,
+						["explosiveMass"] = 39,
+						["caliber"] = 203,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 24400,
+					["RCS"] = 0.079999998211861,
+					["displayName"] = "RIM-7",
+					["altMin"] = 1,
+					["rangeMaxAltMin"] = 14000,
+					["fuseDist"] = 10,
+					["_origin"] = "",
+					["guidance"] = 4,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.SeaSparrow",
+					["Nmax"] = 32,
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
 	}, -- end of ["CVN_72"]
 	["Subsidiary structure 2"] = 
 	{
@@ -4656,8 +5075,8 @@ everyObject =
 		{
 			["life"] = 80,
 			["_origin"] = "",
-			["displayName"] = "Subsidiary structure 2",
 			["category"] = 4,
+			["displayName"] = "Subsidiary structure 2",
 			["typeName"] = "Subsidiary structure 2",
 			["box"] = 
 			{
@@ -4712,7 +5131,7 @@ everyObject =
 			}, -- end of [1]
 			[2] = 
 			{
-				["count"] = 504,
+				["count"] = 104,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -4740,10 +5159,29 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M2_12_7_T",
+					["typeName"] = "weapons.shells.M2_12_7_TR",
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 404,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.046,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.M2_12_7",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [3]
 		}, -- end of ["weapons"]
 		["desc"] = 
 		{
@@ -4882,8 +5320,8 @@ everyObject =
 		{
 			["life"] = 150,
 			["_origin"] = "",
-			["displayName"] = "Small house 1C area",
 			["category"] = 4,
+			["displayName"] = "Small house 1C area",
 			["typeName"] = "Small house 1C area",
 			["box"] = 
 			{
@@ -5126,8 +5564,8 @@ everyObject =
 				["Cargos"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "Pipes big",
 			["category"] = 4,
+			["displayName"] = "Pipes big",
 			["typeName"] = "pipes_big_cargo",
 			["box"] = 
 			{
@@ -5360,8 +5798,8 @@ everyObject =
 		{
 			["life"] = 400,
 			["_origin"] = "",
-			["displayName"] = "Garage A",
 			["category"] = 4,
+			["displayName"] = "Garage A",
 			["typeName"] = "Garage A",
 			["box"] = 
 			{
@@ -5387,6 +5825,8 @@ everyObject =
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
 			["maxSlopeAngle"] = 0,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
@@ -5402,8 +5842,8 @@ everyObject =
 					["z"] = 1.5487598180771,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Tank Car blue",
+			["speedMax"] = 0,
+			["life"] = 3,
 			["attributes"] = 
 			{
 				["Ground Units Non Airdefence"] = true,
@@ -5416,13 +5856,11 @@ everyObject =
 				["Ground Units"] = true,
 				["Unarmed vehicles"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "RailwayObjectsPack",
-			["speedMaxOffRoad"] = 0,
 			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "RailwayObjectsPack",
 			["typeName"] = "Coach a tank blue",
-			["speedMax"] = 0,
+			["displayName"] = "Tank Car blue",
 		}, -- end of ["desc"]
 	}, -- end of ["Truck Coach a tank blue"]
 	["MBT Cromwell_IV"] = 
@@ -5645,57 +6083,111 @@ everyObject =
 	}, -- end of ["UAZ-469"]
 	["MOSCOW"] = 
 	{
+		["desc"] = 
+		{
+			["massEmpty"] = 11280000,
+			["RCS"] = 5746.6298828125,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -7.8283529281616,
+					["x"] = -89.538696289063,
+					["z"] = -10.336764335632,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 38.09460067749,
+					["x"] = 96.791595458984,
+					["z"] = 10.337091445923,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "Cruiser 1164 Moskva",
+			["life"] = 5200,
+			["attributes"] = 
+			{
+				["DetectionByAWACS"] = true,
+				["Ships"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["Cruisers"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed ships"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["typeName"] = "MOSCOW",
+			["speedMax"] = 16.719400405884,
+		}, -- end of ["desc"]
 		["weapons"] = 
 		{
-			[1] = 
+			[6] = 
 			{
-				["count"] = 60054,
+				["count"] = 64,
 				["desc"] = 
 				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 30,
-						["mass"] = 0.39,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
 					["box"] = 
 					{
 						["min"] = 
 						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
+							["y"] = -0.80982387065887,
+							["x"] = -3.6131811141968,
+							["z"] = -0.81062549352646,
 						}, -- end of ["min"]
 						["max"] = 
 						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
+							["y"] = 0.81190091371536,
+							["x"] = 3.6516976356506,
+							["z"] = 0.81109911203384,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_AP",
-					["displayName"] = "30mm AP",
+					["rangeMaxAltMin"] = 40000,
+					["fuseDist"] = 30,
+					["category"] = 1,
+					["guidance"] = 4,
+					["Nmax"] = 16,
+					["rangeMin"] = 5000,
+					["altMax"] = 25000,
+					["RCS"] = 0.20000000298023,
+					["displayName"] = "5V55 S-300PS (SA-10B Grumble)",
+					["altMin"] = 25,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 133,
+						["type"] = 1,
+						["explosiveMass"] = 133,
+						["caliber"] = 508,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 75000,
+					["typeName"] = "SA5B55",
+					["missileCategory"] = 2,
 				}, -- end of ["desc"]
-			}, -- end of [1]
+			}, -- end of [6]
 			[2] = 
 			{
 				["count"] = 60054,
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "30mm HE",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-						["caliber"] = 30,
 						["mass"] = 0.39,
+						["type"] = 1,
+						["explosiveMass"] = 0.39,
+						["caliber"] = 30,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_HE",
 					["box"] = 
 					{
 						["min"] = 
@@ -5711,8 +6203,6 @@ everyObject =
 							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_HE",
-					["displayName"] = "30mm HE",
 				}, -- end of ["desc"]
 			}, -- end of [2]
 			[3] = 
@@ -5721,15 +6211,17 @@ everyObject =
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "130mm HE",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 33.4,
-						["type"] = 1,
-						["caliber"] = 130,
 						["mass"] = 33.4,
+						["type"] = 1,
+						["explosiveMass"] = 33.4,
+						["caliber"] = 130,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.A222_130",
 					["box"] = 
 					{
 						["min"] = 
@@ -5745,10 +6237,42 @@ everyObject =
 							["z"] = 0.060612548142672,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.A222_130",
-					["displayName"] = "130mm HE",
 				}, -- end of ["desc"]
 			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 60054,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "30mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.39,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 30,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
 			[4] = 
 			{
 				["count"] = 44,
@@ -5780,17 +6304,17 @@ everyObject =
 					["displayName"] = "9M33 Osa (SA-8 Gecko)",
 					["altMin"] = 25,
 					["life"] = 2,
-					["missileCategory"] = 2,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 15,
-						["type"] = 1,
-						["caliber"] = 206,
 						["mass"] = 15,
+						["type"] = 1,
+						["explosiveMass"] = 15,
+						["caliber"] = 206,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 10300,
 					["typeName"] = "SA9M33",
-					["_origin"] = "",
+					["missileCategory"] = 2,
 				}, -- end of ["desc"]
 			}, -- end of [4]
 			[5] = 
@@ -5824,108 +6348,22 @@ everyObject =
 					["displayName"] = "P-500 (SS-N-12 Sandbox)",
 					["altMin"] = -1,
 					["life"] = 2,
-					["missileCategory"] = 5,
+					["_origin"] = "",
 					["warhead"] = 
 					{
 						["mass"] = 400,
-						["explosiveMass"] = 400,
+						["type"] = 2,
 						["shapedExplosiveArmorThickness"] = 0.10000000149012,
 						["shapedExplosiveMass"] = 800,
+						["explosiveMass"] = 400,
 						["caliber"] = 0,
-						["type"] = 2,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 500000,
 					["typeName"] = "P_500",
-					["_origin"] = "",
+					["missileCategory"] = 5,
 				}, -- end of ["desc"]
 			}, -- end of [5]
-			[6] = 
-			{
-				["count"] = 64,
-				["desc"] = 
-				{
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.80982387065887,
-							["x"] = -3.6131811141968,
-							["z"] = -0.81062549352646,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.81190091371536,
-							["x"] = 3.6516976356506,
-							["z"] = 0.81109911203384,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 40000,
-					["fuseDist"] = 30,
-					["category"] = 1,
-					["guidance"] = 4,
-					["Nmax"] = 16,
-					["rangeMin"] = 5000,
-					["altMax"] = 25000,
-					["RCS"] = 0.20000000298023,
-					["displayName"] = "5V55 S-300PS (SA-10B Grumble)",
-					["altMin"] = 25,
-					["life"] = 2,
-					["missileCategory"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 133,
-						["type"] = 1,
-						["caliber"] = 508,
-						["mass"] = 133,
-					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 75000,
-					["typeName"] = "SA5B55",
-					["_origin"] = "",
-				}, -- end of ["desc"]
-			}, -- end of [6]
 		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 11280000,
-			["RCS"] = 5746.6298828125,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -7.8283529281616,
-					["x"] = -89.538696289063,
-					["z"] = -10.336764335632,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 38.09460067749,
-					["x"] = 96.791595458984,
-					["z"] = 10.337091445923,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 16.719400405884,
-			["life"] = 5200,
-			["attributes"] = 
-			{
-				["Heavy armed ships"] = true,
-				["Ships"] = true,
-				["Armed ships"] = true,
-				["Armed Air Defence"] = true,
-				["Cruisers"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["HelicopterCarrier"] = true,
-				["Armed Ship"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["Naval"] = true,
-				["DetectionByAWACS"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["typeName"] = "MOSCOW",
-			["displayName"] = "Cruiser 1164 Moskva",
-		}, -- end of ["desc"]
 	}, -- end of ["MOSCOW"]
 	["FPS-117 Dome"] = 
 	{
@@ -5957,8 +6395,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "EWR AN/FPS-117 Radar (domed)",
 			["speedMax"] = 0,
+			["displayName"] = "EWR AN/FPS-117 Radar (domed)",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -5997,6 +6435,33 @@ everyObject =
 			["maxSlopeAngle"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["FPS-117 Dome"]
+	["Small_LightHouse"] = 
+	{
+		["shapeName"] = "Small_LightHouse",
+		["desc"] = 
+		{
+			["life"] = 100,
+			["_origin"] = "South_Atlantic_Assets",
+			["category"] = 4,
+			["displayName"] = "Small_LightHouse",
+			["typeName"] = "Small_LightHouse",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.53485113382339,
+					["x"] = -0.34891119599342,
+					["z"] = -0.30570590496063,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.2653272151947,
+					["x"] = 0.25649511814117,
+					["z"] = 0.29970026016235,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Small_LightHouse"]
 	["CH-53E"] = 
 	{
 		["desc"] = 
@@ -6297,8 +6762,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "EWR FuMG-401 Freya LZ",
 			["speedMax"] = 0,
+			["displayName"] = "EWR FuMG-401 Freya LZ",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -6344,8 +6809,8 @@ everyObject =
 		{
 			["life"] = 20,
 			["_origin"] = "",
-			["displayName"] = "Container brown",
 			["category"] = 4,
+			["displayName"] = "Container brown",
 			["typeName"] = "Container brown",
 			["box"] = 
 			{
@@ -6370,7 +6835,7 @@ everyObject =
 		{
 			[1] = 
 			{
-				["count"] = 509,
+				["count"] = 109,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -6404,6 +6869,40 @@ everyObject =
 			}, -- end of [1]
 			[2] = 
 			{
+				["count"] = 409,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 14.5,
+						["mass"] = 0.064,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.KPVT_14_5",
+					["displayName"] = "KPVT_14_5",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
 				["count"] = 2007,
 				["desc"] = 
 				{
@@ -6435,7 +6934,7 @@ everyObject =
 					["typeName"] = "weapons.shells.7_62x54",
 					["displayName"] = "7.62mm",
 				}, -- end of ["desc"]
-			}, -- end of [2]
+			}, -- end of [3]
 		}, -- end of ["weapons"]
 		["sensors"] = 
 		{
@@ -6523,23 +7022,23 @@ everyObject =
 					["z"] = 13.815184593201,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 7.2022199630737,
+			["displayName"] = "Bulker Handy Wind",
 			["life"] = 1000,
 			["attributes"] = 
 			{
-				["Ships"] = true,
+				["Naval"] = true,
 				["HelicopterCarrier"] = true,
 				["Side approach departure"] = true,
 				["HeavyArmoredUnits"] = true,
-				["All"] = true,
+				["Ships"] = true,
 				["Unarmed ships"] = true,
-				["Naval"] = true,
+				["All"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "TechWeaponPack",
 			["typeName"] = "HandyWind",
-			["displayName"] = "Bulker Handy Wind",
+			["speedMax"] = 7.2022199630737,
 		}, -- end of ["desc"]
 	}, -- end of ["HandyWind"]
 	["iso_container_small"] = 
@@ -6554,8 +7053,8 @@ everyObject =
 				["Cargos"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "ISO container small",
 			["category"] = 4,
+			["displayName"] = "ISO container small",
 			["typeName"] = "iso_container_small",
 			["box"] = 
 			{
@@ -6581,8 +7080,8 @@ everyObject =
 		{
 			["life"] = 100,
 			["_origin"] = "",
-			["displayName"] = "Subsidiary structure 1",
 			["category"] = 4,
+			["displayName"] = "Subsidiary structure 1",
 			["typeName"] = "Subsidiary structure 1",
 			["box"] = 
 			{
@@ -6631,8 +7130,8 @@ everyObject =
 		{
 			["massEmpty"] = 19500,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-6 Kub \"Straight Flush\" STR",
 			["speedMax"] = 12.222200393677,
+			["displayName"] = "SAM SA-6 Kub \"Straight Flush\" STR",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -6677,6 +7176,46 @@ everyObject =
 	}, -- end of ["Kub 1S91 str"]
 	["ALBATROS"] = 
 	{
+		["desc"] = 
+		{
+			["massEmpty"] = 1120000,
+			["RCS"] = 890.11083984375,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -3.9158759117126,
+					["x"] = -35.957759857178,
+					["z"] = -5.5020389556885,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 22.089179992676,
+					["x"] = 34.675533294678,
+					["z"] = 4.7569856643677,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "Corvette 1124.4 Grisha",
+			["life"] = 1600,
+			["attributes"] = 
+			{
+				["Ships"] = true,
+				["Frigates"] = true,
+				["Armed ships"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["All"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["typeName"] = "ALBATROS",
+			["speedMax"] = 15.433300018311,
+		}, -- end of ["desc"]
 		["weapons"] = 
 		{
 			[1] = 
@@ -6710,17 +7249,17 @@ everyObject =
 					["displayName"] = "9M33 Osa (SA-8 Gecko)",
 					["altMin"] = 25,
 					["life"] = 2,
-					["missileCategory"] = 2,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 15,
-						["type"] = 1,
-						["caliber"] = 206,
 						["mass"] = 15,
+						["type"] = 1,
+						["explosiveMass"] = 15,
+						["caliber"] = 206,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 10300,
 					["typeName"] = "SA9M33",
-					["_origin"] = "",
+					["missileCategory"] = 2,
 				}, -- end of ["desc"]
 			}, -- end of [1]
 			[2] = 
@@ -6729,15 +7268,17 @@ everyObject =
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "30mm AP",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 30,
 						["mass"] = 0.39,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 30,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_AP",
 					["box"] = 
 					{
 						["min"] = 
@@ -6753,59 +7294,25 @@ everyObject =
 							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_AP",
-					["displayName"] = "30mm AP",
 				}, -- end of ["desc"]
 			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 10009,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-						["caliber"] = 30,
-						["mass"] = 0.39,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_HE",
-					["displayName"] = "30mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [3]
 			[4] = 
 			{
 				["count"] = 180,
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "76mm HE",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 5.9,
-						["type"] = 1,
-						["caliber"] = 76,
 						["mass"] = 5.9,
+						["type"] = 1,
+						["explosiveMass"] = 5.9,
+						["caliber"] = 76,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK176_76",
 					["box"] = 
 					{
 						["min"] = 
@@ -6821,51 +7328,43 @@ everyObject =
 							["z"] = 0.060612548142672,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK176_76",
-					["displayName"] = "76mm HE",
 				}, -- end of ["desc"]
 			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 10009,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "30mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.39,
+						["type"] = 1,
+						["explosiveMass"] = 0.39,
+						["caliber"] = 30,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
 		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 1120000,
-			["RCS"] = 890.11083984375,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -3.9158759117126,
-					["x"] = -35.957759857178,
-					["z"] = -5.5020389556885,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 22.089179992676,
-					["x"] = 34.675533294678,
-					["z"] = 4.7569856643677,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 15.433300018311,
-			["life"] = 1600,
-			["attributes"] = 
-			{
-				["Ships"] = true,
-				["Frigates"] = true,
-				["Heavy armed ships"] = true,
-				["HeavyArmoredUnits"] = true,
-				["Armed Air Defence"] = true,
-				["Armed Ship"] = true,
-				["RADAR_BAND2_FOR_ARM"] = true,
-				["All"] = true,
-				["Naval"] = true,
-				["Armed ships"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["typeName"] = "ALBATROS",
-			["displayName"] = "Corvette 1124.4 Grisha",
-		}, -- end of ["desc"]
 	}, -- end of ["ALBATROS"]
 	["Truck Coach a passenger"] = 
 	{
@@ -6874,6 +7373,8 @@ everyObject =
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
 			["maxSlopeAngle"] = 0,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
@@ -6889,8 +7390,8 @@ everyObject =
 					["z"] = 1.7621711492538,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Passenger Car",
+			["speedMax"] = 0,
+			["life"] = 3,
 			["attributes"] = 
 			{
 				["Ground Units Non Airdefence"] = true,
@@ -6903,13 +7404,11 @@ everyObject =
 				["Ground Units"] = true,
 				["Unarmed vehicles"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "RailwayObjectsPack",
-			["speedMaxOffRoad"] = 0,
 			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "RailwayObjectsPack",
 			["typeName"] = "Coach a passenger",
-			["speedMax"] = 0,
+			["displayName"] = "Passenger Car",
 		}, -- end of ["desc"]
 	}, -- end of ["Truck Coach a passenger"]
 	["E-3A"] = 
@@ -7004,7 +7503,7 @@ everyObject =
 		{
 			[1] = 
 			{
-				["count"] = 305,
+				["count"] = 65,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -7036,6 +7535,25 @@ everyObject =
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 245,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [2]
 		}, -- end of ["weapons"]
 		["desc"] = 
 		{
@@ -7190,8 +7708,8 @@ everyObject =
 		{
 			["massEmpty"] = 19500,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-6 Kub \"Gainful\" TEL",
 			["speedMax"] = 12.222200393677,
+			["displayName"] = "SAM SA-6 Kub \"Gainful\" TEL",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -7332,8 +7850,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "AAA ZU-23 Insurgent Emplacement",
 			["speedMax"] = 0,
+			["displayName"] = "AAA ZU-23 Insurgent Emplacement",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -7449,40 +7967,6 @@ everyObject =
 	{
 		["weapons"] = 
 		{
-			[1] = 
-			{
-				["count"] = 452,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 25,
-						["mass"] = 0.185,
-						["explosiveMass"] = 0.185,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.M242_25_HE_M792",
-					["displayName"] = "M792 (25mm HEI-T)",
-				}, -- end of ["desc"]
-			}, -- end of [1]
 			[2] = 
 			{
 				["count"] = 453,
@@ -7517,7 +8001,94 @@ everyObject =
 					["displayName"] = "M791 (25mm APDS-T)",
 				}, -- end of ["desc"]
 			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 160,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 452,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 25,
+						["mass"] = 0.185,
+						["explosiveMass"] = 0.185,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M242_25_HE_M792",
+					["displayName"] = "M792 (25mm HEI-T)",
+				}, -- end of ["desc"]
+			}, -- end of [1]
 			[4] = 
+			{
+				["count"] = 640,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
 			{
 				["count"] = 7,
 				["desc"] = 
@@ -7562,26 +8133,7 @@ everyObject =
 					["typeName"] = "weapons.missiles.TOW2",
 					["_origin"] = "",
 				}, -- end of ["desc"]
-			}, -- end of [4]
-			[3] = 
-			{
-				["count"] = 800,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["_origin"] = "",
-					["warhead"] = 
-					{
-						["caliber"] = 7.62,
-						["mass"] = 0.00933,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["typeName"] = "weapons.shells.7_62x51",
-					["displayName"] = "7.62mm",
-				}, -- end of ["desc"]
-			}, -- end of [3]
+			}, -- end of [5]
 		}, -- end of ["weapons"]
 		["sensors"] = 
 		{
@@ -7822,6 +8374,50 @@ everyObject =
 			["speedMax"] = 5.5599999427795,
 		}, -- end of ["desc"]
 	}, -- end of ["MBT Elefant_SdKfz_184"]
+	["TACAN_beacon"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 50,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.094398856163025,
+					["x"] = -3.6004452705383,
+					["z"] = -1.2331314086914,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.662766456604,
+					["x"] = 1.0890637636185,
+					["z"] = 0.96849828958511,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "Beacon TACAN Portable TTS 3030",
+			["attributes"] = 
+			{
+				["Fortifications"] = true,
+				["Ground Units Non Airdefence"] = true,
+				["Armed ground units"] = true,
+				["Ground Units"] = true,
+				["HeavyArmoredUnits"] = true,
+				["All"] = true,
+				["CustomAimPoint"] = true,
+				["AntiAir Armed Vehicles"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 0,
+			["category"] = 2,
+			["typeName"] = "TACAN_beacon",
+			["speedMax"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["TACAN_beacon"]
 	["SNR_75V"] = 
 	{
 		["sensors"] = 
@@ -7852,8 +8448,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-2 S-75 \"Fan Song\" TR",
 			["speedMax"] = 0,
+			["displayName"] = "SAM SA-2 S-75 \"Fan Song\" TR",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -7902,8 +8498,8 @@ everyObject =
 		{
 			["life"] = 75,
 			["_origin"] = "",
-			["displayName"] = "Subsidiary structure E",
 			["category"] = 4,
+			["displayName"] = "Subsidiary structure E",
 			["typeName"] = "Subsidiary structure E",
 			["box"] = 
 			{
@@ -7928,8 +8524,8 @@ everyObject =
 		{
 			["massEmpty"] = 90,
 			["riverCrossing"] = false,
-			["displayName"] = "MANPADS Stinger C2",
 			["speedMax"] = 4,
+			["displayName"] = "MANPADS Stinger C2",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -8210,8 +8806,8 @@ everyObject =
 				["Buildings"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "",
 			["category"] = 4,
+			["displayName"] = "",
 			["typeName"] = "AS32-36A",
 			["box"] = 
 			{
@@ -8237,8 +8833,8 @@ everyObject =
 		{
 			["life"] = 400,
 			["_origin"] = "",
-			["displayName"] = "FARP Command Post",
 			["category"] = 4,
+			["displayName"] = "FARP Command Post",
 			["typeName"] = "FARP CP Blindage",
 			["box"] = 
 			{
@@ -8355,8 +8951,8 @@ everyObject =
 		{
 			["massEmpty"] = 13600,
 			["riverCrossing"] = false,
-			["displayName"] = "HQ-7 Self-Propelled LN",
 			["speedMax"] = 22,
+			["displayName"] = "HQ-7 Self-Propelled LN",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -8429,8 +9025,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM NASAMS SR MPQ64F1",
 			["speedMax"] = 0,
+			["displayName"] = "SAM NASAMS SR MPQ64F1",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -8457,13 +9053,13 @@ everyObject =
 				["Vehicles"] = true,
 				["MR SAM"] = true,
 				["NonArmoredUnits"] = true,
-				["Ground Units"] = true,
+				["Ground vehicles"] = true,
 				["SAM SR"] = true,
 				["Air Defence"] = true,
-				["Ground vehicles"] = true,
+				["SAM related"] = true,
 				["RADAR_BAND1_FOR_ARM"] = true,
 				["NonAndLightArmoredUnits"] = true,
-				["SAM related"] = true,
+				["Ground Units"] = true,
 				["RADAR_BAND2_FOR_ARM"] = true,
 				["All"] = true,
 				["Datalink"] = true,
@@ -8473,6 +9069,55 @@ everyObject =
 			["maxSlopeAngle"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["NASAMS_Radar_MPQ64F1"]
+	["IFV tacr2a"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 3990,
+			["riverCrossing"] = false,
+			["speedMax"] = 31.388900756836,
+			["displayName"] = "RAF Rescue",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.0049523673951626,
+					["x"] = -2.9892179965973,
+					["z"] = -0.96958607435226,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.6832530498505,
+					["x"] = 3.1214175224304,
+					["z"] = 1.2884074449539,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["category"] = 2,
+			["life"] = 2.5,
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armored vehicles"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["LightArmoredUnits"] = true,
+				["Ground vehicles"] = true,
+				["Armed vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Infantry carriers"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["APC"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "South_Atlantic_Assets",
+			["speedMaxOffRoad"] = 31.388900756836,
+			["Kmax"] = 0.050000000745058,
+			["typeName"] = "tacr2a",
+			["maxSlopeAngle"] = 0.5,
+		}, -- end of ["desc"]
+	}, -- end of ["IFV tacr2a"]
 	["Garage B"] = 
 	{
 		["shapeName"] = "garage_b",
@@ -8480,8 +9125,8 @@ everyObject =
 		{
 			["life"] = 200,
 			["_origin"] = "",
-			["displayName"] = "Garage B",
 			["category"] = 4,
+			["displayName"] = "Garage B",
 			["typeName"] = "Garage B",
 			["box"] = 
 			{
@@ -8831,9 +9476,9 @@ everyObject =
 					["displayName"] = "DM63 (20mm APDS-T)",
 				}, -- end of ["desc"]
 			}, -- end of [2]
-			[3] = 
+			[4] = 
 			{
-				["count"] = 4019,
+				["count"] = 3219,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -8847,6 +9492,40 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 819,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
 					["displayName"] = "7.62mm",
 				}, -- end of ["desc"]
 			}, -- end of [3]
@@ -9071,7 +9750,7 @@ everyObject =
 		{
 			[1] = 
 			{
-				["count"] = 305,
+				["count"] = 65,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -9103,6 +9782,25 @@ everyObject =
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 245,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [2]
 		}, -- end of ["weapons"]
 		["desc"] = 
 		{
@@ -9157,8 +9855,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM NASAMS C2",
 			["speedMax"] = 0,
+			["displayName"] = "SAM NASAMS C2",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -9249,6 +9947,25 @@ everyObject =
 	{
 		["weapons"] = 
 		{
+			[6] = 
+			{
+				["count"] = 245,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [6]
 			[2] = 
 			{
 				["count"] = 18,
@@ -9384,7 +10101,7 @@ everyObject =
 			}, -- end of [4]
 			[5] = 
 			{
-				["count"] = 305,
+				["count"] = 65,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -9533,7 +10250,7 @@ everyObject =
 		{
 			[1] = 
 			{
-				["count"] = 1004,
+				["count"] = 204,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -9561,10 +10278,29 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M2_12_7_T",
+					["typeName"] = "weapons.shells.M2_12_7_TR",
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 804,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.046,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.M2_12_7",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [2]
 		}, -- end of ["weapons"]
 		["sensors"] = 
 		{
@@ -9634,135 +10370,6 @@ everyObject =
 	}, -- end of ["IFV M1126 Stryker ICV"]
 	["CVN_75"] = 
 	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 15518,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_AP",
-					["displayName"] = "20mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 15518,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.1,
-						["type"] = 1,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_HE",
-					["displayName"] = "20mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 16,
-				["desc"] = 
-				{
-					["missileCategory"] = 2,
-					["rangeMaxAltMax"] = 27500,
-					["rangeMin"] = 1500,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 14000,
-					["altMax"] = 24400,
-					["RCS"] = 0.079999998211861,
-					["displayName"] = "RIM-7",
-					["altMin"] = 1,
-					["life"] = 2,
-					["fuseDist"] = 10,
-					["category"] = 1,
-					["guidance"] = 4,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 39,
-						["type"] = 1,
-						["caliber"] = 203,
-						["mass"] = 39,
-					}, -- end of ["warhead"]
-					["typeName"] = "weapons.missiles.SeaSparrow",
-					["Nmax"] = 32,
-				}, -- end of ["desc"]
-			}, -- end of [3]
-			[4] = 
-			{
-				["count"] = 42,
-				["desc"] = 
-				{
-					["missileCategory"] = 2,
-					["rangeMaxAltMax"] = 10000,
-					["rangeMin"] = 500,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 10000,
-					["altMax"] = 4000,
-					["RCS"] = 0.018200000748038,
-					["displayName"] = "RIM-116A",
-					["altMin"] = -1,
-					["life"] = 2,
-					["fuseDist"] = 5,
-					["category"] = 1,
-					["guidance"] = 5,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 10,
-						["type"] = 1,
-						["caliber"] = 127,
-						["mass"] = 10,
-					}, -- end of ["warhead"]
-					["typeName"] = "weapons.missiles.RIM_116A",
-					["Nmax"] = 20,
-				}, -- end of ["desc"]
-			}, -- end of [4]
-		}, -- end of ["weapons"]
 		["desc"] = 
 		{
 			["massEmpty"] = 72916000,
@@ -9782,7 +10389,7 @@ everyObject =
 					["z"] = 41.562206268311,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 15.433300018311,
+			["displayName"] = "CVN-75 Harry S. Truman",
 			["life"] = 7300,
 			["attributes"] = 
 			{
@@ -9793,25 +10400,154 @@ everyObject =
 				["RADAR_BAND2_FOR_ARM"] = true,
 				["AircraftCarrier With Arresting Gear"] = true,
 				["Link4"] = true,
-				["Heavy armed ships"] = true,
+				["Datalink"] = true,
 				["AircraftCarrier With Catapult"] = true,
-				["Naval"] = true,
-				["Armed Air Defence"] = true,
+				["catapult"] = true,
+				["All"] = true,
 				["Armed ships"] = true,
 				["Ships"] = true,
 				["Arresting Gear"] = true,
 				["Armed Ship"] = true,
 				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["catapult"] = true,
-				["Datalink"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "USS_Nimitz",
 			["typeName"] = "CVN_75",
-			["displayName"] = "CVN-75 Harry S. Truman",
+			["speedMax"] = 15.433300018311,
 		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 15518,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 15518,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 42,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 10000,
+					["rangeMin"] = 500,
+					["warhead"] = 
+					{
+						["mass"] = 10,
+						["type"] = 1,
+						["explosiveMass"] = 10,
+						["caliber"] = 127,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 4000,
+					["RCS"] = 0.018200000748038,
+					["displayName"] = "RIM-116A",
+					["altMin"] = -1,
+					["rangeMaxAltMin"] = 10000,
+					["fuseDist"] = 5,
+					["_origin"] = "",
+					["guidance"] = 5,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.RIM_116A",
+					["Nmax"] = 20,
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 16,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 27500,
+					["rangeMin"] = 1500,
+					["warhead"] = 
+					{
+						["mass"] = 39,
+						["type"] = 1,
+						["explosiveMass"] = 39,
+						["caliber"] = 203,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 24400,
+					["RCS"] = 0.079999998211861,
+					["displayName"] = "RIM-7",
+					["altMin"] = 1,
+					["rangeMaxAltMin"] = 14000,
+					["fuseDist"] = 10,
+					["_origin"] = "",
+					["guidance"] = 4,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.SeaSparrow",
+					["Nmax"] = 32,
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
 	}, -- end of ["CVN_75"]
 	["UH-1H"] = 
 	{
@@ -9867,8 +10603,8 @@ everyObject =
 		{
 			["life"] = 8000,
 			["_origin"] = "",
-			["displayName"] = "Shelter",
 			["category"] = 4,
+			["displayName"] = "Shelter",
 			["typeName"] = "Shelter",
 			["box"] = 
 			{
@@ -9925,8 +10661,8 @@ everyObject =
 				["Helipad"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "SINGLE_HELIPAD",
 			["category"] = 1,
+			["displayName"] = "SINGLE_HELIPAD",
 			["typeName"] = "SINGLE_HELIPAD",
 			["box"] = 
 			{
@@ -9947,178 +10683,50 @@ everyObject =
 	}, -- end of ["SINGLE_HELIPAD"]
 	["USS_Arleigh_Burke_IIa"] = 
 	{
+		["desc"] = 
+		{
+			["massEmpty"] = 9200000,
+			["RCS"] = 4611.3359375,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -13.36776638031,
+					["x"] = -74.926971435547,
+					["z"] = -12.40260887146,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 43.314727783203,
+					["x"] = 86.525810241699,
+					["z"] = 12.40260887146,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "DDG Arleigh Burke IIa",
+			["life"] = 2100,
+			["attributes"] = 
+			{
+				["DetectionByAWACS"] = true,
+				["Ships"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["Cruisers"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed ships"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "USS_Nimitz",
+			["typeName"] = "USS_Arleigh_Burke_IIa",
+			["speedMax"] = 15.550000190735,
+		}, -- end of ["desc"]
 		["weapons"] = 
 		{
-			[1] = 
-			{
-				["count"] = 460,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.185,
-						["type"] = 1,
-						["caliber"] = 25,
-						["mass"] = 0.185,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M242_25_HE_M792",
-					["displayName"] = "M792 (25mm HEI-T)",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 142,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 25,
-						["mass"] = 0.155,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M242_25_AP_M791",
-					["displayName"] = "M791 (25mm APDS-T)",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 15518,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_AP",
-					["displayName"] = "20mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [3]
-			[4] = 
-			{
-				["count"] = 15518,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.1,
-						["type"] = 1,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_HE",
-					["displayName"] = "20mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [4]
-			[5] = 
-			{
-				["count"] = 180,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 31.3,
-						["type"] = 1,
-						["caliber"] = 127,
-						["mass"] = 31.3,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.060612548142672,
-							["x"] = -0.27024647593498,
-							["z"] = -0.060612548142672,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.060612548142672,
-							["x"] = 0.24980916082859,
-							["z"] = 0.060612548142672,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.MK45_127",
-					["displayName"] = "127mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [5]
 			[6] = 
 			{
 				["count"] = 32,
@@ -10150,19 +10758,189 @@ everyObject =
 					["displayName"] = "BGM-109B",
 					["altMin"] = -1,
 					["life"] = 2,
-					["missileCategory"] = 5,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 181.60000610352,
-						["type"] = 1,
-						["caliber"] = 520,
 						["mass"] = 181.60000610352,
+						["type"] = 1,
+						["explosiveMass"] = 181.60000610352,
+						["caliber"] = 520,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 1700000,
 					["typeName"] = "weapons.missiles.BGM_109B",
-					["_origin"] = "",
+					["missileCategory"] = 5,
 				}, -- end of ["desc"]
 			}, -- end of [6]
+			[2] = 
+			{
+				["count"] = 142,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "M791 (25mm APDS-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.155,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 25,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M242_25_AP_M791",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 15518,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 460,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "M792 (25mm HEI-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.185,
+						["type"] = 1,
+						["explosiveMass"] = 0.185,
+						["caliber"] = 25,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M242_25_HE_M792",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[4] = 
+			{
+				["count"] = 15518,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
+			{
+				["count"] = 180,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "127mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 31.3,
+						["type"] = 1,
+						["explosiveMass"] = 31.3,
+						["caliber"] = 127,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.MK45_127",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [5]
 			[7] = 
 			{
 				["count"] = 64,
@@ -10194,62 +10972,20 @@ everyObject =
 					["displayName"] = "SM-2",
 					["altMin"] = 10,
 					["life"] = 2,
-					["missileCategory"] = 2,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 98,
-						["type"] = 1,
-						["caliber"] = 340,
 						["mass"] = 98,
+						["type"] = 1,
+						["explosiveMass"] = 98,
+						["caliber"] = 340,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 100000,
 					["typeName"] = "SM_2",
-					["_origin"] = "",
+					["missileCategory"] = 2,
 				}, -- end of ["desc"]
 			}, -- end of [7]
 		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 9200000,
-			["RCS"] = 4611.3359375,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -13.36776638031,
-					["x"] = -74.926971435547,
-					["z"] = -12.40260887146,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 43.314727783203,
-					["x"] = 86.525810241699,
-					["z"] = 12.40260887146,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 15.550000190735,
-			["life"] = 2100,
-			["attributes"] = 
-			{
-				["Heavy armed ships"] = true,
-				["Ships"] = true,
-				["Armed ships"] = true,
-				["Armed Air Defence"] = true,
-				["Cruisers"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["HelicopterCarrier"] = true,
-				["Armed Ship"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["Naval"] = true,
-				["DetectionByAWACS"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "USS_Nimitz",
-			["typeName"] = "USS_Arleigh_Burke_IIa",
-			["displayName"] = "DDG Arleigh Burke IIa",
-		}, -- end of ["desc"]
 	}, -- end of ["USS_Arleigh_Burke_IIa"]
 	["Railway station"] = 
 	{
@@ -10258,8 +10994,8 @@ everyObject =
 		{
 			["life"] = 1600,
 			["_origin"] = "",
-			["displayName"] = "Railway station",
 			["category"] = 4,
+			["displayName"] = "Railway station",
 			["typeName"] = "Railway station",
 			["box"] = 
 			{
@@ -10373,6 +11109,185 @@ everyObject =
 			["category"] = 1,
 		}, -- end of ["desc"]
 	}, -- end of ["SA342L"]
+	["leander-gun-ariadne"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 3200000,
+			["RCS"] = 2275.9594726563,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -5.1030974388123,
+					["x"] = -57.327835083008,
+					["z"] = -7.7185621261597,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 32.034683227539,
+					["x"] = 57.327835083008,
+					["z"] = 7.4427938461304,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "HMS Ariadne (F72)",
+			["life"] = 1000,
+			["attributes"] = 
+			{
+				["Naval"] = true,
+				["Ships"] = true,
+				["Frigates"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["DetectionByAWACS"] = true,
+				["Armed ships"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "South_Atlantic_Assets",
+			["typeName"] = "leander-gun-ariadne",
+			["speedMax"] = 14.39999961853,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 150,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "130mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 33.4,
+						["type"] = 1,
+						["explosiveMass"] = 33.4,
+						["caliber"] = 130,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.A222_130",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 4000,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "DM63 (20mm APDS-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.12,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Rh202_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 32,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 6500,
+					["rangeMin"] = 100,
+					["warhead"] = 
+					{
+						["mass"] = 27.5,
+						["type"] = 1,
+						["explosiveMass"] = 19,
+						["caliber"] = 220,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 1000,
+					["RCS"] = 0.018200000748038,
+					["displayName"] = "GWS-20 Mod. 1 Sea Cat",
+					["altMin"] = 50,
+					["rangeMaxAltMin"] = 6500,
+					["fuseDist"] = 5,
+					["_origin"] = "",
+					["guidance"] = 8,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.Sea_Cat",
+					["Nmax"] = 10,
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 4000,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "DM81 (20mm HE-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.12,
+						["type"] = 1,
+						["explosiveMass"] = 0.12,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Rh202_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
+	}, -- end of ["leander-gun-ariadne"]
 	["f_bar_cargo"] = 
 	{
 		["shapeName"] = "f_bar_cargo",
@@ -10385,8 +11300,8 @@ everyObject =
 				["Cargos"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "F-shape barrier",
 			["category"] = 4,
+			["displayName"] = "F-shape barrier",
 			["typeName"] = "f_bar_cargo",
 			["box"] = 
 			{
@@ -10535,8 +11450,8 @@ everyObject =
 		{
 			["life"] = 150,
 			["_origin"] = "",
-			["displayName"] = "TV tower",
 			["category"] = 4,
+			["displayName"] = "TV tower",
 			["typeName"] = "TV tower",
 			["box"] = 
 			{
@@ -10585,8 +11500,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-10 S-300 \"Grumble\" Flap Lid TR ",
 			["speedMax"] = 0,
+			["displayName"] = "SAM SA-10 S-300 \"Grumble\" Flap Lid TR ",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -10634,8 +11549,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "AAA ZU-23 Closed Emplacement",
 			["speedMax"] = 0,
+			["displayName"] = "AAA ZU-23 Closed Emplacement",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -10882,6 +11797,8 @@ everyObject =
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
 			["maxSlopeAngle"] = 0,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
@@ -10897,26 +11814,24 @@ everyObject =
 					["z"] = 4.3903803825378,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Bunker 2",
+			["speedMax"] = 0,
+			["life"] = 50,
 			["attributes"] = 
 			{
 				["Fortifications"] = true,
 				["Ground Units Non Airdefence"] = true,
-				["Armed ground units"] = true,
-				["Ground Units"] = true,
 				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["CustomAimPoint"] = true,
 				["AntiAir Armed Vehicles"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["CustomAimPoint"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 50,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 0,
 			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "",
 			["typeName"] = "Bunker",
-			["speedMax"] = 0,
+			["displayName"] = "Bunker 2",
 		}, -- end of ["desc"]
 	}, -- end of ["Bunker"]
 	["Small werehouse 2"] = 
@@ -10926,8 +11841,8 @@ everyObject =
 		{
 			["life"] = 80,
 			["_origin"] = "",
-			["displayName"] = "Small warehouse 2",
 			["category"] = 4,
+			["displayName"] = "Small warehouse 2",
 			["typeName"] = "Small werehouse 2",
 			["box"] = 
 			{
@@ -11117,8 +12032,8 @@ everyObject =
 		{
 			["massEmpty"] = 34000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-11 Buk \"Gadfly\" Fire Dome TEL",
 			["speedMax"] = 18.055599212646,
+			["displayName"] = "SAM SA-11 Buk \"Gadfly\" Fire Dome TEL",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -11142,12 +12057,12 @@ everyObject =
 			["speedMaxOffRoad"] = 18.055599212646,
 			["attributes"] = 
 			{
-				["AA_missile"] = true,
+				["Ground vehicles"] = true,
 				["SAM TR"] = true,
 				["Vehicles"] = true,
 				["MR SAM"] = true,
 				["NonArmoredUnits"] = true,
-				["Ground vehicles"] = true,
+				["AA_missile"] = true,
 				["All"] = true,
 				["Air Defence"] = true,
 				["SAM related"] = true,
@@ -11163,6 +12078,132 @@ everyObject =
 			["maxSlopeAngle"] = 0.27000001072884,
 		}, -- end of ["desc"]
 	}, -- end of ["SA-11 Buk LN 9A310M1"]
+	["SON_9"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 200,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.091575764119625,
+							["x"] = -0.47414004802704,
+							["z"] = -0.091575734317303,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.091575764119625,
+							["x"] = 0.20553138852119,
+							["z"] = 0.091575741767883,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 100,
+						["mass"] = 15.6,
+						["explosiveMass"] = 1.4,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.KS19_100HE",
+					["displayName"] = "UOF412 (100mm HE)",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 176,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 57,
+						["mass"] = 2.8,
+						["explosiveMass"] = 0.153,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.53-UOR-281U",
+					["displayName"] = "UOR-281 (57mm HE-T)",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "long-range air defence optics",
+					["opticType"] = 0,
+				}, -- end of [1]
+			}, -- end of [1]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.20291973650455,
+					["x"] = -2.1780931949615,
+					["z"] = -1.1258724927902,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.5565793514252,
+					["x"] = 3.3568394184113,
+					["z"] = 1.1258724927902,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "AAA Fire Can SON-9",
+			["attributes"] = 
+			{
+				["AAA"] = true,
+				["Optical Tracker"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["NonArmoredUnits"] = true,
+				["Armed Air Defence"] = true,
+				["Rocket Attack Valid AirDefence"] = true,
+				["Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "TechWeaponPack",
+			["speedMaxOffRoad"] = 0,
+			["category"] = 2,
+			["typeName"] = "SON_9",
+			["speedMax"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["SON_9"]
 	["ZSU-23-4 Shilka"] = 
 	{
 		["weapons"] = 
@@ -11264,8 +12305,8 @@ everyObject =
 		{
 			["massEmpty"] = 20500,
 			["riverCrossing"] = false,
-			["displayName"] = "SPAAA ZSU-23-4 Shilka \"Gun Dish\"",
 			["speedMax"] = 12.222200393677,
+			["displayName"] = "SPAAA ZSU-23-4 Shilka \"Gun Dish\"",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -11343,7 +12384,7 @@ everyObject =
 		{
 			[1] = 
 			{
-				["count"] = 509,
+				["count"] = 109,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -11377,6 +12418,40 @@ everyObject =
 			}, -- end of [1]
 			[2] = 
 			{
+				["count"] = 409,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 14.5,
+						["mass"] = 0.064,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.KPVT_14_5",
+					["displayName"] = "KPVT_14_5",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
 				["count"] = 2007,
 				["desc"] = 
 				{
@@ -11408,7 +12483,7 @@ everyObject =
 					["typeName"] = "weapons.shells.7_62x54",
 					["displayName"] = "7.62mm",
 				}, -- end of ["desc"]
-			}, -- end of [2]
+			}, -- end of [3]
 		}, -- end of ["weapons"]
 		["sensors"] = 
 		{
@@ -11477,57 +12552,72 @@ everyObject =
 	}, -- end of ["IFV BTR-80"]
 	["CV_1143_5"] = 
 	{
+		["desc"] = 
+		{
+			["massEmpty"] = 70500000,
+			["RCS"] = 16993.861328125,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -11.959422111511,
+					["x"] = -123.56636047363,
+					["z"] = -42.952754974365,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 55.552783966064,
+					["x"] = 189.85546875,
+					["z"] = 42.952754974365,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "CV 1143.5 Admiral Kuznetsov(2017)",
+			["life"] = 7000,
+			["attributes"] = 
+			{
+				["Aircraft Carriers"] = true,
+				["Straight_in_approach_type"] = true,
+				["AircraftCarrier"] = true,
+				["Ships"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["DetectionByAWACS"] = true,
+				["ski_jump"] = true,
+				["AircraftCarrier With Arresting Gear"] = true,
+				["AircraftCarrier With Tramplin"] = true,
+				["All"] = true,
+				["Arresting Gear"] = true,
+				["Armed Air Defence"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed ships"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "TAVKR 1143 High Detail",
+			["typeName"] = "CV_1143_5",
+			["speedMax"] = 16.462200164795,
+		}, -- end of ["desc"]
 		["weapons"] = 
 		{
-			[1] = 
-			{
-				["count"] = 100206,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 30,
-						["mass"] = 0.39,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_AP",
-					["displayName"] = "30mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [1]
 			[2] = 
 			{
 				["count"] = 100206,
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "30mm HE",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-						["caliber"] = 30,
 						["mass"] = 0.39,
+						["type"] = 1,
+						["explosiveMass"] = 0.39,
+						["caliber"] = 30,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_HE",
 					["box"] = 
 					{
 						["min"] = 
@@ -11543,8 +12633,6 @@ everyObject =
 							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_HE",
-					["displayName"] = "30mm HE",
 				}, -- end of ["desc"]
 			}, -- end of [2]
 			[3] = 
@@ -11578,19 +12666,53 @@ everyObject =
 					["displayName"] = "9M311 Tunguska (SA-19 Grison)",
 					["altMin"] = 14.5,
 					["life"] = 2,
-					["missileCategory"] = 6,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 9,
-						["type"] = 1,
-						["caliber"] = 100,
 						["mass"] = 9,
+						["type"] = 1,
+						["explosiveMass"] = 9,
+						["caliber"] = 100,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 8000,
 					["typeName"] = "SA9M311",
-					["_origin"] = "",
+					["missileCategory"] = 6,
 				}, -- end of ["desc"]
 			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 100206,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "30mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.39,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 30,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
 			[4] = 
 			{
 				["count"] = 192,
@@ -11622,17 +12744,17 @@ everyObject =
 					["displayName"] = "9M330 Tor (SA-15 Gauntlet)",
 					["altMin"] = 10,
 					["life"] = 2,
-					["missileCategory"] = 2,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 14.5,
-						["type"] = 1,
-						["caliber"] = 220,
 						["mass"] = 14.5,
+						["type"] = 1,
+						["explosiveMass"] = 14.5,
+						["caliber"] = 220,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 12000,
 					["typeName"] = "SA9M330",
-					["_origin"] = "",
+					["missileCategory"] = 2,
 				}, -- end of ["desc"]
 			}, -- end of [4]
 			[5] = 
@@ -11666,69 +12788,22 @@ everyObject =
 					["displayName"] = "P-700 (SS-N-19 Shipwreck)",
 					["altMin"] = -1,
 					["life"] = 2,
-					["missileCategory"] = 5,
+					["_origin"] = "",
 					["warhead"] = 
 					{
 						["mass"] = 400,
-						["explosiveMass"] = 400,
+						["type"] = 2,
 						["shapedExplosiveArmorThickness"] = 0.10000000149012,
 						["shapedExplosiveMass"] = 800,
+						["explosiveMass"] = 400,
 						["caliber"] = 0,
-						["type"] = 2,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 550000,
 					["typeName"] = "P_700",
-					["_origin"] = "",
+					["missileCategory"] = 5,
 				}, -- end of ["desc"]
 			}, -- end of [5]
 		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 70500000,
-			["RCS"] = 16993.861328125,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -11.959422111511,
-					["x"] = -123.56636047363,
-					["z"] = -42.952754974365,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 55.552783966064,
-					["x"] = 189.85546875,
-					["z"] = 42.952754974365,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 16.462200164795,
-			["life"] = 7000,
-			["attributes"] = 
-			{
-				["Aircraft Carriers"] = true,
-				["Straight_in_approach_type"] = true,
-				["AircraftCarrier"] = true,
-				["Ships"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["DetectionByAWACS"] = true,
-				["ski_jump"] = true,
-				["Heavy armed ships"] = true,
-				["Armed ships"] = true,
-				["AircraftCarrier With Tramplin"] = true,
-				["Arresting Gear"] = true,
-				["Armed Air Defence"] = true,
-				["Armed Ship"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["Naval"] = true,
-				["AircraftCarrier With Arresting Gear"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "TAVKR 1143 High Detail",
-			["typeName"] = "CV_1143_5",
-			["displayName"] = "CV 1143.5 Admiral Kuznetsov(2017)",
-		}, -- end of ["desc"]
 	}, -- end of ["CV_1143_5"]
 	["ARTY SAU Akatsia"] = 
 	{
@@ -11937,9 +13012,9 @@ everyObject =
 				["AAA"] = true,
 				["Ground vehicles"] = true,
 				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
 				["Static AAA"] = true,
 				["Armed Air Defence"] = true,
-				["All"] = true,
 				["Ground Units"] = true,
 				["Vehicles"] = true,
 			}, -- end of ["attributes"]
@@ -12018,8 +13093,8 @@ everyObject =
 		{
 			["life"] = 5,
 			["_origin"] = "",
-			["displayName"] = "Chemical tank A",
 			["category"] = 4,
+			["displayName"] = "Chemical tank A",
 			["typeName"] = "Chemical tank A",
 			["box"] = 
 			{
@@ -12068,8 +13143,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "EWR AN/FPS-117 Radar",
 			["speedMax"] = 0,
+			["displayName"] = "EWR AN/FPS-117 Radar",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -12114,8 +13189,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Patriot LN",
 			["speedMax"] = 0,
+			["displayName"] = "SAM Patriot LN",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -12142,10 +13217,10 @@ everyObject =
 				["Vehicles"] = true,
 				["SAM elements"] = true,
 				["NonArmoredUnits"] = true,
-				["Ground Units"] = true,
+				["NonAndLightArmoredUnits"] = true,
 				["Air Defence"] = true,
 				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
+				["Ground Units"] = true,
 				["SAM LL"] = true,
 				["All"] = true,
 				["AA_missile"] = true,
@@ -12578,8 +13653,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM NASAMS LN AIM-120B",
 			["speedMax"] = 0,
+			["displayName"] = "SAM NASAMS LN AIM-120B",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -12606,10 +13681,10 @@ everyObject =
 				["Vehicles"] = true,
 				["SAM elements"] = true,
 				["NonArmoredUnits"] = true,
-				["Ground Units"] = true,
+				["NonAndLightArmoredUnits"] = true,
 				["Air Defence"] = true,
 				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
+				["Ground Units"] = true,
 				["SAM LL"] = true,
 				["All"] = true,
 				["AA_missile"] = true,
@@ -12674,8 +13749,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "AAA ZU-23 Emplacement",
 			["speedMax"] = 0,
+			["displayName"] = "AAA ZU-23 Emplacement",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -12793,8 +13868,8 @@ everyObject =
 		{
 			["massEmpty"] = 3025,
 			["riverCrossing"] = false,
-			["displayName"] = "SPAAA LC with ZU-23",
 			["speedMax"] = 37,
+			["displayName"] = "SPAAA LC with ZU-23",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -12910,6 +13985,25 @@ everyObject =
 	{
 		["weapons"] = 
 		{
+			[6] = 
+			{
+				["count"] = 245,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [6]
 			[2] = 
 			{
 				["count"] = 18,
@@ -13045,7 +14139,7 @@ everyObject =
 			}, -- end of [4]
 			[5] = 
 			{
-				["count"] = 305,
+				["count"] = 65,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -13149,8 +14243,8 @@ everyObject =
 		{
 			["massEmpty"] = 42150,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-10 S-300 \"Grumble\" TEL C",
 			["speedMax"] = 16.666700363159,
+			["displayName"] = "SAM SA-10 S-300 \"Grumble\" TEL C",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -13259,21 +14353,21 @@ everyObject =
 					["z"] = 11.057329177856,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 7.2022199630737,
+			["displayName"] = "Bulker Yakushev",
 			["life"] = 200,
 			["attributes"] = 
 			{
-				["Ships"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["Unarmed ships"] = true,
 				["Naval"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Ships"] = true,
+				["Unarmed ships"] = true,
+				["All"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
 			["typeName"] = "Dry-cargo ship-1",
-			["displayName"] = "Bulker Yakushev",
+			["speedMax"] = 7.2022199630737,
 		}, -- end of ["desc"]
 	}, -- end of ["Dry-cargo ship-1"]
 	["Truck M978 HEMTT Tanker"] = 
@@ -13488,6 +14582,33 @@ everyObject =
 			["speedMax"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["ARTY Silkworm_SR"]
+	["Tower Crane"] = 
+	{
+		["shapeName"] = "TowerCrane_01",
+		["desc"] = 
+		{
+			["life"] = 100,
+			["_origin"] = "South_Atlantic_Assets",
+			["category"] = 4,
+			["displayName"] = "TowerCrane",
+			["typeName"] = "Tower Crane",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -2.5390491485596,
+					["x"] = -11.231405258179,
+					["z"] = -2.695672750473,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 30.131183624268,
+					["x"] = 19.014518737793,
+					["z"] = 2.666823387146,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Tower Crane"]
 	["Boiler-house A"] = 
 	{
 		["shapeName"] = "kotelnaya_a",
@@ -13495,8 +14616,8 @@ everyObject =
 		{
 			["life"] = 150,
 			["_origin"] = "",
-			["displayName"] = "Boiler-house A",
 			["category"] = 4,
+			["displayName"] = "Boiler-house A",
 			["typeName"] = "Boiler-house A",
 			["box"] = 
 			{
@@ -13677,8 +14798,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-2/3/5 P19 \"Flat Face\" SR ",
 			["speedMax"] = 0,
+			["displayName"] = "SAM SA-2/3/5 P19 \"Flat Face\" SR ",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -13750,8 +14871,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-5 S-200 ST-68U \"Tin Shield\" SR",
 			["speedMax"] = 0,
+			["displayName"] = "SAM SA-5 S-200 ST-68U \"Tin Shield\" SR",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -13836,7 +14957,7 @@ everyObject =
 			}, -- end of [1]
 			[2] = 
 			{
-				["count"] = 504,
+				["count"] = 104,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -13864,10 +14985,29 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M2_12_7_T",
+					["typeName"] = "weapons.shells.M2_12_7_TR",
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 404,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.046,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.M2_12_7",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [3]
 		}, -- end of ["weapons"]
 		["sensors"] = 
 		{
@@ -13934,8 +15074,8 @@ everyObject =
 		{
 			["massEmpty"] = 90,
 			["riverCrossing"] = false,
-			["displayName"] = "MANPADS SA-18 Igla-S \"Grouse\" C2",
 			["speedMax"] = 4,
+			["displayName"] = "MANPADS SA-18 Igla-S \"Grouse\" C2",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -14370,14 +15510,14 @@ everyObject =
 					["warhead"] = 
 					{
 						["caliber"] = 120,
-						["mass"] = 4.6,
+						["mass"] = 5,
 						["explosiveMass"] = 0,
 						["type"] = 0,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_AP_L55",
-					["displayName"] = "M829A2 (120mm APFSDS-T)",
+					["typeName"] = "weapons.shells.DM53_120_AP",
+					["displayName"] = "DM53 (120mm APFSDS-T)",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 			[2] = 
@@ -14410,13 +15550,13 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_HE_L55",
-					["displayName"] = "M830 (120mm HEAT-MP-T)",
+					["typeName"] = "weapons.shells.DM12_L55_120mm_HEAT_MP_T",
+					["displayName"] = "DM12 (120mm HEAT-MP-T)",
 				}, -- end of ["desc"]
 			}, -- end of [2]
-			[3] = 
+			[4] = 
 			{
-				["count"] = 4018,
+				["count"] = 3218,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -14430,6 +15570,40 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 818,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
 					["displayName"] = "7.62mm",
 				}, -- end of ["desc"]
 			}, -- end of [3]
@@ -14505,8 +15679,8 @@ everyObject =
 		{
 			["life"] = 640,
 			["_origin"] = "",
-			["displayName"] = "Restaurant 1",
 			["category"] = 4,
+			["displayName"] = "Restaurant 1",
 			["typeName"] = "Restaurant 1",
 			["box"] = 
 			{
@@ -14531,8 +15705,8 @@ everyObject =
 		{
 			["massEmpty"] = 8000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Patriot EPP-III",
 			["speedMax"] = 20.833299636841,
+			["displayName"] = "SAM Patriot EPP-III",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -14635,11 +15809,11 @@ everyObject =
 				["Air"] = true,
 				["Tankers"] = true,
 				["NonAndLightArmoredUnits"] = true,
-				["Aux"] = true,
-				["Refuelable"] = true,
 				["Planes"] = true,
-				["NonArmoredUnits"] = true,
+				["Refuelable"] = true,
 				["All"] = true,
+				["NonArmoredUnits"] = true,
+				["Aux"] = true,
 			}, -- end of ["attributes"]
 			["typeName"] = "S-3B Tanker",
 			["category"] = 0,
@@ -14759,8 +15933,8 @@ everyObject =
 		{
 			["life"] = 5,
 			["_origin"] = "",
-			["displayName"] = "Tank 1",
 			["category"] = 4,
+			["displayName"] = "Tank 1",
 			["typeName"] = "Tank",
 			["box"] = 
 			{
@@ -14779,6 +15953,55 @@ everyObject =
 			}, -- end of ["box"]
 		}, -- end of ["desc"]
 	}, -- end of ["Tank"]
+	["IFV LARC-V"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 13600,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.46999999880791,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.70390963554382,
+					["x"] = -7.4618420600891,
+					["z"] = -1.8189203739166,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.9283223152161,
+					["x"] = 5.7759408950806,
+					["z"] = 2.4319906234741,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "LARC-V",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armored vehicles"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["LightArmoredUnits"] = true,
+				["Ground vehicles"] = true,
+				["Armed vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Infantry carriers"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["APC"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "South_Atlantic_Assets",
+			["speedMaxOffRoad"] = 25,
+			["category"] = 2,
+			["typeName"] = "LARC-V",
+			["speedMax"] = 25,
+		}, -- end of ["desc"]
+	}, -- end of ["IFV LARC-V"]
 	["Railway crossing B"] = 
 	{
 		["shapeName"] = "pereezd_small",
@@ -14786,8 +16009,8 @@ everyObject =
 		{
 			["life"] = 150,
 			["_origin"] = "",
-			["displayName"] = "Railway crossing B",
 			["category"] = 4,
+			["displayName"] = "Railway crossing B",
 			["typeName"] = "Railway crossing B",
 			["box"] = 
 			{
@@ -14827,21 +16050,21 @@ everyObject =
 					["z"] = 7.9082589149475,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 7.2022199630737,
+			["displayName"] = "Tanker Elnya 160",
 			["life"] = 400,
 			["attributes"] = 
 			{
-				["Ships"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["Unarmed ships"] = true,
 				["Naval"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Ships"] = true,
+				["Unarmed ships"] = true,
+				["All"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
 			["typeName"] = "ELNYA",
-			["displayName"] = "Tanker Elnya 160",
+			["speedMax"] = 7.2022199630737,
 		}, -- end of ["desc"]
 	}, -- end of ["ELNYA"]
 	["FARP Tent"] = 
@@ -14851,8 +16074,8 @@ everyObject =
 		{
 			["life"] = 2,
 			["_origin"] = "",
-			["displayName"] = "FARP Tent",
 			["category"] = 4,
+			["displayName"] = "FARP Tent",
 			["typeName"] = "FARP Tent",
 			["box"] = 
 			{
@@ -14877,8 +16100,8 @@ everyObject =
 		{
 			["massEmpty"] = 90,
 			["riverCrossing"] = false,
-			["displayName"] = "MANPADS SA-18 Igla \"Grouse\"",
 			["speedMax"] = 4,
+			["displayName"] = "MANPADS SA-18 Igla \"Grouse\"",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -14963,8 +16186,8 @@ everyObject =
 		{
 			["life"] = 150,
 			["_origin"] = "",
-			["displayName"] = "Water tower A",
 			["category"] = 4,
+			["displayName"] = "Water tower A",
 			["typeName"] = "Water tower A",
 			["box"] = 
 			{
@@ -15126,8 +16349,8 @@ everyObject =
 		{
 			["massEmpty"] = 21300,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Linebacker - Bradley M6",
 			["speedMax"] = 18.333299636841,
+			["displayName"] = "SAM Linebacker - Bradley M6",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -15594,6 +16817,48 @@ everyObject =
 	}, -- end of ["F-16C bl.52d"]
 	["Type_093"] = 
 	{
+		["desc"] = 
+		{
+			["massEmpty"] = 5300000,
+			["RCS"] = 1961.3787841797,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -8.8540077209473,
+					["x"] = -59.282073974609,
+					["z"] = -6.8279452323914,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 10.683549880981,
+					["x"] = 50.939796447754,
+					["z"] = 6.7737741470337,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "Type 093 Attack Submarine",
+			["life"] = 1500,
+			["attributes"] = 
+			{
+				["Submarines"] = true,
+				["Ships"] = true,
+				["Naval"] = true,
+				["Armed ships"] = true,
+				["All"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["Armed Ship"] = true,
+				["NO_SAM"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["DetectionByAWACS"] = true,
+				["Armed Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
+			["typeName"] = "Type_093",
+			["speedMax"] = 14.89999961853,
+		}, -- end of ["desc"]
 		["weapons"] = 
 		{
 			[1] = 
@@ -15616,70 +16881,28 @@ everyObject =
 					["missileCategory"] = 6,
 					["rangeMaxAltMax"] = 180000,
 					["rangeMin"] = 12000,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 180000,
+					["warhead"] = 
+					{
+						["mass"] = 165,
+						["type"] = 1,
+						["explosiveMass"] = 165,
+						["caliber"] = 360,
+					}, -- end of ["warhead"]
+					["category"] = 1,
 					["altMax"] = 10000,
 					["RCS"] = 0.12099999934435,
 					["displayName"] = "YJ-84",
 					["altMin"] = -1,
-					["life"] = 2,
+					["rangeMaxAltMin"] = 180000,
 					["fuseDist"] = 0,
-					["category"] = 1,
+					["_origin"] = "",
 					["guidance"] = 1,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 165,
-						["type"] = 1,
-						["caliber"] = 360,
-						["mass"] = 165,
-					}, -- end of ["warhead"]
+					["life"] = 2,
 					["typeName"] = "weapons.missiles.YJ-84",
 					["Nmax"] = 6,
 				}, -- end of ["desc"]
 			}, -- end of [2]
 		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 5300000,
-			["RCS"] = 1961.3787841797,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -8.8540077209473,
-					["x"] = -59.282073974609,
-					["z"] = -6.8279452323914,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 10.683549880981,
-					["x"] = 50.939796447754,
-					["z"] = 6.7737741470337,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 14.89999961853,
-			["life"] = 1500,
-			["attributes"] = 
-			{
-				["Submarines"] = true,
-				["Ships"] = true,
-				["Heavy armed ships"] = true,
-				["NO_SAM"] = true,
-				["Armed Air Defence"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["Armed ships"] = true,
-				["Armed Ship"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["DetectionByAWACS"] = true,
-				["Naval"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
-			["typeName"] = "Type_093",
-			["displayName"] = "Type 093 Attack Submarine",
-		}, -- end of ["desc"]
 	}, -- end of ["Type_093"]
 	["Log posts 1"] = 
 	{
@@ -15715,8 +16938,8 @@ everyObject =
 		{
 			["life"] = 20,
 			["_origin"] = "",
-			["displayName"] = "Container red 2",
 			["category"] = 4,
+			["displayName"] = "Container red 2",
 			["typeName"] = "Container red 2",
 			["box"] = 
 			{
@@ -15872,8 +17095,8 @@ everyObject =
 		{
 			["life"] = 20,
 			["_origin"] = "",
-			["displayName"] = "Container red 1",
 			["category"] = 4,
+			["displayName"] = "Container red 1",
 			["typeName"] = "Container red 1",
 			["box"] = 
 			{
@@ -16098,8 +17321,8 @@ everyObject =
 		{
 			["massEmpty"] = 12300,
 			["riverCrossing"] = false,
-			["displayName"] = "MCC-SR Sborka \"Dog Ear\" SR",
 			["speedMax"] = 16.666700363159,
+			["displayName"] = "MCC-SR Sborka \"Dog Ear\" SR",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -16144,40 +17367,6 @@ everyObject =
 	{
 		["weapons"] = 
 		{
-			[1] = 
-			{
-				["count"] = 30,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.10894741863012,
-							["x"] = -0.23145794868469,
-							["z"] = -0.10864424705505,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.10724244266748,
-							["x"] = 0.26817846298218,
-							["z"] = 0.10754559934139,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 120,
-						["mass"] = 4.9,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_AP",
-					["displayName"] = "M829A2 (120mm APFSDS-T)",
-				}, -- end of ["desc"]
-			}, -- end of [1]
 			[2] = 
 			{
 				["count"] = 20,
@@ -16202,17 +17391,104 @@ everyObject =
 					["warhead"] = 
 					{
 						["caliber"] = 120,
-						["mass"] = 14.3,
-						["explosiveMass"] = 14.3,
+						["mass"] = 13.5,
+						["explosiveMass"] = 13.3,
 						["type"] = 1,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_HE",
-					["displayName"] = "M830 (120mm HEAT-MP-T)",
+					["typeName"] = "weapons.shells.M339_120mm_HEAT_MP_T",
+					["displayName"] = "M339 (120mm HEAT-MP-T)",
 				}, -- end of ["desc"]
 			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 1024,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 30,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.10894741863012,
+							["x"] = -0.23145794868469,
+							["z"] = -0.10864424705505,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.10724244266748,
+							["x"] = 0.26817846298218,
+							["z"] = 0.10754559934139,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 120,
+						["mass"] = 5.6,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M322_120_AP",
+					["displayName"] = "M322 (120mm APFSDS-T)",
+				}, -- end of ["desc"]
+			}, -- end of [1]
 			[4] = 
+			{
+				["count"] = 4024,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
 			{
 				["count"] = 5024,
 				["desc"] = 
@@ -16245,26 +17521,7 @@ everyObject =
 					["typeName"] = "weapons.shells.7_62x54",
 					["displayName"] = "7.62mm",
 				}, -- end of ["desc"]
-			}, -- end of [4]
-			[3] = 
-			{
-				["count"] = 5024,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["_origin"] = "",
-					["warhead"] = 
-					{
-						["caliber"] = 7.62,
-						["mass"] = 0.00933,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["typeName"] = "weapons.shells.7_62x51",
-					["displayName"] = "7.62mm",
-				}, -- end of ["desc"]
-			}, -- end of [3]
+			}, -- end of [5]
 		}, -- end of ["weapons"]
 		["sensors"] = 
 		{
@@ -16725,8 +17982,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "EWR 1L13",
 			["speedMax"] = 0,
+			["displayName"] = "EWR 1L13",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -16795,8 +18052,8 @@ everyObject =
 		{
 			["massEmpty"] = 42150,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-10 S-300 \"Grumble\" Clam Shell SR",
 			["speedMax"] = 16.666700363159,
+			["displayName"] = "SAM SA-10 S-300 \"Grumble\" Clam Shell SR",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -16958,8 +18215,8 @@ everyObject =
 				["Cargos"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "Ammo",
 			["category"] = 4,
+			["displayName"] = "Ammo",
 			["typeName"] = "ammo_cargo",
 			["box"] = 
 			{
@@ -17066,8 +18323,8 @@ everyObject =
 		{
 			["life"] = 50,
 			["_origin"] = "",
-			["displayName"] = "Small house 1A area",
 			["category"] = 4,
+			["displayName"] = "Small house 1A area",
 			["typeName"] = "Small house 1A area",
 			["box"] = 
 			{
@@ -17096,8 +18353,8 @@ everyObject =
 				["Buildings"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "",
 			["category"] = 4,
+			["displayName"] = "",
 			["typeName"] = "CV_59_Large_Forklift",
 			["box"] = 
 			{
@@ -17251,42 +18508,49 @@ everyObject =
 	}, -- end of ["Truck LiAZ Bus"]
 	["NEUSTRASH"] = 
 	{
+		["desc"] = 
+		{
+			["massEmpty"] = 4250000,
+			["RCS"] = 2900.5166015625,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -7.3342900276184,
+					["x"] = -65.850799560547,
+					["z"] = -8.1793003082275,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 29.853000640869,
+					["x"] = 65.141403198242,
+					["z"] = 8.011549949646,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "Frigate 11540 Neustrashimy",
+			["life"] = 2180,
+			["attributes"] = 
+			{
+				["Ships"] = true,
+				["Frigates"] = true,
+				["Armed ships"] = true,
+				["All"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["typeName"] = "NEUSTRASH",
+			["speedMax"] = 16.462200164795,
+		}, -- end of ["desc"]
 		["weapons"] = 
 		{
-			[1] = 
-			{
-				["count"] = 175,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 15.6,
-						["type"] = 1,
-						["caliber"] = 100,
-						["mass"] = 15.6,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.060612548142672,
-							["x"] = -0.27024647593498,
-							["z"] = -0.060612548142672,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.060612548142672,
-							["x"] = 0.24980916082859,
-							["z"] = 0.060612548142672,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK100_100",
-					["displayName"] = "100mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [1]
 			[2] = 
 			{
 				["count"] = 128,
@@ -17318,17 +18582,17 @@ everyObject =
 					["displayName"] = "9M311 Tunguska (SA-19 Grison)",
 					["altMin"] = 14.5,
 					["life"] = 2,
-					["missileCategory"] = 6,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 9,
-						["type"] = 1,
-						["caliber"] = 100,
 						["mass"] = 9,
+						["type"] = 1,
+						["explosiveMass"] = 9,
+						["caliber"] = 100,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 8000,
 					["typeName"] = "SA9M311",
-					["_origin"] = "",
+					["missileCategory"] = 6,
 				}, -- end of ["desc"]
 			}, -- end of [2]
 			[3] = 
@@ -17337,15 +18601,17 @@ everyObject =
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "30mm AP",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 30,
 						["mass"] = 0.39,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 30,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_AP",
 					["box"] = 
 					{
 						["min"] = 
@@ -17361,25 +18627,59 @@ everyObject =
 							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_AP",
-					["displayName"] = "30mm AP",
 				}, -- end of ["desc"]
 			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 175,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "100mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 15.6,
+						["type"] = 1,
+						["explosiveMass"] = 15.6,
+						["caliber"] = 100,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK100_100",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
 			[4] = 
 			{
 				["count"] = 10038,
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "30mm HE",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-						["caliber"] = 30,
 						["mass"] = 0.39,
+						["type"] = 1,
+						["explosiveMass"] = 0.39,
+						["caliber"] = 30,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_HE",
 					["box"] = 
 					{
 						["min"] = 
@@ -17395,8 +18695,6 @@ everyObject =
 							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_HE",
-					["displayName"] = "30mm HE",
 				}, -- end of ["desc"]
 			}, -- end of [4]
 			[5] = 
@@ -17430,61 +18728,20 @@ everyObject =
 					["displayName"] = "9M330 Tor (SA-15 Gauntlet)",
 					["altMin"] = 10,
 					["life"] = 2,
-					["missileCategory"] = 2,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 14.5,
-						["type"] = 1,
-						["caliber"] = 220,
 						["mass"] = 14.5,
+						["type"] = 1,
+						["explosiveMass"] = 14.5,
+						["caliber"] = 220,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 12000,
 					["typeName"] = "SA9M330",
-					["_origin"] = "",
+					["missileCategory"] = 2,
 				}, -- end of ["desc"]
 			}, -- end of [5]
 		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 4250000,
-			["RCS"] = 2900.5166015625,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -7.3342900276184,
-					["x"] = -65.850799560547,
-					["z"] = -8.1793003082275,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 29.853000640869,
-					["x"] = 65.141403198242,
-					["z"] = 8.011549949646,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 16.462200164795,
-			["life"] = 2180,
-			["attributes"] = 
-			{
-				["Ships"] = true,
-				["Frigates"] = true,
-				["Heavy armed ships"] = true,
-				["Armed Air Defence"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["HelicopterCarrier"] = true,
-				["Armed Ship"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["Naval"] = true,
-				["Armed ships"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["typeName"] = "NEUSTRASH",
-			["displayName"] = "Frigate 11540 Neustrashimy",
-		}, -- end of ["desc"]
 	}, -- end of ["NEUSTRASH"]
 	["Tech combine"] = 
 	{
@@ -17493,8 +18750,8 @@ everyObject =
 		{
 			["life"] = 1000,
 			["_origin"] = "",
-			["displayName"] = "Tech combine",
 			["category"] = 4,
+			["displayName"] = "Tech combine",
 			["typeName"] = "Tech combine",
 			["box"] = 
 			{
@@ -17803,7 +19060,7 @@ everyObject =
 				["Ground Units"] = true,
 				["Infantry"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 1.0800000429153,
+			["life"] = 1.039999961853,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
 			["speedMaxOffRoad"] = 4,
@@ -18175,11 +19432,11 @@ everyObject =
 			{
 				["Air"] = true,
 				["NonAndLightArmoredUnits"] = true,
-				["Aux"] = true,
-				["Refuelable"] = true,
 				["Planes"] = true,
-				["NonArmoredUnits"] = true,
+				["Refuelable"] = true,
 				["All"] = true,
+				["NonArmoredUnits"] = true,
+				["Aux"] = true,
 			}, -- end of ["attributes"]
 			["typeName"] = "Su-24MR",
 			["category"] = 0,
@@ -18192,8 +19449,8 @@ everyObject =
 		{
 			["life"] = 20,
 			["_origin"] = "",
-			["displayName"] = "Subsidiary structure 3",
 			["category"] = 4,
+			["displayName"] = "Subsidiary structure 3",
 			["typeName"] = "Subsidiary structure 3",
 			["box"] = 
 			{
@@ -18386,106 +19643,6 @@ everyObject =
 	}, -- end of ["MBT Churchill_VII"]
 	["Forrestal"] = 
 	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 23277,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_AP",
-					["displayName"] = "20mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 23277,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.1,
-						["type"] = 1,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_HE",
-					["displayName"] = "20mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 16,
-				["desc"] = 
-				{
-					["missileCategory"] = 2,
-					["rangeMaxAltMax"] = 27500,
-					["rangeMin"] = 1500,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 14000,
-					["altMax"] = 24400,
-					["RCS"] = 0.079999998211861,
-					["displayName"] = "RIM-7",
-					["altMin"] = 1,
-					["life"] = 2,
-					["fuseDist"] = 10,
-					["category"] = 1,
-					["guidance"] = 4,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 39,
-						["type"] = 1,
-						["caliber"] = 203,
-						["mass"] = 39,
-					}, -- end of ["warhead"]
-					["typeName"] = "weapons.missiles.SeaSparrow",
-					["Nmax"] = 32,
-				}, -- end of ["desc"]
-			}, -- end of [3]
-		}, -- end of ["weapons"]
 		["desc"] = 
 		{
 			["massEmpty"] = 72916000,
@@ -18505,33 +19662,136 @@ everyObject =
 					["z"] = 48.970104217529,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 18.433300018311,
+			["displayName"] = "CV-59 Forrestal",
 			["life"] = 7300,
 			["attributes"] = 
 			{
-				["Heavy armed ships"] = true,
-				["HeavyArmoredUnits"] = true,
 				["Aircraft Carriers"] = true,
-				["Armed Air Defence"] = true,
 				["AircraftCarrier"] = true,
-				["Arresting Gear"] = true,
+				["ACLS"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["AircraftCarrier With Arresting Gear"] = true,
+				["Link4"] = true,
+				["Datalink"] = true,
+				["AircraftCarrier With Catapult"] = true,
+				["catapult"] = true,
+				["All"] = true,
 				["Armed ships"] = true,
 				["Ships"] = true,
-				["AircraftCarrier With Arresting Gear"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["Naval"] = true,
+				["Arresting Gear"] = true,
 				["Armed Ship"] = true,
-				["RADAR_BAND2_FOR_ARM"] = true,
-				["All"] = true,
-				["catapult"] = true,
-				["AircraftCarrier With Catapult"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "F-14B AI by Heatblur Simulations",
 			["typeName"] = "Forrestal",
-			["displayName"] = "CV-59 Forrestal",
+			["speedMax"] = 18.433300018311,
 		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 23277,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 23277,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 16,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 27500,
+					["rangeMin"] = 1500,
+					["warhead"] = 
+					{
+						["mass"] = 39,
+						["type"] = 1,
+						["explosiveMass"] = 39,
+						["caliber"] = 203,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 24400,
+					["RCS"] = 0.079999998211861,
+					["displayName"] = "RIM-7",
+					["altMin"] = 1,
+					["rangeMaxAltMin"] = 14000,
+					["fuseDist"] = 10,
+					["_origin"] = "",
+					["guidance"] = 4,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.SeaSparrow",
+					["Nmax"] = 32,
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
 	}, -- end of ["Forrestal"]
 	["Garage small B"] = 
 	{
@@ -18540,8 +19800,8 @@ everyObject =
 		{
 			["life"] = 100,
 			["_origin"] = "",
-			["displayName"] = "Garage small B",
 			["category"] = 4,
+			["displayName"] = "Garage small B",
 			["typeName"] = "Garage small B",
 			["box"] = 
 			{
@@ -18581,25 +19841,25 @@ everyObject =
 					["z"] = 6.4511313438416,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 8.7455596923828,
+			["displayName"] = "SSK 877V Kilo",
 			["life"] = 300,
 			["attributes"] = 
 			{
 				["Submarines"] = true,
 				["Ships"] = true,
-				["Heavy armed ships"] = true,
-				["Armed ships"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
 				["NO_SAM"] = true,
 				["HeavyArmoredUnits"] = true,
-				["All"] = true,
+				["Heavy armed ships"] = true,
 				["Naval"] = true,
-				["Armed Air Defence"] = true,
+				["Armed ships"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
 			["typeName"] = "KILO",
-			["displayName"] = "SSK 877V Kilo",
+			["speedMax"] = 8.7455596923828,
 		}, -- end of ["desc"]
 	}, -- end of ["KILO"]
 	["FARP Fuel Depot"] = 
@@ -18609,8 +19869,8 @@ everyObject =
 		{
 			["life"] = 10,
 			["_origin"] = "",
-			["displayName"] = "FARP Fuel Depot",
 			["category"] = 4,
+			["displayName"] = "FARP Fuel Depot",
 			["typeName"] = "FARP Fuel Depot",
 			["box"] = 
 			{
@@ -18746,8 +20006,8 @@ everyObject =
 		{
 			["life"] = 20,
 			["_origin"] = "",
-			["displayName"] = "Container red 3",
 			["category"] = 4,
+			["displayName"] = "Container red 3",
 			["typeName"] = "Container red 3",
 			["box"] = 
 			{
@@ -18980,6 +20240,47 @@ everyObject =
 	}, -- end of ["M1_37mm"]
 	["MOLNIYA"] = 
 	{
+		["desc"] = 
+		{
+			["massEmpty"] = 455000,
+			["RCS"] = 619.56072998047,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -4.0898218154907,
+					["x"] = -28.954301834106,
+					["z"] = -5.9428386688232,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 20.763082504272,
+					["x"] = 28.119424819946,
+					["z"] = 5.9535574913025,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "Corvette 1241.1 Molniya",
+			["life"] = 700,
+			["attributes"] = 
+			{
+				["Ships"] = true,
+				["DetectionByAWACS"] = true,
+				["Corvettes"] = true,
+				["All"] = true,
+				["Armed ships"] = true,
+				["NO_SAM"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["typeName"] = "MOLNIYA",
+			["speedMax"] = 18.520000457764,
+		}, -- end of ["desc"]
 		["weapons"] = 
 		{
 			[1] = 
@@ -18988,15 +20289,17 @@ everyObject =
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "30mm AP",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 30,
 						["mass"] = 0.39,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 30,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_AP",
 					["box"] = 
 					{
 						["min"] = 
@@ -19012,8 +20315,6 @@ everyObject =
 							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_AP",
-					["displayName"] = "30mm AP",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 			[2] = 
@@ -19022,15 +20323,17 @@ everyObject =
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "30mm HE",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-						["caliber"] = 30,
 						["mass"] = 0.39,
+						["type"] = 1,
+						["explosiveMass"] = 0.39,
+						["caliber"] = 30,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_HE",
 					["box"] = 
 					{
 						["min"] = 
@@ -19046,44 +20349,8 @@ everyObject =
 							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_HE",
-					["displayName"] = "30mm HE",
 				}, -- end of ["desc"]
 			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 180,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 5.9,
-						["type"] = 1,
-						["caliber"] = 76,
-						["mass"] = 5.9,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.060612548142672,
-							["x"] = -0.27024647593498,
-							["z"] = -0.060612548142672,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.060612548142672,
-							["x"] = 0.24980916082859,
-							["z"] = 0.060612548142672,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK176_76",
-					["displayName"] = "76mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [3]
 			[4] = 
 			{
 				["count"] = 4,
@@ -19115,63 +20382,56 @@ everyObject =
 					["displayName"] = "Kh-41 (SS-N-22-Sunburn)",
 					["altMin"] = -1,
 					["life"] = 2,
-					["missileCategory"] = 6,
+					["_origin"] = "",
 					["warhead"] = 
 					{
 						["mass"] = 128,
-						["explosiveMass"] = 128,
+						["type"] = 2,
 						["shapedExplosiveArmorThickness"] = 0.10000000149012,
 						["shapedExplosiveMass"] = 256,
+						["explosiveMass"] = 128,
 						["caliber"] = 0,
-						["type"] = 2,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 250000,
 					["typeName"] = "X_41",
-					["_origin"] = "",
+					["missileCategory"] = 6,
 				}, -- end of ["desc"]
 			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 180,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "76mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 5.9,
+						["type"] = 1,
+						["explosiveMass"] = 5.9,
+						["caliber"] = 76,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK176_76",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
 		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 455000,
-			["RCS"] = 619.56072998047,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -4.0898218154907,
-					["x"] = -28.954301834106,
-					["z"] = -5.9428386688232,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 20.763082504272,
-					["x"] = 28.119424819946,
-					["z"] = 5.9535574913025,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 18.520000457764,
-			["life"] = 700,
-			["attributes"] = 
-			{
-				["Ships"] = true,
-				["Heavy armed ships"] = true,
-				["Naval"] = true,
-				["Armed Air Defence"] = true,
-				["Armed ships"] = true,
-				["Armed Ship"] = true,
-				["NO_SAM"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["Corvettes"] = true,
-				["DetectionByAWACS"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["typeName"] = "MOLNIYA",
-			["displayName"] = "Corvette 1241.1 Molniya",
-		}, -- end of ["desc"]
 	}, -- end of ["MOLNIYA"]
 	["MBT leopard-2A4"] = 
 	{
@@ -19201,14 +20461,14 @@ everyObject =
 					["warhead"] = 
 					{
 						["caliber"] = 120,
-						["mass"] = 4.9,
+						["mass"] = 4.6,
 						["explosiveMass"] = 0,
 						["type"] = 0,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_AP",
-					["displayName"] = "M829A2 (120mm APFSDS-T)",
+					["typeName"] = "weapons.shells.DM33_120_AP",
+					["displayName"] = "DM33 (120mm APFSDS-T)",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 			[2] = 
@@ -19241,13 +20501,13 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_HE",
-					["displayName"] = "M830 (120mm HEAT-MP-T)",
+					["typeName"] = "weapons.shells.DM12_120mm_HEAT_MP_T",
+					["displayName"] = "DM12 (120mm HEAT-MP-T)",
 				}, -- end of ["desc"]
 			}, -- end of [2]
-			[3] = 
+			[4] = 
 			{
-				["count"] = 4018,
+				["count"] = 3218,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -19261,6 +20521,40 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 818,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
 					["displayName"] = "7.62mm",
 				}, -- end of ["desc"]
 			}, -- end of [3]
@@ -19593,8 +20887,8 @@ everyObject =
 		{
 			["massEmpty"] = 36000,
 			["riverCrossing"] = false,
-			["displayName"] = "SPAAA ZSU-57-2",
 			["speedMax"] = 12,
+			["displayName"] = "SPAAA ZSU-57-2",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -19717,8 +21011,8 @@ everyObject =
 				["Helipad"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "Invisible FARP",
 			["category"] = 1,
+			["displayName"] = "Invisible FARP",
 			["typeName"] = "Invisible FARP",
 			["box"] = 
 			{
@@ -19790,6 +21084,47 @@ everyObject =
 	}, -- end of ["KC-135"]
 	["La_Combattante_II"] = 
 	{
+		["desc"] = 
+		{
+			["massEmpty"] = 265000,
+			["RCS"] = 410.90469360352,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -2.3241024017334,
+					["x"] = -24.289833068848,
+					["z"] = -3.6104822158813,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 15.678464889526,
+					["x"] = 23.539581298828,
+					["z"] = 3.6104829311371,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "FAC La Combattante IIa",
+			["life"] = 750,
+			["attributes"] = 
+			{
+				["Ships"] = true,
+				["DetectionByAWACS"] = true,
+				["Corvettes"] = true,
+				["All"] = true,
+				["Armed ships"] = true,
+				["NO_SAM"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "TechWeaponPack",
+			["typeName"] = "La_Combattante_II",
+			["speedMax"] = 18.610000610352,
+		}, -- end of ["desc"]
 		["weapons"] = 
 		{
 			[1] = 
@@ -19798,15 +21133,17 @@ everyObject =
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "76mm HE",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 6.3,
-						["type"] = 1,
-						["caliber"] = 76,
 						["mass"] = 6.3,
+						["type"] = 1,
+						["explosiveMass"] = 6.3,
+						["caliber"] = 76,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.MK75_76",
 					["box"] = 
 					{
 						["min"] = 
@@ -19822,8 +21159,6 @@ everyObject =
 							["z"] = 0.060612548142672,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.MK75_76",
-					["displayName"] = "76mm HE",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 			[2] = 
@@ -19832,15 +21167,17 @@ everyObject =
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "Bofors 40mm HE",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 0.45,
-						["type"] = 1,
-						["caliber"] = 40,
 						["mass"] = 0.9,
+						["type"] = 1,
+						["explosiveMass"] = 0.45,
+						["caliber"] = 40,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Bofors_40mm_HE",
 					["box"] = 
 					{
 						["min"] = 
@@ -19856,8 +21193,6 @@ everyObject =
 							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.Bofors_40mm_HE",
-					["displayName"] = "Bofors 40mm HE",
 				}, -- end of ["desc"]
 			}, -- end of [2]
 			[3] = 
@@ -19891,171 +21226,25 @@ everyObject =
 					["displayName"] = "RGM-84D Harpoon",
 					["altMin"] = -1,
 					["life"] = 2,
-					["missileCategory"] = 4,
+					["_origin"] = "",
 					["warhead"] = 
 					{
 						["mass"] = 90,
-						["explosiveMass"] = 90,
+						["type"] = 2,
 						["shapedExplosiveArmorThickness"] = 0.10000000149012,
 						["shapedExplosiveMass"] = 180,
+						["explosiveMass"] = 90,
 						["caliber"] = 0,
-						["type"] = 2,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 241401,
 					["typeName"] = "AGM_84S",
-					["_origin"] = "",
+					["missileCategory"] = 4,
 				}, -- end of ["desc"]
 			}, -- end of [3]
 		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 265000,
-			["RCS"] = 410.90469360352,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -2.3241024017334,
-					["x"] = -24.289833068848,
-					["z"] = -3.6104822158813,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 15.678464889526,
-					["x"] = 23.539581298828,
-					["z"] = 3.6104829311371,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 18.610000610352,
-			["life"] = 750,
-			["attributes"] = 
-			{
-				["Ships"] = true,
-				["Heavy armed ships"] = true,
-				["Naval"] = true,
-				["Armed Air Defence"] = true,
-				["Armed ships"] = true,
-				["Armed Ship"] = true,
-				["NO_SAM"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["Corvettes"] = true,
-				["DetectionByAWACS"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "TechWeaponPack",
-			["typeName"] = "La_Combattante_II",
-			["displayName"] = "FAC La Combattante IIa",
-		}, -- end of ["desc"]
 	}, -- end of ["La_Combattante_II"]
 	["Type_071"] = 
 	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 180,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 5.9,
-						["type"] = 1,
-						["caliber"] = 76,
-						["mass"] = 5.9,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.060612548142672,
-							["x"] = -0.27024647593498,
-							["z"] = -0.060612548142672,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.060612548142672,
-							["x"] = 0.24980916082859,
-							["z"] = 0.060612548142672,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK176_76",
-					["displayName"] = "76mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 40036,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 30,
-						["mass"] = 0.39,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_AP",
-					["displayName"] = "30mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 40036,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-						["caliber"] = 30,
-						["mass"] = 0.39,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_HE",
-					["displayName"] = "30mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [3]
-		}, -- end of ["weapons"]
 		["desc"] = 
 		{
 			["massEmpty"] = 25000000,
@@ -20075,33 +21264,139 @@ everyObject =
 					["z"] = 14.126998901367,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 12.777700424194,
+			["displayName"] = "Type 071 Amphibious Transport Dock",
 			["life"] = 7300,
 			["attributes"] = 
 			{
-				["Heavy armed ships"] = true,
-				["HeavyArmoredUnits"] = true,
 				["Aircraft Carriers"] = true,
-				["Straight_in_approach_type"] = true,
+				["AircraftCarrier With Tramplin"] = true,
 				["AircraftCarrier"] = true,
 				["Ships"] = true,
-				["Armed Air Defence"] = true,
-				["Armed ships"] = true,
-				["AircraftCarrier With Tramplin"] = true,
 				["RADAR_BAND1_FOR_ARM"] = true,
-				["Naval"] = true,
 				["NO_SAM"] = true,
 				["RADAR_BAND2_FOR_ARM"] = true,
-				["All"] = true,
 				["DetectionByAWACS"] = true,
+				["Armed ships"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["HelicopterCarrier"] = true,
 				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Straight_in_approach_type"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
 			["typeName"] = "Type_071",
-			["displayName"] = "Type 071 Amphibious Transport Dock",
+			["speedMax"] = 12.777700424194,
 		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 180,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "76mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 5.9,
+						["type"] = 1,
+						["explosiveMass"] = 5.9,
+						["caliber"] = 76,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK176_76",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 40036,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "30mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.39,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 30,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 40036,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "30mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.39,
+						["type"] = 1,
+						["explosiveMass"] = 0.39,
+						["caliber"] = 30,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
 	}, -- end of ["Type_071"]
 	["MBT JagdPz_IV"] = 
 	{
@@ -20538,8 +21833,8 @@ everyObject =
 		{
 			["life"] = 3,
 			["_origin"] = "",
-			["displayName"] = "Mark Flag White",
 			["category"] = 4,
+			["displayName"] = "Mark Flag White",
 			["typeName"] = "White_Flag",
 			["box"] = 
 			{
@@ -20724,8 +22019,8 @@ everyObject =
 		{
 			["massEmpty"] = 34000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-19 Tunguska \"Grison\" ",
 			["speedMax"] = 18.055599212646,
+			["displayName"] = "SAM SA-19 Tunguska \"Grison\" ",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -20760,11 +22055,11 @@ everyObject =
 				["Mobile AAA"] = true,
 				["NonArmoredUnits"] = true,
 				["Air Defence"] = true,
-				["All"] = true,
+				["Ground vehicles"] = true,
 				["SR SAM"] = true,
 				["NonAndLightArmoredUnits"] = true,
-				["Ground vehicles"] = true,
 				["Vehicles"] = true,
+				["All"] = true,
 				["Armed Air Defence"] = true,
 				["Ground Units"] = true,
 				["SAM related"] = true,
@@ -20844,21 +22139,21 @@ everyObject =
 					["z"] = 11.489908218384,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 7.2022199630737,
+			["displayName"] = "Cargo Ivanov",
 			["life"] = 200,
 			["attributes"] = 
 			{
-				["Ships"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["Unarmed ships"] = true,
 				["Naval"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Ships"] = true,
+				["Unarmed ships"] = true,
+				["All"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
 			["typeName"] = "Dry-cargo ship-2",
-			["displayName"] = "Cargo Ivanov",
+			["speedMax"] = 7.2022199630737,
 		}, -- end of ["desc"]
 	}, -- end of ["Dry-cargo ship-2"]
 	["FuSe-65"] = 
@@ -20891,8 +22186,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "EWR FuSe-65 Würzburg-Riese",
 			["speedMax"] = 0,
+			["displayName"] = "EWR FuSe-65 Würzburg-Riese",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -20931,6 +22226,43 @@ everyObject =
 			["maxSlopeAngle"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["FuSe-65"]
+	["tacr2a"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 3990,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.0049523673951626,
+					["x"] = -2.9892179965973,
+					["z"] = -0.96958607435226,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.6832530498505,
+					["x"] = 3.1214175224304,
+					["z"] = 1.2884074449539,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "RAF Rescue",
+			["attributes"] = 
+			{
+				["APC,"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 2.5,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "South_Atlantic_Assets",
+			["speedMaxOffRoad"] = 31.388900756836,
+			["category"] = 2,
+			["typeName"] = "tacr2a",
+			["speedMax"] = 31.388900756836,
+		}, -- end of ["desc"]
+	}, -- end of ["tacr2a"]
 	["F-16A"] = 
 	{
 		["weapons"] = 
@@ -21283,7 +22615,7 @@ everyObject =
 			}, -- end of [1]
 			[2] = 
 			{
-				["count"] = 504,
+				["count"] = 104,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -21311,10 +22643,29 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M2_12_7_T",
+					["typeName"] = "weapons.shells.M2_12_7_TR",
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 404,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.046,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.M2_12_7",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [3]
 		}, -- end of ["weapons"]
 		["sensors"] = 
 		{
@@ -21511,8 +22862,8 @@ everyObject =
 		{
 			["life"] = 200,
 			["_origin"] = "",
-			["displayName"] = "Comms tower M",
 			["category"] = 4,
+			["displayName"] = "Comms tower M",
 			["typeName"] = "Comms tower M",
 			["box"] = 
 			{
@@ -21537,8 +22888,8 @@ everyObject =
 		{
 			["massEmpty"] = 4000,
 			["riverCrossing"] = false,
-			["displayName"] = "Diesel Power Station 5I57A",
 			["speedMax"] = 0,
+			["displayName"] = "Diesel Power Station 5I57A",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -21597,25 +22948,25 @@ everyObject =
 					["z"] = 6.9273686408997,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 8.7455596923828,
+			["displayName"] = "SSK 636 Improved Kilo",
 			["life"] = 300,
 			["attributes"] = 
 			{
 				["Submarines"] = true,
 				["Ships"] = true,
-				["Heavy armed ships"] = true,
-				["Armed ships"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
 				["NO_SAM"] = true,
 				["HeavyArmoredUnits"] = true,
-				["All"] = true,
+				["Heavy armed ships"] = true,
 				["Naval"] = true,
-				["Armed Air Defence"] = true,
+				["Armed ships"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
 			["typeName"] = "IMPROVED_KILO",
-			["displayName"] = "SSK 636 Improved Kilo",
+			["speedMax"] = 8.7455596923828,
 		}, -- end of ["desc"]
 	}, -- end of ["IMPROVED_KILO"]
 	["Strela-10M3"] = 
@@ -21624,8 +22975,8 @@ everyObject =
 		{
 			["massEmpty"] = 12300,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-13 Strela 10M3 \"Gopher\" TEL",
 			["speedMax"] = 16.666700363159,
+			["displayName"] = "SAM SA-13 Strela 10M3 \"Gopher\" TEL",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -21945,7 +23296,7 @@ everyObject =
 		{
 			[1] = 
 			{
-				["count"] = 305,
+				["count"] = 65,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -21977,6 +23328,25 @@ everyObject =
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 245,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [2]
 		}, -- end of ["weapons"]
 		["desc"] = 
 		{
@@ -22032,6 +23402,8 @@ everyObject =
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
 			["maxSlopeAngle"] = 0,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
@@ -22047,8 +23419,8 @@ everyObject =
 					["z"] = 1.5701467990875,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Coach Platform",
+			["speedMax"] = 0,
+			["life"] = 3,
 			["attributes"] = 
 			{
 				["Ground Units Non Airdefence"] = true,
@@ -22061,13 +23433,11 @@ everyObject =
 				["Ground Units"] = true,
 				["Unarmed vehicles"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "RailwayObjectsPack",
-			["speedMaxOffRoad"] = 0,
 			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "RailwayObjectsPack",
 			["typeName"] = "Coach a platform",
-			["speedMax"] = 0,
+			["displayName"] = "Coach Platform",
 		}, -- end of ["desc"]
 	}, -- end of ["Truck Coach a platform"]
 	["IFV TPZ"] = 
@@ -22076,7 +23446,41 @@ everyObject =
 		{
 			[1] = 
 			{
-				["count"] = 605,
+				["count"] = 125,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 485,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -22092,7 +23496,7 @@ everyObject =
 					["typeName"] = "weapons.shells.7_62x51",
 					["displayName"] = "7.62mm",
 				}, -- end of ["desc"]
-			}, -- end of [1]
+			}, -- end of [2]
 		}, -- end of ["weapons"]
 		["desc"] = 
 		{
@@ -22349,8 +23753,8 @@ everyObject =
 		{
 			["life"] = 80,
 			["_origin"] = "",
-			["displayName"] = "Small warehouse 1",
 			["category"] = 4,
+			["displayName"] = "Small warehouse 1",
 			["typeName"] = "Small werehouse 1",
 			["box"] = 
 			{
@@ -22375,7 +23779,7 @@ everyObject =
 		{
 			[1] = 
 			{
-				["count"] = 504,
+				["count"] = 104,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -22403,10 +23807,29 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M2_12_7_T",
+					["typeName"] = "weapons.shells.M2_12_7_TR",
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 404,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.046,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.M2_12_7",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [2]
 		}, -- end of ["weapons"]
 		["desc"] = 
 		{
@@ -22463,8 +23886,8 @@ everyObject =
 		{
 			["life"] = 400,
 			["_origin"] = "",
-			["displayName"] = "Shop",
 			["category"] = 4,
+			["displayName"] = "Shop",
 			["typeName"] = "Shop",
 			["box"] = 
 			{
@@ -22581,6 +24004,230 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["Su-25"]
+	["MBT TYPE-59"] = 
+	{
+		["weapons"] = 
+		{
+			[2] = 
+			{
+				["count"] = 12,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 100,
+						["mass"] = 15.6,
+						["explosiveMass"] = 15.6,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.UOF412_100HE",
+					["displayName"] = "UOF412 (100mm HE)",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 2760,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.0119,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x54",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 33,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.10894741863012,
+							["x"] = -0.23145794868469,
+							["z"] = -0.10864424705505,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.10724244266748,
+							["x"] = 0.26817846298218,
+							["z"] = 0.10754559934139,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 105,
+						["mass"] = 5.02,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.3UBM11_100mm_AP",
+					["displayName"] = "3UBM11 (100mm APFSDS-T)",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[4] = 
+			{
+				["count"] = 65,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Utes_12_7x108_T",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
+			{
+				["count"] = 245,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [5]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "TPKU-2B",
+					["opticType"] = 0,
+				}, -- end of [1]
+				[2] = 
+				{
+					["type"] = 0,
+					["typeName"] = "TPN1",
+					["opticType"] = 2,
+				}, -- end of [2]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 36000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.27000001072884,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.0038276766426861,
+					["x"] = -4.3864574432373,
+					["z"] = -1.6575345993042,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.9500703811646,
+					["x"] = 4.8865375518799,
+					["z"] = 1.5703853368759,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "MT Type 59",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armored vehicles"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["Old Tanks"] = true,
+				["Ground vehicles"] = true,
+				["Armed vehicles"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Tanks"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 18,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
+			["speedMaxOffRoad"] = 12,
+			["category"] = 2,
+			["typeName"] = "TYPE-59",
+			["speedMax"] = 12,
+		}, -- end of ["desc"]
+	}, -- end of ["MBT TYPE-59"]
 	["ARTY Wespe124"] = 
 	{
 		["weapons"] = 
@@ -22665,14 +24312,41 @@ everyObject =
 			["speedMax"] = 11.109999656677,
 		}, -- end of ["desc"]
 	}, -- end of ["ARTY Wespe124"]
+	["Orca"] = 
+	{
+		["shapeName"] = "Orca",
+		["desc"] = 
+		{
+			["life"] = 100,
+			["_origin"] = "South_Atlantic_Assets",
+			["category"] = 4,
+			["displayName"] = "Orca Whale",
+			["typeName"] = "Orca",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.88555067777634,
+					["x"] = -5.060971736908,
+					["z"] = -1.8797116279602,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 4.2463455200195,
+					["x"] = 4.5310673713684,
+					["z"] = 1.855996131897,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Orca"]
 	["M48 Chaparral"] = 
 	{
 		["desc"] = 
 		{
 			["massEmpty"] = 11253,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Chaparral M48",
 			["speedMax"] = 16.666700363159,
+			["displayName"] = "SAM Chaparral M48",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -22766,6 +24440,25 @@ everyObject =
 	{
 		["weapons"] = 
 		{
+			[6] = 
+			{
+				["count"] = 241,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [6]
 			[2] = 
 			{
 				["count"] = 18,
@@ -22901,7 +24594,7 @@ everyObject =
 			}, -- end of [4]
 			[5] = 
 			{
-				["count"] = 301,
+				["count"] = 61,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -23153,8 +24846,8 @@ everyObject =
 		{
 			["life"] = 40,
 			["_origin"] = "",
-			["displayName"] = "Hangar B",
 			["category"] = 4,
+			["displayName"] = "Hangar B",
 			["typeName"] = "Hangar B",
 			["box"] = 
 			{
@@ -23242,42 +24935,51 @@ everyObject =
 	}, -- end of ["SA342M"]
 	["Type_052C"] = 
 	{
+		["desc"] = 
+		{
+			["massEmpty"] = 6800000,
+			["RCS"] = 4030.3713378906,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -7.0270261764526,
+					["x"] = -77.024322509766,
+					["z"] = -9.026330947876,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 36.79935836792,
+					["x"] = 77.524406433105,
+					["z"] = 8.9391832351685,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "Type 052C Destroyer",
+			["life"] = 3200,
+			["attributes"] = 
+			{
+				["DetectionByAWACS"] = true,
+				["Armed ships"] = true,
+				["Ships"] = true,
+				["All"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["Cruisers"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
+			["typeName"] = "Type_052C",
+			["speedMax"] = 15.433300018311,
+		}, -- end of ["desc"]
 		["weapons"] = 
 		{
-			[1] = 
-			{
-				["count"] = 480,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 15.6,
-						["type"] = 1,
-						["caliber"] = 100,
-						["mass"] = 15.6,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.060612548142672,
-							["x"] = -0.27024647593498,
-							["z"] = -0.060612548142672,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.060612548142672,
-							["x"] = 0.24980916082859,
-							["z"] = 0.060612548142672,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK100_100",
-					["displayName"] = "100mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [1]
 			[2] = 
 			{
 				["count"] = 48,
@@ -23309,17 +25011,17 @@ everyObject =
 					["displayName"] = "HHQ-9",
 					["altMin"] = 5,
 					["life"] = 2,
-					["missileCategory"] = 2,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 150,
-						["type"] = 1,
-						["caliber"] = 340,
 						["mass"] = 150,
+						["type"] = 1,
+						["explosiveMass"] = 150,
+						["caliber"] = 340,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 100000,
 					["typeName"] = "HHQ-9",
-					["_origin"] = "",
+					["missileCategory"] = 2,
 				}, -- end of ["desc"]
 			}, -- end of [2]
 			[3] = 
@@ -23328,15 +25030,17 @@ everyObject =
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "30mm AP",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 30,
 						["mass"] = 0.39,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 30,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_AP",
 					["box"] = 
 					{
 						["min"] = 
@@ -23352,25 +25056,59 @@ everyObject =
 							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_AP",
-					["displayName"] = "30mm AP",
 				}, -- end of ["desc"]
 			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 480,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "100mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 15.6,
+						["type"] = 1,
+						["explosiveMass"] = 15.6,
+						["caliber"] = 100,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK100_100",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
 			[4] = 
 			{
 				["count"] = 20018,
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "30mm HE",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-						["caliber"] = 30,
 						["mass"] = 0.39,
+						["type"] = 1,
+						["explosiveMass"] = 0.39,
+						["caliber"] = 30,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_HE",
 					["box"] = 
 					{
 						["min"] = 
@@ -23386,8 +25124,6 @@ everyObject =
 							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_HE",
-					["displayName"] = "30mm HE",
 				}, -- end of ["desc"]
 			}, -- end of [4]
 			[5] = 
@@ -23398,71 +25134,28 @@ everyObject =
 					["missileCategory"] = 5,
 					["rangeMaxAltMax"] = 300000,
 					["rangeMin"] = 2000,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 300000,
+					["warhead"] = 
+					{
+						["mass"] = 350,
+						["type"] = 1,
+						["explosiveMass"] = 350,
+						["caliber"] = 540,
+					}, -- end of ["warhead"]
+					["category"] = 1,
 					["altMax"] = 10000,
 					["RCS"] = 0.12099999934435,
 					["displayName"] = "YJ-62",
 					["altMin"] = -1,
-					["life"] = 2,
+					["rangeMaxAltMin"] = 300000,
 					["fuseDist"] = 0,
-					["category"] = 1,
+					["_origin"] = "",
 					["guidance"] = 1,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 350,
-						["type"] = 1,
-						["caliber"] = 540,
-						["mass"] = 350,
-					}, -- end of ["warhead"]
+					["life"] = 2,
 					["typeName"] = "weapons.missiles.YJ-62",
 					["Nmax"] = 12,
 				}, -- end of ["desc"]
 			}, -- end of [5]
 		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 6800000,
-			["RCS"] = 3981.6801757813,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -7.5634407997131,
-					["x"] = -76.877685546875,
-					["z"] = -8.2424974441528,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 35.973369598389,
-					["x"] = 76.891906738281,
-					["z"] = 8.2687101364136,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 15.433300018311,
-			["life"] = 3200,
-			["attributes"] = 
-			{
-				["Heavy armed ships"] = true,
-				["HeavyArmoredUnits"] = true,
-				["Ships"] = true,
-				["Armed Air Defence"] = true,
-				["Armed ships"] = true,
-				["Cruisers"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["HelicopterCarrier"] = true,
-				["Armed Ship"] = true,
-				["RADAR_BAND2_FOR_ARM"] = true,
-				["All"] = true,
-				["Naval"] = true,
-				["DetectionByAWACS"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
-			["typeName"] = "Type_052C",
-			["displayName"] = "Type 052C Destroyer",
-		}, -- end of ["desc"]
 	}, -- end of ["Type_052C"]
 	["Subsidiary structure A"] = 
 	{
@@ -23471,8 +25164,8 @@ everyObject =
 		{
 			["life"] = 10,
 			["_origin"] = "",
-			["displayName"] = "Subsidiary structure A",
 			["category"] = 4,
+			["displayName"] = "Subsidiary structure A",
 			["typeName"] = "Subsidiary structure A",
 			["box"] = 
 			{
@@ -23564,7 +25257,7 @@ everyObject =
 				["Ground Units"] = true,
 				["Infantry"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 1.0800000429153,
+			["life"] = 1.039999961853,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
 			["speedMaxOffRoad"] = 4,
@@ -23573,6 +25266,270 @@ everyObject =
 			["speedMax"] = 4,
 		}, -- end of ["desc"]
 	}, -- end of ["INF Soldier M249"]
+	["leander-gun-condell"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 3200000,
+			["RCS"] = 2275.9594726563,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -5.1030974388123,
+					["x"] = -57.327835083008,
+					["z"] = -7.7185621261597,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 32.034683227539,
+					["x"] = 57.327835083008,
+					["z"] = 7.4427938461304,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "CNS Almirante Condell (PFG-06)",
+			["life"] = 1000,
+			["attributes"] = 
+			{
+				["Naval"] = true,
+				["Ships"] = true,
+				["Frigates"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["DetectionByAWACS"] = true,
+				["Armed ships"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "South_Atlantic_Assets",
+			["typeName"] = "leander-gun-condell",
+			["speedMax"] = 14.39999961853,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[6] = 
+			{
+				["count"] = 4,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.33340606093407,
+							["x"] = -2.6633660793304,
+							["z"] = -0.3308057487011,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.33340606093407,
+							["x"] = 1.9399915933609,
+							["z"] = 0.3308057487011,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 95000,
+					["fuseDist"] = 0,
+					["category"] = 1,
+					["guidance"] = 1,
+					["Nmax"] = 18,
+					["rangeMin"] = 3000,
+					["altMax"] = 10000,
+					["RCS"] = 0.10000000149012,
+					["displayName"] = "RGM-84D Harpoon",
+					["altMin"] = -1,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 90,
+						["type"] = 2,
+						["shapedExplosiveArmorThickness"] = 0.10000000149012,
+						["shapedExplosiveMass"] = 180,
+						["explosiveMass"] = 90,
+						["caliber"] = 0,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 241401,
+					["typeName"] = "AGM_84S",
+					["missileCategory"] = 4,
+				}, -- end of ["desc"]
+			}, -- end of [6]
+			[2] = 
+			{
+				["count"] = 8984,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 8984,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 150,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "130mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 33.4,
+						["type"] = 1,
+						["explosiveMass"] = 33.4,
+						["caliber"] = 130,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.A222_130",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[4] = 
+			{
+				["count"] = 4000,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "DM63 (20mm APDS-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.12,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Rh202_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
+			{
+				["count"] = 4000,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "DM81 (20mm HE-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.12,
+						["type"] = 1,
+						["explosiveMass"] = 0.12,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Rh202_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [5]
+		}, -- end of ["weapons"]
+	}, -- end of ["leander-gun-condell"]
 	["Yak-52"] = 
 	{
 		["sensors"] = 
@@ -23810,8 +25767,8 @@ everyObject =
 		{
 			["massEmpty"] = 90,
 			["riverCrossing"] = false,
-			["displayName"] = "MANPADS Stinger",
 			["speedMax"] = 4,
+			["displayName"] = "MANPADS Stinger",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -23917,14 +25874,14 @@ everyObject =
 					["warhead"] = 
 					{
 						["caliber"] = 120,
-						["mass"] = 4.9,
+						["mass"] = 3.8,
 						["explosiveMass"] = 0,
 						["type"] = 0,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_AP",
-					["displayName"] = "M829A2 (120mm APFSDS-T)",
+					["typeName"] = "weapons.shells.OFL_120F2_AP",
+					["displayName"] = "OFL 120F2 (120mm APFSDS-T)",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 			[2] = 
@@ -23957,13 +25914,32 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_HE",
-					["displayName"] = "M830 (120mm HEAT-MP-T)",
+					["typeName"] = "weapons.shells.120_EXPL_F1_120mm_HE",
+					["displayName"] = "120 EXPL F1 (120mm HE)",
 				}, -- end of ["desc"]
 			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 404,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.046,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.M2_12_7",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
 			[3] = 
 			{
-				["count"] = 504,
+				["count"] = 104,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -23991,7 +25967,7 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M2_12_7_T",
+					["typeName"] = "weapons.shells.M2_12_7_TR",
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [3]
@@ -24169,8 +26145,8 @@ everyObject =
 		{
 			["life"] = 3,
 			["_origin"] = "",
-			["displayName"] = "Mark Tyre White",
 			["category"] = 4,
+			["displayName"] = "Mark Tyre White",
 			["typeName"] = "White_Tyre",
 			["box"] = 
 			{
@@ -24609,135 +26585,6 @@ everyObject =
 	}, -- end of ["C-130"]
 	["CVN_73"] = 
 	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 15518,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_AP",
-					["displayName"] = "20mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 15518,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.1,
-						["type"] = 1,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_HE",
-					["displayName"] = "20mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 16,
-				["desc"] = 
-				{
-					["missileCategory"] = 2,
-					["rangeMaxAltMax"] = 27500,
-					["rangeMin"] = 1500,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 14000,
-					["altMax"] = 24400,
-					["RCS"] = 0.079999998211861,
-					["displayName"] = "RIM-7",
-					["altMin"] = 1,
-					["life"] = 2,
-					["fuseDist"] = 10,
-					["category"] = 1,
-					["guidance"] = 4,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 39,
-						["type"] = 1,
-						["caliber"] = 203,
-						["mass"] = 39,
-					}, -- end of ["warhead"]
-					["typeName"] = "weapons.missiles.SeaSparrow",
-					["Nmax"] = 32,
-				}, -- end of ["desc"]
-			}, -- end of [3]
-			[4] = 
-			{
-				["count"] = 42,
-				["desc"] = 
-				{
-					["missileCategory"] = 2,
-					["rangeMaxAltMax"] = 10000,
-					["rangeMin"] = 500,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 10000,
-					["altMax"] = 4000,
-					["RCS"] = 0.018200000748038,
-					["displayName"] = "RIM-116A",
-					["altMin"] = -1,
-					["life"] = 2,
-					["fuseDist"] = 5,
-					["category"] = 1,
-					["guidance"] = 5,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 10,
-						["type"] = 1,
-						["caliber"] = 127,
-						["mass"] = 10,
-					}, -- end of ["warhead"]
-					["typeName"] = "weapons.missiles.RIM_116A",
-					["Nmax"] = 20,
-				}, -- end of ["desc"]
-			}, -- end of [4]
-		}, -- end of ["weapons"]
 		["desc"] = 
 		{
 			["massEmpty"] = 72916000,
@@ -24757,7 +26604,7 @@ everyObject =
 					["z"] = 41.562206268311,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 15.433300018311,
+			["displayName"] = "CVN-73 George Washington",
 			["life"] = 7300,
 			["attributes"] = 
 			{
@@ -24768,25 +26615,154 @@ everyObject =
 				["RADAR_BAND2_FOR_ARM"] = true,
 				["AircraftCarrier With Arresting Gear"] = true,
 				["Link4"] = true,
-				["Heavy armed ships"] = true,
+				["Datalink"] = true,
 				["AircraftCarrier With Catapult"] = true,
-				["Naval"] = true,
-				["Armed Air Defence"] = true,
+				["catapult"] = true,
+				["All"] = true,
 				["Armed ships"] = true,
 				["Ships"] = true,
 				["Arresting Gear"] = true,
 				["Armed Ship"] = true,
 				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["catapult"] = true,
-				["Datalink"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "USS_Nimitz",
 			["typeName"] = "CVN_73",
-			["displayName"] = "CVN-73 George Washington",
+			["speedMax"] = 15.433300018311,
 		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 15518,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 15518,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 42,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 10000,
+					["rangeMin"] = 500,
+					["warhead"] = 
+					{
+						["mass"] = 10,
+						["type"] = 1,
+						["explosiveMass"] = 10,
+						["caliber"] = 127,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 4000,
+					["RCS"] = 0.018200000748038,
+					["displayName"] = "RIM-116A",
+					["altMin"] = -1,
+					["rangeMaxAltMin"] = 10000,
+					["fuseDist"] = 5,
+					["_origin"] = "",
+					["guidance"] = 5,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.RIM_116A",
+					["Nmax"] = 20,
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 16,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 27500,
+					["rangeMin"] = 1500,
+					["warhead"] = 
+					{
+						["mass"] = 39,
+						["type"] = 1,
+						["explosiveMass"] = 39,
+						["caliber"] = 203,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 24400,
+					["RCS"] = 0.079999998211861,
+					["displayName"] = "RIM-7",
+					["altMin"] = 1,
+					["rangeMaxAltMin"] = 14000,
+					["fuseDist"] = 10,
+					["_origin"] = "",
+					["guidance"] = 4,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.SeaSparrow",
+					["Nmax"] = 32,
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
 	}, -- end of ["CVN_73"]
 	["Truck IKARUS Bus"] = 
 	{
@@ -24837,6 +26813,25 @@ everyObject =
 	{
 		["weapons"] = 
 		{
+			[6] = 
+			{
+				["count"] = 368,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [6]
 			[2] = 
 			{
 				["count"] = 18,
@@ -24972,7 +26967,7 @@ everyObject =
 			}, -- end of [4]
 			[5] = 
 			{
-				["count"] = 458,
+				["count"] = 98,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -25099,8 +27094,8 @@ everyObject =
 		{
 			["massEmpty"] = 42150,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-10 S-300 \"Grumble\" Big Bird SR ",
 			["speedMax"] = 16.666700363159,
+			["displayName"] = "SAM SA-10 S-300 \"Grumble\" Big Bird SR ",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -25172,8 +27167,8 @@ everyObject =
 		{
 			["massEmpty"] = 13600,
 			["riverCrossing"] = false,
-			["displayName"] = "HQ-7 Self-Propelled STR",
 			["speedMax"] = 22,
+			["displayName"] = "HQ-7 Self-Propelled STR",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -25406,8 +27401,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Hawk SR (AN/MPQ-50)",
 			["speedMax"] = 0,
+			["displayName"] = "SAM Hawk SR (AN/MPQ-50)",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -25434,13 +27429,13 @@ everyObject =
 				["Vehicles"] = true,
 				["MR SAM"] = true,
 				["NonArmoredUnits"] = true,
-				["Ground Units"] = true,
+				["Ground vehicles"] = true,
 				["SAM SR"] = true,
 				["Air Defence"] = true,
-				["Ground vehicles"] = true,
+				["SAM related"] = true,
 				["RADAR_BAND1_FOR_ARM"] = true,
 				["NonAndLightArmoredUnits"] = true,
-				["SAM related"] = true,
+				["Ground Units"] = true,
 				["RADAR_BAND2_FOR_ARM"] = true,
 				["All"] = true,
 				["Datalink"] = true,
@@ -25629,8 +27624,8 @@ everyObject =
 		{
 			["life"] = 50,
 			["_origin"] = "",
-			["displayName"] = "Small house 1B area",
 			["category"] = 4,
+			["displayName"] = "Small house 1B area",
 			["typeName"] = "Small house 1B area",
 			["box"] = 
 			{
@@ -25703,8 +27698,8 @@ everyObject =
 		{
 			["life"] = 50,
 			["_origin"] = "",
-			["displayName"] = "Small house 1B",
 			["category"] = 4,
+			["displayName"] = "Small house 1B",
 			["typeName"] = "Small house 1B",
 			["box"] = 
 			{
@@ -25730,6 +27725,8 @@ everyObject =
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
 			["maxSlopeAngle"] = 0,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
@@ -25745,81 +27742,94 @@ everyObject =
 					["z"] = 28.246959686279,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Outpost",
+			["speedMax"] = 0,
+			["life"] = 50,
 			["attributes"] = 
 			{
 				["Fortifications"] = true,
 				["Ground Units Non Airdefence"] = true,
-				["Armed ground units"] = true,
-				["Ground Units"] = true,
 				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["CustomAimPoint"] = true,
 				["AntiAir Armed Vehicles"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["CustomAimPoint"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 50,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 0,
 			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "",
 			["typeName"] = "outpost",
-			["speedMax"] = 0,
+			["displayName"] = "Outpost",
 		}, -- end of ["desc"]
 	}, -- end of ["outpost"]
 	["KUZNECOW"] = 
 	{
+		["desc"] = 
+		{
+			["massEmpty"] = 70500000,
+			["RCS"] = 16337.2421875,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.00033700000494719,
+					["x"] = -120.81300354004,
+					["z"] = -54.040500640869,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 53.249000549316,
+					["x"] = 186.14999389648,
+					["z"] = 40.046398162842,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "CV 1143.5 Admiral Kuznetsov",
+			["life"] = 7000,
+			["attributes"] = 
+			{
+				["Aircraft Carriers"] = true,
+				["Straight_in_approach_type"] = true,
+				["AircraftCarrier"] = true,
+				["Ships"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["DetectionByAWACS"] = true,
+				["ski_jump"] = true,
+				["AircraftCarrier With Arresting Gear"] = true,
+				["AircraftCarrier With Tramplin"] = true,
+				["All"] = true,
+				["Arresting Gear"] = true,
+				["Armed Air Defence"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed ships"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["typeName"] = "KUZNECOW",
+			["speedMax"] = 16.462200164795,
+		}, -- end of ["desc"]
 		["weapons"] = 
 		{
-			[1] = 
-			{
-				["count"] = 100206,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 30,
-						["mass"] = 0.39,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_AP",
-					["displayName"] = "30mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [1]
 			[2] = 
 			{
 				["count"] = 100206,
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "30mm HE",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-						["caliber"] = 30,
 						["mass"] = 0.39,
+						["type"] = 1,
+						["explosiveMass"] = 0.39,
+						["caliber"] = 30,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_HE",
 					["box"] = 
 					{
 						["min"] = 
@@ -25835,8 +27845,6 @@ everyObject =
 							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_HE",
-					["displayName"] = "30mm HE",
 				}, -- end of ["desc"]
 			}, -- end of [2]
 			[3] = 
@@ -25870,19 +27878,53 @@ everyObject =
 					["displayName"] = "9M311 Tunguska (SA-19 Grison)",
 					["altMin"] = 14.5,
 					["life"] = 2,
-					["missileCategory"] = 6,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 9,
-						["type"] = 1,
-						["caliber"] = 100,
 						["mass"] = 9,
+						["type"] = 1,
+						["explosiveMass"] = 9,
+						["caliber"] = 100,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 8000,
 					["typeName"] = "SA9M311",
-					["_origin"] = "",
+					["missileCategory"] = 6,
 				}, -- end of ["desc"]
 			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 100206,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "30mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.39,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 30,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
 			[4] = 
 			{
 				["count"] = 192,
@@ -25914,17 +27956,17 @@ everyObject =
 					["displayName"] = "9M330 Tor (SA-15 Gauntlet)",
 					["altMin"] = 10,
 					["life"] = 2,
-					["missileCategory"] = 2,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 14.5,
-						["type"] = 1,
-						["caliber"] = 220,
 						["mass"] = 14.5,
+						["type"] = 1,
+						["explosiveMass"] = 14.5,
+						["caliber"] = 220,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 12000,
 					["typeName"] = "SA9M330",
-					["_origin"] = "",
+					["missileCategory"] = 2,
 				}, -- end of ["desc"]
 			}, -- end of [4]
 			[5] = 
@@ -25958,69 +28000,22 @@ everyObject =
 					["displayName"] = "P-700 (SS-N-19 Shipwreck)",
 					["altMin"] = -1,
 					["life"] = 2,
-					["missileCategory"] = 5,
+					["_origin"] = "",
 					["warhead"] = 
 					{
 						["mass"] = 400,
-						["explosiveMass"] = 400,
+						["type"] = 2,
 						["shapedExplosiveArmorThickness"] = 0.10000000149012,
 						["shapedExplosiveMass"] = 800,
+						["explosiveMass"] = 400,
 						["caliber"] = 0,
-						["type"] = 2,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 550000,
 					["typeName"] = "P_700",
-					["_origin"] = "",
+					["missileCategory"] = 5,
 				}, -- end of ["desc"]
 			}, -- end of [5]
 		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 70500000,
-			["RCS"] = 16337.2421875,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0.00033700000494719,
-					["x"] = -120.81300354004,
-					["z"] = -54.040500640869,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 53.249000549316,
-					["x"] = 186.14999389648,
-					["z"] = 40.046398162842,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 16.462200164795,
-			["life"] = 7000,
-			["attributes"] = 
-			{
-				["Aircraft Carriers"] = true,
-				["Straight_in_approach_type"] = true,
-				["AircraftCarrier"] = true,
-				["Ships"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["DetectionByAWACS"] = true,
-				["ski_jump"] = true,
-				["Heavy armed ships"] = true,
-				["Armed ships"] = true,
-				["AircraftCarrier With Tramplin"] = true,
-				["Arresting Gear"] = true,
-				["Armed Air Defence"] = true,
-				["Armed Ship"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["Naval"] = true,
-				["AircraftCarrier With Arresting Gear"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["typeName"] = "KUZNECOW",
-			["displayName"] = "CV 1143.5 Admiral Kuznetsov",
-		}, -- end of ["desc"]
 	}, -- end of ["KUZNECOW"]
 	["Truck Locomotive"] = 
 	{
@@ -26029,6 +28024,8 @@ everyObject =
 			["massEmpty"] = 30000,
 			["riverCrossing"] = false,
 			["maxSlopeAngle"] = 0.46999999880791,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
@@ -26044,8 +28041,8 @@ everyObject =
 					["z"] = 3.4238758087158,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Loco CHME3T",
+			["speedMax"] = 16.659999847412,
+			["life"] = 20,
 			["attributes"] = 
 			{
 				["Ground Units Non Airdefence"] = true,
@@ -26058,13 +28055,11 @@ everyObject =
 				["Ground Units"] = true,
 				["Unarmed vehicles"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 20,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "RailwayObjectsPack",
-			["speedMaxOffRoad"] = 16.659999847412,
 			["category"] = 2,
+			["speedMaxOffRoad"] = 16.659999847412,
+			["_origin"] = "RailwayObjectsPack",
 			["typeName"] = "Locomotive",
-			["speedMax"] = 16.659999847412,
+			["displayName"] = "Loco CHME3T",
 		}, -- end of ["desc"]
 	}, -- end of ["Truck Locomotive"]
 	["Osa 9A33 ln"] = 
@@ -26165,8 +28160,8 @@ everyObject =
 		{
 			["massEmpty"] = 17500,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-8 Osa \"Gecko\" TEL",
 			["speedMax"] = 22.222200393677,
+			["displayName"] = "SAM SA-8 Osa \"Gecko\" TEL",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -26211,6 +28206,46 @@ everyObject =
 	}, -- end of ["Osa 9A33 ln"]
 	["REZKY"] = 
 	{
+		["desc"] = 
+		{
+			["massEmpty"] = 3650000,
+			["RCS"] = 2800.1481933594,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -6.0876016616821,
+					["x"] = -64.36344909668,
+					["z"] = -22.446548461914,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 24.950044631958,
+					["x"] = 58.848930358887,
+					["z"] = 22.371801376343,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "Frigate 1135M Rezky",
+			["life"] = 1800,
+			["attributes"] = 
+			{
+				["Ships"] = true,
+				["Frigates"] = true,
+				["Armed ships"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["All"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["typeName"] = "REZKY",
+			["speedMax"] = 16.462200164795,
+		}, -- end of ["desc"]
 		["weapons"] = 
 		{
 			[1] = 
@@ -26244,17 +28279,17 @@ everyObject =
 					["displayName"] = "9M33 Osa (SA-8 Gecko)",
 					["altMin"] = 25,
 					["life"] = 2,
-					["missileCategory"] = 2,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 15,
-						["type"] = 1,
-						["caliber"] = 206,
 						["mass"] = 15,
+						["type"] = 1,
+						["explosiveMass"] = 15,
+						["caliber"] = 206,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 10300,
 					["typeName"] = "SA9M33",
-					["_origin"] = "",
+					["missileCategory"] = 2,
 				}, -- end of ["desc"]
 			}, -- end of [1]
 			[2] = 
@@ -26263,15 +28298,17 @@ everyObject =
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "100mm HE",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 15.6,
-						["type"] = 1,
-						["caliber"] = 100,
 						["mass"] = 15.6,
+						["type"] = 1,
+						["explosiveMass"] = 15.6,
+						["caliber"] = 100,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK100_100",
 					["box"] = 
 					{
 						["min"] = 
@@ -26287,51 +28324,9 @@ everyObject =
 							["z"] = 0.060612548142672,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK100_100",
-					["displayName"] = "100mm HE",
 				}, -- end of ["desc"]
 			}, -- end of [2]
 		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 3650000,
-			["RCS"] = 2800.1481933594,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -6.0876016616821,
-					["x"] = -64.36344909668,
-					["z"] = -22.446548461914,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 24.950044631958,
-					["x"] = 58.848930358887,
-					["z"] = 22.371801376343,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 16.462200164795,
-			["life"] = 1800,
-			["attributes"] = 
-			{
-				["Ships"] = true,
-				["Frigates"] = true,
-				["Heavy armed ships"] = true,
-				["HeavyArmoredUnits"] = true,
-				["Armed Air Defence"] = true,
-				["Armed Ship"] = true,
-				["RADAR_BAND2_FOR_ARM"] = true,
-				["All"] = true,
-				["Naval"] = true,
-				["Armed ships"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["typeName"] = "REZKY",
-			["displayName"] = "Frigate 1135M Rezky",
-		}, -- end of ["desc"]
 	}, -- end of ["REZKY"]
 	["IFV Sd_Kfz_234_2_Puma"] = 
 	{
@@ -26628,8 +28623,8 @@ everyObject =
 		{
 			["life"] = 300,
 			["_origin"] = "",
-			["displayName"] = "Oil derrick",
 			["category"] = 4,
+			["displayName"] = "Oil derrick",
 			["typeName"] = "Oil derrick",
 			["box"] = 
 			{
@@ -26790,193 +28785,67 @@ everyObject =
 	}, -- end of ["Maschinensatz_33"]
 	["TICONDEROG"] = 
 	{
+		["desc"] = 
+		{
+			["massEmpty"] = 9590000,
+			["RCS"] = 5619.9770507813,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -12.740219116211,
+					["x"] = -93.27205657959,
+					["z"] = -9.6779766082764,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 43.341156005859,
+					["x"] = 88.151313781738,
+					["z"] = 9.6779766082764,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "CG Ticonderoga",
+			["life"] = 2700,
+			["attributes"] = 
+			{
+				["DetectionByAWACS"] = true,
+				["Ships"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["Cruisers"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed ships"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["typeName"] = "TICONDEROG",
+			["speedMax"] = 15.433300018311,
+		}, -- end of ["desc"]
 		["weapons"] = 
 		{
-			[1] = 
-			{
-				["count"] = 1512,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 12.7,
-						["mass"] = 0.046,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M2_12_7_T",
-					["displayName"] = "12.7mm",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 460,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.185,
-						["type"] = 1,
-						["caliber"] = 25,
-						["mass"] = 0.185,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M242_25_HE_M792",
-					["displayName"] = "M792 (25mm HEI-T)",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 142,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 25,
-						["mass"] = 0.155,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M242_25_AP_M791",
-					["displayName"] = "M791 (25mm APDS-T)",
-				}, -- end of ["desc"]
-			}, -- end of [3]
-			[4] = 
-			{
-				["count"] = 15518,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_AP",
-					["displayName"] = "20mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [4]
-			[5] = 
-			{
-				["count"] = 15518,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.1,
-						["type"] = 1,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_HE",
-					["displayName"] = "20mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [5]
-			[6] = 
+			[7] = 
 			{
 				["count"] = 360,
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "127mm HE",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 31.3,
-						["type"] = 1,
-						["caliber"] = 127,
 						["mass"] = 31.3,
+						["type"] = 1,
+						["explosiveMass"] = 31.3,
+						["caliber"] = 127,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.MK45_127",
 					["box"] = 
 					{
 						["min"] = 
@@ -26992,11 +28861,96 @@ everyObject =
 							["z"] = 0.060612548142672,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.MK45_127",
-					["displayName"] = "127mm HE",
 				}, -- end of ["desc"]
-			}, -- end of [6]
-			[7] = 
+			}, -- end of [7]
+			[1] = 
+			{
+				["count"] = 312,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "12.7mm",
+					["warhead"] = 
+					{
+						["mass"] = 0.046,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 12.7,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M2_12_7_TR",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 1212,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 0.046,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 12.7,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.M2_12_7",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 142,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "M791 (25mm APDS-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.155,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 25,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M242_25_AP_M791",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[8] = 
 			{
 				["count"] = 8,
 				["desc"] = 
@@ -27027,22 +28981,22 @@ everyObject =
 					["displayName"] = "RGM-84D Harpoon",
 					["altMin"] = -1,
 					["life"] = 2,
-					["missileCategory"] = 4,
+					["_origin"] = "",
 					["warhead"] = 
 					{
 						["mass"] = 90,
-						["explosiveMass"] = 90,
+						["type"] = 2,
 						["shapedExplosiveArmorThickness"] = 0.10000000149012,
 						["shapedExplosiveMass"] = 180,
+						["explosiveMass"] = 90,
 						["caliber"] = 0,
-						["type"] = 2,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 241401,
 					["typeName"] = "AGM_84S",
-					["_origin"] = "",
+					["missileCategory"] = 4,
 				}, -- end of ["desc"]
-			}, -- end of [7]
-			[8] = 
+			}, -- end of [8]
+			[9] = 
 			{
 				["count"] = 90,
 				["desc"] = 
@@ -27073,20 +29027,54 @@ everyObject =
 					["displayName"] = "SM-2",
 					["altMin"] = 10,
 					["life"] = 2,
-					["missileCategory"] = 2,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 98,
-						["type"] = 1,
-						["caliber"] = 340,
 						["mass"] = 98,
+						["type"] = 1,
+						["explosiveMass"] = 98,
+						["caliber"] = 340,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 100000,
 					["typeName"] = "SM_2",
-					["_origin"] = "",
+					["missileCategory"] = 2,
 				}, -- end of ["desc"]
-			}, -- end of [8]
-			[9] = 
+			}, -- end of [9]
+			[5] = 
+			{
+				["count"] = 15518,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [5]
+			[10] = 
 			{
 				["count"] = 32,
 				["desc"] = 
@@ -27117,62 +29105,88 @@ everyObject =
 					["displayName"] = "BGM-109B",
 					["altMin"] = -1,
 					["life"] = 2,
-					["missileCategory"] = 5,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 181.60000610352,
-						["type"] = 1,
-						["caliber"] = 520,
 						["mass"] = 181.60000610352,
+						["type"] = 1,
+						["explosiveMass"] = 181.60000610352,
+						["caliber"] = 520,
 					}, -- end of ["warhead"]
 					["rangeMaxAltMax"] = 1700000,
 					["typeName"] = "weapons.missiles.BGM_109B",
-					["_origin"] = "",
+					["missileCategory"] = 5,
 				}, -- end of ["desc"]
-			}, -- end of [9]
+			}, -- end of [10]
+			[3] = 
+			{
+				["count"] = 460,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "M792 (25mm HEI-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.185,
+						["type"] = 1,
+						["explosiveMass"] = 0.185,
+						["caliber"] = 25,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M242_25_HE_M792",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[6] = 
+			{
+				["count"] = 15518,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [6]
 		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 9590000,
-			["RCS"] = 5619.9770507813,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -12.740219116211,
-					["x"] = -93.27205657959,
-					["z"] = -9.6779766082764,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 43.341156005859,
-					["x"] = 88.151313781738,
-					["z"] = 9.6779766082764,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 15.433300018311,
-			["life"] = 2700,
-			["attributes"] = 
-			{
-				["Heavy armed ships"] = true,
-				["Ships"] = true,
-				["Armed ships"] = true,
-				["Armed Air Defence"] = true,
-				["Cruisers"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["HelicopterCarrier"] = true,
-				["Armed Ship"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["Naval"] = true,
-				["DetectionByAWACS"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["typeName"] = "TICONDEROG",
-			["displayName"] = "CG Ticonderoga",
-		}, -- end of ["desc"]
 	}, -- end of ["TICONDEROG"]
 	["Truck Ural-375"] = 
 	{
@@ -27403,7 +29417,7 @@ everyObject =
 				["Ground Units"] = true,
 				["NonArmoredUnits"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 1.0800000429153,
+			["life"] = 1.039999961853,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
 			["speedMaxOffRoad"] = 4,
@@ -27419,8 +29433,8 @@ everyObject =
 		{
 			["life"] = 1600,
 			["_origin"] = "",
-			["displayName"] = "Workshop A",
 			["category"] = 4,
+			["displayName"] = "Workshop A",
 			["typeName"] = "Workshop A",
 			["box"] = 
 			{
@@ -27439,6 +29453,379 @@ everyObject =
 			}, -- end of ["box"]
 		}, -- end of ["desc"]
 	}, -- end of ["Workshop A"]
+	["Type_052B"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 5850000,
+			["RCS"] = 3938.7468261719,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -8.0963411331177,
+					["x"] = -63.160953521729,
+					["z"] = -9.026330947876,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 28.3284034729,
+					["x"] = 91.387771606445,
+					["z"] = 8.9391822814941,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "Type 052B Destroyer",
+			["life"] = 2700,
+			["attributes"] = 
+			{
+				["Destroyers"] = true,
+				["DetectionByAWACS"] = true,
+				["Ships"] = true,
+				["All"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["Armed ships"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
+			["typeName"] = "Type_052B",
+			["speedMax"] = 15.433300018311,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[2] = 
+			{
+				["count"] = 16,
+				["desc"] = 
+				{
+					["missileCategory"] = 5,
+					["rangeMaxAltMax"] = 180000,
+					["rangeMin"] = 12000,
+					["warhead"] = 
+					{
+						["mass"] = 165,
+						["type"] = 1,
+						["explosiveMass"] = 165,
+						["caliber"] = 360,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 10000,
+					["RCS"] = 0.12099999934435,
+					["displayName"] = "YJ-83",
+					["altMin"] = -1,
+					["rangeMaxAltMin"] = 180000,
+					["fuseDist"] = 0,
+					["_origin"] = "",
+					["guidance"] = 1,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.YJ-83",
+					["Nmax"] = 6,
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 48,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.52544873952866,
+							["x"] = -2.1140217781067,
+							["z"] = -0.31168666481972,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.097924433648586,
+							["x"] = 3.3651101589203,
+							["z"] = 0.31168666481972,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 30000,
+					["fuseDist"] = 13,
+					["category"] = 1,
+					["guidance"] = 4,
+					["Nmax"] = 19,
+					["rangeMin"] = 500,
+					["altMax"] = 15000,
+					["RCS"] = 0.09179999679327,
+					["displayName"] = "9M317",
+					["altMin"] = 5,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 59,
+						["type"] = 1,
+						["explosiveMass"] = 59,
+						["caliber"] = 400,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 40000,
+					["typeName"] = "9M317",
+					["missileCategory"] = 2,
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 480,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "100mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 15.6,
+						["type"] = 1,
+						["explosiveMass"] = 15.6,
+						["caliber"] = 100,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK100_100",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[4] = 
+			{
+				["count"] = 20018,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "30mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.39,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 30,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
+			{
+				["count"] = 20018,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "30mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.39,
+						["type"] = 1,
+						["explosiveMass"] = 0.39,
+						["caliber"] = 30,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [5]
+		}, -- end of ["weapons"]
+	}, -- end of ["Type_052B"]
+	["Ski Ramp"] = 
+	{
+		["shapeName"] = "SkiRamp_01",
+		["desc"] = 
+		{
+			["life"] = 100,
+			["_origin"] = "South_Atlantic_Assets",
+			["category"] = 4,
+			["displayName"] = "Skiramp",
+			["typeName"] = "Ski Ramp",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -8.0675382614136,
+					["x"] = -23.890953063965,
+					["z"] = -8.4155759811401,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 8.0675382614136,
+					["x"] = 18.048513412476,
+					["z"] = 7.719500541687,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Ski Ramp"]
+	["Stanley_LightHouse"] = 
+	{
+		["shapeName"] = "ST_LightHouse",
+		["desc"] = 
+		{
+			["life"] = 100,
+			["_origin"] = "South_Atlantic_Assets",
+			["category"] = 4,
+			["displayName"] = "Stanley LightHouse",
+			["typeName"] = "Stanley_LightHouse",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -189.32315063477,
+					["x"] = -1681.4033203125,
+					["z"] = -206.93688964844,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 224.55003356934,
+					["x"] = 1681.4033203125,
+					["z"] = 206.93714904785,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Stanley_LightHouse"]
+	["Truck KrAZ6322"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 12700,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.46999999880791,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.013717119581997,
+					["x"] = -4.8912467956543,
+					["z"] = -1.4835814237595,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.3588373661041,
+					["x"] = 4.1829724311829,
+					["z"] = 1.4544073343277,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "Truck KrAZ-6322 6x6",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["NonArmoredUnits"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Unarmed vehicles"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["human_vehicle"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 20.833299636841,
+			["category"] = 2,
+			["typeName"] = "KrAZ6322",
+			["speedMax"] = 20.833299636841,
+		}, -- end of ["desc"]
+	}, -- end of ["Truck KrAZ6322"]
+	["Patriot AMG"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 8000,
+			["riverCrossing"] = false,
+			["speedMax"] = 20.833299636841,
+			["displayName"] = "SAM Patriot CR (AMG AN/MRC-137)",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.0059492150321603,
+					["x"] = -5.1501350402832,
+					["z"] = -1.9837207794189,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 12.45033454895,
+					["x"] = 6.1136155128479,
+					["z"] = 1.9854580163956,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "",
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 20.833299636841,
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["NonArmoredUnits"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["SAM related"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Air Defence"] = true,
+				["Unarmed vehicles"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["SAM CC"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "Patriot AMG",
+			["maxSlopeAngle"] = 0.46999999880791,
+		}, -- end of ["desc"]
+	}, -- end of ["Patriot AMG"]
 	["MBT Jagdpanther_G1"] = 
 	{
 		["weapons"] = 
@@ -27611,362 +29998,37 @@ everyObject =
 			["speedMax"] = 12.699999809265,
 		}, -- end of ["desc"]
 	}, -- end of ["MBT Jagdpanther_G1"]
-	["Truck ATMZ-5"] = 
+	["FARP_SINGLE_01"] = 
 	{
+		["shapeName"] = "FARP_SINGLE_01",
 		["desc"] = 
 		{
-			["massEmpty"] = 6000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.46999999880791,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0.0036893333308399,
-					["x"] = -2.9875473976135,
-					["z"] = -1.2474800348282,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.6602070331573,
-					["x"] = 4.4322471618652,
-					["z"] = 1.2169370651245,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Refueler ATMZ-5",
+			["life"] = 10000000,
 			["attributes"] = 
 			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["NonArmoredUnits"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Unarmed vehicles"] = true,
+				["Buildings"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
-			["speedMaxOffRoad"] = 20.833299636841,
 			["category"] = 2,
-			["typeName"] = "ATMZ-5",
-			["speedMax"] = 20.833299636841,
-		}, -- end of ["desc"]
-	}, -- end of ["Truck ATMZ-5"]
-	["VAZ Car"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 945,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.27000001072884,
+			["displayName"] = "",
+			["typeName"] = "FARP",
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = 0,
-					["x"] = -2.0305299758911,
-					["z"] = -0.81557297706604,
+					["y"] = -15.403341293335,
+					["x"] = -37.33903503418,
+					["z"] = -36.837474822998,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 1.3808399438858,
-					["x"] = 2.0029599666595,
-					["z"] = 0.81557297706604,
+					["y"] = 1.2944123744965,
+					["x"] = 37.339050292969,
+					["z"] = 36.837471008301,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Car VAZ-2109",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["NonArmoredUnits"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Unarmed vehicles"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Cars"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 1.2000000476837,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 19.444400787354,
-			["category"] = 2,
-			["typeName"] = "VAZ Car",
-			["speedMax"] = 19.444400787354,
 		}, -- end of ["desc"]
-	}, -- end of ["VAZ Car"]
-	["IFV Hummer"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 3990,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0.00027610731194727,
-					["x"] = -2.3133673667908,
-					["z"] = -1.1398746967316,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.0330286026001,
-					["x"] = 2.3412635326385,
-					["z"] = 1.1398746967316,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "LUV HMMWV Jeep",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["human_vehicle"] = true,
-				["LightArmoredUnits"] = true,
-				["Infantry carriers"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["Ground Units"] = true,
-				["Armed vehicles"] = true,
-				["Ground vehicles"] = true,
-				["Vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Armored vehicles"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Datalink"] = true,
-				["APC"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 2.5,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 31.388900756836,
-			["category"] = 2,
-			["typeName"] = "Hummer",
-			["speedMax"] = 31.388900756836,
-		}, -- end of ["desc"]
-	}, -- end of ["IFV Hummer"]
-	["FPS-117 ECS"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["displayName"] = "EWR AN/FPS-117 ECS",
-			["speedMax"] = 0,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0.004638371989131,
-					["x"] = -2.4699015617371,
-					["z"] = -0.89146423339844,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.2605555057526,
-					["x"] = 2.168093919754,
-					["z"] = 0.94250619411469,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "TechWeaponPack",
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["attributes"] = 
-			{
-				["Vehicles"] = true,
-				["SAM elements"] = true,
-				["NonArmoredUnits"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["SAM related"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["SAM CC"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "FPS-117 ECS",
-			["maxSlopeAngle"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["FPS-117 ECS"]
-	["Patriot AMG"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 8000,
-			["riverCrossing"] = false,
-			["displayName"] = "SAM Patriot CR (AMG AN/MRC-137)",
-			["speedMax"] = 20.833299636841,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0.0059492150321603,
-					["x"] = -5.1501350402832,
-					["z"] = -1.9837207794189,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 12.45033454895,
-					["x"] = 6.1136155128479,
-					["z"] = 1.9854580163956,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "",
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 20.833299636841,
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["SAM elements"] = true,
-				["NonArmoredUnits"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["SAM related"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Air Defence"] = true,
-				["Unarmed vehicles"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["SAM CC"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "Patriot AMG",
-			["maxSlopeAngle"] = 0.46999999880791,
-		}, -- end of ["desc"]
-	}, -- end of ["Patriot AMG"]
-	["Patriot str"] = 
-	{
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 173872.484375,
-							["headOn"] = 173872.484375,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 173872.484375,
-							["headOn"] = 173872.484375,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "Patriot str",
-				}, -- end of [1]
-			}, -- end of [1]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["displayName"] = "SAM Patriot STR",
-			["speedMax"] = 0,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.013648309744895,
-					["x"] = -4.2885165214539,
-					["z"] = -2.9239406585693,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 6.4203276634216,
-					["x"] = 6.7104315757751,
-					["z"] = 2.9353201389313,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "",
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["attributes"] = 
-			{
-				["LR SAM"] = true,
-				["SAM TR"] = true,
-				["Vehicles"] = true,
-				["SAM elements"] = true,
-				["NonArmoredUnits"] = true,
-				["SAM SR"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Ground Units"] = true,
-				["All"] = true,
-				["Datalink"] = true,
-				["SAM related"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "Patriot str",
-			["maxSlopeAngle"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["Patriot str"]
-	["Truck Predator GCS"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -3.4762112477438e-07,
-					["x"] = -6.3433794975281,
-					["z"] = -2.2652599811554,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 7.2518410682678,
-					["x"] = 6.5000004768372,
-					["z"] = 1.4526451826096,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "MCC Predator UAV CP & GCS",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["NonArmoredUnits"] = true,
-				["CustomAimPoint"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Unarmed vehicles"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 0,
-			["category"] = 2,
-			["typeName"] = "Predator GCS",
-			["speedMax"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["Truck Predator GCS"]
+	}, -- end of ["FARP_SINGLE_01"]
 	["MBT M-60"] = 
 	{
 		["weapons"] = 
@@ -28039,9 +30101,28 @@ everyObject =
 					["displayName"] = "M393 (105mm HEP)",
 				}, -- end of ["desc"]
 			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 404,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.046,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.M2_12_7",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
 			[3] = 
 			{
-				["count"] = 504,
+				["count"] = 104,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -28069,7 +30150,7 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M2_12_7_T",
+					["typeName"] = "weapons.shells.M2_12_7_TR",
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [3]
@@ -28183,91 +30264,51 @@ everyObject =
 			["speedMax"] = 29.170000076294,
 		}, -- end of ["desc"]
 	}, -- end of ["Truck Willys_MB"]
-	["flak36"] = 
+	["Truck ATMZ-5"] = 
 	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 200,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.060612548142672,
-							["x"] = -0.27024647593498,
-							["z"] = -0.060612548142672,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.060612548142672,
-							["x"] = 0.24980916082859,
-							["z"] = 0.060612548142672,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.698,
-						["type"] = 1,
-						["caliber"] = 88,
-						["mass"] = 9,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.Flak18_Sprgr_39",
-					["displayName"] = "Spr.Gr.39",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
 		["desc"] = 
 		{
-			["massEmpty"] = 5000,
+			["massEmpty"] = 6000,
 			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0,
+			["maxSlopeAngle"] = 0.46999999880791,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = 0.0077242371626198,
-					["x"] = -2.7537088394165,
-					["z"] = -1.0801221132278,
+					["y"] = 0.0036893333308399,
+					["x"] = -2.9875473976135,
+					["z"] = -1.2474800348282,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.3122324943542,
-					["x"] = 4.0412964820862,
-					["z"] = 1.0801219940186,
+					["y"] = 2.6602070331573,
+					["x"] = 4.4322471618652,
+					["z"] = 1.2169370651245,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
 			["RCS"] = 5,
-			["displayName"] = "AAA 8,8cm Flak 36",
-			["Kmax"] = 0.050000000745058,
-			["life"] = 2,
+			["displayName"] = "Refueler ATMZ-5",
 			["attributes"] = 
 			{
-				["Rocket Attack Valid AirDefence"] = true,
-				["AA_flak"] = true,
-				["Ground vehicles"] = true,
-				["Air Defence"] = true,
-				["AAA"] = true,
+				["Ground Units Non Airdefence"] = true,
 				["Vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Armed Air Defence"] = true,
-				["All"] = true,
-				["Static AAA"] = true,
-				["Ground Units"] = true,
 				["NonArmoredUnits"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Unarmed vehicles"] = true,
 			}, -- end of ["attributes"]
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 20.833299636841,
 			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["_origin"] = "WWII Armour and Technics",
-			["typeName"] = "flak36",
-			["speedMax"] = 0,
+			["typeName"] = "ATMZ-5",
+			["speedMax"] = 20.833299636841,
 		}, -- end of ["desc"]
-	}, -- end of ["flak36"]
+	}, -- end of ["Truck ATMZ-5"]
 	["Tu-95MS"] = 
 	{
 		["weapons"] = 
@@ -28378,6 +30419,102 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["Tu-95MS"]
+	["VAZ Car"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 945,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.27000001072884,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0,
+					["x"] = -2.0305299758911,
+					["z"] = -0.81557297706604,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.3808399438858,
+					["x"] = 2.0029599666595,
+					["z"] = 0.81557297706604,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "Car VAZ-2109",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["NonArmoredUnits"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Unarmed vehicles"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Cars"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 1.2000000476837,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 19.444400787354,
+			["category"] = 2,
+			["typeName"] = "VAZ Car",
+			["speedMax"] = 19.444400787354,
+		}, -- end of ["desc"]
+	}, -- end of ["VAZ Car"]
+	["IFV Hummer"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 3990,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.00027610731194727,
+					["x"] = -2.3133673667908,
+					["z"] = -1.1398746967316,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.0330286026001,
+					["x"] = 2.3412635326385,
+					["z"] = 1.1398746967316,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "LUV HMMWV Jeep",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["human_vehicle"] = true,
+				["LightArmoredUnits"] = true,
+				["Infantry carriers"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["Ground Units"] = true,
+				["Armed vehicles"] = true,
+				["Ground vehicles"] = true,
+				["Vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Armored vehicles"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Datalink"] = true,
+				["APC"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 2.5,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 31.388900756836,
+			["category"] = 2,
+			["typeName"] = "Hummer",
+			["speedMax"] = 31.388900756836,
+		}, -- end of ["desc"]
+	}, -- end of ["IFV Hummer"]
 	["OH-58D"] = 
 	{
 		["sensors"] = 
@@ -28451,51 +30588,6 @@ everyObject =
 			["category"] = 1,
 		}, -- end of ["desc"]
 	}, -- end of ["OH-58D"]
-	["Truck ZiL-131 APA-80"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 15000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.46999999880791,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0.00041893325396813,
-					["x"] = -3.3103933334351,
-					["z"] = -1.1540613174438,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.4435229301453,
-					["x"] = 3.2942571640015,
-					["z"] = 1.1540610790253,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "GPU APA-80 on ZIL-131",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["NonArmoredUnits"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Unarmed vehicles"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 20.833299636841,
-			["category"] = 2,
-			["typeName"] = "ZiL-131 APA-80",
-			["speedMax"] = 20.833299636841,
-		}, -- end of ["desc"]
-	}, -- end of ["Truck ZiL-131 APA-80"]
 	["Truck Ural-4320 APA-5D"] = 
 	{
 		["desc"] = 
@@ -28603,8 +30695,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Rapier LN",
 			["speedMax"] = 0,
+			["displayName"] = "SAM Rapier LN",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -28650,139 +30742,60 @@ everyObject =
 			["maxSlopeAngle"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["rapier_fsa_launcher"]
-	["Warehouse"] = 
+	["Truck Predator GCS"] = 
 	{
-		["shapeName"] = "sklad",
 		["desc"] = 
 		{
-			["life"] = 400,
-			["_origin"] = "",
-			["displayName"] = "Warehouse",
-			["category"] = 4,
-			["typeName"] = "Warehouse",
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -9.9992370605469,
-					["x"] = -20.652732849121,
-					["z"] = -21.608371734619,
+					["y"] = -3.4762112477438e-07,
+					["x"] = -6.3433794975281,
+					["z"] = -2.2652599811554,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 6.8897285461426,
-					["x"] = 20.652732849121,
-					["z"] = 21.608377456665,
+					["y"] = 7.2518410682678,
+					["x"] = 6.5000004768372,
+					["z"] = 1.4526451826096,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Warehouse"]
-	["Su-17M4"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 160,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 30,
-						["mass"] = 0.41,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.HP30_30_AP",
-					["displayName"] = "30mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[3] = 
-			{
-				[1] = 
-				{
-					["typeName"] = "Abstract RWR",
-					["type"] = 3,
-				}, -- end of [1]
-			}, -- end of [3]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["speedMax0"] = 375,
-			["massEmpty"] = 10670,
-			["range"] = 1760,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -1.8347400426865,
-					["x"] = -10,
-					["z"] = -7,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.5664699077606,
-					["x"] = 10.073100090027,
-					["z"] = 7,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 15200,
-			["Kmax"] = 0.68999999761581,
-			["_origin"] = "",
-			["speedMax10K"] = 510,
-			["NyMin"] = -2,
-			["fuelMassMax"] = 3770,
-			["speedMax"] = 510,
-			["NyMax"] = 5.9000000953674,
-			["massMax"] = 19430,
-			["RCS"] = 7,
-			["displayName"] = "su-17m4",
-			["life"] = 20,
-			["VyMax"] = 200,
-			["Kab"] = 3,
+			["RCS"] = 5,
+			["displayName"] = "MCC Predator UAV CP & GCS",
 			["attributes"] = 
 			{
-				["Air"] = true,
-				["Battle airplanes"] = true,
-				["NonAndLightArmoredUnits"] = true,
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
 				["NonArmoredUnits"] = true,
+				["CustomAimPoint"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
 				["All"] = true,
-				["Planes"] = true,
-				["Bombers"] = true,
+				["Ground Units"] = true,
+				["Unarmed vehicles"] = true,
 			}, -- end of ["attributes"]
-			["typeName"] = "Su-17M4",
-			["category"] = 0,
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 0,
+			["category"] = 2,
+			["typeName"] = "Predator GCS",
+			["speedMax"] = 0,
 		}, -- end of ["desc"]
-	}, -- end of ["Su-17M4"]
+	}, -- end of ["Truck Predator GCS"]
 	["Hawk pcp"] = 
 	{
 		["desc"] = 
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Hawk Platoon Command Post (PCP)",
 			["speedMax"] = 0,
+			["displayName"] = "SAM Hawk Platoon Command Post (PCP)",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -28942,6 +30955,1486 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["Tornado GR4"]
+	["55G6 EWR"] = 
+	{
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 267496.125,
+							["headOn"] = 267496.125,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 267496.125,
+							["headOn"] = 267496.125,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "55G6 EWR",
+				}, -- end of [1]
+			}, -- end of [1]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["speedMax"] = 0,
+			["displayName"] = "EWR 55G6",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.049630999565125,
+					["x"] = -15.086099624634,
+					["z"] = -21.225099563599,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 30.09289932251,
+					["x"] = 3.3640999794006,
+					["z"] = 21.225099563599,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "",
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["attributes"] = 
+			{
+				["Vehicles"] = true,
+				["NonArmoredUnits"] = true,
+				["CustomAimPoint"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["EWR"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Air Defence vehicles"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "55G6 EWR",
+			["maxSlopeAngle"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["55G6 EWR"]
+	["Truck ZIL-135"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 15000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.89999997615814,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.33400708436966,
+					["x"] = -5.7661242485046,
+					["z"] = -1.6674787998199,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.9190564155579,
+					["x"] = 4.9573631286621,
+					["z"] = 1.6674787998199,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "Truck ZIL-135",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["NonArmoredUnits"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Unarmed vehicles"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 4.5,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "TechWeaponPack",
+			["speedMaxOffRoad"] = 18,
+			["category"] = 2,
+			["typeName"] = "ZIL-135",
+			["speedMax"] = 18,
+		}, -- end of ["desc"]
+	}, -- end of ["Truck ZIL-135"]
+	["Patriot str"] = 
+	{
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 173872.484375,
+							["headOn"] = 173872.484375,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 173872.484375,
+							["headOn"] = 173872.484375,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "Patriot str",
+				}, -- end of [1]
+			}, -- end of [1]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["speedMax"] = 0,
+			["displayName"] = "SAM Patriot STR",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.013648309744895,
+					["x"] = -4.2885165214539,
+					["z"] = -2.9239406585693,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 6.4203276634216,
+					["x"] = 6.7104315757751,
+					["z"] = 2.9353201389313,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "",
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["attributes"] = 
+			{
+				["LR SAM"] = true,
+				["SAM TR"] = true,
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["NonArmoredUnits"] = true,
+				["SAM SR"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Ground Units"] = true,
+				["All"] = true,
+				["Datalink"] = true,
+				["SAM related"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "Patriot str",
+			["maxSlopeAngle"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["Patriot str"]
+	["Dragonteeth 4"] = 
+	{
+		["shapeName"] = "Dragonsteeth_03",
+		["desc"] = 
+		{
+			["life"] = 150,
+			["_origin"] = "WWII Armour and Technics",
+			["displayName"] = "Dragonteeth 4",
+			["category"] = 4,
+			["typeName"] = "Dragonteeth 4",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.7276104688644,
+					["x"] = -0.56697309017181,
+					["z"] = -0.55213463306427,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.4667901992798,
+					["x"] = 0.56697309017181,
+					["z"] = 0.55213463306427,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Dragonteeth 4"]
+	["flak30"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 479,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["explosiveMass"] = 0.06,
+						["type"] = 1,
+						["caliber"] = 20,
+						["mass"] = 0.134,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.20x138B_HE",
+					["displayName"] = "20x138B_HE",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 179,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["explosiveMass"] = 0,
+						["type"] = 0,
+						["caliber"] = 20,
+						["mass"] = 0.147,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.20x138B_AP",
+					["displayName"] = "20x138B_AP",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+		}, -- end of ["weapons"]
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.0058838352560997,
+					["x"] = -0.9480926990509,
+					["z"] = -0.85671997070313,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.2018023729324,
+					["x"] = 1.2813082933426,
+					["z"] = 0.85671997070313,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "AAA Flak 38 20mm",
+			["Kmax"] = 0.050000000745058,
+			["life"] = 1.5,
+			["attributes"] = 
+			{
+				["Rocket Attack Valid AirDefence"] = true,
+				["AA_flak"] = true,
+				["Ground vehicles"] = true,
+				["Air Defence"] = true,
+				["AAA"] = true,
+				["Vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["Static AAA"] = true,
+				["Ground Units"] = true,
+				["NonArmoredUnits"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "WWII Armour and Technics",
+			["typeName"] = "flak30",
+			["speedMax"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["flak30"]
+	["house2arm"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -2.2855200767517,
+					["x"] = -1.4750000238419,
+					["z"] = -1.3756407499313,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 8.0502195358276,
+					["x"] = 1.3750004768372,
+					["z"] = 1.3750021457672,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["speedMax"] = 0,
+			["life"] = 10,
+			["attributes"] = 
+			{
+				["Fortifications"] = true,
+				["Ground Units Non Airdefence"] = true,
+				["HeavyArmoredUnits"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["CustomAimPoint"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "",
+			["typeName"] = "house2arm",
+			["displayName"] = "Watch tower armed",
+		}, -- end of ["desc"]
+	}, -- end of ["house2arm"]
+	["flak36"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 200,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["explosiveMass"] = 0.698,
+						["type"] = 1,
+						["caliber"] = 88,
+						["mass"] = 9,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Flak18_Sprgr_39",
+					["displayName"] = "Spr.Gr.39",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.0077242371626198,
+					["x"] = -2.7537088394165,
+					["z"] = -1.0801221132278,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.3122324943542,
+					["x"] = 4.0412964820862,
+					["z"] = 1.0801219940186,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "AAA 8,8cm Flak 36",
+			["Kmax"] = 0.050000000745058,
+			["life"] = 2,
+			["attributes"] = 
+			{
+				["Rocket Attack Valid AirDefence"] = true,
+				["AA_flak"] = true,
+				["Ground vehicles"] = true,
+				["Air Defence"] = true,
+				["AAA"] = true,
+				["Vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["Static AAA"] = true,
+				["Ground Units"] = true,
+				["NonArmoredUnits"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "WWII Armour and Technics",
+			["typeName"] = "flak36",
+			["speedMax"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["flak36"]
+	["MBT T-55"] = 
+	{
+		["weapons"] = 
+		{
+			[2] = 
+			{
+				["count"] = 12,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 100,
+						["mass"] = 15.6,
+						["explosiveMass"] = 15.6,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.UOF412_100HE",
+					["displayName"] = "UOF412 (100mm HE)",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 2760,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.0119,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x54",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 33,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.10894741863012,
+							["x"] = -0.23145794868469,
+							["z"] = -0.10864424705505,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.10724244266748,
+							["x"] = 0.26817846298218,
+							["z"] = 0.10754559934139,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 105,
+						["mass"] = 5.02,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.3UBM11_100mm_AP",
+					["displayName"] = "3UBM11 (100mm APFSDS-T)",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[4] = 
+			{
+				["count"] = 65,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Utes_12_7x108_T",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
+			{
+				["count"] = 245,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [5]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "TPKU-2B",
+					["opticType"] = 0,
+				}, -- end of [1]
+				[2] = 
+				{
+					["type"] = 0,
+					["typeName"] = "TPN1",
+					["opticType"] = 2,
+				}, -- end of [2]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 36000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.27000001072884,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.026076573878527,
+					["x"] = -3.2319326400757,
+					["z"] = -1.6298308372498,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.0588290691376,
+					["x"] = 3.0577399730682,
+					["z"] = 1.6298308372498,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "MBT T-55",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armored vehicles"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["Old Tanks"] = true,
+				["Ground vehicles"] = true,
+				["Armed vehicles"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Tanks"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 18,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 12,
+			["category"] = 2,
+			["typeName"] = "T-55",
+			["speedMax"] = 12,
+		}, -- end of ["desc"]
+	}, -- end of ["MBT T-55"]
+	["5p73 s-125 ln"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["speedMax"] = 0,
+			["displayName"] = "SAM SA-3 S-125 \"Goa\" LN",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.1433914899826,
+					["x"] = -3.5037760734558,
+					["z"] = -3.634535074234,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.5476195812225,
+					["x"] = 5.0296669006348,
+					["z"] = 3.6345353126526,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "",
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["attributes"] = 
+			{
+				["Vehicles"] = true,
+				["MR SAM"] = true,
+				["NonArmoredUnits"] = true,
+				["Ground vehicles"] = true,
+				["Air Defence"] = true,
+				["SAM related"] = true,
+				["AA_missile"] = true,
+				["SAM LL"] = true,
+				["All"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Armed Air Defence"] = true,
+				["Ground Units"] = true,
+				["SAM elements"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "5p73 s-125 ln",
+			["maxSlopeAngle"] = 0,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 4,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.94484841823578,
+							["x"] = -2.6432721614838,
+							["z"] = -0.95312494039536,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.94484841823578,
+							["x"] = 3.7270171642303,
+							["z"] = 0.95312494039536,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 11000,
+					["fuseDist"] = 14,
+					["category"] = 1,
+					["guidance"] = 4,
+					["Nmax"] = 16,
+					["rangeMin"] = 3500,
+					["altMax"] = 18000,
+					["RCS"] = 0.20000000298023,
+					["displayName"] = "5V27 S-125 Neva (SA-3 Goa)",
+					["altMin"] = 20,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 60,
+						["type"] = 1,
+						["explosiveMass"] = 60,
+						["caliber"] = 400,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 25000,
+					["typeName"] = "SA5B27",
+					["missileCategory"] = 2,
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+	}, -- end of ["5p73 s-125 ln"]
+	["Truck ZiL-131 APA-80"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 15000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.46999999880791,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.00041893325396813,
+					["x"] = -3.3103933334351,
+					["z"] = -1.1540613174438,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.4435229301453,
+					["x"] = 3.2942571640015,
+					["z"] = 1.1540610790253,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "GPU APA-80 on ZIL-131",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["NonArmoredUnits"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Unarmed vehicles"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 20.833299636841,
+			["category"] = 2,
+			["typeName"] = "ZiL-131 APA-80",
+			["speedMax"] = 20.833299636841,
+		}, -- end of ["desc"]
+	}, -- end of ["Truck ZiL-131 APA-80"]
+	["VINSON"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 72916000,
+			["RCS"] = 20043.171875,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.25361099839211,
+					["x"] = -166.89999389648,
+					["z"] = -53.165699005127,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 58.896900177002,
+					["x"] = 172.14599609375,
+					["z"] = 54.01900100708,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "CVN-70 Carl Vinson",
+			["life"] = 7300,
+			["attributes"] = 
+			{
+				["AircraftCarrier With Catapult"] = true,
+				["catapult"] = true,
+				["Aircraft Carriers"] = true,
+				["All"] = true,
+				["AircraftCarrier"] = true,
+				["Arresting Gear"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["Ships"] = true,
+				["Naval"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["Armed ships"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["AircraftCarrier With Arresting Gear"] = true,
+				["Armed Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["typeName"] = "VINSON",
+			["speedMax"] = 15.433300018311,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 31036,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 31036,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 24,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 27500,
+					["rangeMin"] = 1500,
+					["warhead"] = 
+					{
+						["mass"] = 39,
+						["type"] = 1,
+						["explosiveMass"] = 39,
+						["caliber"] = 203,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 24400,
+					["RCS"] = 0.079999998211861,
+					["displayName"] = "RIM-7",
+					["altMin"] = 1,
+					["rangeMaxAltMin"] = 14000,
+					["fuseDist"] = 10,
+					["_origin"] = "",
+					["guidance"] = 4,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.SeaSparrow",
+					["Nmax"] = 32,
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
+	}, -- end of ["VINSON"]
+	["Warehouse"] = 
+	{
+		["shapeName"] = "sklad",
+		["desc"] = 
+		{
+			["life"] = 400,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Warehouse",
+			["typeName"] = "Warehouse",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -9.9992370605469,
+					["x"] = -20.652732849121,
+					["z"] = -21.608371734619,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 6.8897285461426,
+					["x"] = 20.652732849121,
+					["z"] = 21.608377456665,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Warehouse"]
+	["KS-19"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 200,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.091575764119625,
+							["x"] = -0.47414004802704,
+							["z"] = -0.091575734317303,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.091575764119625,
+							["x"] = 0.20553138852119,
+							["z"] = 0.091575741767883,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 100,
+						["mass"] = 15.6,
+						["explosiveMass"] = 1.4,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.KS19_100HE",
+					["displayName"] = "UOF412 (100mm HE)",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 50,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.091575764119625,
+							["x"] = -0.47414004802704,
+							["z"] = -0.091575734317303,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.091575764119625,
+							["x"] = 0.20553138852119,
+							["z"] = 0.091575741767883,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 100,
+						["mass"] = 15.88,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.KS19_100AP",
+					["displayName"] = "UBR412_100AP",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+		}, -- end of ["weapons"]
+		["desc"] = 
+		{
+			["massEmpty"] = 9350,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.34460943937302,
+					["x"] = -3.0613656044006,
+					["z"] = -3.0613658428192,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.2538750171661,
+					["x"] = 3.0613656044006,
+					["z"] = 3.0613658428192,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "AAA KS-19 100mm",
+			["attributes"] = 
+			{
+				["Rocket Attack Valid AirDefence"] = true,
+				["AA_flak"] = true,
+				["AAA"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["Vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["Static AAA"] = true,
+				["Ground Units"] = true,
+				["NonArmoredUnits"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 4,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "TechWeaponPack",
+			["speedMaxOffRoad"] = 0,
+			["category"] = 2,
+			["typeName"] = "KS-19",
+			["speedMax"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["KS-19"]
+	["RQ-1A Predator"] = 
+	{
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "RQ-1 Predator CAM",
+					["opticType"] = 0,
+				}, -- end of [1]
+				[2] = 
+				{
+					["type"] = 0,
+					["typeName"] = "RQ-1 Predator FLIR",
+					["opticType"] = 2,
+				}, -- end of [2]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["speedMax0"] = 72.222221374512,
+			["massEmpty"] = 430,
+			["range"] = 1111.1999511719,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.7054378986359,
+					["x"] = -4.6453676223755,
+					["z"] = -7.4647059440613,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.170923948288,
+					["x"] = 4.6453671455383,
+					["z"] = 7.4647059440613,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 7620,
+			["Kmax"] = 0.0099999997764826,
+			["_origin"] = "",
+			["speedMax10K"] = 138.88888549805,
+			["NyMin"] = -1,
+			["fuelMassMax"] = 490,
+			["speedMax"] = 138.88888549805,
+			["NyMax"] = 2,
+			["massMax"] = 1020,
+			["RCS"] = 0.64999997615814,
+			["displayName"] = "RQ-1A Predator",
+			["life"] = 5,
+			["VyMax"] = 2,
+			["Kab"] = 0,
+			["attributes"] = 
+			{
+				["UAVs"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Planes"] = true,
+				["Air"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "RQ-1A Predator",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["RQ-1A Predator"]
+	["NASAMS_LN_C"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["speedMax"] = 0,
+			["displayName"] = "SAM NASAMS LN AIM-120C",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.064939871430397,
+					["x"] = -2.324134349823,
+					["z"] = -2.0861058235168,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.6111807823181,
+					["x"] = 2.3450977802277,
+					["z"] = 2.0861060619354,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "TechWeaponPack",
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["attributes"] = 
+			{
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["NonArmoredUnits"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["Ground Units"] = true,
+				["SAM LL"] = true,
+				["All"] = true,
+				["AA_missile"] = true,
+				["Armed Air Defence"] = true,
+				["Datalink"] = true,
+				["SAM related"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "NASAMS_LN_C",
+			["maxSlopeAngle"] = 0,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 6,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.23215164244175,
+							["x"] = -1.8384801149368,
+							["z"] = -0.23418514430523,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.23215164244175,
+							["x"] = 1.8384801149368,
+							["z"] = 0.23418514430523,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 16000,
+					["fuseDist"] = 15,
+					["category"] = 1,
+					["guidance"] = 3,
+					["Nmax"] = 30,
+					["rangeMin"] = 700,
+					["altMax"] = 26000,
+					["RCS"] = 0.070000000298023,
+					["displayName"] = "AIM-120C-5",
+					["altMin"] = 1,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 18.700000762939,
+						["type"] = 1,
+						["explosiveMass"] = 18.700000762939,
+						["caliber"] = 169,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 61000,
+					["typeName"] = "weapons.missiles.AIM_120C",
+					["missileCategory"] = 1,
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+	}, -- end of ["NASAMS_LN_C"]
+	["Schnellboot_type_S130"] = 
+	{
+		["weapons"] = 
+		{
+			[2] = 
+			{
+				["count"] = 1073,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["explosiveMass"] = 0,
+						["type"] = 0,
+						["caliber"] = 20,
+						["mass"] = 0.147,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.20x138B_AP",
+					["displayName"] = "20x138B_AP",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 699,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["explosiveMass"] = 0.3,
+						["type"] = 1,
+						["caliber"] = 37,
+						["mass"] = 0.635,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.37x263_HE",
+					["displayName"] = "37x263_HE",
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 3072,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["explosiveMass"] = 0.06,
+						["type"] = 1,
+						["caliber"] = 20,
+						["mass"] = 0.134,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.20x138B_HE",
+					["displayName"] = "20x138B_HE",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[4] = 
+			{
+				["count"] = 299,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["explosiveMass"] = 0.3,
+						["type"] = 1,
+						["caliber"] = 37,
+						["mass"] = 0.7,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.37x263_AP",
+					["displayName"] = "37x263_AP",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
+			{
+				["count"] = 4,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["category"] = 4,
+					["typeName"] = "weapons.torpedoes.G7A_T1",
+					["displayName"] = "G7A_T1",
+				}, -- end of ["desc"]
+			}, -- end of [5]
+		}, -- end of ["weapons"]
+		["desc"] = 
+		{
+			["massEmpty"] = 78900,
+			["RCS"] = 200.7590637207,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.7124130725861,
+					["x"] = -13.722152709961,
+					["z"] = -2.7225296497345,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 5.0681629180908,
+					["x"] = 21.290597915649,
+					["z"] = 2.7225296497345,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["speedMax"] = 22.520000457764,
+			["life"] = 50,
+			["attributes"] = 
+			{
+				["Light armed ships"] = true,
+				["NonArmoredUnits"] = true,
+				["Ships"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Armed Ship"] = true,
+				["Armed ships"] = true,
+				["All"] = true,
+				["Naval"] = true,
+				["NO_SAM"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "WWII Armour and Technics",
+			["typeName"] = "Schnellboot_type_S130",
+			["displayName"] = "Boat Schnellboot type S130",
+		}, -- end of ["desc"]
+	}, -- end of ["Schnellboot_type_S130"]
 	["Truck GAZ-3308"] = 
 	{
 		["desc"] = 
@@ -29168,207 +32661,53 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["F-86F Sabre"]
-	["55G6 EWR"] = 
+	["Truck GAZ-3307"] = 
 	{
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 267496.125,
-							["headOn"] = 267496.125,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 267496.125,
-							["headOn"] = 267496.125,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "55G6 EWR",
-				}, -- end of [1]
-			}, -- end of [1]
-		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["massEmpty"] = 5000,
+			["massEmpty"] = 15000,
 			["riverCrossing"] = false,
-			["displayName"] = "EWR 55G6",
-			["speedMax"] = 0,
-			["RCS"] = 5,
+			["maxSlopeAngle"] = 0.27000001072884,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.049630999565125,
-					["x"] = -15.086099624634,
-					["z"] = -21.225099563599,
+					["y"] = 0,
+					["x"] = -3.1798570156097,
+					["z"] = -1.2649019956589,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 30.09289932251,
-					["x"] = 3.3640999794006,
-					["z"] = 21.225099563599,
+					["y"] = 2.6092050075531,
+					["x"] = 3.1364719867706,
+					["z"] = 1.2649329900742,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["_origin"] = "",
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
+			["RCS"] = 5,
+			["displayName"] = "Truck GAZ-3307",
 			["attributes"] = 
 			{
+				["Ground Units Non Airdefence"] = true,
 				["Vehicles"] = true,
 				["NonArmoredUnits"] = true,
-				["CustomAimPoint"] = true,
-				["Air Defence"] = true,
+				["Trucks"] = true,
 				["Ground vehicles"] = true,
 				["NonAndLightArmoredUnits"] = true,
-				["EWR"] = true,
 				["All"] = true,
 				["Ground Units"] = true,
-				["Air Defence vehicles"] = true,
+				["Unarmed vehicles"] = true,
 			}, -- end of ["attributes"]
-			["typeName"] = "55G6 EWR",
-			["maxSlopeAngle"] = 0,
+			["life"] = 1.7999999523163,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 20.833299636841,
+			["category"] = 2,
+			["typeName"] = "GAZ-3307",
+			["speedMax"] = 20.833299636841,
 		}, -- end of ["desc"]
-	}, -- end of ["55G6 EWR"]
+	}, -- end of ["Truck GAZ-3307"]
 	["CVN_71"] = 
 	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 15518,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_AP",
-					["displayName"] = "20mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 15518,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.1,
-						["type"] = 1,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_HE",
-					["displayName"] = "20mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 16,
-				["desc"] = 
-				{
-					["missileCategory"] = 2,
-					["rangeMaxAltMax"] = 27500,
-					["rangeMin"] = 1500,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 14000,
-					["altMax"] = 24400,
-					["RCS"] = 0.079999998211861,
-					["displayName"] = "RIM-7",
-					["altMin"] = 1,
-					["life"] = 2,
-					["fuseDist"] = 10,
-					["category"] = 1,
-					["guidance"] = 4,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 39,
-						["type"] = 1,
-						["caliber"] = 203,
-						["mass"] = 39,
-					}, -- end of ["warhead"]
-					["typeName"] = "weapons.missiles.SeaSparrow",
-					["Nmax"] = 32,
-				}, -- end of ["desc"]
-			}, -- end of [3]
-			[4] = 
-			{
-				["count"] = 42,
-				["desc"] = 
-				{
-					["missileCategory"] = 2,
-					["rangeMaxAltMax"] = 10000,
-					["rangeMin"] = 500,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 10000,
-					["altMax"] = 4000,
-					["RCS"] = 0.018200000748038,
-					["displayName"] = "RIM-116A",
-					["altMin"] = -1,
-					["life"] = 2,
-					["fuseDist"] = 5,
-					["category"] = 1,
-					["guidance"] = 5,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 10,
-						["type"] = 1,
-						["caliber"] = 127,
-						["mass"] = 10,
-					}, -- end of ["warhead"]
-					["typeName"] = "weapons.missiles.RIM_116A",
-					["Nmax"] = 20,
-				}, -- end of ["desc"]
-			}, -- end of [4]
-		}, -- end of ["weapons"]
 		["desc"] = 
 		{
 			["massEmpty"] = 72916000,
@@ -29388,7 +32727,7 @@ everyObject =
 					["z"] = 41.562206268311,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 15.433300018311,
+			["displayName"] = "CVN-71 Theodore Roosevelt",
 			["life"] = 7300,
 			["attributes"] = 
 			{
@@ -29399,50 +32738,179 @@ everyObject =
 				["RADAR_BAND2_FOR_ARM"] = true,
 				["AircraftCarrier With Arresting Gear"] = true,
 				["Link4"] = true,
-				["Heavy armed ships"] = true,
+				["Datalink"] = true,
 				["AircraftCarrier With Catapult"] = true,
-				["Naval"] = true,
-				["Armed Air Defence"] = true,
+				["catapult"] = true,
+				["All"] = true,
 				["Armed ships"] = true,
 				["Ships"] = true,
 				["Arresting Gear"] = true,
 				["Armed Ship"] = true,
 				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["catapult"] = true,
-				["Datalink"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "USS_Nimitz",
 			["typeName"] = "CVN_71",
-			["displayName"] = "CVN-71 Theodore Roosevelt",
+			["speedMax"] = 15.433300018311,
 		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 15518,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 15518,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 42,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 10000,
+					["rangeMin"] = 500,
+					["warhead"] = 
+					{
+						["mass"] = 10,
+						["type"] = 1,
+						["explosiveMass"] = 10,
+						["caliber"] = 127,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 4000,
+					["RCS"] = 0.018200000748038,
+					["displayName"] = "RIM-116A",
+					["altMin"] = -1,
+					["rangeMaxAltMin"] = 10000,
+					["fuseDist"] = 5,
+					["_origin"] = "",
+					["guidance"] = 5,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.RIM_116A",
+					["Nmax"] = 20,
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 16,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 27500,
+					["rangeMin"] = 1500,
+					["warhead"] = 
+					{
+						["mass"] = 39,
+						["type"] = 1,
+						["explosiveMass"] = 39,
+						["caliber"] = 203,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 24400,
+					["RCS"] = 0.079999998211861,
+					["displayName"] = "RIM-7",
+					["altMin"] = 1,
+					["rangeMaxAltMin"] = 14000,
+					["fuseDist"] = 10,
+					["_origin"] = "",
+					["guidance"] = 4,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.SeaSparrow",
+					["Nmax"] = 32,
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
 	}, -- end of ["CVN_71"]
-	["Truck ZIL-135"] = 
+	["Truck ATZ-5"] = 
 	{
 		["desc"] = 
 		{
-			["massEmpty"] = 15000,
+			["massEmpty"] = 6000,
 			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.89999997615814,
+			["maxSlopeAngle"] = 0.46999999880791,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.33400708436966,
-					["x"] = -5.7661242485046,
-					["z"] = -1.6674787998199,
+					["y"] = -0.034495986998081,
+					["x"] = -3.9160356521606,
+					["z"] = -1.4259785413742,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.9190564155579,
-					["x"] = 4.9573631286621,
-					["z"] = 1.6674787998199,
+					["y"] = 2.8607807159424,
+					["x"] = 3.8478951454163,
+					["z"] = 1.4259785413742,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
 			["RCS"] = 5,
-			["displayName"] = "Truck ZIL-135",
+			["displayName"] = "Refueler ATZ-5",
 			["attributes"] = 
 			{
 				["Ground Units Non Airdefence"] = true,
@@ -29455,15 +32923,15 @@ everyObject =
 				["Ground Units"] = true,
 				["Unarmed vehicles"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 4.5,
+			["life"] = 2,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "TechWeaponPack",
-			["speedMaxOffRoad"] = 18,
+			["speedMaxOffRoad"] = 20.833299636841,
 			["category"] = 2,
-			["typeName"] = "ZIL-135",
-			["speedMax"] = 18,
+			["typeName"] = "ATZ-5",
+			["speedMax"] = 20.833299636841,
 		}, -- end of ["desc"]
-	}, -- end of ["Truck ZIL-135"]
+	}, -- end of ["Truck ATZ-5"]
 	["Truck M 818"] = 
 	{
 		["desc"] = 
@@ -29510,1476 +32978,13 @@ everyObject =
 			["speedMax"] = 20.833299636841,
 		}, -- end of ["desc"]
 	}, -- end of ["Truck M 818"]
-	["MBT Tiger_I"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 61,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.70802044868469,
-							["x"] = -0.84232467412949,
-							["z"] = -0.70802044868469,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.70802044868469,
-							["x"] = 0.57371598482132,
-							["z"] = 0.70802044868469,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.059,
-						["type"] = 1,
-						["caliber"] = 88,
-						["mass"] = 10.16,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.Pzgr_39",
-					["displayName"] = "8,8cm Pz.Gr.39",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 33,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.70802044868469,
-							["x"] = -0.84232467412949,
-							["z"] = -0.70802044868469,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.70802044868469,
-							["x"] = 0.57371598482132,
-							["z"] = 0.70802044868469,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 2,
-						["type"] = 1,
-						["caliber"] = 88,
-						["mass"] = 7.65,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.Sprgr_39",
-					["displayName"] = "Spr.Gr.39",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[4] = 
-			{
-				["count"] = 3924,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["_origin"] = "",
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 7.92,
-						["mass"] = 0.0128,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["typeName"] = "weapons.shells.7_92x57sS",
-					["displayName"] = "7.92x57 s.S",
-				}, -- end of ["desc"]
-			}, -- end of [4]
-			[3] = 
-			{
-				["count"] = 1324,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 7.92,
-						["mass"] = 0.0122,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.7_92x57_Smkl",
-					["displayName"] = "7.92x57 S.m.K.L'Spur",
-				}, -- end of ["desc"]
-			}, -- end of [3]
-		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 56900,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.27000001072884,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.057966936379671,
-					["x"] = -3.2955622673035,
-					["z"] = -1.9063580036163,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.9213151931763,
-					["x"] = 3.2664988040924,
-					["z"] = 1.9054220914841,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Tk Tiger 1",
-			["Kmax"] = 0.050000000745058,
-			["life"] = 20,
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["Armored vehicles"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["Old Tanks"] = true,
-				["Ground vehicles"] = true,
-				["Armed vehicles"] = true,
-				["HeavyArmoredUnits"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Tanks"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 2,
-			["speedMaxOffRoad"] = 12.220000267029,
-			["_origin"] = "WWII Armour and Technics",
-			["typeName"] = "Tiger_I",
-			["speedMax"] = 12.220000267029,
-		}, -- end of ["desc"]
-	}, -- end of ["MBT Tiger_I"]
-	["S-300PS 5P85C ln"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 42150,
-			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-10 S-300 \"Grumble\" TEL D",
-			["speedMax"] = 16.666700363159,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.02414389885962,
-					["x"] = -6.5828132629395,
-					["z"] = -1.6197108030319,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 8.281476020813,
-					["x"] = 6.9515609741211,
-					["z"] = 1.6199152469635,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "",
-			["life"] = 4,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 16.666700363159,
-			["attributes"] = 
-			{
-				["Vehicles"] = true,
-				["SAM elements"] = true,
-				["NonArmoredUnits"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["SAM LL"] = true,
-				["AA_missile"] = true,
-				["All"] = true,
-				["Armed Air Defence"] = true,
-				["Ground Units"] = true,
-				["SAM related"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "S-300PS 5P85C ln",
-			["maxSlopeAngle"] = 0.27000001072884,
-		}, -- end of ["desc"]
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 4,
-				["desc"] = 
-				{
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.80982387065887,
-							["x"] = -3.6131811141968,
-							["z"] = -0.81062549352646,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.81190091371536,
-							["x"] = 3.6516976356506,
-							["z"] = 0.81109911203384,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 40000,
-					["fuseDist"] = 30,
-					["category"] = 1,
-					["guidance"] = 4,
-					["Nmax"] = 16,
-					["rangeMin"] = 5000,
-					["altMax"] = 25000,
-					["RCS"] = 0.20000000298023,
-					["displayName"] = "5V55 S-300PS (SA-10B Grumble)",
-					["altMin"] = 25,
-					["life"] = 2,
-					["_origin"] = "",
-					["warhead"] = 
-					{
-						["mass"] = 133,
-						["type"] = 1,
-						["explosiveMass"] = 133,
-						["caliber"] = 508,
-					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 75000,
-					["typeName"] = "SA5B55",
-					["missileCategory"] = 2,
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-	}, -- end of ["S-300PS 5P85C ln"]
-	["Garage small A"] = 
-	{
-		["shapeName"] = "garagh-small-a",
-		["desc"] = 
-		{
-			["life"] = 20,
-			["_origin"] = "",
-			["displayName"] = "Garage small A",
-			["category"] = 4,
-			["typeName"] = "Garage small A",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -10.985265731812,
-					["x"] = -3.3174479007721,
-					["z"] = -4.783989906311,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.1040859222412,
-					["x"] = 3.2564771175385,
-					["z"] = 4.7549200057983,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Garage small A"]
-	[".Command Center"] = 
-	{
-		["shapeName"] = "ComCenter",
-		["desc"] = 
-		{
-			["life"] = 0,
-			["attributes"] = 
-			{
-				["Buildings"] = true,
-			}, -- end of ["attributes"]
-			["_origin"] = "",
-			["category"] = 4,
-			["typeName"] = ".Command Center",
-			["displayName"] = "",
-		}, -- end of ["desc"]
-	}, -- end of [".Command Center"]
-	["house2arm"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -2.2855200767517,
-					["x"] = -1.4750000238419,
-					["z"] = -1.3756407499313,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 8.0502195358276,
-					["x"] = 1.3750004768372,
-					["z"] = 1.3750021457672,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Watch tower armed",
-			["attributes"] = 
-			{
-				["Fortifications"] = true,
-				["Ground Units Non Airdefence"] = true,
-				["Armed ground units"] = true,
-				["Ground Units"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["CustomAimPoint"] = true,
-				["AntiAir Armed Vehicles"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 10,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 0,
-			["category"] = 2,
-			["typeName"] = "house2arm",
-			["speedMax"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["house2arm"]
-	["MBT T-55"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 33,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.10894741863012,
-							["x"] = -0.23145794868469,
-							["z"] = -0.10864424705505,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.10724244266748,
-							["x"] = 0.26817846298218,
-							["z"] = 0.10754559934139,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 105,
-						["mass"] = 5.02,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.3UBM11_100mm_AP",
-					["displayName"] = "3UBM11 (100mm APFSDS-T)",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 12,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.060612548142672,
-							["x"] = -0.27024647593498,
-							["z"] = -0.060612548142672,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.060612548142672,
-							["x"] = 0.24980916082859,
-							["z"] = 0.060612548142672,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 100,
-						["mass"] = 15.6,
-						["explosiveMass"] = 15.6,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.UOF412_100HE",
-					["displayName"] = "UOF412 (100mm HE)",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[4] = 
-			{
-				["count"] = 305,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 12.7,
-						["mass"] = 0.047,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.Utes_12_7x108_T",
-					["displayName"] = "12.7mm",
-				}, -- end of ["desc"]
-			}, -- end of [4]
-			[3] = 
-			{
-				["count"] = 2760,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 7.62,
-						["mass"] = 0.0119,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.7_62x54",
-					["displayName"] = "7.62mm",
-				}, -- end of ["desc"]
-			}, -- end of [3]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "TPKU-2B",
-					["opticType"] = 0,
-				}, -- end of [1]
-				[2] = 
-				{
-					["type"] = 0,
-					["typeName"] = "TPN1",
-					["opticType"] = 2,
-				}, -- end of [2]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["massEmpty"] = 36000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.27000001072884,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0.026076573878527,
-					["x"] = -3.2319326400757,
-					["z"] = -1.6298308372498,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.0588290691376,
-					["x"] = 3.0577399730682,
-					["z"] = 1.6298308372498,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "MBT T-55",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["Armored vehicles"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["Old Tanks"] = true,
-				["Ground vehicles"] = true,
-				["Armed vehicles"] = true,
-				["HeavyArmoredUnits"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Tanks"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 18,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 12,
-			["category"] = 2,
-			["typeName"] = "T-55",
-			["speedMax"] = 12,
-		}, -- end of ["desc"]
-	}, -- end of ["MBT T-55"]
-	["MiG-25PD"] = 
-	{
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 24074.65234375,
-							["headOn"] = 37449.45703125,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 14712.287109375,
-							["headOn"] = 37449.45703125,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "N-005",
-				}, -- end of [1]
-			}, -- end of [1]
-			[2] = 
-			{
-				[1] = 
-				{
-					["type"] = 2,
-					["detectionDistanceMaximal"] = 15000,
-					["detectionDistanceIdle"] = 8000,
-					["typeName"] = "26Sh-1",
-					["detectionDistanceAfterburner"] = 35000,
-				}, -- end of [1]
-			}, -- end of [2]
-			[3] = 
-			{
-				[1] = 
-				{
-					["typeName"] = "Abstract RWR",
-					["type"] = 3,
-				}, -- end of [1]
-			}, -- end of [3]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["speedMax0"] = 310,
-			["massEmpty"] = 20000,
-			["range"] = 1920,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -2.2521600723267,
-					["x"] = -13,
-					["z"] = -7.5253000259399,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 4.0269899368286,
-					["x"] = 13.859499931335,
-					["z"] = 7.5200300216675,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 24200,
-			["Kmax"] = 4,
-			["_origin"] = "",
-			["speedMax10K"] = 833.33001708984,
-			["NyMin"] = -2,
-			["fuelMassMax"] = 15245,
-			["speedMax"] = 833.33001708984,
-			["NyMax"] = 3.7999999523163,
-			["massMax"] = 41200,
-			["RCS"] = 10,
-			["displayName"] = "mig-25p",
-			["life"] = 24,
-			["VyMax"] = 250,
-			["Kab"] = 8,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["Battle airplanes"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Planes"] = true,
-				["Interceptors"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "MiG-25PD",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["MiG-25PD"]
-	["5p73 s-125 ln"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-3 S-125 \"Goa\" LN",
-			["speedMax"] = 0,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.1433914899826,
-					["x"] = -3.5037760734558,
-					["z"] = -3.634535074234,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.5476195812225,
-					["x"] = 5.0296669006348,
-					["z"] = 3.6345353126526,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "",
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["attributes"] = 
-			{
-				["Vehicles"] = true,
-				["MR SAM"] = true,
-				["NonArmoredUnits"] = true,
-				["AA_missile"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["SAM related"] = true,
-				["SAM LL"] = true,
-				["All"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Armed Air Defence"] = true,
-				["Ground Units"] = true,
-				["SAM elements"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "5p73 s-125 ln",
-			["maxSlopeAngle"] = 0,
-		}, -- end of ["desc"]
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 4,
-				["desc"] = 
-				{
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.94484841823578,
-							["x"] = -2.6432721614838,
-							["z"] = -0.95312494039536,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.94484841823578,
-							["x"] = 3.7270171642303,
-							["z"] = 0.95312494039536,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 11000,
-					["fuseDist"] = 14,
-					["category"] = 1,
-					["guidance"] = 4,
-					["Nmax"] = 16,
-					["rangeMin"] = 3500,
-					["altMax"] = 18000,
-					["RCS"] = 0.20000000298023,
-					["displayName"] = "5V27 S-125 Neva (SA-3 Goa)",
-					["altMin"] = 20,
-					["life"] = 2,
-					["_origin"] = "",
-					["warhead"] = 
-					{
-						["mass"] = 60,
-						["type"] = 1,
-						["explosiveMass"] = 60,
-						["caliber"] = 400,
-					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 25000,
-					["typeName"] = "SA5B27",
-					["missileCategory"] = 2,
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-	}, -- end of ["5p73 s-125 ln"]
-	["S-300PS 54K6 cp"] = 
-	{
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 106998.453125,
-							["headOn"] = 106998.453125,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 106998.453125,
-							["headOn"] = 106998.453125,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "S-300PS 40B6M tr",
-				}, -- end of [1]
-			}, -- end of [1]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["massEmpty"] = 42150,
-			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-10 S-300 \"Grumble\" C2 ",
-			["speedMax"] = 16.666700363159,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0.00075839832425117,
-					["x"] = -6.9090003967285,
-					["z"] = -1.6193325519562,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 10.15506362915,
-					["x"] = 6.9515609741211,
-					["z"] = 1.6195338964462,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "",
-			["life"] = 4,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 16.666700363159,
-			["attributes"] = 
-			{
-				["Vehicles"] = true,
-				["SAM elements"] = true,
-				["NonArmoredUnits"] = true,
-				["CustomAimPoint"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["SAM related"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["SAM CC"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "S-300PS 54K6 cp",
-			["maxSlopeAngle"] = 0.27000001072884,
-		}, -- end of ["desc"]
-	}, -- end of ["S-300PS 54K6 cp"]
-	["C-101EB"] = 
-	{
-		["desc"] = 
-		{
-			["speedMax0"] = 205,
-			["massEmpty"] = 3537,
-			["range"] = 1015,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -2.0559208393097,
-					["x"] = -6.0715236663818,
-					["z"] = -5.3563566207886,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.0657632350922,
-					["x"] = 6.7703795433044,
-					["z"] = 5.4268093109131,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 12500,
-			["Kmax"] = 0.20000000298023,
-			["_origin"] = "C-101 Aviojet by AvioDev",
-			["speedMax10K"] = 257,
-			["NyMin"] = -3.9000000953674,
-			["fuelMassMax"] = 1796,
-			["speedMax"] = 257,
-			["NyMax"] = 6,
-			["massMax"] = 5366,
-			["RCS"] = 2.5,
-			["displayName"] = "C-101EB",
-			["life"] = 18,
-			["VyMax"] = 10,
-			["Kab"] = 0,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["Battle airplanes"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Battleplanes"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Planes"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "C-101EB",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["C-101EB"]
-	["Truck ATZ-5"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 6000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.46999999880791,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.034495986998081,
-					["x"] = -3.9160356521606,
-					["z"] = -1.4259785413742,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.8607807159424,
-					["x"] = 3.8478951454163,
-					["z"] = 1.4259785413742,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Refueler ATZ-5",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["NonArmoredUnits"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Unarmed vehicles"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "TechWeaponPack",
-			["speedMaxOffRoad"] = 20.833299636841,
-			["category"] = 2,
-			["typeName"] = "ATZ-5",
-			["speedMax"] = 20.833299636841,
-		}, -- end of ["desc"]
-	}, -- end of ["Truck ATZ-5"]
-	["S-200_Launcher"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-5 S-200 \"Gammon\" LN",
-			["speedMax"] = 0,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -6.2840433656675e-07,
-					["x"] = -2.0747153759003,
-					["z"] = -1.4142169952393,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.6077828407288,
-					["x"] = 2.3339514732361,
-					["z"] = 1.4142174720764,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "TechWeaponPack",
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["attributes"] = 
-			{
-				["LR SAM"] = true,
-				["Vehicles"] = true,
-				["SAM elements"] = true,
-				["NonArmoredUnits"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["SAM LL"] = true,
-				["AA_missile"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Armed Air Defence"] = true,
-				["Ground Units"] = true,
-				["SAM related"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "S-200_Launcher",
-			["maxSlopeAngle"] = 0,
-		}, -- end of ["desc"]
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 1,
-				["desc"] = 
-				{
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -1.2077575922012,
-							["x"] = -5.6648240089417,
-							["z"] = -1.2077575922012,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 1.2077577114105,
-							["x"] = 5.6648240089417,
-							["z"] = 1.2077575922012,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 50000,
-					["fuseDist"] = 45,
-					["category"] = 1,
-					["guidance"] = 4,
-					["Nmax"] = 12,
-					["rangeMin"] = 17000,
-					["altMax"] = 40000,
-					["RCS"] = 1,
-					["displayName"] = "5V28 (SA-5 Gammon)",
-					["altMin"] = 300,
-					["life"] = 2,
-					["_origin"] = "",
-					["warhead"] = 
-					{
-						["mass"] = 221,
-						["type"] = 1,
-						["explosiveMass"] = 221,
-						["caliber"] = 752,
-					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 240000,
-					["typeName"] = "SA5V28",
-					["missileCategory"] = 2,
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-	}, -- end of ["S-200_Launcher"]
-	["RQ-1A Predator"] = 
-	{
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "RQ-1 Predator CAM",
-					["opticType"] = 0,
-				}, -- end of [1]
-				[2] = 
-				{
-					["type"] = 0,
-					["typeName"] = "RQ-1 Predator FLIR",
-					["opticType"] = 2,
-				}, -- end of [2]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["speedMax0"] = 72.222221374512,
-			["massEmpty"] = 430,
-			["range"] = 1111.1999511719,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -1.7054378986359,
-					["x"] = -4.6453676223755,
-					["z"] = -7.4647059440613,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 1.170923948288,
-					["x"] = 4.6453671455383,
-					["z"] = 7.4647059440613,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 7620,
-			["Kmax"] = 0.0099999997764826,
-			["_origin"] = "",
-			["speedMax10K"] = 138.88888549805,
-			["NyMin"] = -1,
-			["fuelMassMax"] = 490,
-			["speedMax"] = 138.88888549805,
-			["NyMax"] = 2,
-			["massMax"] = 1020,
-			["RCS"] = 0.64999997615814,
-			["displayName"] = "RQ-1A Predator",
-			["life"] = 5,
-			["VyMax"] = 2,
-			["Kab"] = 0,
-			["attributes"] = 
-			{
-				["UAVs"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Planes"] = true,
-				["Air"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "RQ-1A Predator",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["RQ-1A Predator"]
-	["NASAMS_LN_C"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["displayName"] = "SAM NASAMS LN AIM-120C",
-			["speedMax"] = 0,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.064939871430397,
-					["x"] = -2.324134349823,
-					["z"] = -2.0861058235168,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.6111807823181,
-					["x"] = 2.3450977802277,
-					["z"] = 2.0861060619354,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "TechWeaponPack",
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["attributes"] = 
-			{
-				["Vehicles"] = true,
-				["SAM elements"] = true,
-				["NonArmoredUnits"] = true,
-				["Ground Units"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["SAM LL"] = true,
-				["All"] = true,
-				["AA_missile"] = true,
-				["Armed Air Defence"] = true,
-				["Datalink"] = true,
-				["SAM related"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "NASAMS_LN_C",
-			["maxSlopeAngle"] = 0,
-		}, -- end of ["desc"]
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 6,
-				["desc"] = 
-				{
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.23215164244175,
-							["x"] = -1.8384801149368,
-							["z"] = -0.23418514430523,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.23215164244175,
-							["x"] = 1.8384801149368,
-							["z"] = 0.23418514430523,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 16000,
-					["fuseDist"] = 15,
-					["category"] = 1,
-					["guidance"] = 3,
-					["Nmax"] = 30,
-					["rangeMin"] = 700,
-					["altMax"] = 26000,
-					["RCS"] = 0.070000000298023,
-					["displayName"] = "AIM-120C-5",
-					["altMin"] = 1,
-					["life"] = 2,
-					["_origin"] = "",
-					["warhead"] = 
-					{
-						["mass"] = 18.700000762939,
-						["type"] = 1,
-						["explosiveMass"] = 18.700000762939,
-						["caliber"] = 169,
-					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 61000,
-					["typeName"] = "weapons.missiles.AIM_120C",
-					["missileCategory"] = 1,
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-	}, -- end of ["NASAMS_LN_C"]
-	["Truck ATZ-60_Maz"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 9000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.075529932975769,
-					["x"] = -4.8434805870056,
-					["z"] = -1.7161865234375,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.0209538936615,
-					["x"] = 5.7321209907532,
-					["z"] = 1.7161866426468,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Refueler ATZ-60 Tractor",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["NonArmoredUnits"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Unarmed vehicles"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 5,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "TechWeaponPack",
-			["speedMaxOffRoad"] = 15,
-			["category"] = 2,
-			["typeName"] = "ATZ-60_Maz",
-			["speedMax"] = 15,
-		}, -- end of ["desc"]
-	}, -- end of ["Truck ATZ-60_Maz"]
-	["ARTY v1_launcher"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 1,
-				["desc"] = 
-				{
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.6312872171402,
-							["x"] = -4.3533792495728,
-							["z"] = -3.1070623397827,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 1.1451025009155,
-							["x"] = 4.0766897201538,
-							["z"] = 3.0719866752625,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 0,
-					["fuseDist"] = 0,
-					["category"] = 1,
-					["guidance"] = 1,
-					["Nmax"] = 12,
-					["rangeMin"] = 3000,
-					["altMax"] = 12000,
-					["RCS"] = 0.39669999480247,
-					["displayName"] = "V-1",
-					["altMin"] = -1,
-					["life"] = 2,
-					["missileCategory"] = 5,
-					["warhead"] = 
-					{
-						["mass"] = 196,
-						["explosiveMass"] = 196,
-						["shapedExplosiveArmorThickness"] = 0.10000000149012,
-						["shapedExplosiveMass"] = 392,
-						["caliber"] = 0,
-						["type"] = 2,
-					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 0,
-					["typeName"] = "V-1",
-					["_origin"] = "",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.097134955227375,
-					["x"] = -29.252445220947,
-					["z"] = -1.7300109863281,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 6.1798582077026,
-					["x"] = 28.875717163086,
-					["z"] = 1.7049645185471,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "V-1 Launch Ramp",
-			["Kmax"] = 0.050000000745058,
-			["life"] = 4,
-			["attributes"] = 
-			{
-				["Artillery"] = true,
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["Armed vehicles"] = true,
-				["LightArmoredUnits"] = true,
-				["Ground vehicles"] = true,
-				["SS_missile"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Indirect fire"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["_origin"] = "WWII Armour and Technics",
-			["typeName"] = "v1_launcher",
-			["speedMax"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["ARTY v1_launcher"]
-	["LHA_Tarawa"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 15518,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_AP",
-					["displayName"] = "20mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 15518,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.1,
-						["type"] = 1,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_HE",
-					["displayName"] = "20mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 42,
-				["desc"] = 
-				{
-					["missileCategory"] = 2,
-					["rangeMaxAltMax"] = 10000,
-					["rangeMin"] = 500,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 10000,
-					["altMax"] = 4000,
-					["RCS"] = 0.018200000748038,
-					["displayName"] = "RIM-116A",
-					["altMin"] = -1,
-					["life"] = 2,
-					["fuseDist"] = 5,
-					["category"] = 1,
-					["guidance"] = 5,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 10,
-						["type"] = 1,
-						["caliber"] = 127,
-						["mass"] = 10,
-					}, -- end of ["warhead"]
-					["typeName"] = "weapons.missiles.RIM_116A",
-					["Nmax"] = 20,
-				}, -- end of ["desc"]
-			}, -- end of [3]
-		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 38900000,
-			["RCS"] = 11065.158203125,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -7.8527727127075,
-					["x"] = -131.38269042969,
-					["z"] = -29.710758209229,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 59.248474121094,
-					["x"] = 120.88059234619,
-					["z"] = 30.254930496216,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 15.433300018311,
-			["life"] = 7300,
-			["attributes"] = 
-			{
-				["ski_jump"] = true,
-				["Aircraft Carriers"] = true,
-				["AircraftCarrier With Tramplin"] = true,
-				["AircraftCarrier"] = true,
-				["Ships"] = true,
-				["Heavy armed ships"] = true,
-				["HeavyArmoredUnits"] = true,
-				["Armed Air Defence"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["Armed ships"] = true,
-				["Armed Ship"] = true,
-				["RADAR_BAND2_FOR_ARM"] = true,
-				["All"] = true,
-				["DetectionByAWACS"] = true,
-				["Naval"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "AV-8B N/A AI by RAZBAM Sims",
-			["typeName"] = "LHA_Tarawa",
-			["displayName"] = "LHA-1 Tarawa",
-		}, -- end of ["desc"]
-	}, -- end of ["LHA_Tarawa"]
 	["IFV HL_DSHK"] = 
 	{
 		["weapons"] = 
 		{
 			[1] = 
 			{
-				["count"] = 305,
+				["count"] = 65,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -31011,6 +33016,25 @@ everyObject =
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 245,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [2]
 		}, -- end of ["weapons"]
 		["desc"] = 
 		{
@@ -31059,6 +33083,162 @@ everyObject =
 			["speedMax"] = 37,
 		}, -- end of ["desc"]
 	}, -- end of ["IFV HL_DSHK"]
+	["F-117A"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 2,
+				["desc"] = 
+				{
+					["altMax"] = 15000,
+					["RCS"] = 0,
+					["displayName"] = "GBU-31(V)1/B",
+					["altMin"] = 400,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 457,
+						["mass"] = 340,
+						["explosiveMass"] = 340,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["guidance"] = 1,
+					["category"] = 3,
+					["typeName"] = "weapons.bombs.GBU_31",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.28504949808121,
+							["x"] = -2.0307881832123,
+							["z"] = -0.28504967689514,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.28504949808121,
+							["x"] = 2.0307881832123,
+							["z"] = 0.28504967689514,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "IRADS",
+					["opticType"] = 2,
+				}, -- end of [1]
+			}, -- end of [0]
+			[3] = 
+			{
+				[1] = 
+				{
+					["typeName"] = "Abstract RWR",
+					["type"] = 3,
+				}, -- end of [1]
+			}, -- end of [3]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["speedMax0"] = 292,
+			["massEmpty"] = 13380,
+			["tankerType"] = 0,
+			["range"] = 2000,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -2.2080154418945,
+					["x"] = -9.7855615615845,
+					["z"] = -6.6833047866821,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.6157283782959,
+					["x"] = 9.8655128479004,
+					["z"] = 6.6833047866821,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 10000,
+			["Kmax"] = 0.15000000596046,
+			["_origin"] = "",
+			["speedMax10K"] = 289,
+			["NyMin"] = -1,
+			["fuelMassMax"] = 8255,
+			["speedMax"] = 292,
+			["NyMax"] = 4.5,
+			["massMax"] = 23810,
+			["RCS"] = 0.0099999997764826,
+			["displayName"] = "f-117",
+			["life"] = 20,
+			["VyMax"] = 30,
+			["Kab"] = 0,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["Battle airplanes"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Refuelable"] = true,
+				["Planes"] = true,
+				["NonArmoredUnits"] = true,
+				["Bombers"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "F-117A",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["F-117A"]
+	["Log posts 2"] = 
+	{
+		["shapeName"] = "Log_posts_01",
+		["desc"] = 
+		{
+			["life"] = 7,
+			["_origin"] = "WWII Armour and Technics",
+			["displayName"] = "Log posts 2",
+			["category"] = 4,
+			["typeName"] = "Log posts 2",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.80850023031235,
+					["x"] = -0.73734962940216,
+					["z"] = -0.24291874468327,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.1882057189941,
+					["x"] = 1.8844866752625,
+					["z"] = 0.24291880428791,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Log posts 2"]
+	[".Command Center"] = 
+	{
+		["shapeName"] = "ComCenter",
+		["desc"] = 
+		{
+			["life"] = 0,
+			["attributes"] = 
+			{
+				["Buildings"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "",
+			["category"] = 4,
+			["typeName"] = ".Command Center",
+			["displayName"] = "",
+		}, -- end of ["desc"]
+	}, -- end of [".Command Center"]
 	["M-2000C"] = 
 	{
 		["weapons"] = 
@@ -31184,60 +33364,69 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["M-2000C"]
-	["F-117A"] = 
+	["Freya_Shelter_Brick"] = 
 	{
-		["weapons"] = 
+		["shapeName"] = "Freya_Shelter_Brick",
+		["desc"] = 
+		{
+			["life"] = 250,
+			["_origin"] = "WWII Armour and Technics",
+			["displayName"] = "Freya Shelter Brick",
+			["category"] = 4,
+			["typeName"] = "Freya_Shelter_Brick",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.4370752573013,
+					["x"] = -5.8359184265137,
+					["z"] = -5.8408212661743,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.7702612876892,
+					["x"] = 5.4129514694214,
+					["z"] = 5.8408212661743,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Freya_Shelter_Brick"]
+	["MiG-25PD"] = 
+	{
+		["sensors"] = 
 		{
 			[1] = 
 			{
-				["count"] = 2,
-				["desc"] = 
+				[1] = 
 				{
-					["altMax"] = 15000,
-					["RCS"] = 0,
-					["displayName"] = "GBU-31(V)1/B",
-					["altMin"] = 400,
-					["life"] = 2,
-					["_origin"] = "",
-					["warhead"] = 
+					["detectionDistanceAir"] = 
 					{
-						["caliber"] = 457,
-						["mass"] = 340,
-						["explosiveMass"] = 340,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["guidance"] = 1,
-					["category"] = 3,
-					["typeName"] = "weapons.bombs.GBU_31",
-					["box"] = 
-					{
-						["min"] = 
+						["upperHemisphere"] = 
 						{
-							["y"] = -0.28504949808121,
-							["x"] = -2.0307881832123,
-							["z"] = -0.28504967689514,
-						}, -- end of ["min"]
-						["max"] = 
+							["tailOn"] = 24074.65234375,
+							["headOn"] = 37449.45703125,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
 						{
-							["y"] = 0.28504949808121,
-							["x"] = 2.0307881832123,
-							["z"] = 0.28504967689514,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-				}, -- end of ["desc"]
+							["tailOn"] = 14712.287109375,
+							["headOn"] = 37449.45703125,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "N-005",
+				}, -- end of [1]
 			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[0] = 
+			[2] = 
 			{
 				[1] = 
 				{
-					["type"] = 0,
-					["typeName"] = "IRADS",
-					["opticType"] = 2,
+					["type"] = 2,
+					["detectionDistanceMaximal"] = 15000,
+					["detectionDistanceIdle"] = 8000,
+					["typeName"] = "26Sh-1",
+					["detectionDistanceAfterburner"] = 35000,
 				}, -- end of [1]
-			}, -- end of [0]
+			}, -- end of [2]
 			[3] = 
 			{
 				[1] = 
@@ -31249,54 +33438,1052 @@ everyObject =
 		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["speedMax0"] = 292,
-			["massEmpty"] = 13380,
-			["tankerType"] = 0,
-			["range"] = 2000,
+			["speedMax0"] = 310,
+			["massEmpty"] = 20000,
+			["range"] = 1920,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -2.2080154418945,
-					["x"] = -9.7855615615845,
-					["z"] = -6.6833047866821,
+					["y"] = -2.2521600723267,
+					["x"] = -13,
+					["z"] = -7.5253000259399,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.6157283782959,
-					["x"] = 9.8655128479004,
-					["z"] = 6.6833047866821,
+					["y"] = 4.0269899368286,
+					["x"] = 13.859499931335,
+					["z"] = 7.5200300216675,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["Hmax"] = 10000,
-			["Kmax"] = 0.15000000596046,
+			["Hmax"] = 24200,
+			["Kmax"] = 4,
 			["_origin"] = "",
-			["speedMax10K"] = 289,
-			["NyMin"] = -1,
-			["fuelMassMax"] = 8255,
-			["speedMax"] = 292,
-			["NyMax"] = 4.5,
-			["massMax"] = 23810,
-			["RCS"] = 0.0099999997764826,
-			["displayName"] = "f-117",
-			["life"] = 20,
-			["VyMax"] = 30,
+			["speedMax10K"] = 833.33001708984,
+			["NyMin"] = -2,
+			["fuelMassMax"] = 15245,
+			["speedMax"] = 833.33001708984,
+			["NyMax"] = 3.7999999523163,
+			["massMax"] = 41200,
+			["RCS"] = 10,
+			["displayName"] = "mig-25p",
+			["life"] = 24,
+			["VyMax"] = 250,
+			["Kab"] = 8,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["Battle airplanes"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Planes"] = true,
+				["Interceptors"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "MiG-25PD",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["MiG-25PD"]
+	["houseA_arm"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -10,
+					["x"] = -3.7452828884125,
+					["z"] = -7.3363757133484,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 5.5,
+					["x"] = 3.8547194004059,
+					["z"] = 8.3706321716309,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["speedMax"] = 0,
+			["life"] = 50,
+			["attributes"] = 
+			{
+				["Fortifications"] = true,
+				["Ground Units Non Airdefence"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["AntiAir Armed Vehicles"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "",
+			["typeName"] = "houseA_arm",
+			["displayName"] = "Building armed",
+		}, -- end of ["desc"]
+	}, -- end of ["houseA_arm"]
+	["Czech hedgehogs 1"] = 
+	{
+		["shapeName"] = "Czech_hedgehogs_01",
+		["desc"] = 
+		{
+			["life"] = 50,
+			["_origin"] = "WWII Armour and Technics",
+			["displayName"] = "Czech hedgehogs 1",
+			["category"] = 4,
+			["typeName"] = "Czech hedgehogs 1",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.16957819461823,
+					["x"] = -0.89734947681427,
+					["z"] = -0.97948312759399,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.4383410215378,
+					["x"] = 1.1842423677444,
+					["z"] = 0.97948318719864,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Czech hedgehogs 1"]
+	["C-101EB"] = 
+	{
+		["desc"] = 
+		{
+			["speedMax0"] = 205,
+			["massEmpty"] = 3537,
+			["range"] = 1015,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -2.0559208393097,
+					["x"] = -6.0715236663818,
+					["z"] = -5.3563566207886,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.0657632350922,
+					["x"] = 6.7703795433044,
+					["z"] = 5.4268093109131,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 12500,
+			["Kmax"] = 0.20000000298023,
+			["_origin"] = "C-101 Aviojet by AvioDev",
+			["speedMax10K"] = 257,
+			["NyMin"] = -3.9000000953674,
+			["fuelMassMax"] = 1796,
+			["speedMax"] = 257,
+			["NyMax"] = 6,
+			["massMax"] = 5366,
+			["RCS"] = 2.5,
+			["displayName"] = "C-101EB",
+			["life"] = 18,
+			["VyMax"] = 10,
 			["Kab"] = 0,
 			["attributes"] = 
 			{
 				["Air"] = true,
 				["Battle airplanes"] = true,
 				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Refuelable"] = true,
-				["Planes"] = true,
+				["Battleplanes"] = true,
 				["NonArmoredUnits"] = true,
-				["Bombers"] = true,
+				["All"] = true,
+				["Planes"] = true,
 			}, -- end of ["attributes"]
-			["typeName"] = "F-117A",
+			["typeName"] = "C-101EB",
 			["category"] = 0,
 		}, -- end of ["desc"]
-	}, -- end of ["F-117A"]
+	}, -- end of ["C-101EB"]
+	["Garage small A"] = 
+	{
+		["shapeName"] = "garagh-small-a",
+		["desc"] = 
+		{
+			["life"] = 20,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Garage small A",
+			["typeName"] = "Garage small A",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -10.985265731812,
+					["x"] = -3.3174479007721,
+					["z"] = -4.783989906311,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.1040859222412,
+					["x"] = 3.2564771175385,
+					["z"] = 4.7549200057983,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Garage small A"]
+	["S-200_Launcher"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["speedMax"] = 0,
+			["displayName"] = "SAM SA-5 S-200 \"Gammon\" LN",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -6.2840433656675e-07,
+					["x"] = -2.0747153759003,
+					["z"] = -1.4142169952393,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.6077828407288,
+					["x"] = 2.3339514732361,
+					["z"] = 1.4142174720764,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "TechWeaponPack",
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["attributes"] = 
+			{
+				["LR SAM"] = true,
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["NonArmoredUnits"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["SAM LL"] = true,
+				["AA_missile"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Armed Air Defence"] = true,
+				["Ground Units"] = true,
+				["SAM related"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "S-200_Launcher",
+			["maxSlopeAngle"] = 0,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 1,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -1.2077575922012,
+							["x"] = -5.6648240089417,
+							["z"] = -1.2077575922012,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 1.2077577114105,
+							["x"] = 5.6648240089417,
+							["z"] = 1.2077575922012,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 50000,
+					["fuseDist"] = 45,
+					["category"] = 1,
+					["guidance"] = 4,
+					["Nmax"] = 12,
+					["rangeMin"] = 17000,
+					["altMax"] = 40000,
+					["RCS"] = 1,
+					["displayName"] = "5V28 (SA-5 Gammon)",
+					["altMin"] = 300,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 221,
+						["type"] = 1,
+						["explosiveMass"] = 221,
+						["caliber"] = 752,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 240000,
+					["typeName"] = "SA5V28",
+					["missileCategory"] = 2,
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+	}, -- end of ["S-200_Launcher"]
+	["Truck HEMTT TFFT"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 15000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.27000001072884,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.19444970786572,
+					["x"] = -5.3602795600891,
+					["z"] = -1.3748569488525,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.4381239414215,
+					["x"] = 5.4360179901123,
+					["z"] = 1.3471287488937,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "Firefighter HEMMT TFFT",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["NonArmoredUnits"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Unarmed vehicles"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 3.5,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 20.833299636841,
+			["category"] = 2,
+			["typeName"] = "HEMTT TFFT",
+			["speedMax"] = 20.833299636841,
+		}, -- end of ["desc"]
+	}, -- end of ["Truck HEMTT TFFT"]
+	["oiltank_cargo"] = 
+	{
+		["shapeName"] = "oiltank_cargo",
+		["defaultMass"] = 2300,
+		["desc"] = 
+		{
+			["life"] = 0,
+			["attributes"] = 
+			{
+				["Cargos"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Oiltank",
+			["typeName"] = "oiltank_cargo",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.084414914250374,
+					["x"] = -1.4870768785477,
+					["z"] = -0.72889226675034,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.8830789327621,
+					["x"] = 1.6007688045502,
+					["z"] = 0.72142267227173,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["oiltank_cargo"]
+	["MBT ZTZ96B"] = 
+	{
+		["weapons"] = 
+		{
+			[6] = 
+			{
+				["count"] = 241,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [6]
+			[2] = 
+			{
+				["count"] = 18,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 125,
+						["mass"] = 23,
+						["explosiveMass"] = 23,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.ZTZ_125_HE",
+					["displayName"] = "125mm HE",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 7,
+				["desc"] = 
+				{
+					["missileCategory"] = 6,
+					["rangeMaxAltMax"] = 5000,
+					["rangeMin"] = 100,
+					["life"] = 2,
+					["_origin"] = "",
+					["altMax"] = 3000,
+					["RCS"] = 0.032000001519918,
+					["displayName"] = "AT-11 Sniper",
+					["altMin"] = -1,
+					["rangeMaxAltMin"] = 5000,
+					["fuseDist"] = 0,
+					["warhead"] = 
+					{
+						["mass"] = 4.5,
+						["caliber"] = 0,
+						["shapedExplosiveArmorThickness"] = 1,
+						["shapedExplosiveMass"] = 8.1000003814697,
+						["explosiveMass"] = 2.7000000476837,
+						["type"] = 2,
+					}, -- end of ["warhead"]
+					["guidance"] = 7,
+					["category"] = 1,
+					["typeName"] = "weapons.missiles.REFLEX",
+					["Nmax"] = 1.2,
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 23,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.10894741863012,
+							["x"] = -0.23145794868469,
+							["z"] = -0.10864424705505,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.10724244266748,
+							["x"] = 0.26817846298218,
+							["z"] = 0.10754559934139,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 125,
+						["mass"] = 5.35,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.ZTZ_125_AP",
+					["displayName"] = "125mm AP",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[4] = 
+			{
+				["count"] = 2007,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.0119,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x54",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
+			{
+				["count"] = 61,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Utes_12_7x108_T",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [5]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "CITV day",
+					["opticType"] = 0,
+				}, -- end of [1]
+				[2] = 
+				{
+					["type"] = 0,
+					["typeName"] = "CITV night",
+					["opticType"] = 2,
+				}, -- end of [2]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 42000,
+			["riverCrossing"] = true,
+			["maxSlopeAngle"] = 0.56000000238419,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.0019113851012662,
+					["x"] = -3.868320941925,
+					["z"] = -1.8569041490555,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.1546437740326,
+					["x"] = 6.450900554657,
+					["z"] = 1.6598302125931,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "ZTZ-96B",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armored vehicles"] = true,
+				["Modern Tanks"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["Ground vehicles"] = true,
+				["Datalink"] = true,
+				["Tanks"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Armed vehicles"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 25,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
+			["speedMaxOffRoad"] = 18.049999237061,
+			["category"] = 2,
+			["typeName"] = "ZTZ96B",
+			["speedMax"] = 18.049999237061,
+		}, -- end of ["desc"]
+	}, -- end of ["MBT ZTZ96B"]
+	["ARTY v1_launcher"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 1,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.6312872171402,
+							["x"] = -4.3533792495728,
+							["z"] = -3.1070623397827,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 1.1451025009155,
+							["x"] = 4.0766897201538,
+							["z"] = 3.0719866752625,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 0,
+					["fuseDist"] = 0,
+					["category"] = 1,
+					["guidance"] = 1,
+					["Nmax"] = 12,
+					["rangeMin"] = 3000,
+					["altMax"] = 12000,
+					["RCS"] = 0.39669999480247,
+					["displayName"] = "V-1",
+					["altMin"] = -1,
+					["life"] = 2,
+					["missileCategory"] = 5,
+					["warhead"] = 
+					{
+						["mass"] = 196,
+						["explosiveMass"] = 196,
+						["shapedExplosiveArmorThickness"] = 0.10000000149012,
+						["shapedExplosiveMass"] = 392,
+						["caliber"] = 0,
+						["type"] = 2,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 0,
+					["typeName"] = "V-1",
+					["_origin"] = "",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.097134955227375,
+					["x"] = -29.252445220947,
+					["z"] = -1.7300109863281,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 6.1798582077026,
+					["x"] = 28.875717163086,
+					["z"] = 1.7049645185471,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "V-1 Launch Ramp",
+			["Kmax"] = 0.050000000745058,
+			["life"] = 4,
+			["attributes"] = 
+			{
+				["Artillery"] = true,
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armed vehicles"] = true,
+				["LightArmoredUnits"] = true,
+				["Ground vehicles"] = true,
+				["SS_missile"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Indirect fire"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "WWII Armour and Technics",
+			["typeName"] = "v1_launcher",
+			["speedMax"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["ARTY v1_launcher"]
+	["Truck CCKW_353"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 5100,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.46999999880791,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.13796950876713,
+					["x"] = -3.3019168376923,
+					["z"] = -1.1806678771973,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.7003486156464,
+					["x"] = 3.3019168376923,
+					["z"] = 1.1806678771973,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "Truck GMC \"Jimmy\" 6x6",
+			["Kmax"] = 0.050000000745058,
+			["life"] = 3,
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["NonArmoredUnits"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Unarmed vehicles"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 2,
+			["speedMaxOffRoad"] = 20,
+			["_origin"] = "WWII Armour and Technics",
+			["typeName"] = "CCKW_353",
+			["speedMax"] = 20,
+		}, -- end of ["desc"]
+	}, -- end of ["Truck CCKW_353"]
+	["Su-30"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 150,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 30,
+						["mass"] = 0.39,
+						["explosiveMass"] = 0.39,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.GSH301_30_HE",
+					["displayName"] = "30mm HE",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 35443.23828125,
+							["headOn"] = 80248.84375,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 26749.61328125,
+							["headOn"] = 80248.84375,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["detectionDistanceRBM"] = 2000,
+					["typeName"] = "N-011M",
+					["detectionDistanceHRM"] = 500,
+				}, -- end of [1]
+			}, -- end of [1]
+			[2] = 
+			{
+				[1] = 
+				{
+					["type"] = 2,
+					["detectionDistanceMaximal"] = 40000,
+					["detectionDistanceIdle"] = 25000,
+					["typeName"] = "OLS-27",
+					["detectionDistanceAfterburner"] = 80000,
+				}, -- end of [1]
+			}, -- end of [2]
+			[3] = 
+			{
+				[1] = 
+				{
+					["typeName"] = "Abstract RWR",
+					["type"] = 3,
+				}, -- end of [1]
+			}, -- end of [3]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["speedMax0"] = 403,
+			["massEmpty"] = 17700,
+			["range"] = 3000,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -2.2409698963165,
+					["x"] = -9,
+					["z"] = -7.3482398986816,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.7001099586487,
+					["x"] = 13.92679977417,
+					["z"] = 7.3482398986816,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 17250,
+			["Kmax"] = 1,
+			["_origin"] = "",
+			["speedMax10K"] = 590.29998779297,
+			["NyMin"] = -3,
+			["fuelMassMax"] = 9400,
+			["speedMax"] = 590.29998779297,
+			["NyMax"] = 8,
+			["massMax"] = 33000,
+			["RCS"] = 6,
+			["displayName"] = "su-30",
+			["life"] = 20,
+			["VyMax"] = 325,
+			["Kab"] = 5,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["Battle airplanes"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Planes"] = true,
+				["Multirole fighters"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "Su-30",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["Su-30"]
+	["Vulcan"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 11253,
+			["riverCrossing"] = false,
+			["speedMax"] = 16.666700363159,
+			["displayName"] = "SPAAA Vulcan M163",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.0005190420197323,
+					["x"] = -2.5482997894287,
+					["z"] = -1.3644953966141,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.7865834236145,
+					["x"] = 2.5594613552094,
+					["z"] = 1.3785880804062,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "",
+			["life"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 16.666700363159,
+			["attributes"] = 
+			{
+				["Datalink"] = true,
+				["SAM TR"] = true,
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["AA_flak"] = true,
+				["Mobile AAA"] = true,
+				["All"] = true,
+				["Air Defence"] = true,
+				["AAA"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["NonArmoredUnits"] = true,
+				["SAM related"] = true,
+				["Armed Air Defence"] = true,
+				["Ground Units"] = true,
+				["Rocket Attack Valid AirDefence"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "Vulcan",
+			["maxSlopeAngle"] = 0.61000001430511,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 590,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 590,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+		}, -- end of ["weapons"]
+	}, -- end of ["Vulcan"]
+	["Black_Tyre_WF"] = 
+	{
+		["shapeName"] = "H-tyre_B_WF",
+		["desc"] = 
+		{
+			["life"] = 3,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Mark Tyre with White Flag",
+			["typeName"] = "Black_Tyre_WF",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.33318361639977,
+					["x"] = -1.3334575891495,
+					["z"] = -1.3367536067963,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.3364826440811,
+					["x"] = 1.3400497436523,
+					["z"] = 1.3367537260056,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Black_Tyre_WF"]
 	["Christen Eagle II"] = 
 	{
 		["desc"] = 
@@ -31502,33 +34689,187 @@ everyObject =
 			["speedMax"] = 10.560000419617,
 		}, -- end of ["desc"]
 	}, -- end of ["ARTY SturmPzIV"]
-	["Log posts 2"] = 
+	["Stennis"] = 
 	{
-		["shapeName"] = "Log_posts_01",
 		["desc"] = 
 		{
-			["life"] = 7,
-			["_origin"] = "WWII Armour and Technics",
-			["displayName"] = "Log posts 2",
-			["category"] = 4,
-			["typeName"] = "Log posts 2",
+			["massEmpty"] = 72916000,
+			["RCS"] = 20059.416015625,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.80850023031235,
-					["x"] = -0.73734962940216,
-					["z"] = -0.24291874468327,
+					["y"] = -12.130121231079,
+					["x"] = -171.06927490234,
+					["z"] = -46.412311553955,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.1882057189941,
-					["x"] = 1.8844866752625,
-					["z"] = 0.24291880428791,
+					["y"] = 65.324577331543,
+					["x"] = 169.96752929688,
+					["z"] = 41.562206268311,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
+			["displayName"] = "CVN-74 John C. Stennis",
+			["life"] = 7300,
+			["attributes"] = 
+			{
+				["Aircraft Carriers"] = true,
+				["AircraftCarrier"] = true,
+				["ACLS"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["AircraftCarrier With Arresting Gear"] = true,
+				["Link4"] = true,
+				["Datalink"] = true,
+				["AircraftCarrier With Catapult"] = true,
+				["catapult"] = true,
+				["All"] = true,
+				["Armed ships"] = true,
+				["Ships"] = true,
+				["Arresting Gear"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "USS_Nimitz",
+			["typeName"] = "Stennis",
+			["speedMax"] = 15.433300018311,
 		}, -- end of ["desc"]
-	}, -- end of ["Log posts 2"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 23277,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 23277,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 42,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 10000,
+					["rangeMin"] = 500,
+					["warhead"] = 
+					{
+						["mass"] = 10,
+						["type"] = 1,
+						["explosiveMass"] = 10,
+						["caliber"] = 127,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 4000,
+					["RCS"] = 0.018200000748038,
+					["displayName"] = "RIM-116A",
+					["altMin"] = -1,
+					["rangeMaxAltMin"] = 10000,
+					["fuseDist"] = 5,
+					["_origin"] = "",
+					["guidance"] = 5,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.RIM_116A",
+					["Nmax"] = 20,
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 16,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 27500,
+					["rangeMin"] = 1500,
+					["warhead"] = 
+					{
+						["mass"] = 39,
+						["type"] = 1,
+						["explosiveMass"] = 39,
+						["caliber"] = 203,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 24400,
+					["RCS"] = 0.079999998211861,
+					["displayName"] = "RIM-7",
+					["altMin"] = 1,
+					["rangeMaxAltMin"] = 14000,
+					["fuseDist"] = 10,
+					["_origin"] = "",
+					["guidance"] = 4,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.SeaSparrow",
+					["Nmax"] = 32,
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
+	}, -- end of ["Stennis"]
 	["MQ-9 Reaper"] = 
 	{
 		["sensors"] = 
@@ -31608,58 +34949,6 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["MQ-9 Reaper"]
-	["SA-18 Igla comm"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 90,
-			["riverCrossing"] = false,
-			["displayName"] = "MANPADS SA-18 Igla \"Grouse\" C2",
-			["speedMax"] = 4,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.35149890184402,
-					["x"] = -0.913718521595,
-					["z"] = -0.30565470457077,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 1.0662068128586,
-					["x"] = 0.96247643232346,
-					["z"] = 1.150284409523,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "",
-			["life"] = 1.0800000429153,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 4,
-			["attributes"] = 
-			{
-				["MANPADS AUX"] = true,
-				["Ground Units Non Airdefence"] = true,
-				["Rocket Attack Valid AirDefence"] = true,
-				["SAM elements"] = true,
-				["NonArmoredUnits"] = true,
-				["Infantry"] = true,
-				["CustomAimPoint"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["Vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Armed ground units"] = true,
-				["SAM AUX"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["SAM related"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "SA-18 Igla comm",
-			["maxSlopeAngle"] = 1,
-		}, -- end of ["desc"]
-	}, -- end of ["SA-18 Igla comm"]
 	["M1097 Avenger"] = 
 	{
 		["weapons"] = 
@@ -31750,8 +35039,8 @@ everyObject =
 		{
 			["massEmpty"] = 3990,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Avenger (Stinger)",
 			["speedMax"] = 31.388900756836,
+			["displayName"] = "SAM Avenger (Stinger)",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -31795,79 +35084,206 @@ everyObject =
 			["maxSlopeAngle"] = 0.5,
 		}, -- end of ["desc"]
 	}, -- end of ["M1097 Avenger"]
-	["rapier_fsa_blindfire_radar"] = 
+	["LHA_Tarawa"] = 
 	{
-		["sensors"] = 
+		["desc"] = 
+		{
+			["massEmpty"] = 38900000,
+			["RCS"] = 11065.158203125,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -7.8527727127075,
+					["x"] = -131.38269042969,
+					["z"] = -29.710758209229,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 59.248474121094,
+					["x"] = 120.88059234619,
+					["z"] = 30.254930496216,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "LHA-1 Tarawa",
+			["life"] = 7300,
+			["attributes"] = 
+			{
+				["ski_jump"] = true,
+				["Aircraft Carriers"] = true,
+				["AircraftCarrier With Tramplin"] = true,
+				["AircraftCarrier"] = true,
+				["Ships"] = true,
+				["Naval"] = true,
+				["Armed ships"] = true,
+				["All"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["DetectionByAWACS"] = true,
+				["Armed Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "AV-8B N/A AI by RAZBAM Sims",
+			["typeName"] = "LHA_Tarawa",
+			["speedMax"] = 15.433300018311,
+		}, -- end of ["desc"]
+		["weapons"] = 
 		{
 			[1] = 
 			{
-				[1] = 
+				["count"] = 15518,
+				["desc"] = 
 				{
-					["detectionDistanceAir"] = 
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
 					{
-						["upperHemisphere"] = 
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
 						{
-							["tailOn"] = 16718.5078125,
-							["headOn"] = 16718.5078125,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
 						{
-							["tailOn"] = 16718.5078125,
-							["headOn"] = 16718.5078125,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "Tor 9A331",
-				}, -- end of [1]
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
 			}, -- end of [1]
-		}, -- end of ["sensors"]
+			[2] = 
+			{
+				["count"] = 15518,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 42,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 10000,
+					["rangeMin"] = 500,
+					["warhead"] = 
+					{
+						["mass"] = 10,
+						["type"] = 1,
+						["explosiveMass"] = 10,
+						["caliber"] = 127,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 4000,
+					["RCS"] = 0.018200000748038,
+					["displayName"] = "RIM-116A",
+					["altMin"] = -1,
+					["rangeMaxAltMin"] = 10000,
+					["fuseDist"] = 5,
+					["_origin"] = "",
+					["guidance"] = 5,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.RIM_116A",
+					["Nmax"] = 20,
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
+	}, -- end of ["LHA_Tarawa"]
+	["Stinger comm dsr"] = 
+	{
 		["desc"] = 
 		{
-			["massEmpty"] = 5000,
+			["massEmpty"] = 90,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Rapier Blindfire TR",
-			["speedMax"] = 0,
+			["speedMax"] = 4,
+			["displayName"] = "MANPADS Stinger C2 Desert",
 			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.06157448887825,
-					["x"] = -1.4341485500336,
-					["z"] = -1.1278841495514,
+					["y"] = -0.44592845439911,
+					["x"] = -1.3637089729309,
+					["z"] = -1.0563538074493,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.834972858429,
-					["x"] = 2.4003527164459,
-					["z"] = 1.1278842687607,
+					["y"] = 2.0450000762939,
+					["x"] = 1.3533844947815,
+					["z"] = 1.2836854457855,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["_origin"] = "TechWeaponPack",
-			["life"] = 3,
+			["_origin"] = "",
+			["life"] = 1.0800000429153,
 			["Kmax"] = 0.050000000745058,
 			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
+			["speedMaxOffRoad"] = 4,
 			["attributes"] = 
 			{
-				["SAM TR"] = true,
-				["Vehicles"] = true,
+				["MANPADS AUX"] = true,
+				["Ground Units Non Airdefence"] = true,
+				["Rocket Attack Valid AirDefence"] = true,
 				["SAM elements"] = true,
 				["NonArmoredUnits"] = true,
+				["Infantry"] = true,
+				["CustomAimPoint"] = true,
 				["Air Defence"] = true,
 				["Ground vehicles"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
+				["Vehicles"] = true,
 				["NonAndLightArmoredUnits"] = true,
-				["SR SAM"] = true,
-				["RADAR_BAND2_FOR_ARM"] = true,
+				["Armed ground units"] = true,
+				["SAM AUX"] = true,
 				["All"] = true,
 				["Ground Units"] = true,
 				["SAM related"] = true,
 			}, -- end of ["attributes"]
-			["typeName"] = "rapier_fsa_blindfire_radar",
-			["maxSlopeAngle"] = 0,
+			["typeName"] = "Stinger comm dsr",
+			["maxSlopeAngle"] = 1,
 		}, -- end of ["desc"]
-	}, -- end of ["rapier_fsa_blindfire_radar"]
+	}, -- end of ["Stinger comm dsr"]
 	["ARTY M2A1-105"] = 
 	{
 		["weapons"] = 
@@ -31952,172 +35368,6 @@ everyObject =
 			["speedMax"] = 1,
 		}, -- end of ["desc"]
 	}, -- end of ["ARTY M2A1-105"]
-	["houseA_arm"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -10,
-					["x"] = -3.7452828884125,
-					["z"] = -7.3363757133484,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 5.5,
-					["x"] = 3.8547194004059,
-					["z"] = 8.3706321716309,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Building armed",
-			["attributes"] = 
-			{
-				["Fortifications"] = true,
-				["Ground Units Non Airdefence"] = true,
-				["Armed ground units"] = true,
-				["HeavyArmoredUnits"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["Ground Units"] = true,
-				["All"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 50,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 0,
-			["category"] = 2,
-			["typeName"] = "houseA_arm",
-			["speedMax"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["houseA_arm"]
-	["Vulcan"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 11253,
-			["riverCrossing"] = false,
-			["displayName"] = "SPAAA Vulcan M163",
-			["speedMax"] = 16.666700363159,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.0005190420197323,
-					["x"] = -2.5482997894287,
-					["z"] = -1.3644953966141,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.7865834236145,
-					["x"] = 2.5594613552094,
-					["z"] = 1.3785880804062,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "",
-			["life"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 16.666700363159,
-			["attributes"] = 
-			{
-				["Datalink"] = true,
-				["SAM TR"] = true,
-				["Vehicles"] = true,
-				["SAM elements"] = true,
-				["AA_flak"] = true,
-				["Mobile AAA"] = true,
-				["All"] = true,
-				["Air Defence"] = true,
-				["AAA"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["NonArmoredUnits"] = true,
-				["SAM related"] = true,
-				["Armed Air Defence"] = true,
-				["Ground Units"] = true,
-				["Rocket Attack Valid AirDefence"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "Vulcan",
-			["maxSlopeAngle"] = 0.61000001430511,
-		}, -- end of ["desc"]
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 590,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["displayName"] = "20mm AP",
-					["warhead"] = 
-					{
-						["mass"] = 0.1,
-						["type"] = 0,
-						["explosiveMass"] = 0,
-						["caliber"] = 20,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.M61_20_AP",
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 590,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["displayName"] = "20mm HE",
-					["warhead"] = 
-					{
-						["mass"] = 0.1,
-						["type"] = 1,
-						["explosiveMass"] = 0.1,
-						["caliber"] = 20,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.M61_20_HE",
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-				}, -- end of ["desc"]
-			}, -- end of [2]
-		}, -- end of ["weapons"]
-	}, -- end of ["Vulcan"]
 	["ARTY Scud_B"] = 
 	{
 		["weapons"] = 
@@ -32214,179 +35464,90 @@ everyObject =
 			["speedMax"] = 16.666700363159,
 		}, -- end of ["desc"]
 	}, -- end of ["ARTY Scud_B"]
-	["A-10A"] = 
+	["m117_cargo"] = 
 	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 1150,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.16146284341812,
-							["x"] = -44.163108825684,
-							["z"] = -0.64507895708084,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.15063416957855,
-							["x"] = 0.025108814239502,
-							["z"] = 0.64480221271515,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 30,
-						["mass"] = 0.36,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.GAU8_30_AP",
-					["displayName"] = "30mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[3] = 
-			{
-				[1] = 
-				{
-					["typeName"] = "Abstract RWR",
-					["type"] = 3,
-				}, -- end of [1]
-			}, -- end of [3]
-		}, -- end of ["sensors"]
+		["shapeName"] = "m117_cargo",
+		["defaultMass"] = 840,
 		["desc"] = 
 		{
-			["speedMax0"] = 236,
-			["massEmpty"] = 11625,
-			["tankerType"] = 0,
-			["range"] = 1500,
+			["life"] = 0,
+			["attributes"] = 
+			{
+				["Cargos"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "M117 bombs",
+			["typeName"] = "m117_cargo",
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -1.2815840244293,
-					["x"] = -9.1228017807007,
-					["z"] = -9.4672021865845,
+					["y"] = -0.0026968717575073,
+					["x"] = -1.1215981245041,
+					["z"] = -0.53822082281113,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.3696703910828,
-					["x"] = 7.6860585212708,
-					["z"] = 9.3263483047485,
+					["y"] = 1.0737447738647,
+					["x"] = 1.1215981245041,
+					["z"] = 0.53822082281113,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["Hmax"] = 10000,
-			["Kmax"] = 0.52999997138977,
-			["_origin"] = "A-10 Warthog",
-			["speedMax10K"] = 200,
-			["NyMin"] = -2,
-			["fuelMassMax"] = 5029,
-			["speedMax"] = 236,
-			["NyMax"] = 5.9000000953674,
-			["massMax"] = 21081,
-			["RCS"] = 10,
-			["displayName"] = "a-10a",
-			["life"] = 32,
-			["VyMax"] = 30,
-			["Kab"] = 0,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["Battle airplanes"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Battleplanes"] = true,
-				["Refuelable"] = true,
-				["All"] = true,
-				["Planes"] = true,
-				["NonArmoredUnits"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "A-10A",
-			["category"] = 0,
 		}, -- end of ["desc"]
-	}, -- end of ["A-10A"]
-	["Patriot ECS"] = 
+	}, -- end of ["m117_cargo"]
+	["SA-18 Igla comm"] = 
 	{
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 173872.484375,
-							["headOn"] = 173872.484375,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 173872.484375,
-							["headOn"] = 173872.484375,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "Patriot str",
-				}, -- end of [1]
-			}, -- end of [1]
-		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["massEmpty"] = 8000,
+			["massEmpty"] = 90,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Patriot ECS",
-			["speedMax"] = 20.833299636841,
+			["speedMax"] = 4,
+			["displayName"] = "MANPADS SA-18 Igla \"Grouse\" C2",
 			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = 0.004102177452296,
-					["x"] = -6.394223690033,
-					["z"] = -1.8842309713364,
+					["y"] = -0.35149890184402,
+					["x"] = -0.913718521595,
+					["z"] = -0.30565470457077,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 7.8501229286194,
-					["x"] = 6.1144690513611,
-					["z"] = 1.4669210910797,
+					["y"] = 1.0662068128586,
+					["x"] = 0.96247643232346,
+					["z"] = 1.150284409523,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
 			["_origin"] = "",
-			["life"] = 2,
+			["life"] = 1.0800000429153,
 			["Kmax"] = 0.050000000745058,
 			["category"] = 2,
-			["speedMaxOffRoad"] = 20.833299636841,
+			["speedMaxOffRoad"] = 4,
 			["attributes"] = 
 			{
+				["MANPADS AUX"] = true,
 				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
+				["Rocket Attack Valid AirDefence"] = true,
 				["SAM elements"] = true,
 				["NonArmoredUnits"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["SAM related"] = true,
-				["NonAndLightArmoredUnits"] = true,
+				["Infantry"] = true,
+				["CustomAimPoint"] = true,
 				["Air Defence"] = true,
-				["Unarmed vehicles"] = true,
+				["Ground vehicles"] = true,
+				["Vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Armed ground units"] = true,
+				["SAM AUX"] = true,
 				["All"] = true,
 				["Ground Units"] = true,
-				["SAM CC"] = true,
+				["SAM related"] = true,
 			}, -- end of ["attributes"]
-			["typeName"] = "Patriot ECS",
-			["maxSlopeAngle"] = 0.46999999880791,
+			["typeName"] = "SA-18 Igla comm",
+			["maxSlopeAngle"] = 1,
 		}, -- end of ["desc"]
-	}, -- end of ["Patriot ECS"]
+	}, -- end of ["SA-18 Igla comm"]
 	["Mirage 2000-5"] = 
 	{
 		["weapons"] = 
@@ -32512,33 +35673,211 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["Mirage 2000-5"]
-	["Dragonteeth 2"] = 
+	["Patriot ECS"] = 
 	{
-		["shapeName"] = "Dragonsteeth_01",
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 173872.484375,
+							["headOn"] = 173872.484375,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 173872.484375,
+							["headOn"] = 173872.484375,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "Patriot str",
+				}, -- end of [1]
+			}, -- end of [1]
+		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["life"] = 150,
-			["_origin"] = "WWII Armour and Technics",
-			["displayName"] = "Dragonteeth 2",
-			["category"] = 4,
-			["typeName"] = "Dragonteeth 2",
+			["massEmpty"] = 8000,
+			["riverCrossing"] = false,
+			["speedMax"] = 20.833299636841,
+			["displayName"] = "SAM Patriot ECS",
+			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -1.728863120079,
-					["x"] = -0.94661903381348,
-					["z"] = -0.56724560260773,
+					["y"] = 0.004102177452296,
+					["x"] = -6.394223690033,
+					["z"] = -1.8842309713364,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 1.4941673278809,
-					["x"] = 0.94661903381348,
-					["z"] = 0.56724560260773,
+					["y"] = 7.8501229286194,
+					["x"] = 6.1144690513611,
+					["z"] = 1.4669210910797,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "",
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 20.833299636841,
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["NonArmoredUnits"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["SAM related"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Air Defence"] = true,
+				["Unarmed vehicles"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["SAM CC"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "Patriot ECS",
+			["maxSlopeAngle"] = 0.46999999880791,
+		}, -- end of ["desc"]
+	}, -- end of ["Patriot ECS"]
+	["A-10A"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 1150,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.16146284341812,
+							["x"] = -44.163108825684,
+							["z"] = -0.64507895708084,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.15063416957855,
+							["x"] = 0.025108814239502,
+							["z"] = 0.64480221271515,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 30,
+						["mass"] = 0.36,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.GAU8_30_AP",
+					["displayName"] = "30mm AP",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[3] = 
+			{
+				[1] = 
+				{
+					["typeName"] = "Abstract RWR",
+					["type"] = 3,
+				}, -- end of [1]
+			}, -- end of [3]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["speedMax0"] = 236,
+			["massEmpty"] = 11625,
+			["tankerType"] = 0,
+			["range"] = 1500,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.2815840244293,
+					["x"] = -9.1228017807007,
+					["z"] = -9.4672021865845,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.3696703910828,
+					["x"] = 7.6860585212708,
+					["z"] = 9.3263483047485,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 10000,
+			["Kmax"] = 0.52999997138977,
+			["_origin"] = "A-10 Warthog",
+			["speedMax10K"] = 200,
+			["NyMin"] = -2,
+			["fuelMassMax"] = 5029,
+			["speedMax"] = 236,
+			["NyMax"] = 5.9000000953674,
+			["massMax"] = 21081,
+			["RCS"] = 10,
+			["displayName"] = "a-10a",
+			["life"] = 32,
+			["VyMax"] = 30,
+			["Kab"] = 0,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["Battle airplanes"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Battleplanes"] = true,
+				["Refuelable"] = true,
+				["All"] = true,
+				["Planes"] = true,
+				["NonArmoredUnits"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "A-10A",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["A-10A"]
+	["container_cargo"] = 
+	{
+		["shapeName"] = "bw_container_cargo",
+		["defaultMass"] = 1200,
+		["desc"] = 
+		{
+			["life"] = 0,
+			["attributes"] = 
+			{
+				["Cargos"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Container",
+			["typeName"] = "container_cargo",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.22555217146873,
+					["x"] = -1.6251794099808,
+					["z"] = -1.4489405155182,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.6601228713989,
+					["x"] = 1.6188353300095,
+					["z"] = 1.4414708614349,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
 		}, -- end of ["desc"]
-	}, -- end of ["Dragonteeth 2"]
+	}, -- end of ["container_cargo"]
 	["Truck Ural-4320T"] = 
 	{
 		["desc"] = 
@@ -32584,299 +35923,61 @@ everyObject =
 			["speedMax"] = 20.833299636841,
 		}, -- end of ["desc"]
 	}, -- end of ["Truck Ural-4320T"]
-	["MBT ZTZ96B"] = 
+	["C-17A"] = 
 	{
-		["weapons"] = 
-		{
-			[2] = 
-			{
-				["count"] = 18,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.060612548142672,
-							["x"] = -0.27024647593498,
-							["z"] = -0.060612548142672,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.060612548142672,
-							["x"] = 0.24980916082859,
-							["z"] = 0.060612548142672,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 125,
-						["mass"] = 23,
-						["explosiveMass"] = 23,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.ZTZ_125_HE",
-					["displayName"] = "125mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 7,
-				["desc"] = 
-				{
-					["missileCategory"] = 6,
-					["rangeMaxAltMax"] = 5000,
-					["rangeMin"] = 100,
-					["life"] = 2,
-					["_origin"] = "",
-					["altMax"] = 3000,
-					["RCS"] = 0.032000001519918,
-					["displayName"] = "AT-11 Sniper",
-					["altMin"] = -1,
-					["rangeMaxAltMin"] = 5000,
-					["fuseDist"] = 0,
-					["warhead"] = 
-					{
-						["mass"] = 4.5,
-						["caliber"] = 0,
-						["shapedExplosiveArmorThickness"] = 1,
-						["shapedExplosiveMass"] = 8.1000003814697,
-						["explosiveMass"] = 2.7000000476837,
-						["type"] = 2,
-					}, -- end of ["warhead"]
-					["guidance"] = 7,
-					["category"] = 1,
-					["typeName"] = "weapons.missiles.REFLEX",
-					["Nmax"] = 1.2,
-				}, -- end of ["desc"]
-			}, -- end of [3]
-			[1] = 
-			{
-				["count"] = 23,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.10894741863012,
-							["x"] = -0.23145794868469,
-							["z"] = -0.10864424705505,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.10724244266748,
-							["x"] = 0.26817846298218,
-							["z"] = 0.10754559934139,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 125,
-						["mass"] = 5.35,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.ZTZ_125_AP",
-					["displayName"] = "125mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[4] = 
-			{
-				["count"] = 2007,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 7.62,
-						["mass"] = 0.0119,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.7_62x54",
-					["displayName"] = "7.62mm",
-				}, -- end of ["desc"]
-			}, -- end of [4]
-			[5] = 
-			{
-				["count"] = 301,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 12.7,
-						["mass"] = 0.047,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.Utes_12_7x108_T",
-					["displayName"] = "12.7mm",
-				}, -- end of ["desc"]
-			}, -- end of [5]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "CITV day",
-					["opticType"] = 0,
-				}, -- end of [1]
-				[2] = 
-				{
-					["type"] = 0,
-					["typeName"] = "CITV night",
-					["opticType"] = 2,
-				}, -- end of [2]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["massEmpty"] = 42000,
-			["riverCrossing"] = true,
-			["maxSlopeAngle"] = 0.56000000238419,
+			["speedMax0"] = 194,
+			["massEmpty"] = 125645,
+			["tankerType"] = 0,
+			["range"] = 12993,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.0019113851012662,
-					["x"] = -3.868320941925,
-					["z"] = -1.8569041490555,
+					["y"] = -0.011026999913156,
+					["x"] = -34.474201202393,
+					["z"] = -26.259799957275,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 3.1546437740326,
-					["x"] = 6.450900554657,
-					["z"] = 1.6598302125931,
+					["y"] = 17.325099945068,
+					["x"] = 19.090700149536,
+					["z"] = 26.259799957275,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "ZTZ-96B",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["Armored vehicles"] = true,
-				["Modern Tanks"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["Ground vehicles"] = true,
-				["Datalink"] = true,
-				["Tanks"] = true,
-				["HeavyArmoredUnits"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Armed vehicles"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 25,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
-			["speedMaxOffRoad"] = 18.049999237061,
-			["category"] = 2,
-			["typeName"] = "ZTZ96B",
-			["speedMax"] = 18.049999237061,
-		}, -- end of ["desc"]
-	}, -- end of ["MBT ZTZ96B"]
-	["Stinger comm dsr"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 90,
-			["riverCrossing"] = false,
-			["displayName"] = "MANPADS Stinger C2 Desert",
-			["speedMax"] = 4,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.44592845439911,
-					["x"] = -1.3637089729309,
-					["z"] = -1.0563538074493,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.0450000762939,
-					["x"] = 1.3533844947815,
-					["z"] = 1.2836854457855,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
+			["Hmax"] = 13715,
+			["Kmax"] = 3,
 			["_origin"] = "",
-			["life"] = 1.0800000429153,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 4,
+			["speedMax10K"] = 180,
+			["NyMin"] = -1,
+			["fuelMassMax"] = 132405,
+			["speedMax"] = 194,
+			["NyMax"] = 2.5,
+			["massMax"] = 265350,
+			["RCS"] = 80,
+			["displayName"] = "c-17",
+			["life"] = 45,
+			["VyMax"] = 8,
+			["Kab"] = 0,
 			["attributes"] = 
 			{
-				["MANPADS AUX"] = true,
-				["Ground Units Non Airdefence"] = true,
-				["Rocket Attack Valid AirDefence"] = true,
-				["SAM elements"] = true,
-				["NonArmoredUnits"] = true,
-				["Infantry"] = true,
-				["CustomAimPoint"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["Vehicles"] = true,
+				["Air"] = true,
 				["NonAndLightArmoredUnits"] = true,
-				["Armed ground units"] = true,
-				["SAM AUX"] = true,
 				["All"] = true,
-				["Ground Units"] = true,
-				["SAM related"] = true,
+				["Refuelable"] = true,
+				["Planes"] = true,
+				["NonArmoredUnits"] = true,
+				["Transports"] = true,
 			}, -- end of ["attributes"]
-			["typeName"] = "Stinger comm dsr",
-			["maxSlopeAngle"] = 1,
+			["typeName"] = "C-17A",
+			["category"] = 0,
 		}, -- end of ["desc"]
-	}, -- end of ["Stinger comm dsr"]
-	["m117_cargo"] = 
+	}, -- end of ["C-17A"]
+	["trunks_small_cargo"] = 
 	{
-		["shapeName"] = "m117_cargo",
-		["defaultMass"] = 840,
+		["shapeName"] = "trunks_small_cargo",
+		["defaultMass"] = 5000,
 		["desc"] = 
 		{
 			["life"] = 0,
@@ -32885,34 +35986,105 @@ everyObject =
 				["Cargos"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "M117 bombs",
 			["category"] = 4,
-			["typeName"] = "m117_cargo",
+			["displayName"] = "Trunks short",
+			["typeName"] = "trunks_small_cargo",
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.0026968717575073,
-					["x"] = -1.1215981245041,
-					["z"] = -0.53822082281113,
+					["y"] = -0.028232594951987,
+					["x"] = -1.8231284618378,
+					["z"] = -0.98158586025238,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 1.0737447738647,
-					["x"] = 1.1215981245041,
-					["z"] = 0.53822082281113,
+					["y"] = 1.7443628311157,
+					["x"] = 1.8167841434479,
+					["z"] = 0.9741171002388,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
 		}, -- end of ["desc"]
-	}, -- end of ["m117_cargo"]
+	}, -- end of ["trunks_small_cargo"]
+	["Flakscheinwerfer_37"] = 
+	{
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 18861.501953125,
+							["headOn"] = 18861.501953125,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 18861.501953125,
+							["headOn"] = 18861.501953125,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "VIRTUAL_AUDIO_SENSOR",
+				}, -- end of [1]
+			}, -- end of [1]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 2000,
+			["riverCrossing"] = false,
+			["speedMax"] = 0,
+			["displayName"] = "SL Flakscheinwerfer 37",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 3.6631539842347e-05,
+					["x"] = -3.4765408039093,
+					["z"] = -1.2167038917542,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.9255630970001,
+					["x"] = 3.4765408039093,
+					["z"] = 1.2167038917542,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "WWII Armour and Technics",
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["attributes"] = 
+			{
+				["Rocket Attack Valid AirDefence"] = true,
+				["NonArmoredUnits"] = true,
+				["Air Defence"] = true,
+				["AAA"] = true,
+				["Vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Static AAA"] = true,
+				["Armed Air Defence"] = true,
+				["Ground Units"] = true,
+				["Ground vehicles"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "Flakscheinwerfer_37",
+			["maxSlopeAngle"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["Flakscheinwerfer_37"]
 	["Hawk ln"] = 
 	{
 		["desc"] = 
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Hawk LN M192",
 			["speedMax"] = 0,
+			["displayName"] = "SAM Hawk LN M192",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -32939,10 +36111,10 @@ everyObject =
 				["Vehicles"] = true,
 				["SAM elements"] = true,
 				["NonArmoredUnits"] = true,
-				["Ground Units"] = true,
+				["NonAndLightArmoredUnits"] = true,
 				["Air Defence"] = true,
 				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
+				["Ground Units"] = true,
 				["SAM LL"] = true,
 				["All"] = true,
 				["AA_missile"] = true,
@@ -33001,33 +36173,116 @@ everyObject =
 			}, -- end of [1]
 		}, -- end of ["weapons"]
 	}, -- end of ["Hawk ln"]
-	["Black_Tyre_WF"] = 
+	["Mi-28N"] = 
 	{
-		["shapeName"] = "H-tyre_B_WF",
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 240,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 30,
+						["mass"] = 0.39,
+						["explosiveMass"] = 0.39,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.2A42_30_HE",
+					["displayName"] = "30mm HE",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "Mi-28N TV",
+					["opticType"] = 0,
+				}, -- end of [1]
+				[2] = 
+				{
+					["type"] = 0,
+					["typeName"] = "Mi-28N FLIR",
+					["opticType"] = 2,
+				}, -- end of [2]
+			}, -- end of [0]
+			[3] = 
+			{
+				[1] = 
+				{
+					["typeName"] = "Abstract RWR",
+					["type"] = 3,
+				}, -- end of [1]
+			}, -- end of [3]
+		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["life"] = 3,
-			["_origin"] = "",
-			["displayName"] = "Mark Tyre with White Flag",
-			["category"] = 4,
-			["typeName"] = "Black_Tyre_WF",
+			["massEmpty"] = 8920,
+			["range"] = 407,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.33318361639977,
-					["x"] = -1.3334575891495,
-					["z"] = -1.3367536067963,
+					["y"] = -1.6842690706253,
+					["x"] = -12.700698852539,
+					["z"] = -2.6129968166351,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 1.3364826440811,
-					["x"] = 1.3400497436523,
-					["z"] = 1.3367537260056,
+					["y"] = 3.0297300815582,
+					["x"] = 6.8217301368713,
+					["z"] = 2.612996339798,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
+			["Hmax"] = 4115,
+			["Kmax"] = 0.30000001192093,
+			["_origin"] = "",
+			["NyMin"] = 0.5,
+			["fuelMassMax"] = 1500,
+			["speedMax"] = 365,
+			["NyMax"] = 2.7000000476837,
+			["massMax"] = 11700,
+			["RCS"] = 5,
+			["displayName"] = "Mi-28N",
+			["life"] = 15,
+			["HmaxStat"] = 2990,
+			["VyMax"] = 7.9000000953674,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Helicopters"] = true,
+				["Attack helicopters"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "Mi-28N",
+			["category"] = 1,
 		}, -- end of ["desc"]
-	}, -- end of ["Black_Tyre_WF"]
+	}, -- end of ["Mi-28N"]
 	["MiG-31"] = 
 	{
 		["weapons"] = 
@@ -33160,25 +36415,16 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["MiG-31"]
-	["Stennis"] = 
+	["IFV MCV-80"] = 
 	{
 		["weapons"] = 
 		{
 			[1] = 
 			{
-				["count"] = 23277,
+				["count"] = 87,
 				["desc"] = 
 				{
 					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
 					["box"] = 
 					{
 						["min"] = 
@@ -33194,25 +36440,25 @@ everyObject =
 							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_AP",
-					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["caliber"] = 30,
+						["mass"] = 0.357,
+						["explosiveMass"] = 0.357,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.L21A1_30_HE",
+					["displayName"] = "L13A1 (30mm HE-T)",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 			[2] = 
 			{
-				["count"] = 23277,
+				["count"] = 216,
 				["desc"] = 
 				{
 					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.1,
-						["type"] = 1,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
 					["box"] = 
 					{
 						["min"] = 
@@ -33228,186 +36474,165 @@ everyObject =
 							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_HE",
-					["displayName"] = "20mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 16,
-				["desc"] = 
-				{
-					["missileCategory"] = 2,
-					["rangeMaxAltMax"] = 27500,
-					["rangeMin"] = 1500,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 14000,
-					["altMax"] = 24400,
-					["RCS"] = 0.079999998211861,
-					["displayName"] = "RIM-7",
-					["altMin"] = 1,
-					["life"] = 2,
-					["fuseDist"] = 10,
-					["category"] = 1,
-					["guidance"] = 4,
 					["warhead"] = 
 					{
-						["explosiveMass"] = 39,
-						["type"] = 1,
-						["caliber"] = 203,
-						["mass"] = 39,
+						["caliber"] = 30,
+						["mass"] = 0.3,
+						["explosiveMass"] = 0,
+						["type"] = 0,
 					}, -- end of ["warhead"]
-					["typeName"] = "weapons.missiles.SeaSparrow",
-					["Nmax"] = 32,
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.L14A2_30_APDS",
+					["displayName"] = "L14A2 (30mm APDS-T)",
 				}, -- end of ["desc"]
-			}, -- end of [3]
-		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 72916000,
-			["RCS"] = 17754.01953125,
-			["box"] = 
+			}, -- end of [2]
+			[4] = 
 			{
-				["min"] = 
-				{
-					["y"] = -10.132601737976,
-					["x"] = -159.36015319824,
-					["z"] = -45.033771514893,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 57.859607696533,
-					["x"] = 159.16284179688,
-					["z"] = 49.935443878174,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 15.433300018311,
-			["life"] = 7300,
-			["attributes"] = 
-			{
-				["Aircraft Carriers"] = true,
-				["AircraftCarrier"] = true,
-				["ACLS"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["RADAR_BAND2_FOR_ARM"] = true,
-				["AircraftCarrier With Arresting Gear"] = true,
-				["Link4"] = true,
-				["Heavy armed ships"] = true,
-				["AircraftCarrier With Catapult"] = true,
-				["Naval"] = true,
-				["Armed Air Defence"] = true,
-				["Armed ships"] = true,
-				["Ships"] = true,
-				["Arresting Gear"] = true,
-				["Armed Ship"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["catapult"] = true,
-				["Datalink"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "USS John C Stennis",
-			["typeName"] = "Stennis",
-			["displayName"] = "CVN-74 John C. Stennis",
-		}, -- end of ["desc"]
-	}, -- end of ["Stennis"]
-	["S_75M_Volhov"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-2 S-75 \"Guideline\" LN",
-			["speedMax"] = 0,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.159339427948,
-					["x"] = -4.1898202896118,
-					["z"] = -1.4948447942734,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.4417996406555,
-					["x"] = 4.1898202896118,
-					["z"] = 1.4948447942734,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "TechWeaponPack",
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["attributes"] = 
-			{
-				["LR SAM"] = true,
-				["Vehicles"] = true,
-				["SAM elements"] = true,
-				["NonArmoredUnits"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["SAM LL"] = true,
-				["AA_missile"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Armed Air Defence"] = true,
-				["Ground Units"] = true,
-				["SAM related"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "S_75M_Volhov",
-			["maxSlopeAngle"] = 0,
-		}, -- end of ["desc"]
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 1,
+				["count"] = 1770,
 				["desc"] = 
 				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 450,
+				["desc"] = 
+				{
+					["life"] = 2,
 					["box"] = 
 					{
 						["min"] = 
 						{
-							["y"] = -0.84564626216888,
-							["x"] = -5.8387970924377,
-							["z"] = -0.84564626216888,
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
 						}, -- end of ["min"]
 						["max"] = 
 						{
-							["y"] = 0.84564626216888,
-							["x"] = 4.7303376197815,
-							["z"] = 0.84564626216888,
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 40000,
-					["fuseDist"] = 20,
-					["category"] = 1,
-					["guidance"] = 4,
-					["Nmax"] = 17,
-					["rangeMin"] = 7000,
-					["altMax"] = 25000,
-					["RCS"] = 0.39669999480247,
-					["displayName"] = "SA2V755",
-					["altMin"] = 100,
-					["life"] = 2,
-					["_origin"] = "",
 					["warhead"] = 
 					{
-						["mass"] = 196,
-						["type"] = 1,
-						["explosiveMass"] = 196,
-						["caliber"] = 500,
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
 					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 30000,
-					["typeName"] = "SA2V755",
-					["missileCategory"] = 2,
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
+					["displayName"] = "7.62mm",
 				}, -- end of ["desc"]
-			}, -- end of [1]
+			}, -- end of [3]
 		}, -- end of ["weapons"]
-	}, -- end of ["S_75M_Volhov"]
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "Raven day",
+					["opticType"] = 0,
+				}, -- end of [1]
+				[2] = 
+				{
+					["type"] = 0,
+					["typeName"] = "Raven night",
+					["opticType"] = 2,
+				}, -- end of [2]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 23500,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.61000001430511,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.00080186419654638,
+					["x"] = -3.3349845409393,
+					["z"] = -1.569064617157,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.604597568512,
+					["x"] = 3.2145817279816,
+					["z"] = 1.5690647363663,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "IFV Warrior ",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armored vehicles"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["LightArmoredUnits"] = true,
+				["Ground vehicles"] = true,
+				["Armed vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Infantry carriers"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["APC"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 5,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 20.833299636841,
+			["category"] = 2,
+			["typeName"] = "MCV-80",
+			["speedMax"] = 20.833299636841,
+		}, -- end of ["desc"]
+	}, -- end of ["IFV MCV-80"]
+	["Subsidiary structure G"] = 
+	{
+		["shapeName"] = "saray-g",
+		["desc"] = 
+		{
+			["life"] = 70,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Subsidiary structure G",
+			["typeName"] = "Subsidiary structure G",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.028243999928236,
+					["x"] = -3.0422699451447,
+					["z"] = -4.3721399307251,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.5462601184845,
+					["x"] = 2.9601800441742,
+					["z"] = 4.4011597633362,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Subsidiary structure G"]
 	["SA-11 Buk SR 9S18M1"] = 
 	{
 		["sensors"] = 
@@ -33438,8 +36663,8 @@ everyObject =
 		{
 			["massEmpty"] = 34000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-11 Buk \"Gadfly\" Snow Drift SR",
 			["speedMax"] = 18.055599212646,
+			["displayName"] = "SAM SA-11 Buk \"Gadfly\" Snow Drift SR",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -33480,45 +36705,40 @@ everyObject =
 			["maxSlopeAngle"] = 0.27000001072884,
 		}, -- end of ["desc"]
 	}, -- end of ["SA-11 Buk SR 9S18M1"]
-	["MiG-23MLD"] = 
+	["trunks_long_cargo"] = 
 	{
-		["weapons"] = 
+		["shapeName"] = "trunks_long_cargo",
+		["defaultMass"] = 4747,
+		["desc"] = 
 		{
-			[1] = 
+			["life"] = 0,
+			["attributes"] = 
 			{
-				["count"] = 260,
-				["desc"] = 
+				["Cargos"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Trunks long",
+			["typeName"] = "trunks_long_cargo",
+			["box"] = 
+			{
+				["min"] = 
 				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 23,
-						["mass"] = 0.175,
-						["explosiveMass"] = 0.175,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.GSH23_23_HE_T",
-					["displayName"] = "23mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
+					["y"] = -0.22435277700424,
+					["x"] = -4.0400185585022,
+					["z"] = -0.98158711194992,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.5482429265976,
+					["x"] = 4.0336747169495,
+					["z"] = 0.97411757707596,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["trunks_long_cargo"]
+	["KJ-2000"] = 
+	{
 		["sensors"] = 
 		{
 			[1] = 
@@ -33529,30 +36749,20 @@ everyObject =
 					{
 						["upperHemisphere"] = 
 						{
-							["tailOn"] = 22737.171875,
-							["headOn"] = 33437.015625,
+							["tailOn"] = 268356.125,
+							["headOn"] = 268356.125,
 						}, -- end of ["upperHemisphere"]
 						["lowerHemisphere"] = 
 						{
-							["tailOn"] = 12037.326171875,
-							["headOn"] = 33437.015625,
+							["tailOn"] = 268356.125,
+							["headOn"] = 268356.125,
 						}, -- end of ["lowerHemisphere"]
 					}, -- end of ["detectionDistanceAir"]
 					["type"] = 1,
-					["typeName"] = "N-008",
+					["typeName"] = "AESA_KJ2000",
+					["detectionDistanceRBM"] = 3500,
 				}, -- end of [1]
 			}, -- end of [1]
-			[2] = 
-			{
-				[1] = 
-				{
-					["type"] = 2,
-					["detectionDistanceMaximal"] = 15000,
-					["detectionDistanceIdle"] = 8000,
-					["typeName"] = "TP-23M",
-					["detectionDistanceAfterburner"] = 35000,
-				}, -- end of [1]
-			}, -- end of [2]
 			[3] = 
 			{
 				[1] = 
@@ -33564,185 +36774,54 @@ everyObject =
 		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["speedMax0"] = 388.10000610352,
-			["massEmpty"] = 10550,
-			["range"] = 1950,
+			["speedMax0"] = 167.11000061035,
+			["massEmpty"] = 90000,
+			["tankerType"] = 1,
+			["range"] = 7300,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -2.3299200534821,
-					["x"] = -10,
-					["z"] = -9,
+					["y"] = -3.1953241825104,
+					["x"] = -27.208490371704,
+					["z"] = -25.9856300354,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.7555100917816,
-					["x"] = 11,
-					["z"] = 9,
+					["y"] = 11.861766815186,
+					["x"] = 19.822910308838,
+					["z"] = 26.033613204956,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["Hmax"] = 18500,
-			["Kmax"] = 0.68999999761581,
-			["_origin"] = "",
-			["speedMax10K"] = 693.25,
-			["NyMin"] = -3,
-			["fuelMassMax"] = 3800,
-			["speedMax"] = 693.25,
-			["NyMax"] = 6.5,
-			["massMax"] = 17800,
-			["RCS"] = 4,
-			["displayName"] = "mig-23ml",
-			["life"] = 16,
-			["VyMax"] = 240,
-			["Kab"] = 3,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["Fighters"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Battle airplanes"] = true,
-				["Planes"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "MiG-23MLD",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["MiG-23MLD"]
-	["I-16"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 900,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 7.62,
-						["mass"] = 0.0119,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.7_62x54",
-					["displayName"] = "7.62mm",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 1900,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 7.62,
-						["mass"] = 0.0119,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.7_62x54_NOTRACER",
-					["displayName"] = "7.62mm",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "Merkury LLTV",
-					["opticType"] = 1,
-				}, -- end of [1]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["speedMax0"] = 113,
-			["massEmpty"] = 1614,
-			["range"] = 440,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -1.6521176099777,
-					["x"] = -4.4670214653015,
-					["z"] = -4.7605304718018,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 1.6576682329178,
-					["x"] = 1.7197879552841,
-					["z"] = 4.7605304718018,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 9700,
-			["Kmax"] = 0.10000000149012,
-			["_origin"] = "I-16 AI by OctopusG",
-			["speedMax10K"] = 129,
-			["NyMin"] = -4,
-			["fuelMassMax"] = 191,
-			["speedMax"] = 129,
-			["NyMax"] = 8,
-			["massMax"] = 2146,
-			["RCS"] = 2.5,
-			["displayName"] = "I-16",
-			["life"] = 15,
-			["VyMax"] = 14.699999809265,
+			["Hmax"] = 12247,
+			["Kmax"] = 4,
+			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
+			["speedMax10K"] = 236.11000061035,
+			["NyMin"] = 0.5,
+			["fuelMassMax"] = 70000,
+			["speedMax"] = 236.11000061035,
+			["NyMax"] = 2.5,
+			["massMax"] = 190000,
+			["RCS"] = 80,
+			["displayName"] = "KJ-2000",
+			["life"] = 18,
+			["VyMax"] = 10,
 			["Kab"] = 0,
 			["attributes"] = 
 			{
+				["AWACS"] = true,
 				["Air"] = true,
-				["Battle airplanes"] = true,
 				["NonAndLightArmoredUnits"] = true,
-				["Battleplanes"] = true,
+				["Link16"] = true,
 				["NonArmoredUnits"] = true,
 				["All"] = true,
+				["Datalink"] = true,
 				["Planes"] = true,
 			}, -- end of ["attributes"]
-			["typeName"] = "I-16",
+			["typeName"] = "KJ-2000",
 			["category"] = 0,
 		}, -- end of ["desc"]
-	}, -- end of ["I-16"]
+	}, -- end of ["KJ-2000"]
 	["AS32-31A"] = 
 	{
 		["desc"] = 
@@ -33753,8 +36832,8 @@ everyObject =
 				["Buildings"] = true,
 			}, -- end of ["attributes"]
 			["_origin"] = "",
-			["displayName"] = "",
 			["category"] = 4,
+			["displayName"] = "",
 			["typeName"] = "AS32-31A",
 			["box"] = 
 			{
@@ -33773,143 +36852,33 @@ everyObject =
 			}, -- end of ["box"]
 		}, -- end of ["desc"]
 	}, -- end of ["AS32-31A"]
-	["IFV M1134 Stryker ATGM"] = 
+	["WindTurbine_11"] = 
 	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 14,
-				["desc"] = 
-				{
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.2273330539465,
-							["x"] = -0.77596908807755,
-							["z"] = -0.22932435572147,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.22733306884766,
-							["x"] = 0.77732574939728,
-							["z"] = 0.22932435572147,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 3800,
-					["fuseDist"] = 0,
-					["category"] = 1,
-					["guidance"] = 8,
-					["Nmax"] = 3,
-					["rangeMin"] = 65,
-					["altMax"] = 2000,
-					["RCS"] = 0.029999999329448,
-					["displayName"] = "BGM-71 TOW",
-					["altMin"] = -1,
-					["life"] = 2,
-					["missileCategory"] = 6,
-					["warhead"] = 
-					{
-						["mass"] = 5.9000000953674,
-						["caliber"] = 0,
-						["shapedExplosiveArmorThickness"] = 0.89999997615814,
-						["shapedExplosiveMass"] = 10.799999237061,
-						["explosiveMass"] = 3.5999999046326,
-						["type"] = 2,
-					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 3800,
-					["typeName"] = "weapons.missiles.TOW2",
-					["_origin"] = "",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 1104,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["_origin"] = "",
-					["warhead"] = 
-					{
-						["caliber"] = 7.62,
-						["mass"] = 0.00933,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["typeName"] = "weapons.shells.7_62x51",
-					["displayName"] = "7.62mm",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "TAS4 TOW day",
-					["opticType"] = 0,
-				}, -- end of [1]
-				[2] = 
-				{
-					["type"] = 0,
-					["typeName"] = "TAS4 TOW night",
-					["opticType"] = 2,
-				}, -- end of [2]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
+		["shapeName"] = "WindTurbine_11",
 		["desc"] = 
 		{
-			["massEmpty"] = 17237,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.46999999880791,
+			["life"] = 100,
+			["_origin"] = "South_Atlantic_Assets",
+			["category"] = 4,
+			["displayName"] = "Wind Turbine 11",
+			["typeName"] = "WindTurbine_11",
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -7.6937605626881e-05,
-					["x"] = -2.752231836319,
-					["z"] = -1.5992095470428,
+					["y"] = -1.0622234344482,
+					["x"] = -4.3779091835022,
+					["z"] = -14.320136070251,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 3.4886846542358,
-					["x"] = 4.1969313621521,
-					["z"] = 1.5686666965485,
+					["y"] = 50.655979156494,
+					["x"] = 1.1835788488388,
+					["z"] = 19.297849655151,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "ATGM Stryker",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["Infantry carriers"] = true,
-				["LightArmoredUnits"] = true,
-				["Ground Units"] = true,
-				["Armored vehicles"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["ATGM"] = true,
-				["Armed vehicles"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Datalink"] = true,
-				["IFV"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 4,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 20,
-			["category"] = 2,
-			["typeName"] = "M1134 Stryker ATGM",
-			["speedMax"] = 20,
 		}, -- end of ["desc"]
-	}, -- end of ["IFV M1134 Stryker ATGM"]
+	}, -- end of ["WindTurbine_11"]
 	["flak38"] = 
 	{
 		["weapons"] = 
@@ -34057,14 +37026,14 @@ everyObject =
 					["warhead"] = 
 					{
 						["caliber"] = 120,
-						["mass"] = 4.9,
+						["mass"] = 4.6,
 						["explosiveMass"] = 0,
 						["type"] = 0,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_AP",
-					["displayName"] = "M829A2 (120mm APFSDS-T)",
+					["typeName"] = "weapons.shells.DM33_120_AP",
+					["displayName"] = "DM33 (120mm APFSDS-T)",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 			[2] = 
@@ -34097,13 +37066,13 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_HE",
-					["displayName"] = "M830 (120mm HEAT-MP-T)",
+					["typeName"] = "weapons.shells.DM12_120mm_HEAT_MP_T",
+					["displayName"] = "DM12 (120mm HEAT-MP-T)",
 				}, -- end of ["desc"]
 			}, -- end of [2]
-			[3] = 
+			[4] = 
 			{
-				["count"] = 4018,
+				["count"] = 3218,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -34117,6 +37086,40 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 818,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
 					["displayName"] = "7.62mm",
 				}, -- end of ["desc"]
 			}, -- end of [3]
@@ -34185,13 +37188,157 @@ everyObject =
 			["speedMax"] = 20,
 		}, -- end of ["desc"]
 	}, -- end of ["MBT Leopard-2A5"]
-	["MiG-19P"] = 
+	["Truck Coach cargo"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.020998723804951,
+					["x"] = -7.8715014457703,
+					["z"] = -1.7592797279358,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 4.526104927063,
+					["x"] = 7.8715014457703,
+					["z"] = 1.7592799663544,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["speedMax"] = 0,
+			["life"] = 3,
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["NonArmoredUnits"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Unarmed vehicles"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "RailwayObjectsPack",
+			["typeName"] = "Coach cargo",
+			["displayName"] = "Freight Van",
+		}, -- end of ["desc"]
+	}, -- end of ["Truck Coach cargo"]
+	["Truck Coach a tank yellow"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.024370599538088,
+					["x"] = -6.0481791496277,
+					["z"] = -1.5487591028214,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 4.5690202713013,
+					["x"] = 6.0481791496277,
+					["z"] = 1.5487591028214,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["speedMax"] = 0,
+			["life"] = 3,
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["NonArmoredUnits"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Unarmed vehicles"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "RailwayObjectsPack",
+			["typeName"] = "Coach a tank yellow",
+			["displayName"] = "Tank Car yellow",
+		}, -- end of ["desc"]
+	}, -- end of ["Truck Coach a tank yellow"]
+	["Container white"] = 
+	{
+		["shapeName"] = "konteiner_white",
+		["desc"] = 
+		{
+			["life"] = 20,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Container white",
+			["typeName"] = "Container white",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0,
+					["x"] = -1.25,
+					["z"] = -4,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.4000999927521,
+					["x"] = 1.25,
+					["z"] = 4,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Container white"]
+	["Cafe"] = 
+	{
+		["shapeName"] = "stolovaya",
+		["desc"] = 
+		{
+			["life"] = 500,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Cafe",
+			["typeName"] = "Cafe",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -10.013776779175,
+					["x"] = -8.7922458648682,
+					["z"] = -13.080434799194,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 6.2256813049316,
+					["x"] = 6.8179402351379,
+					["z"] = 12.884199142456,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Cafe"]
+	["ARTY SK_C_28_naval_gun"] = 
 	{
 		["weapons"] = 
 		{
 			[1] = 
 			{
-				["count"] = 140,
+				["count"] = 200,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -34199,324 +37346,97 @@ everyObject =
 					{
 						["min"] = 
 						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
+							["y"] = -0.084222868084908,
+							["x"] = -0.33004048466682,
+							["z"] = -0.077278509736061,
 						}, -- end of ["min"]
 						["max"] = 
 						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
+							["y"] = 0.084222868084908,
+							["x"] = 0.33004048466682,
+							["z"] = 0.077278509736061,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
 					["warhead"] = 
 					{
-						["caliber"] = 30,
-						["mass"] = 0.403,
-						["explosiveMass"] = 0,
-						["type"] = 0,
+						["explosiveMass"] = 3.89,
+						["type"] = 1,
+						["caliber"] = 149.1,
+						["mass"] = 45.3,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.NR30_30x155_APT",
-					["displayName"] = "BT 30x155 AP-T",
+					["typeName"] = "weapons.shells.RM_15cm_HE",
+					["displayName"] = "15cm HE",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 		}, -- end of ["weapons"]
 		["sensors"] = 
 		{
-			[1] = 
+			[0] = 
 			{
 				[1] = 
 				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 22737.171875,
-							["headOn"] = 33437.015625,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 12037.326171875,
-							["headOn"] = 33437.015625,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "N-008",
+					["type"] = 0,
+					["typeName"] = "TRP-2A day",
+					["opticType"] = 0,
 				}, -- end of [1]
-			}, -- end of [1]
-			[3] = 
-			{
-				[1] = 
+				[2] = 
 				{
-					["typeName"] = "Abstract RWR",
-					["type"] = 3,
-				}, -- end of [1]
-			}, -- end of [3]
+					["type"] = 0,
+					["typeName"] = "TRP-2A night",
+					["opticType"] = 1,
+				}, -- end of [2]
+			}, -- end of [0]
 		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["speedMax0"] = 294.16665649414,
-			["massEmpty"] = 5252,
-			["range"] = 1200,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -1.6863943338394,
-					["x"] = -6.6625347137451,
-					["z"] = -4.5626168251038,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.3824925422668,
-					["x"] = 6.5626635551453,
-					["z"] = 4.5626168251038,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 17500,
-			["Kmax"] = 0.34000000357628,
-			["_origin"] = "MiG-19P AI by RAZBAM",
-			["speedMax10K"] = 275.55554199219,
-			["NyMin"] = -3,
-			["fuelMassMax"] = 1800,
-			["speedMax"] = 294.16665649414,
-			["NyMax"] = 7,
-			["massMax"] = 8738,
-			["RCS"] = 5,
-			["displayName"] = "MiG-19P",
-			["life"] = 18,
-			["VyMax"] = 51,
-			["Kab"] = 1.6000000238419,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["Fighters"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Battle airplanes"] = true,
-				["Planes"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "MiG-19P",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["MiG-19P"]
-	["container_cargo"] = 
-	{
-		["shapeName"] = "bw_container_cargo",
-		["defaultMass"] = 1200,
-		["desc"] = 
-		{
-			["life"] = 0,
-			["attributes"] = 
-			{
-				["Cargos"] = true,
-			}, -- end of ["attributes"]
-			["_origin"] = "",
-			["displayName"] = "Container",
-			["category"] = 4,
-			["typeName"] = "container_cargo",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.22555217146873,
-					["x"] = -1.6251794099808,
-					["z"] = -1.4489405155182,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.6601228713989,
-					["x"] = 1.6188353300095,
-					["z"] = 1.4414708614349,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["container_cargo"]
-	["C-17A"] = 
-	{
-		["desc"] = 
-		{
-			["speedMax0"] = 194,
-			["massEmpty"] = 125645,
-			["tankerType"] = 0,
-			["range"] = 12993,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.011026999913156,
-					["x"] = -34.474201202393,
-					["z"] = -26.259799957275,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 17.325099945068,
-					["x"] = 19.090700149536,
-					["z"] = 26.259799957275,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 13715,
-			["Kmax"] = 3,
-			["_origin"] = "",
-			["speedMax10K"] = 180,
-			["NyMin"] = -1,
-			["fuelMassMax"] = 132405,
-			["speedMax"] = 194,
-			["NyMax"] = 2.5,
-			["massMax"] = 265350,
-			["RCS"] = 80,
-			["displayName"] = "c-17",
-			["life"] = 45,
-			["VyMax"] = 8,
-			["Kab"] = 0,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Refuelable"] = true,
-				["Planes"] = true,
-				["NonArmoredUnits"] = true,
-				["Transports"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "C-17A",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["C-17A"]
-	["trunks_small_cargo"] = 
-	{
-		["shapeName"] = "trunks_small_cargo",
-		["defaultMass"] = 5000,
-		["desc"] = 
-		{
-			["life"] = 0,
-			["attributes"] = 
-			{
-				["Cargos"] = true,
-			}, -- end of ["attributes"]
-			["_origin"] = "",
-			["displayName"] = "Trunks short",
-			["category"] = 4,
-			["typeName"] = "trunks_small_cargo",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.028232594951987,
-					["x"] = -1.8231284618378,
-					["z"] = -0.98158586025238,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 1.7443628311157,
-					["x"] = 1.8167841434479,
-					["z"] = 0.9741171002388,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["trunks_small_cargo"]
-	["Flakscheinwerfer_37"] = 
-	{
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 18861.501953125,
-							["headOn"] = 18861.501953125,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 18861.501953125,
-							["headOn"] = 18861.501953125,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "VIRTUAL_AUDIO_SENSOR",
-				}, -- end of [1]
-			}, -- end of [1]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["massEmpty"] = 2000,
+			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SL Flakscheinwerfer 37",
-			["speedMax"] = 0,
-			["RCS"] = 5,
+			["maxSlopeAngle"] = 0,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = 3.6631539842347e-05,
-					["x"] = -3.4765408039093,
-					["z"] = -1.2167038917542,
+					["y"] = -4.4619650840759,
+					["x"] = -9.0075454711914,
+					["z"] = -7.4934639930725,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.9255630970001,
-					["x"] = 3.4765408039093,
-					["z"] = 1.2167038917542,
+					["y"] = 6.1779932975769,
+					["x"] = 9.0075454711914,
+					["z"] = 7.4934639930725,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["_origin"] = "WWII Armour and Technics",
-			["life"] = 2,
+			["RCS"] = 5,
+			["displayName"] = "Gun 15cm SK C/28 Naval in Bunker",
 			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
+			["life"] = 70,
 			["attributes"] = 
 			{
-				["Rocket Attack Valid AirDefence"] = true,
-				["NonArmoredUnits"] = true,
-				["Air Defence"] = true,
-				["AAA"] = true,
-				["Static AAA"] = true,
-				["NonAndLightArmoredUnits"] = true,
+				["Artillery"] = true,
+				["Ground Units Non Airdefence"] = true,
 				["Vehicles"] = true,
-				["Armed Air Defence"] = true,
+				["Armed vehicles"] = true,
+				["LightArmoredUnits"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["Fortifications"] = true,
+				["HeavyArmoredUnits"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Indirect fire"] = true,
+				["Armed ground units"] = true,
 				["All"] = true,
 				["Ground Units"] = true,
 				["Ground vehicles"] = true,
 			}, -- end of ["attributes"]
-			["typeName"] = "Flakscheinwerfer_37",
-			["maxSlopeAngle"] = 0,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "WWII Armour and Technics",
+			["typeName"] = "SK_C_28_naval_gun",
+			["speedMax"] = 0,
 		}, -- end of ["desc"]
-	}, -- end of ["Flakscheinwerfer_37"]
-	["Barracks 2"] = 
-	{
-		["shapeName"] = "kazarma2",
-		["desc"] = 
-		{
-			["life"] = 800,
-			["_origin"] = "",
-			["displayName"] = "Barracks 2",
-			["category"] = 4,
-			["typeName"] = "Barracks 2",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -10.000000953674,
-					["x"] = -3.9999990463257,
-					["z"] = -15.859649658203,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 4.9999995231628,
-					["x"] = 3.9999990463257,
-					["z"] = 21.044986724854,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Barracks 2"]
+	}, -- end of ["ARTY SK_C_28_naval_gun"]
 	["Higgins_boat"] = 
 	{
 		["weapons"] = 
@@ -34616,13 +37536,113 @@ everyObject =
 			["displayName"] = "Boat LCVP Higgins",
 		}, -- end of ["desc"]
 	}, -- end of ["Higgins_boat"]
-	["IFV MCV-80"] = 
+	["Barracks 2"] = 
+	{
+		["shapeName"] = "kazarma2",
+		["desc"] = 
+		{
+			["life"] = 800,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Barracks 2",
+			["typeName"] = "Barracks 2",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -10.000000953674,
+					["x"] = -3.9999990463257,
+					["z"] = -15.859649658203,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 4.9999995231628,
+					["x"] = 3.9999990463257,
+					["z"] = 21.044986724854,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Barracks 2"]
+	["Hawk tr"] = 
+	{
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 60186.62890625,
+							["headOn"] = 60186.62890625,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 60186.62890625,
+							["headOn"] = 60186.62890625,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "Hawk tr",
+				}, -- end of [1]
+			}, -- end of [1]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["speedMax"] = 0,
+			["displayName"] = "SAM Hawk TR (AN/MPQ-46)",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -2.2652012887647e-07,
+					["x"] = -2.4937398433685,
+					["z"] = -1.3424528837204,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.6909744739532,
+					["x"] = 3.3191246986389,
+					["z"] = 1.438288807869,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "",
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["attributes"] = 
+			{
+				["SAM TR"] = true,
+				["Vehicles"] = true,
+				["MR SAM"] = true,
+				["NonArmoredUnits"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["SAM related"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["SAM elements"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "Hawk tr",
+			["maxSlopeAngle"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["Hawk tr"]
+	["IFV Daimler_AC"] = 
 	{
 		["weapons"] = 
 		{
 			[1] = 
 			{
-				["count"] = 87,
+				["count"] = 42,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -34643,20 +37663,20 @@ everyObject =
 					}, -- end of ["box"]
 					["warhead"] = 
 					{
-						["caliber"] = 30,
-						["mass"] = 0.357,
-						["explosiveMass"] = 0.357,
-						["type"] = 1,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+						["caliber"] = 40,
+						["mass"] = 1.22,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.L21A1_30_HE",
-					["displayName"] = "L13A1 (30mm HE-T)",
+					["typeName"] = "weapons.shells.AP_T_MkI_40mm",
+					["displayName"] = "40x304 APCBC/T Mk I",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 			[2] = 
 			{
-				["count"] = 216,
+				["count"] = 35,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -34677,77 +37697,95 @@ everyObject =
 					}, -- end of ["box"]
 					["warhead"] = 
 					{
-						["caliber"] = 30,
-						["mass"] = 0.3,
-						["explosiveMass"] = 0,
-						["type"] = 0,
+						["explosiveMass"] = 0.4,
+						["type"] = 1,
+						["caliber"] = 40,
+						["mass"] = 0.86,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.L14A2_30_APDS",
-					["displayName"] = "L14A2 (30mm APDS-T)",
+					["typeName"] = "weapons.shells.HE_T_MkII_40mm",
+					["displayName"] = "40x304 HE/T Mk II",
 				}, -- end of ["desc"]
 			}, -- end of [2]
-			[3] = 
+			[4] = 
 			{
-				["count"] = 2210,
+				["count"] = 2028,
 				["desc"] = 
 				{
 					["life"] = 2,
 					["_origin"] = "",
 					["warhead"] = 
 					{
-						["caliber"] = 7.62,
-						["mass"] = 0.00933,
 						["explosiveMass"] = 0,
 						["type"] = 0,
+						["caliber"] = 7.92,
+						["mass"] = 0.0128,
 					}, -- end of ["warhead"]
 					["category"] = 0,
-					["typeName"] = "weapons.shells.7_62x51",
-					["displayName"] = "7.62mm",
+					["typeName"] = "weapons.shells.Besa7_92x57",
+					["displayName"] = "Besa 7.92x57",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 684,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["explosiveMass"] = 0,
+						["type"] = 0,
+						["caliber"] = 7.92,
+						["mass"] = 0.0122,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Besa7_92x57T",
+					["displayName"] = "Besa 7.92x57T",
 				}, -- end of ["desc"]
 			}, -- end of [3]
 		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "Raven day",
-					["opticType"] = 0,
-				}, -- end of [1]
-				[2] = 
-				{
-					["type"] = 0,
-					["typeName"] = "Raven night",
-					["opticType"] = 2,
-				}, -- end of [2]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["massEmpty"] = 23500,
+			["massEmpty"] = 7600,
 			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.61000001430511,
+			["maxSlopeAngle"] = 0.46999999880791,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = 0.00080186419654638,
-					["x"] = -3.3349845409393,
-					["z"] = -1.569064617157,
+					["y"] = -0.0041752452962101,
+					["x"] = -2.1028778553009,
+					["z"] = -1.1729918718338,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.604597568512,
-					["x"] = 3.2145817279816,
-					["z"] = 1.5690647363663,
+					["y"] = 2.3691072463989,
+					["x"] = 1.9864037036896,
+					["z"] = 1.2309747934341,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
 			["RCS"] = 5,
-			["displayName"] = "IFV Warrior ",
+			["displayName"] = "Car Daimler Armored",
+			["Kmax"] = 0.050000000745058,
+			["life"] = 4,
 			["attributes"] = 
 			{
 				["Ground Units Non Airdefence"] = true,
@@ -34762,144 +37800,15 @@ everyObject =
 				["Armed ground units"] = true,
 				["All"] = true,
 				["Ground Units"] = true,
-				["APC"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 5,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 20.833299636841,
-			["category"] = 2,
-			["typeName"] = "MCV-80",
-			["speedMax"] = 20.833299636841,
-		}, -- end of ["desc"]
-	}, -- end of ["IFV MCV-80"]
-	["Subsidiary structure G"] = 
-	{
-		["shapeName"] = "saray-g",
-		["desc"] = 
-		{
-			["life"] = 70,
-			["_origin"] = "",
-			["displayName"] = "Subsidiary structure G",
-			["category"] = 4,
-			["typeName"] = "Subsidiary structure G",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.028243999928236,
-					["x"] = -3.0422699451447,
-					["z"] = -4.3721399307251,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.5462601184845,
-					["x"] = 2.9601800441742,
-					["z"] = 4.4011597633362,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Subsidiary structure G"]
-	["trunks_long_cargo"] = 
-	{
-		["shapeName"] = "trunks_long_cargo",
-		["defaultMass"] = 4747,
-		["desc"] = 
-		{
-			["life"] = 0,
-			["attributes"] = 
-			{
-				["Cargos"] = true,
-			}, -- end of ["attributes"]
-			["_origin"] = "",
-			["displayName"] = "Trunks long",
-			["category"] = 4,
-			["typeName"] = "trunks_long_cargo",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.22435277700424,
-					["x"] = -4.0400185585022,
-					["z"] = -0.98158711194992,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 1.5482429265976,
-					["x"] = 4.0336747169495,
-					["z"] = 0.97411757707596,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["trunks_long_cargo"]
-	["INF soldier_wwii_br_01"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 71,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["_origin"] = "",
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 7.62,
-						["mass"] = 0.0096,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["typeName"] = "weapons.shells.Br303",
-					["displayName"] = ".303 British",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 90,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 1,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0,
-					["x"] = -0.40000000596046,
-					["z"] = -0.39999994635582,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 1.7999999523163,
-					["x"] = 0.60000002384186,
-					["z"] = 0.39999994635582,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Infantry SMLE No.4 Mk-1",
-			["Kmax"] = 0.050000000745058,
-			["life"] = 1.0800000429153,
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["NonArmoredUnits"] = true,
-				["CustomAimPoint"] = true,
-				["Skeleton_type_A"] = true,
-				["New infantry"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Infantry"] = true,
+				["IFV"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 2,
-			["speedMaxOffRoad"] = 4,
+			["speedMaxOffRoad"] = 22.219999313354,
 			["_origin"] = "WWII Armour and Technics",
-			["typeName"] = "soldier_wwii_br_01",
-			["speedMax"] = 4,
+			["typeName"] = "Daimler_AC",
+			["speedMax"] = 22.219999313354,
 		}, -- end of ["desc"]
-	}, -- end of ["INF soldier_wwii_br_01"]
+	}, -- end of ["IFV Daimler_AC"]
 	["INF Paratrooper RPG-16"] = 
 	{
 		["weapons"] = 
@@ -34974,7 +37883,7 @@ everyObject =
 				["Ground Units"] = true,
 				["NonArmoredUnits"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 1.0800000429153,
+			["life"] = 1.039999961853,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
 			["speedMaxOffRoad"] = 4,
@@ -34983,41 +37892,310 @@ everyObject =
 			["speedMax"] = 4,
 		}, -- end of ["desc"]
 	}, -- end of ["INF Paratrooper RPG-16"]
-	["Farm A"] = 
+	["INF soldier_wwii_br_01"] = 
 	{
-		["shapeName"] = "ferma_a",
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 71,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["explosiveMass"] = 0,
+						["type"] = 0,
+						["caliber"] = 7.62,
+						["mass"] = 0.0096,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Br303",
+					["displayName"] = ".303 British",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
 		["desc"] = 
 		{
-			["life"] = 400,
-			["_origin"] = "",
-			["displayName"] = "Farm A",
-			["category"] = 4,
-			["typeName"] = "Farm A",
+			["massEmpty"] = 90,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 1,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -10.000000953674,
-					["x"] = -12.224277496338,
-					["z"] = -28.238540649414,
+					["y"] = 0,
+					["x"] = -0.40000000596046,
+					["z"] = -0.39999994635582,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 7.2794666290283,
-					["x"] = 12.190749168396,
-					["z"] = 28.242078781128,
+					["y"] = 1.7999999523163,
+					["x"] = 0.60000002384186,
+					["z"] = 0.39999994635582,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "Infantry SMLE No.4 Mk-1",
+			["Kmax"] = 0.050000000745058,
+			["life"] = 1.0800000429153,
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["NonArmoredUnits"] = true,
+				["CustomAimPoint"] = true,
+				["Skeleton_type_A"] = true,
+				["New infantry"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Infantry"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 2,
+			["speedMaxOffRoad"] = 4,
+			["_origin"] = "WWII Armour and Technics",
+			["typeName"] = "soldier_wwii_br_01",
+			["speedMax"] = 4,
 		}, -- end of ["desc"]
-	}, -- end of ["Farm A"]
+	}, -- end of ["INF soldier_wwii_br_01"]
+	["leander-gun-andromeda"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 3200000,
+			["RCS"] = 2275.9594726563,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -5.1030974388123,
+					["x"] = -57.327835083008,
+					["z"] = -7.7185621261597,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 32.034683227539,
+					["x"] = 57.327835083008,
+					["z"] = 7.4427938461304,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "HMS Andromeda (F57)",
+			["life"] = 1000,
+			["attributes"] = 
+			{
+				["Naval"] = true,
+				["Ships"] = true,
+				["Frigates"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["DetectionByAWACS"] = true,
+				["Armed ships"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "South_Atlantic_Assets",
+			["typeName"] = "leander-gun-andromeda",
+			["speedMax"] = 14.39999961853,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 150,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "130mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 33.4,
+						["type"] = 1,
+						["explosiveMass"] = 33.4,
+						["caliber"] = 130,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.A222_130",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 4000,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "DM63 (20mm APDS-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.12,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Rh202_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 32,
+				["desc"] = 
+				{
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 6500,
+					["rangeMin"] = 100,
+					["warhead"] = 
+					{
+						["mass"] = 27.5,
+						["type"] = 1,
+						["explosiveMass"] = 19,
+						["caliber"] = 220,
+					}, -- end of ["warhead"]
+					["category"] = 1,
+					["altMax"] = 1000,
+					["RCS"] = 0.018200000748038,
+					["displayName"] = "GWS-20 Mod. 1 Sea Cat",
+					["altMin"] = 50,
+					["rangeMaxAltMin"] = 6500,
+					["fuseDist"] = 5,
+					["_origin"] = "",
+					["guidance"] = 8,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.Sea_Cat",
+					["Nmax"] = 10,
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 4000,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "DM81 (20mm HE-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.12,
+						["type"] = 1,
+						["explosiveMass"] = 0.12,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Rh202_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
+	}, -- end of ["leander-gun-andromeda"]
+	["Yak-40"] = 
+	{
+		["desc"] = 
+		{
+			["speedMax0"] = 140,
+			["massEmpty"] = 9030,
+			["range"] = 900,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.6913286447525,
+					["x"] = -10.967844963074,
+					["z"] = -12.984441757202,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 5.6715331077576,
+					["x"] = 9.8730278015137,
+					["z"] = 12.960119247437,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 11000,
+			["Kmax"] = 0.5,
+			["_origin"] = "",
+			["speedMax10K"] = 167,
+			["NyMin"] = 0.5,
+			["fuelMassMax"] = 3080,
+			["speedMax"] = 167,
+			["NyMax"] = 2.5,
+			["massMax"] = 14850,
+			["RCS"] = 50,
+			["displayName"] = "yak-40",
+			["life"] = 45,
+			["VyMax"] = 9,
+			["Kab"] = 0,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Planes"] = true,
+				["Transports"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "Yak-40",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["Yak-40"]
 	["SA-11 Buk CC 9S470M1"] = 
 	{
 		["desc"] = 
 		{
 			["massEmpty"] = 34000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-11 Buk \"Gadfly\" C2 ",
 			["speedMax"] = 18.055599212646,
+			["displayName"] = "SAM SA-11 Buk \"Gadfly\" C2 ",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -35263,431 +38441,40 @@ everyObject =
 			["speedMax"] = 24.700000762939,
 		}, -- end of ["desc"]
 	}, -- end of ["IFV M8_Greyhound"]
-	["IFV Daimler_AC"] = 
+	["Windsock"] = 
 	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 42,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 40,
-						["mass"] = 1.22,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.AP_T_MkI_40mm",
-					["displayName"] = "40x304 APCBC/T Mk I",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 35,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.4,
-						["type"] = 1,
-						["caliber"] = 40,
-						["mass"] = 0.86,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.HE_T_MkII_40mm",
-					["displayName"] = "40x304 HE/T Mk II",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[4] = 
-			{
-				["count"] = 2028,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["_origin"] = "",
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 7.92,
-						["mass"] = 0.0128,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["typeName"] = "weapons.shells.Besa7_92x57",
-					["displayName"] = "Besa 7.92x57",
-				}, -- end of ["desc"]
-			}, -- end of [4]
-			[3] = 
-			{
-				["count"] = 684,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 7.92,
-						["mass"] = 0.0122,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.Besa7_92x57T",
-					["displayName"] = "Besa 7.92x57T",
-				}, -- end of ["desc"]
-			}, -- end of [3]
-		}, -- end of ["weapons"]
+		["shapeName"] = "H-Windsock_RW",
 		["desc"] = 
 		{
-			["massEmpty"] = 7600,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.46999999880791,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.0041752452962101,
-					["x"] = -2.1028778553009,
-					["z"] = -1.1729918718338,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.3691072463989,
-					["x"] = 1.9864037036896,
-					["z"] = 1.2309747934341,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Car Daimler Armored",
-			["Kmax"] = 0.050000000745058,
-			["life"] = 4,
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["Armored vehicles"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["LightArmoredUnits"] = true,
-				["Ground vehicles"] = true,
-				["Armed vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Infantry carriers"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["IFV"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 2,
-			["speedMaxOffRoad"] = 22.219999313354,
-			["_origin"] = "WWII Armour and Technics",
-			["typeName"] = "Daimler_AC",
-			["speedMax"] = 22.219999313354,
-		}, -- end of ["desc"]
-	}, -- end of ["IFV Daimler_AC"]
-	["Hawk tr"] = 
-	{
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 60186.62890625,
-							["headOn"] = 60186.62890625,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 60186.62890625,
-							["headOn"] = 60186.62890625,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "Hawk tr",
-				}, -- end of [1]
-			}, -- end of [1]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["displayName"] = "SAM Hawk TR (AN/MPQ-46)",
-			["speedMax"] = 0,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -2.2652012887647e-07,
-					["x"] = -2.4937398433685,
-					["z"] = -1.3424528837204,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.6909744739532,
-					["x"] = 3.3191246986389,
-					["z"] = 1.438288807869,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
+			["life"] = 3,
 			["_origin"] = "",
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["attributes"] = 
-			{
-				["SAM TR"] = true,
-				["Vehicles"] = true,
-				["MR SAM"] = true,
-				["NonArmoredUnits"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["SAM related"] = true,
-				["RADAR_BAND2_FOR_ARM"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["SAM elements"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "Hawk tr",
-			["maxSlopeAngle"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["Hawk tr"]
-	["Truck Coach cargo"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0,
+			["category"] = 4,
+			["displayName"] = "Windsock",
+			["typeName"] = "Windsock",
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.020998723804951,
-					["x"] = -7.8715014457703,
-					["z"] = -1.7592797279358,
+					["y"] = -0.0728390365839,
+					["x"] = -1.3334575891495,
+					["z"] = -1.3367536067963,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 4.526104927063,
-					["x"] = 7.8715014457703,
-					["z"] = 1.7592799663544,
+					["y"] = 7.3861293792725,
+					["x"] = 1.3400497436523,
+					["z"] = 1.3367537260056,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Freight Van",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["NonArmoredUnits"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Unarmed vehicles"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "RailwayObjectsPack",
-			["speedMaxOffRoad"] = 0,
-			["category"] = 2,
-			["typeName"] = "Coach cargo",
-			["speedMax"] = 0,
 		}, -- end of ["desc"]
-	}, -- end of ["Truck Coach cargo"]
-	["Truck Coach a tank yellow"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.024370599538088,
-					["x"] = -6.0481791496277,
-					["z"] = -1.5487591028214,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 4.5690202713013,
-					["x"] = 6.0481791496277,
-					["z"] = 1.5487591028214,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Tank Car yellow",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["NonArmoredUnits"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Unarmed vehicles"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "RailwayObjectsPack",
-			["speedMaxOffRoad"] = 0,
-			["category"] = 2,
-			["typeName"] = "Coach a tank yellow",
-			["speedMax"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["Truck Coach a tank yellow"]
-	["MLRS tt_B8M1"] = 
+	}, -- end of ["Windsock"]
+	["F-5E-3"] = 
 	{
 		["weapons"] = 
 		{
 			[1] = 
 			{
-				["count"] = 20,
-				["desc"] = 
-				{
-					["distMax"] = 3000,
-					["RCS"] = 0,
-					["displayName"] = "S-8OFP2",
-					["life"] = 2,
-					["category"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.087329559028149,
-							["x"] = -0.72735232114792,
-							["z"] = -0.087329536676407,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.087329559028149,
-							["x"] = 0.72735232114792,
-							["z"] = 0.087329544126987,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["_origin"] = "",
-					["typeName"] = "weapons.nurs.C_8OFP2",
-					["distMin"] = 600,
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 2545,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.27000001072884,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.020667027682066,
-					["x"] = -2.8980686664581,
-					["z"] = -0.8798999786377,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.0206484794617,
-					["x"] = 2.2131576538086,
-					["z"] = 0.8798999786377,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "MLRS LC with B8M1 80mm",
-			["attributes"] = 
-			{
-				["Artillery"] = true,
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["Armed vehicles"] = true,
-				["LightArmoredUnits"] = true,
-				["Ground vehicles"] = true,
-				["Indirect fire"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Armed ground units"] = true,
-				["MLRS"] = true,
-				["Ground Units"] = true,
-				["</WSTYPE>"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 1.7999999523163,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "TechWeaponPack",
-			["speedMaxOffRoad"] = 37,
-			["category"] = 2,
-			["typeName"] = "tt_B8M1",
-			["speedMax"] = 37,
-		}, -- end of ["desc"]
-	}, -- end of ["MLRS tt_B8M1"]
-	["MiG-21Bis"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 260,
+				["count"] = 560,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -35708,15 +38495,15 @@ everyObject =
 					}, -- end of ["box"]
 					["warhead"] = 
 					{
-						["caliber"] = 23,
-						["mass"] = 0.18,
-						["explosiveMass"] = 0.18,
+						["caliber"] = 20,
+						["mass"] = 0.1,
+						["explosiveMass"] = 0.1,
 						["type"] = 1,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.GSH_23_HE",
-					["displayName"] = "GSH 23 HE",
+					["typeName"] = "weapons.shells.M39_20_HEI",
+					["displayName"] = "20mm HEI",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 		}, -- end of ["weapons"]
@@ -35730,28 +38517,19 @@ everyObject =
 					{
 						["upperHemisphere"] = 
 						{
-							["tailOn"] = 22737.171875,
-							["headOn"] = 33437.015625,
+							["tailOn"] = 49486.78515625,
+							["headOn"] = 49486.78515625,
 						}, -- end of ["upperHemisphere"]
 						["lowerHemisphere"] = 
 						{
-							["tailOn"] = 12037.326171875,
-							["headOn"] = 33437.015625,
+							["tailOn"] = 49486.78515625,
+							["headOn"] = 49486.78515625,
 						}, -- end of ["lowerHemisphere"]
 					}, -- end of ["detectionDistanceAir"]
 					["type"] = 1,
-					["typeName"] = "N-008",
+					["typeName"] = "AN/APQ-159",
 				}, -- end of [1]
 			}, -- end of [1]
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "Shkval",
-					["opticType"] = 0,
-				}, -- end of [1]
-			}, -- end of [0]
 			[3] = 
 			{
 				[1] = 
@@ -35763,168 +38541,38 @@ everyObject =
 		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["speedMax0"] = 362,
-			["massEmpty"] = 6255,
-			["range"] = 1210,
+			["speedMax0"] = 374,
+			["massEmpty"] = 4835,
+			["range"] = 2112,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -1.8505619764328,
-					["x"] = -7.5638704299927,
-					["z"] = -4.3086938858032,
+					["y"] = -0.56786811351776,
+					["x"] = -6.0541820526123,
+					["z"] = -3.9669985771179,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 3.6323990821838,
-					["x"] = 8.5842876434326,
-					["z"] = 4.3136186599731,
+					["y"] = 2.6401739120483,
+					["x"] = 8.0660238265991,
+					["z"] = 3.9669985771179,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["Hmax"] = 20000,
-			["Kmax"] = 0.60000002384186,
-			["_origin"] = "MiG-21Bis AI by Magnitude 3 LLC",
-			["speedMax10K"] = 697,
-			["NyMin"] = -4,
-			["fuelMassMax"] = 2280,
-			["speedMax"] = 697,
+			["Hmax"] = 16154,
+			["Kmax"] = 0.40000000596046,
+			["_origin"] = "F-5E/E-3 by Belsimtek",
+			["speedMax10K"] = 484,
+			["NyMin"] = -2,
+			["fuelMassMax"] = 2046,
+			["speedMax"] = 484,
 			["NyMax"] = 7.5,
-			["massMax"] = 10400,
+			["massMax"] = 11187,
 			["RCS"] = 3,
-			["displayName"] = "MiG-21Bis",
-			["life"] = 20,
-			["VyMax"] = 200,
-			["Kab"] = 2.4000000953674,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["Fighters"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Battle airplanes"] = true,
-				["Planes"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "MiG-21Bis",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["MiG-21Bis"]
-	["MiG-29S"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 150,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 30,
-						["mass"] = 0.39,
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.GSH301_30_HE",
-					["displayName"] = "30mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 22795.072265625,
-							["headOn"] = 45590.14453125,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 22795.072265625,
-							["headOn"] = 45590.14453125,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "N-019M",
-				}, -- end of [1]
-			}, -- end of [1]
-			[2] = 
-			{
-				[1] = 
-				{
-					["type"] = 2,
-					["detectionDistanceMaximal"] = 12000,
-					["detectionDistanceIdle"] = 6000,
-					["typeName"] = "KOLS",
-					["detectionDistanceAfterburner"] = 20000,
-				}, -- end of [1]
-			}, -- end of [2]
-			[3] = 
-			{
-				[1] = 
-				{
-					["typeName"] = "Abstract RWR",
-					["type"] = 3,
-				}, -- end of [1]
-			}, -- end of [3]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["speedMax0"] = 416.70001220703,
-			["massEmpty"] = 11222,
-			["range"] = 1500,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -1.7533042430878,
-					["x"] = -7.2414231300354,
-					["z"] = -5.7602467536926,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.0893540382385,
-					["x"] = 9.624683380127,
-					["z"] = 5.7602467536926,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 18000,
-			["Kmax"] = 0.76999998092651,
-			["_origin"] = "",
-			["speedMax10K"] = 680.59997558594,
-			["NyMin"] = -3,
-			["fuelMassMax"] = 3493,
-			["speedMax"] = 680.59997558594,
-			["NyMax"] = 8,
-			["massMax"] = 19700,
-			["RCS"] = 5,
-			["displayName"] = "mig-29c",
+			["displayName"] = "F-5E-3",
 			["life"] = 16,
-			["VyMax"] = 330,
-			["Kab"] = 4,
+			["VyMax"] = 200,
+			["Kab"] = 2,
 			["attributes"] = 
 			{
 				["Air"] = true,
@@ -35935,1041 +38583,10 @@ everyObject =
 				["Battle airplanes"] = true,
 				["Planes"] = true,
 			}, -- end of ["attributes"]
-			["typeName"] = "MiG-29S",
+			["typeName"] = "F-5E-3",
 			["category"] = 0,
 		}, -- end of ["desc"]
-	}, -- end of ["MiG-29S"]
-	["Su-33"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 150,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 30,
-						["mass"] = 0.39,
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.GSH301_30_HE",
-					["displayName"] = "30mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 25412.1328125,
-							["headOn"] = 45741.83984375,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 17788.4921875,
-							["headOn"] = 45741.83984375,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "N-001",
-				}, -- end of [1]
-			}, -- end of [1]
-			[2] = 
-			{
-				[1] = 
-				{
-					["type"] = 2,
-					["detectionDistanceMaximal"] = 40000,
-					["detectionDistanceIdle"] = 25000,
-					["typeName"] = "OLS-27",
-					["detectionDistanceAfterburner"] = 80000,
-				}, -- end of [1]
-			}, -- end of [2]
-			[3] = 
-			{
-				[1] = 
-				{
-					["typeName"] = "Abstract RWR",
-					["type"] = 3,
-				}, -- end of [1]
-			}, -- end of [3]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["speedMax0"] = 403,
-			["massEmpty"] = 19680,
-			["tankerType"] = 1,
-			["range"] = 3000,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -1.811084985733,
-					["x"] = -7.0053868293762,
-					["z"] = -7.4099044799805,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.6561763286591,
-					["x"] = 13.082051277161,
-					["z"] = 7.4223022460938,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 18500,
-			["Kmax"] = 1,
-			["_origin"] = "",
-			["speedMax10K"] = 694.44000244141,
-			["NyMin"] = -3,
-			["fuelMassMax"] = 9500,
-			["speedMax"] = 694.44000244141,
-			["NyMax"] = 8,
-			["massMax"] = 33000,
-			["RCS"] = 5.5,
-			["displayName"] = "su-33",
-			["life"] = 20,
-			["VyMax"] = 325,
-			["Kab"] = 5,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["Fighters"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Battle airplanes"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Planes"] = true,
-				["Refuelable"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "Su-33",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["Su-33"]
-	["Container white"] = 
-	{
-		["shapeName"] = "konteiner_white",
-		["desc"] = 
-		{
-			["life"] = 20,
-			["_origin"] = "",
-			["displayName"] = "Container white",
-			["category"] = 4,
-			["typeName"] = "Container white",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0,
-					["x"] = -1.25,
-					["z"] = -4,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.4000999927521,
-					["x"] = 1.25,
-					["z"] = 4,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Container white"]
-	["Hangar A"] = 
-	{
-		["shapeName"] = "angar_a",
-		["desc"] = 
-		{
-			["life"] = 50,
-			["_origin"] = "",
-			["displayName"] = "Hangar A",
-			["category"] = 4,
-			["typeName"] = "Hangar A",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -10,
-					["x"] = -8.634388923645,
-					["z"] = -15.000225067139,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 5.4119663238525,
-					["x"] = 8.634557723999,
-					["z"] = 15.209574699402,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Hangar A"]
-	["Cafe"] = 
-	{
-		["shapeName"] = "stolovaya",
-		["desc"] = 
-		{
-			["life"] = 500,
-			["_origin"] = "",
-			["displayName"] = "Cafe",
-			["category"] = 4,
-			["typeName"] = "Cafe",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -10.013776779175,
-					["x"] = -8.7922458648682,
-					["z"] = -13.080434799194,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 6.2256813049316,
-					["x"] = 6.8179402351379,
-					["z"] = 12.884199142456,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Cafe"]
-	["Repair workshop"] = 
-	{
-		["shapeName"] = "tech",
-		["desc"] = 
-		{
-			["life"] = 500,
-			["_origin"] = "",
-			["displayName"] = "Repair workshop",
-			["category"] = 4,
-			["typeName"] = "Repair workshop",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -16.532070159912,
-					["x"] = -30.137250900269,
-					["z"] = -25.451103210449,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 23,
-					["x"] = 31.375905990601,
-					["z"] = 25.361488342285,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Repair workshop"]
-	["Roland Radar"] = 
-	{
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 23405.912109375,
-							["headOn"] = 23405.912109375,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 23405.912109375,
-							["headOn"] = 23405.912109375,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "Roland Radar",
-				}, -- end of [1]
-			}, -- end of [1]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["massEmpty"] = 29207,
-			["riverCrossing"] = false,
-			["displayName"] = "SAM Roland EWR",
-			["speedMax"] = 20.833299636841,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0.01611896418035,
-					["x"] = -3.3798274993896,
-					["z"] = -1.5889626741409,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 6.8232507705688,
-					["x"] = 3.4877336025238,
-					["z"] = 1.5889630317688,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "",
-			["life"] = 5,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 20.833299636841,
-			["attributes"] = 
-			{
-				["Vehicles"] = true,
-				["SAM elements"] = true,
-				["NonArmoredUnits"] = true,
-				["SAM SR"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["RADAR_BAND2_FOR_ARM"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["SAM related"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "Roland Radar",
-			["maxSlopeAngle"] = 0.61000001430511,
-		}, -- end of ["desc"]
-	}, -- end of ["Roland Radar"]
-	["ARTY SAU Msta"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 51,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.060612548142672,
-							["x"] = -0.27024647593498,
-							["z"] = -0.060612548142672,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.060612548142672,
-							["x"] = 0.24980916082859,
-							["z"] = 0.060612548142672,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 152,
-						["mass"] = 43.56,
-						["explosiveMass"] = 7.65,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.2A64_152",
-					["displayName"] = "3OF45 (152mm HE)",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 305,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 12.7,
-						["mass"] = 0.047,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.Utes_12_7x108_T",
-					["displayName"] = "12.7mm",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "TKN-3B day",
-					["opticType"] = 0,
-				}, -- end of [1]
-				[2] = 
-				{
-					["type"] = 0,
-					["typeName"] = "TKN-3B night",
-					["opticType"] = 2,
-				}, -- end of [2]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["massEmpty"] = 40000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.61000001430511,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.0024733247701079,
-					["x"] = -3.8031659126282,
-					["z"] = -1.8511189222336,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.7471783161163,
-					["x"] = 3.8235459327698,
-					["z"] = 1.8511190414429,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "SPH 2S19 Msta 152mm",
-			["attributes"] = 
-			{
-				["Artillery"] = true,
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["Armed vehicles"] = true,
-				["LightArmoredUnits"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Indirect fire"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 4,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 16.666700363159,
-			["category"] = 2,
-			["typeName"] = "SAU Msta",
-			["speedMax"] = 16.666700363159,
-		}, -- end of ["desc"]
-	}, -- end of ["ARTY SAU Msta"]
-	["rapier_fsa_optical_tracker_unit"] = 
-	{
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "generic SAM search visir",
-					["opticType"] = 0,
-				}, -- end of [1]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["displayName"] = "SAM Rapier Tracker",
-			["speedMax"] = 0,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.0093219615519047,
-					["x"] = -0.71828979253769,
-					["z"] = -0.94367444515228,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 1.6035619974136,
-					["x"] = 0.98661839962006,
-					["z"] = 0.94367450475693,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "TechWeaponPack",
-			["life"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["attributes"] = 
-			{
-				["Vehicles"] = true,
-				["SAM elements"] = true,
-				["NonArmoredUnits"] = true,
-				["SAM SR"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["SR SAM"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["SAM related"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "rapier_fsa_optical_tracker_unit",
-			["maxSlopeAngle"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["rapier_fsa_optical_tracker_unit"]
-	["Fire Control Bunker"] = 
-	{
-		["shapeName"] = "fire_control",
-		["desc"] = 
-		{
-			["life"] = 6,
-			["_origin"] = "WWII Armour and Technics",
-			["displayName"] = "Fire control bunker",
-			["category"] = 4,
-			["typeName"] = "Fire Control Bunker",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -3.2925596237183,
-					["x"] = -9.2339601516724,
-					["z"] = -6.4105396270752,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 6.3018670082092,
-					["x"] = 9.2339601516724,
-					["z"] = 6.4105396270752,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Fire Control Bunker"]
-	["Tank 2"] = 
-	{
-		["shapeName"] = "airbase_tbilisi_tank_01",
-		["desc"] = 
-		{
-			["life"] = 100,
-			["_origin"] = "",
-			["displayName"] = "Tank 2",
-			["category"] = 4,
-			["typeName"] = "Tank 2",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -5.1112232208252,
-					["x"] = -5.9215316772461,
-					["z"] = -6.0128803253174,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 8.0216503143311,
-					["x"] = 5.9215312004089,
-					["z"] = 6.1229090690613,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Tank 2"]
-	["tetrapod_cargo"] = 
-	{
-		["shapeName"] = "tetrapod_cargo",
-		["defaultMass"] = 5000,
-		["desc"] = 
-		{
-			["life"] = 0,
-			["attributes"] = 
-			{
-				["Cargos"] = true,
-			}, -- end of ["attributes"]
-			["_origin"] = "",
-			["displayName"] = "Tetrapod",
-			["category"] = 4,
-			["typeName"] = "tetrapod_cargo",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.11533924937248,
-					["x"] = -1.2412413358688,
-					["z"] = -1.1614562273026,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 1.9748455286026,
-					["x"] = 1.2348972558975,
-					["z"] = 1.1539866924286,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["tetrapod_cargo"]
-	["MBT M-1 Abrams"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 26,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.10894741863012,
-							["x"] = -0.23145794868469,
-							["z"] = -0.10864424705505,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.10724244266748,
-							["x"] = 0.26817846298218,
-							["z"] = 0.10754559934139,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 120,
-						["mass"] = 4.9,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_AP",
-					["displayName"] = "M829A2 (120mm APFSDS-T)",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 18,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.060612548142672,
-							["x"] = -0.27024647593498,
-							["z"] = -0.060612548142672,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.060612548142672,
-							["x"] = 0.24980916082859,
-							["z"] = 0.060612548142672,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 120,
-						["mass"] = 14.3,
-						["explosiveMass"] = 14.3,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.M256_120_HE",
-					["displayName"] = "M830 (120mm HEAT-MP-T)",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[4] = 
-			{
-				["count"] = 504,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 12.7,
-						["mass"] = 0.046,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.M2_12_7_T",
-					["displayName"] = "12.7mm",
-				}, -- end of ["desc"]
-			}, -- end of [4]
-			[3] = 
-			{
-				["count"] = 2800,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["_origin"] = "",
-					["warhead"] = 
-					{
-						["caliber"] = 7.62,
-						["mass"] = 0.00933,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["typeName"] = "weapons.shells.7_62x51",
-					["displayName"] = "7.62mm",
-				}, -- end of ["desc"]
-			}, -- end of [3]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "CITV day",
-					["opticType"] = 0,
-				}, -- end of [1]
-				[2] = 
-				{
-					["type"] = 0,
-					["typeName"] = "CITV night",
-					["opticType"] = 2,
-				}, -- end of [2]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["massEmpty"] = 57154,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.61000001430511,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.008797544054687,
-					["x"] = -4.28093957901,
-					["z"] = -2.2602686882019,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.0843367576599,
-					["x"] = 4.4233250617981,
-					["z"] = 2.2602686882019,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "MBT M1A2 Abrams",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["Armored vehicles"] = true,
-				["Modern Tanks"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["Ground vehicles"] = true,
-				["Datalink"] = true,
-				["Tanks"] = true,
-				["HeavyArmoredUnits"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Armed vehicles"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 32,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 18.527799606323,
-			["category"] = 2,
-			["typeName"] = "M-1 Abrams",
-			["speedMax"] = 18.527799606323,
-		}, -- end of ["desc"]
-	}, -- end of ["MBT M-1 Abrams"]
-	["IFV Tigr_233036"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 6400,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.40000000596046,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.015026027336717,
-					["x"] = -2.8946268558502,
-					["z"] = -1.5251200199127,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.4772720336914,
-					["x"] = 2.8923156261444,
-					["z"] = 1.5251200199127,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "LUV Tigr",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["human_vehicle"] = true,
-				["Armored vehicles"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["LightArmoredUnits"] = true,
-				["Vehicles"] = true,
-				["Ground vehicles"] = true,
-				["Armed vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Infantry carriers"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["APC"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 2.5,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 40,
-			["category"] = 2,
-			["typeName"] = "Tigr_233036",
-			["speedMax"] = 40,
-		}, -- end of ["desc"]
-	}, -- end of ["IFV Tigr_233036"]
-	["QF_37_AA"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 80,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.060612548142672,
-							["x"] = -0.27024647593498,
-							["z"] = -0.060612548142672,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.060612548142672,
-							["x"] = 0.24980916082859,
-							["z"] = 0.060612548142672,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 4,
-						["type"] = 1,
-						["caliber"] = 94,
-						["mass"] = 13,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.QF94_AA_HE",
-					["displayName"] = "QF 3,7inch HE",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.21482416987419,
-					["x"] = -5.1075992584229,
-					["z"] = -4.2795114517212,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 6.8238344192505,
-					["x"] = 5.0753517150879,
-					["z"] = 4.2521796226501,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "AAA QF 3.7\"",
-			["Kmax"] = 0.050000000745058,
-			["life"] = 2,
-			["attributes"] = 
-			{
-				["Rocket Attack Valid AirDefence"] = true,
-				["AA_flak"] = true,
-				["Ground vehicles"] = true,
-				["Air Defence"] = true,
-				["AAA"] = true,
-				["Vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Armed Air Defence"] = true,
-				["All"] = true,
-				["Static AAA"] = true,
-				["Ground Units"] = true,
-				["NonArmoredUnits"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["_origin"] = "WWII Armour and Technics",
-			["typeName"] = "QF_37_AA",
-			["speedMax"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["QF_37_AA"]
-	["CV_59_NS60"] = 
-	{
-		["desc"] = 
-		{
-			["life"] = 3,
-			["attributes"] = 
-			{
-				["Buildings"] = true,
-			}, -- end of ["attributes"]
-			["_origin"] = "",
-			["displayName"] = "",
-			["category"] = 4,
-			["typeName"] = "CV_59_NS60",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.039716362953186,
-					["x"] = -5.7425904273987,
-					["z"] = -2.5870757102966,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 11.104590415955,
-					["x"] = 11.465055465698,
-					["z"] = 2.3520443439484,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["CV_59_NS60"]
-	["MLRS MLRS"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 12,
-				["desc"] = 
-				{
-					["distMax"] = 0,
-					["RCS"] = 0,
-					["displayName"] = "M26 (270mm DPICM)",
-					["life"] = 2,
-					["category"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.20194438099861,
-							["x"] = -1.9834185838699,
-							["z"] = -0.19026750326157,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.20194438099861,
-							["x"] = 1.9834185838699,
-							["z"] = 0.19026751816273,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["_origin"] = "",
-					["typeName"] = "weapons.nurs.M26",
-					["distMin"] = 0,
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 25191,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.27000001072884,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.024093169718981,
-					["x"] = -3.4885001182556,
-					["z"] = -1.3715417385101,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.0690410137177,
-					["x"] = 3.4885001182556,
-					["z"] = 1.3715417385101,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "MLRS M270 227mm",
-			["attributes"] = 
-			{
-				["Artillery"] = true,
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["Armed vehicles"] = true,
-				["LightArmoredUnits"] = true,
-				["Ground vehicles"] = true,
-				["Armed ground units"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Ground Units"] = true,
-				["Indirect fire"] = true,
-				["All"] = true,
-				["Datalink"] = true,
-				["MLRS"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 17.777799606323,
-			["category"] = 2,
-			["typeName"] = "MLRS",
-			["speedMax"] = 17.777799606323,
-		}, -- end of ["desc"]
-	}, -- end of ["MLRS MLRS"]
+	}, -- end of ["F-5E-3"]
 	["IFV BMP-2"] = 
 	{
 		["weapons"] = 
@@ -37189,271 +38806,13 @@ everyObject =
 			["speedMax"] = 18.333299636841,
 		}, -- end of ["desc"]
 	}, -- end of ["IFV BMP-2"]
-	["RPC_5N62V"] = 
-	{
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 267496.125,
-							["headOn"] = 267496.125,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 267496.125,
-							["headOn"] = 267496.125,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "RPC S-200 TR",
-				}, -- end of [1]
-			}, -- end of [1]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-5 S-200 \"Square Pair\" TR",
-			["speedMax"] = 0,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.0013004252687097,
-					["x"] = -2.5470213890076,
-					["z"] = -3.7793290615082,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.2572524547577,
-					["x"] = 1.869024515152,
-					["z"] = 3.8462662696838,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "TechWeaponPack",
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["attributes"] = 
-			{
-				["LR SAM"] = true,
-				["SAM TR"] = true,
-				["Vehicles"] = true,
-				["SAM elements"] = true,
-				["NonArmoredUnits"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["RADAR_BAND2_FOR_ARM"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["SAM related"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "RPC_5N62V",
-			["maxSlopeAngle"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["RPC_5N62V"]
-	["MBT Chieftain_mk3"] = 
+	["IFV ZBD04A"] = 
 	{
 		["weapons"] = 
 		{
-			[1] = 
-			{
-				["count"] = 20,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.10894741863012,
-							["x"] = -0.23145794868469,
-							["z"] = -0.10864424705505,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.10724244266748,
-							["x"] = 0.26817846298218,
-							["z"] = 0.10754559934139,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 120,
-						["mass"] = 4.3,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.L23A1_APFSDS",
-					["displayName"] = "L23A1 (120mm APFSDS-T)",
-				}, -- end of ["desc"]
-			}, -- end of [1]
 			[2] = 
 			{
-				["count"] = 35,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.060612548142672,
-							["x"] = -0.27024647593498,
-							["z"] = -0.060612548142672,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.060612548142672,
-							["x"] = 0.24980916082859,
-							["z"] = 0.060612548142672,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["mass"] = 14.3,
-						["caliber"] = 120,
-						["shapedExplosiveArmorThickness"] = 0.1,
-						["shapedExplosiveMass"] = 7,
-						["explosiveMass"] = 7,
-						["type"] = 2,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.L31A7_HESH",
-					["displayName"] = "120mm HESH",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 6029,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["_origin"] = "",
-					["warhead"] = 
-					{
-						["caliber"] = 7.62,
-						["mass"] = 0.00933,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["typeName"] = "weapons.shells.7_62x51",
-					["displayName"] = "7.62mm",
-				}, -- end of ["desc"]
-			}, -- end of [3]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "TRP-2A day",
-					["opticType"] = 0,
-				}, -- end of [1]
-				[2] = 
-				{
-					["type"] = 0,
-					["typeName"] = "TRP-2A night",
-					["opticType"] = 1,
-				}, -- end of [2]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["massEmpty"] = 56000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.27000001072884,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0.0061487285420299,
-					["x"] = -4.1604328155518,
-					["z"] = -1.9527469873428,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.8917446136475,
-					["x"] = 3.3844354152679,
-					["z"] = 1.7647385597229,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "MBT Chieftain Mk.3",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["Armored vehicles"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["Old Tanks"] = true,
-				["Ground vehicles"] = true,
-				["Armed vehicles"] = true,
-				["HeavyArmoredUnits"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Tanks"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 20,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "TechWeaponPack",
-			["speedMaxOffRoad"] = 11.10000038147,
-			["category"] = 2,
-			["typeName"] = "Chieftain_mk3",
-			["speedMax"] = 11.10000038147,
-		}, -- end of ["desc"]
-	}, -- end of ["MBT Chieftain_mk3"]
-	["Haystack 3"] = 
-	{
-		["shapeName"] = "Haystack_3",
-		["desc"] = 
-		{
-			["life"] = 7,
-			["_origin"] = "WWII Armour and Technics",
-			["displayName"] = "Haystack 3",
-			["category"] = 4,
-			["typeName"] = "Haystack 3",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.93654030561447,
-					["x"] = -2.9239609241486,
-					["z"] = -2.1564047336578,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 4.2149510383606,
-					["x"] = 2.9239609241486,
-					["z"] = 2.1564047336578,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Haystack 3"]
-	["IFV Cobra"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 555,
+				["count"] = 340,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -37474,65 +38833,315 @@ everyObject =
 					}, -- end of ["box"]
 					["warhead"] = 
 					{
-						["caliber"] = 12.7,
-						["mass"] = 0.047,
+						["caliber"] = 30,
+						["mass"] = 0.39,
+						["explosiveMass"] = 0.39,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.2A42_30_HE",
+					["displayName"] = "3UOF8 (30mm HE-T)",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 161,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 30,
+						["mass"] = 0.39,
 						["explosiveMass"] = 0,
 						["type"] = 0,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.Utes_12_7x108_T",
-					["displayName"] = "12.7mm",
+					["typeName"] = "weapons.shells.2A42_30_AP",
+					["displayName"] = "3UBR6 (30mm APBC-T)",
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 2000,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.0119,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x54",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[4] = 
+			{
+				["count"] = 41,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 100,
+						["mass"] = 15.6,
+						["explosiveMass"] = 3.69,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.UOF_17_100HE",
+					["displayName"] = "3UOF17 (100mm HE)",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
+			{
+				["count"] = 8,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12060818821192,
+							["x"] = -0.52968698740005,
+							["z"] = -0.12166464328766,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.1206081956625,
+							["x"] = 0.53104364871979,
+							["z"] = 0.12166464328766,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 4000,
+					["fuseDist"] = 0,
+					["category"] = 1,
+					["guidance"] = 7,
+					["Nmax"] = 1.1,
+					["rangeMin"] = 100,
+					["altMax"] = 2000,
+					["RCS"] = 0.032000001519918,
+					["displayName"] = "AT-10 Stabber",
+					["altMin"] = -1,
+					["life"] = 2,
+					["missileCategory"] = 6,
+					["warhead"] = 
+					{
+						["mass"] = 4.5,
+						["caliber"] = 0,
+						["shapedExplosiveArmorThickness"] = 0.55000001192093,
+						["shapedExplosiveMass"] = 8.1000003814697,
+						["explosiveMass"] = 2.7000000476837,
+						["type"] = 2,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 4000,
+					["typeName"] = "weapons.missiles.P_9M117",
+					["_origin"] = "",
+				}, -- end of ["desc"]
+			}, -- end of [5]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "TKN-3B day",
+					["opticType"] = 0,
+				}, -- end of [1]
+				[2] = 
+				{
+					["type"] = 0,
+					["typeName"] = "TKN-3B night",
+					["opticType"] = 2,
+				}, -- end of [2]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 21500,
+			["riverCrossing"] = true,
+			["maxSlopeAngle"] = 0.69999998807907,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.023640239611268,
+					["x"] = -3.1553740501404,
+					["z"] = -1.7420190572739,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.4026758670807,
+					["x"] = 3.6415646076202,
+					["z"] = 1.722327709198,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "ZBD-04A",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["Infantry carriers"] = true,
+				["LightArmoredUnits"] = true,
+				["Ground Units"] = true,
+				["Armored vehicles"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["ATGM"] = true,
+				["Armed vehicles"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Datalink"] = true,
+				["IFV"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 6,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
+			["speedMaxOffRoad"] = 22.219999313354,
+			["category"] = 2,
+			["typeName"] = "ZBD04A",
+			["speedMax"] = 22.219999313354,
+		}, -- end of ["desc"]
+	}, -- end of ["IFV ZBD04A"]
+	["MLRS tt_B8M1"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 20,
+				["desc"] = 
+				{
+					["distMax"] = 3000,
+					["RCS"] = 0,
+					["displayName"] = "S-8OFP2",
+					["life"] = 2,
+					["category"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.087329559028149,
+							["x"] = -0.72735232114792,
+							["z"] = -0.087329536676407,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.087329559028149,
+							["x"] = 0.72735232114792,
+							["z"] = 0.087329544126987,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["_origin"] = "",
+					["typeName"] = "weapons.nurs.C_8OFP2",
+					["distMin"] = 600,
 				}, -- end of ["desc"]
 			}, -- end of [1]
 		}, -- end of ["weapons"]
 		["desc"] = 
 		{
-			["massEmpty"] = 6200,
+			["massEmpty"] = 2545,
 			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.46999999880791,
+			["maxSlopeAngle"] = 0.27000001072884,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.00017223764734808,
-					["x"] = -2.7330939769745,
-					["z"] = -1.3357709646225,
+					["y"] = -0.020667027682066,
+					["x"] = -2.8980686664581,
+					["z"] = -0.8798999786377,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 3.1128633022308,
-					["x"] = 2.9002566337585,
-					["z"] = 1.4554532766342,
+					["y"] = 2.0206484794617,
+					["x"] = 2.2131576538086,
+					["z"] = 0.8798999786377,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
 			["RCS"] = 5,
-			["displayName"] = "Scout Cobra",
+			["displayName"] = "MLRS LC with B8M1 80mm",
 			["attributes"] = 
 			{
+				["Artillery"] = true,
 				["Ground Units Non Airdefence"] = true,
 				["Vehicles"] = true,
-				["Armored vehicles"] = true,
-				["AntiAir Armed Vehicles"] = true,
+				["Armed vehicles"] = true,
 				["LightArmoredUnits"] = true,
 				["Ground vehicles"] = true,
-				["Armed vehicles"] = true,
+				["Indirect fire"] = true,
 				["NonAndLightArmoredUnits"] = true,
-				["Infantry carriers"] = true,
-				["Armed ground units"] = true,
 				["All"] = true,
+				["Armed ground units"] = true,
+				["MLRS"] = true,
 				["Ground Units"] = true,
-				["APC"] = true,
+				["</WSTYPE>"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 2.7999999523163,
+			["life"] = 1.7999999523163,
 			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 32,
+			["_origin"] = "TechWeaponPack",
+			["speedMaxOffRoad"] = 37,
 			["category"] = 2,
-			["typeName"] = "Cobra",
-			["speedMax"] = 32,
+			["typeName"] = "tt_B8M1",
+			["speedMax"] = 37,
 		}, -- end of ["desc"]
-	}, -- end of ["IFV Cobra"]
+	}, -- end of ["MLRS tt_B8M1"]
 	["INF Soldier AK"] = 
 	{
 		["weapons"] = 
@@ -37605,7 +39214,7 @@ everyObject =
 				["Ground Units"] = true,
 				["NonArmoredUnits"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 1.0800000429153,
+			["life"] = 1.039999961853,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
 			["speedMaxOffRoad"] = 4,
@@ -37614,6 +39223,38 @@ everyObject =
 			["speedMax"] = 4,
 		}, -- end of ["desc"]
 	}, -- end of ["INF Soldier AK"]
+	["tetrapod_cargo"] = 
+	{
+		["shapeName"] = "tetrapod_cargo",
+		["defaultMass"] = 5000,
+		["desc"] = 
+		{
+			["life"] = 0,
+			["attributes"] = 
+			{
+				["Cargos"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Tetrapod",
+			["typeName"] = "tetrapod_cargo",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.11533924937248,
+					["x"] = -1.2412413358688,
+					["z"] = -1.1614562273026,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.9748455286026,
+					["x"] = 1.2348972558975,
+					["z"] = 1.1539866924286,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["tetrapod_cargo"]
 	["IFV LAV-25"] = 
 	{
 		["weapons"] = 
@@ -37686,9 +39327,9 @@ everyObject =
 					["displayName"] = "M791 (25mm APDS-T)",
 				}, -- end of ["desc"]
 			}, -- end of [2]
-			[3] = 
+			[4] = 
 			{
-				["count"] = 1544,
+				["count"] = 1236,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -37702,6 +39343,40 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 312,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
 					["displayName"] = "7.62mm",
 				}, -- end of ["desc"]
 			}, -- end of [3]
@@ -37771,41 +39446,14 @@ everyObject =
 			["speedMax"] = 27.777799606323,
 		}, -- end of ["desc"]
 	}, -- end of ["IFV LAV-25"]
-	["Fuel tank"] = 
-	{
-		["shapeName"] = "toplivo-bak",
-		["desc"] = 
-		{
-			["life"] = 5,
-			["_origin"] = "",
-			["displayName"] = "Fuel tank",
-			["category"] = 4,
-			["typeName"] = "Fuel tank",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.2003927230835,
-					["x"] = -8.1461772918701,
-					["z"] = -12.41012096405,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.2764008045197,
-					["x"] = 7.659209728241,
-					["z"] = 12.396969795227,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Fuel tank"]
 	["SA-18 Igla-S manpad"] = 
 	{
 		["desc"] = 
 		{
 			["massEmpty"] = 90,
 			["riverCrossing"] = false,
-			["displayName"] = "MANPADS SA-18 Igla-S \"Grouse\"",
 			["speedMax"] = 4,
+			["displayName"] = "MANPADS SA-18 Igla-S \"Grouse\"",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -37883,182 +39531,43 @@ everyObject =
 			}, -- end of [1]
 		}, -- end of ["weapons"]
 	}, -- end of ["SA-18 Igla-S manpad"]
-	["Truck Ural ATsP-6"] = 
+	["Hangar A"] = 
 	{
+		["shapeName"] = "angar_a",
 		["desc"] = 
 		{
-			["massEmpty"] = 6000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.46999999880791,
+			["life"] = 50,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Hangar A",
+			["typeName"] = "Hangar A",
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = 5.6750138810457e-07,
-					["x"] = -3.34934258461,
-					["z"] = -1.1829950809479,
+					["y"] = -10,
+					["x"] = -8.634388923645,
+					["z"] = -15.000225067139,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.9325089454651,
-					["x"] = 4.4821839332581,
-					["z"] = 1.1829949617386,
+					["y"] = 5.4119663238525,
+					["x"] = 8.634557723999,
+					["z"] = 15.209574699402,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Firefighter Ural ATsP-6",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["NonArmoredUnits"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Unarmed vehicles"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 20.833299636841,
-			["category"] = 2,
-			["typeName"] = "Ural ATsP-6",
-			["speedMax"] = 20.833299636841,
 		}, -- end of ["desc"]
-	}, -- end of ["Truck Ural ATsP-6"]
-	["PIOTR"] = 
+	}, -- end of ["Hangar A"]
+	["ARTY SAU Msta"] = 
 	{
 		["weapons"] = 
 		{
 			[1] = 
 			{
-				["count"] = 384,
-				["desc"] = 
-				{
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.17448772490025,
-							["x"] = -1.6664316654205,
-							["z"] = -0.17395660281181,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.17448772490025,
-							["x"] = 0.97372031211853,
-							["z"] = 0.17395660281181,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 8000,
-					["fuseDist"] = 5,
-					["category"] = 1,
-					["guidance"] = 8,
-					["Nmax"] = 18,
-					["rangeMin"] = 2000,
-					["altMax"] = 3500,
-					["RCS"] = 0.029999999329448,
-					["displayName"] = "9M311 Tunguska (SA-19 Grison)",
-					["altMin"] = 14.5,
-					["life"] = 2,
-					["missileCategory"] = 6,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 9,
-						["type"] = 1,
-						["caliber"] = 100,
-						["mass"] = 9,
-					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 8000,
-					["typeName"] = "SA9M311",
-					["_origin"] = "",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 30114,
+				["count"] = 51,
 				["desc"] = 
 				{
 					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 30,
-						["mass"] = 0.39,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_AP",
-					["displayName"] = "30mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 30114,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-						["caliber"] = 30,
-						["mass"] = 0.39,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_HE",
-					["displayName"] = "30mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [3]
-			[4] = 
-			{
-				["count"] = 180,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 33.4,
-						["type"] = 1,
-						["caliber"] = 130,
-						["mass"] = 33.4,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
 					["box"] = 
 					{
 						["min"] = 
@@ -38074,232 +39583,684 @@ everyObject =
 							["z"] = 0.060612548142672,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.A222_130",
-					["displayName"] = "130mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [4]
-			[5] = 
-			{
-				["count"] = 64,
-				["desc"] = 
-				{
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.22015202045441,
-							["x"] = -1.357297539711,
-							["z"] = -0.21932363510132,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.22015203535557,
-							["x"] = 1.5321007966995,
-							["z"] = 0.2193236798048,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 12000,
-					["fuseDist"] = 7,
-					["category"] = 1,
-					["guidance"] = 4,
-					["Nmax"] = 30,
-					["rangeMin"] = 1500,
-					["altMax"] = 6000,
-					["RCS"] = 0.079999998211861,
-					["displayName"] = "9M330 Tor (SA-15 Gauntlet)",
-					["altMin"] = 10,
-					["life"] = 2,
-					["missileCategory"] = 2,
 					["warhead"] = 
 					{
-						["explosiveMass"] = 14.5,
+						["caliber"] = 152,
+						["mass"] = 43.56,
+						["explosiveMass"] = 7.65,
 						["type"] = 1,
-						["caliber"] = 220,
-						["mass"] = 14.5,
 					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 12000,
-					["typeName"] = "SA9M330",
+					["category"] = 0,
 					["_origin"] = "",
+					["typeName"] = "weapons.shells.2A64_152",
+					["displayName"] = "3OF45 (152mm HE)",
 				}, -- end of ["desc"]
-			}, -- end of [5]
-			[6] = 
+			}, -- end of [1]
+			[2] = 
 			{
-				["count"] = 30,
+				["count"] = 65,
 				["desc"] = 
 				{
+					["life"] = 2,
 					["box"] = 
 					{
 						["min"] = 
 						{
-							["y"] = -0.80766952037811,
-							["x"] = -3.5817511081696,
-							["z"] = -0.81393027305603,
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
 						}, -- end of ["min"]
 						["max"] = 
 						{
-							["y"] = 0.81405502557755,
-							["x"] = 4.0190277099609,
-							["z"] = 0.80779439210892,
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 55000,
-					["fuseDist"] = 25,
-					["category"] = 1,
-					["guidance"] = 4,
-					["Nmax"] = 25,
-					["rangeMin"] = 6000,
-					["altMax"] = 30000,
-					["RCS"] = 0.20000000298023,
-					["displayName"] = "48N6 S-300F (SA-N-6 Grumble)",
-					["altMin"] = 10,
-					["life"] = 2,
-					["missileCategory"] = 2,
 					["warhead"] = 
 					{
-						["explosiveMass"] = 143,
-						["type"] = 1,
-						["caliber"] = 519,
-						["mass"] = 143,
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
 					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 150000,
-					["typeName"] = "SA48H6E2",
+					["category"] = 0,
 					["_origin"] = "",
+					["typeName"] = "weapons.shells.Utes_12_7x108_T",
+					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
-			}, -- end of [6]
-			[7] = 
+			}, -- end of [2]
+			[3] = 
 			{
-				["count"] = 48,
+				["count"] = 245,
 				["desc"] = 
 				{
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.80982387065887,
-							["x"] = -3.6131811141968,
-							["z"] = -0.81062549352646,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.81190091371536,
-							["x"] = 3.6516976356506,
-							["z"] = 0.81109911203384,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 40000,
-					["fuseDist"] = 30,
-					["category"] = 1,
-					["guidance"] = 4,
-					["Nmax"] = 16,
-					["rangeMin"] = 5000,
-					["altMax"] = 25000,
-					["RCS"] = 0.20000000298023,
-					["displayName"] = "5V55 S-300PS (SA-10B Grumble)",
-					["altMin"] = 25,
 					["life"] = 2,
-					["missileCategory"] = 2,
+					["_origin"] = "",
 					["warhead"] = 
 					{
-						["explosiveMass"] = 133,
-						["type"] = 1,
-						["caliber"] = 508,
-						["mass"] = 133,
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
 					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 75000,
-					["typeName"] = "SA5B55",
-					["_origin"] = "",
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
-			}, -- end of [7]
-			[8] = 
-			{
-				["count"] = 20,
-				["desc"] = 
-				{
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -1.1280221939087,
-							["x"] = -4.185567855835,
-							["z"] = -1.2964717149734,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 1.1280221939087,
-							["x"] = 5.1150178909302,
-							["z"] = 1.2964717149734,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 550000,
-					["fuseDist"] = 0,
-					["category"] = 1,
-					["guidance"] = 1,
-					["Nmax"] = 12,
-					["rangeMin"] = 13000,
-					["altMax"] = 12000,
-					["RCS"] = 1.5,
-					["displayName"] = "P-700 (SS-N-19 Shipwreck)",
-					["altMin"] = -1,
-					["life"] = 2,
-					["missileCategory"] = 5,
-					["warhead"] = 
-					{
-						["mass"] = 400,
-						["explosiveMass"] = 400,
-						["shapedExplosiveArmorThickness"] = 0.10000000149012,
-						["shapedExplosiveMass"] = 800,
-						["caliber"] = 0,
-						["type"] = 2,
-					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 550000,
-					["typeName"] = "P_700",
-					["_origin"] = "",
-				}, -- end of ["desc"]
-			}, -- end of [8]
+			}, -- end of [3]
 		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "TKN-3B day",
+					["opticType"] = 0,
+				}, -- end of [1]
+				[2] = 
+				{
+					["type"] = 0,
+					["typeName"] = "TKN-3B night",
+					["opticType"] = 2,
+				}, -- end of [2]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["massEmpty"] = 20000000,
-			["RCS"] = 10972.969726563,
+			["massEmpty"] = 40000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.61000001430511,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -10.314324378967,
-					["x"] = -128.40188598633,
-					["z"] = -16.865631103516,
+					["y"] = -0.0024733247701079,
+					["x"] = -3.8031659126282,
+					["z"] = -1.8511189222336,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 50.468719482422,
-					["x"] = 129.09606933594,
-					["z"] = 16.865631103516,
+					["y"] = 2.7471783161163,
+					["x"] = 3.8235459327698,
+					["z"] = 1.8511190414429,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 16.005599975586,
-			["life"] = 6500,
+			["RCS"] = 5,
+			["displayName"] = "SPH 2S19 Msta 152mm",
 			["attributes"] = 
 			{
-				["Heavy armed ships"] = true,
-				["Ships"] = true,
-				["Armed ships"] = true,
-				["Armed Air Defence"] = true,
-				["Cruisers"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["HelicopterCarrier"] = true,
-				["Armed Ship"] = true,
-				["HeavyArmoredUnits"] = true,
+				["Artillery"] = true,
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armed vehicles"] = true,
+				["LightArmoredUnits"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Armed ground units"] = true,
 				["All"] = true,
-				["Naval"] = true,
-				["DetectionByAWACS"] = true,
+				["Ground Units"] = true,
+				["Indirect fire"] = true,
 			}, -- end of ["attributes"]
-			["category"] = 3,
+			["life"] = 4,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
-			["typeName"] = "PIOTR",
-			["displayName"] = "Battlecruiser 1144.2 Pyotr Velikiy",
+			["speedMaxOffRoad"] = 16.666700363159,
+			["category"] = 2,
+			["typeName"] = "SAU Msta",
+			["speedMax"] = 16.666700363159,
 		}, -- end of ["desc"]
-	}, -- end of ["PIOTR"]
+	}, -- end of ["ARTY SAU Msta"]
+	["MiG-21Bis"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 260,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 23,
+						["mass"] = 0.18,
+						["explosiveMass"] = 0.18,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.GSH_23_HE",
+					["displayName"] = "GSH 23 HE",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 22737.171875,
+							["headOn"] = 33437.015625,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 12037.326171875,
+							["headOn"] = 33437.015625,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "N-008",
+				}, -- end of [1]
+			}, -- end of [1]
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "Shkval",
+					["opticType"] = 0,
+				}, -- end of [1]
+			}, -- end of [0]
+			[3] = 
+			{
+				[1] = 
+				{
+					["typeName"] = "Abstract RWR",
+					["type"] = 3,
+				}, -- end of [1]
+			}, -- end of [3]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["speedMax0"] = 362,
+			["massEmpty"] = 6255,
+			["range"] = 1210,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.8505619764328,
+					["x"] = -7.5638704299927,
+					["z"] = -4.3086938858032,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.6323990821838,
+					["x"] = 8.5842876434326,
+					["z"] = 4.3136186599731,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 20000,
+			["Kmax"] = 0.60000002384186,
+			["_origin"] = "MiG-21Bis AI by Magnitude 3 LLC",
+			["speedMax10K"] = 697,
+			["NyMin"] = -4,
+			["fuelMassMax"] = 2280,
+			["speedMax"] = 697,
+			["NyMax"] = 7.5,
+			["massMax"] = 10400,
+			["RCS"] = 3,
+			["displayName"] = "MiG-21Bis",
+			["life"] = 20,
+			["VyMax"] = 200,
+			["Kab"] = 2.4000000953674,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["Fighters"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Battle airplanes"] = true,
+				["Planes"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "MiG-21Bis",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["MiG-21Bis"]
+	["Roland Radar"] = 
+	{
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 23405.912109375,
+							["headOn"] = 23405.912109375,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 23405.912109375,
+							["headOn"] = 23405.912109375,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "Roland Radar",
+				}, -- end of [1]
+			}, -- end of [1]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 29207,
+			["riverCrossing"] = false,
+			["speedMax"] = 20.833299636841,
+			["displayName"] = "SAM Roland EWR",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.01611896418035,
+					["x"] = -3.3798274993896,
+					["z"] = -1.5889626741409,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 6.8232507705688,
+					["x"] = 3.4877336025238,
+					["z"] = 1.5889630317688,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "",
+			["life"] = 5,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 20.833299636841,
+			["attributes"] = 
+			{
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["NonArmoredUnits"] = true,
+				["SAM SR"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["SAM related"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "Roland Radar",
+			["maxSlopeAngle"] = 0.61000001430511,
+		}, -- end of ["desc"]
+	}, -- end of ["Roland Radar"]
+	["MiG-29S"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 150,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 30,
+						["mass"] = 0.39,
+						["explosiveMass"] = 0.39,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.GSH301_30_HE",
+					["displayName"] = "30mm HE",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 22795.072265625,
+							["headOn"] = 45590.14453125,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 22795.072265625,
+							["headOn"] = 45590.14453125,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "N-019M",
+				}, -- end of [1]
+			}, -- end of [1]
+			[2] = 
+			{
+				[1] = 
+				{
+					["type"] = 2,
+					["detectionDistanceMaximal"] = 12000,
+					["detectionDistanceIdle"] = 6000,
+					["typeName"] = "KOLS",
+					["detectionDistanceAfterburner"] = 20000,
+				}, -- end of [1]
+			}, -- end of [2]
+			[3] = 
+			{
+				[1] = 
+				{
+					["typeName"] = "Abstract RWR",
+					["type"] = 3,
+				}, -- end of [1]
+			}, -- end of [3]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["speedMax0"] = 416.70001220703,
+			["massEmpty"] = 11222,
+			["range"] = 1500,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.7533042430878,
+					["x"] = -7.2414231300354,
+					["z"] = -5.7602467536926,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.0893540382385,
+					["x"] = 9.624683380127,
+					["z"] = 5.7602467536926,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 18000,
+			["Kmax"] = 0.76999998092651,
+			["_origin"] = "",
+			["speedMax10K"] = 680.59997558594,
+			["NyMin"] = -3,
+			["fuelMassMax"] = 3493,
+			["speedMax"] = 680.59997558594,
+			["NyMax"] = 8,
+			["massMax"] = 19700,
+			["RCS"] = 5,
+			["displayName"] = "mig-29c",
+			["life"] = 16,
+			["VyMax"] = 330,
+			["Kab"] = 4,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["Fighters"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Battle airplanes"] = true,
+				["Planes"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "MiG-29S",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["MiG-29S"]
+	["rapier_fsa_optical_tracker_unit"] = 
+	{
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "generic SAM search visir",
+					["opticType"] = 0,
+				}, -- end of [1]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["speedMax"] = 0,
+			["displayName"] = "SAM Rapier Tracker",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.0093219615519047,
+					["x"] = -0.71828979253769,
+					["z"] = -0.94367444515228,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.6035619974136,
+					["x"] = 0.98661839962006,
+					["z"] = 0.94367450475693,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "TechWeaponPack",
+			["life"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["attributes"] = 
+			{
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["NonArmoredUnits"] = true,
+				["SAM SR"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["SR SAM"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["SAM related"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "rapier_fsa_optical_tracker_unit",
+			["maxSlopeAngle"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["rapier_fsa_optical_tracker_unit"]
+	["Su-33"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 150,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 30,
+						["mass"] = 0.39,
+						["explosiveMass"] = 0.39,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.GSH301_30_HE",
+					["displayName"] = "30mm HE",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 25412.1328125,
+							["headOn"] = 45741.83984375,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 17788.4921875,
+							["headOn"] = 45741.83984375,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "N-001",
+				}, -- end of [1]
+			}, -- end of [1]
+			[2] = 
+			{
+				[1] = 
+				{
+					["type"] = 2,
+					["detectionDistanceMaximal"] = 40000,
+					["detectionDistanceIdle"] = 25000,
+					["typeName"] = "OLS-27",
+					["detectionDistanceAfterburner"] = 80000,
+				}, -- end of [1]
+			}, -- end of [2]
+			[3] = 
+			{
+				[1] = 
+				{
+					["typeName"] = "Abstract RWR",
+					["type"] = 3,
+				}, -- end of [1]
+			}, -- end of [3]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["speedMax0"] = 403,
+			["massEmpty"] = 19680,
+			["tankerType"] = 1,
+			["range"] = 3000,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.811084985733,
+					["x"] = -7.0053868293762,
+					["z"] = -7.4099044799805,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.6561763286591,
+					["x"] = 13.082051277161,
+					["z"] = 7.4223022460938,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 18500,
+			["Kmax"] = 1,
+			["_origin"] = "",
+			["speedMax10K"] = 694.44000244141,
+			["NyMin"] = -3,
+			["fuelMassMax"] = 9500,
+			["speedMax"] = 694.44000244141,
+			["NyMax"] = 8,
+			["massMax"] = 33000,
+			["RCS"] = 5.5,
+			["displayName"] = "su-33",
+			["life"] = 20,
+			["VyMax"] = 325,
+			["Kab"] = 5,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["Fighters"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Battle airplanes"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Planes"] = true,
+				["Refuelable"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "Su-33",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["Su-33"]
+	["Tank 2"] = 
+	{
+		["shapeName"] = "airbase_tbilisi_tank_01",
+		["desc"] = 
+		{
+			["life"] = 100,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Tank 2",
+			["typeName"] = "Tank 2",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -5.1112232208252,
+					["x"] = -5.9215316772461,
+					["z"] = -6.0128803253174,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 8.0216503143311,
+					["x"] = 5.9215312004089,
+					["z"] = 6.1229090690613,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Tank 2"]
 	["IFV M1045 HMMWV TOW"] = 
 	{
 		["weapons"] = 
@@ -38418,6 +40379,439 @@ everyObject =
 			["speedMax"] = 31.388900756836,
 		}, -- end of ["desc"]
 	}, -- end of ["IFV M1045 HMMWV TOW"]
+	["MBT M-1 Abrams"] = 
+	{
+		["weapons"] = 
+		{
+			[6] = 
+			{
+				["count"] = 404,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.046,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.M2_12_7",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [6]
+			[2] = 
+			{
+				["count"] = 18,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 120,
+						["mass"] = 14.3,
+						["explosiveMass"] = 14.3,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M256_120_HE",
+					["displayName"] = "M830 (120mm HEAT-MP-T)",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 560,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 26,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.10894741863012,
+							["x"] = -0.23145794868469,
+							["z"] = -0.10864424705505,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.10724244266748,
+							["x"] = 0.26817846298218,
+							["z"] = 0.10754559934139,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 120,
+						["mass"] = 4.9,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M256_120_AP",
+					["displayName"] = "M829A2 (120mm APFSDS-T)",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[4] = 
+			{
+				["count"] = 2240,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
+			{
+				["count"] = 104,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.046,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M2_12_7_TR",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [5]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "CITV day",
+					["opticType"] = 0,
+				}, -- end of [1]
+				[2] = 
+				{
+					["type"] = 0,
+					["typeName"] = "CITV night",
+					["opticType"] = 2,
+				}, -- end of [2]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 57154,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.61000001430511,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.008797544054687,
+					["x"] = -4.28093957901,
+					["z"] = -2.2602686882019,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.0843367576599,
+					["x"] = 4.4233250617981,
+					["z"] = 2.2602686882019,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "MBT M1A2 Abrams",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armored vehicles"] = true,
+				["Modern Tanks"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["Ground vehicles"] = true,
+				["Datalink"] = true,
+				["Tanks"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Armed vehicles"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 32,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 18.527799606323,
+			["category"] = 2,
+			["typeName"] = "M-1 Abrams",
+			["speedMax"] = 18.527799606323,
+		}, -- end of ["desc"]
+	}, -- end of ["MBT M-1 Abrams"]
+	["IFV Tigr_233036"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 7000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.40000000596046,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.015026027336717,
+					["x"] = -2.8946268558502,
+					["z"] = -1.5251200199127,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.4772720336914,
+					["x"] = 2.8923156261444,
+					["z"] = 1.5251200199127,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "LUV Tigr",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["human_vehicle"] = true,
+				["Armored vehicles"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["LightArmoredUnits"] = true,
+				["Vehicles"] = true,
+				["Ground vehicles"] = true,
+				["Armed vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Infantry carriers"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["APC"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 2.5,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 40,
+			["category"] = 2,
+			["typeName"] = "Tigr_233036",
+			["speedMax"] = 40,
+		}, -- end of ["desc"]
+	}, -- end of ["IFV Tigr_233036"]
+	["MLRS MLRS"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 12,
+				["desc"] = 
+				{
+					["distMax"] = 0,
+					["RCS"] = 0,
+					["displayName"] = "M26 (270mm DPICM)",
+					["life"] = 2,
+					["category"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.20194438099861,
+							["x"] = -1.9834185838699,
+							["z"] = -0.19026750326157,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.20194438099861,
+							["x"] = 1.9834185838699,
+							["z"] = 0.19026751816273,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["_origin"] = "",
+					["typeName"] = "weapons.nurs.M26",
+					["distMin"] = 0,
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["desc"] = 
+		{
+			["massEmpty"] = 25191,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.27000001072884,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.024093169718981,
+					["x"] = -3.4885001182556,
+					["z"] = -1.3715417385101,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.0690410137177,
+					["x"] = 3.4885001182556,
+					["z"] = 1.3715417385101,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "MLRS M270 227mm",
+			["attributes"] = 
+			{
+				["Artillery"] = true,
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armed vehicles"] = true,
+				["LightArmoredUnits"] = true,
+				["Ground vehicles"] = true,
+				["Armed ground units"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Ground Units"] = true,
+				["Indirect fire"] = true,
+				["All"] = true,
+				["Datalink"] = true,
+				["MLRS"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 17.777799606323,
+			["category"] = 2,
+			["typeName"] = "MLRS",
+			["speedMax"] = 17.777799606323,
+		}, -- end of ["desc"]
+	}, -- end of ["MLRS MLRS"]
+	["CV_59_H60"] = 
+	{
+		["desc"] = 
+		{
+			["life"] = 3,
+			["attributes"] = 
+			{
+				["Buildings"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "",
+			["typeName"] = "CV_59_H60",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.010258950293064,
+					["x"] = -1.0823580026627,
+					["z"] = -0.65466392040253,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.1947994232178,
+					["x"] = 2.7169711589813,
+					["z"] = 0.66979503631592,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["CV_59_H60"]
+	["Repair workshop"] = 
+	{
+		["shapeName"] = "tech",
+		["desc"] = 
+		{
+			["life"] = 500,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Repair workshop",
+			["typeName"] = "Repair workshop",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -16.532070159912,
+					["x"] = -30.137250900269,
+					["z"] = -25.451103210449,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 23,
+					["x"] = 31.375905990601,
+					["z"] = 25.361488342285,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Repair workshop"]
 	["F-14A"] = 
 	{
 		["weapons"] = 
@@ -38539,87 +40933,6 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["F-14A"]
-	["Electric power box"] = 
-	{
-		["shapeName"] = "tr_budka",
-		["desc"] = 
-		{
-			["life"] = 150,
-			["_origin"] = "",
-			["displayName"] = "Electric power box",
-			["category"] = 4,
-			["typeName"] = "Electric power box",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -9.9994821548462,
-					["x"] = -3.3369698524475,
-					["z"] = -6.5684070587158,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 4.1106142997742,
-					["x"] = 3.3346440792084,
-					["z"] = 6.5863542556763,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Electric power box"]
-	["Tank 3"] = 
-	{
-		["shapeName"] = "airbase_tbilisi_tank_02",
-		["desc"] = 
-		{
-			["life"] = 100,
-			["_origin"] = "",
-			["displayName"] = "Tank 3",
-			["category"] = 4,
-			["typeName"] = "Tank 3",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -6.0691690444946,
-					["x"] = -4.3354420661926,
-					["z"] = -4.2073092460632,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 11,
-					["x"] = 4.2970781326294,
-					["z"] = 4.2486939430237,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Tank 3"]
-	["Red_Flag"] = 
-	{
-		["shapeName"] = "H-flag_R",
-		["desc"] = 
-		{
-			["life"] = 3,
-			["_origin"] = "",
-			["displayName"] = "Mark Flag Red",
-			["category"] = 4,
-			["typeName"] = "Red_Flag",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.33318361639977,
-					["x"] = -1.3334575891495,
-					["z"] = -1.3367536067963,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 1.3364826440811,
-					["x"] = 1.3400497436523,
-					["z"] = 1.3367537260056,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Red_Flag"]
 	["L-39C"] = 
 	{
 		["desc"] = 
@@ -38670,25 +40983,50 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["L-39C"]
-	["Type_052B"] = 
+	["MBT Chieftain_mk3"] = 
 	{
 		["weapons"] = 
 		{
 			[1] = 
 			{
-				["count"] = 480,
+				["count"] = 20,
 				["desc"] = 
 				{
 					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.10894741863012,
+							["x"] = -0.23145794868469,
+							["z"] = -0.10864424705505,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.10724244266748,
+							["x"] = 0.26817846298218,
+							["z"] = 0.10754559934139,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
 					["warhead"] = 
 					{
-						["explosiveMass"] = 15.6,
-						["type"] = 1,
-						["caliber"] = 100,
-						["mass"] = 15.6,
+						["caliber"] = 120,
+						["mass"] = 4.3,
+						["explosiveMass"] = 0,
+						["type"] = 0,
 					}, -- end of ["warhead"]
-					["_origin"] = "",
 					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.L23A1_APFSDS",
+					["displayName"] = "L23A1 (120mm APFSDS-T)",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 35,
+				["desc"] = 
+				{
+					["life"] = 2,
 					["box"] = 
 					{
 						["min"] = 
@@ -38704,40 +41042,1244 @@ everyObject =
 							["z"] = 0.060612548142672,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK100_100",
-					["displayName"] = "100mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 14.3,
+						["caliber"] = 120,
+						["shapedExplosiveArmorThickness"] = 0.1,
+						["shapedExplosiveMass"] = 7,
+						["explosiveMass"] = 7,
+						["type"] = 2,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.L31A7_HESH",
+					["displayName"] = "L31A7 (120mm HESH)",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 4829,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 1229,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "TRP-2A day",
+					["opticType"] = 0,
+				}, -- end of [1]
+				[2] = 
+				{
+					["type"] = 0,
+					["typeName"] = "TRP-2A night",
+					["opticType"] = 1,
+				}, -- end of [2]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 56000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.27000001072884,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.0061487285420299,
+					["x"] = -4.1604328155518,
+					["z"] = -1.9527469873428,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.8917446136475,
+					["x"] = 3.3844354152679,
+					["z"] = 1.7647385597229,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "MBT Chieftain Mk.3",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armored vehicles"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["Old Tanks"] = true,
+				["Ground vehicles"] = true,
+				["Armed vehicles"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Tanks"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 20,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "TechWeaponPack",
+			["speedMaxOffRoad"] = 11.10000038147,
+			["category"] = 2,
+			["typeName"] = "Chieftain_mk3",
+			["speedMax"] = 11.10000038147,
+		}, -- end of ["desc"]
+	}, -- end of ["MBT Chieftain_mk3"]
+	["Truck Ural ATsP-6"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 6000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.46999999880791,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 5.6750138810457e-07,
+					["x"] = -3.34934258461,
+					["z"] = -1.1829950809479,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.9325089454651,
+					["x"] = 4.4821839332581,
+					["z"] = 1.1829949617386,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "Firefighter Ural ATsP-6",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["NonArmoredUnits"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Unarmed vehicles"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 20.833299636841,
+			["category"] = 2,
+			["typeName"] = "Ural ATsP-6",
+			["speedMax"] = 20.833299636841,
+		}, -- end of ["desc"]
+	}, -- end of ["Truck Ural ATsP-6"]
+	["IFV Cobra"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 115,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Utes_12_7x108_T",
+					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 			[2] = 
 			{
-				["count"] = 16,
+				["count"] = 445,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.047,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+		}, -- end of ["weapons"]
+		["desc"] = 
+		{
+			["massEmpty"] = 6200,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.46999999880791,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.00017223764734808,
+					["x"] = -2.7330939769745,
+					["z"] = -1.3357709646225,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.1128633022308,
+					["x"] = 2.9002566337585,
+					["z"] = 1.4554532766342,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "Scout Cobra",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armored vehicles"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["LightArmoredUnits"] = true,
+				["Ground vehicles"] = true,
+				["Armed vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Infantry carriers"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["APC"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 2.7999999523163,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 32,
+			["category"] = 2,
+			["typeName"] = "Cobra",
+			["speedMax"] = 32,
+		}, -- end of ["desc"]
+	}, -- end of ["IFV Cobra"]
+	["IFV M30_CC"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 504,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["explosiveMass"] = 0,
+						["type"] = 0,
+						["caliber"] = 12.7,
+						["mass"] = 0.046,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M2_12_7_T",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["desc"] = 
+		{
+			["massEmpty"] = 24700,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.52359879016876,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.0016576558118686,
+					["x"] = -4.0040860176086,
+					["z"] = -1.3389648199081,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.0248696804047,
+					["x"] = 2.8518598079681,
+					["z"] = 1.3387978076935,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "Ammo M30 Cargo Carrier",
+			["Kmax"] = 0.050000000745058,
+			["life"] = 15,
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armored vehicles"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["LightArmoredUnits"] = true,
+				["Ground vehicles"] = true,
+				["Armed vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Infantry carriers"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["APC"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 2,
+			["speedMaxOffRoad"] = 11.109999656677,
+			["_origin"] = "WWII Armour and Technics",
+			["typeName"] = "M30_CC",
+			["speedMax"] = 11.109999656677,
+		}, -- end of ["desc"]
+	}, -- end of ["IFV M30_CC"]
+	["Fuel tank"] = 
+	{
+		["shapeName"] = "toplivo-bak",
+		["desc"] = 
+		{
+			["life"] = 5,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Fuel tank",
+			["typeName"] = "Fuel tank",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.2003927230835,
+					["x"] = -8.1461772918701,
+					["z"] = -12.41012096405,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.2764008045197,
+					["x"] = 7.659209728241,
+					["z"] = 12.396969795227,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Fuel tank"]
+	["Nodding_Donkey"] = 
+	{
+		["shapeName"] = "Nodding_Donkey",
+		["desc"] = 
+		{
+			["life"] = 100,
+			["_origin"] = "South_Atlantic_Assets",
+			["category"] = 4,
+			["displayName"] = "Nodding Donkey",
+			["typeName"] = "Nodding_Donkey",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.8577287197113,
+					["x"] = -4.8003506660461,
+					["z"] = -1.3577473163605,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 9.6026220321655,
+					["x"] = 3.7833533287048,
+					["z"] = 3.0026018619537,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Nodding_Donkey"]
+	["Type_054A"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 4200000,
+			["RCS"] = 3500.8742675781,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -7.0270261764526,
+					["x"] = -67.616851806641,
+					["z"] = -9.026330947876,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 36.79935836792,
+					["x"] = 75.395713806152,
+					["z"] = 8.9391832351685,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "Type 054A Frigate",
+			["life"] = 2500,
+			["attributes"] = 
+			{
+				["Naval"] = true,
+				["Armed ships"] = true,
+				["Ships"] = true,
+				["Frigates"] = true,
+				["All"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["DetectionByAWACS"] = true,
+				["Armed Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
+			["typeName"] = "Type_054A",
+			["speedMax"] = 15.433300018311,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[2] = 
+			{
+				["count"] = 32,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.29451015591621,
+							["x"] = -2.5006303787231,
+							["z"] = -0.29451051354408,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.29451015591621,
+							["x"] = 2.5,
+							["z"] = 0.29450979828835,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 40000,
+					["fuseDist"] = 15,
+					["category"] = 1,
+					["guidance"] = 4,
+					["Nmax"] = 22,
+					["rangeMin"] = 500,
+					["altMax"] = 35000,
+					["RCS"] = 0.09179999679327,
+					["displayName"] = "HQ-16",
+					["altMin"] = 5,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 59,
+						["type"] = 1,
+						["explosiveMass"] = 59,
+						["caliber"] = 160,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 50000,
+					["typeName"] = "HQ-16",
+					["missileCategory"] = 2,
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 20018,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "30mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.39,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 30,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 480,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "76mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 6.3,
+						["type"] = 1,
+						["explosiveMass"] = 6.3,
+						["caliber"] = 76,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.MK75_76",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[4] = 
+			{
+				["count"] = 20018,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "30mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.39,
+						["type"] = 1,
+						["explosiveMass"] = 0.39,
+						["caliber"] = 30,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
+			{
+				["count"] = 8,
 				["desc"] = 
 				{
 					["missileCategory"] = 5,
 					["rangeMaxAltMax"] = 180000,
 					["rangeMin"] = 12000,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 180000,
+					["warhead"] = 
+					{
+						["mass"] = 165,
+						["type"] = 1,
+						["explosiveMass"] = 165,
+						["caliber"] = 360,
+					}, -- end of ["warhead"]
+					["category"] = 1,
 					["altMax"] = 10000,
 					["RCS"] = 0.12099999934435,
 					["displayName"] = "YJ-83",
 					["altMin"] = -1,
-					["life"] = 2,
+					["rangeMaxAltMin"] = 180000,
 					["fuseDist"] = 0,
-					["category"] = 1,
+					["_origin"] = "",
 					["guidance"] = 1,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 165,
-						["type"] = 1,
-						["caliber"] = 360,
-						["mass"] = 165,
-					}, -- end of ["warhead"]
+					["life"] = 2,
 					["typeName"] = "weapons.missiles.YJ-83",
 					["Nmax"] = 6,
 				}, -- end of ["desc"]
+			}, -- end of [5]
+		}, -- end of ["weapons"]
+	}, -- end of ["Type_054A"]
+	["leander-gun-lynch"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 3200000,
+			["RCS"] = 2275.9594726563,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -5.1030974388123,
+					["x"] = -57.327835083008,
+					["z"] = -7.7185621261597,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 32.034683227539,
+					["x"] = 57.327835083008,
+					["z"] = 7.4427938461304,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "CNS Almirante Lynch (PFG-07)",
+			["life"] = 1000,
+			["attributes"] = 
+			{
+				["Naval"] = true,
+				["Ships"] = true,
+				["Frigates"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["DetectionByAWACS"] = true,
+				["Armed ships"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "South_Atlantic_Assets",
+			["typeName"] = "leander-gun-lynch",
+			["speedMax"] = 14.39999961853,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[6] = 
+			{
+				["count"] = 4,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.33340606093407,
+							["x"] = -2.6633660793304,
+							["z"] = -0.3308057487011,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.33340606093407,
+							["x"] = 1.9399915933609,
+							["z"] = 0.3308057487011,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 95000,
+					["fuseDist"] = 0,
+					["category"] = 1,
+					["guidance"] = 1,
+					["Nmax"] = 18,
+					["rangeMin"] = 3000,
+					["altMax"] = 10000,
+					["RCS"] = 0.10000000149012,
+					["displayName"] = "RGM-84D Harpoon",
+					["altMin"] = -1,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 90,
+						["type"] = 2,
+						["shapedExplosiveArmorThickness"] = 0.10000000149012,
+						["shapedExplosiveMass"] = 180,
+						["explosiveMass"] = 90,
+						["caliber"] = 0,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 241401,
+					["typeName"] = "AGM_84S",
+					["missileCategory"] = 4,
+				}, -- end of ["desc"]
+			}, -- end of [6]
+			[2] = 
+			{
+				["count"] = 8984,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
 			}, -- end of [2]
 			[3] = 
+			{
+				["count"] = 8984,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "20mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.1,
+						["type"] = 1,
+						["explosiveMass"] = 0.1,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M61_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 150,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "130mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 33.4,
+						["type"] = 1,
+						["explosiveMass"] = 33.4,
+						["caliber"] = 130,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.A222_130",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[4] = 
+			{
+				["count"] = 4000,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "DM63 (20mm APDS-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.12,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Rh202_20_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
+			{
+				["count"] = 4000,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "DM81 (20mm HE-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.12,
+						["type"] = 1,
+						["explosiveMass"] = 0.12,
+						["caliber"] = 20,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Rh202_20_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [5]
+		}, -- end of ["weapons"]
+	}, -- end of ["leander-gun-lynch"]
+	["PIOTR"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 20000000,
+			["RCS"] = 10972.969726563,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -10.314324378967,
+					["x"] = -128.40188598633,
+					["z"] = -16.865631103516,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 50.468719482422,
+					["x"] = 129.09606933594,
+					["z"] = 16.865631103516,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "Battlecruiser 1144.2 Pyotr Velikiy",
+			["life"] = 6500,
+			["attributes"] = 
+			{
+				["DetectionByAWACS"] = true,
+				["Ships"] = true,
+				["Armed Air Defence"] = true,
+				["All"] = true,
+				["Cruisers"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed ships"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["typeName"] = "PIOTR",
+			["speedMax"] = 16.005599975586,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[6] = 
+			{
+				["count"] = 30,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.80766952037811,
+							["x"] = -3.5817511081696,
+							["z"] = -0.81393027305603,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.81405502557755,
+							["x"] = 4.0190277099609,
+							["z"] = 0.80779439210892,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 55000,
+					["fuseDist"] = 25,
+					["category"] = 1,
+					["guidance"] = 4,
+					["Nmax"] = 25,
+					["rangeMin"] = 6000,
+					["altMax"] = 30000,
+					["RCS"] = 0.20000000298023,
+					["displayName"] = "48N6 S-300F (SA-N-6 Grumble)",
+					["altMin"] = 10,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 143,
+						["type"] = 1,
+						["explosiveMass"] = 143,
+						["caliber"] = 519,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 150000,
+					["typeName"] = "SA48H6E2",
+					["missileCategory"] = 2,
+				}, -- end of ["desc"]
+			}, -- end of [6]
+			[2] = 
+			{
+				["count"] = 30114,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "30mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.39,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 30,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[8] = 
+			{
+				["count"] = 20,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -1.1280221939087,
+							["x"] = -4.185567855835,
+							["z"] = -1.2964717149734,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 1.1280221939087,
+							["x"] = 5.1150178909302,
+							["z"] = 1.2964717149734,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 550000,
+					["fuseDist"] = 0,
+					["category"] = 1,
+					["guidance"] = 1,
+					["Nmax"] = 12,
+					["rangeMin"] = 13000,
+					["altMax"] = 12000,
+					["RCS"] = 1.5,
+					["displayName"] = "P-700 (SS-N-19 Shipwreck)",
+					["altMin"] = -1,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 400,
+						["type"] = 2,
+						["shapedExplosiveArmorThickness"] = 0.10000000149012,
+						["shapedExplosiveMass"] = 800,
+						["explosiveMass"] = 400,
+						["caliber"] = 0,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 550000,
+					["typeName"] = "P_700",
+					["missileCategory"] = 5,
+				}, -- end of ["desc"]
+			}, -- end of [8]
+			[3] = 
+			{
+				["count"] = 30114,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "30mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.39,
+						["type"] = 1,
+						["explosiveMass"] = 0.39,
+						["caliber"] = 30,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.AK630_30_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 384,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.17448772490025,
+							["x"] = -1.6664316654205,
+							["z"] = -0.17395660281181,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.17448772490025,
+							["x"] = 0.97372031211853,
+							["z"] = 0.17395660281181,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 8000,
+					["fuseDist"] = 5,
+					["category"] = 1,
+					["guidance"] = 8,
+					["Nmax"] = 18,
+					["rangeMin"] = 2000,
+					["altMax"] = 3500,
+					["RCS"] = 0.029999999329448,
+					["displayName"] = "9M311 Tunguska (SA-19 Grison)",
+					["altMin"] = 14.5,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 9,
+						["type"] = 1,
+						["explosiveMass"] = 9,
+						["caliber"] = 100,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 8000,
+					["typeName"] = "SA9M311",
+					["missileCategory"] = 6,
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[4] = 
+			{
+				["count"] = 180,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "130mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 33.4,
+						["type"] = 1,
+						["explosiveMass"] = 33.4,
+						["caliber"] = 130,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.A222_130",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.060612548142672,
+							["x"] = -0.27024647593498,
+							["z"] = -0.060612548142672,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.060612548142672,
+							["x"] = 0.24980916082859,
+							["z"] = 0.060612548142672,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
+			{
+				["count"] = 64,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.22015202045441,
+							["x"] = -1.357297539711,
+							["z"] = -0.21932363510132,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.22015203535557,
+							["x"] = 1.5321007966995,
+							["z"] = 0.2193236798048,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 12000,
+					["fuseDist"] = 7,
+					["category"] = 1,
+					["guidance"] = 4,
+					["Nmax"] = 30,
+					["rangeMin"] = 1500,
+					["altMax"] = 6000,
+					["RCS"] = 0.079999998211861,
+					["displayName"] = "9M330 Tor (SA-15 Gauntlet)",
+					["altMin"] = 10,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 14.5,
+						["type"] = 1,
+						["explosiveMass"] = 14.5,
+						["caliber"] = 220,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 12000,
+					["typeName"] = "SA9M330",
+					["missileCategory"] = 2,
+				}, -- end of ["desc"]
+			}, -- end of [5]
+			[7] = 
 			{
 				["count"] = 48,
 				["desc"] = 
@@ -38746,154 +42288,281 @@ everyObject =
 					{
 						["min"] = 
 						{
-							["y"] = -0.52544873952866,
-							["x"] = -2.1140217781067,
-							["z"] = -0.31168666481972,
+							["y"] = -0.80982387065887,
+							["x"] = -3.6131811141968,
+							["z"] = -0.81062549352646,
 						}, -- end of ["min"]
 						["max"] = 
 						{
-							["y"] = 0.097924433648586,
-							["x"] = 3.3651101589203,
-							["z"] = 0.31168666481972,
+							["y"] = 0.81190091371536,
+							["x"] = 3.6516976356506,
+							["z"] = 0.81109911203384,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 30000,
-					["fuseDist"] = 13,
+					["rangeMaxAltMin"] = 40000,
+					["fuseDist"] = 30,
 					["category"] = 1,
 					["guidance"] = 4,
-					["Nmax"] = 19,
-					["rangeMin"] = 500,
-					["altMax"] = 15000,
-					["RCS"] = 0.09179999679327,
-					["displayName"] = "9M317",
-					["altMin"] = 5,
+					["Nmax"] = 16,
+					["rangeMin"] = 5000,
+					["altMax"] = 25000,
+					["RCS"] = 0.20000000298023,
+					["displayName"] = "5V55 S-300PS (SA-10B Grumble)",
+					["altMin"] = 25,
 					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 133,
+						["type"] = 1,
+						["explosiveMass"] = 133,
+						["caliber"] = 508,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 75000,
+					["typeName"] = "SA5B55",
 					["missileCategory"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 59,
-						["type"] = 1,
-						["caliber"] = 400,
-						["mass"] = 59,
-					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 40000,
-					["typeName"] = "9M317",
-					["_origin"] = "",
 				}, -- end of ["desc"]
-			}, -- end of [3]
-			[4] = 
-			{
-				["count"] = 20018,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 30,
-						["mass"] = 0.39,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_AP",
-					["displayName"] = "30mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [4]
-			[5] = 
-			{
-				["count"] = 20018,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-						["caliber"] = 30,
-						["mass"] = 0.39,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_HE",
-					["displayName"] = "30mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [5]
+			}, -- end of [7]
 		}, -- end of ["weapons"]
+	}, -- end of ["PIOTR"]
+	["Haystack 3"] = 
+	{
+		["shapeName"] = "Haystack_3",
 		["desc"] = 
 		{
-			["massEmpty"] = 5850000,
-			["RCS"] = 3924.7231445313,
+			["life"] = 7,
+			["_origin"] = "WWII Armour and Technics",
+			["displayName"] = "Haystack 3",
+			["category"] = 4,
+			["typeName"] = "Haystack 3",
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -7.5165162086487,
-					["x"] = -63.557834625244,
-					["z"] = -8.5201263427734,
+					["y"] = -0.93654030561447,
+					["x"] = -2.9239609241486,
+					["z"] = -2.1564047336578,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 27.453767776489,
-					["x"] = 91.167175292969,
-					["z"] = 8.2477207183838,
+					["y"] = 4.2149510383606,
+					["x"] = 2.9239609241486,
+					["z"] = 2.1564047336578,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 15.433300018311,
-			["life"] = 2700,
+		}, -- end of ["desc"]
+	}, -- end of ["Haystack 3"]
+	["RPC_5N62V"] = 
+	{
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 267496.125,
+							["headOn"] = 267496.125,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 267496.125,
+							["headOn"] = 267496.125,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "RPC S-200 TR",
+				}, -- end of [1]
+			}, -- end of [1]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["speedMax"] = 0,
+			["displayName"] = "SAM SA-5 S-200 \"Square Pair\" TR",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.0013004252687097,
+					["x"] = -2.5470213890076,
+					["z"] = -3.7793290615082,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.2572524547577,
+					["x"] = 1.869024515152,
+					["z"] = 3.8462662696838,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "TechWeaponPack",
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
 			["attributes"] = 
 			{
-				["Heavy armed ships"] = true,
-				["HeavyArmoredUnits"] = true,
-				["Ships"] = true,
-				["Armed Air Defence"] = true,
-				["Armed ships"] = true,
-				["Naval"] = true,
+				["LR SAM"] = true,
+				["SAM TR"] = true,
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["NonArmoredUnits"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
 				["RADAR_BAND1_FOR_ARM"] = true,
-				["HelicopterCarrier"] = true,
-				["Armed Ship"] = true,
+				["NonAndLightArmoredUnits"] = true,
 				["RADAR_BAND2_FOR_ARM"] = true,
 				["All"] = true,
-				["DetectionByAWACS"] = true,
-				["Destroyers"] = true,
+				["Ground Units"] = true,
+				["SAM related"] = true,
 			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
-			["typeName"] = "Type_052B",
-			["displayName"] = "Type 052B Destroyer",
+			["typeName"] = "RPC_5N62V",
+			["maxSlopeAngle"] = 0,
 		}, -- end of ["desc"]
-	}, -- end of ["Type_052B"]
+	}, -- end of ["RPC_5N62V"]
+	["Electric power box"] = 
+	{
+		["shapeName"] = "tr_budka",
+		["desc"] = 
+		{
+			["life"] = 150,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Electric power box",
+			["typeName"] = "Electric power box",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -9.9994821548462,
+					["x"] = -3.3369698524475,
+					["z"] = -6.5684070587158,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 4.1106142997742,
+					["x"] = 3.3346440792084,
+					["z"] = 6.5863542556763,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Electric power box"]
+	["Tank 3"] = 
+	{
+		["shapeName"] = "airbase_tbilisi_tank_02",
+		["desc"] = 
+		{
+			["life"] = 100,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Tank 3",
+			["typeName"] = "Tank 3",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -6.0691690444946,
+					["x"] = -4.3354420661926,
+					["z"] = -4.2073092460632,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 11,
+					["x"] = 4.2970781326294,
+					["z"] = 4.2486939430237,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Tank 3"]
+	["Red_Flag"] = 
+	{
+		["shapeName"] = "H-flag_R",
+		["desc"] = 
+		{
+			["life"] = 3,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Mark Flag Red",
+			["typeName"] = "Red_Flag",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.33318361639977,
+					["x"] = -1.3334575891495,
+					["z"] = -1.3367536067963,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.3364826440811,
+					["x"] = 1.3400497436523,
+					["z"] = 1.3367537260056,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Red_Flag"]
+	["Fire Control Bunker"] = 
+	{
+		["shapeName"] = "fire_control",
+		["desc"] = 
+		{
+			["life"] = 6,
+			["_origin"] = "WWII Armour and Technics",
+			["displayName"] = "Fire control bunker",
+			["category"] = 4,
+			["typeName"] = "Fire Control Bunker",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -3.2925596237183,
+					["x"] = -9.2339601516724,
+					["z"] = -6.4105396270752,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 6.3018670082092,
+					["x"] = 9.2339601516724,
+					["z"] = 6.4105396270752,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Fire Control Bunker"]
+	["CV_59_NS60"] = 
+	{
+		["desc"] = 
+		{
+			["life"] = 3,
+			["attributes"] = 
+			{
+				["Buildings"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "",
+			["typeName"] = "CV_59_NS60",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.039716362953186,
+					["x"] = -5.7425904273987,
+					["z"] = -2.5870757102966,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 11.104590415955,
+					["x"] = 11.465055465698,
+					["z"] = 2.3520443439484,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["CV_59_NS60"]
 	["SpitfireLFMkIXCW"] = 
 	{
 		["weapons"] = 
@@ -39061,25 +42730,16 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["SpitfireLFMkIXCW"]
-	["Type_054A"] = 
+	["QF_37_AA"] = 
 	{
 		["weapons"] = 
 		{
 			[1] = 
 			{
-				["count"] = 480,
+				["count"] = 80,
 				["desc"] = 
 				{
 					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 6.3,
-						["type"] = 1,
-						["caliber"] = 76,
-						["mass"] = 6.3,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
 					["box"] = 
 					{
 						["min"] = 
@@ -39095,282 +42755,146 @@ everyObject =
 							["z"] = 0.060612548142672,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.MK75_76",
-					["displayName"] = "76mm HE",
+					["warhead"] = 
+					{
+						["explosiveMass"] = 4,
+						["type"] = 1,
+						["caliber"] = 94,
+						["mass"] = 13,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.QF94_AA_HE",
+					["displayName"] = "QF 3,7inch HE",
 				}, -- end of ["desc"]
 			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 32,
-				["desc"] = 
-				{
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.29451015591621,
-							["x"] = -2.5006303787231,
-							["z"] = -0.29451051354408,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.29451015591621,
-							["x"] = 2.5,
-							["z"] = 0.29450979828835,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 40000,
-					["fuseDist"] = 15,
-					["category"] = 1,
-					["guidance"] = 4,
-					["Nmax"] = 22,
-					["rangeMin"] = 500,
-					["altMax"] = 35000,
-					["RCS"] = 0.09179999679327,
-					["displayName"] = "HQ-16",
-					["altMin"] = 5,
-					["life"] = 2,
-					["missileCategory"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 59,
-						["type"] = 1,
-						["caliber"] = 160,
-						["mass"] = 59,
-					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 50000,
-					["typeName"] = "HQ-16",
-					["_origin"] = "",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 20018,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 30,
-						["mass"] = 0.39,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_AP",
-					["displayName"] = "30mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [3]
-			[4] = 
-			{
-				["count"] = 20018,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-						["caliber"] = 30,
-						["mass"] = 0.39,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.AK630_30_HE",
-					["displayName"] = "30mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [4]
-			[5] = 
-			{
-				["count"] = 8,
-				["desc"] = 
-				{
-					["missileCategory"] = 5,
-					["rangeMaxAltMax"] = 180000,
-					["rangeMin"] = 12000,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 180000,
-					["altMax"] = 10000,
-					["RCS"] = 0.12099999934435,
-					["displayName"] = "YJ-83",
-					["altMin"] = -1,
-					["life"] = 2,
-					["fuseDist"] = 0,
-					["category"] = 1,
-					["guidance"] = 1,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 165,
-						["type"] = 1,
-						["caliber"] = 360,
-						["mass"] = 165,
-					}, -- end of ["warhead"]
-					["typeName"] = "weapons.missiles.YJ-83",
-					["Nmax"] = 6,
-				}, -- end of ["desc"]
-			}, -- end of [5]
 		}, -- end of ["weapons"]
 		["desc"] = 
 		{
-			["massEmpty"] = 4200000,
-			["RCS"] = 3052.2937011719,
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -6.6589636802673,
-					["x"] = -62.150291442871,
-					["z"] = -8.376654624939,
+					["y"] = -0.21482416987419,
+					["x"] = -5.1075992584229,
+					["z"] = -4.2795114517212,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 28.341720581055,
-					["x"] = 73.047050476074,
-					["z"] = 8.4933948516846,
+					["y"] = 6.8238344192505,
+					["x"] = 5.0753517150879,
+					["z"] = 4.2521796226501,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 15.433300018311,
-			["life"] = 2500,
+			["RCS"] = 5,
+			["displayName"] = "AAA QF 3.7\"",
+			["Kmax"] = 0.050000000745058,
+			["life"] = 2,
 			["attributes"] = 
 			{
-				["Heavy armed ships"] = true,
-				["HeavyArmoredUnits"] = true,
-				["Ships"] = true,
-				["Frigates"] = true,
+				["Rocket Attack Valid AirDefence"] = true,
+				["AA_flak"] = true,
+				["Ground vehicles"] = true,
+				["Air Defence"] = true,
+				["AAA"] = true,
+				["Vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
 				["Armed Air Defence"] = true,
-				["Armed ships"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["HelicopterCarrier"] = true,
-				["Armed Ship"] = true,
-				["RADAR_BAND2_FOR_ARM"] = true,
 				["All"] = true,
-				["DetectionByAWACS"] = true,
+				["Static AAA"] = true,
+				["Ground Units"] = true,
+				["NonArmoredUnits"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "WWII Armour and Technics",
+			["typeName"] = "QF_37_AA",
+			["speedMax"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["QF_37_AA"]
+	["hms_invincible"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 20000000,
+			["RCS"] = 7916.34765625,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -10.430430412292,
+					["x"] = -106.82891082764,
+					["z"] = -21.649202346802,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 51.190418243408,
+					["x"] = 106.82891082764,
+					["z"] = 21.649202346802,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "HMS Invincible (R05)",
+			["life"] = 7200,
+			["attributes"] = 
+			{
+				["ski_jump"] = true,
+				["Aircraft Carriers"] = true,
+				["AircraftCarrier With Tramplin"] = true,
+				["AircraftCarrier"] = true,
+				["Ships"] = true,
 				["Naval"] = true,
+				["All"] = true,
+				["Armed Air Defence"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["DetectionByAWACS"] = true,
+				["Armed ships"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
-			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
-			["typeName"] = "Type_054A",
-			["displayName"] = "Type 054A Frigate",
+			["_origin"] = "South_Atlantic_Assets",
+			["typeName"] = "hms_invincible",
+			["speedMax"] = 14.39999961853,
 		}, -- end of ["desc"]
-	}, -- end of ["Type_054A"]
-	["IFV M30_CC"] = 
-	{
 		["weapons"] = 
 		{
 			[1] = 
 			{
-				["count"] = 504,
+				["count"] = 22,
 				["desc"] = 
 				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
+					["missileCategory"] = 2,
+					["rangeMaxAltMax"] = 56000,
+					["rangeMin"] = 1000,
 					["warhead"] = 
 					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 12.7,
-						["mass"] = 0.046,
+						["mass"] = 23,
+						["type"] = 1,
+						["explosiveMass"] = 23,
+						["caliber"] = 420,
 					}, -- end of ["warhead"]
-					["category"] = 0,
+					["category"] = 1,
+					["altMax"] = 18300,
+					["RCS"] = 0.018200000748038,
+					["displayName"] = "GWS-30 Sea Dart",
+					["altMin"] = 30,
+					["rangeMaxAltMin"] = 56000,
+					["fuseDist"] = 15,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.M2_12_7_T",
-					["displayName"] = "12.7mm",
+					["guidance"] = 4,
+					["life"] = 2,
+					["typeName"] = "weapons.missiles.Sea_Dart",
+					["Nmax"] = 10,
 				}, -- end of ["desc"]
 			}, -- end of [1]
 		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 24700,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.52359879016876,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.0016576558118686,
-					["x"] = -4.0040860176086,
-					["z"] = -1.3389648199081,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.0248696804047,
-					["x"] = 2.8518598079681,
-					["z"] = 1.3387978076935,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Ammo M30 Cargo Carrier",
-			["Kmax"] = 0.050000000745058,
-			["life"] = 15,
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["Armored vehicles"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["LightArmoredUnits"] = true,
-				["Ground vehicles"] = true,
-				["Armed vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Infantry carriers"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["APC"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 2,
-			["speedMaxOffRoad"] = 11.109999656677,
-			["_origin"] = "WWII Armour and Technics",
-			["typeName"] = "M30_CC",
-			["speedMax"] = 11.109999656677,
-		}, -- end of ["desc"]
-	}, -- end of ["IFV M30_CC"]
+	}, -- end of ["hms_invincible"]
 	["Tor 9A331"] = 
 	{
 		["weapons"] = 
@@ -39457,8 +42981,8 @@ everyObject =
 		{
 			["massEmpty"] = 34000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM SA-15 Tor \"Gauntlet\"",
 			["speedMax"] = 18.055599212646,
+			["displayName"] = "SAM SA-15 Tor \"Gauntlet\"",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -39508,6 +43032,8 @@ everyObject =
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
 			["maxSlopeAngle"] = 0,
+			["Kmax"] = 0.050000000745058,
+			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
@@ -39523,58 +43049,125 @@ everyObject =
 					["z"] = 14.472208023071,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Bunker 1",
+			["speedMax"] = 0,
+			["life"] = 40,
 			["attributes"] = 
 			{
 				["Fortifications"] = true,
 				["Ground Units Non Airdefence"] = true,
-				["Armed ground units"] = true,
-				["Ground Units"] = true,
 				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["CustomAimPoint"] = true,
 				["AntiAir Armed Vehicles"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["CustomAimPoint"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 40,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 0,
 			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["_origin"] = "",
 			["typeName"] = "Sandbox",
-			["speedMax"] = 0,
+			["displayName"] = "Bunker 1",
 		}, -- end of ["desc"]
 	}, -- end of ["Sandbox"]
-	["CV_59_H60"] = 
+	["speedboat"] = 
 	{
 		["desc"] = 
 		{
-			["life"] = 3,
-			["attributes"] = 
-			{
-				["Buildings"] = true,
-			}, -- end of ["attributes"]
-			["_origin"] = "",
-			["displayName"] = "",
-			["category"] = 4,
-			["typeName"] = "CV_59_H60",
+			["massEmpty"] = 5000,
+			["RCS"] = 16.362232208252,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.010258950293064,
-					["x"] = -1.0823580026627,
-					["z"] = -0.65466392040253,
+					["y"] = 0.015059934929013,
+					["x"] = -4.1216630935669,
+					["z"] = -1.3865644931793,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.1947994232178,
-					["x"] = 2.7169711589813,
-					["z"] = 0.66979503631592,
+					["y"] = 1.5381506681442,
+					["x"] = 5.6796636581421,
+					["z"] = 1.3865644931793,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
+			["displayName"] = "Boat Armed Hi-speed",
+			["life"] = 1.6000000238419,
+			["attributes"] = 
+			{
+				["Light armed ships"] = true,
+				["NonArmoredUnits"] = true,
+				["Ships"] = true,
+				["Naval"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Armed Ship"] = true,
+				["All"] = true,
+				["Armed ships"] = true,
+				["low_reflection_vessel"] = true,
+				["NO_SAM"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["typeName"] = "speedboat",
+			["speedMax"] = 30,
 		}, -- end of ["desc"]
-	}, -- end of ["CV_59_H60"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 109,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "12.7mm",
+					["warhead"] = 
+					{
+						["mass"] = 0.047,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 12.7,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Utes_12_7x108_T",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 409,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 0.047,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 12.7,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.Utes_12_7x108",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+		}, -- end of ["weapons"]
+	}, -- end of ["speedboat"]
 	["MBT Tiger_II_H"] = 
 	{
 		["weapons"] = 
@@ -39925,8 +43518,8 @@ everyObject =
 		{
 			["massEmpty"] = 6000,
 			["riverCrossing"] = false,
-			["displayName"] = "SPAAA ZU-23-2 Mounted Ural 375",
 			["speedMax"] = 20.833299636841,
+			["displayName"] = "SPAAA ZU-23-2 Mounted Ural 375",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -40168,80 +43761,13 @@ everyObject =
 	{
 		["weapons"] = 
 		{
-			[1] = 
+			[6] = 
 			{
-				["count"] = 800,
+				["count"] = 404,
 				["desc"] = 
 				{
 					["life"] = 2,
 					["_origin"] = "",
-					["warhead"] = 
-					{
-						["caliber"] = 7.62,
-						["mass"] = 0.00933,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["typeName"] = "weapons.shells.7_62x51",
-					["displayName"] = "7.62mm",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 12,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.10894741863012,
-							["x"] = -0.23145794868469,
-							["z"] = -0.10864424705505,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.10724244266748,
-							["x"] = 0.26817846298218,
-							["z"] = 0.10754559934139,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 105,
-						["mass"] = 3.73,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.M68_105_AP",
-					["displayName"] = "M833 (105mm APFSDS-T)",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[4] = 
-			{
-				["count"] = 504,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
 					["warhead"] = 
 					{
 						["caliber"] = 12.7,
@@ -40250,12 +43776,11 @@ everyObject =
 						["type"] = 0,
 					}, -- end of ["warhead"]
 					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.M2_12_7_T",
+					["typeName"] = "weapons.shells.M2_12_7",
 					["displayName"] = "12.7mm",
 				}, -- end of ["desc"]
-			}, -- end of [4]
-			[3] = 
+			}, -- end of [6]
+			[2] = 
 			{
 				["count"] = 6,
 				["desc"] = 
@@ -40288,7 +43813,128 @@ everyObject =
 					["typeName"] = "weapons.shells.HESH_105",
 					["displayName"] = "M393 (105mm HESH)",
 				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 160,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
 			}, -- end of [3]
+			[1] = 
+			{
+				["count"] = 12,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.10894741863012,
+							["x"] = -0.23145794868469,
+							["z"] = -0.10864424705505,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.10724244266748,
+							["x"] = 0.26817846298218,
+							["z"] = 0.10754559934139,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 105,
+						["mass"] = 3.73,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M68_105_AP",
+					["displayName"] = "M833 (105mm APFSDS-T)",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[4] = 
+			{
+				["count"] = 640,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[5] = 
+			{
+				["count"] = 104,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 12.7,
+						["mass"] = 0.046,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M2_12_7_TR",
+					["displayName"] = "12.7mm",
+				}, -- end of ["desc"]
+			}, -- end of [5]
 		}, -- end of ["weapons"]
 		["sensors"] = 
 		{
@@ -40359,774 +44005,33 @@ everyObject =
 			["speedMax"] = 20,
 		}, -- end of ["desc"]
 	}, -- end of ["MBT M1128 Stryker MGS"]
-	["IFV ZBD04A"] = 
+	["Farm A"] = 
 	{
-		["weapons"] = 
-		{
-			[2] = 
-			{
-				["count"] = 340,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 30,
-						["mass"] = 0.39,
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.2A42_30_HE",
-					["displayName"] = "3UOF8 (30mm HE-T)",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 161,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 30,
-						["mass"] = 0.39,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.2A42_30_AP",
-					["displayName"] = "3UBR6 (30mm APBC-T)",
-				}, -- end of ["desc"]
-			}, -- end of [3]
-			[1] = 
-			{
-				["count"] = 2000,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 7.62,
-						["mass"] = 0.0119,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.7_62x54",
-					["displayName"] = "7.62mm",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[4] = 
-			{
-				["count"] = 41,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.060612548142672,
-							["x"] = -0.27024647593498,
-							["z"] = -0.060612548142672,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.060612548142672,
-							["x"] = 0.24980916082859,
-							["z"] = 0.060612548142672,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 100,
-						["mass"] = 15.6,
-						["explosiveMass"] = 3.69,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.UOF_17_100HE",
-					["displayName"] = "3UOF17 (100mm HE)",
-				}, -- end of ["desc"]
-			}, -- end of [4]
-			[5] = 
-			{
-				["count"] = 8,
-				["desc"] = 
-				{
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12060818821192,
-							["x"] = -0.52968698740005,
-							["z"] = -0.12166464328766,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.1206081956625,
-							["x"] = 0.53104364871979,
-							["z"] = 0.12166464328766,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["rangeMaxAltMin"] = 4000,
-					["fuseDist"] = 0,
-					["category"] = 1,
-					["guidance"] = 7,
-					["Nmax"] = 1.1,
-					["rangeMin"] = 100,
-					["altMax"] = 2000,
-					["RCS"] = 0.032000001519918,
-					["displayName"] = "AT-10 Stabber",
-					["altMin"] = -1,
-					["life"] = 2,
-					["missileCategory"] = 6,
-					["warhead"] = 
-					{
-						["mass"] = 4.5,
-						["caliber"] = 0,
-						["shapedExplosiveArmorThickness"] = 0.55000001192093,
-						["shapedExplosiveMass"] = 8.1000003814697,
-						["explosiveMass"] = 2.7000000476837,
-						["type"] = 2,
-					}, -- end of ["warhead"]
-					["rangeMaxAltMax"] = 4000,
-					["typeName"] = "weapons.missiles.P_9M117",
-					["_origin"] = "",
-				}, -- end of ["desc"]
-			}, -- end of [5]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "TKN-3B day",
-					["opticType"] = 0,
-				}, -- end of [1]
-				[2] = 
-				{
-					["type"] = 0,
-					["typeName"] = "TKN-3B night",
-					["opticType"] = 2,
-				}, -- end of [2]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
+		["shapeName"] = "ferma_a",
 		["desc"] = 
 		{
-			["massEmpty"] = 21500,
-			["riverCrossing"] = true,
-			["maxSlopeAngle"] = 0.69999998807907,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.023640239611268,
-					["x"] = -3.1553740501404,
-					["z"] = -1.7420190572739,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.4026758670807,
-					["x"] = 3.6415646076202,
-					["z"] = 1.722327709198,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "ZBD-04A",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["Infantry carriers"] = true,
-				["LightArmoredUnits"] = true,
-				["Ground Units"] = true,
-				["Armored vehicles"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["ATGM"] = true,
-				["Armed vehicles"] = true,
-				["Armed ground units"] = true,
-				["All"] = true,
-				["Datalink"] = true,
-				["IFV"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 6,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
-			["speedMaxOffRoad"] = 22.219999313354,
-			["category"] = 2,
-			["typeName"] = "ZBD04A",
-			["speedMax"] = 22.219999313354,
-		}, -- end of ["desc"]
-	}, -- end of ["IFV ZBD04A"]
-	["ARTY SK_C_28_naval_gun"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 200,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.084222868084908,
-							["x"] = -0.33004048466682,
-							["z"] = -0.077278509736061,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.084222868084908,
-							["x"] = 0.33004048466682,
-							["z"] = 0.077278509736061,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 3.89,
-						["type"] = 1,
-						["caliber"] = 149.1,
-						["mass"] = 45.3,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.RM_15cm_HE",
-					["displayName"] = "15cm HE",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "TRP-2A day",
-					["opticType"] = 0,
-				}, -- end of [1]
-				[2] = 
-				{
-					["type"] = 0,
-					["typeName"] = "TRP-2A night",
-					["opticType"] = 1,
-				}, -- end of [2]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -4.4619650840759,
-					["x"] = -9.0075454711914,
-					["z"] = -7.4934639930725,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 6.1779932975769,
-					["x"] = 9.0075454711914,
-					["z"] = 7.4934639930725,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Gun 15cm SK C/28 Naval in Bunker",
-			["Kmax"] = 0.050000000745058,
-			["life"] = 70,
-			["attributes"] = 
-			{
-				["Artillery"] = true,
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["Armed vehicles"] = true,
-				["LightArmoredUnits"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["Fortifications"] = true,
-				["Indirect fire"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Armed ground units"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Ground vehicles"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["_origin"] = "WWII Armour and Technics",
-			["typeName"] = "SK_C_28_naval_gun",
-			["speedMax"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["ARTY SK_C_28_naval_gun"]
-	["speedboat"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 509,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 12.7,
-						["mass"] = 0.047,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.Utes_12_7x108_T",
-					["displayName"] = "12.7mm",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["RCS"] = 16.362232208252,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0.015059934929013,
-					["x"] = -4.1216630935669,
-					["z"] = -1.3865644931793,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 1.5381506681442,
-					["x"] = 5.6796636581421,
-					["z"] = 1.3865644931793,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 30,
-			["life"] = 1.6000000238419,
-			["attributes"] = 
-			{
-				["Light armed ships"] = true,
-				["NonArmoredUnits"] = true,
-				["Ships"] = true,
-				["Armed ships"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Armed Ship"] = true,
-				["NO_SAM"] = true,
-				["All"] = true,
-				["low_reflection_vessel"] = true,
-				["Naval"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
+			["life"] = 400,
 			["_origin"] = "",
-			["typeName"] = "speedboat",
-			["displayName"] = "Boat Armed Hi-speed",
-		}, -- end of ["desc"]
-	}, -- end of ["speedboat"]
-	["F-5E-3"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 560,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 20,
-						["mass"] = 0.1,
-						["explosiveMass"] = 0.1,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.M39_20_HEI",
-					["displayName"] = "20mm HEI",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 49486.78515625,
-							["headOn"] = 49486.78515625,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 49486.78515625,
-							["headOn"] = 49486.78515625,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "AN/APQ-159",
-				}, -- end of [1]
-			}, -- end of [1]
-			[3] = 
-			{
-				[1] = 
-				{
-					["typeName"] = "Abstract RWR",
-					["type"] = 3,
-				}, -- end of [1]
-			}, -- end of [3]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["speedMax0"] = 374,
-			["massEmpty"] = 4835,
-			["range"] = 2112,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.56786811351776,
-					["x"] = -6.0541820526123,
-					["z"] = -3.9669985771179,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.6401739120483,
-					["x"] = 8.0660238265991,
-					["z"] = 3.9669985771179,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 16154,
-			["Kmax"] = 0.40000000596046,
-			["_origin"] = "F-5E/E-3 by Belsimtek",
-			["speedMax10K"] = 484,
-			["NyMin"] = -2,
-			["fuelMassMax"] = 2046,
-			["speedMax"] = 484,
-			["NyMax"] = 7.5,
-			["massMax"] = 11187,
-			["RCS"] = 3,
-			["displayName"] = "F-5E-3",
-			["life"] = 16,
-			["VyMax"] = 200,
-			["Kab"] = 2,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["Fighters"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Battle airplanes"] = true,
-				["Planes"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "F-5E-3",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["F-5E-3"]
-	["Windsock"] = 
-	{
-		["shapeName"] = "H-Windsock_RW",
-		["desc"] = 
-		{
-			["life"] = 3,
-			["_origin"] = "",
-			["displayName"] = "Windsock",
 			["category"] = 4,
-			["typeName"] = "Windsock",
+			["displayName"] = "Farm A",
+			["typeName"] = "Farm A",
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.0728390365839,
-					["x"] = -1.3334575891495,
-					["z"] = -1.3367536067963,
+					["y"] = -10.000000953674,
+					["x"] = -12.224277496338,
+					["z"] = -28.238540649414,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 7.3861293792725,
-					["x"] = 1.3400497436523,
-					["z"] = 1.3367537260056,
+					["y"] = 7.2794666290283,
+					["x"] = 12.190749168396,
+					["z"] = 28.242078781128,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
 		}, -- end of ["desc"]
-	}, -- end of ["Windsock"]
-	["Yak-40"] = 
-	{
-		["desc"] = 
-		{
-			["speedMax0"] = 140,
-			["massEmpty"] = 9030,
-			["range"] = 900,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -1.6913286447525,
-					["x"] = -10.967844963074,
-					["z"] = -12.984441757202,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 5.6715331077576,
-					["x"] = 9.8730278015137,
-					["z"] = 12.960119247437,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 11000,
-			["Kmax"] = 0.5,
-			["_origin"] = "",
-			["speedMax10K"] = 167,
-			["NyMin"] = 0.5,
-			["fuelMassMax"] = 3080,
-			["speedMax"] = 167,
-			["NyMax"] = 2.5,
-			["massMax"] = 14850,
-			["RCS"] = 50,
-			["displayName"] = "yak-40",
-			["life"] = 45,
-			["VyMax"] = 9,
-			["Kab"] = 0,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Planes"] = true,
-				["Transports"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "Yak-40",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["Yak-40"]
-	["Subsidiary structure F"] = 
-	{
-		["shapeName"] = "saray-f",
-		["desc"] = 
-		{
-			["life"] = 20,
-			["_origin"] = "",
-			["displayName"] = "Subsidiary structure F",
-			["category"] = 4,
-			["typeName"] = "Subsidiary structure F",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0.008305000141263,
-					["x"] = -2.6315500736237,
-					["z"] = -3.9120700359344,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.1849999427795,
-					["x"] = 2.6315500736237,
-					["z"] = 3.9120700359344,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Subsidiary structure F"]
-	["Su-25TM"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 250,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 30,
-						["mass"] = 0.39,
-						["explosiveMass"] = 0,
-						["type"] = 0,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.GSH301_30_AP",
-					["displayName"] = "30mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "Shkval",
-					["opticType"] = 0,
-				}, -- end of [1]
-			}, -- end of [0]
-			[3] = 
-			{
-				[1] = 
-				{
-					["typeName"] = "Abstract RWR",
-					["type"] = 3,
-				}, -- end of [1]
-			}, -- end of [3]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["speedMax0"] = 292,
-			["massEmpty"] = 11496.400390625,
-			["range"] = 2250,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -2.304071187973,
-					["x"] = -7.2611885070801,
-					["z"] = -7.223217010498,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.7840712070465,
-					["x"] = 7.7011885643005,
-					["z"] = 7.223217010498,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 10000,
-			["Kmax"] = 0.69999998807907,
-			["_origin"] = "",
-			["speedMax10K"] = 271,
-			["NyMin"] = -3,
-			["fuelMassMax"] = 3790,
-			["speedMax"] = 292,
-			["NyMax"] = 5.9000000953674,
-			["massMax"] = 19500,
-			["RCS"] = 7,
-			["displayName"] = "su-39",
-			["life"] = 32,
-			["VyMax"] = 60,
-			["Kab"] = 0,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["Battle airplanes"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Battleplanes"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Planes"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "Su-25TM",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["Su-25TM"]
+	}, -- end of ["Farm A"]
 	["UH-60A"] = 
 	{
 		["desc"] = 
@@ -41181,8 +44086,8 @@ everyObject =
 		{
 			["life"] = 500,
 			["_origin"] = "",
-			["displayName"] = "Tech hangar A",
 			["category"] = 4,
+			["displayName"] = "Tech hangar A",
 			["typeName"] = "Tech hangar A",
 			["box"] = 
 			{
@@ -41208,8 +44113,8 @@ everyObject =
 		{
 			["life"] = 150,
 			["_origin"] = "",
-			["displayName"] = "Railway crossing A",
 			["category"] = 4,
+			["displayName"] = "Railway crossing A",
 			["typeName"] = "Railway crossing A",
 			["box"] = 
 			{
@@ -41228,68 +44133,6 @@ everyObject =
 			}, -- end of ["box"]
 		}, -- end of ["desc"]
 	}, -- end of ["Railway crossing A"]
-	["TF-51D"] = 
-	{
-		["sensors"] = 
-		{
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "Merkury LLTV",
-					["opticType"] = 1,
-				}, -- end of [1]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["speedMax0"] = 250,
-			["massEmpty"] = 3289,
-			["range"] = 1015,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -1.2021408081055,
-					["x"] = -7.0865588188171,
-					["z"] = -5.5569376945496,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 1.7982459068298,
-					["x"] = 2.7609069347382,
-					["z"] = 5.5569376945496,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 13000,
-			["Kmax"] = 0.10000000149012,
-			["_origin"] = "TF-51D Mustang by Eagle Dynamics",
-			["speedMax10K"] = 212,
-			["NyMin"] = -4,
-			["fuelMassMax"] = 501,
-			["speedMax"] = 250,
-			["NyMax"] = 8,
-			["massMax"] = 4800,
-			["RCS"] = 2.5,
-			["displayName"] = "TF-51D",
-			["life"] = 18,
-			["VyMax"] = 22,
-			["Kab"] = 0,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["Battle airplanes"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Battleplanes"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Planes"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "TF-51D",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["TF-51D"]
 	["ARTY SpGH_Dana"] = 
 	{
 		["weapons"] = 
@@ -41464,9 +44307,9 @@ everyObject =
 					["displayName"] = "M393 (105mm HESH)",
 				}, -- end of ["desc"]
 			}, -- end of [2]
-			[3] = 
+			[4] = 
 			{
-				["count"] = 200,
+				["count"] = 160,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -41480,6 +44323,40 @@ everyObject =
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 40,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
 					["displayName"] = "7.62mm",
 				}, -- end of ["desc"]
 			}, -- end of [3]
@@ -41548,125 +44425,40 @@ everyObject =
 			["speedMax"] = 18.055599212646,
 		}, -- end of ["desc"]
 	}, -- end of ["MBT Leopard1A3"]
-	["KJ-2000"] = 
+	["Subsidiary structure F"] = 
 	{
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 268356.125,
-							["headOn"] = 268356.125,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 268356.125,
-							["headOn"] = 268356.125,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "AESA_KJ2000",
-					["detectionDistanceRBM"] = 3500,
-				}, -- end of [1]
-			}, -- end of [1]
-			[3] = 
-			{
-				[1] = 
-				{
-					["typeName"] = "Abstract RWR",
-					["type"] = 3,
-				}, -- end of [1]
-			}, -- end of [3]
-		}, -- end of ["sensors"]
+		["shapeName"] = "saray-f",
 		["desc"] = 
 		{
-			["speedMax0"] = 167.11000061035,
-			["massEmpty"] = 90000,
-			["tankerType"] = 1,
-			["range"] = 7300,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -3.1953241825104,
-					["x"] = -27.208490371704,
-					["z"] = -25.9856300354,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 11.861766815186,
-					["x"] = 19.822910308838,
-					["z"] = 26.033613204956,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 12247,
-			["Kmax"] = 4,
-			["_origin"] = "China Asset Pack by Deka Ironwork Simulations and Eagle Dynamics",
-			["speedMax10K"] = 236.11000061035,
-			["NyMin"] = 0.5,
-			["fuelMassMax"] = 70000,
-			["speedMax"] = 236.11000061035,
-			["NyMax"] = 2.5,
-			["massMax"] = 190000,
-			["RCS"] = 80,
-			["displayName"] = "KJ-2000",
-			["life"] = 18,
-			["VyMax"] = 10,
-			["Kab"] = 0,
-			["attributes"] = 
-			{
-				["AWACS"] = true,
-				["Air"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Link16"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Datalink"] = true,
-				["Planes"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "KJ-2000",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["KJ-2000"]
-	["Shelter B"] = 
-	{
-		["shapeName"] = "ukrytie_b",
-		["desc"] = 
-		{
-			["life"] = 1200,
+			["life"] = 20,
 			["_origin"] = "",
-			["displayName"] = "Shelter B",
 			["category"] = 4,
-			["typeName"] = "Shelter B",
+			["displayName"] = "Subsidiary structure F",
+			["typeName"] = "Subsidiary structure F",
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = 0,
-					["x"] = -3.2999999523163,
-					["z"] = -5,
+					["y"] = 0.008305000141263,
+					["x"] = -2.6315500736237,
+					["z"] = -3.9120700359344,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.2000999450684,
-					["x"] = 3.2999999523163,
-					["z"] = 5,
+					["y"] = 3.1849999427795,
+					["x"] = 2.6315500736237,
+					["z"] = 3.9120700359344,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
 		}, -- end of ["desc"]
-	}, -- end of ["Shelter B"]
-	["MiG-27K"] = 
+	}, -- end of ["Subsidiary structure F"]
+	["Su-25TM"] = 
 	{
 		["weapons"] = 
 		{
 			[1] = 
 			{
-				["count"] = 320,
+				["count"] = 250,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -41706,7 +44498,7 @@ everyObject =
 				[1] = 
 				{
 					["type"] = 0,
-					["typeName"] = "Kaira-1",
+					["typeName"] = "Shkval",
 					["opticType"] = 0,
 				}, -- end of [1]
 			}, -- end of [0]
@@ -41721,52 +44513,198 @@ everyObject =
 		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["speedMax0"] = 375,
-			["massEmpty"] = 11000,
-			["range"] = 1950,
+			["speedMax0"] = 292,
+			["massEmpty"] = 11496.400390625,
+			["range"] = 2250,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -2.3299200534821,
-					["x"] = -9,
-					["z"] = -8,
+					["y"] = -2.304071187973,
+					["x"] = -7.2611885070801,
+					["z"] = -7.223217010498,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.7555100917816,
-					["x"] = 9,
-					["z"] = 8,
+					["y"] = 3.7840712070465,
+					["x"] = 7.7011885643005,
+					["z"] = 7.223217010498,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["Hmax"] = 17000,
-			["Kmax"] = 0.68999999761581,
+			["Hmax"] = 10000,
+			["Kmax"] = 0.69999998807907,
 			["_origin"] = "",
-			["speedMax10K"] = 523.60998535156,
-			["NyMin"] = -2,
-			["fuelMassMax"] = 4500,
-			["speedMax"] = 523.60998535156,
+			["speedMax10K"] = 271,
+			["NyMin"] = -3,
+			["fuelMassMax"] = 3790,
+			["speedMax"] = 292,
 			["NyMax"] = 5.9000000953674,
-			["massMax"] = 18900,
-			["RCS"] = 5,
-			["displayName"] = "mig-27",
-			["life"] = 18,
-			["VyMax"] = 200,
-			["Kab"] = 3,
+			["massMax"] = 19500,
+			["RCS"] = 7,
+			["displayName"] = "su-39",
+			["life"] = 32,
+			["VyMax"] = 60,
+			["Kab"] = 0,
 			["attributes"] = 
 			{
 				["Air"] = true,
 				["Battle airplanes"] = true,
 				["NonAndLightArmoredUnits"] = true,
+				["Battleplanes"] = true,
 				["NonArmoredUnits"] = true,
 				["All"] = true,
 				["Planes"] = true,
-				["Bombers"] = true,
 			}, -- end of ["attributes"]
-			["typeName"] = "MiG-27K",
+			["typeName"] = "Su-25TM",
 			["category"] = 0,
 		}, -- end of ["desc"]
-	}, -- end of ["MiG-27K"]
+	}, -- end of ["Su-25TM"]
+	["Shelter B"] = 
+	{
+		["shapeName"] = "ukrytie_b",
+		["desc"] = 
+		{
+			["life"] = 1200,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Shelter B",
+			["typeName"] = "Shelter B",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0,
+					["x"] = -3.2999999523163,
+					["z"] = -5,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.2000999450684,
+					["x"] = 3.2999999523163,
+					["z"] = 5,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Shelter B"]
+	["MiG-19P"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 140,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 30,
+						["mass"] = 0.403,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.NR30_30x155_APT",
+					["displayName"] = "BT 30x155 AP-T",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 22737.171875,
+							["headOn"] = 33437.015625,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 12037.326171875,
+							["headOn"] = 33437.015625,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "N-008",
+				}, -- end of [1]
+			}, -- end of [1]
+			[3] = 
+			{
+				[1] = 
+				{
+					["typeName"] = "Abstract RWR",
+					["type"] = 3,
+				}, -- end of [1]
+			}, -- end of [3]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["speedMax0"] = 294.16665649414,
+			["massEmpty"] = 5252,
+			["range"] = 1200,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.6863943338394,
+					["x"] = -6.6625347137451,
+					["z"] = -4.5626168251038,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.3824925422668,
+					["x"] = 6.5626635551453,
+					["z"] = 4.5626168251038,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 17500,
+			["Kmax"] = 0.34000000357628,
+			["_origin"] = "MiG-19P AI by RAZBAM",
+			["speedMax10K"] = 275.55554199219,
+			["NyMin"] = -3,
+			["fuelMassMax"] = 1800,
+			["speedMax"] = 294.16665649414,
+			["NyMax"] = 7,
+			["massMax"] = 8738,
+			["RCS"] = 5,
+			["displayName"] = "MiG-19P",
+			["life"] = 18,
+			["VyMax"] = 51,
+			["Kab"] = 1.6000000238419,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["Fighters"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Battle airplanes"] = true,
+				["Planes"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "MiG-19P",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["MiG-19P"]
 	["INF Paratrooper AKS-74"] = 
 	{
 		["weapons"] = 
@@ -41839,7 +44777,7 @@ everyObject =
 				["Ground Units"] = true,
 				["NonArmoredUnits"] = true,
 			}, -- end of ["attributes"]
-			["life"] = 1.0800000429153,
+			["life"] = 1.039999961853,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
 			["speedMaxOffRoad"] = 4,
@@ -41848,33 +44786,201 @@ everyObject =
 			["speedMax"] = 4,
 		}, -- end of ["desc"]
 	}, -- end of ["INF Paratrooper AKS-74"]
-	["Supermarket A"] = 
+	["TF-51D"] = 
 	{
-		["shapeName"] = "uniwersam_a",
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "Merkury LLTV",
+					["opticType"] = 1,
+				}, -- end of [1]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["life"] = 800,
-			["_origin"] = "",
-			["displayName"] = "Supermarket A",
-			["category"] = 4,
-			["typeName"] = "Supermarket A",
+			["speedMax0"] = 250,
+			["massEmpty"] = 3289,
+			["range"] = 1015,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -10.000000953674,
-					["x"] = -20.998996734619,
-					["z"] = -20.750003814697,
+					["y"] = -1.2021408081055,
+					["x"] = -7.0865588188171,
+					["z"] = -5.5569376945496,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 11.986422538757,
-					["x"] = 30.805583953857,
-					["z"] = 20.750003814697,
+					["y"] = 1.7982459068298,
+					["x"] = 2.7609069347382,
+					["z"] = 5.5569376945496,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
+			["Hmax"] = 13000,
+			["Kmax"] = 0.10000000149012,
+			["_origin"] = "TF-51D Mustang by Eagle Dynamics",
+			["speedMax10K"] = 212,
+			["NyMin"] = -4,
+			["fuelMassMax"] = 501,
+			["speedMax"] = 250,
+			["NyMax"] = 8,
+			["massMax"] = 4800,
+			["RCS"] = 2.5,
+			["displayName"] = "TF-51D",
+			["life"] = 18,
+			["VyMax"] = 22,
+			["Kab"] = 0,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["Battle airplanes"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Battleplanes"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Planes"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "TF-51D",
+			["category"] = 0,
 		}, -- end of ["desc"]
-	}, -- end of ["Supermarket A"]
+	}, -- end of ["TF-51D"]
+	["I-16"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 900,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.0119,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x54",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 1900,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.0119,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x54_NOTRACER",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "Merkury LLTV",
+					["opticType"] = 1,
+				}, -- end of [1]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["speedMax0"] = 113,
+			["massEmpty"] = 1614,
+			["range"] = 440,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.6521176099777,
+					["x"] = -4.4670214653015,
+					["z"] = -4.7605304718018,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.6576682329178,
+					["x"] = 1.7197879552841,
+					["z"] = 4.7605304718018,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 9700,
+			["Kmax"] = 0.10000000149012,
+			["_origin"] = "I-16 AI by OctopusG",
+			["speedMax10K"] = 129,
+			["NyMin"] = -4,
+			["fuelMassMax"] = 191,
+			["speedMax"] = 129,
+			["NyMax"] = 8,
+			["massMax"] = 2146,
+			["RCS"] = 2.5,
+			["displayName"] = "I-16",
+			["life"] = 15,
+			["VyMax"] = 14.699999809265,
+			["Kab"] = 0,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["Battle airplanes"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Battleplanes"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Planes"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "I-16",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["I-16"]
 	["ZWEZDNY"] = 
 	{
 		["desc"] = 
@@ -41896,56 +45002,120 @@ everyObject =
 					["z"] = 3.2845299243927,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 7.3051099777222,
+			["displayName"] = "Boat Zvezdny type",
 			["life"] = 20,
 			["attributes"] = 
 			{
-				["Naval"] = true,
-				["Ships"] = true,
-				["HeavyArmoredUnits"] = true,
-				["All"] = true,
-				["low_reflection_vessel"] = true,
 				["Unarmed ships"] = true,
+				["low_reflection_vessel"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Ships"] = true,
+				["Naval"] = true,
+				["All"] = true,
 			}, -- end of ["attributes"]
 			["category"] = 3,
 			["Kmax"] = 0.050000000745058,
 			["_origin"] = "",
 			["typeName"] = "ZWEZDNY",
-			["displayName"] = "Boat Zvezdny type",
+			["speedMax"] = 7.3051099777222,
 		}, -- end of ["desc"]
 	}, -- end of ["ZWEZDNY"]
-	["iso_container"] = 
+	["S_75M_Volhov"] = 
 	{
-		["shapeName"] = "iso_container_cargo",
-		["defaultMass"] = 4500,
 		["desc"] = 
 		{
-			["life"] = 0,
-			["attributes"] = 
-			{
-				["Cargos"] = true,
-			}, -- end of ["attributes"]
-			["_origin"] = "",
-			["displayName"] = "ISO container",
-			["category"] = 4,
-			["typeName"] = "iso_container",
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["speedMax"] = 0,
+			["displayName"] = "SAM SA-2 S-75 \"Guideline\" LN",
+			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.077513538300991,
-					["x"] = -3.2006773948669,
-					["z"] = -1.3768196105957,
+					["y"] = -0.159339427948,
+					["x"] = -4.1898202896118,
+					["z"] = -1.4948447942734,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.7410213947296,
-					["x"] = 3.3143694400787,
-					["z"] = 1.3693499565125,
+					["y"] = 2.4417996406555,
+					["x"] = 4.1898202896118,
+					["z"] = 1.4948447942734,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
+			["_origin"] = "TechWeaponPack",
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["attributes"] = 
+			{
+				["LR SAM"] = true,
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["NonArmoredUnits"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["SAM LL"] = true,
+				["AA_missile"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Armed Air Defence"] = true,
+				["Ground Units"] = true,
+				["SAM related"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "S_75M_Volhov",
+			["maxSlopeAngle"] = 0,
 		}, -- end of ["desc"]
-	}, -- end of ["iso_container"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 1,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.84564626216888,
+							["x"] = -5.8387970924377,
+							["z"] = -0.84564626216888,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.84564626216888,
+							["x"] = 4.7303376197815,
+							["z"] = 0.84564626216888,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 40000,
+					["fuseDist"] = 20,
+					["category"] = 1,
+					["guidance"] = 4,
+					["Nmax"] = 17,
+					["rangeMin"] = 7000,
+					["altMax"] = 25000,
+					["RCS"] = 0.39669999480247,
+					["displayName"] = "SA2V755",
+					["altMin"] = 100,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 196,
+						["type"] = 1,
+						["explosiveMass"] = 196,
+						["caliber"] = 500,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 30000,
+					["typeName"] = "SA2V755",
+					["missileCategory"] = 2,
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+	}, -- end of ["S_75M_Volhov"]
 	["IFV BMD-1"] = 
 	{
 		["weapons"] = 
@@ -42134,13 +45304,13 @@ everyObject =
 			["speedMax"] = 16.950000762939,
 		}, -- end of ["desc"]
 	}, -- end of ["IFV BMD-1"]
-	["Mi-28N"] = 
+	["MiG-27K"] = 
 	{
 		["weapons"] = 
 		{
 			[1] = 
 			{
-				["count"] = 240,
+				["count"] = 320,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -42163,13 +45333,13 @@ everyObject =
 					{
 						["caliber"] = 30,
 						["mass"] = 0.39,
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
+						["explosiveMass"] = 0,
+						["type"] = 0,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.2A42_30_HE",
-					["displayName"] = "30mm HE",
+					["typeName"] = "weapons.shells.GSH301_30_AP",
+					["displayName"] = "30mm AP",
 				}, -- end of ["desc"]
 			}, -- end of [1]
 		}, -- end of ["weapons"]
@@ -42180,15 +45350,9 @@ everyObject =
 				[1] = 
 				{
 					["type"] = 0,
-					["typeName"] = "Mi-28N TV",
+					["typeName"] = "Kaira-1",
 					["opticType"] = 0,
 				}, -- end of [1]
-				[2] = 
-				{
-					["type"] = 0,
-					["typeName"] = "Mi-28N FLIR",
-					["opticType"] = 2,
-				}, -- end of [2]
 			}, -- end of [0]
 			[3] = 
 			{
@@ -42201,49 +45365,466 @@ everyObject =
 		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["massEmpty"] = 8920,
-			["range"] = 407,
+			["speedMax0"] = 375,
+			["massEmpty"] = 11000,
+			["range"] = 1950,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -1.6842690706253,
-					["x"] = -12.700698852539,
-					["z"] = -2.6129968166351,
+					["y"] = -2.3299200534821,
+					["x"] = -9,
+					["z"] = -8,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 3.0297300815582,
-					["x"] = 6.8217301368713,
-					["z"] = 2.612996339798,
+					["y"] = 2.7555100917816,
+					["x"] = 9,
+					["z"] = 8,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["Hmax"] = 4115,
-			["Kmax"] = 0.30000001192093,
+			["Hmax"] = 17000,
+			["Kmax"] = 0.68999999761581,
 			["_origin"] = "",
-			["NyMin"] = 0.5,
-			["fuelMassMax"] = 1500,
-			["speedMax"] = 365,
-			["NyMax"] = 2.7000000476837,
-			["massMax"] = 11700,
+			["speedMax10K"] = 523.60998535156,
+			["NyMin"] = -2,
+			["fuelMassMax"] = 4500,
+			["speedMax"] = 523.60998535156,
+			["NyMax"] = 5.9000000953674,
+			["massMax"] = 18900,
 			["RCS"] = 5,
-			["displayName"] = "Mi-28N",
-			["life"] = 15,
-			["HmaxStat"] = 2990,
-			["VyMax"] = 7.9000000953674,
+			["displayName"] = "mig-27",
+			["life"] = 18,
+			["VyMax"] = 200,
+			["Kab"] = 3,
 			["attributes"] = 
 			{
 				["Air"] = true,
+				["Battle airplanes"] = true,
 				["NonAndLightArmoredUnits"] = true,
 				["NonArmoredUnits"] = true,
 				["All"] = true,
-				["Helicopters"] = true,
-				["Attack helicopters"] = true,
+				["Planes"] = true,
+				["Bombers"] = true,
 			}, -- end of ["attributes"]
-			["typeName"] = "Mi-28N",
-			["category"] = 1,
+			["typeName"] = "MiG-27K",
+			["category"] = 0,
 		}, -- end of ["desc"]
-	}, -- end of ["Mi-28N"]
+	}, -- end of ["MiG-27K"]
+	["IFV M1134 Stryker ATGM"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 14,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.2273330539465,
+							["x"] = -0.77596908807755,
+							["z"] = -0.22932435572147,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.22733306884766,
+							["x"] = 0.77732574939728,
+							["z"] = 0.22932435572147,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 3800,
+					["fuseDist"] = 0,
+					["category"] = 1,
+					["guidance"] = 8,
+					["Nmax"] = 3,
+					["rangeMin"] = 65,
+					["altMax"] = 2000,
+					["RCS"] = 0.029999999329448,
+					["displayName"] = "BGM-71 TOW",
+					["altMin"] = -1,
+					["life"] = 2,
+					["missileCategory"] = 6,
+					["warhead"] = 
+					{
+						["mass"] = 5.9000000953674,
+						["caliber"] = 0,
+						["shapedExplosiveArmorThickness"] = 0.89999997615814,
+						["shapedExplosiveMass"] = 10.799999237061,
+						["explosiveMass"] = 3.5999999046326,
+						["type"] = 2,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 3800,
+					["typeName"] = "weapons.missiles.TOW2",
+					["_origin"] = "",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 224,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[3] = 
+			{
+				["count"] = 884,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["caliber"] = 7.62,
+						["mass"] = 0.00933,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "TAS4 TOW day",
+					["opticType"] = 0,
+				}, -- end of [1]
+				[2] = 
+				{
+					["type"] = 0,
+					["typeName"] = "TAS4 TOW night",
+					["opticType"] = 2,
+				}, -- end of [2]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 17237,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.46999999880791,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -7.6937605626881e-05,
+					["x"] = -2.752231836319,
+					["z"] = -1.5992095470428,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.4886846542358,
+					["x"] = 4.1969313621521,
+					["z"] = 1.5686666965485,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "ATGM Stryker",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["Infantry carriers"] = true,
+				["LightArmoredUnits"] = true,
+				["Ground Units"] = true,
+				["Armored vehicles"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["ATGM"] = true,
+				["Armed vehicles"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Datalink"] = true,
+				["IFV"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 4,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 20,
+			["category"] = 2,
+			["typeName"] = "M1134 Stryker ATGM",
+			["speedMax"] = 20,
+		}, -- end of ["desc"]
+	}, -- end of ["IFV M1134 Stryker ATGM"]
+	["Supermarket A"] = 
+	{
+		["shapeName"] = "uniwersam_a",
+		["desc"] = 
+		{
+			["life"] = 800,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Supermarket A",
+			["typeName"] = "Supermarket A",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -10.000000953674,
+					["x"] = -20.998996734619,
+					["z"] = -20.750003814697,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 11.986422538757,
+					["x"] = 30.805583953857,
+					["z"] = 20.750003814697,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Supermarket A"]
+	["MiG-23MLD"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 260,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 23,
+						["mass"] = 0.175,
+						["explosiveMass"] = 0.175,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.GSH23_23_HE_T",
+					["displayName"] = "23mm HE",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 22737.171875,
+							["headOn"] = 33437.015625,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 12037.326171875,
+							["headOn"] = 33437.015625,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "N-008",
+				}, -- end of [1]
+			}, -- end of [1]
+			[2] = 
+			{
+				[1] = 
+				{
+					["type"] = 2,
+					["detectionDistanceMaximal"] = 15000,
+					["detectionDistanceIdle"] = 8000,
+					["typeName"] = "TP-23M",
+					["detectionDistanceAfterburner"] = 35000,
+				}, -- end of [1]
+			}, -- end of [2]
+			[3] = 
+			{
+				[1] = 
+				{
+					["typeName"] = "Abstract RWR",
+					["type"] = 3,
+				}, -- end of [1]
+			}, -- end of [3]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["speedMax0"] = 388.10000610352,
+			["massEmpty"] = 10550,
+			["range"] = 1950,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -2.3299200534821,
+					["x"] = -10,
+					["z"] = -9,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.7555100917816,
+					["x"] = 11,
+					["z"] = 9,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 18500,
+			["Kmax"] = 0.68999999761581,
+			["_origin"] = "",
+			["speedMax10K"] = 693.25,
+			["NyMin"] = -3,
+			["fuelMassMax"] = 3800,
+			["speedMax"] = 693.25,
+			["NyMax"] = 6.5,
+			["massMax"] = 17800,
+			["RCS"] = 4,
+			["displayName"] = "mig-23ml",
+			["life"] = 16,
+			["VyMax"] = 240,
+			["Kab"] = 3,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["Fighters"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Battle airplanes"] = true,
+				["Planes"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "MiG-23MLD",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["MiG-23MLD"]
+	["iso_container"] = 
+	{
+		["shapeName"] = "iso_container_cargo",
+		["defaultMass"] = 4500,
+		["desc"] = 
+		{
+			["life"] = 0,
+			["attributes"] = 
+			{
+				["Cargos"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "ISO container",
+			["typeName"] = "iso_container",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.077513538300991,
+					["x"] = -3.2006773948669,
+					["z"] = -1.3768196105957,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.7410213947296,
+					["x"] = 3.3143694400787,
+					["z"] = 1.3693499565125,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["iso_container"]
+	["Small house 2C"] = 
+	{
+		["shapeName"] = "dom2c",
+		["desc"] = 
+		{
+			["life"] = 150,
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Small house 2C",
+			["typeName"] = "Small house 2C",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -10.030875205994,
+					["x"] = -10.40916633606,
+					["z"] = -8.4237089157104,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 8.4617729187012,
+					["x"] = 13.192393302917,
+					["z"] = 9.033543586731,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Small house 2C"]
+	["Dragonteeth 2"] = 
+	{
+		["shapeName"] = "Dragonsteeth_01",
+		["desc"] = 
+		{
+			["life"] = 150,
+			["_origin"] = "WWII Armour and Technics",
+			["displayName"] = "Dragonteeth 2",
+			["category"] = 4,
+			["typeName"] = "Dragonteeth 2",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.728863120079,
+					["x"] = -0.94661903381348,
+					["z"] = -0.56724560260773,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.4941673278809,
+					["x"] = 0.94661903381348,
+					["z"] = 0.56724560260773,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Dragonteeth 2"]
 	["Truck Trolley bus"] = 
 	{
 		["desc"] = 
@@ -42407,504 +45988,6 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["Su-24M"]
-	["Truck CCKW_353"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 5100,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.46999999880791,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.13796950876713,
-					["x"] = -3.3019168376923,
-					["z"] = -1.1806678771973,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.7003486156464,
-					["x"] = 3.3019168376923,
-					["z"] = 1.1806678771973,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Truck GMC \"Jimmy\" 6x6",
-			["Kmax"] = 0.050000000745058,
-			["life"] = 3,
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["NonArmoredUnits"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Unarmed vehicles"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 2,
-			["speedMaxOffRoad"] = 20,
-			["_origin"] = "WWII Armour and Technics",
-			["typeName"] = "CCKW_353",
-			["speedMax"] = 20,
-		}, -- end of ["desc"]
-	}, -- end of ["Truck CCKW_353"]
-	["Small house 2C"] = 
-	{
-		["shapeName"] = "dom2c",
-		["desc"] = 
-		{
-			["life"] = 150,
-			["_origin"] = "",
-			["displayName"] = "Small house 2C",
-			["category"] = 4,
-			["typeName"] = "Small house 2C",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -10.030875205994,
-					["x"] = -10.40916633606,
-					["z"] = -8.4237089157104,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 8.4617729187012,
-					["x"] = 13.192393302917,
-					["z"] = 9.033543586731,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Small house 2C"]
-	["MiG-29A"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 150,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 30,
-						["mass"] = 0.39,
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.GSH301_30_HE",
-					["displayName"] = "30mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 22795.072265625,
-							["headOn"] = 45590.14453125,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 22795.072265625,
-							["headOn"] = 45590.14453125,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "N-019",
-				}, -- end of [1]
-			}, -- end of [1]
-			[2] = 
-			{
-				[1] = 
-				{
-					["type"] = 2,
-					["detectionDistanceMaximal"] = 12000,
-					["detectionDistanceIdle"] = 6000,
-					["typeName"] = "KOLS",
-					["detectionDistanceAfterburner"] = 20000,
-				}, -- end of [1]
-			}, -- end of [2]
-			[3] = 
-			{
-				[1] = 
-				{
-					["typeName"] = "Abstract RWR",
-					["type"] = 3,
-				}, -- end of [1]
-			}, -- end of [3]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["speedMax0"] = 416.70001220703,
-			["massEmpty"] = 10922,
-			["range"] = 1500,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -1.7533042430878,
-					["x"] = -7.2414231300354,
-					["z"] = -5.7602467536926,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.0893540382385,
-					["x"] = 9.624683380127,
-					["z"] = 5.7602467536926,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 18000,
-			["Kmax"] = 0.76999998092651,
-			["_origin"] = "",
-			["speedMax10K"] = 680.59997558594,
-			["NyMin"] = -3,
-			["fuelMassMax"] = 3376,
-			["speedMax"] = 680.59997558594,
-			["NyMax"] = 8,
-			["massMax"] = 19700,
-			["RCS"] = 5,
-			["displayName"] = "mig-29",
-			["life"] = 16,
-			["VyMax"] = 330,
-			["Kab"] = 4,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["Fighters"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Battle airplanes"] = true,
-				["Planes"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "MiG-29A",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["MiG-29A"]
-	["Truck HEMTT TFFT"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 15000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.27000001072884,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.19444970786572,
-					["x"] = -5.3602795600891,
-					["z"] = -1.3748569488525,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.4381239414215,
-					["x"] = 5.4360179901123,
-					["z"] = 1.3471287488937,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Firefighter HEMMT TFFT",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["NonArmoredUnits"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Unarmed vehicles"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 3.5,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 20.833299636841,
-			["category"] = 2,
-			["typeName"] = "HEMTT TFFT",
-			["speedMax"] = 20.833299636841,
-		}, -- end of ["desc"]
-	}, -- end of ["Truck HEMTT TFFT"]
-	["Ural-375 ZU-23 Insurgent"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 6000,
-			["riverCrossing"] = false,
-			["displayName"] = "SPAAA ZU-23-2 Insurgent Mounted Ural-375",
-			["speedMax"] = 20.833299636841,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -7.6826043368783e-05,
-					["x"] = -3.0357229709625,
-					["z"] = -1.258252620697,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.8902733325958,
-					["x"] = 4.4804229736328,
-					["z"] = 1.2277096509933,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "",
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 20.833299636841,
-			["attributes"] = 
-			{
-				["Rocket Attack Valid AirDefence"] = true,
-				["NonArmoredUnits"] = true,
-				["AA_flak"] = true,
-				["Air Defence"] = true,
-				["Ground vehicles"] = true,
-				["Mobile AAA"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Armed Air Defence"] = true,
-				["Vehicles"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["AAA"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "Ural-375 ZU-23 Insurgent",
-			["maxSlopeAngle"] = 0.46999999880791,
-		}, -- end of ["desc"]
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 134,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["displayName"] = "23mm AP",
-					["warhead"] = 
-					{
-						["mass"] = 0.189,
-						["type"] = 0,
-						["explosiveMass"] = 0,
-						["caliber"] = 23,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.2A7_23_AP",
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 383,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["displayName"] = "23mm HE",
-					["warhead"] = 
-					{
-						["mass"] = 0.189,
-						["type"] = 1,
-						["explosiveMass"] = 0.189,
-						["caliber"] = 23,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.2A7_23_HE",
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-				}, -- end of ["desc"]
-			}, -- end of [2]
-		}, -- end of ["weapons"]
-	}, -- end of ["Ural-375 ZU-23 Insurgent"]
-	["Su-30"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 150,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["caliber"] = 30,
-						["mass"] = 0.39,
-						["explosiveMass"] = 0.39,
-						["type"] = 1,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.GSH301_30_HE",
-					["displayName"] = "30mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 35443.23828125,
-							["headOn"] = 80248.84375,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 26749.61328125,
-							["headOn"] = 80248.84375,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["detectionDistanceRBM"] = 2000,
-					["typeName"] = "N-011M",
-					["detectionDistanceHRM"] = 500,
-				}, -- end of [1]
-			}, -- end of [1]
-			[2] = 
-			{
-				[1] = 
-				{
-					["type"] = 2,
-					["detectionDistanceMaximal"] = 40000,
-					["detectionDistanceIdle"] = 25000,
-					["typeName"] = "OLS-27",
-					["detectionDistanceAfterburner"] = 80000,
-				}, -- end of [1]
-			}, -- end of [2]
-			[3] = 
-			{
-				[1] = 
-				{
-					["typeName"] = "Abstract RWR",
-					["type"] = 3,
-				}, -- end of [1]
-			}, -- end of [3]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["speedMax0"] = 403,
-			["massEmpty"] = 17700,
-			["range"] = 3000,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -2.2409698963165,
-					["x"] = -9,
-					["z"] = -7.3482398986816,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.7001099586487,
-					["x"] = 13.92679977417,
-					["z"] = 7.3482398986816,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["Hmax"] = 17250,
-			["Kmax"] = 1,
-			["_origin"] = "",
-			["speedMax10K"] = 590.29998779297,
-			["NyMin"] = -3,
-			["fuelMassMax"] = 9400,
-			["speedMax"] = 590.29998779297,
-			["NyMax"] = 8,
-			["massMax"] = 33000,
-			["RCS"] = 6,
-			["displayName"] = "su-30",
-			["life"] = 20,
-			["VyMax"] = 325,
-			["Kab"] = 5,
-			["attributes"] = 
-			{
-				["Air"] = true,
-				["Battle airplanes"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["NonArmoredUnits"] = true,
-				["All"] = true,
-				["Planes"] = true,
-				["Multirole fighters"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "Su-30",
-			["category"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["Su-30"]
 	["MosquitoFBMkVI"] = 
 	{
 		["weapons"] = 
@@ -43072,33 +46155,6 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["MosquitoFBMkVI"]
-	["Haystack 2"] = 
-	{
-		["shapeName"] = "Haystack_2",
-		["desc"] = 
-		{
-			["life"] = 7,
-			["_origin"] = "WWII Armour and Technics",
-			["displayName"] = "Haystack 2",
-			["category"] = 4,
-			["typeName"] = "Haystack 2",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.84709912538528,
-					["x"] = -5.3194289207458,
-					["z"] = -2.5628473758698,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.5144212245941,
-					["x"] = 5.3194289207458,
-					["z"] = 2.5628476142883,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Haystack 2"]
 	["Tornado IDS"] = 
 	{
 		["weapons"] = 
@@ -43209,38 +46265,532 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["Tornado IDS"]
-	["oiltank_cargo"] = 
+	["MiG-29A"] = 
 	{
-		["shapeName"] = "oiltank_cargo",
-		["defaultMass"] = 2300,
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 150,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 30,
+						["mass"] = 0.39,
+						["explosiveMass"] = 0.39,
+						["type"] = 1,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.GSH301_30_HE",
+					["displayName"] = "30mm HE",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 22795.072265625,
+							["headOn"] = 45590.14453125,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 22795.072265625,
+							["headOn"] = 45590.14453125,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "N-019",
+				}, -- end of [1]
+			}, -- end of [1]
+			[2] = 
+			{
+				[1] = 
+				{
+					["type"] = 2,
+					["detectionDistanceMaximal"] = 12000,
+					["detectionDistanceIdle"] = 6000,
+					["typeName"] = "KOLS",
+					["detectionDistanceAfterburner"] = 20000,
+				}, -- end of [1]
+			}, -- end of [2]
+			[3] = 
+			{
+				[1] = 
+				{
+					["typeName"] = "Abstract RWR",
+					["type"] = 3,
+				}, -- end of [1]
+			}, -- end of [3]
+		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["life"] = 0,
-			["attributes"] = 
-			{
-				["Cargos"] = true,
-			}, -- end of ["attributes"]
-			["_origin"] = "",
-			["displayName"] = "Oiltank",
-			["category"] = 4,
-			["typeName"] = "oiltank_cargo",
+			["speedMax0"] = 416.70001220703,
+			["massEmpty"] = 10922,
+			["range"] = 1500,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.084414914250374,
-					["x"] = -1.4870768785477,
-					["z"] = -0.72889226675034,
+					["y"] = -1.7533042430878,
+					["x"] = -7.2414231300354,
+					["z"] = -5.7602467536926,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 1.8830789327621,
-					["x"] = 1.6007688045502,
-					["z"] = 0.72142267227173,
+					["y"] = 3.0893540382385,
+					["x"] = 9.624683380127,
+					["z"] = 5.7602467536926,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 18000,
+			["Kmax"] = 0.76999998092651,
+			["_origin"] = "",
+			["speedMax10K"] = 680.59997558594,
+			["NyMin"] = -3,
+			["fuelMassMax"] = 3376,
+			["speedMax"] = 680.59997558594,
+			["NyMax"] = 8,
+			["massMax"] = 19700,
+			["RCS"] = 5,
+			["displayName"] = "mig-29",
+			["life"] = 16,
+			["VyMax"] = 330,
+			["Kab"] = 4,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["Fighters"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Battle airplanes"] = true,
+				["Planes"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "MiG-29A",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["MiG-29A"]
+	["AS32-p25"] = 
+	{
+		["desc"] = 
+		{
+			["life"] = 3,
+			["attributes"] = 
+			{
+				["Buildings"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "",
+			["typeName"] = "AS32-p25",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.058150745928288,
+					["x"] = -2.8260333538055,
+					["z"] = -1.0703456401825,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 1.7458953857422,
+					["x"] = 2.5496184825897,
+					["z"] = 1.0703456401825,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
 		}, -- end of ["desc"]
-	}, -- end of ["oiltank_cargo"]
+	}, -- end of ["AS32-p25"]
+	["Ural-375 ZU-23 Insurgent"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 6000,
+			["riverCrossing"] = false,
+			["speedMax"] = 20.833299636841,
+			["displayName"] = "SPAAA ZU-23-2 Insurgent Mounted Ural-375",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -7.6826043368783e-05,
+					["x"] = -3.0357229709625,
+					["z"] = -1.258252620697,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.8902733325958,
+					["x"] = 4.4804229736328,
+					["z"] = 1.2277096509933,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "",
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 20.833299636841,
+			["attributes"] = 
+			{
+				["Rocket Attack Valid AirDefence"] = true,
+				["NonArmoredUnits"] = true,
+				["AA_flak"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["Mobile AAA"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["Armed Air Defence"] = true,
+				["Vehicles"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["AAA"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "Ural-375 ZU-23 Insurgent",
+			["maxSlopeAngle"] = 0.46999999880791,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 134,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "23mm AP",
+					["warhead"] = 
+					{
+						["mass"] = 0.189,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 23,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.2A7_23_AP",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 383,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "23mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.189,
+						["type"] = 1,
+						["explosiveMass"] = 0.189,
+						["caliber"] = 23,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.2A7_23_HE",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+		}, -- end of ["weapons"]
+	}, -- end of ["Ural-375 ZU-23 Insurgent"]
+	["Truck ATZ-60_Maz"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 9000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.075529932975769,
+					["x"] = -4.8434805870056,
+					["z"] = -1.7161865234375,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.0209538936615,
+					["x"] = 5.7321209907532,
+					["z"] = 1.7161866426468,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "Refueler ATZ-60 Tractor",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["NonArmoredUnits"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Unarmed vehicles"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 5,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "TechWeaponPack",
+			["speedMaxOffRoad"] = 15,
+			["category"] = 2,
+			["typeName"] = "ATZ-60_Maz",
+			["speedMax"] = 15,
+		}, -- end of ["desc"]
+	}, -- end of ["Truck ATZ-60_Maz"]
+	["rapier_fsa_blindfire_radar"] = 
+	{
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 16718.5078125,
+							["headOn"] = 16718.5078125,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 16718.5078125,
+							["headOn"] = 16718.5078125,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "Tor 9A331",
+				}, -- end of [1]
+			}, -- end of [1]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["speedMax"] = 0,
+			["displayName"] = "SAM Rapier Blindfire TR",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.06157448887825,
+					["x"] = -1.4341485500336,
+					["z"] = -1.1278841495514,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.834972858429,
+					["x"] = 2.4003527164459,
+					["z"] = 1.1278842687607,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "TechWeaponPack",
+			["life"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["attributes"] = 
+			{
+				["SAM TR"] = true,
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["NonArmoredUnits"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["SR SAM"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["SAM related"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "rapier_fsa_blindfire_radar",
+			["maxSlopeAngle"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["rapier_fsa_blindfire_radar"]
+	["Haystack 2"] = 
+	{
+		["shapeName"] = "Haystack_2",
+		["desc"] = 
+		{
+			["life"] = 7,
+			["_origin"] = "WWII Armour and Technics",
+			["displayName"] = "Haystack 2",
+			["category"] = 4,
+			["typeName"] = "Haystack 2",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.84709912538528,
+					["x"] = -5.3194289207458,
+					["z"] = -2.5628473758698,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.5144212245941,
+					["x"] = 5.3194289207458,
+					["z"] = 2.5628476142883,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["Haystack 2"]
+	["FARP"] = 
+	{
+		["shapeName"] = "FARPS",
+		["desc"] = 
+		{
+			["life"] = 10000000,
+			["attributes"] = 
+			{
+				["Helipad"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "",
+			["category"] = 1,
+			["displayName"] = "FARP",
+			["typeName"] = "FARP",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -19.45182800293,
+					["x"] = -130.87782287598,
+					["z"] = -130.24526977539,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.861759185791,
+					["x"] = 130.87783813477,
+					["z"] = 130.24533081055,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["FARP"]
+	["S-300PS 54K6 cp"] = 
+	{
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 106998.453125,
+							["headOn"] = 106998.453125,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 106998.453125,
+							["headOn"] = 106998.453125,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "S-300PS 40B6M tr",
+				}, -- end of [1]
+			}, -- end of [1]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["massEmpty"] = 42150,
+			["riverCrossing"] = false,
+			["speedMax"] = 16.666700363159,
+			["displayName"] = "SAM SA-10 S-300 \"Grumble\" C2 ",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.00075839832425117,
+					["x"] = -6.9090003967285,
+					["z"] = -1.6193325519562,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 10.15506362915,
+					["x"] = 6.9515609741211,
+					["z"] = 1.6195338964462,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "",
+			["life"] = 4,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 16.666700363159,
+			["attributes"] = 
+			{
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["NonArmoredUnits"] = true,
+				["CustomAimPoint"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["SAM related"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["SAM CC"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "S-300PS 54K6 cp",
+			["maxSlopeAngle"] = 0.27000001072884,
+		}, -- end of ["desc"]
+	}, -- end of ["S-300PS 54K6 cp"]
 	["Uboat_VIIC"] = 
 	{
 		["weapons"] = 
@@ -43436,36 +46986,51 @@ everyObject =
 			["displayName"] = "U-boat VIIC U-flak",
 		}, -- end of ["desc"]
 	}, -- end of ["Uboat_VIIC"]
-	["AS32-p25"] = 
+	["Truck SKP-11"] = 
 	{
 		["desc"] = 
 		{
-			["life"] = 3,
-			["attributes"] = 
-			{
-				["Buildings"] = true,
-			}, -- end of ["attributes"]
-			["_origin"] = "",
-			["displayName"] = "",
-			["category"] = 4,
-			["typeName"] = "AS32-p25",
+			["massEmpty"] = 15000,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.46999999880791,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.058150745928288,
-					["x"] = -2.8260333538055,
-					["z"] = -1.0703456401825,
+					["y"] = -2.3449172203982e-07,
+					["x"] = -3.6864693164825,
+					["z"] = -1.1439030170441,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 1.7458953857422,
-					["x"] = 2.5496184825897,
-					["z"] = 1.0703456401825,
+					["y"] = 5.705099105835,
+					["x"] = 3.4459917545319,
+					["z"] = 1.1615616083145,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "Truck SKP-11 Mobile ATC",
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["NonArmoredUnits"] = true,
+				["Trucks"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Unarmed vehicles"] = true,
+			}, -- end of ["attributes"]
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "",
+			["speedMaxOffRoad"] = 20.833299636841,
+			["category"] = 2,
+			["typeName"] = "SKP-11",
+			["speedMax"] = 20.833299636841,
 		}, -- end of ["desc"]
-	}, -- end of ["AS32-p25"]
+	}, -- end of ["Truck SKP-11"]
 	["B-1B"] = 
 	{
 		["sensors"] = 
@@ -43556,13 +47121,314 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["B-1B"]
-	["Schnellboot_type_S130"] = 
+	["MBT Stug_III"] = 
 	{
 		["weapons"] = 
 		{
+			[1] = 
+			{
+				["count"] = 34,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.70802044868469,
+							["x"] = -0.84232467412949,
+							["z"] = -0.70802044868469,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.70802044868469,
+							["x"] = 0.57371598482132,
+							["z"] = 0.70802044868469,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["explosiveMass"] = 0.059,
+						["type"] = 1,
+						["caliber"] = 75,
+						["mass"] = 6.8,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Pzgr_39/40",
+					["displayName"] = "7,5cm Pz.Gr.39",
+				}, -- end of ["desc"]
+			}, -- end of [1]
 			[2] = 
 			{
-				["count"] = 1073,
+				["count"] = 22,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.70802044868469,
+							["x"] = -0.84232467412949,
+							["z"] = -0.70802044868469,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.70802044868469,
+							["x"] = 0.57371598482132,
+							["z"] = 0.70802044868469,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["explosiveMass"] = 1.3,
+						["type"] = 1,
+						["caliber"] = 75,
+						["mass"] = 5.75,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Sprgr_34_L48",
+					["displayName"] = "Spr.Gr.34",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+		}, -- end of ["weapons"]
+		["desc"] = 
+		{
+			["massEmpty"] = 23400,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.51999998092651,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.010605848394334,
+					["x"] = -3.0478043556213,
+					["z"] = -1.6520504951477,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.250904083252,
+					["x"] = 3.95920586586,
+					["z"] = 1.6590610742569,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["RCS"] = 5,
+			["displayName"] = "SPG StuG III G AG",
+			["Kmax"] = 0.050000000745058,
+			["life"] = 10,
+			["attributes"] = 
+			{
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armored vehicles"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["Old Tanks"] = true,
+				["Ground vehicles"] = true,
+				["Armed vehicles"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Tanks"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 2,
+			["speedMaxOffRoad"] = 11.109999656677,
+			["_origin"] = "WWII Armour and Technics",
+			["typeName"] = "Stug_III",
+			["speedMax"] = 11.109999656677,
+		}, -- end of ["desc"]
+	}, -- end of ["MBT Stug_III"]
+	["S-300PS 5P85C ln"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 42150,
+			["riverCrossing"] = false,
+			["speedMax"] = 16.666700363159,
+			["displayName"] = "SAM SA-10 S-300 \"Grumble\" TEL D",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.02414389885962,
+					["x"] = -6.5828132629395,
+					["z"] = -1.6197108030319,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 8.281476020813,
+					["x"] = 6.9515609741211,
+					["z"] = 1.6199152469635,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "",
+			["life"] = 4,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 16.666700363159,
+			["attributes"] = 
+			{
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["NonArmoredUnits"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["SAM LL"] = true,
+				["AA_missile"] = true,
+				["All"] = true,
+				["Armed Air Defence"] = true,
+				["Ground Units"] = true,
+				["SAM related"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "S-300PS 5P85C ln",
+			["maxSlopeAngle"] = 0.27000001072884,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 4,
+				["desc"] = 
+				{
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.80982387065887,
+							["x"] = -3.6131811141968,
+							["z"] = -0.81062549352646,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.81190091371536,
+							["x"] = 3.6516976356506,
+							["z"] = 0.81109911203384,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["rangeMaxAltMin"] = 40000,
+					["fuseDist"] = 30,
+					["category"] = 1,
+					["guidance"] = 4,
+					["Nmax"] = 16,
+					["rangeMin"] = 5000,
+					["altMax"] = 25000,
+					["RCS"] = 0.20000000298023,
+					["displayName"] = "5V55 S-300PS (SA-10B Grumble)",
+					["altMin"] = 25,
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 133,
+						["type"] = 1,
+						["explosiveMass"] = 133,
+						["caliber"] = 508,
+					}, -- end of ["warhead"]
+					["rangeMaxAltMax"] = 75000,
+					["typeName"] = "SA5B55",
+					["missileCategory"] = 2,
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+	}, -- end of ["S-300PS 5P85C ln"]
+	["MBT Tiger_I"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 61,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.70802044868469,
+							["x"] = -0.84232467412949,
+							["z"] = -0.70802044868469,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.70802044868469,
+							["x"] = 0.57371598482132,
+							["z"] = 0.70802044868469,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["explosiveMass"] = 0.059,
+						["type"] = 1,
+						["caliber"] = 88,
+						["mass"] = 10.16,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Pzgr_39",
+					["displayName"] = "8,8cm Pz.Gr.39",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 33,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.70802044868469,
+							["x"] = -0.84232467412949,
+							["z"] = -0.70802044868469,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.70802044868469,
+							["x"] = 0.57371598482132,
+							["z"] = 0.70802044868469,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["explosiveMass"] = 2,
+						["type"] = 1,
+						["caliber"] = 88,
+						["mass"] = 7.65,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.Sprgr_39",
+					["displayName"] = "Spr.Gr.39",
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 3924,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["explosiveMass"] = 0,
+						["type"] = 0,
+						["caliber"] = 7.92,
+						["mass"] = 0.0128,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.7_92x57sS",
+					["displayName"] = "7.92x57 s.S",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 1324,
 				["desc"] = 
 				{
 					["life"] = 2,
@@ -43585,255 +47451,89 @@ everyObject =
 					{
 						["explosiveMass"] = 0,
 						["type"] = 0,
-						["caliber"] = 20,
-						["mass"] = 0.147,
+						["caliber"] = 7.92,
+						["mass"] = 0.0122,
 					}, -- end of ["warhead"]
 					["category"] = 0,
 					["_origin"] = "",
-					["typeName"] = "weapons.shells.20x138B_AP",
-					["displayName"] = "20x138B_AP",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 699,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.3,
-						["type"] = 1,
-						["caliber"] = 37,
-						["mass"] = 0.635,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.37x263_HE",
-					["displayName"] = "37x263_HE",
+					["typeName"] = "weapons.shells.7_92x57_Smkl",
+					["displayName"] = "7.92x57 S.m.K.L'Spur",
 				}, -- end of ["desc"]
 			}, -- end of [3]
-			[1] = 
-			{
-				["count"] = 3072,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.06,
-						["type"] = 1,
-						["caliber"] = 20,
-						["mass"] = 0.134,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.20x138B_HE",
-					["displayName"] = "20x138B_HE",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[4] = 
-			{
-				["count"] = 299,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.3,
-						["type"] = 1,
-						["caliber"] = 37,
-						["mass"] = 0.7,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.37x263_AP",
-					["displayName"] = "37x263_AP",
-				}, -- end of ["desc"]
-			}, -- end of [4]
-			[5] = 
-			{
-				["count"] = 4,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["_origin"] = "",
-					["category"] = 4,
-					["typeName"] = "weapons.torpedoes.G7A_T1",
-					["displayName"] = "G7A_T1",
-				}, -- end of ["desc"]
-			}, -- end of [5]
 		}, -- end of ["weapons"]
 		["desc"] = 
 		{
-			["massEmpty"] = 78900,
-			["RCS"] = 200.7590637207,
+			["massEmpty"] = 56900,
+			["riverCrossing"] = false,
+			["maxSlopeAngle"] = 0.27000001072884,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -1.7124130725861,
-					["x"] = -13.722152709961,
-					["z"] = -2.7225296497345,
+					["y"] = -0.057966936379671,
+					["x"] = -3.2955622673035,
+					["z"] = -1.9063580036163,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 5.0681629180908,
-					["x"] = 21.290597915649,
-					["z"] = 2.7225296497345,
+					["y"] = 2.9213151931763,
+					["x"] = 3.2664988040924,
+					["z"] = 1.9054220914841,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["speedMax"] = 22.520000457764,
-			["life"] = 50,
-			["attributes"] = 
-			{
-				["Light armed ships"] = true,
-				["NonArmoredUnits"] = true,
-				["Ships"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Armed Ship"] = true,
-				["Armed ships"] = true,
-				["All"] = true,
-				["Naval"] = true,
-				["NO_SAM"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
+			["RCS"] = 5,
+			["displayName"] = "Tk Tiger 1",
 			["Kmax"] = 0.050000000745058,
-			["_origin"] = "WWII Armour and Technics",
-			["typeName"] = "Schnellboot_type_S130",
-			["displayName"] = "Boat Schnellboot type S130",
-		}, -- end of ["desc"]
-	}, -- end of ["Schnellboot_type_S130"]
-	["Freya_Shelter_Brick"] = 
-	{
-		["shapeName"] = "Freya_Shelter_Brick",
-		["desc"] = 
-		{
-			["life"] = 250,
-			["_origin"] = "WWII Armour and Technics",
-			["displayName"] = "Freya Shelter Brick",
-			["category"] = 4,
-			["typeName"] = "Freya_Shelter_Brick",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -1.4370752573013,
-					["x"] = -5.8359184265137,
-					["z"] = -5.8408212661743,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.7702612876892,
-					["x"] = 5.4129514694214,
-					["z"] = 5.8408212661743,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Freya_Shelter_Brick"]
-	["FARP"] = 
-	{
-		["shapeName"] = "FARPS",
-		["desc"] = 
-		{
-			["life"] = 10000000,
+			["life"] = 20,
 			["attributes"] = 
 			{
-				["Helipad"] = true,
+				["Ground Units Non Airdefence"] = true,
+				["Vehicles"] = true,
+				["Armored vehicles"] = true,
+				["AntiAir Armed Vehicles"] = true,
+				["Old Tanks"] = true,
+				["Ground vehicles"] = true,
+				["Armed vehicles"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Armed ground units"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["Tanks"] = true,
 			}, -- end of ["attributes"]
-			["_origin"] = "",
-			["displayName"] = "FARP",
-			["category"] = 1,
-			["typeName"] = "FARP",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -19.45182800293,
-					["x"] = -130.87782287598,
-					["z"] = -130.24526977539,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.861759185791,
-					["x"] = 130.87783813477,
-					["z"] = 130.24533081055,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
+			["category"] = 2,
+			["speedMaxOffRoad"] = 12.220000267029,
+			["_origin"] = "WWII Armour and Technics",
+			["typeName"] = "Tiger_I",
+			["speedMax"] = 12.220000267029,
 		}, -- end of ["desc"]
-	}, -- end of ["FARP"]
-	["Czech hedgehogs 1"] = 
+	}, -- end of ["MBT Tiger_I"]
+	["Log ramps 3"] = 
 	{
-		["shapeName"] = "Czech_hedgehogs_01",
+		["shapeName"] = "Log_ramps_02",
 		["desc"] = 
 		{
-			["life"] = 50,
+			["life"] = 10,
 			["_origin"] = "WWII Armour and Technics",
-			["displayName"] = "Czech hedgehogs 1",
+			["displayName"] = "Log ramps 3",
 			["category"] = 4,
-			["typeName"] = "Czech hedgehogs 1",
+			["typeName"] = "Log ramps 3",
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.16957819461823,
-					["x"] = -0.89734947681427,
-					["z"] = -0.97948312759399,
+					["y"] = -0.76933711767197,
+					["x"] = -6.8565049171448,
+					["z"] = -1.9623775482178,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 1.4383410215378,
-					["x"] = 1.1842423677444,
-					["z"] = 0.97948318719864,
+					["y"] = 3.0163857936859,
+					["x"] = 2.1551327705383,
+					["z"] = 1.9623776674271,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
 		}, -- end of ["desc"]
-	}, -- end of ["Czech hedgehogs 1"]
+	}, -- end of ["Log ramps 3"]
 	["FA-18C"] = 
 	{
 		["weapons"] = 
@@ -43959,215 +47659,257 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["FA-18C"]
-	["Truck SKP-11"] = 
+	["AS32-32A"] = 
 	{
 		["desc"] = 
 		{
-			["massEmpty"] = 15000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.46999999880791,
+			["life"] = 3,
+			["attributes"] = 
+			{
+				["Buildings"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "",
+			["typeName"] = "AS32-32A",
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -2.3449172203982e-07,
-					["x"] = -3.6864693164825,
-					["z"] = -1.1439030170441,
+					["y"] = -0.10790701955557,
+					["x"] = -2.1644268035889,
+					["z"] = -1.0703455209732,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 5.705099105835,
-					["x"] = 3.4459917545319,
-					["z"] = 1.1615616083145,
+					["y"] = 0.88569349050522,
+					["x"] = 1.8880120515823,
+					["z"] = 1.0703455209732,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Truck SKP-11 Mobile ATC",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["NonArmoredUnits"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Unarmed vehicles"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 2,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 20.833299636841,
-			["category"] = 2,
-			["typeName"] = "SKP-11",
-			["speedMax"] = 20.833299636841,
 		}, -- end of ["desc"]
-	}, -- end of ["Truck SKP-11"]
-	["Truck GAZ-3307"] = 
-	{
-		["desc"] = 
-		{
-			["massEmpty"] = 15000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.27000001072884,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = 0,
-					["x"] = -3.1798570156097,
-					["z"] = -1.2649019956589,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.6092050075531,
-					["x"] = 3.1364719867706,
-					["z"] = 1.2649329900742,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "Truck GAZ-3307",
-			["attributes"] = 
-			{
-				["Ground Units Non Airdefence"] = true,
-				["Vehicles"] = true,
-				["NonArmoredUnits"] = true,
-				["Trucks"] = true,
-				["Ground vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["All"] = true,
-				["Ground Units"] = true,
-				["Unarmed vehicles"] = true,
-			}, -- end of ["attributes"]
-			["life"] = 1.7999999523163,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["speedMaxOffRoad"] = 20.833299636841,
-			["category"] = 2,
-			["typeName"] = "GAZ-3307",
-			["speedMax"] = 20.833299636841,
-		}, -- end of ["desc"]
-	}, -- end of ["Truck GAZ-3307"]
-	["MBT Stug_III"] = 
+	}, -- end of ["AS32-32A"]
+	["Gepard"] = 
 	{
 		["weapons"] = 
 		{
 			[1] = 
 			{
-				["count"] = 34,
+				["count"] = 660,
 				["desc"] = 
 				{
 					["life"] = 2,
+					["displayName"] = "35mm HE",
+					["warhead"] = 
+					{
+						["mass"] = 0.54,
+						["type"] = 1,
+						["explosiveMass"] = 0.54,
+						["caliber"] = 35,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.KDA_35_HE",
 					["box"] = 
 					{
 						["min"] = 
 						{
-							["y"] = -0.70802044868469,
-							["x"] = -0.84232467412949,
-							["z"] = -0.70802044868469,
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
 						}, -- end of ["min"]
 						["max"] = 
 						{
-							["y"] = 0.70802044868469,
-							["x"] = 0.57371598482132,
-							["z"] = 0.70802044868469,
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
 						}, -- end of ["max"]
 					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.059,
-						["type"] = 1,
-						["caliber"] = 75,
-						["mass"] = 6.8,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.Pzgr_39/40",
-					["displayName"] = "7,5cm Pz.Gr.39",
 				}, -- end of ["desc"]
 			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 22,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.70802044868469,
-							["x"] = -0.84232467412949,
-							["z"] = -0.70802044868469,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.70802044868469,
-							["x"] = 0.57371598482132,
-							["z"] = 0.70802044868469,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 1.3,
-						["type"] = 1,
-						["caliber"] = 75,
-						["mass"] = 5.75,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.Sprgr_34_L48",
-					["displayName"] = "Spr.Gr.34",
-				}, -- end of ["desc"]
-			}, -- end of [2]
 		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[1] = 
+			{
+				[1] = 
+				{
+					["detectionDistanceAir"] = 
+					{
+						["upperHemisphere"] = 
+						{
+							["tailOn"] = 10031.10546875,
+							["headOn"] = 10031.10546875,
+						}, -- end of ["upperHemisphere"]
+						["lowerHemisphere"] = 
+						{
+							["tailOn"] = 10031.10546875,
+							["headOn"] = 10031.10546875,
+						}, -- end of ["lowerHemisphere"]
+					}, -- end of ["detectionDistanceAir"]
+					["type"] = 1,
+					["typeName"] = "Gepard",
+				}, -- end of [1]
+			}, -- end of [1]
+			[0] = 
+			{
+				[1] = 
+				{
+					["type"] = 0,
+					["typeName"] = "Karat visir",
+					["opticType"] = 0,
+				}, -- end of [1]
+			}, -- end of [0]
+		}, -- end of ["sensors"]
 		["desc"] = 
 		{
-			["massEmpty"] = 23400,
+			["massEmpty"] = 47300,
 			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0.51999998092651,
+			["speedMax"] = 18.055599212646,
+			["displayName"] = "SPAAA Gepard",
+			["RCS"] = 5,
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.010605848394334,
-					["x"] = -3.0478043556213,
-					["z"] = -1.6520504951477,
+					["y"] = -0.0043649594299495,
+					["x"] = -3.7731957435608,
+					["z"] = -1.6094979047775,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 2.250904083252,
-					["x"] = 3.95920586586,
-					["z"] = 1.6590610742569,
+					["y"] = 3.0770468711853,
+					["x"] = 3.2696261405945,
+					["z"] = 1.6094980239868,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "SPG StuG III G AG",
+			["_origin"] = "",
+			["life"] = 20,
 			["Kmax"] = 0.050000000745058,
-			["life"] = 10,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 18.055599212646,
 			["attributes"] = 
 			{
-				["Ground Units Non Airdefence"] = true,
+				["SAM TR"] = true,
 				["Vehicles"] = true,
-				["Armored vehicles"] = true,
-				["AntiAir Armed Vehicles"] = true,
-				["Old Tanks"] = true,
+				["SAM elements"] = true,
+				["AA_flak"] = true,
+				["SAM SR"] = true,
+				["AAA"] = true,
+				["RADAR_BAND1_FOR_ARM"] = true,
+				["Mobile AAA"] = true,
+				["NonArmoredUnits"] = true,
+				["Air Defence"] = true,
+				["Rocket Attack Valid AirDefence"] = true,
+				["NonAndLightArmoredUnits"] = true,
 				["Ground vehicles"] = true,
-				["Armed vehicles"] = true,
-				["HeavyArmoredUnits"] = true,
-				["Armed ground units"] = true,
 				["All"] = true,
+				["Armed Air Defence"] = true,
 				["Ground Units"] = true,
-				["Tanks"] = true,
+				["SAM related"] = true,
 			}, -- end of ["attributes"]
-			["category"] = 2,
-			["speedMaxOffRoad"] = 11.109999656677,
-			["_origin"] = "WWII Armour and Technics",
-			["typeName"] = "Stug_III",
-			["speedMax"] = 11.109999656677,
+			["typeName"] = "Gepard",
+			["maxSlopeAngle"] = 0.27000001072884,
 		}, -- end of ["desc"]
-	}, -- end of ["MBT Stug_III"]
+	}, -- end of ["Gepard"]
+	["Su-17M4"] = 
+	{
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 160,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+					["warhead"] = 
+					{
+						["caliber"] = 30,
+						["mass"] = 0.41,
+						["explosiveMass"] = 0,
+						["type"] = 0,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.HP30_30_AP",
+					["displayName"] = "30mm AP",
+				}, -- end of ["desc"]
+			}, -- end of [1]
+		}, -- end of ["weapons"]
+		["sensors"] = 
+		{
+			[3] = 
+			{
+				[1] = 
+				{
+					["typeName"] = "Abstract RWR",
+					["type"] = 3,
+				}, -- end of [1]
+			}, -- end of [3]
+		}, -- end of ["sensors"]
+		["desc"] = 
+		{
+			["speedMax0"] = 375,
+			["massEmpty"] = 10670,
+			["range"] = 1760,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.8347400426865,
+					["x"] = -10,
+					["z"] = -7,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 3.5664699077606,
+					["x"] = 10.073100090027,
+					["z"] = 7,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["Hmax"] = 15200,
+			["Kmax"] = 0.68999999761581,
+			["_origin"] = "",
+			["speedMax10K"] = 510,
+			["NyMin"] = -2,
+			["fuelMassMax"] = 3770,
+			["speedMax"] = 510,
+			["NyMax"] = 5.9000000953674,
+			["massMax"] = 19430,
+			["RCS"] = 7,
+			["displayName"] = "su-17m4",
+			["life"] = 20,
+			["VyMax"] = 200,
+			["Kab"] = 3,
+			["attributes"] = 
+			{
+				["Air"] = true,
+				["Battle airplanes"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["NonArmoredUnits"] = true,
+				["All"] = true,
+				["Planes"] = true,
+				["Bombers"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "Su-17M4",
+			["category"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["Su-17M4"]
 	["Roland ADS"] = 
 	{
 		["weapons"] = 
@@ -44260,8 +48002,8 @@ everyObject =
 		{
 			["massEmpty"] = 29207,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Roland ADS",
 			["speedMax"] = 20.833299636841,
+			["displayName"] = "SAM Roland ADS",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -44437,513 +48179,33 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["MiG-29G"]
-	["Log ramps 3"] = 
+	["Belgian gate"] = 
 	{
-		["shapeName"] = "Log_ramps_02",
+		["shapeName"] = "Belgian_gate",
 		["desc"] = 
 		{
-			["life"] = 10,
+			["life"] = 50,
 			["_origin"] = "WWII Armour and Technics",
-			["displayName"] = "Log ramps 3",
+			["displayName"] = "Belgian gate",
 			["category"] = 4,
-			["typeName"] = "Log ramps 3",
+			["typeName"] = "Belgian gate",
 			["box"] = 
 			{
 				["min"] = 
 				{
-					["y"] = -0.76933711767197,
-					["x"] = -6.8565049171448,
-					["z"] = -1.9623775482178,
+					["y"] = -0.041443984955549,
+					["x"] = -1.7929126024246,
+					["z"] = -1.5883420705795,
 				}, -- end of ["min"]
 				["max"] = 
 				{
-					["y"] = 3.0163857936859,
-					["x"] = 2.1551327705383,
-					["z"] = 1.9623776674271,
+					["y"] = 2.755916595459,
+					["x"] = 1.9056273698807,
+					["z"] = 1.5883421897888,
 				}, -- end of ["max"]
 			}, -- end of ["box"]
 		}, -- end of ["desc"]
-	}, -- end of ["Log ramps 3"]
-	["VINSON"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 31036,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_AP",
-					["displayName"] = "20mm AP",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 31036,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.1,
-						["type"] = 1,
-						["caliber"] = 20,
-						["mass"] = 0.1,
-					}, -- end of ["warhead"]
-					["_origin"] = "",
-					["category"] = 0,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["typeName"] = "weapons.shells.M61_20_HE",
-					["displayName"] = "20mm HE",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-			[3] = 
-			{
-				["count"] = 24,
-				["desc"] = 
-				{
-					["missileCategory"] = 2,
-					["rangeMaxAltMax"] = 27500,
-					["rangeMin"] = 1500,
-					["_origin"] = "",
-					["rangeMaxAltMin"] = 14000,
-					["altMax"] = 24400,
-					["RCS"] = 0.079999998211861,
-					["displayName"] = "RIM-7",
-					["altMin"] = 1,
-					["life"] = 2,
-					["fuseDist"] = 10,
-					["category"] = 1,
-					["guidance"] = 4,
-					["warhead"] = 
-					{
-						["explosiveMass"] = 39,
-						["type"] = 1,
-						["caliber"] = 203,
-						["mass"] = 39,
-					}, -- end of ["warhead"]
-					["typeName"] = "weapons.missiles.SeaSparrow",
-					["Nmax"] = 32,
-				}, -- end of ["desc"]
-			}, -- end of [3]
-		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 72916000,
-			["RCS"] = 20043.171875,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.25361099839211,
-					["x"] = -166.89999389648,
-					["z"] = -53.165699005127,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 58.896900177002,
-					["x"] = 172.14599609375,
-					["z"] = 54.01900100708,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["speedMax"] = 15.433300018311,
-			["life"] = 7300,
-			["attributes"] = 
-			{
-				["Heavy armed ships"] = true,
-				["HeavyArmoredUnits"] = true,
-				["Aircraft Carriers"] = true,
-				["Armed Air Defence"] = true,
-				["AircraftCarrier"] = true,
-				["Arresting Gear"] = true,
-				["Armed ships"] = true,
-				["Ships"] = true,
-				["AircraftCarrier With Arresting Gear"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["Naval"] = true,
-				["Armed Ship"] = true,
-				["RADAR_BAND2_FOR_ARM"] = true,
-				["All"] = true,
-				["catapult"] = true,
-				["AircraftCarrier With Catapult"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 3,
-			["Kmax"] = 0.050000000745058,
-			["_origin"] = "",
-			["typeName"] = "VINSON",
-			["displayName"] = "CVN-70 Carl Vinson",
-		}, -- end of ["desc"]
-	}, -- end of ["VINSON"]
-	["AS32-32A"] = 
-	{
-		["desc"] = 
-		{
-			["life"] = 3,
-			["attributes"] = 
-			{
-				["Buildings"] = true,
-			}, -- end of ["attributes"]
-			["_origin"] = "",
-			["displayName"] = "",
-			["category"] = 4,
-			["typeName"] = "AS32-32A",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.10790701955557,
-					["x"] = -2.1644268035889,
-					["z"] = -1.0703455209732,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 0.88569349050522,
-					["x"] = 1.8880120515823,
-					["z"] = 1.0703455209732,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["AS32-32A"]
-	["Gepard"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 660,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["displayName"] = "35mm HE",
-					["warhead"] = 
-					{
-						["mass"] = 0.54,
-						["type"] = 1,
-						["explosiveMass"] = 0.54,
-						["caliber"] = 35,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.KDA_35_HE",
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-				}, -- end of ["desc"]
-			}, -- end of [1]
-		}, -- end of ["weapons"]
-		["sensors"] = 
-		{
-			[1] = 
-			{
-				[1] = 
-				{
-					["detectionDistanceAir"] = 
-					{
-						["upperHemisphere"] = 
-						{
-							["tailOn"] = 10031.10546875,
-							["headOn"] = 10031.10546875,
-						}, -- end of ["upperHemisphere"]
-						["lowerHemisphere"] = 
-						{
-							["tailOn"] = 10031.10546875,
-							["headOn"] = 10031.10546875,
-						}, -- end of ["lowerHemisphere"]
-					}, -- end of ["detectionDistanceAir"]
-					["type"] = 1,
-					["typeName"] = "Gepard",
-				}, -- end of [1]
-			}, -- end of [1]
-			[0] = 
-			{
-				[1] = 
-				{
-					["type"] = 0,
-					["typeName"] = "Karat visir",
-					["opticType"] = 0,
-				}, -- end of [1]
-			}, -- end of [0]
-		}, -- end of ["sensors"]
-		["desc"] = 
-		{
-			["massEmpty"] = 47300,
-			["riverCrossing"] = false,
-			["displayName"] = "SPAAA Gepard",
-			["speedMax"] = 18.055599212646,
-			["RCS"] = 5,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.0043649594299495,
-					["x"] = -3.7731957435608,
-					["z"] = -1.6094979047775,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 3.0770468711853,
-					["x"] = 3.2696261405945,
-					["z"] = 1.6094980239868,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["_origin"] = "",
-			["life"] = 20,
-			["Kmax"] = 0.050000000745058,
-			["category"] = 2,
-			["speedMaxOffRoad"] = 18.055599212646,
-			["attributes"] = 
-			{
-				["SAM TR"] = true,
-				["Vehicles"] = true,
-				["SAM elements"] = true,
-				["AA_flak"] = true,
-				["SAM SR"] = true,
-				["AAA"] = true,
-				["RADAR_BAND1_FOR_ARM"] = true,
-				["Mobile AAA"] = true,
-				["NonArmoredUnits"] = true,
-				["Air Defence"] = true,
-				["All"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Rocket Attack Valid AirDefence"] = true,
-				["Ground vehicles"] = true,
-				["Armed Air Defence"] = true,
-				["Ground Units"] = true,
-				["SAM related"] = true,
-			}, -- end of ["attributes"]
-			["typeName"] = "Gepard",
-			["maxSlopeAngle"] = 0.27000001072884,
-		}, -- end of ["desc"]
-	}, -- end of ["Gepard"]
-	["fueltank_cargo"] = 
-	{
-		["shapeName"] = "fueltank_cargo",
-		["defaultMass"] = 2400,
-		["desc"] = 
-		{
-			["life"] = 0,
-			["attributes"] = 
-			{
-				["Cargos"] = true,
-			}, -- end of ["attributes"]
-			["_origin"] = "",
-			["displayName"] = "Fueltank",
-			["category"] = 4,
-			["typeName"] = "fueltank_cargo",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.041047804057598,
-					["x"] = -1.6513068675995,
-					["z"] = -1.3768196105957,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.2522203922272,
-					["x"] = 1.764998793602,
-					["z"] = 1.3693499565125,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["fueltank_cargo"]
-	["flak30"] = 
-	{
-		["weapons"] = 
-		{
-			[1] = 
-			{
-				["count"] = 479,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0.06,
-						["type"] = 1,
-						["caliber"] = 20,
-						["mass"] = 0.134,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.20x138B_HE",
-					["displayName"] = "20x138B_HE",
-				}, -- end of ["desc"]
-			}, -- end of [1]
-			[2] = 
-			{
-				["count"] = 179,
-				["desc"] = 
-				{
-					["life"] = 2,
-					["box"] = 
-					{
-						["min"] = 
-						{
-							["y"] = -0.12504199147224,
-							["x"] = -6.61008644104,
-							["z"] = -0.12113920599222,
-						}, -- end of ["min"]
-						["max"] = 
-						{
-							["y"] = 0.12504191696644,
-							["x"] = 2.2344591617584,
-							["z"] = 0.12113922089338,
-						}, -- end of ["max"]
-					}, -- end of ["box"]
-					["warhead"] = 
-					{
-						["explosiveMass"] = 0,
-						["type"] = 0,
-						["caliber"] = 20,
-						["mass"] = 0.147,
-					}, -- end of ["warhead"]
-					["category"] = 0,
-					["_origin"] = "",
-					["typeName"] = "weapons.shells.20x138B_AP",
-					["displayName"] = "20x138B_AP",
-				}, -- end of ["desc"]
-			}, -- end of [2]
-		}, -- end of ["weapons"]
-		["desc"] = 
-		{
-			["massEmpty"] = 5000,
-			["riverCrossing"] = false,
-			["maxSlopeAngle"] = 0,
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.0058838352560997,
-					["x"] = -0.9480926990509,
-					["z"] = -0.85671997070313,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 1.2018023729324,
-					["x"] = 1.2813082933426,
-					["z"] = 0.85671997070313,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-			["RCS"] = 5,
-			["displayName"] = "AAA Flak 38 20mm",
-			["Kmax"] = 0.050000000745058,
-			["life"] = 1.5,
-			["attributes"] = 
-			{
-				["Rocket Attack Valid AirDefence"] = true,
-				["AA_flak"] = true,
-				["Ground vehicles"] = true,
-				["Air Defence"] = true,
-				["AAA"] = true,
-				["Vehicles"] = true,
-				["NonAndLightArmoredUnits"] = true,
-				["Armed Air Defence"] = true,
-				["All"] = true,
-				["Static AAA"] = true,
-				["Ground Units"] = true,
-				["NonArmoredUnits"] = true,
-			}, -- end of ["attributes"]
-			["category"] = 2,
-			["speedMaxOffRoad"] = 0,
-			["_origin"] = "WWII Armour and Technics",
-			["typeName"] = "flak30",
-			["speedMax"] = 0,
-		}, -- end of ["desc"]
-	}, -- end of ["flak30"]
-	["Dragonteeth 4"] = 
-	{
-		["shapeName"] = "Dragonsteeth_03",
-		["desc"] = 
-		{
-			["life"] = 150,
-			["_origin"] = "WWII Armour and Technics",
-			["displayName"] = "Dragonteeth 4",
-			["category"] = 4,
-			["typeName"] = "Dragonteeth 4",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -1.7276104688644,
-					["x"] = -0.56697309017181,
-					["z"] = -0.55213463306427,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 1.4667901992798,
-					["x"] = 0.56697309017181,
-					["z"] = 0.55213463306427,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Dragonteeth 4"]
+	}, -- end of ["Belgian gate"]
 	["A-50"] = 
 	{
 		["sensors"] = 
@@ -45028,33 +48290,6 @@ everyObject =
 			["category"] = 0,
 		}, -- end of ["desc"]
 	}, -- end of ["A-50"]
-	["Belgian gate"] = 
-	{
-		["shapeName"] = "Belgian_gate",
-		["desc"] = 
-		{
-			["life"] = 50,
-			["_origin"] = "WWII Armour and Technics",
-			["displayName"] = "Belgian gate",
-			["category"] = 4,
-			["typeName"] = "Belgian gate",
-			["box"] = 
-			{
-				["min"] = 
-				{
-					["y"] = -0.041443984955549,
-					["x"] = -1.7929126024246,
-					["z"] = -1.5883420705795,
-				}, -- end of ["min"]
-				["max"] = 
-				{
-					["y"] = 2.755916595459,
-					["x"] = 1.9056273698807,
-					["z"] = 1.5883421897888,
-				}, -- end of ["max"]
-			}, -- end of ["box"]
-		}, -- end of ["desc"]
-	}, -- end of ["Belgian gate"]
 	["Hawk cwar"] = 
 	{
 		["sensors"] = 
@@ -45085,8 +48320,8 @@ everyObject =
 		{
 			["massEmpty"] = 5000,
 			["riverCrossing"] = false,
-			["displayName"] = "SAM Hawk CWAR AN/MPQ-55",
 			["speedMax"] = 0,
+			["displayName"] = "SAM Hawk CWAR AN/MPQ-55",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -45113,13 +48348,13 @@ everyObject =
 				["Vehicles"] = true,
 				["MR SAM"] = true,
 				["NonArmoredUnits"] = true,
-				["Ground Units"] = true,
+				["Ground vehicles"] = true,
 				["SAM SR"] = true,
 				["Air Defence"] = true,
-				["Ground vehicles"] = true,
+				["SAM related"] = true,
 				["RADAR_BAND1_FOR_ARM"] = true,
 				["NonAndLightArmoredUnits"] = true,
-				["SAM related"] = true,
+				["Ground Units"] = true,
 				["RADAR_BAND2_FOR_ARM"] = true,
 				["All"] = true,
 				["Datalink"] = true,
@@ -45135,8 +48370,8 @@ everyObject =
 		{
 			["massEmpty"] = 2610,
 			["riverCrossing"] = false,
-			["displayName"] = "SPAAA HL with ZU-23",
 			["speedMax"] = 37,
+			["displayName"] = "SPAAA HL with ZU-23",
 			["RCS"] = 5,
 			["box"] = 
 			{
@@ -45248,6 +48483,360 @@ everyObject =
 			}, -- end of [2]
 		}, -- end of ["weapons"]
 	}, -- end of ["HL_ZU-23"]
+	["fueltank_cargo"] = 
+	{
+		["shapeName"] = "fueltank_cargo",
+		["defaultMass"] = 2400,
+		["desc"] = 
+		{
+			["life"] = 0,
+			["attributes"] = 
+			{
+				["Cargos"] = true,
+			}, -- end of ["attributes"]
+			["_origin"] = "",
+			["category"] = 4,
+			["displayName"] = "Fueltank",
+			["typeName"] = "fueltank_cargo",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.041047804057598,
+					["x"] = -1.6513068675995,
+					["z"] = -1.3768196105957,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.2522203922272,
+					["x"] = 1.764998793602,
+					["z"] = 1.3693499565125,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["fueltank_cargo"]
+	["FPS-117 ECS"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 5000,
+			["riverCrossing"] = false,
+			["speedMax"] = 0,
+			["displayName"] = "EWR AN/FPS-117 ECS",
+			["RCS"] = 5,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = 0.004638371989131,
+					["x"] = -2.4699015617371,
+					["z"] = -0.89146423339844,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 2.2605555057526,
+					["x"] = 2.168093919754,
+					["z"] = 0.94250619411469,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["_origin"] = "TechWeaponPack",
+			["life"] = 2,
+			["Kmax"] = 0.050000000745058,
+			["category"] = 2,
+			["speedMaxOffRoad"] = 0,
+			["attributes"] = 
+			{
+				["Vehicles"] = true,
+				["SAM elements"] = true,
+				["NonArmoredUnits"] = true,
+				["Air Defence"] = true,
+				["Ground vehicles"] = true,
+				["NonAndLightArmoredUnits"] = true,
+				["SAM related"] = true,
+				["All"] = true,
+				["Ground Units"] = true,
+				["SAM CC"] = true,
+			}, -- end of ["attributes"]
+			["typeName"] = "FPS-117 ECS",
+			["maxSlopeAngle"] = 0,
+		}, -- end of ["desc"]
+	}, -- end of ["FPS-117 ECS"]
+	["offshore WindTurbine"] = 
+	{
+		["shapeName"] = "offshore_windturbine",
+		["desc"] = 
+		{
+			["life"] = 100,
+			["_origin"] = "South_Atlantic_Assets",
+			["category"] = 4,
+			["displayName"] = "offshore Wind Turbine",
+			["typeName"] = "offshore WindTurbine",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -10.06872844696,
+					["x"] = -27.361629486084,
+					["z"] = -11.165796279907,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 71.257461547852,
+					["x"] = 25.676315307617,
+					["z"] = 2.3575353622437,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["offshore WindTurbine"]
+	["offshore WindTurbine2"] = 
+	{
+		["shapeName"] = "offshore_windturbine2",
+		["desc"] = 
+		{
+			["life"] = 100,
+			["_origin"] = "South_Atlantic_Assets",
+			["category"] = 4,
+			["displayName"] = "offshore Wind Turbine2",
+			["typeName"] = "offshore WindTurbine2",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -10.06872844696,
+					["x"] = -27.361629486084,
+					["z"] = -11.165796279907,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 71.257461547852,
+					["x"] = 25.676315307617,
+					["z"] = 2.3575353622437,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["offshore WindTurbine2"]
+	["CastleClass_01"] = 
+	{
+		["desc"] = 
+		{
+			["massEmpty"] = 1427,
+			["RCS"] = 1055.7113037109,
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -4.7338151931763,
+					["x"] = -38.830940246582,
+					["z"] = -6.6239042282104,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 25.263507843018,
+					["x"] = 37.060024261475,
+					["z"] = 6.973162651062,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+			["displayName"] = "Castle Class",
+			["life"] = 1200,
+			["attributes"] = 
+			{
+				["Ships"] = true,
+				["Corvettes"] = true,
+				["Armed ships"] = true,
+				["All"] = true,
+				["RADAR_BAND2_FOR_ARM"] = true,
+				["HelicopterCarrier"] = true,
+				["Armed Ship"] = true,
+				["HeavyArmoredUnits"] = true,
+				["Heavy armed ships"] = true,
+				["Naval"] = true,
+				["Armed Air Defence"] = true,
+			}, -- end of ["attributes"]
+			["category"] = 3,
+			["Kmax"] = 0.050000000745058,
+			["_origin"] = "South_Atlantic_Assets",
+			["typeName"] = "CastleClass_01",
+			["speedMax"] = 13.375,
+		}, -- end of ["desc"]
+		["weapons"] = 
+		{
+			[1] = 
+			{
+				["count"] = 230,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "M792 (25mm HEI-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.185,
+						["type"] = 1,
+						["explosiveMass"] = 0.185,
+						["caliber"] = 25,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M242_25_HE_M792",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [1]
+			[2] = 
+			{
+				["count"] = 71,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "M791 (25mm APDS-T)",
+					["warhead"] = 
+					{
+						["mass"] = 0.155,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 25,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.M242_25_AP_M791",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [2]
+			[4] = 
+			{
+				["count"] = 1280,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["_origin"] = "",
+					["warhead"] = 
+					{
+						["mass"] = 0.00933,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 7.62,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["typeName"] = "weapons.shells.7_62x51",
+					["displayName"] = "7.62mm",
+				}, -- end of ["desc"]
+			}, -- end of [4]
+			[3] = 
+			{
+				["count"] = 320,
+				["desc"] = 
+				{
+					["life"] = 2,
+					["displayName"] = "7.62mm",
+					["warhead"] = 
+					{
+						["mass"] = 0.00933,
+						["type"] = 0,
+						["explosiveMass"] = 0,
+						["caliber"] = 7.62,
+					}, -- end of ["warhead"]
+					["category"] = 0,
+					["_origin"] = "",
+					["typeName"] = "weapons.shells.7_62x51tr",
+					["box"] = 
+					{
+						["min"] = 
+						{
+							["y"] = -0.12504199147224,
+							["x"] = -6.61008644104,
+							["z"] = -0.12113920599222,
+						}, -- end of ["min"]
+						["max"] = 
+						{
+							["y"] = 0.12504191696644,
+							["x"] = 2.2344591617584,
+							["z"] = 0.12113922089338,
+						}, -- end of ["max"]
+					}, -- end of ["box"]
+				}, -- end of ["desc"]
+			}, -- end of [3]
+		}, -- end of ["weapons"]
+	}, -- end of ["CastleClass_01"]
+	["billboard_motorized"] = 
+	{
+		["shapeName"] = "billboard_motorized",
+		["desc"] = 
+		{
+			["life"] = 100,
+			["_origin"] = "South_Atlantic_Assets",
+			["category"] = 4,
+			["displayName"] = "Billboard Motorized",
+			["typeName"] = "billboard_motorized",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -0.71764594316483,
+					["x"] = -5.21178150177,
+					["z"] = -2.2829194068909,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 4.8042001724243,
+					["x"] = 4.7225828170776,
+					["z"] = 1.4886476993561,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["billboard_motorized"]
+	["WindTurbine"] = 
+	{
+		["shapeName"] = "WindTurbine_10",
+		["desc"] = 
+		{
+			["life"] = 100,
+			["_origin"] = "South_Atlantic_Assets",
+			["category"] = 4,
+			["displayName"] = "Wind Turbine",
+			["typeName"] = "WindTurbine",
+			["box"] = 
+			{
+				["min"] = 
+				{
+					["y"] = -1.0622234344482,
+					["x"] = -4.3779125213623,
+					["z"] = -12.488351821899,
+				}, -- end of ["min"]
+				["max"] = 
+				{
+					["y"] = 45.870223999023,
+					["x"] = 1.1835789680481,
+					["z"] = 12.838459014893,
+				}, -- end of ["max"]
+			}, -- end of ["box"]
+		}, -- end of ["desc"]
+	}, -- end of ["WindTurbine"]
 	["Airshow_Cone"] = 
 	{
 		["shapeName"] = "Comp_cone",
@@ -45255,8 +48844,8 @@ everyObject =
 		{
 			["life"] = 10,
 			["_origin"] = "",
-			["displayName"] = "Airshow cone",
 			["category"] = 4,
+			["displayName"] = "Airshow cone",
 			["typeName"] = "Airshow_Cone",
 			["box"] = 
 			{

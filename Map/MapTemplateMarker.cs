@@ -123,7 +123,7 @@ namespace DcsBriefop.Map
 
 				return template;
 			}
-			catch (ExceptionBriefop ex)
+			catch (ExceptionBop ex)
 			{
 				Log.Error($"Marker template {sTemplateString} was not added");
 				Log.Exception(ex);

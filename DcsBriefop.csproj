@@ -43,8 +43,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AdvancedDataGridView, Version=1.2.26803.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\DG.AdvancedDataGridView.1.2.26803.6\lib\net40\AdvancedDataGridView.dll</HintPath>
+    <Reference Include="AdvancedDataGridView, Version=1.2.27314.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\DG.AdvancedDataGridView.1.2.27314.8\lib\net40\AdvancedDataGridView.dll</HintPath>
     </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
@@ -58,8 +58,8 @@
     <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
-    <Reference Include="CoordinateSharp, Version=2.13.1.1, Culture=neutral, PublicKeyToken=f45e02df057b7725, processorArchitecture=MSIL">
-      <HintPath>packages\CoordinateSharp.2.13.1.1\lib\net40\CoordinateSharp.dll</HintPath>
+    <Reference Include="CoordinateSharp, Version=2.15.2.1, Culture=neutral, PublicKeyToken=f45e02df057b7725, processorArchitecture=MSIL">
+      <HintPath>packages\CoordinateSharp.2.15.2.1\lib\net40\CoordinateSharp.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
@@ -67,14 +67,14 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="GMap.NET.Core, Version=2.1.6.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
-      <HintPath>packages\GMap.NET.Core.2.1.6\lib\net48\GMap.NET.Core.dll</HintPath>
+    <Reference Include="GMap.NET.Core, Version=2.1.7.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>packages\GMap.NET.Core.2.1.7\lib\net48\GMap.NET.Core.dll</HintPath>
     </Reference>
-    <Reference Include="GMap.NET.WindowsForms, Version=2.1.6.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
-      <HintPath>packages\GMap.NET.WinForms.2.1.6\lib\net48\GMap.NET.WindowsForms.dll</HintPath>
+    <Reference Include="GMap.NET.WindowsForms, Version=2.1.7.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>packages\GMap.NET.WinForms.2.1.7\lib\net48\GMap.NET.WindowsForms.dll</HintPath>
     </Reference>
-    <Reference Include="GMap.NET.WindowsPresentation, Version=2.1.6.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
-      <HintPath>packages\GMap.NET.WinPresentation.2.1.6\lib\net48\GMap.NET.WindowsPresentation.dll</HintPath>
+    <Reference Include="GMap.NET.WindowsPresentation, Version=2.1.7.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>packages\GMap.NET.WinPresentation.2.1.7\lib\net48\GMap.NET.WindowsPresentation.dll</HintPath>
     </Reference>
     <Reference Include="HtmlRenderer, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\HtmlRenderer.Core.1.5.0.6\lib\net45\HtmlRenderer.dll</HintPath>
@@ -82,17 +82,17 @@
     <Reference Include="HtmlRenderer.WinForms, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\HtmlRenderer.WinForms.1.5.0.6\lib\net45\HtmlRenderer.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=2.0.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>packages\log4net.2.0.14\lib\net45\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>packages\log4net.2.0.15\lib\net45\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.IO.RecyclableMemoryStream.2.2.0\lib\net462\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IO.RecyclableMemoryStream.2.2.1\lib\net462\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -105,17 +105,17 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SqlClient, Version=4.6.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.SqlClient.4.8.3\lib\net461\System.Data.SqlClient.dll</HintPath>
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.5, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SqlClient.4.8.5\lib\net461\System.Data.SqlClient.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite, Version=1.0.116.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.117.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\lib\net46\System.Data.SQLite.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.116.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.SQLite.EF6.1.0.116.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.117.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.EF6.1.0.117.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite.Linq, Version=1.0.116.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.SQLite.Linq.1.0.116.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.117.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SQLite.Linq.1.0.117.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
@@ -133,8 +133,8 @@
     <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.7.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -155,155 +155,91 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UnitsNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=f8601875a1f041da, processorArchitecture=MSIL">
-      <HintPath>packages\UnitsNet.4.132.0\lib\net47\UnitsNet.dll</HintPath>
+      <HintPath>packages\UnitsNet.4.149.0\lib\net47\UnitsNet.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BriefingFilesBuilder.cs" />
-    <Compile Include="DataBopCustom\BaseBopCustomSerializable.cs" />
-    <Compile Include="DataBopCustom\BopCustomCoalition.cs" />
-    <Compile Include="DataBopCustom\BopCustomMain.cs" />
-    <Compile Include="DataBopCustom\BopCustomCoalitionAirdrome.cs" />
-    <Compile Include="DataBopCustom\BopCustomMap.cs" />
-    <Compile Include="DataBopCustom\BopCustomAsset.cs" />
-    <Compile Include="DataBop\BopAirdrome.cs" />
-    <Compile Include="DataBop\BopAssetFlight.cs" />
-    <Compile Include="DataBop\BopCoalitionAirdrome.cs" />
-    <Compile Include="DataBop\BopMapPoint.cs" />
-    <Compile Include="DataBop\BopAssetUnit.cs" />
-    <Compile Include="DataBop\BopAssetGroup.cs" />
-    <Compile Include="DataBop\BopAsset.cs" />
-    <Compile Include="DataBop\BaseBop.cs" />
-    <Compile Include="DataBop\BopCoalition.cs" />
-    <Compile Include="DataBop\BopMain.cs" />
-    <Compile Include="DataBop\BopGeneral.cs" />
-    <Compile Include="DataBop\BopManager.cs" />
-    <Compile Include="DataBop\BopWeather.cs" />
+    <Compile Include="DataBopMission\BaseBop.cs" />
+    <Compile Include="DataBopMission\BopAsset.cs" />
+    <Compile Include="DataBopMission\BopAssetFlight.cs" />
+    <Compile Include="DataBopMission\BopAssetGroup.cs" />
+    <Compile Include="DataBopMission\BopAssetStatic.cs" />
+    <Compile Include="DataBopMission\BopCoalition.cs" />
+    <Compile Include="DataBopMission\BopMission.cs" />
+    <Compile Include="BriefopManager.cs" />
+    <Compile Include="DataBopMission\BopWeather.cs" />
+    <Compile Include="DataMiz\BaseMizBopSerializable.cs" />
+    <Compile Include="DataMiz\BopCustomAsset.cs" />
+    <Compile Include="DataMiz\MizBopCoalition.cs" />
+    <Compile Include="DataMiz\BopCustomCoalitionAirdrome.cs" />
+    <Compile Include="DataMiz\MizBopMap.cs" />
+    <Compile Include="DataMiz\MizBopPreferences.cs" />
+    <Compile Include="DataMiz\MizBopCustom.cs" />
     <Compile Include="DataMiz\Miz.cs" />
     <Compile Include="DataMiz\MizDataCartridge.cs" />
     <Compile Include="DataMiz\MizDrawing.cs" />
     <Compile Include="DataMiz\MizRadio.cs" />
     <Compile Include="DataMiz\MizCallsign.cs" />
     <Compile Include="Data\Airdrome.cs" />
-    <Compile Include="DataBop\BopAssetStatic.cs" />
     <Compile Include="Data\DcsObject.cs" />
-    <Compile Include="FormBop\BopDataGridView.cs" />
-    <Compile Include="FormBop\GridManagerAidromes.cs" />
-    <Compile Include="FormBop\FrmBop.cs">
+    <Compile Include="Forms\FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormBop\FrmBop.Designer.cs">
-      <DependentUpon>FrmBop.cs</DependentUpon>
+    <Compile Include="Forms\FrmMain.designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormBop\BopTabPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="FormBop\UcBaseBop.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="FormBop\UcBaseBop.Designer.cs">
-      <DependentUpon>UcBaseBop.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormBop\UcBopTheatre.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="FormBop\UcBopTheatre.Designer.cs">
-      <DependentUpon>UcBopTheatre.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormBop\UcBriefopCoalition.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="FormBop\UcBriefopCoalition.Designer.cs">
-      <DependentUpon>UcBriefopCoalition.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormBop\UcBopMain.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="FormBop\UcBopMain.Designer.cs">
-      <DependentUpon>UcBopMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormBop\UcColor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="FormBop\UcColor.Designer.cs">
-      <DependentUpon>UcColor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormBop\UcMap.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="FormBop\UcMap.Designer.cs">
-      <DependentUpon>UcMap.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormBop\UcMarkerDetail.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="FormBop\UcMarkerDetail.Designer.cs">
-      <DependentUpon>UcMarkerDetail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormBop\FrmTest.cs">
+    <Compile Include="Forms\FrmMissionAssets.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormBop\FrmTest.Designer.cs">
-      <DependentUpon>FrmTest.cs</DependentUpon>
+    <Compile Include="Forms\FrmMissionAssets.Designer.cs">
+      <DependentUpon>FrmMissionAssets.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormBop\UcBopGeneral.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="FormBop\UcBopGeneral.Designer.cs">
-      <DependentUpon>UcBopGeneral.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormBop\FrmDatabaseDcsObject.cs">
+    <Compile Include="Forms\FrmMissionInformations.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormBop\FrmDatabaseDcsObject.Designer.cs">
-      <DependentUpon>FrmDatabaseDcsObject.cs</DependentUpon>
+    <Compile Include="Forms\FrmMissionInformations.Designer.cs">
+      <DependentUpon>FrmMissionInformations.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmPreferencesMiz.cs">
+    <Compile Include="Forms\FrmPreferences.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmPreferencesMiz.Designer.cs">
-      <DependentUpon>FrmPreferencesMiz.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Preferences\Preferences.cs" />
-    <Compile Include="Preferences\PreferencesManager.cs" />
-    <Compile Include="DataBop\BopComPreset.cs" />
-    <Compile Include="FrmComs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmComs.Designer.cs">
-      <DependentUpon>FrmComs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmPreferences.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmPreferences.Designer.cs">
+    <Compile Include="Forms\FrmPreferences.Designer.cs">
       <DependentUpon>FrmPreferences.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormBop\FrmWait.cs">
+    <Compile Include="Forms\FrmWait.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormBop\FrmWait.Designer.cs">
+    <Compile Include="Forms\FrmWait.designer.cs">
       <DependentUpon>FrmWait.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\GridManager.cs" />
+    <Compile Include="Forms\GridManagerAsset.cs" />
+    <Compile Include="Forms\UcBriefop.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UcBriefop.Designer.cs">
+      <DependentUpon>UcBriefop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UcMissionCoalition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UcMissionCoalition.Designer.cs">
+      <DependentUpon>UcMissionCoalition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UcNoFile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UcNoFile.Designer.cs">
+      <DependentUpon>UcNoFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Preferences.cs" />
+    <Compile Include="PreferencesManager.cs" />
     <Compile Include="Map\ConfigMapTemplateObjects.cs" />
-    <Compile Include="Map\GProviderBriefop.cs" />
     <Compile Include="Map\GTextBriefop.cs" />
     <Compile Include="Map\GRouteBriefop.cs" />
     <Compile Include="Map\MapTemplateRoute.cs" />
     <Compile Include="Data\Radio.cs" />
-    <Compile Include="FrmPreferencesMizGenerate.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmPreferencesMizGenerate.Designer.cs">
-      <DependentUpon>FrmPreferencesMizGenerate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmMissionDetail.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmMissionDetail.Designer.cs">
-      <DependentUpon>FrmMissionDetail.cs</DependentUpon>
-    </Compile>
     <Compile Include="HtmlBuilder\HtmlDocument.cs" />
     <Compile Include="DataMiz\MizCoalition.cs" />
     <Compile Include="DataMiz\MizCountry.cs" />
@@ -315,7 +251,7 @@
     <Compile Include="DataMiz\MizUnit.cs" />
     <Compile Include="Map\MapTemplateMarker.cs" />
     <Compile Include="Map\GMarkerBriefop.cs" />
-    <Compile Include="Data\MasterDataObject.cs" />
+    <Compile Include="Data\MasterData.cs" />
     <Compile Include="Data\ElementBop.cs" />
     <Compile Include="Data\Theatre.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -324,33 +260,21 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Tools\ToolsCommandLine.cs" />
-    <Compile Include="Tools\JsonSerializers.cs" />
+    <Compile Include="JsonSerializers.cs" />
     <Compile Include="Tools\ToolsControls.cs" />
     <Compile Include="Tools\ToolsImage.cs" />
     <Compile Include="Tools\ToolsLua.cs" />
     <Compile Include="Tools\ToolsMap.cs" />
-    <Compile Include="FrmAssetDetail.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmAssetDetail.Designer.cs">
-      <DependentUpon>FrmAssetDetail.cs</DependentUpon>
-    </Compile>
     <Compile Include="Tools\ToolsMenu.cs" />
     <Compile Include="Tools\ToolsBriefop.cs" />
     <Compile Include="Tools\ToolsResources.cs" />
     <Compile Include="Tools\ToolsStyle.cs" />
-    <Compile Include="Tools\ToolsTests.cs" />
     <Compile Include="Tools\ToolsZip.cs" />
-    <Compile Include="FormBop\GridManager.cs" />
-    <Compile Include="FgControls\GridManagerComPreset.cs" />
-    <Compile Include="FgControls\GridManagerUnit.cs" />
-    <Compile Include="FgControls\GridManagerAsset.cs" />
-    <Compile Include="FgControls\GridManagerFileType.cs" />
     <Compile Include="DataMiz\MizRootDictionary.cs" />
     <Compile Include="DataMiz\BaseMiz.cs" />
     <Compile Include="DataMiz\MizRootMission.cs" />
     <Compile Include="DataMiz\MizWeather.cs" />
-    <Compile Include="ExceptionBriefop.cs" />
+    <Compile Include="ExceptionBop.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LsonLib\Lson.cs" />
     <Compile Include="LsonLib\OffsetToLineCol.cs" />
@@ -362,70 +286,34 @@
     <Compile Include="Tools\ToolsCoordinate.cs" />
     <Compile Include="Tools\ToolsLson.cs" />
     <Compile Include="Tools\ToolsMisc.cs" />
-    <Compile Include="FormBop\UcImageSize.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="FormBop\UcImageSize.Designer.cs">
-      <DependentUpon>UcImageSize.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="FormBop\FrmBop.resx">
-      <DependentUpon>FrmBop.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormBop\UcBopTheatre.resx">
-      <DependentUpon>UcBopTheatre.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FrmMissionAssets.resx">
+      <DependentUpon>FrmMissionAssets.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormBop\UcBriefopCoalition.resx">
-      <DependentUpon>UcBriefopCoalition.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FrmMissionInformations.resx">
+      <DependentUpon>FrmMissionInformations.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormBop\UcBopMain.resx">
-      <DependentUpon>UcBopMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormBop\UcColor.resx">
-      <DependentUpon>UcColor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormBop\UcMap.resx">
-      <DependentUpon>UcMap.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormBop\UcMarkerDetail.resx">
-      <DependentUpon>UcMarkerDetail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormBop\FrmTest.resx">
-      <DependentUpon>FrmTest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormBop\UcBopGeneral.resx">
-      <DependentUpon>UcBopGeneral.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmComs.resx">
-      <DependentUpon>FrmComs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormBop\FrmDatabaseDcsObject.resx">
-      <DependentUpon>FrmDatabaseDcsObject.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmPreferencesMiz.resx">
-      <DependentUpon>FrmPreferencesMiz.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmPreferencesMizGenerate.resx">
-      <DependentUpon>FrmPreferencesMizGenerate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmMissionDetail.resx">
-      <DependentUpon>FrmMissionDetail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmPreferences.resx">
+    <EmbeddedResource Include="Forms\FrmPreferences.resx">
       <DependentUpon>FrmPreferences.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormBop\FrmWait.resx">
+    <EmbeddedResource Include="Forms\FrmWait.resx">
       <DependentUpon>FrmWait.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UcBriefop.resx">
+      <DependentUpon>UcBriefop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UcMissionCoalition.resx">
+      <DependentUpon>UcMissionCoalition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UcNoFile.resx">
+      <DependentUpon>UcNoFile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmAssetDetail.resx">
-      <DependentUpon>FrmAssetDetail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormBop\UcImageSize.resx">
-      <DependentUpon>UcImageSize.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -465,7 +353,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
     <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
-    <Error Condition="!Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+    <Error Condition="!Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
   </Target>
   <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <PropertyGroup>
@@ -473,5 +361,5 @@
 xcopy /I /Y $(SolutionDir)Resources\Routes $(TargetDir)\Routes
 xcopy /I /Y $(SolutionDir)Resources\Resources $(TargetDir)\Resources</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Import Project="packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
 </Project>

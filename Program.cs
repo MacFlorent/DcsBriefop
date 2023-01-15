@@ -1,5 +1,4 @@
-﻿using DcsBriefop.Data;
-using DcsBriefop.FormBop;
+﻿using DcsBriefop.Forms;
 using DcsBriefop.Tools;
 using System;
 using System.Globalization;
@@ -41,7 +40,7 @@ namespace DcsBriefop
 			Log.ApplicationStart();
 			Log.Info("Starting app verb");
 
-			FrmBop f = new FrmBop();
+			FrmMain f = new FrmMain();
 			f.Show(null);
 			f.FormClosed += MainFormClosed;
 			Application.Run(f);

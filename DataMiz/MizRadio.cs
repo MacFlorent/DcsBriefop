@@ -1,6 +1,8 @@
-﻿using DcsBriefop.Tools;
+﻿using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using LsonLib;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DcsBriefop.DataMiz
 {
@@ -19,23 +21,39 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
+			LsonDict lsdChannels = Lsd.IfExists(LuaNode.Channels)?.GetDict();
 			LsonDict lsdModulations = Lsd.IfExists(LuaNode.Modulations)?.GetDict();
-			if (lsdModulations is null)
-				Modulations = new int[0];
-			else
+
+			int iLastChannel = lsdChannels?.Select(_l => _l.Key.GetInt())?.DefaultIfEmpty(0).Max() ?? 0;
+			int iLastModulation = lsdModulations?.Select(_l => _l.Key.GetInt())?.DefaultIfEmpty(0).Max() ?? 0;
+			int iLast = iLastChannel;
+			if (iLastModulation > iLast)
+				iLast = iLastModulation;
+
+			int iCount = iLast + 1; // add 1 to account for the lua 1 starting index. First slot in the arrays will remain empty.
+			Channels = new decimal[iCount];
+			Modulations = new int[iCount];
+
+			for (int i = 0; i < iCount; i++)
 			{
-				Modulations = new int[lsdModulations.Count + 1];
-				foreach (KeyValuePair<LsonValue, LsonValue> kvp in lsdModulations)
+				Channels[i] = 0;
+				Modulations[i] = ElementRadioModulation.AM;
+			}
+
+			if (lsdChannels is object)
+			{
+				foreach (KeyValuePair<LsonValue, LsonValue> kvp in lsdChannels)
 				{
-					Modulations[kvp.Key.GetInt()] = kvp.Value.GetIntLenientSafe().GetValueOrDefault(0);
+					Channels[kvp.Key.GetInt()] = kvp.Value.GetDecimal();
 				}
 			}
 
-			LsonDict lsdChannels = Lsd[LuaNode.Channels].GetDict();
-			Channels = new decimal[lsdChannels.Count + 1];
-			foreach (KeyValuePair<LsonValue, LsonValue> kvp in lsdChannels)
+			if (lsdModulations is object)
 			{
-				Channels[kvp.Key.GetInt()] = kvp.Value.GetDecimal();
+				foreach (KeyValuePair<LsonValue, LsonValue> kvp in lsdModulations)
+				{
+					Modulations[kvp.Key.GetInt()] = kvp.Value.GetIntLenientSafe().GetValueOrDefault(ElementRadioModulation.AM);
+				}
 			}
 		}
 

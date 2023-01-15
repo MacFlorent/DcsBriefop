@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Windows.Media.Media3D;
 
 namespace DcsBriefop.Tools
 {
@@ -40,23 +41,32 @@ namespace DcsBriefop.Tools
 
 		public static Icon GetIconResource(string sResource)
 		{
-			Icon ico = null;
+			Icon iconFinal = null;
 			object oResource = Properties.Resources.ResourceManager.GetObject(sResource, Properties.Resources.Culture);
-			if (oResource is Icon i)
-				ico = i;
-			else if (oResource is Bitmap b)
+			if (oResource is Icon icon)
+				iconFinal = icon;
+			else if (oResource is Bitmap bitmap)
 			{
-				IntPtr icH = b.GetHicon();
-				ico = Icon.FromHandle(icH);
+				IntPtr icH = bitmap.GetHicon();
+				iconFinal = Icon.FromHandle(icH);
 				//DestroyIcon(icH);
 			}
 
-			return ico;
+			return iconFinal;
 		}
 
 		public static Image GetImageResource(string sResource)
 		{
-			return Properties.Resources.ResourceManager.GetObject(sResource, Properties.Resources.Culture) as Image;
+			Image imageFinal = null;
+			object oResource = Properties.Resources.ResourceManager.GetObject(sResource, Properties.Resources.Culture);
+			if (oResource is Image image)
+				imageFinal = image;
+			else if (oResource is Icon icon)
+			{
+					imageFinal = new Icon(icon, 800, 800).ToBitmap(); // ask for a large size so the largest icon size will be used
+			}
+
+			return imageFinal;
 		}
 	}
 }

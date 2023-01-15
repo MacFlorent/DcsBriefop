@@ -13,11 +13,12 @@ namespace DcsBriefop.Tools
 
 		public static void ReplaceZipEntry(ZipArchive za, string sEntryName, string sEntryContent)
 		{
-			ZipArchiveEntry zpe = za.GetEntry(sEntryName);
-			if (zpe is object)
-				zpe.Delete();
+			//ZipArchiveEntry zpe = za.GetEntry(sEntryName);
+			//if (zpe is object)
+			//	zpe.Delete();
+			RemoveZipEntries(za, sEntryName);
 
-			zpe = za.CreateEntry(sEntryName);
+			ZipArchiveEntry zpe = za.CreateEntry(sEntryName);
 			using (StreamWriter writer = new StreamWriter(zpe.Open()))
 			{
 				writer.Write(sEntryContent);
