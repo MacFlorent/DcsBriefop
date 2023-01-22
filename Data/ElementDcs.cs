@@ -35,11 +35,22 @@ namespace DcsBriefop.Data
 
 	internal static class ElementRouteTask
 	{
+		public static readonly string Orbit = "Orbit";
+		public static readonly string Fac = "FAC";
+		public static readonly string FacAttackGroup = "FAC_AttackGroup";
+		public static readonly string FacEngageGroup = "FAC_EngageGroup";
+
+	}
+
+	internal static class ElementRouteTaskAction
+	{
 		public static readonly string ActivateBeacon = "ActivateBeacon";
 		public static readonly string ActivateIcls = "ActivateICLS";
 		public static readonly string ActivateLink4 = "ActivateLink4";
-		public static readonly string Orbit = "Orbit";
+		public static readonly string SetCallsign = "SetCallsign";
+		public static readonly string SetFrequency = "SetFrequency";
 	}
+
 
 	internal static class ElementRoutePointType
 	{
@@ -53,6 +64,11 @@ namespace DcsBriefop.Data
 	{
 		public static readonly int AM = 0;
 		public static readonly int FM = 1;
+	}
+
+	internal static class ElementRadio
+	{
+		public static readonly decimal UnitFrequencyRatio = 1000000;
 	}
 
 	internal static class ElementAircraftType

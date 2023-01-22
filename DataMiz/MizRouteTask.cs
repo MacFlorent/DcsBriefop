@@ -87,7 +87,12 @@ namespace DcsBriefop.DataMiz
 			public static readonly string Pattern = "pattern";
 			public static readonly string Speed = "speed";
 			public static readonly string SpeedEdited = "speedEdited";
-	}
+
+			public static readonly string Frequency = "frequency";
+			public static readonly string Modulation = "modulation";
+			public static readonly string Callname = "callname";
+			public static readonly string Number = "number";
+		}
 
 		public MizRouteTaskAction Action { get; set; }
 		public MizRouteTask Task { get; set; }
@@ -96,6 +101,10 @@ namespace DcsBriefop.DataMiz
 		public string Pattern { get; set; }
 		public decimal? Speed { get; set; }
 		public bool? SpeedEdited { get; set; }
+		public int? Frequency { get; set; }
+		public int? Modulation { get; set; }
+		public int? Callname { get; set; }
+		public int? Number { get; set; }
 
 		public MizRouteTaskParams(LsonDict lsd) : base(lsd) { }
 
@@ -113,6 +122,10 @@ namespace DcsBriefop.DataMiz
 			Pattern = Lsd.IfExistsString(LuaNode.Pattern);
 			Speed = Lsd.IfExistsDecimal(LuaNode.Speed);
 			SpeedEdited = Lsd.IfExistsBool(LuaNode.SpeedEdited);
+			Frequency = Lsd.IfExistsInt(LuaNode.Frequency);
+			Modulation = Lsd.IfExistsInt(LuaNode.Modulation);
+			Callname = Lsd.IfExistsInt(LuaNode.Callname);
+			Number = Lsd.IfExistsInt(LuaNode.Number);
 		}
 
 		public override void ToLua()
@@ -124,10 +137,12 @@ namespace DcsBriefop.DataMiz
 			Lsd.SetIfExists(LuaNode.Pattern, Pattern);
 			Lsd.SetIfExists(LuaNode.Speed, Speed);
 			Lsd.SetIfExists(LuaNode.SpeedEdited, SpeedEdited);
+			Lsd.SetIfExists(LuaNode.Frequency, Frequency);
+			Lsd.SetIfExists(LuaNode.Modulation, Modulation);
+			Lsd.SetIfExists(LuaNode.Callname, Callname);
+			Lsd.SetIfExists(LuaNode.Number, Number);
 		}
 	}
-
-
 
 	internal class MizRouteTaskAction : BaseMiz
 	{
@@ -142,6 +157,9 @@ namespace DcsBriefop.DataMiz
 			public static readonly string ParamModeChannel = "modeChannel";
 			public static readonly string ParamChannel = "channel";
 			public static readonly string ParamFrequency = "frequency";
+			public static readonly string ParamModulation = "modulation";
+			public static readonly string ParamCallname = "callname";
+			public static readonly string ParamNumber = "number";
 		}
 
 		public string Id { get; set; }
@@ -151,18 +169,26 @@ namespace DcsBriefop.DataMiz
 		public string ParamModeChannel { get; set; }
 		public int? ParamChannel { get; set; }
 		public int? ParamFrequency { get; set; }
+		public int? ParamModulation { get; set; }
+		public int? ParamCallname { get; set; }
+		public int? ParamNumber { get; set; }
 
 		public MizRouteTaskAction(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
 			Id = Lsd[LuaNode.Id].GetString();
-			ParamType = Lsd[LuaNode.Params].GetDict().IfExistsInt(LuaNode.ParamType);
-			ParamUnitId = Lsd[LuaNode.Params].GetDict().IfExistsInt(LuaNode.ParamUnitId);
-			ParamCallsign = Lsd[LuaNode.Params].GetDict().IfExistsString(LuaNode.ParamCallsign);
-			ParamModeChannel = Lsd[LuaNode.Params].GetDict().IfExistsString(LuaNode.ParamModeChannel);
-			ParamChannel = Lsd[LuaNode.Params].GetDict().IfExistsInt(LuaNode.ParamChannel);
-			ParamFrequency = Lsd[LuaNode.Params].GetDict().IfExistsInt(LuaNode.ParamFrequency);
+
+			LsonDict lsdParams = Lsd[LuaNode.Params].GetDict();
+			ParamType = lsdParams.IfExistsInt(LuaNode.ParamType);
+			ParamUnitId = lsdParams.IfExistsInt(LuaNode.ParamUnitId);
+			ParamCallsign = lsdParams.IfExistsString(LuaNode.ParamCallsign);
+			ParamModeChannel = lsdParams.IfExistsString(LuaNode.ParamModeChannel);
+			ParamChannel = lsdParams.IfExistsInt(LuaNode.ParamChannel);
+			ParamFrequency = lsdParams.IfExistsInt(LuaNode.ParamFrequency);
+			ParamModulation = lsdParams.IfExistsInt(LuaNode.ParamModulation);
+			ParamCallname = lsdParams.IfExistsInt(LuaNode.ParamCallname);
+			ParamNumber = lsdParams.IfExistsInt(LuaNode.ParamNumber);
 		}
 
 		public override void ToLua()
@@ -177,6 +203,9 @@ namespace DcsBriefop.DataMiz
 			lsdParams.SetIfExists(LuaNode.ParamModeChannel, ParamModeChannel);
 			lsdParams.SetIfExists(LuaNode.ParamChannel, ParamChannel);
 			lsdParams.SetIfExists(LuaNode.ParamFrequency, ParamFrequency);
+			lsdParams.SetIfExists(LuaNode.ParamModulation, ParamModulation);
+			lsdParams.SetIfExists(LuaNode.ParamCallname, ParamCallname);
+			lsdParams.SetIfExists(LuaNode.ParamNumber, ParamNumber);
 		}
 	}
 }

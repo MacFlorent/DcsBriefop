@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Tools;
 using LsonLib;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DcsBriefop.DataMiz
 {
@@ -65,6 +66,25 @@ namespace DcsBriefop.DataMiz
 			Lsd.SetOrAddInt(LuaNode.HelipadId, HelipadId);
 
 			RouteTaskHolder?.ToLua();
+		}
+
+		public MizRouteTask GetAnyRouteTask(List<string> sTaskIds)
+		{
+			return RouteTaskHolder.Tasks.Where(_rt => sTaskIds.Contains(_rt.Id)).FirstOrDefault();
+		}
+		public MizRouteTask GetRouteTask(string sTaskId)
+		{
+			return GetAnyRouteTask(new List<string> { sTaskId });
+		}
+
+		public MizRouteTaskAction GetAnyRouteTaskAction(List<string> sTaskActionIds)
+		{
+			MizRouteTask routeTask = RouteTaskHolder.Tasks.Where(_rt => sTaskActionIds.Contains(_rt.Params.Action?.Id)).FirstOrDefault();
+			return routeTask?.Params.Action;
+		}
+		public MizRouteTaskAction GetRouteTaskAction(string sTaskActionId)
+		{
+			return GetAnyRouteTaskAction(new List<string> { sTaskActionId });
 		}
 
 		public static string GetLuaTemplate()

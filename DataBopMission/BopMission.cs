@@ -20,7 +20,7 @@ namespace DcsBriefop.DataBopMission
 		public MizBopMap MapData { get { return Miz.MizBopCustom.MapData; } }
 		public BopWeather Weather { get; private set; }
 		public Dictionary<string, BopCoalition> Coalitions { get; private set; }
-		//public List<BopAsset> Assets { get; private set; }
+		public List<BopGroup> Groups { get; private set; }
 		//public List<BopAirdrome> Airdromes { get; private set; }
 
 		public PreferencesMission PreferencesMission { get { return Miz.MizBopCustom.PreferencesMission; } }
@@ -30,6 +30,10 @@ namespace DcsBriefop.DataBopMission
 		#region CTOR
 		public BopMission(Miz miz, Theatre theatre) : base(miz, theatre)
 		{
+			Sortie = Miz.RootDictionary.Sortie;
+			Description = ToolsLua.DcsTextToDisplay(Miz.RootDictionary.Description);
+			Date = new DateTime(Miz.RootMission.Date.Year, Miz.RootMission.Date.Month, Miz.RootMission.Date.Day).AddSeconds(Miz.RootMission.StartTime);
+
 			Weather = new BopWeather(Miz, Theatre, Date);
 
 			Coalitions = new Dictionary<string, BopCoalition>
@@ -38,26 +42,34 @@ namespace DcsBriefop.DataBopMission
 				{ ElementCoalition.Blue, new BopCoalition(Miz, Theatre, ElementCoalition.Blue) },
 				{ ElementCoalition.Neutral, new BopCoalition(Miz, Theatre, ElementCoalition.Neutral) }
 			};
+
+			Groups = new List<BopGroup>();
+			foreach (MizCoalition mizCoalition in Miz.RootMission.Coalitions)
+			{
+				foreach (MizCountry mizCountry in mizCoalition.Countries)
+				{
+					foreach (MizGroup mizGroup in mizCountry.GroupFlights)
+					{
+						Groups.Add(new BopGroupFlight(Miz, Theatre, mizCoalition.Name, mizCountry.Name, mizGroup));
+					}
+					foreach (MizGroup mizGroup in mizCountry.GroupShips)
+					{
+						Groups.Add(new BopGroupShip(Miz, Theatre, mizCoalition.Name, mizCountry.Name, mizGroup));
+					}
+					foreach (MizGroup mizGroup in mizCountry.GroupVehicles)
+					{
+						Groups.Add(new BopGroupVehicle(Miz, Theatre, mizCoalition.Name, mizCountry.Name, mizGroup));
+					}
+					foreach (MizGroup mizGroup in mizCountry.GroupStatics)
+					{
+						Groups.Add(new BopGroupStatic(Miz, Theatre, mizCoalition.Name, mizCountry.Name, mizGroup));
+					}
+				}
+			}
 		}
 		#endregion
 
 		#region Miz
-		public override void FromMiz()
-		{
-			base.FromMiz();
-
-			Sortie = Miz.RootDictionary.Sortie;
-			Description = ToolsLua.DcsTextToDisplay(Miz.RootDictionary.Description);
-			Date = new DateTime(Miz.RootMission.Date.Year, Miz.RootMission.Date.Month, Miz.RootMission.Date.Day).AddSeconds(Miz.RootMission.StartTime);
-
-			Weather.FromMiz();
-
-			foreach (BopCoalition coalition in Coalitions.Values)
-			{
-				coalition.FromMiz();
-			}
-		}
-
 		public override void ToMiz()
 		{
 			base.ToMiz();
@@ -70,6 +82,10 @@ namespace DcsBriefop.DataBopMission
 			foreach (BopCoalition coalition in Coalitions.Values)
 			{
 				coalition.ToMiz();
+			}
+			foreach (BopGroup bopGroup in Groups)
+			{
+				bopGroup.ToMiz();
 			}
 		}
 		#endregion

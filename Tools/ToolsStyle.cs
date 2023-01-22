@@ -13,7 +13,7 @@ namespace DcsBriefop.Tools
 		#region Properties
 		public static readonly Font TextFont = SystemFonts.DefaultFont;
 		public static readonly Font TextFontHeader = new Font(TextFont.FontFamily, TextFont.Size + 1, FontStyle.Bold);
-		public static readonly Font TextFontTitle = new Font(TextFont.FontFamily, TextFont.Size + 2, FontStyle.Bold);
+		public static readonly Font TextFontTitle = new Font(TextFont.FontFamily, TextFont.Size + 4, FontStyle.Bold);
 		public static readonly Font TextFontSmall = new Font(TextFont.FontFamily, TextFont.Size - 1, FontStyle.Regular);
 
 		public static readonly Color ColorMain = Color.Blue;

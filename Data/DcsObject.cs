@@ -16,7 +16,6 @@ namespace DcsBriefop.Data
 		Air,
 		Ground,
 		Sea,
-		Airdrome,
 	}
 
 	[Flags]

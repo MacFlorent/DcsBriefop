@@ -12,22 +12,22 @@ using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace DcsBriefop.Forms
 {
-	internal partial class FrmMissionAssets : Form
+	internal partial class FrmMissionGroups : Form
 	{
 		#region Fields
 		private BriefopManager m_briefopManager;
+		private GridManagerGroups m_gridManagerGroups;
 		#endregion
 
 		#region CTOR
-		public FrmMissionAssets(BriefopManager briefopManager)
+		public FrmMissionGroups(BriefopManager briefopManager)
 		{
 			m_briefopManager = briefopManager;
 
 			InitializeComponent();
 
-			//GridManagerAsset gma = new GridManagerAsset(DgvAssets, m_briefopManager.BopMission.Assets, null);
+			m_gridManagerGroups = new GridManagerGroups(DgvAssets, m_briefopManager.BopMission.Groups);
 			//gam.ColumnsDisplayed = GridManagerAsset.ColumnsDisplayedOpposing;
-			//gam.Initialize();
 
 			DataToScreen();
 		}
@@ -36,6 +36,10 @@ namespace DcsBriefop.Forms
 		#region Methods
 		private void DataToScreen()
 		{
+			using (new WaitDialog(this))
+			{
+				m_gridManagerGroups.Initialize();
+			}
 		}
 
 		private void ScreenToData()

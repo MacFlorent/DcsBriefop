@@ -161,10 +161,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBopMission\BaseBop.cs" />
-    <Compile Include="DataBopMission\BopAsset.cs" />
-    <Compile Include="DataBopMission\BopAssetFlight.cs" />
-    <Compile Include="DataBopMission\BopAssetGroup.cs" />
-    <Compile Include="DataBopMission\BopAssetStatic.cs" />
+    <Compile Include="DataBopMission\BopGroupStatic.cs" />
+    <Compile Include="DataBopMission\BopGroupVehicle.cs" />
+    <Compile Include="DataBopMission\BopGroupShip.cs" />
+    <Compile Include="DataBopMission\BopGroupFlight.cs" />
+    <Compile Include="DataBopMission\BopMapPoint.cs" />
+    <Compile Include="DataBopMission\BopUnitSea.cs" />
+    <Compile Include="DataBopMission\BopUnitAir.cs" />
+    <Compile Include="DataBopMission\BopUnit.cs" />
+    <Compile Include="DataBopMission\BopGroup.cs" />
     <Compile Include="DataBopMission\BopCoalition.cs" />
     <Compile Include="DataBopMission\BopMission.cs" />
     <Compile Include="BriefopManager.cs" />
@@ -189,11 +194,11 @@
     <Compile Include="Forms\FrmMain.designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmMissionAssets.cs">
+    <Compile Include="Forms\FrmMissionGroups.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FrmMissionAssets.Designer.cs">
-      <DependentUpon>FrmMissionAssets.cs</DependentUpon>
+    <Compile Include="Forms\FrmMissionGroups.Designer.cs">
+      <DependentUpon>FrmMissionGroups.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmMissionInformations.cs">
       <SubType>Form</SubType>
@@ -214,7 +219,7 @@
       <DependentUpon>FrmWait.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\GridManager.cs" />
-    <Compile Include="Forms\GridManagerAsset.cs" />
+    <Compile Include="Forms\GridManagerGroups.cs" />
     <Compile Include="Forms\UcBriefop.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -289,8 +294,8 @@
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmMissionAssets.resx">
-      <DependentUpon>FrmMissionAssets.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FrmMissionGroups.resx">
+      <DependentUpon>FrmMissionGroups.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmMissionInformations.resx">
       <DependentUpon>FrmMissionInformations.cs</DependentUpon>
@@ -344,6 +349,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon256.ico" />
+    <None Include="Resources\theatreMarianas.jpg" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

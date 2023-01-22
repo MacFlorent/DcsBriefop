@@ -1,14 +1,15 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
-using DcsBriefop.Tools;
-using System;
+using UnitsNet.Units;
 
-namespace DcsBriefop.DataBop
+namespace DcsBriefop.DataBopMission
 {
 	internal class BopMapPoint : BaseBop
 	{
 		#region Fields
+		private decimal m_mizY;
+		private decimal m_mizX;
 		#endregion
 
 		#region Properties
@@ -17,20 +18,28 @@ namespace DcsBriefop.DataBop
 		#endregion
 
 		#region CTOR
-		public BopMapPoint(BopManager parentManager) : base(parentManager) { }
-
-		public BopMapPoint(BopManager parentManager, string sName, Coordinate coordinate) : this(parentManager)
+		public BopMapPoint(Miz miz, Theatre theatre, decimal Y, decimal X) : base(miz, theatre)
 		{
-			Coordinate = coordinate;
+			m_mizY = Y;
+			m_mizX = X;
+		}
+		#endregion
+
+		#region Miz
+		public override void ToMiz()
+		{
+			base.ToMiz();
+		}
+
+		protected override void FinalizeFromMizInternal()
+		{
+			base.FinalizeFromMizInternal();
+
+			Coordinate = Theatre.GetCoordinate(m_mizY, m_mizX);
 		}
 		#endregion
 
 		#region Methods
-		public virtual string ToStringLocalisation()
-		{
-			//sLocalisation = $"{point.Coordinate.ToStringDMS()}{Environment.NewLine}{point.Coordinate.ToStringDDM()}{Environment.NewLine}{point.Coordinate.ToStringMGRS()}";
-			return Coordinate.ToStringMGRS();
-		}
 		#endregion
 	}
 
@@ -42,17 +51,6 @@ namespace DcsBriefop.DataBop
 
 		#region Properties
 		public MizRoutePoint MizRoutePoint { get { return m_mizRoutePoint; } }
-
-		public string DisplayName
-		{
-			get
-			{
-				if (!string.IsNullOrEmpty(Name))
-					return Name;
-				else
-					return $"WP{Number}";
-			}
-		}
 		public int Number { get; set; }
 		public string Type { get; set; }
 		public string Action { get; set; }
@@ -62,15 +60,12 @@ namespace DcsBriefop.DataBop
 		#endregion
 
 		#region CTOR
-		public BopRoutePoint(BopManager parentManager, int iNumber, MizRoutePoint mizRoutePoint) : base(parentManager)
+		public BopRoutePoint(Miz miz, Theatre theatre, int iNumber, MizRoutePoint mizRoutePoint) : base(miz, theatre, mizRoutePoint.Y, mizRoutePoint.X)
 		{
+			Number = iNumber;
 			m_mizRoutePoint = mizRoutePoint;
 
-			Number = iNumber;
 			Name = m_mizRoutePoint.Name;
-			Coordinate = ParentManager.Theatre.GetCoordinate(m_mizRoutePoint.Y, m_mizRoutePoint.X);
-
-			AltitudeFeet = (decimal)UnitsNet.UnitConverter.Convert(m_mizRoutePoint.Altitude, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot);
 			Action = m_mizRoutePoint.Action;
 			Type = m_mizRoutePoint.Type;
 			AirdromeId = m_mizRoutePoint.AirdromeId;
@@ -78,54 +73,47 @@ namespace DcsBriefop.DataBop
 		}
 		#endregion
 
-		#region Methods
-		public override void Persist()
+		#region Miz
+		public override void ToMiz()
 		{
-			base.Persist();
-			//Core.Theatre.GetYX(out decimal dY, out decimal dX, Coordinate);
-			//MizRoutePoint.Y = dY;
-			//MizRoutePoint.X = dX;
+			base.ToMiz();
 
 			m_mizRoutePoint.Name = Name;
 			m_mizRoutePoint.Action = Action;
 			m_mizRoutePoint.Type = Type;
 		}
 
-		public string GetOrbitPattern()
+		protected override void FinalizeFromMizInternal()
 		{
-			string sOrbitPattern = null;
-			if (m_mizRoutePoint.RouteTaskHolder is object)
-			{
-				foreach (MizRouteTask mizTask in m_mizRoutePoint.RouteTaskHolder.Tasks)
-				{
-					if (mizTask.Id == ElementRouteTask.Orbit)
-					{
-						sOrbitPattern = mizTask.Params.Pattern;
-						break;
-					}
-					else if (mizTask.Params.Task is object && mizTask.Params.Task.Id == ElementRouteTask.Orbit)
-					{
-						sOrbitPattern = mizTask.Params.Task.Params.Pattern;
-						break;
-					}
-				}
-			}
+			base.FinalizeFromMizInternal();
 
-			return sOrbitPattern;
+			AltitudeFeet = (decimal)UnitsNet.UnitConverter.Convert(m_mizRoutePoint.Altitude, LengthUnit.Meter, LengthUnit.Foot);
 		}
+		#endregion
 
-		public override string ToStringLocalisation()
-		{
-			//sLocalisation = $"{point.Coordinate.ToStringDMS()}{Environment.NewLine}{point.Coordinate.ToStringDDM()}{Environment.NewLine}{point.Coordinate.ToStringMGRS()}";
-			return $"{base.ToStringLocalisation()}{Environment.NewLine}{AltitudeFeet} ft";
-		}
+		#region Methods
+		//public string GetOrbitPattern()
+		//{
+		//	string sOrbitPattern = null;
+		//	if (m_mizRoutePoint.RouteTaskHolder is object)
+		//	{
+		//		foreach (MizRouteTask mizTask in m_mizRoutePoint.RouteTaskHolder.Tasks)
+		//		{
+		//			if (mizTask.Id == ElementRouteTask.Orbit)
+		//			{
+		//				sOrbitPattern = mizTask.Params.Pattern;
+		//				break;
+		//			}
+		//			else if (mizTask.Params.Task is object && mizTask.Params.Task.Id == ElementRouteTask.Orbit)
+		//			{
+		//				sOrbitPattern = mizTask.Params.Task.Params.Pattern;
+		//				break;
+		//			}
+		//		}
+		//	}
 
-		public void SetYX(decimal dY, decimal dX)
-		{
-			MizRoutePoint.Y = dY;
-			MizRoutePoint.X = dX;
-			Coordinate = ParentManager.Theatre.GetCoordinate(MizRoutePoint.Y, MizRoutePoint.X);
-		}
+		//	return sOrbitPattern;
+		//}
 		#endregion
 	}
 }

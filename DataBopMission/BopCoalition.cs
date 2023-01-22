@@ -31,17 +31,9 @@ namespace DcsBriefop.DataBopMission
 		#region CTOR
 		public BopCoalition(Miz miz, Theatre theatre, string sCoalitionName) : base(miz, theatre)
 		{
-			m_mizCoalition = Miz.RootMission.Coalitions.Where(_c => _c.Name == sCoalitionName).FirstOrDefault();
-			InitializeMizBopCustom(sCoalitionName);
-		}
-		#endregion
-
-		#region Miz
-		public override void FromMiz()
-		{
-			base.FromMiz();
-
-			CoalitionName = m_mizCoalition.Name;
+			CoalitionName = sCoalitionName;
+			m_mizCoalition = Miz.RootMission.Coalitions.Where(_c => _c.Name == CoalitionName).FirstOrDefault();
+			InitializeMizBopCustom();
 
 			if (CoalitionName == ElementCoalition.Red)
 				Task = ToolsLua.DcsTextToDisplay(Miz.RootDictionary.RedTask);
@@ -53,7 +45,9 @@ namespace DcsBriefop.DataBopMission
 			BullseyeDescription = m_mizBopCoalition.BullseyeDescription;
 			BullseyeWaypoint = m_mizBopCoalition.BullseyeWaypoint;
 		}
+		#endregion
 
+		#region Miz
 		public override void ToMiz()
 		{
 			base.ToMiz();
@@ -71,15 +65,17 @@ namespace DcsBriefop.DataBopMission
 
 		protected override void FinalizeFromMizInternal()
 		{
+			base.FinalizeFromMizInternal();
+
 			Bullseye = Theatre.GetCoordinate(m_mizCoalition.BullseyeY, m_mizCoalition.BullseyeX);
 		}
 
-		private void InitializeMizBopCustom(string sCoalitionName)
+		private void InitializeMizBopCustom()
 		{
-			m_mizBopCoalition = Miz.MizBopCustom.MizBopCoalitions.Where(_c => _c.CoalitionName == sCoalitionName).FirstOrDefault();
+			m_mizBopCoalition = Miz.MizBopCustom.MizBopCoalitions.Where(_c => _c.CoalitionName == CoalitionName).FirstOrDefault();
 			if (m_mizBopCoalition is null)
 			{
-				m_mizBopCoalition = new MizBopCoalition() { CoalitionName = sCoalitionName };
+				m_mizBopCoalition = new MizBopCoalition() { CoalitionName = CoalitionName };
 				m_mizBopCoalition.SetDefaultData();
 				Miz.MizBopCustom.MizBopCoalitions.Add(m_mizBopCoalition);
 			}

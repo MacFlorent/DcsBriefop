@@ -1,4 +1,6 @@
-﻿using DcsBriefop.Tools;
+﻿using DcsBriefop.Data;
+using DcsBriefop.Tools;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
@@ -30,6 +32,12 @@ namespace DcsBriefop.Forms
 			PnBackground.CenterInParent();
 			PnMission.BackColor = ToolsStyle.ColorLightLight;
 			PnBriefing.BackColor = ToolsStyle.ColorLightLight;
+
+			ToolsStyle.LabelTitle(LbMissionTitle);
+			ToolsStyle.LabelHeader(LbTheatre);
+			ToolsStyle.LabelHeader(LbSortie);
+
+			ToolsStyle.LabelTitle(LbBriefingTitle);
 		}
 		#endregion
 
@@ -38,6 +46,7 @@ namespace DcsBriefop.Forms
 		{
 			LbSortie.Text = m_briefopManager.BopMission.Sortie;
 			LbTheatre.Text = m_briefopManager.BopMission.Theatre.Name;
+			LbMissionDirectory.Text = m_briefopManager.MizFilePath;
 		}
 
 		public void ScreenToData()
@@ -46,19 +55,24 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
+		private void LbMissionDirectory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			Process.Start(m_briefopManager.MizFileDirectory);
+		}
+
 		private void BtMissionInformations_Click(object sender, System.EventArgs e)
 		{
 			FrmMissionInformations f = new FrmMissionInformations(m_briefopManager);
-			f.ShowDialog();
+			if (f.ShowDialog() == DialogResult.OK)
+				DataToScreen();
 		}
 
-		private void BtMissionAssets_Click(object sender, System.EventArgs e)
+		private void BtMissionGroups_Click(object sender, System.EventArgs e)
 		{
-			FrmMissionAssets f = new FrmMissionAssets(m_briefopManager);
+			FrmMissionGroups f = new FrmMissionGroups(m_briefopManager);
 			f.ShowDialog();
 		}
+
 		#endregion
-
-
 	}
 }

@@ -19,6 +19,7 @@ namespace DcsBriefop.Forms
 		public FrmMissionInformations(BriefopManager briefopManager)
 		{
 			m_briefopManager = briefopManager;
+			DialogResult = DialogResult.Cancel;
 
 			InitializeComponent();
 
@@ -124,6 +125,7 @@ namespace DcsBriefop.Forms
 		private void BtOk_Click(object sender, EventArgs e)
 		{
 			ScreenToData();
+			DialogResult = DialogResult.OK;
 			Close();
 		}
 

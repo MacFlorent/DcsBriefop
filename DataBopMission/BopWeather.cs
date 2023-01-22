@@ -57,14 +57,6 @@ namespace DcsBriefop.DataBopMission
 		public BopWeather(Miz miz, Theatre theatre, DateTime date) : base(miz, theatre)
 		{
 			Date = date;
-		}
-		#endregion
-
-		#region Miz
-		public override void FromMiz()
-		{
-			base.FromMiz();
-
 			MizWeather mizWeather = Miz.RootMission.Weather;
 
 			Preset = null;
@@ -108,7 +100,9 @@ namespace DcsBriefop.DataBopMission
 			QnhMmHg = mizWeather.Qnh;
 			TemperatureCelcius = mizWeather.Temperature;
 		}
+		#endregion
 
+		#region Miz
 		public override void ToMiz()
 		{
 			base.ToMiz();

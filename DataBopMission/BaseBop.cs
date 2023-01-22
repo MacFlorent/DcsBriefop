@@ -23,7 +23,6 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Miz
-		public virtual void FromMiz() {	}
 		public virtual void ToMiz() { }
 		public void FinalizeFromMiz()
 		{

@@ -65,13 +65,19 @@ namespace DcsBriefop.Properties {
         ///
         ///set mizPath=%~dp0
         ///set mizFile=%1
-        ///set pathDcsBriefop=%2
+        ///set dcsBriefopExe=%2
         ///
-        ///::set execution directory to the DcsBriefop installation path
-        ///pushd %pathDcsBriefop%
+        ///::extract path for DcsBriefop
+        ///for %%i in (&quot;%dcsBriefopExe%&quot;) do (
+        ///set dcsBriefopPath=%%~pi
+        ///set dcsBriefopExe=%%~ni
+        ///)
+        ///
+        ///::set execution directory to the DcsBriefop execution path
+        ///pushd %dcsBriefopPath%
         ///
         ///@echo on
-        ///start &quot;&quot; %pathDcsBriefop% batch -m%mizPath%%mizName%
+        ///start &quot;&quot; %dcsBriefopExe% batch --mizFile %mizPath%%mizFile% --loglevel info
         ///@echo off
         ///
         ///::reset execution directory
@@ -102,6 +108,16 @@ namespace DcsBriefop.Properties {
             get {
                 object obj = ResourceManager.GetObject("icon256", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap theatreMarianas {
+            get {
+                object obj = ResourceManager.GetObject("theatreMarianas", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

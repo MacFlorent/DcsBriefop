@@ -16,6 +16,7 @@ namespace DcsBriefop.Forms
 		public FrmPreferences()
 		{
 			m_preferences = PreferencesManager.Preferences.CloneJson();
+			DialogResult = DialogResult.Cancel;
 
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
@@ -73,6 +74,7 @@ namespace DcsBriefop.Forms
 			ScreenToData();
 			PreferencesManager.Preferences = m_preferences.CloneJson();
 			PreferencesManager.Save();
+			DialogResult = DialogResult.OK;
 			Close();
 		}
 

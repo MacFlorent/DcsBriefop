@@ -99,7 +99,6 @@ namespace DcsBriefop
 			Miz miz = new Miz(sLuaMission, sLuaDictionnary, sJsonBopCustom);
 			Theatre theatre = new Theatre(miz.RootMission.Theatre);
 			BopMission = new BopMission(miz, theatre);
-			BopMission.FromMiz();
 
 			PreferencesManager.Preferences.Application.WorkingDirectory = Path.GetDirectoryName(MizFilePath);
 			PreferencesManager.Preferences.Application.AddRecentMiz(MizFilePath);

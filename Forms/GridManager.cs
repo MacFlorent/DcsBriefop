@@ -64,7 +64,7 @@ namespace DcsBriefop.Forms
 			try
 			{
 				m_dgv.SuspendDrawing();
-				//m_dgv.ColumnHeadersHeight = 25; // not ideal, but if the header is to narrow, it will be widened by AdvancedDataGridView.OnColumnAdded, and sometimes it will cause problems that I don't understand
+				m_dgv.ColumnHeadersHeight = 25; // not ideal, but if the header is to narrow, it will be widened by AdvancedDataGridView.OnColumnAdded, and sometimes it will cause problems that I don't understand
 				(m_dgv.DataSource as BindingSource).DataSource = m_dtSource.DefaultView;
 				m_dgv.ResumeDrawing();
 			}
@@ -116,7 +116,7 @@ namespace DcsBriefop.Forms
 			m_dgv.ContextMenuStrip.Opening += (object sender, CancelEventArgs e) => { ContextMenuOpening(sender as ContextMenuStrip, m_dgv, e); };
 		}
 
-		protected virtual void ContextMenuOpening(ContextMenuStrip menu, DataGridView dgv, CancelEventArgs e) {}
+		protected virtual void ContextMenuOpening(ContextMenuStrip menu, DataGridView dgv, CancelEventArgs e) { }
 		#endregion
 
 		#region Events

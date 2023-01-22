@@ -111,9 +111,11 @@ namespace DcsBriefop.Forms
 		private void OpenPreferences()
 		{
 			FrmPreferences f = new FrmPreferences();
-			f.ShowDialog();
-			BuildMenu();
-			DataToScreen();
+			if (f.ShowDialog() == DialogResult.OK)
+			{
+				BuildMenu();
+				DataToScreen();
+			}
 		}
 
 		//private void OpenPreferencesMiz()
