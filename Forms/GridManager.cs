@@ -25,12 +25,18 @@ namespace DcsBriefop.Forms
 		{
 			m_dgv = dgv;
 
-			ToolsControls.SetDataGridViewProperties(dgv);
+			m_dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+			m_dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
+			m_dgv.AllowUserToResizeColumns = true;
+			m_dgv.AllowUserToAddRows = false;
+			m_dgv.RowHeadersVisible = false;
+
 			m_dgv.AutoGenerateColumns = true;
 			m_dgv.DataSource = new BindingSource();
 
 			m_dgv.CellFormatting += CellFormattingEvent;
 			m_dgv.MouseDown += MouseDownEvent;
+			m_dgv.SelectionChanged += SelectionChangedEvent;
 		}
 		#endregion
 
@@ -107,6 +113,8 @@ namespace DcsBriefop.Forms
 			DataGridViewCellStyle cellStyle = dgvc.InheritedStyle;
 			return cellStyle;
 		}
+		
+		protected virtual void SelectionChanged() {}
 		#endregion
 
 		#region Menus
@@ -145,6 +153,11 @@ namespace DcsBriefop.Forms
 					dgvc.Selected = true;
 				}
 			}
+		}
+
+		private void SelectionChangedEvent(object sender, EventArgs e)
+		{
+			SelectionChanged();
 		}
 		#endregion
 

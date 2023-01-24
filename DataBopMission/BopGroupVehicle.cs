@@ -43,6 +43,7 @@ namespace DcsBriefop.DataBopMission
 
 		public BopGroupVehicle(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, mizGroup)
 		{
+			DcsObject = "Vehicle";
 			Class = ElementDcsObjectClass.Ground;
 
 			Callsign = GetCallsignFromFacTask() ?? GetCallsignFromTaskAction();

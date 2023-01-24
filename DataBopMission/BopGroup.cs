@@ -1,10 +1,7 @@
-﻿using CoordinateSharp;
-using DcsBriefop.Data;
+﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
-using Org.BouncyCastle.Asn1.Cms;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -15,8 +12,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Properties
-		public ElementDcsObjectClass Class;
-		public ElementDcsObjectAttribute Attributes;
+		public string DcsObject { get; protected set; }
+		public ElementDcsObjectClass Class { get; protected set; }
+		public ElementDcsObjectAttribute Attributes { get; protected set; }
 		public string CoalitionName { get; protected set; }
 		public string CountryName { get; protected set; }
 
@@ -33,6 +31,7 @@ namespace DcsBriefop.DataBopMission
 		#region CTOR
 		public BopGroup(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre)
 		{
+			DcsObject = "Group";
 			Class = ElementDcsObjectClass.None;
 			Attributes = ElementDcsObjectAttribute.None;
 
@@ -115,6 +114,21 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
+		public override string ToString()
+		{
+			return ToStringDisplayName();
+		}
+
+		public virtual string ToStringDisplayName()
+		{
+			return Name;
+		}
+
+		public virtual string ToStringDescription()
+		{
+			return $"{ToStringDisplayName()}";
+		}
+
 		public Tacan GetTacanFromTaskAction(int iUnitId)
 		{
 			foreach (MizRoutePoint routePoint in m_mizGroup.RoutePoints)

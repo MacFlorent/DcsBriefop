@@ -98,6 +98,11 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns[GridColumn.Data].Visible = false;
 		}
 
+		public IEnumerable<BopGroup> GetSelectedBopGroups()
+		{
+			return GetSelectedDataRows().Select(_dr => _dr.Field<BopGroup>(GridColumn.Data)).ToList();
+		}
+
 		protected override DataGridViewCellStyle CellFormatting(DataGridViewCell dgvc)
 		{
 			DataGridViewCellStyle cellStyle = base.CellFormatting(dgvc);
@@ -122,6 +127,19 @@ namespace DcsBriefop.Forms
 
 			return cellStyle;
 		}
+
+		protected override void SelectionChanged()
+		{
+			SelectionChangedBopGroups?.Invoke(this, new EventArgsBopGroup() { BopGroups = GetSelectedBopGroups() });
+		}
+		#endregion
+
+		#region Events
+		public class EventArgsBopGroup : EventArgs
+		{
+			public IEnumerable<BopGroup> BopGroups { get; set; }
+		}
+		public event EventHandler<EventArgsBopGroup> SelectionChangedBopGroups;
 		#endregion
 	}
 }

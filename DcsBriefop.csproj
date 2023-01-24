@@ -226,6 +226,12 @@
     <Compile Include="Forms\UcBriefop.Designer.cs">
       <DependentUpon>UcBriefop.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UcGroup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UcGroup.Designer.cs">
+      <DependentUpon>UcGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UcMissionCoalition.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -308,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UcBriefop.resx">
       <DependentUpon>UcBriefop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UcGroup.resx">
+      <DependentUpon>UcGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UcMissionCoalition.resx">
       <DependentUpon>UcMissionCoalition.cs</DependentUpon>

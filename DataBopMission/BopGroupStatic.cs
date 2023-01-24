@@ -14,6 +14,7 @@ namespace DcsBriefop.DataBopMission
 		#region CTOR
 		public BopGroupStatic(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, mizGroup)
 		{
+			DcsObject = "Static";
 		}
 		#endregion
 

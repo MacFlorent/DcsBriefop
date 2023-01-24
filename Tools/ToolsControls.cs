@@ -37,80 +37,80 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region DataGridView
-		public static void SetDataGridViewProperties(this DataGridView dgv)
-		{
-			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-			dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			dgv.AllowUserToResizeColumns = true;
-			dgv.AllowUserToAddRows = false;
-			dgv.RowHeadersVisible = false;
+		//public static void SetDataGridViewProperties(this DataGridView dgv)
+		//{
+		//	dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+		//	dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
+		//	dgv.AllowUserToResizeColumns = true;
+		//	dgv.AllowUserToAddRows = false;
+		//	dgv.RowHeadersVisible = false;
 
-			dgv.MouseDown += (sender, e) => { MouseDownEvent(dgv, e); };
-		}
+		//	dgv.MouseDown += (sender, e) => { MouseDownEvent(dgv, e); };
+		//}
+		//
+		//public static DataGridViewColumn AddColumn<T>(this DataGridView dgv, string sColumnName, string sHeaderText)
+		//{
+		//	DataGridViewColumn dgvc;
 
-		public static DataGridViewColumn AddColumn<T>(this DataGridView dgv, string sColumnName, string sHeaderText)
-		{
-			DataGridViewColumn dgvc;
+		//	if (typeof(T) == typeof (bool))
+		//	{
+		//		dgvc = new DataGridViewCheckBoxColumn();
+		//	}
+		//	else
+		//	{
+		//		dgvc = new DataGridViewTextBoxColumn();
+		//	}
 
-			if (typeof(T) == typeof (bool))
-			{
-				dgvc = new DataGridViewCheckBoxColumn();
-			}
-			else
-			{
-				dgvc = new DataGridViewTextBoxColumn();
-			}
+		//	dgvc.Name = sColumnName;
+		//	dgvc.DataPropertyName = sColumnName;
+		//	dgvc.HeaderText = sHeaderText;
 
-			dgvc.Name = sColumnName;
-			dgvc.DataPropertyName = sColumnName;
-			dgvc.HeaderText = sHeaderText;
+		//	dgv.Columns.Add(dgvc);
+		//	return dgvc;
+		//}
 
-			dgv.Columns.Add(dgvc);
-			return dgvc;
-		}
+		//public static void SetDataSource(this DataGridView dgv, DataTable dtSource)
+		//{
+		//	try
+		//	{
+		//		dgv.SuspendDrawing();
+		//		//ColumnHeadersHeight = 25; // not ideal, but if the header is to narrow, it will be widened by AdvancedDataGridView.OnColumnAdded, and sometimes it will cause problems that I don't understand
+		//		if (dgv.DataSource is null)
+		//			dgv.DataSource = new BindingSource();
 
-		public static void SetDataSource(this DataGridView dgv, DataTable dtSource)
-		{
-			try
-			{
-				dgv.SuspendDrawing();
-				//ColumnHeadersHeight = 25; // not ideal, but if the header is to narrow, it will be widened by AdvancedDataGridView.OnColumnAdded, and sometimes it will cause problems that I don't understand
-				if (dgv.DataSource is null)
-					dgv.DataSource = new BindingSource();
+		//		(dgv.DataSource as BindingSource).DataSource = dtSource?.DefaultView;
 
-				(dgv.DataSource as BindingSource).DataSource = dtSource?.DefaultView;
+		//		dgv.ResumeDrawing();
+		//	}
+		//	catch (Exception ex) { ShowMessageBoxError(ex.Message); } // to check the problem addressed by "m_dgv.ColumnHeadersHeight = 25"
+		//}
 
-				dgv.ResumeDrawing();
-			}
-			catch (Exception ex) { ShowMessageBoxError(ex.Message); } // to check the problem addressed by "m_dgv.ColumnHeadersHeight = 25"
-		}
+		//public static IEnumerable<DataGridViewRow> GetSelectedRows(this DataGridView dgv)
+		//{
+		//	if (dgv.SelectedRows is object && dgv.SelectedRows.Count > 0)
+		//		return dgv.SelectedRows.OfType<DataGridViewRow>();
+		//	else
+		//		return dgv.SelectedCells.Cast<DataGridViewCell>().Select(_dgvc => _dgvc.OwningRow).Distinct();
+		//}
 
-		public static IEnumerable<DataGridViewRow> GetSelectedRows(this DataGridView dgv)
-		{
-			if (dgv.SelectedRows is object && dgv.SelectedRows.Count > 0)
-				return dgv.SelectedRows.OfType<DataGridViewRow>();
-			else
-				return dgv.SelectedCells.Cast<DataGridViewCell>().Select(_dgvc => _dgvc.OwningRow).Distinct();
-		}
+		//public static IEnumerable<DataRow> GetSelectedDataRows(this DataGridView dgv)
+		//{
+		//	return dgv.GetSelectedRows().Select(_dgvr => (_dgvr.DataBoundItem as DataRowView)?.Row).Where(_r => _r is object);
+		//}
 
-		public static IEnumerable<DataRow> GetSelectedDataRows(this DataGridView dgv)
-		{
-			return dgv.GetSelectedRows().Select(_dgvr => (_dgvr.DataBoundItem as DataRowView)?.Row).Where(_r => _r is object);
-		}
-
-		internal static void MouseDownEvent(DataGridView dgv, MouseEventArgs e)
-		{
-			if (e.Button == MouseButtons.Right)
-			{
-				var hti = dgv.HitTest(e.X, e.Y);
-				DataGridViewCell dgvc = dgv.Rows[hti.RowIndex].Cells[hti.ColumnIndex];
-				if (!dgvc.Selected)
-				{
-					dgv.ClearSelection();
-					dgvc.Selected = true;
-				}
-			}
-		}
+		//internal static void MouseDownEvent(DataGridView dgv, MouseEventArgs e)
+		//{
+		//	if (e.Button == MouseButtons.Right)
+		//	{
+		//		var hti = dgv.HitTest(e.X, e.Y);
+		//		DataGridViewCell dgvc = dgv.Rows[hti.RowIndex].Cells[hti.ColumnIndex];
+		//		if (!dgvc.Selected)
+		//		{
+		//			dgv.ClearSelection();
+		//			dgvc.Selected = true;
+		//		}
+		//	}
+		//}
 		#endregion
 
 		#region Redraw Suspend/Resume

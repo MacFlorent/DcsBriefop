@@ -1,7 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
-using System.Linq;
 
 namespace DcsBriefop.DataBopMission
 {

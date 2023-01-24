@@ -21,6 +21,7 @@ namespace DcsBriefop.DataBopMission
 		#region CTOR
 		public BopGroupFlight(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, mizGroup)
 		{
+			DcsObject = "Flight";
 			Class = ElementDcsObjectClass.Air;
 
 			MizUnit firstMizUnit = m_mizGroup.Units.FirstOrDefault();
@@ -68,6 +69,22 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
+		public override string ToStringDisplayName()
+		{
+			string sDisplayName = base.ToStringDisplayName();
+
+			if ((!Playable || !Miz.MizBopCustom.PreferencesMission.NoCallsignForPlayableFlights))
+				return $"{Callsign} | {sDisplayName}";
+			else
+				return sDisplayName;
+		}
+
+		public override string ToStringDescription()
+		{
+			string sDescription = base.ToStringDescription();
+			return sDescription;
+		}
+
 		//public string ToStringRadio()
 		//{
 		//	if (Playable)

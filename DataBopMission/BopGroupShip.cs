@@ -18,6 +18,7 @@ namespace DcsBriefop.DataBopMission
 		#region CTOR
 		public BopGroupShip(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, mizGroup)
 		{
+			DcsObject = "Ship";
 			Class = ElementDcsObjectClass.Sea;
 
 			Tacan = GetTacanFromTaskAction(0);

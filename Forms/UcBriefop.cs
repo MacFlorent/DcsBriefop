@@ -42,7 +42,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Methods
-		public void DataToScreen()
+		private void DataToScreen()
 		{
 			LbSortie.Text = m_briefopManager.BopMission.Sortie;
 			LbTheatre.Text = m_briefopManager.BopMission.Theatre.Name;
