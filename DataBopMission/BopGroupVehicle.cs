@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -12,7 +13,7 @@ namespace DcsBriefop.DataBopMission
 
 		#region Properties
 		public string Callsign { get; set; }
-		public Radio Radio { get; set; }
+		public Tacan Tacan { get; set; }
 		#endregion
 
 		#region CTOR
@@ -46,8 +47,9 @@ namespace DcsBriefop.DataBopMission
 			DcsObject = "Vehicle";
 			Class = ElementDcsObjectClass.Ground;
 
-			Callsign = GetCallsignFromFacTask() ?? GetCallsignFromTaskAction();
-			Radio = GetRadioFromFacTask() ?? GetRadioFromTaskAction ();
+			Callsign = GetCallsignFromRouteTaskFac() ?? GetCallsignFromRouteTaskAction();
+			Radio = GetRadioFromRouteTaskFac() ?? GetRadioFromRouteTaskAction();
+			Tacan = GetTacanFromRouteTaskAction(null);
 		}
 		#endregion
 
@@ -55,64 +57,69 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		private string GetCallsignFromTaskAction()
+		public override string ToStringDisplayName()
+		{
+			string sDisplayName = base.ToStringDisplayName();
+
+			if (!string.IsNullOrEmpty(Callsign))
+				return $"{Callsign} | {sDisplayName}";
+			else
+				return sDisplayName;
+		}
+
+		public override string ToStringDescription()
+		{
+			string sDescription = base.ToStringDisplayName();
+			if (Tacan is object)
+				sDescription = $"{sDescription} TACAN:{Tacan}";
+
+			return sDescription;
+		}
+
+		private string GetCallsignFromRouteTaskAction()
 		{
 			int? iCallsignId = null, iCallsignNumber = null;
+			MizRouteTaskAction routeTaskAction = GetRouteTaskAction(new List<string> { ElementRouteTaskAction.SetCallsign }, null);
 
-			foreach (MizRoutePoint mizRoutePoint in m_mizGroup.RoutePoints)
+			if (routeTaskAction is object)
 			{
-				MizRouteTaskAction routeTaskAction = mizRoutePoint.GetRouteTaskAction(ElementRouteTaskAction.SetCallsign);
-				if (routeTaskAction is object)
-				{
-					iCallsignId = routeTaskAction.ParamCallname;
-					iCallsignNumber = routeTaskAction.ParamNumber;
-					break;
-				}
+				iCallsignId = routeTaskAction.ParamCallname;
+				iCallsignNumber = routeTaskAction.ParamNumber;
 			}
 
 			return GetCallsignFromId(iCallsignId, iCallsignNumber);
 		}
 
-		private Radio GetRadioFromTaskAction()
+		private Radio GetRadioFromRouteTaskAction()
 		{
-			foreach (MizRoutePoint mizRoutePoint in m_mizGroup.RoutePoints)
-			{
-				MizRouteTaskAction routeTaskAction = mizRoutePoint.GetRouteTaskAction(ElementRouteTaskAction.SetFrequency);
-				if (routeTaskAction is object && routeTaskAction.ParamFrequency is object && routeTaskAction.ParamModulation is object)
-					return new Radio(routeTaskAction.ParamFrequency.Value, routeTaskAction.ParamModulation.Value);
-			}
-
-			return null;
+			MizRouteTaskAction routeTaskAction = GetRouteTaskAction(new List<string> { ElementRouteTaskAction.SetFrequency }, null);
+			if (routeTaskAction is object)
+				return new Radio(routeTaskAction.ParamFrequency.GetValueOrDefault(0) / ElementRadio.UnitFrequencyRatio, routeTaskAction.ParamModulation.GetValueOrDefault(ElementRadioModulation.AM));
+			else
+				return null;
 		}
 
-		private string GetCallsignFromFacTask()
+		private string GetCallsignFromRouteTaskFac()
 		{
 			int? iCallsignId = null, iCallsignNumber = null;
+			MizRouteTask routeTask = GetRouteTask(new List<string> { ElementRouteTask.Fac, ElementRouteTask.FacEngageGroup, ElementRouteTask.FacAttackGroup });
 
-			foreach (MizRoutePoint mizRoutePoint in m_mizGroup.RoutePoints)
+			if (routeTask is object)
 			{
-				MizRouteTask routeTask = mizRoutePoint.GetAnyRouteTask(new List<string>() { ElementRouteTask.Fac, ElementRouteTask.FacEngageGroup, ElementRouteTask.FacAttackGroup });
-				if (routeTask is object)
-				{
-					iCallsignId = routeTask.Params.Callname;
-					iCallsignNumber = routeTask.Params.Number;
-					break;
-				}
+				iCallsignId = routeTask.Params.Callname;
+				iCallsignNumber = routeTask.Params.Number;
 			}
 
 			return GetCallsignFromId(iCallsignId, iCallsignNumber);
 		}
 
-		private Radio GetRadioFromFacTask()
+		private Radio GetRadioFromRouteTaskFac()
 		{
-			foreach (MizRoutePoint mizRoutePoint in m_mizGroup.RoutePoints)
-			{
-				MizRouteTask routeTask = mizRoutePoint.GetAnyRouteTask(new List<string>() { ElementRouteTask.Fac, ElementRouteTask.FacEngageGroup, ElementRouteTask.FacAttackGroup });
-				if (routeTask is object && routeTask.Params.Frequency is object && routeTask.Params.Modulation is object)
-					return new Radio(routeTask.Params.Frequency.Value, routeTask.Params.Modulation.Value);
-			}
-
-			return null;
+			MizRouteTask routeTask = GetRouteTask(new List<string> { ElementRouteTask.Fac, ElementRouteTask.FacEngageGroup, ElementRouteTask.FacAttackGroup });
+			if (routeTask is object)
+				return new Radio(routeTask.Params.Frequency.GetValueOrDefault(0) / ElementRadio.UnitFrequencyRatio, routeTask.Params.Modulation.GetValueOrDefault(ElementRadioModulation.AM));
+			else
+				return null;
 		}
 
 		private string GetCallsignFromId(int? iCallsignId, int? iNumber)

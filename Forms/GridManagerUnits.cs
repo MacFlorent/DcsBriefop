@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
-	internal class GridManagerGroups : GridManager
+	internal class GridManagerUnits : GridManager
 	{
 		#region Columns
 		public static class GridColumn
@@ -16,6 +16,7 @@ namespace DcsBriefop.Forms
 			public static readonly string Id = "Id";
 			public static readonly string Coalition = "Coalition";
 			public static readonly string Country = "Country";
+			public static readonly string Group = "Group";
 			public static readonly string DisplayName = "Name";
 			public static readonly string Class = "Class";
 			public static readonly string Type = "Type";
@@ -29,16 +30,16 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Fields
-		private List<BopGroup> m_groups;
+		private List<BopUnit> m_units;
 		#endregion
 
 		#region Properties
 		#endregion
 
 		#region CTOR
-		public GridManagerGroups(DataGridView dgv, List<BopGroup> groups) : base(dgv)
+		public GridManagerUnits(DataGridView dgv, List<BopUnit> units) : base(dgv)
 		{
-			m_groups = groups;
+			m_units = units;
 
 			m_dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 		}
@@ -51,36 +52,36 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Id, typeof(int));
 			m_dtSource.Columns.Add(GridColumn.Coalition, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Country, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.Group, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.DisplayName, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Class, typeof(ElementDcsObjectClass));
 			m_dtSource.Columns.Add(GridColumn.Type, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Attributes, typeof(ElementDcsObjectAttribute));
 			m_dtSource.Columns.Add(GridColumn.Playable, typeof(bool));
-			m_dtSource.Columns.Add(GridColumn.Data, typeof(BopGroup));
+			m_dtSource.Columns.Add(GridColumn.Data, typeof(BopUnit));
 
-			foreach (BopGroup bopGroup in m_groups)
-				RefreshDataSourceRow(bopGroup);
+			foreach (BopUnit bopUnit in m_units)
+				RefreshDataSourceRow(bopUnit);
 		}
 
-		private void RefreshDataSourceRow(BopGroup bopGroup)
+		private void RefreshDataSourceRow(BopUnit bopUnit)
 		{
-			DataRow dr = m_dtSource.AsEnumerable().Where(_dr => _dr.Field<BopGroup>(GridColumn.Data) == bopGroup).FirstOrDefault();
+			DataRow dr = m_dtSource.AsEnumerable().Where(_dr => _dr.Field<BopUnit>(GridColumn.Data) == bopUnit).FirstOrDefault();
 			if (dr is null)
 			{
 				dr = m_dtSource.NewRow();
-				dr.SetField(GridColumn.Data, bopGroup);
+				dr.SetField(GridColumn.Data, bopUnit);
 				m_dtSource.Rows.Add(dr);
 			}
 
-			dr.SetField(GridColumn.Id, bopGroup.Id);
-			dr.SetField(GridColumn.Coalition, bopGroup.CoalitionName);
-			dr.SetField(GridColumn.Country, bopGroup.CountryName);
-
-			dr.SetField(GridColumn.DisplayName, bopGroup.ToStringDisplayName());
-			dr.SetField(GridColumn.Class, bopGroup.Class);
-			dr.SetField(GridColumn.Type, bopGroup.Type);
-			dr.SetField(GridColumn.Attributes, bopGroup.Attributes);
-			dr.SetField(GridColumn.Playable, bopGroup.Playable);
+			dr.SetField(GridColumn.Id, bopUnit.Id);
+			dr.SetField(GridColumn.Coalition, bopUnit.BopGroup.CoalitionName);
+			dr.SetField(GridColumn.Country, bopUnit.BopGroup.CountryName);
+			dr.SetField(GridColumn.DisplayName, bopUnit.ToStringDisplayName());
+			dr.SetField(GridColumn.Class, bopUnit.Class);
+			dr.SetField(GridColumn.Type, bopUnit.Type);
+			dr.SetField(GridColumn.Attributes, bopUnit.Attributes);
+			dr.SetField(GridColumn.Playable, bopUnit.Playable);
 		}
 
 		protected override void PostInitializeColumns()
@@ -95,9 +96,9 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns[GridColumn.Data].Visible = false;
 		}
 
-		public IEnumerable<BopGroup> GetSelectedBopGroups()
+		public IEnumerable<BopUnit> GetSelectedBopUnits()
 		{
-			return GetSelectedDataRows().Select(_dr => _dr.Field<BopGroup>(GridColumn.Data)).ToList();
+			return GetSelectedDataRows().Select(_dr => _dr.Field<BopUnit>(GridColumn.Data)).ToList();
 		}
 
 		protected override DataGridViewCellStyle CellFormatting(DataGridViewCell dgvc)
@@ -127,16 +128,16 @@ namespace DcsBriefop.Forms
 
 		protected override void SelectionChanged()
 		{
-			SelectionChangedBopGroups?.Invoke(this, new EventArgsBopGroup() { BopGroups = GetSelectedBopGroups() });
+			SelectionChangedBopUnits?.Invoke(this, new EventArgsBopUnit() { BopUnits = GetSelectedBopUnits() });
 		}
 		#endregion
 
 		#region Events
-		public class EventArgsBopGroup : EventArgs
+		public class EventArgsBopUnit : EventArgs
 		{
-			public IEnumerable<BopGroup> BopGroups { get; set; }
+			public IEnumerable<BopUnit> BopUnits { get; set; }
 		}
-		public event EventHandler<EventArgsBopGroup> SelectionChangedBopGroups;
+		public event EventHandler<EventArgsBopUnit> SelectionChangedBopUnits;
 		#endregion
 	}
 }

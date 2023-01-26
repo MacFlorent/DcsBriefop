@@ -2,6 +2,8 @@
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 using System.Windows.Forms;
+using static DcsBriefop.Forms.GridManagerGroups;
+using static DcsBriefop.Forms.GridManagerUnits;
 
 namespace DcsBriefop.Forms
 {
@@ -10,6 +12,7 @@ namespace DcsBriefop.Forms
 		#region Fields
 		private BriefopManager m_briefopManager;
 		private BopGroup m_bopGroup;
+		private GridManagerUnits m_gridManagerUnits;
 		#endregion
 
 		#region Properties
@@ -51,11 +54,23 @@ namespace DcsBriefop.Forms
 			TbDisplayName.Text = m_bopGroup.ToStringDisplayName();
 			TbType.Text = m_bopGroup.Type;
 			TbAttributes.Text = m_bopGroup.Attributes.ToString();
+			TbRadio.Text = m_bopGroup.Radio?.ToString();
 			TbFullDescription.Text = m_bopGroup.ToStringDescription();
+
+			m_gridManagerUnits = new GridManagerUnits(DgvUnits, m_bopGroup.Units);
+			m_gridManagerUnits.SelectionChangedBopUnits += SelectionChangedBopUnitsEvent;
+			m_gridManagerUnits.Initialize();
 		}
 
 		public void ScreenToData()
 		{
+		}
+		#endregion
+
+		#region Events
+		private void SelectionChangedBopUnitsEvent(object sender, EventArgsBopUnit e)
+		{
+			//DataToScreenUnit();
 		}
 		#endregion
 	}

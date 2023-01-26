@@ -31,6 +31,16 @@ namespace DcsBriefop.Forms
 
 			DataToScreen();
 		}
+		#endregion
+
+		#region Methods
+		private void DataToScreen()
+		{
+			using (new WaitDialog(this))
+			{
+				m_gridManagerGroups.Initialize();
+			}
+		}
 
 		private void DataToScreenDetail()
 		{
@@ -52,16 +62,6 @@ namespace DcsBriefop.Forms
 			else
 			{
 				ScMain.Panel2.Controls.Clear();
-			}
-		}
-		#endregion
-
-		#region Methods
-		private void DataToScreen()
-		{
-			using (new WaitDialog(this))
-			{
-				m_gridManagerGroups.Initialize();
 			}
 		}
 

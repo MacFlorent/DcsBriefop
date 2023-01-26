@@ -23,6 +23,7 @@ namespace DcsBriefop.DataBopMission
 		public string Type { get; set; }
 		public bool Playable { get; set; }
 		public bool LateActivation { get; set; }
+		public Radio Radio { get; set; }
 		public List<BopUnit> Units { get; set; }
 		public BopUnit MainUnit { get; set; }
 		public List<BopMapPoint> MapPoints { get; set; }
@@ -89,7 +90,7 @@ namespace DcsBriefop.DataBopMission
 			Units = new List<BopUnit>();
 			foreach (MizUnit mizUnit in m_mizGroup.Units)
 			{
-				BopUnit bopUnit = new BopUnit(Miz, Theatre, mizUnit);
+				BopUnit bopUnit = new BopUnit(Miz, Theatre, mizUnit, this);
 				Units.Add(bopUnit);
 				if (MainUnit is null)
 					MainUnit = bopUnit;
@@ -126,19 +127,42 @@ namespace DcsBriefop.DataBopMission
 
 		public virtual string ToStringDescription()
 		{
-			return $"{ToStringDisplayName()}";
+			return ToStringDisplayName();
 		}
 
-		public Tacan GetTacanFromTaskAction(int iUnitId)
+		public MizRouteTask GetRouteTask(IEnumerable<string> sTaskIds)
 		{
+			MizRouteTask routeTask = null;
 			foreach (MizRoutePoint routePoint in m_mizGroup.RoutePoints)
 			{
-				MizRouteTaskAction taskAction = routePoint.GetRouteTaskAction(ElementRouteTaskAction.ActivateBeacon);
-				if (taskAction is object && taskAction.ParamUnitId.GetValueOrDefault(0) == iUnitId && taskAction.ParamChannel is object)
-					return new Tacan() { Channel = taskAction.ParamChannel.Value, Mode = taskAction.ParamModeChannel, Identifier = taskAction.ParamCallsign };
+				routeTask = routePoint.GetRouteTask(sTaskIds);
+				if (routeTask is object)
+					break;
 			}
 
-			return null;
+			return routeTask;
+		}
+
+		public MizRouteTaskAction GetRouteTaskAction(IEnumerable<string> sTaskActionIds, int? iUnitId)
+		{
+			MizRouteTaskAction routeTaskAction = null;
+			foreach (MizRoutePoint routePoint in m_mizGroup.RoutePoints)
+			{
+				routeTaskAction = routePoint.GetRouteTaskAction(sTaskActionIds, iUnitId);
+				if (routeTaskAction is object)
+					break;
+			}
+
+			return routeTaskAction;
+		}
+
+		public Tacan GetTacanFromRouteTaskAction(int? iUnitId)
+		{
+			MizRouteTaskAction routeTaskAction = GetRouteTaskAction(new List<string> { ElementRouteTaskAction.ActivateBeacon }, iUnitId);
+			if (routeTaskAction is object)
+					return new Tacan() { Channel = routeTaskAction.ParamChannel.GetValueOrDefault(0), Mode = routeTaskAction.ParamModeChannel, Identifier = routeTaskAction.ParamCallsign };
+			else
+				return null;
 		}
 
 		//public override void Persist()

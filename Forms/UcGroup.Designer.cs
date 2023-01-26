@@ -45,6 +45,8 @@
 			this.LbDisplayName = new System.Windows.Forms.Label();
 			this.TbDisplayName = new System.Windows.Forms.TextBox();
 			this.LbClass = new System.Windows.Forms.Label();
+			this.LbRadio = new System.Windows.Forms.Label();
+			this.TbRadio = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.DgvUnits)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -61,6 +63,7 @@
 			// 
 			this.TbAttributes.Location = new System.Drawing.Point(79, 161);
 			this.TbAttributes.Name = "TbAttributes";
+			this.TbAttributes.ReadOnly = true;
 			this.TbAttributes.Size = new System.Drawing.Size(412, 20);
 			this.TbAttributes.TabIndex = 33;
 			// 
@@ -72,10 +75,10 @@
 			this.DgvUnits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.DgvUnits.FilterAndSortEnabled = true;
 			this.DgvUnits.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.DgvUnits.Location = new System.Drawing.Point(3, 187);
+			this.DgvUnits.Location = new System.Drawing.Point(3, 213);
 			this.DgvUnits.Name = "DgvUnits";
 			this.DgvUnits.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.DgvUnits.Size = new System.Drawing.Size(935, 264);
+			this.DgvUnits.Size = new System.Drawing.Size(935, 238);
 			this.DgvUnits.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			this.DgvUnits.TabIndex = 31;
 			// 
@@ -122,6 +125,7 @@
 			// 
 			this.TbType.Location = new System.Drawing.Point(79, 135);
 			this.TbType.Name = "TbType";
+			this.TbType.ReadOnly = true;
 			this.TbType.Size = new System.Drawing.Size(412, 20);
 			this.TbType.TabIndex = 22;
 			// 
@@ -138,6 +142,7 @@
 			// 
 			this.TbName.Location = new System.Drawing.Point(79, 83);
 			this.TbName.Name = "TbName";
+			this.TbName.ReadOnly = true;
 			this.TbName.Size = new System.Drawing.Size(412, 20);
 			this.TbName.TabIndex = 20;
 			// 
@@ -154,6 +159,7 @@
 			// 
 			this.TbId.Location = new System.Drawing.Point(79, 57);
 			this.TbId.Name = "TbId";
+			this.TbId.ReadOnly = true;
 			this.TbId.Size = new System.Drawing.Size(100, 20);
 			this.TbId.TabIndex = 18;
 			// 
@@ -174,7 +180,7 @@
 			this.TbFullDescription.Name = "TbFullDescription";
 			this.TbFullDescription.ReadOnly = true;
 			this.TbFullDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbFullDescription.Size = new System.Drawing.Size(441, 124);
+			this.TbFullDescription.Size = new System.Drawing.Size(441, 150);
 			this.TbFullDescription.TabIndex = 36;
 			// 
 			// LbDisplayName
@@ -190,6 +196,7 @@
 			// 
 			this.TbDisplayName.Location = new System.Drawing.Point(79, 109);
 			this.TbDisplayName.Name = "TbDisplayName";
+			this.TbDisplayName.ReadOnly = true;
 			this.TbDisplayName.Size = new System.Drawing.Size(412, 20);
 			this.TbDisplayName.TabIndex = 37;
 			// 
@@ -203,10 +210,29 @@
 			this.LbClass.Text = "Class";
 			this.LbClass.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
+			// LbRadio
+			// 
+			this.LbRadio.AutoSize = true;
+			this.LbRadio.Location = new System.Drawing.Point(4, 187);
+			this.LbRadio.Name = "LbRadio";
+			this.LbRadio.Size = new System.Drawing.Size(35, 13);
+			this.LbRadio.TabIndex = 41;
+			this.LbRadio.Text = "Radio";
+			// 
+			// TbRadio
+			// 
+			this.TbRadio.Location = new System.Drawing.Point(79, 187);
+			this.TbRadio.Name = "TbRadio";
+			this.TbRadio.ReadOnly = true;
+			this.TbRadio.Size = new System.Drawing.Size(412, 20);
+			this.TbRadio.TabIndex = 40;
+			// 
 			// UcGroup
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.LbRadio);
+			this.Controls.Add(this.TbRadio);
 			this.Controls.Add(this.LbClass);
 			this.Controls.Add(this.LbDisplayName);
 			this.Controls.Add(this.TbDisplayName);
@@ -250,5 +276,7 @@
 		private System.Windows.Forms.Label LbDisplayName;
 		private System.Windows.Forms.TextBox TbDisplayName;
 		private System.Windows.Forms.Label LbClass;
+		private System.Windows.Forms.Label LbRadio;
+		private System.Windows.Forms.TextBox TbRadio;
 	}
 }

@@ -68,23 +68,24 @@ namespace DcsBriefop.DataMiz
 			RouteTaskHolder?.ToLua();
 		}
 
-		public MizRouteTask GetAnyRouteTask(List<string> sTaskIds)
+		public IEnumerable <MizRouteTask> GetRouteTasks(IEnumerable<string> sTaskIds)
 		{
-			return RouteTaskHolder.Tasks.Where(_rt => sTaskIds.Contains(_rt.Id)).FirstOrDefault();
+			return RouteTaskHolder.Tasks.Where(_rt => sTaskIds.Contains(_rt.Id));
 		}
-		public MizRouteTask GetRouteTask(string sTaskId)
+		public MizRouteTask GetRouteTask(IEnumerable<string> sTaskIds)
 		{
-			return GetAnyRouteTask(new List<string> { sTaskId });
+			return GetRouteTasks(sTaskIds).FirstOrDefault();
 		}
 
-		public MizRouteTaskAction GetAnyRouteTaskAction(List<string> sTaskActionIds)
+		public IEnumerable<MizRouteTaskAction> GetRouteTaskActions(IEnumerable<string> sTaskActionIds, int? iUnitId)
 		{
-			MizRouteTask routeTask = RouteTaskHolder.Tasks.Where(_rt => sTaskActionIds.Contains(_rt.Params.Action?.Id)).FirstOrDefault();
-			return routeTask?.Params.Action;
+			IEnumerable<MizRouteTaskAction> routeTaskActions = RouteTaskHolder.Tasks.Where(_rt => sTaskActionIds.Contains(_rt.Params.Action?.Id)).Select(_rt => _rt.Params.Action);
+			return routeTaskActions.Where(_rta => _rta.ParamUnitId.GetValueOrDefault(0) == iUnitId.GetValueOrDefault(0));
 		}
-		public MizRouteTaskAction GetRouteTaskAction(string sTaskActionId)
+
+		public MizRouteTaskAction GetRouteTaskAction(IEnumerable<string> sTaskActionIds, int? iUnitId)
 		{
-			return GetAnyRouteTaskAction(new List<string> { sTaskActionId });
+			return GetRouteTaskActions(sTaskActionIds, iUnitId)?.FirstOrDefault();
 		}
 
 		public static string GetLuaTemplate()

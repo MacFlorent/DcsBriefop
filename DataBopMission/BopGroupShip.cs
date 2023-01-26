@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -21,9 +22,25 @@ namespace DcsBriefop.DataBopMission
 			DcsObject = "Ship";
 			Class = ElementDcsObjectClass.Sea;
 
-			Tacan = GetTacanFromTaskAction(0);
-			Icls = GetIclsFromTaskAction(0);
-			Link4 = GetLink4FromTaskAction(0);
+			Radio = (MainUnit as BopUnitShip)?.Radio;
+
+			Tacan = (MainUnit as BopUnitShip)?.Tacan;
+			if (Tacan is null)
+				Tacan = Units.OfType<BopUnitShip>().Where(_u => _u.Tacan is object).Select(_u => _u.Tacan).FirstOrDefault();
+			if (Tacan is null)
+				Tacan = GetTacanFromRouteTaskAction(null);
+
+			Icls = (MainUnit as BopUnitShip)?.Icls;
+			if (Icls is null)
+				Icls = Units.OfType<BopUnitShip>().Where(_u => _u.Icls is object).Select(_u => _u.Icls).FirstOrDefault();
+			if (Icls is null)
+				Icls = GetIclsFromRouteTaskAction(null);
+
+			Link4 = (MainUnit as BopUnitShip)?.Link4;
+			if (Link4 is null)
+				Link4 = Units.OfType<BopUnitShip>().Where(_u => _u.Link4 is object).Select(_u => _u.Link4).FirstOrDefault();
+			if (Link4 is null)
+				Link4 = GetLink4FromRouteTaskAction(null);
 		}
 		#endregion
 
@@ -33,7 +50,7 @@ namespace DcsBriefop.DataBopMission
 			Units = new List<BopUnit>();
 			foreach (MizUnit mizUnit in m_mizGroup.Units)
 			{
-				BopUnitSea bopUnitSea = new BopUnitSea(Miz, Theatre, mizUnit, this);
+				BopUnitShip bopUnitSea = new BopUnitShip(Miz, Theatre, mizUnit, this);
 				Units.Add(bopUnitSea);
 				if (MainUnit is null)
 					MainUnit = bopUnitSea;
@@ -49,27 +66,35 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public int? GetIclsFromTaskAction(int iUnitId)
+		public override string ToStringDescription()
 		{
-			foreach (MizRoutePoint mizRoutePoint in m_mizGroup.RoutePoints)
-			{
-				MizRouteTaskAction taskAction = mizRoutePoint.GetRouteTaskAction(ElementRouteTaskAction.ActivateIcls);
-				return taskAction?.ParamChannel;
-			}
+			string sDescription = base.ToStringDisplayName();
+			if (Tacan is object)
+				sDescription = $"{sDescription} TACAN:{Tacan}";
+			if (Icls is object)
+				sDescription = $"{sDescription} ICLS:{Icls}";
+			if (Link4 is object)
+				sDescription = $"{sDescription} LNK4:{Link4:###.000}";
 
-			return null;
+			return sDescription;
 		}
 
-		public decimal? GetLink4FromTaskAction(int iUnitId)
+		public int? GetIclsFromRouteTaskAction(int? iUnitId)
 		{
-			foreach (MizRoutePoint mizRoutePoint in m_mizGroup.RoutePoints)
-			{
-				MizRouteTaskAction taskAction = mizRoutePoint.GetRouteTaskAction(ElementRouteTaskAction.ActivateLink4);
-				if (taskAction is object)
-					return (decimal)taskAction.ParamFrequency / ElementRadio.UnitFrequencyRatio;
-			}
+			MizRouteTaskAction routeTaskAction = GetRouteTaskAction(new List<string> { ElementRouteTaskAction.ActivateIcls }, iUnitId);
+			if (routeTaskAction is object)
+				return routeTaskAction.ParamChannel;
+			else
+				return null;
+		}
 
-			return null;
+		public decimal? GetLink4FromRouteTaskAction(int? iUnitId)
+		{
+			MizRouteTaskAction routeTaskAction = GetRouteTaskAction(new List<string> { ElementRouteTaskAction.ActivateLink4 }, iUnitId);
+			if (routeTaskAction is object)
+				return (decimal)routeTaskAction.ParamFrequency / ElementRadio.UnitFrequencyRatio;
+			else
+				return null;
 		}
 
 		//public string ToStringRadio()

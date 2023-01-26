@@ -3,7 +3,7 @@ using DcsBriefop.DataMiz;
 
 namespace DcsBriefop.DataBopMission
 {
-	internal class BopUnitAir : BopUnit
+	internal class BopUnitFlight : BopUnit
 	{
 		#region Fields
 		#endregion
@@ -13,9 +13,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region CTOR
-		public BopUnitAir(Miz miz, Theatre theatre, MizUnit mizUnit, BopGroup bopGroup) : base(miz, theatre, mizUnit)
+		public BopUnitFlight(Miz miz, Theatre theatre, MizUnit mizUnit, BopGroup bopGroup) : base(miz, theatre, mizUnit, bopGroup)
 		{
-			Tacan = bopGroup.GetTacanFromTaskAction(Id);
+			Tacan = bopGroup.GetTacanFromRouteTaskAction(Id);
 		}
 		#endregion
 

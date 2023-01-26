@@ -14,7 +14,6 @@ namespace DcsBriefop.DataBopMission
 		#region Properties
 		public string Callsign { get; set; }
 		public string Task { get; set; }
-		public Radio Radio { get; set; }
 		public Tacan Tacan { get; set; }
 		#endregion
 
@@ -39,7 +38,11 @@ namespace DcsBriefop.DataBopMission
 			if (m_mizGroup.RadioFrequency is object && m_mizGroup.RadioModulation is object)
 				Radio = new Radio(m_mizGroup.RadioFrequency.Value, m_mizGroup.RadioModulation.Value);
 
-			Tacan = GetTacanFromTaskAction(0);
+			Tacan = (MainUnit as BopUnitFlight)?.Tacan;
+			if (Tacan is null)
+				Tacan = Units.OfType<BopUnitFlight>().Where(_u => _u.Tacan is object).Select(_u => _u.Tacan).FirstOrDefault();
+			if (Tacan is null)
+				Tacan = GetTacanFromRouteTaskAction(null);
 		}
 		#endregion
 
@@ -49,7 +52,7 @@ namespace DcsBriefop.DataBopMission
 			Units = new List<BopUnit>();
 			foreach (MizUnit mizUnit in m_mizGroup.Units)
 			{
-				BopUnitAir bopUnitAir = new BopUnitAir(Miz, Theatre, mizUnit, this);
+				BopUnitFlight bopUnitAir = new BopUnitFlight(Miz, Theatre, mizUnit, this);
 				Units.Add(bopUnitAir);
 				if (MainUnit is null)
 					MainUnit = bopUnitAir;
@@ -73,7 +76,7 @@ namespace DcsBriefop.DataBopMission
 		{
 			string sDisplayName = base.ToStringDisplayName();
 
-			if ((!Playable || !Miz.MizBopCustom.PreferencesMission.NoCallsignForPlayableFlights))
+			if (!string.IsNullOrEmpty(Callsign) && (!Playable || !Miz.MizBopCustom.PreferencesMission.NoCallsignForPlayableFlights))
 				return $"{Callsign} | {sDisplayName}";
 			else
 				return sDisplayName;
@@ -81,7 +84,12 @@ namespace DcsBriefop.DataBopMission
 
 		public override string ToStringDescription()
 		{
-			string sDescription = base.ToStringDescription();
+			string sDescription = base.ToStringDisplayName();
+			if (!string.IsNullOrEmpty(Task))
+				sDescription = $"{sDescription} Task:{Task}";
+			if (Tacan is object)
+				sDescription = $"{sDescription} TACAN:{Tacan}";
+
 			return sDescription;
 		}
 

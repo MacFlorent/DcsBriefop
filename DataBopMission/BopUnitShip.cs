@@ -3,7 +3,7 @@ using DcsBriefop.DataMiz;
 
 namespace DcsBriefop.DataBopMission
 {
-	internal class BopUnitSea : BopUnit
+	internal class BopUnitShip : BopUnit
 	{
 		#region Fields
 		#endregion
@@ -16,14 +16,14 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region CTOR
-		public BopUnitSea(Miz miz, Theatre theatre, MizUnit mizUnit, BopGroupShip bopGroup) : base(miz, theatre, mizUnit)
+		public BopUnitShip(Miz miz, Theatre theatre, MizUnit mizUnit, BopGroupShip bopGroup) : base(miz, theatre, mizUnit, bopGroup)
 		{
 			if (m_mizUnit.RadioFrequency is object && m_mizUnit.RadioModulation is object)
 				Radio = new Radio(m_mizUnit.RadioFrequency.Value / ElementRadio.UnitFrequencyRatio, m_mizUnit.RadioModulation.Value);
 
-			Tacan = bopGroup.GetTacanFromTaskAction(Id);
-			Icls = bopGroup.GetIclsFromTaskAction(Id);
-			Link4 = bopGroup.GetLink4FromTaskAction(Id);
+			Tacan = bopGroup.GetTacanFromRouteTaskAction(Id);
+			Icls = bopGroup.GetIclsFromRouteTaskAction(Id);
+			Link4 = bopGroup.GetLink4FromRouteTaskAction(Id);
 		}
 		#endregion
 

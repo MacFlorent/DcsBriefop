@@ -166,8 +166,8 @@
     <Compile Include="DataBopMission\BopGroupShip.cs" />
     <Compile Include="DataBopMission\BopGroupFlight.cs" />
     <Compile Include="DataBopMission\BopMapPoint.cs" />
-    <Compile Include="DataBopMission\BopUnitSea.cs" />
-    <Compile Include="DataBopMission\BopUnitAir.cs" />
+    <Compile Include="DataBopMission\BopUnitShip.cs" />
+    <Compile Include="DataBopMission\BopUnitFlight.cs" />
     <Compile Include="DataBopMission\BopUnit.cs" />
     <Compile Include="DataBopMission\BopGroup.cs" />
     <Compile Include="DataBopMission\BopCoalition.cs" />
@@ -219,6 +219,7 @@
       <DependentUpon>FrmWait.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\GridManager.cs" />
+    <Compile Include="Forms\GridManagerUnits.cs" />
     <Compile Include="Forms\GridManagerGroups.cs" />
     <Compile Include="Forms\UcBriefop.cs">
       <SubType>UserControl</SubType>

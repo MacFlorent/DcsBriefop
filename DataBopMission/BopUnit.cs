@@ -12,28 +12,30 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Properties
-		public ElementDcsObjectClass Class;
-		public ElementDcsObjectAttribute Attributes;
-		public bool MainInGroup { get; private set; }
+		public ElementDcsObjectClass Class { get; set; }
+		public ElementDcsObjectAttribute Attributes { get; set; }
 		//public string MapMarker { get { return m_dcsObject?.MapMarker; } }
-
+		public BopGroup BopGroup { get; private set; }
 
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public string Type { get; set; }
 		public bool Playable { get; set; }
+		public bool MainInGroup { get; set; }
 		public decimal? AltitudeFeet { get; set; }
 		public Coordinate Coordinate { get; set; }
 		#endregion
 
 		#region CTOR
-		public BopUnit(Miz miz, Theatre theatre, MizUnit mizUnit) : base(miz, theatre)
+		public BopUnit(Miz miz, Theatre theatre, MizUnit mizUnit, BopGroup bopGroup) : base(miz, theatre)
 		{
 			m_mizUnit = mizUnit;
 			m_dcsObject = DcsObjectManager.GetObject(m_mizUnit.Type);
-
+			
 			Class = ElementDcsObjectClass.None;
 			Attributes = ElementDcsObjectAttribute.None;
+			BopGroup = bopGroup;
+
 			if (m_dcsObject is object)
 			{
 				Class = m_dcsObject.Class;
@@ -67,6 +69,15 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
+		public override string ToString()
+		{
+			return ToStringDisplayName();
+		}
+
+		public virtual string ToStringDisplayName()
+		{
+			return Name;
+		}
 		#endregion
 	}
 }
