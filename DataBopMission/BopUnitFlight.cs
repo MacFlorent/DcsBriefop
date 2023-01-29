@@ -13,7 +13,7 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region CTOR
-		public BopUnitFlight(Miz miz, Theatre theatre, MizUnit mizUnit, BopGroup bopGroup) : base(miz, theatre, mizUnit, bopGroup)
+		public BopUnitFlight(Miz miz, Theatre theatre, BopGroup bopGroup, MizUnit mizUnit) : base(miz, theatre, bopGroup, mizUnit)
 		{
 			Tacan = bopGroup.GetTacanFromRouteTaskAction(Id);
 		}

@@ -1,9 +1,12 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
+using DcsBriefop.Map;
 using DcsBriefop.Tools;
+using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsPresentation;
 using System.Windows.Forms;
-using static DcsBriefop.Forms.GridManagerGroups;
-using static DcsBriefop.Forms.GridManagerUnits;
 
 namespace DcsBriefop.Forms
 {
@@ -28,14 +31,24 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcGroup(BriefopManager briefopManager)
+		public UcGroup(BriefopManager briefopManager, BopGroup bopGroup)
 		{
 			m_briefopManager = briefopManager;
+			m_bopGroup = bopGroup;
 
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 			ToolsStyle.LabelTitle(LbCoalition);
 			ToolsStyle.LabelHeader(LbClass);
+
+			MapTemplateMarker.FillCombo(CbMapMarker);
+
+			MapControl.MapProvider = GMapProviders.TryGetProvider(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.DefaultProvider);
+			GMaps.Instance.Mode = AccessMode.ServerOnly;
+			//Map.ShowTileGridLines = true;
+			MapControl.Position = new PointLatLng(26.1702778, 56.24);
+			MapControl.MinZoom = ElementMapValue.MinZoom;
+			MapControl.MaxZoom = ElementMapValue.MaxZoom;
 		}
 		#endregion
 
@@ -46,31 +59,54 @@ namespace DcsBriefop.Forms
 
 			LbCoalition.Text = $"{m_bopGroup.CoalitionName} | {m_bopGroup.CountryName}";
 			LbCoalition.BackColor = ToolsBriefop.GetCoalitionColor(m_bopGroup.CoalitionName);
-			LbClass.Text = $"{m_bopGroup.Class} | {m_bopGroup.DcsObject}";
+			LbClass.Text = $"{m_bopGroup.ObjectClass} | {m_bopGroup.DcsGroupType}";
 			TbId.Text = m_bopGroup.Id.ToString();
 			CkLateActivation.Checked = m_bopGroup.LateActivation;
 			CkPlayable.Checked = m_bopGroup.Playable;
-			TbName.Text  = m_bopGroup.Name;
+			TbName.Text = m_bopGroup.Name;
 			TbDisplayName.Text = m_bopGroup.ToStringDisplayName();
 			TbType.Text = m_bopGroup.Type;
 			TbAttributes.Text = m_bopGroup.Attributes.ToString();
 			TbRadio.Text = m_bopGroup.Radio?.ToString();
-			TbFullDescription.Text = m_bopGroup.ToStringDescription();
+			TbOther.Text = m_bopGroup.ToStringAdditionnal();
+			TbCoordinates.Text = m_bopGroup.ToStringLocalisation();
+
+			CbMapMarker.Text = m_bopGroup.MapMarker;
+			DataToScreenMap();
 
 			m_gridManagerUnits = new GridManagerUnits(DgvUnits, m_bopGroup.Units);
 			m_gridManagerUnits.SelectionChangedBopUnits += SelectionChangedBopUnitsEvent;
 			m_gridManagerUnits.Initialize();
 		}
 
+		private void DataToScreenMap()
+		{
+			MapControl.Position = new PointLatLng(m_bopGroup.Coordinate.Latitude.DecimalDegree, m_bopGroup.Coordinate.Longitude.DecimalDegree);
+			MapControl.Zoom = 8;
+
+			MapControl.Overlays.Clear();
+			MapControl.Overlays.Add(m_bopGroup.GetMapOverlayPosition());
+			MapControl.Overlays.Add(m_bopGroup.GetMapOverlayRouteFull(false, false));
+			MapControl.Refresh();
+			MapControl.Zoom += 1; MapControl.Zoom -= 1;
+		}
+
 		public void ScreenToData()
 		{
+			m_bopGroup.MapMarker = CbMapMarker.Text;
 		}
 		#endregion
 
 		#region Events
-		private void SelectionChangedBopUnitsEvent(object sender, EventArgsBopUnit e)
+		private void SelectionChangedBopUnitsEvent(object sender, GridManagerUnits.EventArgsBopUnit e)
 		{
 			//DataToScreenUnit();
+		}
+
+		private void CbMapMarker_SelectionChangeCommitted(object sender, System.EventArgs e)
+		{
+			ScreenToData();
+			DataToScreenMap();
 		}
 		#endregion
 	}

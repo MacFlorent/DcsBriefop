@@ -16,8 +16,9 @@ namespace DcsBriefop.Forms
 			public static readonly string Id = "Id";
 			public static readonly string Coalition = "Coalition";
 			public static readonly string Country = "Country";
-			public static readonly string DisplayName = "Name";
-			public static readonly string Class = "Class";
+			public static readonly string DisplayName = "Display name";
+			public static readonly string GroupType = "Group type";
+			public static readonly string ObjectClass = "Class";
 			public static readonly string Type = "Type";
 			public static readonly string Attributes = "Attributes";
 			public static readonly string Playable = "Playable";
@@ -52,7 +53,8 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Coalition, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Country, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.DisplayName, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Class, typeof(ElementDcsObjectClass));
+			m_dtSource.Columns.Add(GridColumn.GroupType, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.ObjectClass, typeof(ElementDcsObjectClass));
 			m_dtSource.Columns.Add(GridColumn.Type, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Attributes, typeof(ElementDcsObjectAttribute));
 			m_dtSource.Columns.Add(GridColumn.Playable, typeof(bool));
@@ -75,9 +77,9 @@ namespace DcsBriefop.Forms
 			dr.SetField(GridColumn.Id, bopGroup.Id);
 			dr.SetField(GridColumn.Coalition, bopGroup.CoalitionName);
 			dr.SetField(GridColumn.Country, bopGroup.CountryName);
-
 			dr.SetField(GridColumn.DisplayName, bopGroup.ToStringDisplayName());
-			dr.SetField(GridColumn.Class, bopGroup.Class);
+			dr.SetField(GridColumn.GroupType, bopGroup.DcsGroupType);
+			dr.SetField(GridColumn.ObjectClass, bopGroup.ObjectClass);
 			dr.SetField(GridColumn.Type, bopGroup.Type);
 			dr.SetField(GridColumn.Attributes, bopGroup.Attributes);
 			dr.SetField(GridColumn.Playable, bopGroup.Playable);

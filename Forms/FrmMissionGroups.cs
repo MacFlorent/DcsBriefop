@@ -1,10 +1,7 @@
 ﻿using DcsBriefop.DataBopMission;
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using static DcsBriefop.Forms.GridManagerGroups;
 
 namespace DcsBriefop.Forms
 {
@@ -27,8 +24,6 @@ namespace DcsBriefop.Forms
 			m_gridManagerGroups = new GridManagerGroups(DgvAssets, m_briefopManager.BopMission.Groups);
 			m_gridManagerGroups.SelectionChangedBopGroups += SelectionChangedBopGroupsEvent;
 
-			m_ucGroup = new UcGroup(m_briefopManager);
-
 			DataToScreen();
 		}
 		#endregion
@@ -38,7 +33,13 @@ namespace DcsBriefop.Forms
 		{
 			using (new WaitDialog(this))
 			{
+				DgvAssets.RowLeave -= DgvAssets_RowLeave;
+				m_gridManagerGroups.SelectionChangedBopGroups -= SelectionChangedBopGroupsEvent;
+
 				m_gridManagerGroups.Initialize();
+
+				DgvAssets.RowLeave += DgvAssets_RowLeave;
+				m_gridManagerGroups.SelectionChangedBopGroups += SelectionChangedBopGroupsEvent;
 			}
 		}
 
@@ -47,17 +48,25 @@ namespace DcsBriefop.Forms
 			IEnumerable<BopGroup> selectedBopGroups = m_gridManagerGroups.GetSelectedBopGroups();
 			if (selectedBopGroups.Count() == 1)
 			{
+				BopGroup selectedBopGroup = selectedBopGroups.First();
 				if (ScMain.Panel2.Controls.Count > 0 && !(ScMain.Panel2.Controls[0] is UcGroup))
 				{
 					ScMain.Panel2.Controls.Clear();
 				}
+				if (m_ucGroup is null)
+				{
+					m_ucGroup = new UcGroup(m_briefopManager, selectedBopGroup);
+				}
+				else
+				{
+					m_ucGroup.BopGroup = selectedBopGroup;
+				}
+
 				if (ScMain.Panel2.Controls.Count == 0)
 				{
 					ScMain.Panel2.Controls.Add(m_ucGroup);
 					m_ucGroup.Dock = DockStyle.Fill;
 				}
-
-				m_ucGroup.BopGroup = selectedBopGroups.First();
 			}
 			else
 			{
@@ -65,15 +74,26 @@ namespace DcsBriefop.Forms
 			}
 		}
 
-		private void ScreenToData()
+		private void ScreenToDataDetail()
 		{
+			m_ucGroup?.ScreenToData();
 		}
 		#endregion
 
 		#region Events
-		private void SelectionChangedBopGroupsEvent(object sender, EventArgsBopGroup e)
+		private void FrmMissionGroups_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			ScreenToDataDetail();
+		}
+
+		private void SelectionChangedBopGroupsEvent(object sender, GridManagerGroups.EventArgsBopGroup e)
 		{
 			DataToScreenDetail();
+		}
+
+		private void DgvAssets_RowLeave(object sender, DataGridViewCellEventArgs e)
+		{
+			ScreenToDataDetail();
 		}
 		#endregion
 	}

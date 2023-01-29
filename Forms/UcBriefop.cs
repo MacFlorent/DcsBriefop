@@ -63,8 +63,8 @@ namespace DcsBriefop.Forms
 		private void BtMissionInformations_Click(object sender, System.EventArgs e)
 		{
 			FrmMissionInformations f = new FrmMissionInformations(m_briefopManager);
-			if (f.ShowDialog() == DialogResult.OK)
-				DataToScreen();
+			f.ShowDialog();
+			DataToScreen();
 		}
 
 		private void BtMissionGroups_Click(object sender, System.EventArgs e)

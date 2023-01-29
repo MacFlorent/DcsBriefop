@@ -47,7 +47,7 @@
 			// ScMain.Panel1
 			// 
 			this.ScMain.Panel1.Controls.Add(this.DgvAssets);
-			this.ScMain.Size = new System.Drawing.Size(1530, 792);
+			this.ScMain.Size = new System.Drawing.Size(976, 792);
 			this.ScMain.SplitterDistance = 274;
 			this.ScMain.TabIndex = 0;
 			// 
@@ -60,21 +60,23 @@
 			this.DgvAssets.Location = new System.Drawing.Point(0, 0);
 			this.DgvAssets.Name = "DgvAssets";
 			this.DgvAssets.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.DgvAssets.Size = new System.Drawing.Size(1528, 272);
+			this.DgvAssets.Size = new System.Drawing.Size(974, 272);
 			this.DgvAssets.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			this.DgvAssets.TabIndex = 0;
+			this.DgvAssets.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvAssets_RowLeave);
 			// 
 			// FrmMissionGroups
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1530, 792);
+			this.ClientSize = new System.Drawing.Size(976, 792);
 			this.Controls.Add(this.ScMain);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.Name = "FrmMissionGroups";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "FrmMissionAssets";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMissionGroups_FormClosed);
 			this.ScMain.Panel1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.ScMain)).EndInit();
 			this.ScMain.ResumeLayout(false);

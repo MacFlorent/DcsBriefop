@@ -17,11 +17,8 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region CTOR
-		public BopGroupShip(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, mizGroup)
+		public BopGroupShip(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, ElementDcsGroupType.Ship, ElementDcsObjectClass.Sea, mizGroup)
 		{
-			DcsObject = "Ship";
-			Class = ElementDcsObjectClass.Sea;
-
 			Radio = (MainUnit as BopUnitShip)?.Radio;
 
 			Tacan = (MainUnit as BopUnitShip)?.Tacan;
@@ -50,7 +47,7 @@ namespace DcsBriefop.DataBopMission
 			Units = new List<BopUnit>();
 			foreach (MizUnit mizUnit in m_mizGroup.Units)
 			{
-				BopUnitShip bopUnitSea = new BopUnitShip(Miz, Theatre, mizUnit, this);
+				BopUnitShip bopUnitSea = new BopUnitShip(Miz, Theatre, this, mizUnit);
 				Units.Add(bopUnitSea);
 				if (MainUnit is null)
 					MainUnit = bopUnitSea;
@@ -66,7 +63,7 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringDescription()
+		public override string ToStringAdditionnal()
 		{
 			string sDescription = base.ToStringDisplayName();
 			if (Tacan is object)

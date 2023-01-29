@@ -34,9 +34,7 @@ namespace DcsBriefop.Forms
 			m_dgv.AutoGenerateColumns = true;
 			m_dgv.DataSource = new BindingSource();
 
-			m_dgv.CellFormatting += CellFormattingEvent;
-			m_dgv.MouseDown += MouseDownEvent;
-			m_dgv.SelectionChanged += SelectionChangedEvent;
+			AddEvents();
 		}
 		#endregion
 
@@ -69,10 +67,12 @@ namespace DcsBriefop.Forms
 		{
 			try
 			{
+				RemoveEvents();
 				m_dgv.SuspendDrawing();
 				m_dgv.ColumnHeadersHeight = 25; // not ideal, but if the header is to narrow, it will be widened by AdvancedDataGridView.OnColumnAdded, and sometimes it will cause problems that I don't understand
 				(m_dgv.DataSource as BindingSource).DataSource = m_dtSource.DefaultView;
 				m_dgv.ResumeDrawing();
+				AddEvents();
 			}
 			catch (Exception ex) { ToolsControls.ShowMessageBoxError(ex.Message); } // to check the problem addressed by "m_dgv.ColumnHeadersHeight = 25"
 		}
@@ -128,6 +128,21 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
+		private void AddEvents()
+		{
+			m_dgv.CellFormatting += CellFormattingEvent;
+			m_dgv.MouseDown += MouseDownEvent;
+			m_dgv.SelectionChanged += SelectionChangedEvent;
+		}
+
+		private void RemoveEvents()
+		{
+			m_dgv.CellFormatting -= CellFormattingEvent;
+			m_dgv.MouseDown -= MouseDownEvent;
+			m_dgv.SelectionChanged -= SelectionChangedEvent;
+		}
+
+
 		private void CellFormattingEvent(object sender, DataGridViewCellFormattingEventArgs e)
 		{
 			if (e.RowIndex < 0)

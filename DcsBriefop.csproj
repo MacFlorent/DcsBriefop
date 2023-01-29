@@ -161,7 +161,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBopMission\BaseBop.cs" />
-    <Compile Include="DataBopMission\BopGroupStatic.cs" />
     <Compile Include="DataBopMission\BopGroupVehicle.cs" />
     <Compile Include="DataBopMission\BopGroupShip.cs" />
     <Compile Include="DataBopMission\BopGroupFlight.cs" />
@@ -176,6 +175,8 @@
     <Compile Include="DataBopMission\BopWeather.cs" />
     <Compile Include="DataMiz\BaseMizBopSerializable.cs" />
     <Compile Include="DataMiz\BopCustomAsset.cs" />
+    <Compile Include="DataMiz\MizBopGroup.cs" />
+    <Compile Include="DataMiz\MizBopUnit.cs" />
     <Compile Include="DataMiz\MizBopCoalition.cs" />
     <Compile Include="DataMiz\BopCustomCoalitionAirdrome.cs" />
     <Compile Include="DataMiz\MizBopMap.cs" />

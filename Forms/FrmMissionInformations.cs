@@ -32,8 +32,7 @@ namespace DcsBriefop.Forms
 			AddTabCoalition(ElementCoalition.Neutral);
 
 			ToolsStyle.ApplyStyle(this);
-			ToolsStyle.ButtonOk(BtOk);
-			ToolsStyle.ButtonCancel(BtCancel);
+			ToolsStyle.ButtonCancel(BtClose);
 
 			MasterDataRepository.FillCombo(MasterDataType.WeatherDisplay, CbWeatherDisplay);
 
@@ -122,14 +121,12 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
-		private void BtOk_Click(object sender, EventArgs e)
+		private void FrmMissionInformations_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			ScreenToData();
-			DialogResult = DialogResult.OK;
-			Close();
 		}
 
-		private void BtCancel_Click(object sender, EventArgs e)
+		private void BtClose_Click(object sender, EventArgs e)
 		{
 			Close();
 		}
@@ -145,5 +142,7 @@ namespace DcsBriefop.Forms
 				ucCoalition.DisplayCurrentBullseyeLocalisation(GetCoordinateDisplayFromCheckboxes());
 		}
 		#endregion
+
+
 	}
 }

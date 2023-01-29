@@ -16,7 +16,7 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region CTOR
-		public BopUnitShip(Miz miz, Theatre theatre, MizUnit mizUnit, BopGroupShip bopGroup) : base(miz, theatre, mizUnit, bopGroup)
+		public BopUnitShip(Miz miz, Theatre theatre, BopGroupShip bopGroup, MizUnit mizUnit) : base(miz, theatre, bopGroup, mizUnit)
 		{
 			if (m_mizUnit.RadioFrequency is object && m_mizUnit.RadioModulation is object)
 				Radio = new Radio(m_mizUnit.RadioFrequency.Value / ElementRadio.UnitFrequencyRatio, m_mizUnit.RadioModulation.Value);

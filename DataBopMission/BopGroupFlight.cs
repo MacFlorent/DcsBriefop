@@ -18,11 +18,8 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region CTOR
-		public BopGroupFlight(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, mizGroup)
+		public BopGroupFlight(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, ElementDcsGroupType.Flight, ElementDcsObjectClass.Air, mizGroup)
 		{
-			DcsObject = "Flight";
-			Class = ElementDcsObjectClass.Air;
-
 			MizUnit firstMizUnit = m_mizGroup.Units.FirstOrDefault();
 
 			if (firstMizUnit is object && firstMizUnit.Callsign is MizCallsign callsign)
@@ -52,7 +49,7 @@ namespace DcsBriefop.DataBopMission
 			Units = new List<BopUnit>();
 			foreach (MizUnit mizUnit in m_mizGroup.Units)
 			{
-				BopUnitFlight bopUnitAir = new BopUnitFlight(Miz, Theatre, mizUnit, this);
+				BopUnitFlight bopUnitAir = new BopUnitFlight(Miz, Theatre, this, mizUnit);
 				Units.Add(bopUnitAir);
 				if (MainUnit is null)
 					MainUnit = bopUnitAir;
@@ -82,7 +79,7 @@ namespace DcsBriefop.DataBopMission
 				return sDisplayName;
 		}
 
-		public override string ToStringDescription()
+		public override string ToStringAdditionnal()
 		{
 			string sDescription = base.ToStringDisplayName();
 			if (!string.IsNullOrEmpty(Task))

@@ -42,11 +42,8 @@ namespace DcsBriefop.DataBopMission
 			m_callsigns.Add(++i, "Badger");
 		}
 
-		public BopGroupVehicle(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, mizGroup)
+		public BopGroupVehicle(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, ElementDcsGroupType.Vehicle, ElementDcsObjectClass.Ground, mizGroup)
 		{
-			DcsObject = "Vehicle";
-			Class = ElementDcsObjectClass.Ground;
-
 			Callsign = GetCallsignFromRouteTaskFac() ?? GetCallsignFromRouteTaskAction();
 			Radio = GetRadioFromRouteTaskFac() ?? GetRadioFromRouteTaskAction();
 			Tacan = GetTacanFromRouteTaskAction(null);
@@ -67,7 +64,7 @@ namespace DcsBriefop.DataBopMission
 				return sDisplayName;
 		}
 
-		public override string ToStringDescription()
+		public override string ToStringAdditionnal()
 		{
 			string sDescription = base.ToStringDisplayName();
 			if (Tacan is object)

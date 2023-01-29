@@ -1,6 +1,8 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Tools;
+using System.Linq;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -8,13 +10,13 @@ namespace DcsBriefop.DataBopMission
 	{
 		#region Fields
 		protected MizUnit m_mizUnit;
+		protected MizBopUnit m_mizBopUnit;
 		protected DcsObject m_dcsObject;
 		#endregion
 
 		#region Properties
-		public ElementDcsObjectClass Class { get; set; }
+		public ElementDcsObjectClass ObjectClass { get; set; }
 		public ElementDcsObjectAttribute Attributes { get; set; }
-		//public string MapMarker { get { return m_dcsObject?.MapMarker; } }
 		public BopGroup BopGroup { get; private set; }
 
 		public int Id { get; set; }
@@ -24,29 +26,32 @@ namespace DcsBriefop.DataBopMission
 		public bool MainInGroup { get; set; }
 		public decimal? AltitudeFeet { get; set; }
 		public Coordinate Coordinate { get; set; }
+		public string MapMarker { get; set; }
 		#endregion
 
 		#region CTOR
-		public BopUnit(Miz miz, Theatre theatre, MizUnit mizUnit, BopGroup bopGroup) : base(miz, theatre)
+		public BopUnit(Miz miz, Theatre theatre, BopGroup bopGroup, MizUnit mizUnit) : base(miz, theatre)
 		{
+			BopGroup = bopGroup;
 			m_mizUnit = mizUnit;
+			ObjectClass = BopGroup.ObjectClass;
 			m_dcsObject = DcsObjectManager.GetObject(m_mizUnit.Type);
 			
-			Class = ElementDcsObjectClass.None;
-			Attributes = ElementDcsObjectAttribute.None;
-			BopGroup = bopGroup;
-
 			if (m_dcsObject is object)
 			{
-				Class = m_dcsObject.Class;
+				ObjectClass = m_dcsObject.ObjectClass;
 				Attributes = m_dcsObject.Attributes;
 				MainInGroup = m_dcsObject.MainInGroup;
 			}
+
+			InitializeMizBopCustom();
 
 			Id = m_mizUnit.Id;
 			Name = m_mizUnit.Name;
 			Type = m_mizUnit.Type;
 			Playable = (m_mizUnit.Skill == ElementSkill.Player || m_mizUnit.Skill == ElementSkill.Client);
+			
+			MapMarker = m_mizBopUnit.MapMarker;
 		}
 		#endregion
 
@@ -58,6 +63,7 @@ namespace DcsBriefop.DataBopMission
 			m_mizUnit.Id = Id;
 			m_mizUnit.Name = Name;
 			m_mizUnit.Type = Type;
+			m_mizBopUnit.MapMarker = MapMarker;
 		}
 
 		protected override void FinalizeFromMizInternal()
@@ -65,6 +71,18 @@ namespace DcsBriefop.DataBopMission
 			base.FinalizeFromMizInternal();
 
 			Coordinate = Theatre.GetCoordinate(m_mizUnit.Y, m_mizUnit.X);
+		}
+
+		private void InitializeMizBopCustom()
+		{
+			m_mizBopUnit = Miz.MizBopCustom.MizBopUnits.Where(_u => _u.Id == m_mizUnit.Id).FirstOrDefault();
+			if (m_mizBopUnit is null)
+			{
+				m_mizBopUnit = new MizBopUnit() { Id = Id };
+				m_mizBopUnit.MapMarker = m_dcsObject?.MapMarker ?? ToolsBriefop.GetDefaultMapMarker(ObjectClass);
+				m_mizBopUnit.SetDefaultData();
+				Miz.MizBopCustom.MizBopUnits.Add(m_mizBopUnit);
+			}
 		}
 		#endregion
 
@@ -77,6 +95,11 @@ namespace DcsBriefop.DataBopMission
 		public virtual string ToStringDisplayName()
 		{
 			return Name;
+		}
+
+		public virtual string ToStringLocalisation()
+		{
+			return Coordinate.ToStringLocalisation(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
 		}
 		#endregion
 	}

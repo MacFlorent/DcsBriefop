@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.Map;
 using System;
 using System.Drawing;
 using System.IO;
@@ -31,6 +32,17 @@ namespace DcsBriefop.Tools
 				return null;
 		}
 
+		public static string GetDefaultMapMarker(ElementDcsObjectClass objectClass)
+		{
+			if (objectClass == ElementDcsObjectClass.Air)
+				return ElementMapTemplateMarker.Aircraft;
+			else if (objectClass == ElementDcsObjectClass.Sea)
+				return ElementMapTemplateMarker.Ship;
+			else if (objectClass == ElementDcsObjectClass.Ground)
+				return ElementMapTemplateMarker.Ground;
+			else
+				return ElementMapTemplateMarker.DefaultMark;
+		}
 		//public static string MizCheck(string sMizFilePath)
 		//{
 		//	if (!File.Exists(sMizFilePath))

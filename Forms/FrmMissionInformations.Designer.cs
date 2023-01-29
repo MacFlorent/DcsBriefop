@@ -37,8 +37,7 @@
 			this.TbSortie = new System.Windows.Forms.TextBox();
 			this.TbWeather = new System.Windows.Forms.TextBox();
 			this.DtpDate = new System.Windows.Forms.DateTimePicker();
-			this.BtOk = new System.Windows.Forms.Button();
-			this.BtCancel = new System.Windows.Forms.Button();
+			this.BtClose = new System.Windows.Forms.Button();
 			this.CbWeatherDisplay = new System.Windows.Forms.ComboBox();
 			this.LbWeatherDisplay = new System.Windows.Forms.Label();
 			this.LbCoodinateDisplay = new System.Windows.Forms.Label();
@@ -137,27 +136,16 @@
 			this.DtpDate.Size = new System.Drawing.Size(200, 20);
 			this.DtpDate.TabIndex = 7;
 			// 
-			// BtOk
+			// BtClose
 			// 
-			this.BtOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtOk.Location = new System.Drawing.Point(734, 626);
-			this.BtOk.Name = "BtOk";
-			this.BtOk.Size = new System.Drawing.Size(75, 23);
-			this.BtOk.TabIndex = 8;
-			this.BtOk.Text = "OK";
-			this.BtOk.UseVisualStyleBackColor = true;
-			this.BtOk.Click += new System.EventHandler(this.BtOk_Click);
-			// 
-			// BtCancel
-			// 
-			this.BtCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtCancel.Location = new System.Drawing.Point(815, 626);
-			this.BtCancel.Name = "BtCancel";
-			this.BtCancel.Size = new System.Drawing.Size(75, 23);
-			this.BtCancel.TabIndex = 9;
-			this.BtCancel.Text = "Cancel";
-			this.BtCancel.UseVisualStyleBackColor = true;
-			this.BtCancel.Click += new System.EventHandler(this.BtCancel_Click);
+			this.BtClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.BtClose.Location = new System.Drawing.Point(815, 626);
+			this.BtClose.Name = "BtClose";
+			this.BtClose.Size = new System.Drawing.Size(75, 23);
+			this.BtClose.TabIndex = 9;
+			this.BtClose.Text = "Close";
+			this.BtClose.UseVisualStyleBackColor = true;
+			this.BtClose.Click += new System.EventHandler(this.BtClose_Click);
 			// 
 			// CbWeatherDisplay
 			// 
@@ -231,8 +219,7 @@
 			this.Controls.Add(this.LbCoodinateDisplay);
 			this.Controls.Add(this.LbWeatherDisplay);
 			this.Controls.Add(this.CbWeatherDisplay);
-			this.Controls.Add(this.BtCancel);
-			this.Controls.Add(this.BtOk);
+			this.Controls.Add(this.BtClose);
 			this.Controls.Add(this.DtpDate);
 			this.Controls.Add(this.TbSortie);
 			this.Controls.Add(this.TcDetails);
@@ -243,6 +230,7 @@
 			this.Name = "FrmMissionInformations";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Mission informations";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMissionInformations_FormClosed);
 			this.TcDetails.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -260,8 +248,7 @@
 		private System.Windows.Forms.TextBox TbSortie;
 		private System.Windows.Forms.TextBox TbWeather;
 		private System.Windows.Forms.DateTimePicker DtpDate;
-		private System.Windows.Forms.Button BtOk;
-		private System.Windows.Forms.Button BtCancel;
+		private System.Windows.Forms.Button BtClose;
 		private System.Windows.Forms.ComboBox CbWeatherDisplay;
 		private System.Windows.Forms.Label LbWeatherDisplay;
 		private System.Windows.Forms.Label LbCoodinateDisplay;

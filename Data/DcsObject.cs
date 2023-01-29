@@ -18,6 +18,13 @@ namespace DcsBriefop.Data
 		Sea,
 	}
 
+	internal static class ElementDcsGroupType
+	{
+		public static readonly string Flight = "Flight";
+		public static readonly string Ship = "Ship";
+		public static readonly string Vehicle = "Vehicle";
+		public static readonly string Static = "Static";
+	}
 	[Flags]
 	internal enum ElementDcsObjectAttribute
 	{
@@ -50,7 +57,7 @@ namespace DcsBriefop.Data
 		#region Properties
 		public string TypeName { get; private set; }
 
-		public ElementDcsObjectClass Class { get; private set; }
+		public ElementDcsObjectClass ObjectClass { get; private set; }
 		public ElementDcsObjectAttribute Attributes { get; private set; }
 
 		public string DisplayName
@@ -110,11 +117,11 @@ namespace DcsBriefop.Data
 			m_lsonRawAttributes.Add(sLsonAttribute);
 
 			if (sLsonAttribute == "Ground Units")
-				Class = ElementDcsObjectClass.Ground;
+				ObjectClass = ElementDcsObjectClass.Ground;
 			else if (sLsonAttribute == "Naval")
-				Class = ElementDcsObjectClass.Sea;
+				ObjectClass = ElementDcsObjectClass.Sea;
 			if (sLsonAttribute == "Air")
-				Class = ElementDcsObjectClass.Air;
+				ObjectClass = ElementDcsObjectClass.Air;
 
 			if (sLsonAttribute == "AircraftCarrier")
 				Attributes |= ElementDcsObjectAttribute.AircraftCarrier;
@@ -182,11 +189,11 @@ namespace DcsBriefop.Data
 			if ((Attributes & ElementDcsObjectAttribute.Helicopters) != 0)
 				return ElementMapTemplateMarker.Helicopter;
 
-			if (Class == ElementDcsObjectClass.Ground)
+			if (ObjectClass == ElementDcsObjectClass.Ground)
 				return ElementMapTemplateMarker.Ground;
-			if (Class == ElementDcsObjectClass.Sea)
+			if (ObjectClass == ElementDcsObjectClass.Sea)
 				return ElementMapTemplateMarker.Ship;
-			if (Class == ElementDcsObjectClass.Air)
+			if (ObjectClass == ElementDcsObjectClass.Air)
 				return ElementMapTemplateMarker.Aircraft;
 
 			return ElementMapTemplateMarker.DefaultMark;

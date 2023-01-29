@@ -3,8 +3,6 @@ using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -62,7 +60,7 @@ namespace DcsBriefop.DataBopMission
 					}
 					foreach (MizGroup mizGroup in mizCountry.GroupStatics)
 					{
-						Groups.Add(new BopGroupStatic(Miz, Theatre, mizCoalition.Name, mizCountry.Name, mizGroup));
+						Groups.Add(new BopGroup(Miz, Theatre, mizCoalition.Name, mizCountry.Name, ElementDcsGroupType.Static, ElementDcsObjectClass.None, mizGroup));
 					}
 				}
 			}
@@ -100,11 +98,6 @@ namespace DcsBriefop.DataBopMission
 		//{
 		//	BopGeneral.SetMapProvider(sProviderName);
 		//}
-
-		public string ToStringLocalisation(CoordinateSharp.Coordinate coordinate)
-		{
-			return coordinate.ToStringLocalisation(PreferencesMission.CoordinateDisplay);
-		}
 		#endregion
 	}
 }
