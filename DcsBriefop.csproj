@@ -234,6 +234,24 @@
     <Compile Include="Forms\UcGroup.Designer.cs">
       <DependentUpon>UcGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UcGroupBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UcGroupBase.Designer.cs">
+      <DependentUpon>UcGroupBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UcGroupInformation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UcGroupInformation.Designer.cs">
+      <DependentUpon>UcGroupInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UcGroupUnits.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UcGroupUnits.Designer.cs">
+      <DependentUpon>UcGroupUnits.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UcMissionCoalition.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -247,6 +265,12 @@
       <DependentUpon>UcNoFile.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\Preferences.cs" />
+    <Compile Include="Forms\UcUnit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UcUnit.Designer.cs">
+      <DependentUpon>UcUnit.cs</DependentUpon>
+    </Compile>
     <Compile Include="PreferencesManager.cs" />
     <Compile Include="Map\ConfigMapTemplateObjects.cs" />
     <Compile Include="Map\GTextBriefop.cs" />
@@ -320,11 +344,20 @@
     <EmbeddedResource Include="Forms\UcGroup.resx">
       <DependentUpon>UcGroup.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UcGroupInformation.resx">
+      <DependentUpon>UcGroupInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UcGroupUnits.resx">
+      <DependentUpon>UcGroupUnits.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\UcMissionCoalition.resx">
       <DependentUpon>UcMissionCoalition.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UcNoFile.resx">
       <DependentUpon>UcNoFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UcUnit.resx">
+      <DependentUpon>UcUnit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

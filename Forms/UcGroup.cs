@@ -1,11 +1,8 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
-using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsPresentation;
 using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
@@ -15,7 +12,9 @@ namespace DcsBriefop.Forms
 		#region Fields
 		private BriefopManager m_briefopManager;
 		private BopGroup m_bopGroup;
-		private GridManagerUnits m_gridManagerUnits;
+
+		private UcGroupInformation m_ucGroupInformation;
+		private UcGroupUnits m_ucGroupUnits;
 		#endregion
 
 		#region Properties
@@ -25,6 +24,8 @@ namespace DcsBriefop.Forms
 			set
 			{
 				m_bopGroup = value;
+				m_ucGroupInformation.BopGroup = m_bopGroup;
+				m_ucGroupUnits.BopGroup = m_bopGroup;
 				DataToScreen();
 			}
 		}
@@ -40,15 +41,23 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 			ToolsStyle.LabelTitle(LbCoalition);
 			ToolsStyle.LabelHeader(LbClass);
+			ToolsStyle.LabelHeader(LbDisplayName);
 
-			MapTemplateMarker.FillCombo(CbMapMarker);
+			TcDetails.SelectedIndexChanged -= TcDetails_SelectedIndexChanged;
+			m_ucGroupInformation = new UcGroupInformation(m_briefopManager, m_bopGroup, MapControl);
+			m_ucGroupUnits = new UcGroupUnits(m_briefopManager, m_bopGroup, MapControl);
+			TcDetails.TabPages.Clear();
+			TcDetails.AddTab("Information", m_ucGroupInformation);
+			TcDetails.AddTab("Units", m_ucGroupUnits);
+			TcDetails.SelectedIndexChanged += TcDetails_SelectedIndexChanged;
 
 			MapControl.MapProvider = GMapProviders.TryGetProvider(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.DefaultProvider);
 			GMaps.Instance.Mode = AccessMode.ServerOnly;
-			//Map.ShowTileGridLines = true;
+			MapControl.ShowCenter = false;
 			MapControl.Position = new PointLatLng(26.1702778, 56.24);
 			MapControl.MinZoom = ElementMapValue.MinZoom;
 			MapControl.MaxZoom = ElementMapValue.MaxZoom;
+			MapControl.Zoom = PreferencesManager.Preferences.Map.DefaultZoom;
 		}
 		#endregion
 
@@ -60,52 +69,32 @@ namespace DcsBriefop.Forms
 			LbCoalition.Text = $"{m_bopGroup.CoalitionName} | {m_bopGroup.CountryName}";
 			LbCoalition.BackColor = ToolsBriefop.GetCoalitionColor(m_bopGroup.CoalitionName);
 			LbClass.Text = $"{m_bopGroup.ObjectClass} | {m_bopGroup.DcsGroupType}";
-			TbId.Text = m_bopGroup.Id.ToString();
-			CkLateActivation.Checked = m_bopGroup.LateActivation;
-			CkPlayable.Checked = m_bopGroup.Playable;
-			TbName.Text = m_bopGroup.Name;
-			TbDisplayName.Text = m_bopGroup.ToStringDisplayName();
-			TbType.Text = m_bopGroup.Type;
-			TbAttributes.Text = m_bopGroup.Attributes.ToString();
-			TbRadio.Text = m_bopGroup.Radio?.ToString();
-			TbOther.Text = m_bopGroup.ToStringAdditionnal();
-			TbCoordinates.Text = m_bopGroup.ToStringLocalisation();
+			LbDisplayName.Text = m_bopGroup.ToStringDisplayName();
 
-			CbMapMarker.Text = m_bopGroup.MapMarker;
+			m_ucGroupInformation.DataToScreen();
+			m_ucGroupUnits.DataToScreen();
+
 			DataToScreenMap();
-
-			m_gridManagerUnits = new GridManagerUnits(DgvUnits, m_bopGroup.Units);
-			m_gridManagerUnits.SelectionChangedBopUnits += SelectionChangedBopUnitsEvent;
-			m_gridManagerUnits.Initialize();
 		}
 
 		private void DataToScreenMap()
 		{
-			MapControl.Position = new PointLatLng(m_bopGroup.Coordinate.Latitude.DecimalDegree, m_bopGroup.Coordinate.Longitude.DecimalDegree);
-			MapControl.Zoom = 8;
+			UcGroupBase activeTabControl = null;
+			if (TcDetails.SelectedTab is object && TcDetails.SelectedTab.Controls.Count > 0)
+				activeTabControl = TcDetails.SelectedTab.Controls[0] as UcGroupBase;
 
-			MapControl.Overlays.Clear();
-			MapControl.Overlays.Add(m_bopGroup.GetMapOverlayPosition());
-			MapControl.Overlays.Add(m_bopGroup.GetMapOverlayRouteFull(false, false));
-			MapControl.Refresh();
-			MapControl.Zoom += 1; MapControl.Zoom -= 1;
+			activeTabControl?.DataToScreenMap();
 		}
 
 		public void ScreenToData()
 		{
-			m_bopGroup.MapMarker = CbMapMarker.Text;
+			m_ucGroupInformation.ScreenToData();
 		}
 		#endregion
 
 		#region Events
-		private void SelectionChangedBopUnitsEvent(object sender, GridManagerUnits.EventArgsBopUnit e)
+		private void TcDetails_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
-			//DataToScreenUnit();
-		}
-
-		private void CbMapMarker_SelectionChangeCommitted(object sender, System.EventArgs e)
-		{
-			ScreenToData();
 			DataToScreenMap();
 		}
 		#endregion

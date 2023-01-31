@@ -159,11 +159,17 @@ namespace DcsBriefop.Map
 		}
 
 
-		public static void FillCombo(ComboBox cb)
+		public static void FillCombo(ComboBox cb, EventHandler selectedValueChanged)
 		{
+			if (selectedValueChanged is object)
+				cb.SelectedValueChanged -= selectedValueChanged;
+
 			cb.Items.Clear();
 			cb.ValueMember = cb.DisplayMember = "Name";
 			cb.DataSource = m_templatesList.Values.ToList();
+
+			if (selectedValueChanged is object)
+				cb.SelectedValueChanged += selectedValueChanged;
 		}
 		#endregion
 	}

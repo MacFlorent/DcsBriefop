@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using static GMap.NET.Entity.OpenStreetMapGraphHopperRouteEntity;
 
 namespace DcsBriefop.Tools
 {
@@ -136,6 +137,14 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region Controls
+		public static void AddTab(this TabControl tc, string sText, Control control)
+		{
+			control.Dock = DockStyle.Fill;
+			TabPage tp = new TabPage(sText);
+			tp.Controls.Add(control);
+			tc.TabPages.Add(tp);
+		}
+
 		public static void DisposeAndClearTabs(this TabControl tc)
 		{
 			while (tc.TabCount > 0)

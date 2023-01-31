@@ -7,6 +7,7 @@ using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace DcsBriefop.DataBopMission
@@ -153,7 +154,7 @@ namespace DcsBriefop.DataBopMission
 
 		public virtual string ToStringAdditionnal()
 		{
-			return ToStringDisplayName();
+			return "";
 		}
 
 		public virtual string ToStringLocalisation()
@@ -196,11 +197,40 @@ namespace DcsBriefop.DataBopMission
 				return null;
 		}
 
+		public GMarkerBriefop GetMarkerBriefop(Color? color)
+		{
+			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree), MapMarker, color ?? ToolsBriefop.GetCoalitionColor(CoalitionName), ToStringDisplayName(), 1, 0);
+		}
+
 		public GMapOverlay GetMapOverlayPosition()
 		{
 			GMapOverlay mapOverlay = new GMapOverlay();
-			GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName(new PointLatLng(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree), MapMarker, ToolsBriefop.GetCoalitionColor(CoalitionName), ToStringDisplayName(), 1, 0);
-			mapOverlay.Markers.Add(marker);
+			mapOverlay.Markers.Add(GetMarkerBriefop(null));
+			return mapOverlay;
+		}
+
+		public GMapOverlay GetMapOverlayUnits(int? iIdSelectedUnit)
+		{
+			Color color = ToolsBriefop.GetCoalitionColor(CoalitionName);
+			GMapOverlay mapOverlay = new GMapOverlay();
+
+			BopUnit selectedUnit = Units.Where(_u => _u.Id == iIdSelectedUnit.GetValueOrDefault(0)).FirstOrDefault();
+			if (selectedUnit is object)
+				color = ToolsImage.Lerp(color, Color.White, 0.5f);
+
+			foreach (BopUnit bopUnit in Units.Where(_u => _u != selectedUnit))
+			{
+				GMarkerBriefop marker = bopUnit.GetMarkerBriefop(color);
+				marker.TintColor = color;
+				mapOverlay.Markers.Add(marker);
+			}
+			
+			if (selectedUnit is object)
+			{
+				GMarkerBriefop marker = selectedUnit.GetMarkerBriefop(null);
+				mapOverlay.Markers.Add(marker);
+			}
+
 			return mapOverlay;
 		}
 
@@ -266,8 +296,7 @@ namespace DcsBriefop.DataBopMission
 
 				if (bIncludeFirstPoint || i > 0)
 				{
-					GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, ToolsBriefop.GetCoalitionColor(CoalitionName), sLabel, 1, 0);
-					mapOverlay.Markers.Add(marker);
+					mapOverlay.Markers.Add(GetMarkerBriefop(null));
 				}
 
 				i++;

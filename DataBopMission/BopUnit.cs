@@ -1,7 +1,10 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Map;
 using DcsBriefop.Tools;
+using GMap.NET;
+using System.Drawing;
 using System.Linq;
 
 namespace DcsBriefop.DataBopMission
@@ -100,6 +103,11 @@ namespace DcsBriefop.DataBopMission
 		public virtual string ToStringLocalisation()
 		{
 			return Coordinate.ToStringLocalisation(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
+		}
+
+		public GMarkerBriefop GetMarkerBriefop(Color? color)
+		{
+			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree), MapMarker, color ?? ToolsBriefop.GetCoalitionColor(BopGroup.CoalitionName), ToStringDisplayName(), 1, 0);
 		}
 		#endregion
 	}

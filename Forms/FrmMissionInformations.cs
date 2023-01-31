@@ -83,22 +83,14 @@ namespace DcsBriefop.Forms
 		{
 			m_tbDescription = new TextBox();
 			m_tbDescription.Multiline= true;
-			AddTab("Description", m_tbDescription);
+			TcDetails.AddTab("Description", m_tbDescription);
 		}
 
 		private void AddTabCoalition(string sCoalitionName)
 		{
 			UcMissionCoalition uc = new UcMissionCoalition(m_briefopManager, sCoalitionName);
 			m_ucCoalitionsControls.Add(sCoalitionName, uc);
-			AddTab(sCoalitionName, uc);
-		}
-
-		private void AddTab(string sText, Control control)
-		{
-			control.Dock = DockStyle.Fill;
-			TabPage tp = new TabPage(sText);
-			tp.Controls.Add(control);
-			TcDetails.TabPages.Add(tp);
+			TcDetails.AddTab(sCoalitionName, uc);
 		}
 
 		private void DisplayCurrentWeather()
