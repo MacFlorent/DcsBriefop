@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
-	internal partial class FrmMissionInformations : Form
+	internal partial class FrmMissionInformations : FrmWithWaitDialog
 	{
 		#region Fields
 		private BriefopManager m_briefopManager;
@@ -16,10 +16,9 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public FrmMissionInformations(BriefopManager briefopManager)
+		private FrmMissionInformations(BriefopManager briefopManager, WaitDialog waitDialog) : base(waitDialog)
 		{
 			m_briefopManager = briefopManager;
-			DialogResult = DialogResult.Cancel;
 
 			InitializeComponent();
 
@@ -37,6 +36,13 @@ namespace DcsBriefop.Forms
 			MasterDataRepository.FillCombo(MasterDataType.WeatherDisplay, CbWeatherDisplay);
 
 			DataToScreen();
+		}
+
+		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
+		{
+			WaitDialog waitDialog = new WaitDialog(parentForm);
+			FrmMissionInformations f = new FrmMissionInformations(briefopManager, waitDialog);
+			f.ShowDialog();
 		}
 		#endregion
 

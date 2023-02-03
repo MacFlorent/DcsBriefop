@@ -2,9 +2,11 @@
 using DcsBriefop.DataBopMission;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Reflection;
 
 namespace DcsBriefop
 {
@@ -139,6 +141,11 @@ namespace DcsBriefop
 				ToolsZip.ReplaceZipEntry(za, Miz.MissionFileName, ToolsLua.LsonRootToDcs(BopMission.Miz.RootMission.RootLua));
 				ToolsZip.ReplaceZipEntry(za, Miz.BopCustomZipEntryFullName, BopMission.Miz.MizBopCustom.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
 			}
+
+			// DEBUG
+			string sDebugFilePath = Path.Combine(Path.GetDirectoryName (sFilePath), $"{MizFileName}_{Miz.BopCustomFileName}.json");
+			File.WriteAllText(sDebugFilePath, BopMission.Miz.MizBopCustom.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
+			//			
 
 			//ToolsBriefop.MizCheck(MizFilePath);
 		}

@@ -24,24 +24,19 @@ namespace DcsBriefop.Forms
 			public static readonly string Playable = "Playable";
 			public static readonly string Data = "Data";
 		}
-		//public static List<string> ColumnsDisplayedOwn = new List<string>() { GridColumn.Included, GridColumn.Id, GridColumn.Description, GridColumn.Class, GridColumn.Type, GridColumn.Function, GridColumn.Task, GridColumn.Localisation, GridColumn.Radio, GridColumn.Notes, GridColumn.Playable, GridColumn.Mission, GridColumn.MapDisplay };
-		//public static List<string> ColumnsDisplayedOpposing = new List<string>() { GridColumn.Included, GridColumn.Id, GridColumn.Description, GridColumn.Class, GridColumn.Type, GridColumn.Localisation, GridColumn.MapDisplay };
-		//public static List<string> ColumnsDisplayedAirdrome = new List<string>() { GridColumn.Included, GridColumn.Id, GridColumn.Description, GridColumn.Localisation, GridColumn.Radio, GridColumn.Notes, GridColumn.MapDisplay };
 		#endregion
 
 		#region Fields
-		private List<BopGroup> m_groups;
+		private IEnumerable<BopGroup> m_groups;
 		#endregion
 
 		#region Properties
 		#endregion
 
 		#region CTOR
-		public GridManagerGroups(DataGridView dgv, List<BopGroup> groups) : base(dgv)
+		public GridManagerGroups(DataGridView dgv, IEnumerable<BopGroup> groups) : base(dgv)
 		{
 			m_groups = groups;
-
-			m_dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 		}
 		#endregion
 

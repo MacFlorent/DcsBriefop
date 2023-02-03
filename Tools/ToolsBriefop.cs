@@ -1,12 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.Map;
-using System;
 using System.Drawing;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading;
 
 namespace DcsBriefop.Tools
 {

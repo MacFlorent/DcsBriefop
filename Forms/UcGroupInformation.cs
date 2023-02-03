@@ -20,6 +20,8 @@ namespace DcsBriefop.Forms
 			InitializeComponent();
 
 			MapTemplateMarker.FillCombo(CbMapMarker, CbMapMarker_SelectedValueChanged);
+			
+			DataToScreen();
 		}
 		#endregion
 
@@ -39,7 +41,8 @@ namespace DcsBriefop.Forms
 			TbAttributes.Text = m_bopGroup.Attributes.ToString();
 			TbRadio.Text = m_bopGroup.Radio?.ToString();
 			TbOther.Text = m_bopGroup.ToStringAdditionnal();
-			TbCoordinates.Text = m_bopGroup.ToStringLocalisation();
+			TbAltitude.Text = $"{m_bopGroup.AltitudeFeet:0}";
+			TbCoordinates.Text = m_bopGroup.ToStringCoordinate();
 			CbMapMarker.Text = m_bopGroup.MapMarker;
 
 			DataToScreenMap();
@@ -51,7 +54,7 @@ namespace DcsBriefop.Forms
 		{
 			m_mapControl.Overlays.Clear();
 			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayPosition());
-			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayRouteFull(false, false));
+			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayRoute(null, Data.ElementMapOverlayRouteDisplay.NoMarkerFirstPoint));
 
 			m_mapControl.Position = new PointLatLng(m_bopGroup.Coordinate.Latitude.DecimalDegree, m_bopGroup.Coordinate.Longitude.DecimalDegree);
 			m_mapControl.ForceRefresh();

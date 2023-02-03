@@ -46,11 +46,13 @@ namespace DcsBriefop.DataMiz
 		{
 			public static readonly string Enabled = "enabled";
 			public static readonly string Id = "id";
+			public static readonly string Number = "number";
 			public static readonly string Params = "params";
 		}
 
 		public string Id { get; set; }
 		public bool Enabled { get; set; }
+		public int? Number { get; set; }
 		public MizRouteTaskParams Params { get; set; }
 
 		public MizRouteTask(LsonDict lsd) : base(lsd) { }
@@ -63,7 +65,9 @@ namespace DcsBriefop.DataMiz
 			else
 				Enabled = false;
 
-			LsonDict lsdParams= Lsd[LuaNode.Params].GetDictSafe();
+			Number = Lsd.IfExistsInt(LuaNode.Number);
+
+			LsonDict lsdParams = Lsd[LuaNode.Params].GetDictSafe();
 			if (lsdParams is object)
 				Params = new MizRouteTaskParams(lsdParams);
 		}
@@ -72,6 +76,7 @@ namespace DcsBriefop.DataMiz
 		{
 			Lsd[LuaNode.Id] = Id;
 			Lsd.SetIfExists(LuaNode.Enabled, Enabled);
+			Lsd.SetIfExists(LuaNode.Number, Number);
 
 			Params?.ToLua();
 		}

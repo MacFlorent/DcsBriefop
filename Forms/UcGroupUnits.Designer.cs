@@ -28,19 +28,10 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.PnUnitDetail = new System.Windows.Forms.Panel();
 			this.DgvUnits = new Zuby.ADGV.AdvancedDataGridView();
+			this.PnUnitDetail = new System.Windows.Forms.Panel();
 			((System.ComponentModel.ISupportInitialize)(this.DgvUnits)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// PnUnitDetail
-			// 
-			this.PnUnitDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.PnUnitDetail.Location = new System.Drawing.Point(0, 138);
-			this.PnUnitDetail.Name = "PnUnitDetail";
-			this.PnUnitDetail.Size = new System.Drawing.Size(377, 269);
-			this.PnUnitDetail.TabIndex = 37;
 			// 
 			// DgvUnits
 			// 
@@ -53,9 +44,18 @@
 			this.DgvUnits.Location = new System.Drawing.Point(0, 0);
 			this.DgvUnits.Name = "DgvUnits";
 			this.DgvUnits.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.DgvUnits.Size = new System.Drawing.Size(377, 136);
+			this.DgvUnits.Size = new System.Drawing.Size(377, 120);
 			this.DgvUnits.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			this.DgvUnits.TabIndex = 36;
+			// 
+			// PnUnitDetail
+			// 
+			this.PnUnitDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.PnUnitDetail.Location = new System.Drawing.Point(0, 120);
+			this.PnUnitDetail.Name = "PnUnitDetail";
+			this.PnUnitDetail.Size = new System.Drawing.Size(377, 287);
+			this.PnUnitDetail.TabIndex = 37;
 			// 
 			// UcGroupUnits
 			// 
@@ -72,7 +72,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.Panel PnUnitDetail;
 		private Zuby.ADGV.AdvancedDataGridView DgvUnits;
+		private System.Windows.Forms.Panel PnUnitDetail;
 	}
 }

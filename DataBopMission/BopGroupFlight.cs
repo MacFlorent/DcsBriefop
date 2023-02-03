@@ -1,8 +1,10 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -12,7 +14,7 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Properties
-		public string Callsign { get; set; }
+		public BopCallsign Callsign { get; set; }
 		public string Task { get; set; }
 		public Tacan Tacan { get; set; }
 		#endregion
@@ -20,16 +22,8 @@ namespace DcsBriefop.DataBopMission
 		#region CTOR
 		public BopGroupFlight(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, ElementDcsGroupType.Flight, ElementDcsObjectClass.Air, mizGroup)
 		{
-			MizUnit firstMizUnit = m_mizGroup.Units.FirstOrDefault();
-
-			if (firstMizUnit is object && firstMizUnit.Callsign is MizCallsign callsign)
-			{
-				string sCallsignName = new string(callsign.Name.TakeWhile(_c => !char.IsDigit(_c)).ToArray());
-				Callsign = $"{sCallsignName}-{callsign.Flight}";
-			}
-			else if (firstMizUnit is object && firstMizUnit.CallsignNumber is object)
-				Callsign = firstMizUnit.CallsignNumber.ToString();
-
+			Callsign = Units.OfType<BopUnitFlight>().FirstOrDefault()?.Callsign.CloneJson();
+			Callsign.Element = null;
 			Task = m_mizGroup.Task;
 
 			if (m_mizGroup.RadioFrequency is object && m_mizGroup.RadioModulation is object)
@@ -39,7 +33,7 @@ namespace DcsBriefop.DataBopMission
 			if (Tacan is null)
 				Tacan = Units.OfType<BopUnitFlight>().Where(_u => _u.Tacan is object).Select(_u => _u.Tacan).FirstOrDefault();
 			if (Tacan is null)
-				Tacan = GetTacanFromRouteTaskAction(null);
+				Tacan = GetTacanFromRouteTask(null);
 		}
 		#endregion
 
@@ -73,7 +67,7 @@ namespace DcsBriefop.DataBopMission
 		{
 			string sDisplayName = base.ToStringDisplayName();
 
-			if (!string.IsNullOrEmpty(Callsign) && (!Playable || !Miz.MizBopCustom.PreferencesMission.NoCallsignForPlayableFlights))
+			if (Callsign is object && Callsign.Number is null && (!Playable || !Miz.MizBopCustom.PreferencesMission.NoCallsignForPlayableFlights))
 				return $"{Callsign} | {sDisplayName}";
 			else
 				return sDisplayName;
@@ -81,13 +75,14 @@ namespace DcsBriefop.DataBopMission
 
 		public override string ToStringAdditionnal()
 		{
-			string sDescription = base.ToStringDisplayName();
-			if (!string.IsNullOrEmpty(Task))
-				sDescription = $"{sDescription} Task:{Task}";
-			if (Tacan is object)
-				sDescription = $"{sDescription} TACAN:{Tacan}";
+			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
 
-			return sDescription;
+			if (!string.IsNullOrEmpty(Task))
+				sb.AppendWithSeparator($"Task:{Task}", " ");
+			if (Tacan is object)
+				sb.AppendWithSeparator($"TACAN:{Tacan}", " ");
+
+			return sb.ToString();
 		}
 
 		//public string ToStringRadio()

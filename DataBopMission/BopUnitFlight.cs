@@ -1,5 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Tools;
+using System.Text;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -9,13 +11,19 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Properties
+		public BopCallsign Callsign { get; set; }
 		public Tacan Tacan { get; set; }
 		#endregion
 
 		#region CTOR
 		public BopUnitFlight(Miz miz, Theatre theatre, BopGroup bopGroup, MizUnit mizUnit) : base(miz, theatre, bopGroup, mizUnit)
 		{
-			Tacan = bopGroup.GetTacanFromRouteTaskAction(Id);
+			if (m_mizUnit.Callsign is MizCallsign mizCallsign)
+				Callsign = BopCallsign.NewFromMizCallsign (mizCallsign);
+			else
+				Callsign = BopCallsign.NewFromNumber(m_mizUnit.CallsignNumber);
+
+			Tacan = bopGroup.GetTacanFromRouteTask(Id);
 		}
 		#endregion
 
@@ -23,6 +31,25 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
+		public override string ToStringDisplayName()
+		{
+			string sDisplayName = base.ToStringDisplayName();
+
+			if (Callsign is object && (!Playable || !Miz.MizBopCustom.PreferencesMission.NoCallsignForPlayableFlights))
+				return $"{Callsign} | {sDisplayName}";
+			else
+				return sDisplayName;
+		}
+
+		public override string ToStringAdditionnal()
+		{
+			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
+
+			if (Tacan is object)
+				sb.AppendWithSeparator($"TACAN:{Tacan}", " ");
+
+			return sb.ToString();
+		}
 		#endregion
 	}
 }

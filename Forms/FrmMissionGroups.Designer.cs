@@ -63,7 +63,6 @@
 			this.DgvAssets.Size = new System.Drawing.Size(974, 272);
 			this.DgvAssets.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			this.DgvAssets.TabIndex = 0;
-			this.DgvAssets.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvAssets_RowLeave);
 			// 
 			// FrmMissionGroups
 			// 
@@ -75,7 +74,7 @@
 			this.Name = "FrmMissionGroups";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "FrmMissionAssets";
+			this.Text = "Mission groups";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMissionGroups_FormClosed);
 			this.ScMain.Panel1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.ScMain)).EndInit();

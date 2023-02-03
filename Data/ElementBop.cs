@@ -32,6 +32,16 @@ namespace DcsBriefop.Data
 		Mgrs = 4
 	}
 
+	[Flags]
+	public enum ElementMapOverlayRouteDisplay
+	{
+		None = 0,
+		NoMarkerFirstPoint = 1,
+		PointLabelFull = 2,
+		PointLabelLight = 4,
+		RouteLabel = 8,
+	}
+
 	internal static class ElementGlobalData
 	{
 		public static readonly string ResourcesDirectory = "Resources";

@@ -15,6 +15,7 @@ namespace DcsBriefop.Forms
 
 		private UcGroupInformation m_ucGroupInformation;
 		private UcGroupUnits m_ucGroupUnits;
+		private UcGroupRoutePoints m_ucGroupRoutePoints;
 		#endregion
 
 		#region Properties
@@ -26,6 +27,7 @@ namespace DcsBriefop.Forms
 				m_bopGroup = value;
 				m_ucGroupInformation.BopGroup = m_bopGroup;
 				m_ucGroupUnits.BopGroup = m_bopGroup;
+				m_ucGroupRoutePoints.BopGroup = m_bopGroup;
 				DataToScreen();
 			}
 		}
@@ -46,15 +48,17 @@ namespace DcsBriefop.Forms
 			TcDetails.SelectedIndexChanged -= TcDetails_SelectedIndexChanged;
 			m_ucGroupInformation = new UcGroupInformation(m_briefopManager, m_bopGroup, MapControl);
 			m_ucGroupUnits = new UcGroupUnits(m_briefopManager, m_bopGroup, MapControl);
+			m_ucGroupRoutePoints = new UcGroupRoutePoints(m_briefopManager, m_bopGroup, MapControl);
 			TcDetails.TabPages.Clear();
 			TcDetails.AddTab("Information", m_ucGroupInformation);
 			TcDetails.AddTab("Units", m_ucGroupUnits);
+			TcDetails.AddTab("Route", m_ucGroupRoutePoints);
 			TcDetails.SelectedIndexChanged += TcDetails_SelectedIndexChanged;
 
 			MapControl.MapProvider = GMapProviders.TryGetProvider(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.DefaultProvider);
 			GMaps.Instance.Mode = AccessMode.ServerOnly;
 			MapControl.ShowCenter = false;
-			MapControl.Position = new PointLatLng(26.1702778, 56.24);
+			//MapControl.Position = new PointLatLng(26.1702778, 56.24);
 			MapControl.MinZoom = ElementMapValue.MinZoom;
 			MapControl.MaxZoom = ElementMapValue.MaxZoom;
 			MapControl.Zoom = PreferencesManager.Preferences.Map.DefaultZoom;
@@ -73,6 +77,7 @@ namespace DcsBriefop.Forms
 
 			m_ucGroupInformation.DataToScreen();
 			m_ucGroupUnits.DataToScreen();
+			m_ucGroupRoutePoints.DataToScreen();
 
 			DataToScreenMap();
 		}

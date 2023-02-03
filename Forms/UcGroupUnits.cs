@@ -1,4 +1,5 @@
-﻿using DcsBriefop.DataBopMission;
+﻿using CoordinateSharp;
+using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
@@ -36,6 +37,7 @@ namespace DcsBriefop.Forms
 		{
 			m_gridManagerUnits.Units = m_bopGroup.Units;
 			m_gridManagerUnits.Initialize();
+			DataToScreenDetail();
 		}
 
 		private void DataToScreenDetail()
@@ -50,7 +52,7 @@ namespace DcsBriefop.Forms
 				}
 				if (m_ucUnit is null)
 				{
-					m_ucUnit = new UcUnit(m_briefopManager, selectedBopUnit);
+					m_ucUnit = new UcUnit(m_briefopManager, selectedBopUnit, this);
 				}
 				else
 				{
@@ -71,22 +73,30 @@ namespace DcsBriefop.Forms
 
 		public override void DataToScreenMap()
 		{
+			BopUnit selectedBopUnit = m_gridManagerUnits.GetSelectedBopUnits().FirstOrDefault();
+			Coordinate coordinate = selectedBopUnit?.Coordinate ?? m_bopGroup.Coordinate;
 			m_mapControl.Overlays.Clear();
-			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayUnits(m_gridManagerUnits.GetSelectedBopUnits().FirstOrDefault()?.Id));
+			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayUnits(selectedBopUnit?.Id));
 
-			m_mapControl.Position = new PointLatLng(m_bopGroup.Coordinate.Latitude.DecimalDegree, m_bopGroup.Coordinate.Longitude.DecimalDegree);
+			m_mapControl.Position = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
 			m_mapControl.ForceRefresh();
 		}
 
 		public override void ScreenToData()
 		{
-			//m_ucGroupInformation.ScreenToData();
+			ScreenToDataDetail();
+		}
+
+		public void ScreenToDataDetail()
+		{
+			m_ucUnit.ScreenToData();
 		}
 		#endregion
 
 		#region Events
 		private void SelectionChangedBopUnitsEvent(object sender, GridManagerUnits.EventArgsBopUnit e)
 		{
+			ScreenToDataDetail();
 			DataToScreenMap();
 			DataToScreenDetail();
 		}

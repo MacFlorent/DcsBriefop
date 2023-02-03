@@ -1,7 +1,10 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Tools;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -25,7 +28,7 @@ namespace DcsBriefop.DataBopMission
 			if (Tacan is null)
 				Tacan = Units.OfType<BopUnitShip>().Where(_u => _u.Tacan is object).Select(_u => _u.Tacan).FirstOrDefault();
 			if (Tacan is null)
-				Tacan = GetTacanFromRouteTaskAction(null);
+				Tacan = GetTacanFromRouteTask(null);
 
 			Icls = (MainUnit as BopUnitShip)?.Icls;
 			if (Icls is null)
@@ -65,33 +68,28 @@ namespace DcsBriefop.DataBopMission
 		#region Methods
 		public override string ToStringAdditionnal()
 		{
-			string sDescription = base.ToStringDisplayName();
-			if (Tacan is object)
-				sDescription = $"{sDescription} TACAN:{Tacan}";
-			if (Icls is object)
-				sDescription = $"{sDescription} ICLS:{Icls}";
-			if (Link4 is object)
-				sDescription = $"{sDescription} LNK4:{Link4:###.000}";
+			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
 
-			return sDescription;
+			if (Tacan is object)
+				sb.AppendWithSeparator($"TACAN:{Tacan}", " ");
+			if (Icls is object)
+				sb.AppendWithSeparator($"ICLS:{Icls}", " ");
+			if (Link4 is object)
+				sb.AppendWithSeparator($"LNK4:{Link4:###.000}", " ");
+
+			return sb.ToString();
 		}
 
 		public int? GetIclsFromRouteTaskAction(int? iUnitId)
 		{
-			MizRouteTaskAction routeTaskAction = GetRouteTaskAction(new List<string> { ElementRouteTaskAction.ActivateIcls }, iUnitId);
-			if (routeTaskAction is object)
-				return routeTaskAction.ParamChannel;
-			else
-				return null;
+			BopRouteTask routeTask = GetRouteTask(new List<string> { ElementRouteTaskAction.ActivateIcls }, iUnitId);
+			return (routeTask as BopRouteTaskIcls)?.Icls;
 		}
 
 		public decimal? GetLink4FromRouteTaskAction(int? iUnitId)
 		{
-			MizRouteTaskAction routeTaskAction = GetRouteTaskAction(new List<string> { ElementRouteTaskAction.ActivateLink4 }, iUnitId);
-			if (routeTaskAction is object)
-				return (decimal)routeTaskAction.ParamFrequency / ElementRadio.UnitFrequencyRatio;
-			else
-				return null;
+			BopRouteTask routeTask = GetRouteTask(new List<string> { ElementRouteTaskAction.ActivateLink4 }, iUnitId);
+			return (routeTask as BopRouteTaskLink4)?.Link4;
 		}
 
 		//public string ToStringRadio()

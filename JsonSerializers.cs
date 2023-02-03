@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Map;
+﻿using DcsBriefop.DataMiz;
+using DcsBriefop.Map;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
@@ -50,17 +51,19 @@ namespace DcsBriefop
 			GMapOverlay gmo = new GMapOverlay();
 
 			JToken token = JToken.Load(reader);
-			if (token[JsonNode.Markers] is object)
+			if (token.HasValues)
 			{
-				foreach (GMarkerBriefop gmb in token[JsonNode.Markers].ToObject<List<GMarkerBriefop>>(serializer))
-					gmo.Markers.Add(gmb);
+				if (token[JsonNode.Markers] is object)
+				{
+					foreach (GMarkerBriefop gmb in token[JsonNode.Markers].ToObject<List<GMarkerBriefop>>(serializer))
+						gmo.Markers.Add(gmb);
+				}
+				if (token[JsonNode.Routes] is object)
+				{
+					foreach (GMapRoute gmr in token[JsonNode.Routes].ToObject<List<GMapRoute>>(serializer))
+						gmo.Routes.Add(gmr);
+				}
 			}
-			if (token[JsonNode.Routes] is object)
-			{
-				foreach (GMapRoute gmr in token[JsonNode.Routes].ToObject<List<GMapRoute>>(serializer))
-					gmo.Routes.Add(gmr);
-			}
-
 			return gmo;
 		}
 	}
@@ -114,49 +117,49 @@ namespace DcsBriefop
 		}
 	}
 
-	//internal class ListBopCustomGroupJsonConverter : JsonConverter<List<BopCustomGroup>>
-	//{
-	//	public override void WriteJson(JsonWriter writer, List<BopCustomGroup> value, JsonSerializer serializer)
-	//	{
-	//		if (value is object && value.Count >= 0)
-	//		{
-	//			JArray ja = new JArray();
-	//			foreach (BopCustomGroup customDataAsset in value.Where(_a => !_a.IsDefaultData()))
-	//			{
-	//				ja.Add(JToken.FromObject(customDataAsset, serializer));
-	//			}
+	internal class ListMizBopGroupJsonConverter : JsonConverter<List<MizBopGroup>>
+	{
+		public override void WriteJson(JsonWriter writer, List<MizBopGroup> value, JsonSerializer serializer)
+		{
+			if (value is object && value.Count >= 0)
+			{
+				JArray ja = new JArray();
+				foreach (MizBopGroup element in value.Where(_e => !_e.IsDefaultData()))
+				{
+					ja.Add(JToken.FromObject(element, serializer));
+				}
 
-	//			ja.WriteTo(writer);
-	//		}
-	//	}
+				ja.WriteTo(writer);
+			}
+		}
 
-	//	public override List<BopCustomGroup> ReadJson(JsonReader reader, Type objectType, List<BopCustomGroup> existingValue, bool hasExistingValue, JsonSerializer serializer)
-	//	{
-	//		throw new NotImplementedException();
-	//	}
-	//}
+		public override List<MizBopGroup> ReadJson(JsonReader reader, Type objectType, List<MizBopGroup> existingValue, bool hasExistingValue, JsonSerializer serializer)
+		{
+			throw new NotImplementedException();
+		}
+	}
 
-	//internal class ListBopCustomUnitJsonConverter : JsonConverter<List<BopCustomUnit>>
-	//{
-	//	public override void WriteJson(JsonWriter writer, List<BopCustomUnit> value, JsonSerializer serializer)
-	//	{
-	//		if (value is object && value.Count >= 0)
-	//		{
-	//			JArray ja = new JArray();
-	//			foreach (BopCustomUnit customDataUnit in value.Where(_u => !_u.IsDefaultData()))
-	//			{
-	//				ja.Add(JToken.FromObject(customDataUnit, serializer));
-	//			}
+	internal class ListMizBopUnitJsonConverter : JsonConverter<List<MizBopUnit>>
+	{
+		public override void WriteJson(JsonWriter writer, List<MizBopUnit> value, JsonSerializer serializer)
+		{
+			if (value is object && value.Count >= 0)
+			{
+				JArray ja = new JArray();
+				foreach (MizBopUnit element in value.Where(_e => !_e.IsDefaultData()))
+				{
+					ja.Add(JToken.FromObject(element, serializer));
+				}
 
-	//			ja.WriteTo(writer);
-	//		}
-	//	}
+				ja.WriteTo(writer);
+			}
+		}
 
-	//	public override List<BopCustomUnit> ReadJson(JsonReader reader, Type objectType, List<BopCustomUnit> existingValue, bool hasExistingValue, JsonSerializer serializer)
-	//	{
-	//		throw new NotImplementedException();
-	//	}
-	//}
+		public override List<MizBopUnit> ReadJson(JsonReader reader, Type objectType, List<MizBopUnit> existingValue, bool hasExistingValue, JsonSerializer serializer)
+		{
+			throw new NotImplementedException();
+		}
+	}
 
 	//internal class ListBopCustomAirdromeJsonConverter : JsonConverter<List<BopCustomCoalitionAirdrome>>
 	//{

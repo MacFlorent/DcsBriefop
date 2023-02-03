@@ -10,6 +10,8 @@ namespace DcsBriefop.Forms
 		#region Fields
 		protected BriefopManager m_briefopManager;
 		protected BopUnit m_bopUnit;
+
+		private UcGroupUnits m_ucParentGroupUnits;
 		#endregion
 
 		#region Properties
@@ -25,10 +27,11 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcUnit(BriefopManager briefopManager, BopUnit bopUnit)
+		public UcUnit(BriefopManager briefopManager, BopUnit bopUnit, UcGroupUnits ucParentGroupUnits)
 		{
 			m_briefopManager = briefopManager;
 			m_bopUnit = bopUnit;
+			m_ucParentGroupUnits = ucParentGroupUnits;
 
 			InitializeComponent();
 
@@ -49,8 +52,9 @@ namespace DcsBriefop.Forms
 			TbDisplayName.Text = m_bopUnit.ToStringDisplayName();
 			TbType.Text = m_bopUnit.Type;
 			TbAttributes.Text = m_bopUnit.Attributes.ToString();
-			//TbOther.Text = m_bopUnit.ToStringAdditionnal();
-			TbCoordinates.Text = m_bopUnit.ToStringLocalisation();
+			TbOther.Text = m_bopUnit.ToStringAdditionnal();
+			TbAltitude.Text = $"{m_bopUnit.AltitudeFeet:0}";
+			TbCoordinates.Text = m_bopUnit.ToStringCoordinate();
 			CbMapMarker.Text = m_bopUnit.MapMarker;
 
 			CbMapMarker.SelectedValueChanged += CbMapMarker_SelectedValueChanged;
@@ -66,6 +70,7 @@ namespace DcsBriefop.Forms
 		private void CbMapMarker_SelectedValueChanged(object sender, EventArgs e)
 		{
 			ScreenToData();
+			m_ucParentGroupUnits?.DataToScreenMap();
 		}
 		#endregion
 

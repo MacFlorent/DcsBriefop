@@ -1,5 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Tools;
+using System.Text;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -21,7 +23,7 @@ namespace DcsBriefop.DataBopMission
 			if (m_mizUnit.RadioFrequency is object && m_mizUnit.RadioModulation is object)
 				Radio = new Radio(m_mizUnit.RadioFrequency.Value / ElementRadio.UnitFrequencyRatio, m_mizUnit.RadioModulation.Value);
 
-			Tacan = bopGroup.GetTacanFromRouteTaskAction(Id);
+			Tacan = bopGroup.GetTacanFromRouteTask(Id);
 			Icls = bopGroup.GetIclsFromRouteTaskAction(Id);
 			Link4 = bopGroup.GetLink4FromRouteTaskAction(Id);
 		}
@@ -38,6 +40,21 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
+		public override string ToStringAdditionnal()
+		{
+			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
+
+			if (Radio is object)
+				sb.AppendWithSeparator($"Radio:{Radio}", " ");
+			if (Tacan is object)
+				sb.AppendWithSeparator($"TACAN:{Tacan}", " ");
+			if (Icls is object)
+				sb.AppendWithSeparator($"ICLS:{Icls}", " ");
+			if (Link4 is object)
+				sb.AppendWithSeparator($"LNK4:{Link4:###.000}", " ");
+
+			return sb.ToString();
+		}
 		#endregion
 	}
 }

@@ -48,12 +48,14 @@
 			this.TbId = new System.Windows.Forms.TextBox();
 			this.CbMapMarker = new System.Windows.Forms.ComboBox();
 			this.LbMapMarker = new System.Windows.Forms.Label();
+			this.LbAltitude = new System.Windows.Forms.Label();
+			this.TbAltitude = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// LbCoordinates
 			// 
 			this.LbCoordinates.AutoSize = true;
-			this.LbCoordinates.Location = new System.Drawing.Point(8, 188);
+			this.LbCoordinates.Location = new System.Drawing.Point(8, 214);
 			this.LbCoordinates.Name = "LbCoordinates";
 			this.LbCoordinates.Size = new System.Drawing.Size(63, 13);
 			this.LbCoordinates.TabIndex = 63;
@@ -63,7 +65,7 @@
 			// 
 			this.TbCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbCoordinates.Location = new System.Drawing.Point(84, 185);
+			this.TbCoordinates.Location = new System.Drawing.Point(84, 211);
 			this.TbCoordinates.Multiline = true;
 			this.TbCoordinates.Name = "TbCoordinates";
 			this.TbCoordinates.ReadOnly = true;
@@ -152,7 +154,7 @@
 			// 
 			this.CkLateActivation.AutoSize = true;
 			this.CkLateActivation.Enabled = false;
-			this.CkLateActivation.Location = new System.Drawing.Point(190, 5);
+			this.CkLateActivation.Location = new System.Drawing.Point(190, 6);
 			this.CkLateActivation.Name = "CkLateActivation";
 			this.CkLateActivation.Size = new System.Drawing.Size(96, 17);
 			this.CkLateActivation.TabIndex = 53;
@@ -230,7 +232,7 @@
 			this.CbMapMarker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.CbMapMarker.FormattingEnabled = true;
-			this.CbMapMarker.Location = new System.Drawing.Point(84, 238);
+			this.CbMapMarker.Location = new System.Drawing.Point(84, 264);
 			this.CbMapMarker.Name = "CbMapMarker";
 			this.CbMapMarker.Size = new System.Drawing.Size(377, 21);
 			this.CbMapMarker.TabIndex = 65;
@@ -239,16 +241,38 @@
 			// LbMapMarker
 			// 
 			this.LbMapMarker.AutoSize = true;
-			this.LbMapMarker.Location = new System.Drawing.Point(8, 241);
+			this.LbMapMarker.Location = new System.Drawing.Point(8, 267);
 			this.LbMapMarker.Name = "LbMapMarker";
 			this.LbMapMarker.Size = new System.Drawing.Size(63, 13);
 			this.LbMapMarker.TabIndex = 64;
 			this.LbMapMarker.Text = "Map marker";
 			// 
+			// LbAltitude
+			// 
+			this.LbAltitude.AutoSize = true;
+			this.LbAltitude.Location = new System.Drawing.Point(8, 188);
+			this.LbAltitude.Name = "LbAltitude";
+			this.LbAltitude.Size = new System.Drawing.Size(57, 13);
+			this.LbAltitude.TabIndex = 67;
+			this.LbAltitude.Text = "Altitude (ft)";
+			// 
+			// TbAltitude
+			// 
+			this.TbAltitude.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.TbAltitude.Location = new System.Drawing.Point(84, 185);
+			this.TbAltitude.Name = "TbAltitude";
+			this.TbAltitude.ReadOnly = true;
+			this.TbAltitude.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.TbAltitude.Size = new System.Drawing.Size(377, 20);
+			this.TbAltitude.TabIndex = 66;
+			// 
 			// UcGroupInformation
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.LbAltitude);
+			this.Controls.Add(this.TbAltitude);
 			this.Controls.Add(this.CbMapMarker);
 			this.Controls.Add(this.LbMapMarker);
 			this.Controls.Add(this.LbCoordinates);
@@ -270,7 +294,7 @@
 			this.Controls.Add(this.LbId);
 			this.Controls.Add(this.TbId);
 			this.Name = "UcGroupInformation";
-			this.Size = new System.Drawing.Size(470, 266);
+			this.Size = new System.Drawing.Size(470, 291);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -298,5 +322,7 @@
 		private System.Windows.Forms.TextBox TbId;
 		private System.Windows.Forms.ComboBox CbMapMarker;
 		private System.Windows.Forms.Label LbMapMarker;
+		private System.Windows.Forms.Label LbAltitude;
+		private System.Windows.Forms.TextBox TbAltitude;
 	}
 }

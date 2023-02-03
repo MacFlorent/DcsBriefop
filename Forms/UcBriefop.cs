@@ -1,5 +1,4 @@
-﻿using DcsBriefop.Data;
-using DcsBriefop.Tools;
+﻿using DcsBriefop.Tools;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -62,17 +61,14 @@ namespace DcsBriefop.Forms
 
 		private void BtMissionInformations_Click(object sender, System.EventArgs e)
 		{
-			FrmMissionInformations f = new FrmMissionInformations(m_briefopManager);
-			f.ShowDialog();
+			FrmMissionInformations.CreateModal(m_briefopManager, ParentForm);
 			DataToScreen();
 		}
 
 		private void BtMissionGroups_Click(object sender, System.EventArgs e)
 		{
-			FrmMissionGroups f = new FrmMissionGroups(m_briefopManager);
-			f.ShowDialog();
+			FrmMissionGroups.CreateModal(m_briefopManager, ParentForm);
 		}
-
 		#endregion
 	}
 }

@@ -3,7 +3,6 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
-using System.Windows.Media.Media3D;
 
 namespace DcsBriefop.Tools
 {

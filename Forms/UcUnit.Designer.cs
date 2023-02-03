@@ -33,8 +33,6 @@
 			this.LbCoordinates = new System.Windows.Forms.Label();
 			this.TbCoordinates = new System.Windows.Forms.TextBox();
 			this.LbOther = new System.Windows.Forms.Label();
-			this.LbRadio = new System.Windows.Forms.Label();
-			this.TbRadio = new System.Windows.Forms.TextBox();
 			this.LbDisplayName = new System.Windows.Forms.Label();
 			this.TbDisplayName = new System.Windows.Forms.TextBox();
 			this.TbOther = new System.Windows.Forms.TextBox();
@@ -47,6 +45,8 @@
 			this.TbName = new System.Windows.Forms.TextBox();
 			this.LbId = new System.Windows.Forms.Label();
 			this.TbId = new System.Windows.Forms.TextBox();
+			this.LbAltitude = new System.Windows.Forms.Label();
+			this.TbAltitude = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// CbMapMarker
@@ -72,7 +72,7 @@
 			// LbCoordinates
 			// 
 			this.LbCoordinates.AutoSize = true;
-			this.LbCoordinates.Location = new System.Drawing.Point(6, 197);
+			this.LbCoordinates.Location = new System.Drawing.Point(6, 191);
 			this.LbCoordinates.Name = "LbCoordinates";
 			this.LbCoordinates.Size = new System.Drawing.Size(63, 13);
 			this.LbCoordinates.TabIndex = 83;
@@ -93,30 +93,11 @@
 			// LbOther
 			// 
 			this.LbOther.AutoSize = true;
-			this.LbOther.Location = new System.Drawing.Point(6, 171);
+			this.LbOther.Location = new System.Drawing.Point(6, 145);
 			this.LbOther.Name = "LbOther";
 			this.LbOther.Size = new System.Drawing.Size(33, 13);
 			this.LbOther.TabIndex = 81;
 			this.LbOther.Text = "Other";
-			// 
-			// LbRadio
-			// 
-			this.LbRadio.AutoSize = true;
-			this.LbRadio.Location = new System.Drawing.Point(7, 142);
-			this.LbRadio.Name = "LbRadio";
-			this.LbRadio.Size = new System.Drawing.Size(35, 13);
-			this.LbRadio.TabIndex = 80;
-			this.LbRadio.Text = "Radio";
-			// 
-			// TbRadio
-			// 
-			this.TbRadio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbRadio.Location = new System.Drawing.Point(82, 142);
-			this.TbRadio.Name = "TbRadio";
-			this.TbRadio.ReadOnly = true;
-			this.TbRadio.Size = new System.Drawing.Size(200, 20);
-			this.TbRadio.TabIndex = 79;
 			// 
 			// LbDisplayName
 			// 
@@ -141,7 +122,7 @@
 			// 
 			this.TbOther.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbOther.Location = new System.Drawing.Point(82, 168);
+			this.TbOther.Location = new System.Drawing.Point(82, 142);
 			this.TbOther.Name = "TbOther";
 			this.TbOther.ReadOnly = true;
 			this.TbOther.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -233,17 +214,37 @@
 			this.TbId.Size = new System.Drawing.Size(100, 20);
 			this.TbId.TabIndex = 66;
 			// 
+			// LbAltitude
+			// 
+			this.LbAltitude.AutoSize = true;
+			this.LbAltitude.Location = new System.Drawing.Point(6, 171);
+			this.LbAltitude.Name = "LbAltitude";
+			this.LbAltitude.Size = new System.Drawing.Size(57, 13);
+			this.LbAltitude.TabIndex = 87;
+			this.LbAltitude.Text = "Altitude (ft)";
+			// 
+			// TbAltitude
+			// 
+			this.TbAltitude.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.TbAltitude.Location = new System.Drawing.Point(82, 168);
+			this.TbAltitude.Name = "TbAltitude";
+			this.TbAltitude.ReadOnly = true;
+			this.TbAltitude.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.TbAltitude.Size = new System.Drawing.Size(200, 20);
+			this.TbAltitude.TabIndex = 86;
+			// 
 			// UcUnit
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.LbAltitude);
+			this.Controls.Add(this.TbAltitude);
 			this.Controls.Add(this.CbMapMarker);
 			this.Controls.Add(this.LbMapMarker);
 			this.Controls.Add(this.LbCoordinates);
 			this.Controls.Add(this.TbCoordinates);
 			this.Controls.Add(this.LbOther);
-			this.Controls.Add(this.LbRadio);
-			this.Controls.Add(this.TbRadio);
 			this.Controls.Add(this.LbDisplayName);
 			this.Controls.Add(this.TbDisplayName);
 			this.Controls.Add(this.TbOther);
@@ -257,7 +258,7 @@
 			this.Controls.Add(this.LbId);
 			this.Controls.Add(this.TbId);
 			this.Name = "UcUnit";
-			this.Size = new System.Drawing.Size(285, 275);
+			this.Size = new System.Drawing.Size(285, 270);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -270,8 +271,6 @@
 		private System.Windows.Forms.Label LbCoordinates;
 		private System.Windows.Forms.TextBox TbCoordinates;
 		private System.Windows.Forms.Label LbOther;
-		private System.Windows.Forms.Label LbRadio;
-		private System.Windows.Forms.TextBox TbRadio;
 		private System.Windows.Forms.Label LbDisplayName;
 		private System.Windows.Forms.TextBox TbDisplayName;
 		private System.Windows.Forms.TextBox TbOther;
@@ -284,5 +283,7 @@
 		private System.Windows.Forms.TextBox TbName;
 		private System.Windows.Forms.Label LbId;
 		private System.Windows.Forms.TextBox TbId;
+		private System.Windows.Forms.Label LbAltitude;
+		private System.Windows.Forms.TextBox TbAltitude;
 	}
 }

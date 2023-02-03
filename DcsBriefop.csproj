@@ -161,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBopMission\BaseBop.cs" />
+    <Compile Include="DataBopMission\BopRouteTask.cs" />
     <Compile Include="DataBopMission\BopGroupVehicle.cs" />
     <Compile Include="DataBopMission\BopGroupShip.cs" />
     <Compile Include="DataBopMission\BopGroupFlight.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="DataBopMission\BopMission.cs" />
     <Compile Include="BriefopManager.cs" />
     <Compile Include="DataBopMission\BopWeather.cs" />
+    <Compile Include="DataBopMission\BopCallsign.cs" />
     <Compile Include="DataMiz\BaseMizBopSerializable.cs" />
     <Compile Include="DataMiz\BopCustomAsset.cs" />
     <Compile Include="DataMiz\MizBopGroup.cs" />
@@ -219,7 +221,11 @@
     <Compile Include="Forms\FrmWait.designer.cs">
       <DependentUpon>FrmWait.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmWithWaitDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\GridManager.cs" />
+    <Compile Include="Forms\GridManagerRoutePoints.cs" />
     <Compile Include="Forms\GridManagerUnits.cs" />
     <Compile Include="Forms\GridManagerGroups.cs" />
     <Compile Include="Forms\UcBriefop.cs">
@@ -246,6 +252,12 @@
     <Compile Include="Forms\UcGroupInformation.Designer.cs">
       <DependentUpon>UcGroupInformation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UcGroupRoutePoints.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UcGroupRoutePoints.Designer.cs">
+      <DependentUpon>UcGroupRoutePoints.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UcGroupUnits.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -265,6 +277,12 @@
       <DependentUpon>UcNoFile.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\Preferences.cs" />
+    <Compile Include="Forms\UcRoutePoint.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UcRoutePoint.Designer.cs">
+      <DependentUpon>UcRoutePoint.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UcUnit.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -347,6 +365,9 @@
     <EmbeddedResource Include="Forms\UcGroupInformation.resx">
       <DependentUpon>UcGroupInformation.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UcGroupRoutePoints.resx">
+      <DependentUpon>UcGroupRoutePoints.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\UcGroupUnits.resx">
       <DependentUpon>UcGroupUnits.cs</DependentUpon>
     </EmbeddedResource>
@@ -355,6 +376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UcNoFile.resx">
       <DependentUpon>UcNoFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UcRoutePoint.resx">
+      <DependentUpon>UcRoutePoint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UcUnit.resx">
       <DependentUpon>UcUnit.cs</DependentUpon>

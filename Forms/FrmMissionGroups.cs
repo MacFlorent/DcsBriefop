@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
-	internal partial class FrmMissionGroups : Form
+	internal partial class FrmMissionGroups : FrmWithWaitDialog
 	{
 		#region Fields
 		private BriefopManager m_briefopManager;
@@ -15,7 +15,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public FrmMissionGroups(BriefopManager briefopManager)
+		private FrmMissionGroups(BriefopManager briefopManager, WaitDialog waitDialog) : base(waitDialog)
 		{
 			m_briefopManager = briefopManager;
 
@@ -26,21 +26,24 @@ namespace DcsBriefop.Forms
 
 			DataToScreen();
 		}
+
+		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
+		{
+			WaitDialog waitDialog = new WaitDialog(parentForm);
+			FrmMissionGroups f = new FrmMissionGroups(briefopManager, waitDialog);
+			f.ShowDialog();
+		}
 		#endregion
 
 		#region Methods
 		private void DataToScreen()
 		{
-			using (new WaitDialog(this))
-			{
-				DgvAssets.RowLeave -= DgvAssets_RowLeave;
-				m_gridManagerGroups.SelectionChangedBopGroups -= SelectionChangedBopGroupsEvent;
+			m_gridManagerGroups.SelectionChangedBopGroups -= SelectionChangedBopGroupsEvent;
 
-				m_gridManagerGroups.Initialize();
+			m_gridManagerGroups.Initialize();
+			DataToScreenDetail();
 
-				DgvAssets.RowLeave += DgvAssets_RowLeave;
-				m_gridManagerGroups.SelectionChangedBopGroups += SelectionChangedBopGroupsEvent;
-			}
+			m_gridManagerGroups.SelectionChangedBopGroups += SelectionChangedBopGroupsEvent;
 		}
 
 		private void DataToScreenDetail()
@@ -88,12 +91,8 @@ namespace DcsBriefop.Forms
 
 		private void SelectionChangedBopGroupsEvent(object sender, GridManagerGroups.EventArgsBopGroup e)
 		{
-			DataToScreenDetail();
-		}
-
-		private void DgvAssets_RowLeave(object sender, DataGridViewCellEventArgs e)
-		{
 			ScreenToDataDetail();
+			DataToScreenDetail();
 		}
 		#endregion
 	}

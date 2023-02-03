@@ -6,9 +6,12 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
+using UnitsNet.Units;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -35,6 +38,7 @@ namespace DcsBriefop.DataBopMission
 		public List<BopUnit> Units { get; set; }
 		public BopUnit MainUnit { get; set; }
 		public List<BopMapPoint> MapPoints { get; set; }
+		public decimal? AltitudeFeet { get; set; }
 		public Coordinate Coordinate { get; set; }
 		public string MapMarker { get; set; }
 		#endregion
@@ -55,8 +59,6 @@ namespace DcsBriefop.DataBopMission
 			Name = m_mizGroup.Name;
 			LateActivation = m_mizGroup.LateActivation;
 
-			FromMizUnits();
-
 			MapPoints = new List<BopMapPoint>();
 			if (m_mizGroup.RoutePoints is object && m_mizGroup.RoutePoints.Count > 0)
 			{
@@ -72,11 +74,12 @@ namespace DcsBriefop.DataBopMission
 				MapPoints.Add(new BopMapPoint(Miz, Theatre, m_mizGroup.Y, m_mizGroup.X));
 			}
 
+			FromMizUnits();
+
 			Playable = m_mizGroup.Units.Where(_u => _u.Skill == ElementSkill.Player || _u.Skill == ElementSkill.Client).Any();
 			ObjectClass = MainUnit?.ObjectClass ?? ObjectClass;
 			Attributes = Units.Aggregate<BopUnit, ElementDcsObjectAttribute>(0, (currentAttributes, _bopUnit) => currentAttributes | _bopUnit.Attributes);
 			Type = string.Join(",", Units.GroupBy(_u => _u.Type).Select(_g => _g.Key));
-
 			MapMarker = m_mizBopGroup?.MapMarker ?? MainUnit.MapMarker;
 		}
 		#endregion
@@ -127,6 +130,8 @@ namespace DcsBriefop.DataBopMission
 			{
 				bopMapPoint.FinalizeFromMiz();
 			}
+
+			AltitudeFeet = MapPoints.OfType<BopRoutePoint>().FirstOrDefault()?.AltitudeFeet ?? MainUnit.AltitudeFeet;
 		}
 
 		private void InitializeMizBopCustom()
@@ -134,7 +139,7 @@ namespace DcsBriefop.DataBopMission
 			m_mizBopGroup = Miz.MizBopCustom.MizBopGroups.Where(_u => _u.Id == m_mizGroup.Id).FirstOrDefault();
 			if (m_mizBopGroup is null)
 			{
-				m_mizBopGroup = new MizBopGroup() { Id = Id };
+				m_mizBopGroup = new MizBopGroup() { Id = m_mizGroup.Id };
 				m_mizBopGroup.SetDefaultData();
 				Miz.MizBopCustom.MizBopGroups.Add(m_mizBopGroup);
 			}
@@ -157,17 +162,18 @@ namespace DcsBriefop.DataBopMission
 			return "";
 		}
 
-		public virtual string ToStringLocalisation()
+		public virtual string ToStringCoordinate()
 		{
 			return Coordinate.ToStringLocalisation(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
+
 		}
 
-		public MizRouteTask GetRouteTask(IEnumerable<string> sTaskIds)
+		public BopRouteTask GetRouteTask(IEnumerable<string> sTaskIds, int? iUnitId)
 		{
-			MizRouteTask routeTask = null;
-			foreach (MizRoutePoint routePoint in m_mizGroup.RoutePoints)
+			BopRouteTask routeTask = null;
+			foreach (BopRoutePoint routePoint in MapPoints.OfType<BopRoutePoint>())
 			{
-				routeTask = routePoint.GetRouteTask(sTaskIds);
+				routeTask = routePoint.GetRouteTask(sTaskIds, iUnitId);
 				if (routeTask is object)
 					break;
 			}
@@ -175,26 +181,10 @@ namespace DcsBriefop.DataBopMission
 			return routeTask;
 		}
 
-		public MizRouteTaskAction GetRouteTaskAction(IEnumerable<string> sTaskActionIds, int? iUnitId)
+		public Tacan GetTacanFromRouteTask(int? iUnitId)
 		{
-			MizRouteTaskAction routeTaskAction = null;
-			foreach (MizRoutePoint routePoint in m_mizGroup.RoutePoints)
-			{
-				routeTaskAction = routePoint.GetRouteTaskAction(sTaskActionIds, iUnitId);
-				if (routeTaskAction is object)
-					break;
-			}
-
-			return routeTaskAction;
-		}
-
-		public Tacan GetTacanFromRouteTaskAction(int? iUnitId)
-		{
-			MizRouteTaskAction routeTaskAction = GetRouteTaskAction(new List<string> { ElementRouteTaskAction.ActivateBeacon }, iUnitId);
-			if (routeTaskAction is object)
-				return new Tacan() { Channel = routeTaskAction.ParamChannel.GetValueOrDefault(0), Mode = routeTaskAction.ParamModeChannel, Identifier = routeTaskAction.ParamCallsign };
-			else
-				return null;
+			BopRouteTask routeTask = GetRouteTask(new List<string> { ElementRouteTaskAction.ActivateBeacon }, iUnitId);
+			return (routeTask as BopRouteTaskBeacon)?.Tacan;
 		}
 
 		public GMarkerBriefop GetMarkerBriefop(Color? color)
@@ -221,7 +211,6 @@ namespace DcsBriefop.DataBopMission
 			foreach (BopUnit bopUnit in Units.Where(_u => _u != selectedUnit))
 			{
 				GMarkerBriefop marker = bopUnit.GetMarkerBriefop(color);
-				marker.TintColor = color;
 				mapOverlay.Markers.Add(marker);
 			}
 			
@@ -281,28 +270,34 @@ namespace DcsBriefop.DataBopMission
 		//	return points;
 		//}
 
-		public GMapOverlay GetMapOverlayRouteFull(bool bFullLabels, bool bIncludeFirstPoint)
+		public GMapOverlay GetMapOverlayRoute(int? iSelectedPointNumber, ElementMapOverlayRouteDisplay options)
 		{
 			GMapOverlay mapOverlay = new GMapOverlay();
 			List<PointLatLng> points = new List<PointLatLng>();
 
-			int i = 0;
 			foreach (BopRoutePoint bopRoutePoint in MapPoints.OfType<BopRoutePoint>())//.Where(_bopMapPoint => _bopMapPoint.Name != m_sBullsPointName))
 			{
-				string sLabel = bFullLabels ? $"{bopRoutePoint.Number}:{bopRoutePoint.Name}" : $"{bopRoutePoint.Number}";
-
 				PointLatLng p = new PointLatLng(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
 				points.Add(p);
 
-				if (bIncludeFirstPoint || i > 0)
+				if (bopRoutePoint.Number > 0
+					|| iSelectedPointNumber.GetValueOrDefault(0) == bopRoutePoint.Number
+					|| (options & ElementMapOverlayRouteDisplay.NoMarkerFirstPoint) == 0)
 				{
-					mapOverlay.Markers.Add(GetMarkerBriefop(null));
-				}
+					Color color = ToolsBriefop.GetCoalitionColor(CoalitionName);
+					if (iSelectedPointNumber is object && iSelectedPointNumber.Value != bopRoutePoint.Number)
+						color = ToolsImage.Lerp(color, Color.White, 0.5f);
 
-				i++;
+					GMarkerBriefop markerBriefop = bopRoutePoint.GetMarkerBriefop(color, options);
+					mapOverlay.Markers.Add(markerBriefop);
+				}
 			}
 
-			GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, bFullLabels ? ToStringDisplayName() : "", ElementMapTemplateRoute.DashDot, ToolsBriefop.GetCoalitionColor(CoalitionName), 2);
+			string sRouteLabel = "";
+			if ((options & ElementMapOverlayRouteDisplay.RouteLabel) != 0)
+				sRouteLabel = ToStringDisplayName();
+
+			GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, sRouteLabel, ElementMapTemplateRoute.DashDot, ToolsBriefop.GetCoalitionColor(CoalitionName), 2);
 			mapOverlay.Routes.Add(route);
 
 			return mapOverlay;

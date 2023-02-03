@@ -4,8 +4,11 @@ using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
+using System;
 using System.Drawing;
 using System.Linq;
+using System.Text;
+using UnitsNet.Units;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -73,6 +76,11 @@ namespace DcsBriefop.DataBopMission
 		{
 			base.FinalizeFromMizInternal();
 
+			if (m_mizUnit.Altitude is object)
+				AltitudeFeet = (decimal)UnitsNet.UnitConverter.Convert(m_mizUnit.Altitude.Value, LengthUnit.Meter, LengthUnit.Foot);
+			else
+				AltitudeFeet = BopGroup.MapPoints.OfType<BopRoutePoint>().FirstOrDefault()?.AltitudeFeet;
+
 			Coordinate = Theatre.GetCoordinate(m_mizUnit.Y, m_mizUnit.X);
 		}
 
@@ -81,7 +89,7 @@ namespace DcsBriefop.DataBopMission
 			m_mizBopUnit = Miz.MizBopCustom.MizBopUnits.Where(_u => _u.Id == m_mizUnit.Id).FirstOrDefault();
 			if (m_mizBopUnit is null)
 			{
-				m_mizBopUnit = new MizBopUnit() { Id = Id };
+				m_mizBopUnit = new MizBopUnit() { Id = m_mizUnit.Id };
 				m_mizBopUnit.MapMarker = m_dcsObject?.MapMarker ?? ToolsBriefop.GetDefaultMapMarker(ObjectClass);
 				m_mizBopUnit.SetDefaultData();
 				Miz.MizBopCustom.MizBopUnits.Add(m_mizBopUnit);
@@ -100,7 +108,12 @@ namespace DcsBriefop.DataBopMission
 			return Name;
 		}
 
-		public virtual string ToStringLocalisation()
+		public virtual string ToStringAdditionnal()
+		{
+			return "";
+		}
+
+		public virtual string ToStringCoordinate()
 		{
 			return Coordinate.ToStringLocalisation(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
 		}
