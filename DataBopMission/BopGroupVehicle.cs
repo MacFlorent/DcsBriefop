@@ -17,7 +17,7 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region CTOR
-		public BopGroupVehicle(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, ElementDcsGroupType.Vehicle, ElementDcsObjectClass.Ground, mizGroup)
+		public BopGroupVehicle(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, ElementDcsGroupType.Vehicle, ElementGroupClass.Ground, mizGroup)
 		{
 			BopRouteTask routeTask = GetRouteTask(new List<string> { ElementRouteTask.Fac, ElementRouteTask.FacEngageGroup, ElementRouteTask.FacAttackGroup }, null);
 			if (routeTask is BopRouteTaskFac routeTaskFac)

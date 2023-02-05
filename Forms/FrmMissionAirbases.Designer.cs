@@ -1,6 +1,6 @@
 ﻿namespace DcsBriefop.Forms
 {
-	partial class FrmMissionGroups
+	partial class FrmMissionAirbases
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,13 +28,26 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.DgvAirbases = new Zuby.ADGV.AdvancedDataGridView();
 			this.ScMain = new System.Windows.Forms.SplitContainer();
-			this.DgvGroups = new Zuby.ADGV.AdvancedDataGridView();
+			((System.ComponentModel.ISupportInitialize)(this.DgvAirbases)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.ScMain)).BeginInit();
 			this.ScMain.Panel1.SuspendLayout();
 			this.ScMain.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DgvGroups)).BeginInit();
 			this.SuspendLayout();
+			// 
+			// DgvAirbases
+			// 
+			this.DgvAirbases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.DgvAirbases.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.DgvAirbases.FilterAndSortEnabled = true;
+			this.DgvAirbases.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
+			this.DgvAirbases.Location = new System.Drawing.Point(0, 0);
+			this.DgvAirbases.Name = "DgvAirbases";
+			this.DgvAirbases.RightToLeft = System.Windows.Forms.RightToLeft.No;
+			this.DgvAirbases.Size = new System.Drawing.Size(798, 153);
+			this.DgvAirbases.SortStringChangedInvokeBeforeDatasourceUpdate = true;
+			this.DgvAirbases.TabIndex = 0;
 			// 
 			// ScMain
 			// 
@@ -46,47 +59,33 @@
 			// 
 			// ScMain.Panel1
 			// 
-			this.ScMain.Panel1.Controls.Add(this.DgvGroups);
-			this.ScMain.Size = new System.Drawing.Size(976, 792);
-			this.ScMain.SplitterDistance = 274;
-			this.ScMain.TabIndex = 0;
+			this.ScMain.Panel1.Controls.Add(this.DgvAirbases);
+			this.ScMain.Size = new System.Drawing.Size(800, 450);
+			this.ScMain.SplitterDistance = 155;
+			this.ScMain.TabIndex = 1;
 			// 
-			// DgvGroups
-			// 
-			this.DgvGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DgvGroups.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.DgvGroups.FilterAndSortEnabled = true;
-			this.DgvGroups.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.DgvGroups.Location = new System.Drawing.Point(0, 0);
-			this.DgvGroups.Name = "DgvGroups";
-			this.DgvGroups.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.DgvGroups.Size = new System.Drawing.Size(974, 272);
-			this.DgvGroups.SortStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.DgvGroups.TabIndex = 0;
-			// 
-			// FrmMissionGroups
+			// FrmMissionAirbases
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(976, 792);
+			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this.ScMain);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-			this.Name = "FrmMissionGroups";
+			this.Name = "FrmMissionAirbases";
 			this.ShowInTaskbar = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Mission groups";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMissionGroups_FormClosed);
+			this.Text = "Mission airbases";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMissionAirbases_FormClosed);
+			((System.ComponentModel.ISupportInitialize)(this.DgvAirbases)).EndInit();
 			this.ScMain.Panel1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.ScMain)).EndInit();
 			this.ScMain.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.DgvGroups)).EndInit();
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
+		private Zuby.ADGV.AdvancedDataGridView DgvAirbases;
 		private System.Windows.Forms.SplitContainer ScMain;
-		private Zuby.ADGV.AdvancedDataGridView DgvGroups;
 	}
 }

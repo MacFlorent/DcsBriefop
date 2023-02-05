@@ -34,23 +34,23 @@ namespace DcsBriefop.Data
 
 		static MasterDataRepository()
 		{
-			m_repository.Add(MasterDataType.AssetMapDisplay, BuildListAssetMapDisplay());
+			//m_repository.Add(MasterDataType.AssetMapDisplay, BuildListAssetMapDisplay());
 			m_repository.Add(MasterDataType.RadioModulation, BuildListRadioModulation());
 			m_repository.Add(MasterDataType.ComPresetMode, BuildListComPresetMode());
 			m_repository.Add(MasterDataType.WeatherDisplay, BuildListWeatherDisplay());
 			m_repository.Add(MasterDataType.CoordinateDisplay, BuildListCoordinateDisplay());
 		}
 
-		private static List<MasterData> BuildListAssetMapDisplay()
-		{
-			return new List<MasterData>()
-			{
-				new MasterData() { Id = (int)ElementAssetMapDisplay.None, Label = "None" },
-				new MasterData() { Id = (int)ElementAssetMapDisplay.Point, Label = "Point" },
-				new MasterData() { Id = (int)ElementAssetMapDisplay.Orbit, Label = "Orbit" },
-				new MasterData() { Id = (int)ElementAssetMapDisplay.FullRoute, Label = "Full route" }
-			};
-		}
+		//private static List<MasterData> BuildListAssetMapDisplay()
+		//{
+		//	return new List<MasterData>()
+		//	{
+		//		new MasterData() { Id = (int)ElementAssetMapDisplay.None, Label = "None" },
+		//		new MasterData() { Id = (int)ElementAssetMapDisplay.Point, Label = "Point" },
+		//		new MasterData() { Id = (int)ElementAssetMapDisplay.Orbit, Label = "Orbit" },
+		//		new MasterData() { Id = (int)ElementAssetMapDisplay.FullRoute, Label = "Full route" }
+		//	};
+		//}
 
 		private static List<MasterData> BuildListRadioModulation()
 		{

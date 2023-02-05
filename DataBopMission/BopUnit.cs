@@ -4,10 +4,9 @@ using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
-using System;
 using System.Drawing;
 using System.Linq;
-using System.Text;
+using System.Runtime.CompilerServices;
 using UnitsNet.Units;
 
 namespace DcsBriefop.DataBopMission
@@ -21,11 +20,12 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Properties
-		public ElementDcsObjectClass ObjectClass { get; set; }
+		public ElementGroupClass GroupClass { get; set; }
 		public ElementDcsObjectAttribute Attributes { get; set; }
 		public BopGroup BopGroup { get; private set; }
 
 		public int Id { get; set; }
+		public string Category { get; set; }
 		public string Name { get; set; }
 		public string Type { get; set; }
 		public bool Playable { get; set; }
@@ -33,6 +33,8 @@ namespace DcsBriefop.DataBopMission
 		public decimal? AltitudeFeet { get; set; }
 		public Coordinate Coordinate { get; set; }
 		public string MapMarker { get; set; }
+		public Radio HeliportRadio { get; set; }
+		public BopCallsign HeliportCallsign { get; set; }
 		#endregion
 
 		#region CTOR
@@ -40,12 +42,12 @@ namespace DcsBriefop.DataBopMission
 		{
 			BopGroup = bopGroup;
 			m_mizUnit = mizUnit;
-			ObjectClass = BopGroup.ObjectClass;
+			GroupClass = BopGroup.GroupClass;
 			m_dcsObject = DcsObjectManager.GetObject(m_mizUnit.Type);
 			
 			if (m_dcsObject is object)
 			{
-				ObjectClass = m_dcsObject.ObjectClass;
+				GroupClass = m_dcsObject.GroupClass;
 				Attributes = m_dcsObject.Attributes;
 				MainInGroup = m_dcsObject.MainInGroup;
 			}
@@ -53,11 +55,15 @@ namespace DcsBriefop.DataBopMission
 			InitializeMizBopCustom();
 
 			Id = m_mizUnit.Id;
+			Category = m_mizUnit.Category;
 			Name = m_mizUnit.Name;
 			Type = m_mizUnit.Type;
 			Playable = (m_mizUnit.Skill == ElementSkill.Player || m_mizUnit.Skill == ElementSkill.Client);
-			
 			MapMarker = m_mizBopUnit.MapMarker;
+
+			if (m_mizUnit.HeliportFrequency is object)
+				HeliportRadio = new Radio(m_mizUnit.HeliportFrequency.Value, m_mizUnit.HeliportModulation ?? ElementRadioModulation.AM);
+			HeliportCallsign = BopCallsign.NewFromHeliportId(m_mizUnit.HeliportCallsignId);
 		}
 		#endregion
 
@@ -67,6 +73,7 @@ namespace DcsBriefop.DataBopMission
 			base.ToMiz();
 
 			m_mizUnit.Id = Id;
+			m_mizUnit.Category = Category;
 			m_mizUnit.Name = Name;
 			m_mizUnit.Type = Type;
 			m_mizBopUnit.MapMarker = MapMarker;
@@ -90,7 +97,7 @@ namespace DcsBriefop.DataBopMission
 			if (m_mizBopUnit is null)
 			{
 				m_mizBopUnit = new MizBopUnit() { Id = m_mizUnit.Id };
-				m_mizBopUnit.MapMarker = m_dcsObject?.MapMarker ?? ToolsBriefop.GetDefaultMapMarker(ObjectClass);
+				m_mizBopUnit.MapMarker = m_dcsObject?.MapMarker ?? ToolsBriefop.GetDefaultMapMarker(GroupClass);
 				m_mizBopUnit.SetDefaultData();
 				Miz.MizBopCustom.MizBopUnits.Add(m_mizBopUnit);
 			}
@@ -105,7 +112,10 @@ namespace DcsBriefop.DataBopMission
 
 		public virtual string ToStringDisplayName()
 		{
-			return Name;
+			if (HeliportCallsign is object)
+				return $"{HeliportCallsign} | {Name}";
+			else
+				return Name;
 		}
 
 		public virtual string ToStringAdditionnal()

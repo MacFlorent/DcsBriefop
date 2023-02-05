@@ -49,7 +49,7 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Country, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.DisplayName, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.GroupType, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.ObjectClass, typeof(ElementDcsObjectClass));
+			m_dtSource.Columns.Add(GridColumn.ObjectClass, typeof(ElementGroupClass));
 			m_dtSource.Columns.Add(GridColumn.Type, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Attributes, typeof(ElementDcsObjectAttribute));
 			m_dtSource.Columns.Add(GridColumn.Playable, typeof(bool));
@@ -74,7 +74,7 @@ namespace DcsBriefop.Forms
 			dr.SetField(GridColumn.Country, bopGroup.CountryName);
 			dr.SetField(GridColumn.DisplayName, bopGroup.ToStringDisplayName());
 			dr.SetField(GridColumn.GroupType, bopGroup.DcsGroupType);
-			dr.SetField(GridColumn.ObjectClass, bopGroup.ObjectClass);
+			dr.SetField(GridColumn.ObjectClass, bopGroup.GroupClass);
 			dr.SetField(GridColumn.Type, bopGroup.Type);
 			dr.SetField(GridColumn.Attributes, bopGroup.Attributes);
 			dr.SetField(GridColumn.Playable, bopGroup.Playable);
@@ -92,7 +92,7 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns[GridColumn.Data].Visible = false;
 		}
 
-		public IEnumerable<BopGroup> GetSelectedBopGroups()
+		public IEnumerable<BopGroup> GetSelected()
 		{
 			return GetSelectedDataRows().Select(_dr => _dr.Field<BopGroup>(GridColumn.Data)).ToList();
 		}
@@ -124,16 +124,16 @@ namespace DcsBriefop.Forms
 
 		protected override void SelectionChanged()
 		{
-			SelectionChangedBopGroups?.Invoke(this, new EventArgsBopGroup() { BopGroups = GetSelectedBopGroups() });
+			SelectionChangedTyped?.Invoke(this, new EventArgsBopGroups() { BopGroups = GetSelected() });
 		}
 		#endregion
 
 		#region Events
-		public class EventArgsBopGroup : EventArgs
+		public class EventArgsBopGroups : EventArgs
 		{
 			public IEnumerable<BopGroup> BopGroups { get; set; }
 		}
-		public event EventHandler<EventArgsBopGroup> SelectionChangedBopGroups;
+		public event EventHandler<EventArgsBopGroups> SelectionChangedTyped;
 		#endregion
 	}
 }

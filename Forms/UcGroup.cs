@@ -55,13 +55,8 @@ namespace DcsBriefop.Forms
 			TcDetails.AddTab("Route", m_ucGroupRoutePoints);
 			TcDetails.SelectedIndexChanged += TcDetails_SelectedIndexChanged;
 
+			MapControl.InitializeMapControl();
 			MapControl.MapProvider = GMapProviders.TryGetProvider(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.DefaultProvider);
-			GMaps.Instance.Mode = AccessMode.ServerOnly;
-			MapControl.ShowCenter = false;
-			//MapControl.Position = new PointLatLng(26.1702778, 56.24);
-			MapControl.MinZoom = ElementMapValue.MinZoom;
-			MapControl.MaxZoom = ElementMapValue.MaxZoom;
-			MapControl.Zoom = PreferencesManager.Preferences.Map.DefaultZoom;
 		}
 		#endregion
 
@@ -72,7 +67,7 @@ namespace DcsBriefop.Forms
 
 			LbCoalition.Text = $"{m_bopGroup.CoalitionName} | {m_bopGroup.CountryName}";
 			LbCoalition.BackColor = ToolsBriefop.GetCoalitionColor(m_bopGroup.CoalitionName);
-			LbClass.Text = $"{m_bopGroup.ObjectClass} | {m_bopGroup.DcsGroupType}";
+			LbClass.Text = $"{m_bopGroup.GroupClass} | {m_bopGroup.DcsGroupType}";
 			LbDisplayName.Text = m_bopGroup.ToStringDisplayName();
 
 			m_ucGroupInformation.DataToScreen();

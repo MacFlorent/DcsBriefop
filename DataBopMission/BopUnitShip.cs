@@ -33,9 +33,6 @@ namespace DcsBriefop.DataBopMission
 		public override void ToMiz()
 		{
 			base.ToMiz();
-
-			m_mizUnit.RadioFrequency = Radio?.Frequency;
-			m_mizUnit.RadioModulation = Radio?.Modulation;
 		}
 		#endregion
 

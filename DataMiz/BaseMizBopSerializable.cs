@@ -9,9 +9,9 @@ namespace DcsBriefop.DataMiz
 		protected static JsonConverter m_converterGMarkerBriefop = new GMarkerBriefopJsonConverter();
 		protected static JsonConverter m_listMizBopGroupJsonConverter = new ListMizBopGroupJsonConverter();
 		protected static JsonConverter m_listMizBopUnitJsonConverter = new ListMizBopUnitJsonConverter();
-		//protected static JsonConverter m_listBopCustomAirdromeJsonConverter = new ListBopCustomAirdromeJsonConverter();
+		protected static JsonConverter m_listMizBopAirbaseJsonConverter = new ListMizBopAirbaseJsonConverter();
 
-		protected static JsonConverter[] m_serializeConverters = new JsonConverter[] { m_converterGMapOverlays, m_converterGMarkerBriefop, m_listMizBopGroupJsonConverter, m_listMizBopUnitJsonConverter };
+		protected static JsonConverter[] m_serializeConverters = new JsonConverter[] { m_converterGMapOverlays, m_converterGMarkerBriefop, m_listMizBopGroupJsonConverter, m_listMizBopUnitJsonConverter, m_listMizBopAirbaseJsonConverter };
 		protected static JsonConverter[] m_deserializeConverters = new JsonConverter[] { m_converterGMapOverlays, m_converterGMarkerBriefop };
 		#endregion
 	}

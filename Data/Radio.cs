@@ -1,6 +1,12 @@
-﻿namespace DcsBriefop.Data
+﻿using DcsBriefop.DataMiz;
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
+
+namespace DcsBriefop.Data
 {
-	internal class Radio
+	internal class Radio : IEquatable<Radio>
 	{
 		#region Properties
 		public decimal Frequency { get; set; }
@@ -28,10 +34,39 @@
 			return $"{Frequency:###.00}{sModulation}";
 		}
 
-		public Radio GetCopy()
+		public static Radio NewFromString(string sRadio)
 		{
-			return new Radio(Frequency, Modulation);
+			Radio radio = null;
+			Regex regex = new Regex(@"^(?<freq>[0-9]+\.?[0-9]*)\s*(?<mod>[AaFf][Mm]).*");
+			Match match = regex.Match(sRadio);
+
+			if (match.Success)
+			{
+				string sFrequency = match.Groups["freq"].Value;
+				string sModulation = match.Groups["mod"].Value;
+
+				decimal? dFrequency = null;
+				if (decimal.TryParse(sFrequency, out decimal d))
+					dFrequency = d;
+				
+				int iModulation = ElementRadioModulation.AM;
+				if (string.Compare(sModulation, MasterDataRepository.GetById(MasterDataType.RadioModulation, ElementRadioModulation.FM)?.Label, true) == 0)
+					iModulation = ElementRadioModulation.FM;
+
+				if (dFrequency is object)
+				{
+					radio = new Radio(dFrequency.Value, iModulation);
+					radio.Normalize();
+				}
+			}
+
+			return radio;
 		}
+
+		//public Radio GetCopy()
+		//{
+		//	return new Radio(Frequency, Modulation);
+		//}
 
 		public void Normalize()
 		{
@@ -66,22 +101,21 @@
 			else if (Frequency >= 225m)
 				Modulation = ElementRadioModulation.AM;
 		}
-		#endregion
-	}
-
-	internal class Tacan
-	{
-		public int Channel { get; set; }
-		public string Mode { get; set; }
-		public string Identifier { get; set; }
-
-		public override string ToString()
+		
+		public bool Equals(Radio other)
 		{
-			string sIdentifier = "";
-			if (!string.IsNullOrEmpty(Identifier))
-				sIdentifier = $" [{Identifier}]";
+			if (other is null)
+				return false;
 
-			return $"{Channel}{Mode}{sIdentifier}";
+			return (Frequency == other.Frequency && Modulation == other.Modulation);
 		}
+
+		public override bool Equals(object obj)
+		{
+			return Equals(obj as Radio);
+		}
+
+		public override int GetHashCode() => (Frequency, Modulation).GetHashCode();
+		#endregion
 	}
 }

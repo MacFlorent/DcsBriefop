@@ -20,7 +20,7 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region CTOR
-		public BopGroupFlight(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, ElementDcsGroupType.Flight, ElementDcsObjectClass.Air, mizGroup)
+		public BopGroupFlight(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, ElementDcsGroupType.Flight, ElementGroupClass.Air, mizGroup)
 		{
 			Callsign = Units.OfType<BopUnitFlight>().FirstOrDefault()?.Callsign.CloneJson();
 			Callsign.Element = null;

@@ -1,17 +1,13 @@
-﻿using CommandLine;
-using CoordinateSharp;
+﻿using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using UnitsNet.Units;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -24,7 +20,7 @@ namespace DcsBriefop.DataBopMission
 
 		#region Properties
 		public string DcsGroupType { get; protected set; }
-		public ElementDcsObjectClass ObjectClass { get; protected set; }
+		public ElementGroupClass GroupClass { get; protected set; }
 		public ElementDcsObjectAttribute Attributes { get; protected set; }
 		public string CoalitionName { get; protected set; }
 		public string CountryName { get; protected set; }
@@ -44,12 +40,12 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region CTOR
-		public BopGroup(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, string sDcsGroupType, ElementDcsObjectClass objectClass, MizGroup mizGroup) : base(miz, theatre)
+		public BopGroup(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, string sDcsGroupType, ElementGroupClass groupClass, MizGroup mizGroup) : base(miz, theatre)
 		{
 			CoalitionName = sCoalitionName;
 			CountryName = sCountryName;
 			DcsGroupType = sDcsGroupType;
-			ObjectClass = objectClass;
+			GroupClass = groupClass;
 			m_mizGroup = mizGroup;
 			InitializeMizBopCustom();
 
@@ -77,7 +73,7 @@ namespace DcsBriefop.DataBopMission
 			FromMizUnits();
 
 			Playable = m_mizGroup.Units.Where(_u => _u.Skill == ElementSkill.Player || _u.Skill == ElementSkill.Client).Any();
-			ObjectClass = MainUnit?.ObjectClass ?? ObjectClass;
+			GroupClass = MainUnit?.GroupClass ?? GroupClass;
 			Attributes = Units.Aggregate<BopUnit, ElementDcsObjectAttribute>(0, (currentAttributes, _bopUnit) => currentAttributes | _bopUnit.Attributes);
 			Type = string.Join(",", Units.GroupBy(_u => _u.Type).Select(_g => _g.Key));
 			MapMarker = m_mizBopGroup?.MapMarker ?? MainUnit.MapMarker;
@@ -165,7 +161,6 @@ namespace DcsBriefop.DataBopMission
 		public virtual string ToStringCoordinate()
 		{
 			return Coordinate.ToStringLocalisation(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
-
 		}
 
 		public BopRouteTask GetRouteTask(IEnumerable<string> sTaskIds, int? iUnitId)

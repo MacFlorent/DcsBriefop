@@ -228,6 +228,7 @@
 			this.Controls.Add(this.LbSortie);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.Name = "FrmMissionInformations";
+			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Mission informations";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMissionInformations_FormClosed);

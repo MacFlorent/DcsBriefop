@@ -26,7 +26,7 @@ namespace DcsBriefop.Forms
 
 			m_gridManagerUnits = new GridManagerUnits(DgvUnits, m_bopGroup.Units);
 			m_gridManagerUnits.ColumnsDisplayed = GridManagerUnits.ColumnsDisplayedGroup;
-			m_gridManagerUnits.SelectionChangedBopUnits += SelectionChangedBopUnitsEvent;
+			m_gridManagerUnits.SelectionChangedTyped += SelectionChangedTypedEvent;
 
 			DataToScreen();
 		}
@@ -42,7 +42,7 @@ namespace DcsBriefop.Forms
 
 		private void DataToScreenDetail()
 		{
-			IEnumerable<BopUnit> selectedBopUnits = m_gridManagerUnits.GetSelectedBopUnits();
+			IEnumerable<BopUnit> selectedBopUnits = m_gridManagerUnits.GetSelected();
 			if (selectedBopUnits.Count() == 1)
 			{
 				BopUnit selectedBopUnit = selectedBopUnits.First();
@@ -73,7 +73,7 @@ namespace DcsBriefop.Forms
 
 		public override void DataToScreenMap()
 		{
-			BopUnit selectedBopUnit = m_gridManagerUnits.GetSelectedBopUnits().FirstOrDefault();
+			BopUnit selectedBopUnit = m_gridManagerUnits.GetSelected().FirstOrDefault();
 			Coordinate coordinate = selectedBopUnit?.Coordinate ?? m_bopGroup.Coordinate;
 			m_mapControl.Overlays.Clear();
 			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayUnits(selectedBopUnit?.Id));
@@ -94,7 +94,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
-		private void SelectionChangedBopUnitsEvent(object sender, GridManagerUnits.EventArgsBopUnit e)
+		private void SelectionChangedTypedEvent(object sender, GridManagerUnits.EventArgsBopUnits e)
 		{
 			ScreenToDataDetail();
 			DataToScreenMap();

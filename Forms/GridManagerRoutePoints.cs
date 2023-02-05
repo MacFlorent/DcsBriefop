@@ -87,7 +87,7 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns[GridColumn.AltitudeFeet].HeaderText = "Altitude (ft)";
 		}
 
-		public IEnumerable<BopRoutePoint> GetSelectedBopRoutePoints()
+		public IEnumerable<BopRoutePoint> GetSelected()
 		{
 			return GetSelectedDataRows().Select(_dr => _dr.Field<BopRoutePoint>(GridColumn.Data)).ToList();
 		}
@@ -100,16 +100,16 @@ namespace DcsBriefop.Forms
 
 		protected override void SelectionChanged()
 		{
-			SelectionChangedBopRoutePoints?.Invoke(this, new EventArgsBopRoutePoint() { BopRoutePoints = GetSelectedBopRoutePoints() });
+			SelectionChangedTyped?.Invoke(this, new EventArgsBopRoutePoints() { BopRoutePoints = GetSelected() });
 		}
 		#endregion
 
 		#region Events
-		public class EventArgsBopRoutePoint : EventArgs
+		public class EventArgsBopRoutePoints : EventArgs
 		{
 			public IEnumerable<BopRoutePoint> BopRoutePoints { get; set; }
 		}
-		public event EventHandler<EventArgsBopRoutePoint> SelectionChangedBopRoutePoints;
+		public event EventHandler<EventArgsBopRoutePoints> SelectionChangedTyped;
 		#endregion
 	}
 }

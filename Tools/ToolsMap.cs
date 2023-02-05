@@ -15,13 +15,26 @@ namespace DcsBriefop.Tools
 {
 	internal static class ToolsMap
 	{
-		#region Miscellaneous
+		#region MapControl
+		public static void InitializeMapControl(this GMapControl mapControl)
+		{
+			mapControl.MapProvider = GMapProviders.TryGetProvider(PreferencesManager.Preferences.Map.DefaultProvider);
+			GMaps.Instance.Mode = AccessMode.ServerOnly;
+			mapControl.ShowCenter = false;
+			//MapControl.Position = new PointLatLng(26.1702778, 56.24);
+			mapControl.MinZoom = ElementMapValue.MinZoom;
+			mapControl.MaxZoom = ElementMapValue.MaxZoom;
+			mapControl.Zoom = PreferencesManager.Preferences.Map.DefaultZoom;
+		}
+
 		public static void ForceRefresh(this GMapControl mapControl)
 		{
 			mapControl.Refresh();
 			mapControl.Zoom += 1; mapControl.Zoom -= 1;
 		}
+		#endregion
 
+		#region Miscellaneous
 		public static RectLatLng? GetRectOfPoints(List<PointLatLng> points)
 		{
 			RectLatLng? rect = null;

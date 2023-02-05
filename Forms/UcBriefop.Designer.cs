@@ -33,7 +33,7 @@
 			this.LbSortie = new System.Windows.Forms.Label();
 			this.LbTheatre = new System.Windows.Forms.Label();
 			this.BtComs = new System.Windows.Forms.Button();
-			this.BtMissionAirdromes = new System.Windows.Forms.Button();
+			this.BtMissionAirbases = new System.Windows.Forms.Button();
 			this.BtMissionGroups = new System.Windows.Forms.Button();
 			this.BtMissionMaps = new System.Windows.Forms.Button();
 			this.BtMissionInformations = new System.Windows.Forms.Button();
@@ -56,7 +56,7 @@
 			this.PnMission.Controls.Add(this.LbSortie);
 			this.PnMission.Controls.Add(this.LbTheatre);
 			this.PnMission.Controls.Add(this.BtComs);
-			this.PnMission.Controls.Add(this.BtMissionAirdromes);
+			this.PnMission.Controls.Add(this.BtMissionAirbases);
 			this.PnMission.Controls.Add(this.BtMissionGroups);
 			this.PnMission.Controls.Add(this.BtMissionMaps);
 			this.PnMission.Controls.Add(this.BtMissionInformations);
@@ -100,21 +100,22 @@
 			// 
 			// BtComs
 			// 
-			this.BtComs.Location = new System.Drawing.Point(556, 125);
+			this.BtComs.Location = new System.Drawing.Point(547, 125);
 			this.BtComs.Name = "BtComs";
 			this.BtComs.Size = new System.Drawing.Size(75, 23);
 			this.BtComs.TabIndex = 7;
 			this.BtComs.Text = "Coms";
 			this.BtComs.UseVisualStyleBackColor = true;
 			// 
-			// BtMissionAirdromes
+			// BtMissionAirbases
 			// 
-			this.BtMissionAirdromes.Location = new System.Drawing.Point(304, 125);
-			this.BtMissionAirdromes.Name = "BtMissionAirdromes";
-			this.BtMissionAirdromes.Size = new System.Drawing.Size(75, 23);
-			this.BtMissionAirdromes.TabIndex = 6;
-			this.BtMissionAirdromes.Text = "Airdromes";
-			this.BtMissionAirdromes.UseVisualStyleBackColor = true;
+			this.BtMissionAirbases.Location = new System.Drawing.Point(304, 125);
+			this.BtMissionAirbases.Name = "BtMissionAirbases";
+			this.BtMissionAirbases.Size = new System.Drawing.Size(75, 23);
+			this.BtMissionAirbases.TabIndex = 6;
+			this.BtMissionAirbases.Text = "Airbases";
+			this.BtMissionAirbases.UseVisualStyleBackColor = true;
+			this.BtMissionAirbases.Click += new System.EventHandler(this.BtMissionAirdromes_Click);
 			// 
 			// BtMissionGroups
 			// 
@@ -128,7 +129,7 @@
 			// 
 			// BtMissionMaps
 			// 
-			this.BtMissionMaps.Location = new System.Drawing.Point(475, 125);
+			this.BtMissionMaps.Location = new System.Drawing.Point(466, 125);
 			this.BtMissionMaps.Name = "BtMissionMaps";
 			this.BtMissionMaps.Size = new System.Drawing.Size(75, 23);
 			this.BtMissionMaps.TabIndex = 4;
@@ -214,7 +215,7 @@
 		private System.Windows.Forms.Button BtMissionInformations;
 		private System.Windows.Forms.Label LbMissionTitle;
 		private System.Windows.Forms.Label LbBriefingTitle;
-		private System.Windows.Forms.Button BtMissionAirdromes;
+		private System.Windows.Forms.Button BtMissionAirbases;
 		private System.Windows.Forms.Button BtComs;
 		private System.Windows.Forms.LinkLabel LbMissionDirectory;
 	}

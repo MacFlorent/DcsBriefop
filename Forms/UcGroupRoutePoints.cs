@@ -26,7 +26,7 @@ namespace DcsBriefop.Forms
 			InitializeComponent();
 
 			m_gridManagerRoutePoints = new GridManagerRoutePoints(DgvRoutePoints, m_bopGroup.MapPoints.OfType<BopRoutePoint>());
-			m_gridManagerRoutePoints.SelectionChangedBopRoutePoints += SelectionChangedBopRoutePointsEvent;
+			m_gridManagerRoutePoints.SelectionChangedTyped += SelectionChangedTypedEvent;
 
 			DataToScreen();
 
@@ -43,7 +43,7 @@ namespace DcsBriefop.Forms
 
 		private void DataToScreenDetail()
 		{
-			IEnumerable<BopRoutePoint> selectedBopRoutePoints = m_gridManagerRoutePoints.GetSelectedBopRoutePoints();
+			IEnumerable<BopRoutePoint> selectedBopRoutePoints = m_gridManagerRoutePoints.GetSelected();
 			if (selectedBopRoutePoints.Count() == 1)
 			{
 				BopRoutePoint selectedBopRoutePoint = selectedBopRoutePoints.First();
@@ -74,7 +74,7 @@ namespace DcsBriefop.Forms
 
 		public override void DataToScreenMap()
 		{
-			BopRoutePoint selectedBopRoutePoint = m_gridManagerRoutePoints.GetSelectedBopRoutePoints().FirstOrDefault();
+			BopRoutePoint selectedBopRoutePoint = m_gridManagerRoutePoints.GetSelected().FirstOrDefault();
 			Coordinate coordinate = selectedBopRoutePoint?.Coordinate ?? m_bopGroup.Coordinate;
 			m_mapControl.Overlays.Clear();
 			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayRoute(selectedBopRoutePoint?.Number, ElementMapOverlayRouteDisplay.PointLabelLight));
@@ -95,7 +95,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
-		private void SelectionChangedBopRoutePointsEvent(object sender, GridManagerRoutePoints.EventArgsBopRoutePoint e)
+		private void SelectionChangedTypedEvent(object sender, GridManagerRoutePoints.EventArgsBopRoutePoints e)
 		{
 			ScreenToDataDetail();
 			DataToScreenMap();

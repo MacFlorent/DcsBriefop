@@ -1,7 +1,9 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Tools;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -9,6 +11,7 @@ namespace DcsBriefop.DataBopMission
 	{
 		#region Fields
 		private static Dictionary<int, string> m_callsignsJtac;// TODO replace by a json resource
+		private static Dictionary<int, string> m_callsignsHeliport;// TODO replace by a json resource
 		#endregion
 
 		#region Properties
@@ -42,6 +45,19 @@ namespace DcsBriefop.DataBopMission
 			m_callsignsJtac.Add(++i, "Firefly");
 			m_callsignsJtac.Add(++i, "Mantis");
 			m_callsignsJtac.Add(++i, "Badger");
+
+			m_callsignsHeliport = new Dictionary<int, string>();
+			i = 0;
+			m_callsignsHeliport.Add(++i, "London");
+			m_callsignsHeliport.Add(++i, "Dallas");
+			m_callsignsHeliport.Add(++i, "Paris");
+			m_callsignsHeliport.Add(++i, "Moscow");
+			m_callsignsHeliport.Add(++i, "Berlin");
+			m_callsignsHeliport.Add(++i, "Rome");
+			m_callsignsHeliport.Add(++i, "Madrid");
+			m_callsignsHeliport.Add(++i, "Warsaw");
+			m_callsignsHeliport.Add(++i, "Dublin");
+			m_callsignsHeliport.Add(++i, "Perth");
 		}
 
 		public BopCallsign() { }
@@ -88,6 +104,19 @@ namespace DcsBriefop.DataBopMission
 			return bopCallsign;
 		}
 
+		public static BopCallsign NewFromHeliportId(int? iCallsignId)
+		{
+			BopCallsign bopCallsign = null;
+			if (iCallsignId is object)
+			{
+				bopCallsign = new BopCallsign()
+				{
+					Name = GetCallsignFromHeliportId(iCallsignId),
+				};
+			}
+
+			return bopCallsign;
+		}
 		#endregion
 
 		#region Methods
@@ -98,9 +127,13 @@ namespace DcsBriefop.DataBopMission
 				sCallsign = Number.ToString();
 			else
 			{
-				sCallsign = $"{Name}-{Group}";
+				StringBuilder sb = new StringBuilder(Name);
+				if (Group is object)
+					sb.AppendWithSeparator(Group.ToString(), "-");
 				if (Element is object)
-					sCallsign = $"{sCallsign}-{Element}";
+					sb.AppendWithSeparator(Element.ToString(), "-");
+
+				sCallsign = sb.ToString();
 			}
 
 			return sCallsign;
@@ -114,6 +147,21 @@ namespace DcsBriefop.DataBopMission
 			{
 				if (m_callsignsJtac.ContainsKey(iCallsignId.Value))
 					sCallsign = m_callsignsJtac[iCallsignId.Value];
+				else
+					sCallsign = $"{iCallsignId.Value}";
+			}
+
+			return sCallsign;
+		}
+
+		private static string GetCallsignFromHeliportId(int? iCallsignId)
+		{
+			string sCallsign = null;
+
+			if (iCallsignId is object)
+			{
+				if (m_callsignsHeliport.ContainsKey(iCallsignId.Value))
+					sCallsign = m_callsignsHeliport[iCallsignId.Value];
 				else
 					sCallsign = $"{iCallsignId.Value}";
 			}

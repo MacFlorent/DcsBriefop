@@ -44,6 +44,7 @@ namespace DcsBriefop.Forms
 			InitializeDataSource();
 			SetDataSource();
 			PostInitializeColumns();
+			RefreshGridRows();
 			InitializeContextMenu();
 		}
 
@@ -98,6 +99,15 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns.Add(dgvcComboBox);
 		}
 
+		protected void RefreshGridRows()
+		{
+			foreach (DataGridViewRow dgvr in m_dgv.Rows)
+				RefreshGridRow(dgvr);
+		}
+
+		protected virtual void RefreshGridRow(DataGridViewRow dgvr) { }
+
+
 		protected IEnumerable<DataGridViewRow> GetSelectedRows()
 		{
 			return m_dgv.SelectedCells.Cast<DataGridViewCell>().Select(_dgvc => _dgvc.OwningRow).Distinct();
@@ -128,20 +138,19 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
-		private void AddEvents()
+		protected virtual void AddEvents()
 		{
 			m_dgv.CellFormatting += CellFormattingEvent;
 			m_dgv.MouseDown += MouseDownEvent;
 			m_dgv.SelectionChanged += SelectionChangedEvent;
 		}
 
-		private void RemoveEvents()
+		protected virtual void RemoveEvents()
 		{
 			m_dgv.CellFormatting -= CellFormattingEvent;
 			m_dgv.MouseDown -= MouseDownEvent;
 			m_dgv.SelectionChanged -= SelectionChangedEvent;
 		}
-
 
 		private void CellFormattingEvent(object sender, DataGridViewCellFormattingEventArgs e)
 		{

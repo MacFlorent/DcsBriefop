@@ -161,25 +161,25 @@ namespace DcsBriefop
 		}
 	}
 
-	//internal class ListBopCustomAirdromeJsonConverter : JsonConverter<List<BopCustomCoalitionAirdrome>>
-	//{
-	//	public override void WriteJson(JsonWriter writer, List<BopCustomCoalitionAirdrome> value, JsonSerializer serializer)
-	//	{
-	//		if (value is object && value.Count >= 0)
-	//		{
-	//			JArray ja = new JArray();
-	//			foreach (BopCustomCoalitionAirdrome customDataAsset in value.Where(_a => !_a.IsDefaultData()))
-	//			{
-	//				ja.Add(JToken.FromObject(customDataAsset, serializer));
-	//			}
+	internal class ListMizBopAirbaseJsonConverter : JsonConverter<List<MizBopAirbase>>
+	{
+		public override void WriteJson(JsonWriter writer, List<MizBopAirbase> value, JsonSerializer serializer)
+		{
+			if (value is object && value.Count >= 0)
+			{
+				JArray ja = new JArray();
+				foreach (MizBopAirbase element in value.Where(_a => !_a.IsDefaultData()))
+				{
+					ja.Add(JToken.FromObject(element, serializer));
+				}
 
-	//			ja.WriteTo(writer);
-	//		}
-	//	}
+				ja.WriteTo(writer);
+			}
+		}
 
-	//	public override List<BopCustomCoalitionAirdrome> ReadJson(JsonReader reader, Type objectType, List<BopCustomCoalitionAirdrome> existingValue, bool hasExistingValue, JsonSerializer serializer)
-	//	{
-	//		throw new NotImplementedException();
-	//	}
-	//}
+		public override List<MizBopAirbase> ReadJson(JsonReader reader, Type objectType, List<MizBopAirbase> existingValue, bool hasExistingValue, JsonSerializer serializer)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

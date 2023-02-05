@@ -10,14 +10,6 @@ using System.Linq;
 namespace DcsBriefop.Data
 {
 	#region Elements
-	internal enum ElementDcsObjectClass
-	{
-		None,
-		Air,
-		Ground,
-		Sea,
-	}
-
 	internal static class ElementDcsGroupType
 	{
 		public static readonly string Flight = "Flight";
@@ -25,6 +17,7 @@ namespace DcsBriefop.Data
 		public static readonly string Vehicle = "Vehicle";
 		public static readonly string Static = "Static";
 	}
+
 	[Flags]
 	internal enum ElementDcsObjectAttribute
 	{
@@ -57,7 +50,7 @@ namespace DcsBriefop.Data
 		#region Properties
 		public string TypeName { get; private set; }
 
-		public ElementDcsObjectClass ObjectClass { get; private set; }
+		public ElementGroupClass GroupClass { get; private set; }
 		public ElementDcsObjectAttribute Attributes { get; private set; }
 
 		public string DisplayName
@@ -117,11 +110,11 @@ namespace DcsBriefop.Data
 			m_lsonRawAttributes.Add(sLsonAttribute);
 
 			if (sLsonAttribute == "Ground Units")
-				ObjectClass = ElementDcsObjectClass.Ground;
+				GroupClass = ElementGroupClass.Ground;
 			else if (sLsonAttribute == "Naval")
-				ObjectClass = ElementDcsObjectClass.Sea;
+				GroupClass = ElementGroupClass.Sea;
 			if (sLsonAttribute == "Air")
-				ObjectClass = ElementDcsObjectClass.Air;
+				GroupClass = ElementGroupClass.Air;
 
 			if (sLsonAttribute == "AircraftCarrier")
 				Attributes |= ElementDcsObjectAttribute.AircraftCarrier;
@@ -189,11 +182,11 @@ namespace DcsBriefop.Data
 			if ((Attributes & ElementDcsObjectAttribute.Helicopters) != 0)
 				return ElementMapTemplateMarker.Helicopter;
 
-			if (ObjectClass == ElementDcsObjectClass.Ground)
+			if (GroupClass == ElementGroupClass.Ground)
 				return ElementMapTemplateMarker.Ground;
-			if (ObjectClass == ElementDcsObjectClass.Sea)
+			if (GroupClass == ElementGroupClass.Sea)
 				return ElementMapTemplateMarker.Ship;
-			if (ObjectClass == ElementDcsObjectClass.Air)
+			if (GroupClass == ElementGroupClass.Air)
 				return ElementMapTemplateMarker.Aircraft;
 
 			return ElementMapTemplateMarker.DefaultMark;

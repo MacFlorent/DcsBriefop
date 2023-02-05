@@ -9,6 +9,7 @@ namespace DcsBriefop.DataMiz
 		private class LuaNode
 		{
 			public static readonly string Id = "unitId";
+			public static readonly string Category = "category";
 			public static readonly string Name = "name";
 			public static readonly string Type = "type";
 			public static readonly string Skill = "skill";
@@ -20,9 +21,13 @@ namespace DcsBriefop.DataMiz
 			public static readonly string RadioModulation = "modulation";
 			public static readonly string Callsign = "callsign";
 			public static readonly string OnboardNum = "onboard_num";
+			public static readonly string HeliportFrequency = "heliport_frequency";
+			public static readonly string HeliportModulation = "heliport_modulation";
+			public static readonly string HeliportCallsignId = "heliport_callsign_id";
 		}
 
 		public int Id { get; set; }
+		public string Category { get; set; }
 		public string Name { get; set; }
 		public string Type { get; set; }
 		public string Skill { get; set; }
@@ -35,6 +40,9 @@ namespace DcsBriefop.DataMiz
 		public int? CallsignNumber { get; set; }
 		public MizCallsign Callsign { get; set; }
 		public string OnboardNum { get; set; }
+		public decimal? HeliportFrequency { get; set; }
+		public int? HeliportModulation { get; set; }
+		public int? HeliportCallsignId { get; set; }
 
 		public MizUnit(LsonDict lsd) : base(lsd) { }
 
@@ -42,6 +50,7 @@ namespace DcsBriefop.DataMiz
 		{
 			Id = Lsd[LuaNode.Id].GetInt();
 			Name = Lsd[LuaNode.Name].GetString();
+			Category = Lsd.IfExistsString(LuaNode.Category);
 			Type = Lsd[LuaNode.Type].GetString();
 			Skill = Lsd.IfExistsString(LuaNode.Skill);
 			Y = Lsd[LuaNode.Y].GetDecimal();
@@ -70,6 +79,10 @@ namespace DcsBriefop.DataMiz
 					Radios[kvp.Key.GetInt()] = new MizRadio(kvp.Value.GetDict());
 				}
 			}
+
+			HeliportFrequency = Lsd.IfExistsDecimal(LuaNode.HeliportFrequency);
+			HeliportModulation = Lsd.IfExistsInt(LuaNode.HeliportModulation);
+			HeliportCallsignId = Lsd.IfExistsInt(LuaNode.HeliportCallsignId);
 		}
 
 		public override void ToLua()
@@ -95,6 +108,10 @@ namespace DcsBriefop.DataMiz
 					radio?.ToLua();
 				}
 			}
+
+			Lsd.SetIfExists(LuaNode.HeliportFrequency, HeliportFrequency);
+			Lsd.SetIfExists(LuaNode.HeliportModulation, HeliportModulation);
+			Lsd.SetIfExists(LuaNode.HeliportCallsignId, HeliportCallsignId);
 		}
 	}
 }

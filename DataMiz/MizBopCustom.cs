@@ -1,10 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
-using GMap.NET.MapProviders;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 
 namespace DcsBriefop.DataMiz
 {
@@ -16,9 +13,7 @@ namespace DcsBriefop.DataMiz
 		//public Preferences.PreferencesBriefing PreferencesBriefing { get; set; }
 		public MizBopMap MapData { get; set; } = new MizBopMap();	
 		public List<MizBopCoalition> MizBopCoalitions { get; private set; } = new List<MizBopCoalition>();
-		//public List<BopCustomAirdrome> BopCustomAirdromes { get; set; } = new List<BopCustomAirdrome>();
-
-		//public List<BriefopCustomGroup> AssetGroups { get; set; } = new List<BriefopCustomGroup>();
+		public List<MizBopAirbase> MizBopAirbases { get; set; } = new List<MizBopAirbase>();
 		public List<MizBopGroup> MizBopGroups { get; set; } = new List<MizBopGroup>();
 		public List<MizBopUnit> MizBopUnits { get; set; } = new List<MizBopUnit>();
 		#endregion

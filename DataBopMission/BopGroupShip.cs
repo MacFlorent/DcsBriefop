@@ -20,7 +20,7 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region CTOR
-		public BopGroupShip(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, ElementDcsGroupType.Ship, ElementDcsObjectClass.Sea, mizGroup)
+		public BopGroupShip(Miz miz, Theatre theatre, string sCoalitionName, string sCountryName, MizGroup mizGroup) : base(miz, theatre, sCoalitionName, sCountryName, ElementDcsGroupType.Ship, ElementGroupClass.Sea, mizGroup)
 		{
 			Radio = (MainUnit as BopUnitShip)?.Radio;
 

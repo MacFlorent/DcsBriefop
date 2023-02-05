@@ -3,6 +3,7 @@ using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -18,8 +19,8 @@ namespace DcsBriefop.DataBopMission
 		public MizBopMap MapData { get { return Miz.MizBopCustom.MapData; } }
 		public BopWeather Weather { get; private set; }
 		public Dictionary<string, BopCoalition> Coalitions { get; private set; }
+		public List<BopAirbase> Airbases { get; private set; }
 		public List<BopGroup> Groups { get; private set; }
-		//public List<BopAirdrome> Airdromes { get; private set; }
 
 		public PreferencesMission PreferencesMission { get { return Miz.MizBopCustom.PreferencesMission; } }
 		public PreferencesMap PreferencesMap { get { return Miz.MizBopCustom.PreferencesMap; } }
@@ -60,8 +61,24 @@ namespace DcsBriefop.DataBopMission
 					}
 					foreach (MizGroup mizGroup in mizCountry.GroupStatics)
 					{
-						Groups.Add(new BopGroup(Miz, Theatre, mizCoalition.Name, mizCountry.Name, ElementDcsGroupType.Static, ElementDcsObjectClass.None, mizGroup));
+						Groups.Add(new BopGroup(Miz, Theatre, mizCoalition.Name, mizCountry.Name, ElementDcsGroupType.Static, ElementGroupClass.None, mizGroup));
 					}
+				}
+			}
+
+			Airbases = new List<BopAirbase>();
+			foreach (Airdrome airdrome in Theatre.Airdromes)
+			{
+				Airbases.Add(new BopAirbaseAirdrome(Miz, Theatre, airdrome));
+			}
+			foreach (BopGroup bopGroup in Groups)
+			{
+				foreach(BopUnit bopUnit in bopGroup.Units)//.OfType<BopUnitShip>().Where(_u => (_u.Attributes & ElementDcsObjectAttribute.AircraftCarrier) != 0))
+				{
+					if (bopUnit is BopUnitShip bopUnitShip && (bopUnitShip.Attributes & ElementDcsObjectAttribute.AircraftCarrier) != 0)
+						Airbases.Add(new BopAirbaseShip(Miz, Theatre, bopUnitShip));
+					else if (bopUnit.Category == ElementUnitCategory.Heliport)
+						Airbases.Add(new BopAirbaseFarp(Miz, Theatre, bopUnit));
 				}
 			}
 		}
@@ -84,6 +101,10 @@ namespace DcsBriefop.DataBopMission
 			foreach (BopGroup bopGroup in Groups)
 			{
 				bopGroup.ToMiz();
+			}
+			foreach (BopAirbase bopAirbase in Airbases)
+			{
+				bopAirbase.ToMiz();
 			}
 		}
 		#endregion

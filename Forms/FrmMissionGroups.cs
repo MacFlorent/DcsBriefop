@@ -21,8 +21,8 @@ namespace DcsBriefop.Forms
 
 			InitializeComponent();
 
-			m_gridManagerGroups = new GridManagerGroups(DgvAssets, m_briefopManager.BopMission.Groups);
-			m_gridManagerGroups.SelectionChangedBopGroups += SelectionChangedBopGroupsEvent;
+			m_gridManagerGroups = new GridManagerGroups(DgvGroups, m_briefopManager.BopMission.Groups);
+			m_gridManagerGroups.SelectionChangedTyped += SelectionChangedTypedEvent;
 
 			DataToScreen();
 		}
@@ -38,17 +38,17 @@ namespace DcsBriefop.Forms
 		#region Methods
 		private void DataToScreen()
 		{
-			m_gridManagerGroups.SelectionChangedBopGroups -= SelectionChangedBopGroupsEvent;
+			m_gridManagerGroups.SelectionChangedTyped -= SelectionChangedTypedEvent;
 
 			m_gridManagerGroups.Initialize();
 			DataToScreenDetail();
 
-			m_gridManagerGroups.SelectionChangedBopGroups += SelectionChangedBopGroupsEvent;
+			m_gridManagerGroups.SelectionChangedTyped += SelectionChangedTypedEvent;
 		}
 
 		private void DataToScreenDetail()
 		{
-			IEnumerable<BopGroup> selectedBopGroups = m_gridManagerGroups.GetSelectedBopGroups();
+			IEnumerable<BopGroup> selectedBopGroups = m_gridManagerGroups.GetSelected();
 			if (selectedBopGroups.Count() == 1)
 			{
 				BopGroup selectedBopGroup = selectedBopGroups.First();
@@ -89,7 +89,7 @@ namespace DcsBriefop.Forms
 			ScreenToDataDetail();
 		}
 
-		private void SelectionChangedBopGroupsEvent(object sender, GridManagerGroups.EventArgsBopGroup e)
+		private void SelectionChangedTypedEvent(object sender, GridManagerGroups.EventArgsBopGroups e)
 		{
 			ScreenToDataDetail();
 			DataToScreenDetail();

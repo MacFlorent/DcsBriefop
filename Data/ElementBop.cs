@@ -3,12 +3,20 @@ using System.Drawing;
 
 namespace DcsBriefop.Data
 {
-	internal enum ElementAssetMapDisplay
+	//internal enum ElementAssetMapDisplay
+	//{
+	//	None = 0,
+	//	Point = 1,
+	//	Orbit = 2,
+	//	FullRoute = 3
+	//}
+
+	internal enum ElementGroupClass
 	{
-		None = 0,
-		Point = 1,
-		Orbit = 2,
-		FullRoute = 3
+		None,
+		Air,
+		Ground,
+		Sea,
 	}
 
 	internal enum ElementComPresetMode
@@ -33,13 +41,21 @@ namespace DcsBriefop.Data
 	}
 
 	[Flags]
-	public enum ElementMapOverlayRouteDisplay
+	internal enum ElementMapOverlayRouteDisplay
 	{
 		None = 0,
 		NoMarkerFirstPoint = 1,
 		PointLabelFull = 2,
 		PointLabelLight = 4,
 		RouteLabel = 8,
+	}
+
+	internal enum ElementAirbaseType
+	{
+		None = 0,
+		Airdrome = 1,
+		Ship = 2,
+		Farp = 3
 	}
 
 	internal static class ElementGlobalData

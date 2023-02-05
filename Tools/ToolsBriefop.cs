@@ -26,13 +26,13 @@ namespace DcsBriefop.Tools
 				return null;
 		}
 
-		public static string GetDefaultMapMarker(ElementDcsObjectClass objectClass)
+		public static string GetDefaultMapMarker(ElementGroupClass groupClass)
 		{
-			if (objectClass == ElementDcsObjectClass.Air)
+			if (groupClass == ElementGroupClass.Air)
 				return ElementMapTemplateMarker.Aircraft;
-			else if (objectClass == ElementDcsObjectClass.Sea)
+			else if (groupClass == ElementGroupClass.Sea)
 				return ElementMapTemplateMarker.Ship;
-			else if (objectClass == ElementDcsObjectClass.Ground)
+			else if (groupClass == ElementGroupClass.Ground)
 				return ElementMapTemplateMarker.Ground;
 			else
 				return ElementMapTemplateMarker.DefaultMark;

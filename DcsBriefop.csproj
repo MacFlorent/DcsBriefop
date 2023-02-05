@@ -161,6 +161,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBopMission\BaseBop.cs" />
+    <Compile Include="DataBopMission\BopAirbase.cs" />
+    <Compile Include="Data\Radio.cs" />
+    <Compile Include="Data\Tacan.cs" />
     <Compile Include="DataBopMission\BopRouteTask.cs" />
     <Compile Include="DataBopMission\BopGroupVehicle.cs" />
     <Compile Include="DataBopMission\BopGroupShip.cs" />
@@ -176,11 +179,10 @@
     <Compile Include="DataBopMission\BopWeather.cs" />
     <Compile Include="DataBopMission\BopCallsign.cs" />
     <Compile Include="DataMiz\BaseMizBopSerializable.cs" />
-    <Compile Include="DataMiz\BopCustomAsset.cs" />
     <Compile Include="DataMiz\MizBopGroup.cs" />
     <Compile Include="DataMiz\MizBopUnit.cs" />
     <Compile Include="DataMiz\MizBopCoalition.cs" />
-    <Compile Include="DataMiz\BopCustomCoalitionAirdrome.cs" />
+    <Compile Include="DataMiz\MizBopAirbase.cs" />
     <Compile Include="DataMiz\MizBopMap.cs" />
     <Compile Include="DataMiz\MizBopPreferences.cs" />
     <Compile Include="DataMiz\MizBopCustom.cs" />
@@ -196,6 +198,12 @@
     </Compile>
     <Compile Include="Forms\FrmMain.designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmMissionAirbases.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmMissionAirbases.Designer.cs">
+      <DependentUpon>FrmMissionAirbases.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmMissionGroups.cs">
       <SubType>Form</SubType>
@@ -225,6 +233,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\GridManager.cs" />
+    <Compile Include="Forms\GridManagerAirbases.cs" />
+    <Compile Include="Forms\GridManagerAirbaseRadios.cs" />
     <Compile Include="Forms\GridManagerRoutePoints.cs" />
     <Compile Include="Forms\GridManagerUnits.cs" />
     <Compile Include="Forms\GridManagerGroups.cs" />
@@ -289,12 +299,17 @@
     <Compile Include="Forms\UcUnit.Designer.cs">
       <DependentUpon>UcUnit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UcAirbase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UcAirbase.Designer.cs">
+      <DependentUpon>UcAirbase.cs</DependentUpon>
+    </Compile>
     <Compile Include="PreferencesManager.cs" />
     <Compile Include="Map\ConfigMapTemplateObjects.cs" />
     <Compile Include="Map\GTextBriefop.cs" />
     <Compile Include="Map\GRouteBriefop.cs" />
     <Compile Include="Map\MapTemplateRoute.cs" />
-    <Compile Include="Data\Radio.cs" />
     <Compile Include="HtmlBuilder\HtmlDocument.cs" />
     <Compile Include="DataMiz\MizCoalition.cs" />
     <Compile Include="DataMiz\MizCountry.cs" />
@@ -344,6 +359,9 @@
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmMissionAirbases.resx">
+      <DependentUpon>FrmMissionAirbases.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmMissionGroups.resx">
       <DependentUpon>FrmMissionGroups.cs</DependentUpon>
     </EmbeddedResource>
@@ -355,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmWait.resx">
       <DependentUpon>FrmWait.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UcAirbase.resx">
+      <DependentUpon>UcAirbase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UcBriefop.resx">
       <DependentUpon>UcBriefop.cs</DependentUpon>

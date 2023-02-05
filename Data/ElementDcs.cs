@@ -71,8 +71,9 @@ namespace DcsBriefop.Data
 		public static readonly decimal UnitFrequencyRatio = 1000000;
 	}
 
-	internal static class ElementAircraftType
+	internal static class ElementUnitCategory
 	{
+		public static readonly string Heliport = "Heliports";
 	}
 
 	internal static class ElementDrawingLayer
