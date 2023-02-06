@@ -74,6 +74,11 @@ namespace DcsBriefop.Forms
 		{
 			FrmMissionAirbases.CreateModal(m_briefopManager, ParentForm);
 		}
+
+		private void BtMissionMaps_Click(object sender, System.EventArgs e)
+		{
+			FrmMissionMaps.CreateModal(m_briefopManager, ParentForm);
+		}
 		#endregion
 	}
 }

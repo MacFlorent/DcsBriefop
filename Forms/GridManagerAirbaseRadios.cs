@@ -64,7 +64,7 @@ namespace DcsBriefop.Forms
 				m_dtSource.Rows.Add(dr);
 			}
 
-			dr.SetField(GridColumn.Radio, bopAirbaseRadio.Radio.ToString());
+			dr.SetField(GridColumn.Radio, bopAirbaseRadio.Radio?.ToString());
 			dr.SetField(GridColumn.Label, bopAirbaseRadio.Label);
 			dr.SetField(GridColumn.Default, bopAirbaseRadio.Default);
 			dr.SetField(GridColumn.Used, bopAirbaseRadio.Used);

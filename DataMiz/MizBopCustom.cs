@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
+using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace DcsBriefop.DataMiz
 		public PreferencesMission PreferencesMission { get; set; } = new PreferencesMission();
 		public PreferencesMap PreferencesMap { get; set; } = new PreferencesMap();
 		//public Preferences.PreferencesBriefing PreferencesBriefing { get; set; }
-		public MizBopMap MapData { get; set; } = new MizBopMap();	
+		public MizBopMap MapData { get; set; }
 		public List<MizBopCoalition> MizBopCoalitions { get; private set; } = new List<MizBopCoalition>();
 		public List<MizBopAirbase> MizBopAirbases { get; set; } = new List<MizBopAirbase>();
 		public List<MizBopGroup> MizBopGroups { get; set; } = new List<MizBopGroup>();
@@ -19,7 +20,7 @@ namespace DcsBriefop.DataMiz
 		#endregion
 
 		#region Methods
-		public void InitializeDefault()
+		public void InitializeEmpty()
 		{
 			PreferencesMission = PreferencesManager.Preferences.Mission.CloneJson();
 			PreferencesMap = PreferencesManager.Preferences.Map.CloneJson();

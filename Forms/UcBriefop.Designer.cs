@@ -135,6 +135,7 @@
 			this.BtMissionMaps.TabIndex = 4;
 			this.BtMissionMaps.Text = "Maps";
 			this.BtMissionMaps.UseVisualStyleBackColor = true;
+			this.BtMissionMaps.Click += new System.EventHandler(this.BtMissionMaps_Click);
 			// 
 			// BtMissionInformations
 			// 

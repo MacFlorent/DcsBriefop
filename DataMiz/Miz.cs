@@ -34,7 +34,7 @@ namespace DcsBriefop.DataMiz
 			if (string.IsNullOrEmpty(sJsonBopCustom))
 			{
 				MizBopCustom = new MizBopCustom();
-				MizBopCustom.InitializeDefault();
+				MizBopCustom.InitializeEmpty();
 			}
 			else
 				MizBopCustom = MizBopCustom.DeserializeJson(sJsonBopCustom);			

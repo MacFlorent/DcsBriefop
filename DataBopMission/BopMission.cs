@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
+using GMap.NET.WindowsForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,8 @@ namespace DcsBriefop.DataBopMission
 		#region CTOR
 		public BopMission(Miz miz, Theatre theatre) : base(miz, theatre)
 		{
+			InitializeMizBopCustom();
+
 			Sortie = Miz.RootDictionary.Sortie;
 			Description = ToolsLua.DcsTextToDisplay(Miz.RootDictionary.Description);
 			Date = new DateTime(Miz.RootMission.Date.Year, Miz.RootMission.Date.Month, Miz.RootMission.Date.Day).AddSeconds(Miz.RootMission.StartTime);
@@ -105,6 +108,22 @@ namespace DcsBriefop.DataBopMission
 			foreach (BopAirbase bopAirbase in Airbases)
 			{
 				bopAirbase.ToMiz();
+			}
+		}
+
+		private void InitializeMizBopCustom()
+		{
+			if (Miz.MizBopCustom.MapData is null)
+			{ 
+				Miz.MizBopCustom.MapData = new MizBopMap();
+				Airdrome firstAirdrome = Theatre.Airdromes.FirstOrDefault();
+				if (firstAirdrome is object)
+				{
+					Miz.MizBopCustom.MapData.CenterLatitude = firstAirdrome.Latitude;
+					Miz.MizBopCustom.MapData.CenterLongitude = firstAirdrome.Longitude;
+				}
+				Miz.MizBopCustom.MapData.Zoom = PreferencesManager.Preferences.Map.DefaultZoom;
+				Miz.MizBopCustom.MapData.MapOverlay = new GMapOverlay();
 			}
 		}
 		#endregion

@@ -2,6 +2,7 @@
 using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
+using GMap.NET.WindowsForms;
 using System.Linq;
 
 namespace DcsBriefop.DataBopMission
@@ -18,11 +19,8 @@ namespace DcsBriefop.DataBopMission
 		public string Task { get; set; }
 		public string BullseyeDescription { get; set; }
 		public bool BullseyeWaypoint { get; set; }
-
-
 		public Coordinate Bullseye { get; set; }
 
-		//public List<BopCoalitionAirdrome> BopCoalitionAirdromes { get; set; }
 		//public ListComPreset ComPresets { get; set; }
 
 		public MizBopMap MapData { get { return m_mizBopCoalition.MapData; } }
@@ -75,7 +73,14 @@ namespace DcsBriefop.DataBopMission
 			m_mizBopCoalition = Miz.MizBopCustom.MizBopCoalitions.Where(_c => _c.CoalitionName == CoalitionName).FirstOrDefault();
 			if (m_mizBopCoalition is null)
 			{
+				FinalizeFromMiz();
 				m_mizBopCoalition = new MizBopCoalition() { CoalitionName = CoalitionName };
+				m_mizBopCoalition.MapData = new MizBopMap();
+				m_mizBopCoalition.MapData.CenterLatitude = Bullseye.Latitude.DecimalDegree;
+				m_mizBopCoalition.MapData.CenterLongitude = Bullseye.Longitude.DecimalDegree;
+				m_mizBopCoalition.MapData.Zoom = PreferencesManager.Preferences.Map.DefaultZoom;
+				m_mizBopCoalition.MapData.MapOverlay = new GMapOverlay();
+
 				m_mizBopCoalition.SetDefaultData();
 				Miz.MizBopCustom.MizBopCoalitions.Add(m_mizBopCoalition);
 			}

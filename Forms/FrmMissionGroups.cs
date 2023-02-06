@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.DataBopMission;
+using DcsBriefop.Tools;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -20,6 +21,7 @@ namespace DcsBriefop.Forms
 			m_briefopManager = briefopManager;
 
 			InitializeComponent();
+			ToolsStyle.ApplyStyle(this);
 
 			m_gridManagerGroups = new GridManagerGroups(DgvGroups, m_briefopManager.BopMission.Groups);
 			m_gridManagerGroups.SelectionChangedTyped += SelectionChangedTypedEvent;
