@@ -62,6 +62,7 @@ namespace DcsBriefop.Data
 	{
 		public static readonly string ResourcesDirectory = "Resources";
 		public static readonly string DcsFileFilter = "DCS mission files (*.miz)|*.miz|All files (*.*)|*.*";
+		public static readonly string BullseyeRoutePointName = "BULLS";
 	}
 
 	internal static class ElementCoalitionColor

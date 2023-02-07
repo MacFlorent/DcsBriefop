@@ -84,7 +84,7 @@ namespace DcsBriefop.Data
 
 	internal class PreferencesMap
 	{
-		public string DefaultProvider { get; set; } = GMap.NET.MapProviders.BingMapProvider.Instance.Name;
+		public string DefaultProviderName { get; set; } = GMap.NET.MapProviders.BingMapProvider.Instance.Name;
 		public double DefaultZoom { get; set; } = 9;
 
 		public void InitializeDefault() { }

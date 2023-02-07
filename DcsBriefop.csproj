@@ -169,7 +169,7 @@
     <Compile Include="DataBopMission\BopGroupVehicle.cs" />
     <Compile Include="DataBopMission\BopGroupShip.cs" />
     <Compile Include="DataBopMission\BopGroupFlight.cs" />
-    <Compile Include="DataBopMission\BopMapPoint.cs" />
+    <Compile Include="DataBopMission\BopRoutePoint.cs" />
     <Compile Include="DataBopMission\BopUnitShip.cs" />
     <Compile Include="DataBopMission\BopUnitFlight.cs" />
     <Compile Include="DataBopMission\BopUnit.cs" />
@@ -336,6 +336,7 @@
     <Compile Include="Forms\UcAirbase.Designer.cs">
       <DependentUpon>UcAirbase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Map\MapProviders.cs" />
     <Compile Include="PreferencesManager.cs" />
     <Compile Include="Map\ConfigMapTemplateObjects.cs" />
     <Compile Include="Map\GTextBriefop.cs" />
@@ -484,7 +485,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon256.ico" />
-    <None Include="Resources\theatreMarianas.jpg" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using DcsBriefop.Tools;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -102,12 +104,9 @@ namespace DcsBriefop.Data
 			return GetMasterDataList(type)?.Where(_e => _e.Id == iId).FirstOrDefault();
 		}
 
-		public static void FillCombo(MasterDataType type, ComboBox cb)
+		public static void FillCombo(MasterDataType type, ComboBox cb, EventHandler selectedValueChanged)
 		{
-			cb.Items.Clear();
-			cb.ValueMember = MasterDataColumn.Id;
-			cb.DisplayMember = MasterDataColumn.Label;
-			cb.DataSource = GetMasterDataList(type);
+			ToolsControls.FillCombo(cb, GetMasterDataList(type), MasterDataColumn.Id, MasterDataColumn.Label, selectedValueChanged);
 		}
 
 		public static void FillListBox(MasterDataType type, ListBox lst)

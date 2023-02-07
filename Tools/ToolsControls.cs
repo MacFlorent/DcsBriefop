@@ -157,6 +157,29 @@ namespace DcsBriefop.Tools
 			c.Location = new Point(c.Parent.ClientSize.Width / 2 - c.Size.Width / 2, c.Parent.ClientSize.Height / 2 - c.Size.Height / 2);
 			c.Anchor = AnchorStyles.None;
 		}
+
+		public static void CenterInParentHorizontal(this Control c)
+		{
+			c.Location = new Point(c.Parent.ClientSize.Width / 2 - c.Size.Width / 2, c.Location.Y);
+			c.Anchor = AnchorStyles.None;
+		}
+
+		public static void FillCombo(ComboBox cb, object dataSource, string sValueMember, string sDisplayMember, EventHandler selectedValueChanged)
+		{
+			if (selectedValueChanged is object)
+				cb.SelectedValueChanged -= selectedValueChanged;
+
+			cb.Items.Clear();
+
+			cb.DisplayMember = sDisplayMember;
+			if (!string.IsNullOrEmpty(sValueMember))
+				cb.ValueMember = sValueMember;
+						
+			cb.DataSource = dataSource;
+
+			if (selectedValueChanged is object)
+				cb.SelectedValueChanged += selectedValueChanged;
+		}
 		#endregion
 	}
 }

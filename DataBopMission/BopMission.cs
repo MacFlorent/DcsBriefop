@@ -1,6 +1,9 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Map;
 using DcsBriefop.Tools;
+using GMap.NET;
+using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using System;
 using System.Collections.Generic;
@@ -76,7 +79,7 @@ namespace DcsBriefop.DataBopMission
 			}
 			foreach (BopGroup bopGroup in Groups)
 			{
-				foreach(BopUnit bopUnit in bopGroup.Units)//.OfType<BopUnitShip>().Where(_u => (_u.Attributes & ElementDcsObjectAttribute.AircraftCarrier) != 0))
+				foreach (BopUnit bopUnit in bopGroup.Units)//.OfType<BopUnitShip>().Where(_u => (_u.Attributes & ElementDcsObjectAttribute.AircraftCarrier) != 0))
 				{
 					if (bopUnit is BopUnitShip bopUnitShip && (bopUnitShip.Attributes & ElementDcsObjectAttribute.AircraftCarrier) != 0)
 						Airbases.Add(new BopAirbaseShip(Miz, Theatre, bopUnitShip));
@@ -84,6 +87,8 @@ namespace DcsBriefop.DataBopMission
 						Airbases.Add(new BopAirbaseFarp(Miz, Theatre, bopUnit));
 				}
 			}
+
+			SetBullseyeRoutePoint();
 		}
 		#endregion
 
@@ -114,7 +119,7 @@ namespace DcsBriefop.DataBopMission
 		private void InitializeMizBopCustom()
 		{
 			if (Miz.MizBopCustom.MapData is null)
-			{ 
+			{
 				Miz.MizBopCustom.MapData = new MizBopMap();
 				Airdrome firstAirdrome = Theatre.Airdromes.FirstOrDefault();
 				if (firstAirdrome is object)
@@ -134,10 +139,20 @@ namespace DcsBriefop.DataBopMission
 			return Weather.ToString(PreferencesMission.WeatherDisplay);
 		}
 
-		//public void SetMapProvider(string sProviderName)
-		//{
-		//	BopGeneral.SetMapProvider(sProviderName);
-		//}
+		public GMapOverlay GetMapOverlay()
+		{
+			GMapOverlay mapOverlay = new GMapOverlay();
+			ToolsMap.AddMizDrawingLayers(Theatre, mapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
+			return mapOverlay;
+		}
+
+		public void SetBullseyeRoutePoint()
+		{
+			foreach(BopGroupFlight bopGroupFlight in Groups.OfType<BopGroupFlight>())
+			{
+				bopGroupFlight.SetBullseyeRoutePoint(Coalitions[bopGroupFlight.CoalitionName]);
+			}
+		}
 		#endregion
 	}
 }

@@ -1,10 +1,10 @@
-﻿using DcsBriefop.Data;
-using DcsBriefop.DataMiz;
+﻿using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -17,63 +17,57 @@ namespace DcsBriefop.Forms
 	internal partial class UcMap : UserControl, ICustomStylable
 	{
 		#region Fields
-		private bool m_bViewOnly;
+		private GMapProvider m_mapProvider;
 		#endregion
 
 		#region Properties
-		public MizBopMap MapData { get; private set; }
+		public MizBopMap MapData { get; set; }
+		public IEnumerable<GMapOverlay> StaticOverlays { get; set; }
+		public string MapProviderName
+		{
+			get { return m_mapProvider.Name; }
+			set { m_mapProvider = GMapProviders.TryGetProvider(value);}
+		}
 		#endregion
 
 		#region CTOR
 		public UcMap()
 		{
 			InitializeComponent();
+			ToolsStyle.ApplyStyle(this);
 
+			PnSelectionDetail.Visible = false;
 			MapControl.InitializeMapControl();
-
-			CbMapProvider.ValueMember = "Name";
-			CbMapProvider.DataSource = GMapProviders.List;
-			CbMapProvider.SelectedItem = MapControl.MapProvider;			
+			m_mapProvider = MapControl.MapProvider;
 		}
 		#endregion
 
 		#region ICustomStylable
 		public void ApplyCustomStyle()
 		{
-			ToolsStyle.LabelTitle(LbTitle);
 		}
 		#endregion
 
 		#region Methods
-		public void SetMapData(MizBopMap mapData, string sTitle, bool bViewOnly)
-		{
-			m_bViewOnly = bViewOnly;
-			LbTitle.Text = sTitle;
-
-			CkAddMarker.Enabled = BtAreaSet.Enabled = BtAreaRecall.Enabled = !m_bViewOnly;
-			MapData = mapData;
-			RefreshMapData();
-		}
-
 		public void RefreshMapData()
 		{
 			RefreshOverlays();
-			MapControl.MapProvider = MapData.GetProvider();
+			MapControl.MapProvider = m_mapProvider;
 			MapControl.Position = new PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
 			MapControl.Zoom = MapData.Zoom;
-
-			CbMapProvider.SelectedItem = MapControl.MapProvider;
 		}
 
 		public void RefreshOverlays()
 		{
-			MapControl.Overlays.Clear();
-			if (MapData is object)
+			ClearOverlays();
+			UnselectAll();
+			if (StaticOverlays is object)
 			{
-				UnselectAll();
-
-				MapControl.Overlays.Add(MapData.MapOverlay);
+				foreach(GMapOverlay staticOverlay in StaticOverlays)
+					MapControl.Overlays.Add(staticOverlay);
 			}
+			if (MapData is object)
+				MapControl.Overlays.Add(MapData.MapOverlay);
 		}
 
 		public void ClearOverlays()
@@ -83,9 +77,6 @@ namespace DcsBriefop.Forms
 
 		private void AddMarker(double dLat, double dLng)
 		{
-			if (m_bViewOnly)
-				return;
-
 			PointLatLng p = new PointLatLng(dLat, dLng);
 			MapData.MapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.DefaultMark, Color.Orange, null, 1, 0));
 			CkAddMarker.Checked = false;
@@ -93,18 +84,12 @@ namespace DcsBriefop.Forms
 
 		private void DeleteMarker(GMarkerBriefop gmb)
 		{
-			if (m_bViewOnly)
-				return;
-
 			if (gmb.Overlay == MapData.MapOverlay)
 				MapData.MapOverlay.Markers.Remove(gmb);
 		}
 
 		private void SelectMarker(GMarkerBriefop gmb)
 		{
-			if (m_bViewOnly)
-				return;
-
 			gmb.IsSelected = true;
 
 			// display detail
@@ -112,6 +97,7 @@ namespace DcsBriefop.Forms
 			UcMarkerDetail ucDetail = new UcMarkerDetail(gmb, MapControl);
 			ucDetail.Dock = DockStyle.Fill;
 			PnSelectionDetail.Controls.Add(ucDetail);
+			PnSelectionDetail.Visible = true;
 		}
 
 		private void UnselectAll()
@@ -124,6 +110,7 @@ namespace DcsBriefop.Forms
 
 			// hide detail
 			PnSelectionDetail.Controls.Clear();
+			PnSelectionDetail.Visible = false;
 		}
 
 		private GMarkerBriefop GetMarkerHovered()
@@ -165,9 +152,6 @@ namespace DcsBriefop.Forms
 
 		private void Map_MouseDown(object sender, MouseEventArgs e)
 		{
-			if (m_bViewOnly)
-				return;
-
 			if (GetMarkerHovered() is GMarkerBriefop gmbHovered)
 			{
 				gmbHovered.IsPressed = true;
@@ -176,9 +160,6 @@ namespace DcsBriefop.Forms
 
 		private void Map_MouseUp(object sender, MouseEventArgs e)
 		{
-			if (m_bViewOnly)
-				return;
-
 			foreach (var marker in MapData.MapOverlay.Markers)
 			{
 				if (marker is GMarkerBriefop markerBriefop)
@@ -189,9 +170,6 @@ namespace DcsBriefop.Forms
 
 		private void Map_MouseClick(object sender, MouseEventArgs e)
 		{
-			if (m_bViewOnly)
-				return;
-
 			if (e.Button == MouseButtons.Left)
 			{
 				if (CkAddMarker.Checked)
@@ -203,9 +181,6 @@ namespace DcsBriefop.Forms
 
 		private void Map_KeyUp(object sender, KeyEventArgs e)
 		{
-			if (m_bViewOnly)
-				return;
-
 			if (e.KeyCode == Keys.Delete)
 			{
 				GMarkerBriefop gmb = GetMarkerHovered();
@@ -219,9 +194,6 @@ namespace DcsBriefop.Forms
 
 		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
 		{
-			if (m_bViewOnly)
-				return;
-
 			CkAddMarker.Checked = false;
 
 			if (item.Overlay != MapData.MapOverlay)
@@ -235,9 +207,6 @@ namespace DcsBriefop.Forms
 
 		private void Map_OnMarkerEnter(GMapMarker item)
 		{
-			if (m_bViewOnly)
-				return;
-
 			if (item.Overlay == MapData.MapOverlay && item is GMarkerBriefop gmb)
 				gmb.IsHovered = true;
 
@@ -245,18 +214,12 @@ namespace DcsBriefop.Forms
 
 		private void Map_OnMarkerLeave(GMapMarker item)
 		{
-			if (m_bViewOnly)
-				return;
-
 			if (item is GMarkerBriefop gmb)
 				gmb.IsHovered = false;
 		}
 
 		private void Map_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (m_bViewOnly)
-				return;
-
 			if (e.Button == MouseButtons.Left)
 			{
 				if (GetMarkerPressed() is GMarkerBriefop gmb)
@@ -272,12 +235,6 @@ namespace DcsBriefop.Forms
 		private void BtRefresh_Click(object sender, System.EventArgs e)
 		{
 			MapControl.ForceRefresh();
-		}
-
-		private void CbMapProvider_SelectionChangeCommitted(object sender, System.EventArgs e)
-		{
-			MapControl.MapProvider = CbMapProvider.SelectedItem as GMapProvider;
-			MapData.Provider = MapControl.MapProvider.Name;
 		}
 		#endregion
 	}

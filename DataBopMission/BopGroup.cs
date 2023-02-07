@@ -33,7 +33,7 @@ namespace DcsBriefop.DataBopMission
 		public Radio Radio { get; set; }
 		public List<BopUnit> Units { get; set; }
 		public BopUnit MainUnit { get; set; }
-		public List<BopMapPoint> MapPoints { get; set; }
+		public List<BopRoutePoint> RoutePoints { get; set; }
 		public decimal? AltitudeFeet { get; set; }
 		public Coordinate Coordinate { get; set; }
 		public string MapMarker { get; set; }
@@ -55,19 +55,15 @@ namespace DcsBriefop.DataBopMission
 			Name = m_mizGroup.Name;
 			LateActivation = m_mizGroup.LateActivation;
 
-			MapPoints = new List<BopMapPoint>();
+			RoutePoints = new List<BopRoutePoint>();
 			if (m_mizGroup.RoutePoints is object && m_mizGroup.RoutePoints.Count > 0)
 			{
 				int iNumber = 0;
 				foreach (MizRoutePoint mizRoutePoint in m_mizGroup.RoutePoints)
 				{
-					MapPoints.Add(new BopRoutePoint(Miz, Theatre, iNumber, mizRoutePoint));
+					RoutePoints.Add(new BopRoutePoint(Miz, Theatre, iNumber, mizRoutePoint));
 					iNumber++;
 				}
-			}
-			else
-			{
-				MapPoints.Add(new BopMapPoint(Miz, Theatre, m_mizGroup.Y, m_mizGroup.X));
 			}
 
 			FromMizUnits();
@@ -122,12 +118,12 @@ namespace DcsBriefop.DataBopMission
 			{
 				bopUnit.FinalizeFromMiz();
 			}
-			foreach (BopMapPoint bopMapPoint in MapPoints)
+			foreach (BopRoutePoint bopRoutePoint in RoutePoints)
 			{
-				bopMapPoint.FinalizeFromMiz();
+				bopRoutePoint.FinalizeFromMiz();
 			}
 
-			AltitudeFeet = MapPoints.OfType<BopRoutePoint>().FirstOrDefault()?.AltitudeFeet ?? MainUnit.AltitudeFeet;
+			AltitudeFeet = RoutePoints.FirstOrDefault()?.AltitudeFeet ?? MainUnit.AltitudeFeet;
 		}
 
 		private void InitializeMizBopCustom()
@@ -160,13 +156,13 @@ namespace DcsBriefop.DataBopMission
 
 		public virtual string ToStringCoordinate()
 		{
-			return Coordinate.ToStringLocalisation(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
+			return Coordinate.ToString(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
 		}
 
 		public BopRouteTask GetRouteTask(IEnumerable<string> sTaskIds, int? iUnitId)
 		{
 			BopRouteTask routeTask = null;
-			foreach (BopRoutePoint routePoint in MapPoints.OfType<BopRoutePoint>())
+			foreach (BopRoutePoint routePoint in RoutePoints)
 			{
 				routeTask = routePoint.GetRouteTask(sTaskIds, iUnitId);
 				if (routeTask is object)
@@ -270,7 +266,7 @@ namespace DcsBriefop.DataBopMission
 			GMapOverlay mapOverlay = new GMapOverlay();
 			List<PointLatLng> points = new List<PointLatLng>();
 
-			foreach (BopRoutePoint bopRoutePoint in MapPoints.OfType<BopRoutePoint>())//.Where(_bopMapPoint => _bopMapPoint.Name != m_sBullsPointName))
+			foreach (BopRoutePoint bopRoutePoint in RoutePoints)//.Where(_bopRoutePoint => _bopRoutePoint.Name != ElementGlobalData.BullseyeRoutePointName))
 			{
 				PointLatLng p = new PointLatLng(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
 				points.Add(p);

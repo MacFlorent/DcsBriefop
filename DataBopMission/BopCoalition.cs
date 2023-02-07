@@ -1,7 +1,9 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Map;
 using DcsBriefop.Tools;
+using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Linq;
 
@@ -40,6 +42,7 @@ namespace DcsBriefop.DataBopMission
 			else if (CoalitionName == ElementCoalition.Neutral)
 				Task = ToolsLua.DcsTextToDisplay(Miz.RootDictionary.NeutralTask);
 
+			Bullseye = Theatre.GetCoordinate(m_mizCoalition.BullseyeY, m_mizCoalition.BullseyeX);
 			BullseyeDescription = m_mizBopCoalition.BullseyeDescription;
 			BullseyeWaypoint = m_mizBopCoalition.BullseyeWaypoint;
 		}
@@ -61,23 +64,16 @@ namespace DcsBriefop.DataBopMission
 			m_mizBopCoalition.BullseyeWaypoint = BullseyeWaypoint;
 		}
 
-		protected override void FinalizeFromMizInternal()
-		{
-			base.FinalizeFromMizInternal();
-
-			Bullseye = Theatre.GetCoordinate(m_mizCoalition.BullseyeY, m_mizCoalition.BullseyeX);
-		}
-
 		private void InitializeMizBopCustom()
 		{
 			m_mizBopCoalition = Miz.MizBopCustom.MizBopCoalitions.Where(_c => _c.CoalitionName == CoalitionName).FirstOrDefault();
 			if (m_mizBopCoalition is null)
 			{
-				FinalizeFromMiz();
+				Coordinate centerCoordinate = Theatre.GetCoordinate(m_mizCoalition.BullseyeY, m_mizCoalition.BullseyeX);
 				m_mizBopCoalition = new MizBopCoalition() { CoalitionName = CoalitionName };
 				m_mizBopCoalition.MapData = new MizBopMap();
-				m_mizBopCoalition.MapData.CenterLatitude = Bullseye.Latitude.DecimalDegree;
-				m_mizBopCoalition.MapData.CenterLongitude = Bullseye.Longitude.DecimalDegree;
+				m_mizBopCoalition.MapData.CenterLatitude = centerCoordinate.Latitude.DecimalDegree;
+				m_mizBopCoalition.MapData.CenterLongitude = centerCoordinate.Longitude.DecimalDegree;
 				m_mizBopCoalition.MapData.Zoom = PreferencesManager.Preferences.Map.DefaultZoom;
 				m_mizBopCoalition.MapData.MapOverlay = new GMapOverlay();
 
@@ -87,41 +83,27 @@ namespace DcsBriefop.DataBopMission
 		}
 		#endregion
 
-		//#region Initialize & Persist
-		//private void InitializeCustom()
-		//{
-		//	m_customCoalition = ParentManager.BopCustomMain.GetCoalition(m_mizCoalition.Name);
-		//	if (m_customCoalition is null)
-		//	{
-		//		m_customCoalition = new MizBopCoalition() { CoalitionName = CoalitionName };
-		//		ParentManager.BopCustomMain.BopCoalitions.Add(m_customCoalition);
-		//	}
+		#region Methods
+		public GMapOverlay GetMapOverlay()
+		{
+			GMapOverlay mapOverlay = new GMapOverlay();
+			mapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree), ElementMapTemplateMarker.Bullseye, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0));
+			ToolsMap.AddMizDrawingLayers(Theatre, mapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare (_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
+			ToolsMap.AddMizDrawingLayers(Theatre, mapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, CoalitionName, true) == 0).ToList());
+			return mapOverlay;
+		}
 
-		//	//if (m_briefopCustomCoalition.ComPresets is object)
-		//	//	ComPresets = m_briefopCustomCoalition.ComPresets.GetCopy();
-		//}
+		public void SetBullseyeRoutePoint(ref BopRoutePoint bullseyeRoutePoint)
+		{
+			if (bullseyeRoutePoint is null)
+			{
+				MizRoutePoint mizRoutePoint = MizRoutePoint.NewFromLuaTemplate();
+				bullseyeRoutePoint = new BopRoutePoint(Miz, Theatre, 0, mizRoutePoint);
+			}
 
-
-		//#endregion
-
-		//#region Methods
-
-
-		//public string GetBullseyeCoordinatesString()
-		//{
-		//	return $"{Bullseye.ToStringDMS()}{Environment.NewLine}{Bullseye.ToStringDDM()}{Environment.NewLine}{Bullseye.ToStringMGRS()}";
-		//}
-
-		//public void ResetBullseyeMarkerDescription()
-		//{
-		//	if (m_markerkBullseye is object)
-		//		m_markerkBullseye.Label = BullseyeDescription;
-		//}
-
-		//public void SetMapProvider(string sProviderName)
-		//{
-		//	MapData.Provider = sProviderName;
-		//}
-		//#endregion
+			bullseyeRoutePoint.SetYX(m_mizCoalition.BullseyeY, m_mizCoalition.BullseyeX);
+			bullseyeRoutePoint.Name = ElementGlobalData.BullseyeRoutePointName;
+		}
+		#endregion
 	}
 }

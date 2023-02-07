@@ -105,6 +105,7 @@
 			this.CkBullseyeWaypoint.TabIndex = 11;
 			this.CkBullseyeWaypoint.Text = "Add Bulls as first waypoint for all playable flights";
 			this.CkBullseyeWaypoint.UseVisualStyleBackColor = true;
+			this.CkBullseyeWaypoint.CheckedChanged += new System.EventHandler(this.CkBullseyeWaypoint_CheckedChanged);
 			// 
 			// UcMissionCoalition
 			// 

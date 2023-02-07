@@ -154,7 +154,7 @@
 			this.CbWeatherDisplay.Name = "CbWeatherDisplay";
 			this.CbWeatherDisplay.Size = new System.Drawing.Size(197, 21);
 			this.CbWeatherDisplay.TabIndex = 10;
-			this.CbWeatherDisplay.Validated += new System.EventHandler(this.CbWeatherDisplay_Validated);
+			this.CbWeatherDisplay.SelectedValueChanged += new System.EventHandler(this.CbWeatherDisplay_SelectedValueChanged);
 			// 
 			// LbWeatherDisplay
 			// 

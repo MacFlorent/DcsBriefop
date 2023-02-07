@@ -43,7 +43,7 @@ namespace DcsBriefop.Forms
 			//m_gridManagerAirbases.SelectionChangedTyped += SelectionChangedTypedEvent;
 
 			MapControl.InitializeMapControl();
-			MapControl.MapProvider = GMapProviders.TryGetProvider(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.DefaultProvider);
+			MapControl.MapProvider = GMapProviders.TryGetProvider(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.DefaultProviderName);
 
 			MapTemplateMarker.FillCombo(CbMapMarker, CbMapMarker_SelectedValueChanged);
 

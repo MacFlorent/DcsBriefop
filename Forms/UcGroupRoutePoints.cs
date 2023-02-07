@@ -25,7 +25,7 @@ namespace DcsBriefop.Forms
 		{
 			InitializeComponent();
 
-			m_gridManagerRoutePoints = new GridManagerRoutePoints(DgvRoutePoints, m_bopGroup.MapPoints.OfType<BopRoutePoint>());
+			m_gridManagerRoutePoints = new GridManagerRoutePoints(DgvRoutePoints, m_bopGroup.RoutePoints);
 			m_gridManagerRoutePoints.SelectionChangedTyped += SelectionChangedTypedEvent;
 
 			DataToScreen();
@@ -36,7 +36,7 @@ namespace DcsBriefop.Forms
 		#region Methods
 		public override void DataToScreen()
 		{
-			m_gridManagerRoutePoints.RoutePoints = m_bopGroup.MapPoints.OfType<BopRoutePoint>();
+			m_gridManagerRoutePoints.RoutePoints = m_bopGroup.RoutePoints;
 			m_gridManagerRoutePoints.Initialize();
 			DataToScreenDetail();
 		}

@@ -29,21 +29,26 @@
 		private void InitializeComponent()
 		{
 			this.PnMission = new System.Windows.Forms.Panel();
+			this.PnMissionActions = new System.Windows.Forms.Panel();
+			this.BtMissionPackages = new System.Windows.Forms.Button();
+			this.BtMissionInformations = new System.Windows.Forms.Button();
+			this.BtMissionMaps = new System.Windows.Forms.Button();
+			this.BtMissionGroups = new System.Windows.Forms.Button();
+			this.BtMissionAirbases = new System.Windows.Forms.Button();
+			this.BtMissionComs = new System.Windows.Forms.Button();
 			this.LbMissionDirectory = new System.Windows.Forms.LinkLabel();
 			this.LbSortie = new System.Windows.Forms.Label();
 			this.LbTheatre = new System.Windows.Forms.Label();
-			this.BtComs = new System.Windows.Forms.Button();
-			this.BtMissionAirbases = new System.Windows.Forms.Button();
-			this.BtMissionGroups = new System.Windows.Forms.Button();
-			this.BtMissionMaps = new System.Windows.Forms.Button();
-			this.BtMissionInformations = new System.Windows.Forms.Button();
 			this.LbMissionTitle = new System.Windows.Forms.Label();
 			this.PnBriefing = new System.Windows.Forms.Panel();
 			this.LbBriefingTitle = new System.Windows.Forms.Label();
 			this.PnBackground = new System.Windows.Forms.Panel();
+			this.PnMissionTheatre = new System.Windows.Forms.Panel();
 			this.PnMission.SuspendLayout();
+			this.PnMissionActions.SuspendLayout();
 			this.PnBriefing.SuspendLayout();
 			this.PnBackground.SuspendLayout();
+			this.PnMissionTheatre.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// PnMission
@@ -52,26 +57,94 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.PnMission.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.PnMission.Controls.Add(this.PnMissionTheatre);
+			this.PnMission.Controls.Add(this.PnMissionActions);
 			this.PnMission.Controls.Add(this.LbMissionDirectory);
 			this.PnMission.Controls.Add(this.LbSortie);
-			this.PnMission.Controls.Add(this.LbTheatre);
-			this.PnMission.Controls.Add(this.BtComs);
-			this.PnMission.Controls.Add(this.BtMissionAirbases);
-			this.PnMission.Controls.Add(this.BtMissionGroups);
-			this.PnMission.Controls.Add(this.BtMissionMaps);
-			this.PnMission.Controls.Add(this.BtMissionInformations);
 			this.PnMission.Controls.Add(this.LbMissionTitle);
 			this.PnMission.Location = new System.Drawing.Point(0, 0);
 			this.PnMission.Name = "PnMission";
 			this.PnMission.Size = new System.Drawing.Size(887, 205);
 			this.PnMission.TabIndex = 0;
 			// 
+			// PnMissionActions
+			// 
+			this.PnMissionActions.AutoSize = true;
+			this.PnMissionActions.Controls.Add(this.BtMissionPackages);
+			this.PnMissionActions.Controls.Add(this.BtMissionInformations);
+			this.PnMissionActions.Controls.Add(this.BtMissionMaps);
+			this.PnMissionActions.Controls.Add(this.BtMissionGroups);
+			this.PnMissionActions.Controls.Add(this.BtMissionAirbases);
+			this.PnMissionActions.Controls.Add(this.BtMissionComs);
+			this.PnMissionActions.Location = new System.Drawing.Point(38, 104);
+			this.PnMissionActions.Name = "PnMissionActions";
+			this.PnMissionActions.Size = new System.Drawing.Size(810, 38);
+			this.PnMissionActions.TabIndex = 9;
+			// 
+			// BtMissionPackages
+			// 
+			this.BtMissionPackages.Location = new System.Drawing.Point(678, 0);
+			this.BtMissionPackages.Name = "BtMissionPackages";
+			this.BtMissionPackages.Size = new System.Drawing.Size(129, 35);
+			this.BtMissionPackages.TabIndex = 10;
+			this.BtMissionPackages.Text = "Packages";
+			this.BtMissionPackages.UseVisualStyleBackColor = true;
+			// 
+			// BtMissionInformations
+			// 
+			this.BtMissionInformations.Location = new System.Drawing.Point(3, 0);
+			this.BtMissionInformations.Name = "BtMissionInformations";
+			this.BtMissionInformations.Size = new System.Drawing.Size(129, 35);
+			this.BtMissionInformations.TabIndex = 3;
+			this.BtMissionInformations.Text = "Informations";
+			this.BtMissionInformations.UseVisualStyleBackColor = true;
+			this.BtMissionInformations.Click += new System.EventHandler(this.BtMissionInformations_Click);
+			// 
+			// BtMissionMaps
+			// 
+			this.BtMissionMaps.Location = new System.Drawing.Point(408, 0);
+			this.BtMissionMaps.Name = "BtMissionMaps";
+			this.BtMissionMaps.Size = new System.Drawing.Size(129, 35);
+			this.BtMissionMaps.TabIndex = 4;
+			this.BtMissionMaps.Text = "Maps";
+			this.BtMissionMaps.UseVisualStyleBackColor = true;
+			this.BtMissionMaps.Click += new System.EventHandler(this.BtMissionMaps_Click);
+			// 
+			// BtMissionGroups
+			// 
+			this.BtMissionGroups.Location = new System.Drawing.Point(273, 0);
+			this.BtMissionGroups.Name = "BtMissionGroups";
+			this.BtMissionGroups.Size = new System.Drawing.Size(129, 35);
+			this.BtMissionGroups.TabIndex = 5;
+			this.BtMissionGroups.Text = "Groups";
+			this.BtMissionGroups.UseVisualStyleBackColor = true;
+			this.BtMissionGroups.Click += new System.EventHandler(this.BtMissionGroups_Click);
+			// 
+			// BtMissionAirbases
+			// 
+			this.BtMissionAirbases.Location = new System.Drawing.Point(138, 0);
+			this.BtMissionAirbases.Name = "BtMissionAirbases";
+			this.BtMissionAirbases.Size = new System.Drawing.Size(129, 35);
+			this.BtMissionAirbases.TabIndex = 6;
+			this.BtMissionAirbases.Text = "Airbases";
+			this.BtMissionAirbases.UseVisualStyleBackColor = true;
+			this.BtMissionAirbases.Click += new System.EventHandler(this.BtMissionAirdromes_Click);
+			// 
+			// BtMissionComs
+			// 
+			this.BtMissionComs.Location = new System.Drawing.Point(543, 0);
+			this.BtMissionComs.Name = "BtMissionComs";
+			this.BtMissionComs.Size = new System.Drawing.Size(129, 35);
+			this.BtMissionComs.TabIndex = 7;
+			this.BtMissionComs.Text = "Coms";
+			this.BtMissionComs.UseVisualStyleBackColor = true;
+			// 
 			// LbMissionDirectory
 			// 
-			this.LbMissionDirectory.AutoSize = true;
-			this.LbMissionDirectory.Location = new System.Drawing.Point(414, 102);
+			this.LbMissionDirectory.Dock = System.Windows.Forms.DockStyle.Top;
+			this.LbMissionDirectory.Location = new System.Drawing.Point(0, 68);
 			this.LbMissionDirectory.Name = "LbMissionDirectory";
-			this.LbMissionDirectory.Size = new System.Drawing.Size(55, 13);
+			this.LbMissionDirectory.Size = new System.Drawing.Size(885, 20);
 			this.LbMissionDirectory.TabIndex = 8;
 			this.LbMissionDirectory.TabStop = true;
 			this.LbMissionDirectory.Text = "linkLabel1";
@@ -81,7 +154,7 @@
 			// LbSortie
 			// 
 			this.LbSortie.Dock = System.Windows.Forms.DockStyle.Top;
-			this.LbSortie.Location = new System.Drawing.Point(0, 68);
+			this.LbSortie.Location = new System.Drawing.Point(0, 34);
 			this.LbSortie.Name = "LbSortie";
 			this.LbSortie.Size = new System.Drawing.Size(885, 34);
 			this.LbSortie.TabIndex = 0;
@@ -90,62 +163,13 @@
 			// 
 			// LbTheatre
 			// 
-			this.LbTheatre.Dock = System.Windows.Forms.DockStyle.Top;
-			this.LbTheatre.Location = new System.Drawing.Point(0, 34);
+			this.LbTheatre.AutoSize = true;
+			this.LbTheatre.Location = new System.Drawing.Point(411, 20);
 			this.LbTheatre.Name = "LbTheatre";
-			this.LbTheatre.Size = new System.Drawing.Size(885, 34);
+			this.LbTheatre.Size = new System.Drawing.Size(44, 13);
 			this.LbTheatre.TabIndex = 1;
 			this.LbTheatre.Text = "Theatre";
 			this.LbTheatre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// BtComs
-			// 
-			this.BtComs.Location = new System.Drawing.Point(547, 125);
-			this.BtComs.Name = "BtComs";
-			this.BtComs.Size = new System.Drawing.Size(75, 23);
-			this.BtComs.TabIndex = 7;
-			this.BtComs.Text = "Coms";
-			this.BtComs.UseVisualStyleBackColor = true;
-			// 
-			// BtMissionAirbases
-			// 
-			this.BtMissionAirbases.Location = new System.Drawing.Point(304, 125);
-			this.BtMissionAirbases.Name = "BtMissionAirbases";
-			this.BtMissionAirbases.Size = new System.Drawing.Size(75, 23);
-			this.BtMissionAirbases.TabIndex = 6;
-			this.BtMissionAirbases.Text = "Airbases";
-			this.BtMissionAirbases.UseVisualStyleBackColor = true;
-			this.BtMissionAirbases.Click += new System.EventHandler(this.BtMissionAirdromes_Click);
-			// 
-			// BtMissionGroups
-			// 
-			this.BtMissionGroups.Location = new System.Drawing.Point(385, 125);
-			this.BtMissionGroups.Name = "BtMissionGroups";
-			this.BtMissionGroups.Size = new System.Drawing.Size(75, 23);
-			this.BtMissionGroups.TabIndex = 5;
-			this.BtMissionGroups.Text = "Groups";
-			this.BtMissionGroups.UseVisualStyleBackColor = true;
-			this.BtMissionGroups.Click += new System.EventHandler(this.BtMissionGroups_Click);
-			// 
-			// BtMissionMaps
-			// 
-			this.BtMissionMaps.Location = new System.Drawing.Point(466, 125);
-			this.BtMissionMaps.Name = "BtMissionMaps";
-			this.BtMissionMaps.Size = new System.Drawing.Size(75, 23);
-			this.BtMissionMaps.TabIndex = 4;
-			this.BtMissionMaps.Text = "Maps";
-			this.BtMissionMaps.UseVisualStyleBackColor = true;
-			this.BtMissionMaps.Click += new System.EventHandler(this.BtMissionMaps_Click);
-			// 
-			// BtMissionInformations
-			// 
-			this.BtMissionInformations.Location = new System.Drawing.Point(223, 125);
-			this.BtMissionInformations.Name = "BtMissionInformations";
-			this.BtMissionInformations.Size = new System.Drawing.Size(75, 23);
-			this.BtMissionInformations.TabIndex = 3;
-			this.BtMissionInformations.Text = "Informations";
-			this.BtMissionInformations.UseVisualStyleBackColor = true;
-			this.BtMissionInformations.Click += new System.EventHandler(this.BtMissionInformations_Click);
 			// 
 			// LbMissionTitle
 			// 
@@ -189,6 +213,15 @@
 			this.PnBackground.Size = new System.Drawing.Size(887, 461);
 			this.PnBackground.TabIndex = 2;
 			// 
+			// PnMissionTheatre
+			// 
+			this.PnMissionTheatre.Controls.Add(this.LbTheatre);
+			this.PnMissionTheatre.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.PnMissionTheatre.Location = new System.Drawing.Point(0, 148);
+			this.PnMissionTheatre.Name = "PnMissionTheatre";
+			this.PnMissionTheatre.Size = new System.Drawing.Size(885, 55);
+			this.PnMissionTheatre.TabIndex = 10;
+			// 
 			// UcBriefop
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -198,8 +231,11 @@
 			this.Size = new System.Drawing.Size(893, 467);
 			this.PnMission.ResumeLayout(false);
 			this.PnMission.PerformLayout();
+			this.PnMissionActions.ResumeLayout(false);
 			this.PnBriefing.ResumeLayout(false);
 			this.PnBackground.ResumeLayout(false);
+			this.PnMissionTheatre.ResumeLayout(false);
+			this.PnMissionTheatre.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -217,7 +253,10 @@
 		private System.Windows.Forms.Label LbMissionTitle;
 		private System.Windows.Forms.Label LbBriefingTitle;
 		private System.Windows.Forms.Button BtMissionAirbases;
-		private System.Windows.Forms.Button BtComs;
+		private System.Windows.Forms.Button BtMissionComs;
 		private System.Windows.Forms.LinkLabel LbMissionDirectory;
+		private System.Windows.Forms.Panel PnMissionActions;
+		private System.Windows.Forms.Button BtMissionPackages;
+		private System.Windows.Forms.Panel PnMissionTheatre;
 	}
 }

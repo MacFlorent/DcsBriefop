@@ -13,64 +13,7 @@ using UnitsNet.Units;
 
 namespace DcsBriefop.DataBopMission
 {
-	internal class BopMapPoint : BaseBop
-	{
-		#region Fields
-		private decimal m_mizY;
-		private decimal m_mizX;
-		#endregion
-
-		#region Properties
-		public string Name { get; set; }
-		public Coordinate Coordinate { get; set; }
-		#endregion
-
-		#region CTOR
-		public BopMapPoint(Miz miz, Theatre theatre, decimal Y, decimal X) : base(miz, theatre)
-		{
-			m_mizY = Y;
-			m_mizX = X;
-		}
-		#endregion
-
-		#region Miz
-		public override void ToMiz()
-		{
-			base.ToMiz();
-		}
-
-		protected override void FinalizeFromMizInternal()
-		{
-			base.FinalizeFromMizInternal();
-
-			Coordinate = Theatre.GetCoordinate(m_mizY, m_mizX);
-		}
-		#endregion
-
-		#region Methods
-		public override string ToString()
-		{
-			return ToStringDisplayName();
-		}
-
-		public virtual string ToStringDisplayName()
-		{
-			return Name;
-		}
-
-		public virtual string ToStringAdditionnal()
-		{
-			return "";
-		}
-
-		public virtual string ToStringCoordinate()
-		{
-			return Coordinate.ToStringLocalisation(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
-		}
-		#endregion
-	}
-
-	internal class BopRoutePoint : BopMapPoint
+	internal class BopRoutePoint : BaseBop
 	{
 		#region Fields
 		private MizRoutePoint m_mizRoutePoint;
@@ -78,16 +21,18 @@ namespace DcsBriefop.DataBopMission
 
 		#region Properties
 		public int Number { get; set; }
+		public string Name { get; set; }
 		public string Type { get; set; }
 		public string Action { get; set; }
 		public decimal AltitudeFeet { get; set; }
+		public Coordinate Coordinate { get; set; }
 		public int? AirdromeId { get; set; }
 		public int? HelipadId { get; set; }
 		public List<BopRouteTask> Tasks { get; set; }
 		#endregion
 
 		#region CTOR
-		public BopRoutePoint(Miz miz, Theatre theatre, int iNumber, MizRoutePoint mizRoutePoint) : base(miz, theatre, mizRoutePoint.Y, mizRoutePoint.X)
+		public BopRoutePoint(Miz miz, Theatre theatre, int iNumber, MizRoutePoint mizRoutePoint) : base(miz, theatre)
 		{
 			Number = iNumber;
 			m_mizRoutePoint = mizRoutePoint;
@@ -139,21 +84,27 @@ namespace DcsBriefop.DataBopMission
 			base.FinalizeFromMizInternal();
 
 			AltitudeFeet = (decimal)UnitsNet.UnitConverter.Convert(m_mizRoutePoint.Altitude, LengthUnit.Meter, LengthUnit.Foot);
+			Coordinate = Theatre.GetCoordinate(m_mizRoutePoint.Y, m_mizRoutePoint.X);
 
-			foreach(BopRouteTask task in Tasks)
+			foreach (BopRouteTask task in Tasks)
 				task.FinalizeFromMiz();
 		}
 		#endregion
 
 		#region Methods
-		public override string ToStringDisplayName()
+		public string ToStringDisplayName()
 		{
 			return $"{Number}:{Name}";
 		}
 
-		public override string ToStringAdditionnal()
+		public virtual string ToStringCoordinate()
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
+			return Coordinate.ToString(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
+		}
+
+		public string ToStringAdditionnal()
+		{
+			StringBuilder sb = new StringBuilder();
 
 			Airdrome airdrome = Theatre.GetAirdrome(AirdromeId.GetValueOrDefault(0));
 			if (airdrome is object)
@@ -190,6 +141,12 @@ namespace DcsBriefop.DataBopMission
 			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree), ElementMapTemplateMarker.Waypoint, color, sLabel, 1, 0);
 		}
 
+		public void SetYX(decimal dY, decimal dX)
+		{
+			m_mizRoutePoint.Y = dY;
+			m_mizRoutePoint.X = dX;
+			Coordinate = Theatre.GetCoordinate(m_mizRoutePoint.Y, m_mizRoutePoint.X);
+		}
 		//public string GetOrbitPattern()
 		//{
 		//	string sOrbitPattern = null;

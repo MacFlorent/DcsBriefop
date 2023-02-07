@@ -28,7 +28,7 @@ namespace DcsBriefop.Forms
 
 			CbMapProvider.ValueMember = "Name";
 			CbMapProvider.DataSource = GMapProviders.List;
-			MasterDataRepository.FillCombo(MasterDataType.WeatherDisplay, CbMissionWeatherDisplay);
+			MasterDataRepository.FillCombo(MasterDataType.WeatherDisplay, CbMissionWeatherDisplay, null);
 			MasterDataRepository.FillListBox(MasterDataType.CoordinateDisplay, LstCoordinateDisplay);
 
 			DataToScreen();
@@ -46,7 +46,7 @@ namespace DcsBriefop.Forms
 			CbMissionWeatherDisplay.SelectedValue = (int)m_preferences.Mission.WeatherDisplay;
 			MasterDataRepository.SetFlagCheckedListbox((int)m_preferences.Mission.CoordinateDisplay, LstCoordinateDisplay);
 
-			CbMapProvider.SelectedItem = GMapProviders.TryGetProvider(m_preferences.Map.DefaultProvider);
+			CbMapProvider.SelectedItem = GMapProviders.TryGetProvider(m_preferences.Map.DefaultProviderName);
 			NudMapZoom.Value = (decimal)m_preferences.Map.DefaultZoom;
 		}
 
@@ -63,7 +63,7 @@ namespace DcsBriefop.Forms
 			m_preferences.Mission.WeatherDisplay = (ElementWeatherDisplay)CbMissionWeatherDisplay.SelectedValue;
 			m_preferences.Mission.CoordinateDisplay = (ElementCoordinateDisplay)MasterDataRepository.GetFlagCheckedListbox(LstCoordinateDisplay);
 
-			m_preferences.Map.DefaultProvider = (CbMapProvider.SelectedItem as GMapProvider)?.Name;
+			m_preferences.Map.DefaultProviderName = (CbMapProvider.SelectedItem as GMapProvider)?.Name;
 			m_preferences.Map.DefaultZoom = (double)NudMapZoom.Value;
 		}
 		#endregion
@@ -115,7 +115,5 @@ namespace DcsBriefop.Forms
 			TbApplicationRecentMiz.Text = null;
 		}
 		#endregion
-
-
 	}
 }

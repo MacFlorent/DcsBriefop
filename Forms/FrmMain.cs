@@ -18,7 +18,7 @@ namespace DcsBriefop.Forms
 		{
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
-			Icon = ToolsResources.GetIconResource("icon256");
+			Icon = ToolsResources.GetIconResource("icon256", null);
 
 			m_ucNoFile = new UcNoFile(this);
 			m_ucBriefop = new UcBriefop();

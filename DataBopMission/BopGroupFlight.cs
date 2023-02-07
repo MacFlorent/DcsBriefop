@@ -1,7 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -151,47 +150,45 @@ namespace DcsBriefop.DataBopMission
 		//	return Coalition.OwnAssets.OfType<AssetShip>().Where(_a => grouped.Contains(_a.MainUnit.Id)).ToList();
 		//}
 
-		//private void AddBullseyeWaypoint()
-		//{
-		//	AssetRoutePoint bullsPoint = MapPoints.OfType<AssetRoutePoint>().Where(_mp => _mp.Name == m_sBullsPointName).FirstOrDefault();
+		public void SetBullseyeRoutePoint(BopCoalition bopCoalition)
+		{
+			if (bopCoalition.BullseyeWaypoint && Playable)
+				AddBullseyeRoutePoint(bopCoalition);
+			else
+				RemoveBullseyeRoutePoint();
+		}
 
-		//	if (bullsPoint is null)
-		//	{
-		//		MizRoutePoint mizRoutePoint = MizRoutePoint.NewFromLuaTemplate();
-		//		mizRoutePoint.Y = Coalition.MizCoalition.BullseyeY;
-		//		mizRoutePoint.X = Coalition.MizCoalition.BullseyeX;
+		private void AddBullseyeRoutePoint(BopCoalition bopCoalition)
+		{
+			BopRoutePoint bullseyeRoutePoint = GetBullseyeRoutePoint();
+			bopCoalition.SetBullseyeRoutePoint(ref bullseyeRoutePoint);
+			RoutePoints.Insert(1, bullseyeRoutePoint);
+			NumberRoutePoints();
+		}
 
-		//		AssetRoutePoint routePoint = new AssetRoutePoint(Core, 0, this, mizRoutePoint);
-		//		routePoint.Name = m_sBullsPointName;
+		private void RemoveBullseyeRoutePoint()
+		{
+			BopRoutePoint bullseyeRoutePoint = GetBullseyeRoutePoint();
+			if (bullseyeRoutePoint is object)
+				RoutePoints.Remove(bullseyeRoutePoint);
 
-		//		MapPoints.Insert(1, routePoint);
-		//		NumberMapPoints();
-		//	}
-		//	else
-		//	{
-		//		bullsPoint.SetYX(Coalition.MizCoalition.BullseyeY, Coalition.MizCoalition.BullseyeX);
-		//	}
-		//}
+			NumberRoutePoints();
+		}
 
-		//private void RemoveBullseyeWaypoint()
-		//{
-		//	AssetRoutePoint bullsPoint = MapPoints.OfType<AssetRoutePoint>().Where(_mp => _mp.Name == m_sBullsPointName).FirstOrDefault();
-		//	if (bullsPoint is object)
-		//		MapPoints.Remove(bullsPoint);
+		private BopRoutePoint GetBullseyeRoutePoint()
+		{
+			return RoutePoints.Where(_mp => _mp.Name == ElementGlobalData.BullseyeRoutePointName).FirstOrDefault();
+		}
 
-		//	NumberMapPoints();
-		//}
-
-		//public void InitializeBullseyeWaypoint(bool bWithWaypoint)
-		//{
-		//	//dataCartridge F18
-		//	// bullseye m2000
-		//	Log.Info("Updating BULLS waypoints status");
-		//	if (bWithWaypoint && Playable)
-		//		AddBullseyeWaypoint();
-		//	else
-		//		RemoveBullseyeWaypoint();
-		//}
+		private void NumberRoutePoints()
+		{
+			int iNumber = 0;
+			foreach (BopRoutePoint rp in RoutePoints)
+			{
+				rp.Number = iNumber;
+				iNumber++;
+			}
+		}
 		#endregion
 	}
 

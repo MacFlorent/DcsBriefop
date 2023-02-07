@@ -27,10 +27,14 @@ namespace DcsBriefop.Forms
 		#region Methods
 		public void DataToScreen()
 		{
+			CkBullseyeWaypoint.CheckedChanged -= CkBullseyeWaypoint_CheckedChanged;
+
 			DisplayCurrentBullseyeLocalisation(m_briefopManager.BopMission.PreferencesMission.CoordinateDisplay);
 			TbBullseyeDescription.Text = m_bopCoalition.BullseyeDescription;
 			CkBullseyeWaypoint.Checked = m_bopCoalition.BullseyeWaypoint;
 			TbTask.Text = m_bopCoalition.Task;
+			
+			CkBullseyeWaypoint.CheckedChanged += CkBullseyeWaypoint_CheckedChanged;
 		}
 
 		public void ScreenToData()
@@ -42,7 +46,15 @@ namespace DcsBriefop.Forms
 
 		public void DisplayCurrentBullseyeLocalisation(ElementCoordinateDisplay coordinateDisplay)
 		{
-			TbBullseye.Text = m_bopCoalition.Bullseye.ToStringLocalisation(coordinateDisplay);
+			TbBullseye.Text = m_bopCoalition.Bullseye.ToString(coordinateDisplay);
+		}
+		#endregion
+
+		#region Events
+		private void CkBullseyeWaypoint_CheckedChanged(object sender, System.EventArgs e)
+		{
+			ScreenToData();
+			m_briefopManager.BopMission.SetBullseyeRoutePoint();
 		}
 		#endregion
 	}

@@ -33,7 +33,7 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 			ToolsStyle.ButtonCancel(BtClose);
 
-			MasterDataRepository.FillCombo(MasterDataType.WeatherDisplay, CbWeatherDisplay);
+			MasterDataRepository.FillCombo(MasterDataType.WeatherDisplay, CbWeatherDisplay, CbWeatherDisplay_SelectedValueChanged);
 
 			DataToScreen();
 		}
@@ -49,7 +49,7 @@ namespace DcsBriefop.Forms
 		#region Methods
 		private void DataToScreen()
 		{
-			CbWeatherDisplay.Validated -= CbWeatherDisplay_Validated;
+			CbWeatherDisplay.Validated -= CbWeatherDisplay_SelectedValueChanged;
 			CkCoordinateDisplayDms.CheckedChanged -= CkCoordinateDisplay_CheckedChanged;
 			CkCoordinateDisplayDdm.CheckedChanged -= CkCoordinateDisplay_CheckedChanged;
 			CkCoordinateDisplayMgrs.CheckedChanged -= CkCoordinateDisplay_CheckedChanged;
@@ -67,7 +67,7 @@ namespace DcsBriefop.Forms
 			foreach(UcMissionCoalition ucCoalition in m_ucCoalitionsControls.Values)
 				ucCoalition.DataToScreen();
 
-			CbWeatherDisplay.Validated += CbWeatherDisplay_Validated;
+			CbWeatherDisplay.Validated += CbWeatherDisplay_SelectedValueChanged;
 			CkCoordinateDisplayDms.CheckedChanged += CkCoordinateDisplay_CheckedChanged;
 			CkCoordinateDisplayDdm.CheckedChanged += CkCoordinateDisplay_CheckedChanged;
 			CkCoordinateDisplayMgrs.CheckedChanged += CkCoordinateDisplay_CheckedChanged;
@@ -129,7 +129,7 @@ namespace DcsBriefop.Forms
 			Close();
 		}
 
-		private void CbWeatherDisplay_Validated(object sender, EventArgs e)
+		private void CbWeatherDisplay_SelectedValueChanged(object sender, EventArgs e)
 		{
 			DisplayCurrentWeather();
 		}
@@ -140,7 +140,5 @@ namespace DcsBriefop.Forms
 				ucCoalition.DisplayCurrentBullseyeLocalisation(GetCoordinateDisplayFromCheckboxes());
 		}
 		#endregion
-
-
 	}
 }

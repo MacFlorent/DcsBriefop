@@ -86,7 +86,7 @@ namespace DcsBriefop.DataBopMission
 			if (m_mizUnit.Altitude is object)
 				AltitudeFeet = (decimal)UnitsNet.UnitConverter.Convert(m_mizUnit.Altitude.Value, LengthUnit.Meter, LengthUnit.Foot);
 			else
-				AltitudeFeet = BopGroup.MapPoints.OfType<BopRoutePoint>().FirstOrDefault()?.AltitudeFeet;
+				AltitudeFeet = BopGroup.RoutePoints.FirstOrDefault()?.AltitudeFeet;
 
 			Coordinate = Theatre.GetCoordinate(m_mizUnit.Y, m_mizUnit.X);
 		}
@@ -125,7 +125,7 @@ namespace DcsBriefop.DataBopMission
 
 		public virtual string ToStringCoordinate()
 		{
-			return Coordinate.ToStringLocalisation(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
+			return Coordinate.ToString(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
 		}
 
 		public GMarkerBriefop GetMarkerBriefop(Color? color)

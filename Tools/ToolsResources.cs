@@ -38,10 +38,10 @@ namespace DcsBriefop.Tools
 			return sContent;
 		}
 
-		public static Icon GetIconResource(string sResource)
+		public static Icon GetIconResource(string sResourceName, string sExtension)
 		{
 			Icon iconFinal = null;
-			object oResource = Properties.Resources.ResourceManager.GetObject(sResource, Properties.Resources.Culture);
+			object oResource = Properties.Resources.ResourceManager.GetObject(sResourceName, Properties.Resources.Culture);
 			if (oResource is Icon icon)
 				iconFinal = icon;
 			else if (oResource is Bitmap bitmap)
@@ -54,15 +54,24 @@ namespace DcsBriefop.Tools
 			return iconFinal;
 		}
 
-		public static Image GetImageResource(string sResource)
+		public static Image GetImageResource(string sResourceName, string sExtension)
 		{
 			Image imageFinal = null;
-			object oResource = Properties.Resources.ResourceManager.GetObject(sResource, Properties.Resources.Culture);
-			if (oResource is Image image)
-				imageFinal = image;
-			else if (oResource is Icon icon)
+			string sResourceFilePath = GetResourceFileFullPath(sResourceName, sExtension);
+
+			if (!string.IsNullOrEmpty(sExtension) && File.Exists(sResourceFilePath))
 			{
+				imageFinal = Image.FromFile(sResourceFilePath);
+			}
+			else
+			{
+				object oResource = Properties.Resources.ResourceManager.GetObject(sResourceName, Properties.Resources.Culture);
+				if (oResource is Image image)
+					imageFinal = image;
+				else if (oResource is Icon icon)
+				{
 					imageFinal = new Icon(icon, 800, 800).ToBitmap(); // ask for a large size so the largest icon size will be used
+				}
 			}
 
 			return imageFinal;

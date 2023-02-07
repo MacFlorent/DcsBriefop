@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace DcsBriefop.Tools
 {
@@ -18,7 +19,7 @@ namespace DcsBriefop.Tools
 		#region MapControl
 		public static void InitializeMapControl(this GMapControl mapControl)
 		{
-			mapControl.MapProvider = GMapProviders.TryGetProvider(PreferencesManager.Preferences.Map.DefaultProvider);
+			mapControl.MapProvider = GMapProviders.TryGetProvider(PreferencesManager.Preferences.Map.DefaultProviderName);
 			GMaps.Instance.Mode = AccessMode.ServerOnly;
 			mapControl.ShowCenter = false;
 			//MapControl.Position = new PointLatLng(26.1702778, 56.24);

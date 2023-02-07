@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Tools;
 using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
@@ -37,6 +38,15 @@ namespace DcsBriefop.Forms
 			ToolsStyle.LabelHeader(LbSortie);
 
 			ToolsStyle.LabelTitle(LbBriefingTitle);
+
+			ToolsStyle.ButtonLarge(BtMissionInformations);
+			ToolsStyle.ButtonLarge(BtMissionAirbases);
+			ToolsStyle.ButtonLarge(BtMissionGroups);
+			ToolsStyle.ButtonLarge(BtMissionMaps);
+			ToolsStyle.ButtonLarge(BtMissionComs);
+			ToolsStyle.ButtonLarge(BtMissionPackages);
+
+			PnMissionActions.CenterInParentHorizontal();
 		}
 		#endregion
 
@@ -44,8 +54,20 @@ namespace DcsBriefop.Forms
 		private void DataToScreen()
 		{
 			LbSortie.Text = m_briefopManager.BopMission.Sortie;
-			LbTheatre.Text = m_briefopManager.BopMission.Theatre.Name;
 			LbMissionDirectory.Text = m_briefopManager.MizFilePath;
+			LbTheatre.Text = m_briefopManager.BopMission.Theatre.Name;
+			LbTheatre.CenterInParent();
+
+			Image theatreImage = ToolsResources.GetImageResource($"theatre{m_briefopManager.BopMission.Theatre.Name}", "jpg");
+			if (theatreImage is object)
+			{
+				PnMissionTheatre.BackgroundImage = theatreImage;
+				PnMissionTheatre.BackgroundImageLayout = ImageLayout.Stretch;
+			}
+			else
+			{
+				PnMissionTheatre.BackgroundImage = null;
+			}
 		}
 
 		public void ScreenToData()

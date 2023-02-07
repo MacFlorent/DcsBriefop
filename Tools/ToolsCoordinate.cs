@@ -30,7 +30,7 @@ namespace DcsBriefop.Tools
 			return c.MGRS.ToString();
 		}
 
-		public static string ToStringLocalisation(this Coordinate coordinate, ElementCoordinateDisplay coordinateDisplay)
+		public static string ToString(this Coordinate coordinate, ElementCoordinateDisplay coordinateDisplay)
 		{
 			StringBuilder sb = new StringBuilder();
 			if ((coordinateDisplay & ElementCoordinateDisplay.Mgrs) > 0)

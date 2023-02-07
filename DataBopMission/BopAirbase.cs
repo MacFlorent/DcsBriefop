@@ -95,8 +95,7 @@ namespace DcsBriefop.DataBopMission
 
 		public virtual string ToStringCoordinate()
 		{
-			return Coordinate.ToStringLocalisation(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
-
+			return Coordinate.ToString(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
 		}
 
 		public GMapOverlay GetMapOverlayPosition()

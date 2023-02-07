@@ -139,6 +139,11 @@ namespace DcsBriefop.Tools
 			button.BackColor = Color.LightPink;
 		}
 
+		public static void ButtonLarge(Button button)
+		{
+			ButtonDefault(button);
+			button.Font = TextFontTitle;
+		}
 		#endregion
 
 		#region Grids
@@ -158,7 +163,7 @@ namespace DcsBriefop.Tools
 		#region Forms
 		public static void SetBackgroundImage(Control c)
 		{
-			c.BackgroundImage = ToolsImage.SetImageOpacity(ToolsResources.GetImageResource("icon256"), 0.15f);
+			c.BackgroundImage = ToolsImage.SetImageOpacity(ToolsResources.GetImageResource("icon256", null), 0.15f);
 			c.BackgroundImageLayout = ImageLayout.Tile;
 		}
 		#endregion
