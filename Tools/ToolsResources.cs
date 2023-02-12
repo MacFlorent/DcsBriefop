@@ -1,7 +1,5 @@
 ﻿using DcsBriefop.Data;
-using System;
-using System.Drawing;
-using System.IO;
+using DcsBriefop.Properties;
 using System.Reflection;
 
 namespace DcsBriefop.Tools
@@ -31,7 +29,7 @@ namespace DcsBriefop.Tools
 			}
 			else
 			{
-				try { sContent = Properties.Resources.ResourceManager.GetString(sResourceName, Properties.Resources.Culture); }
+				try { sContent = Resources.ResourceManager.GetString(sResourceName); }
 				catch (Exception) { sContent = null; }
 			}
 
@@ -41,7 +39,7 @@ namespace DcsBriefop.Tools
 		public static Icon GetIconResource(string sResourceName, string sExtension)
 		{
 			Icon iconFinal = null;
-			object oResource = Properties.Resources.ResourceManager.GetObject(sResourceName, Properties.Resources.Culture);
+			object oResource = Resources.ResourceManager.GetObject(sResourceName);
 			if (oResource is Icon icon)
 				iconFinal = icon;
 			else if (oResource is Bitmap bitmap)
@@ -65,7 +63,7 @@ namespace DcsBriefop.Tools
 			}
 			else
 			{
-				object oResource = Properties.Resources.ResourceManager.GetObject(sResourceName, Properties.Resources.Culture);
+				object oResource = Resources.ResourceManager.GetObject(sResourceName, Resources.Culture);
 				if (oResource is Image image)
 					imageFinal = image;
 				else if (oResource is Icon icon)

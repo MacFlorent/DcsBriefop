@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DcsBriefop.DataBopBriefing
 {
-	internal class BopBriefingPage
+	internal class BopBriefingFolder
 	{
+		public string Name { get; set; }	
 
 	}
 }

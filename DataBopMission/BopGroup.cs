@@ -266,7 +266,7 @@ namespace DcsBriefop.DataBopMission
 			GMapOverlay mapOverlay = new GMapOverlay();
 			List<PointLatLng> points = new List<PointLatLng>();
 
-			foreach (BopRoutePoint bopRoutePoint in RoutePoints)//.Where(_bopRoutePoint => _bopRoutePoint.Name != ElementGlobalData.BullseyeRoutePointName))
+			foreach (BopRoutePoint bopRoutePoint in RoutePoints.Where(_bopRoutePoint => _bopRoutePoint.Name != ElementGlobalData.BullseyeRoutePointName))
 			{
 				PointLatLng p = new PointLatLng(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
 				points.Add(p);

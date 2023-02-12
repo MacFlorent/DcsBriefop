@@ -101,6 +101,12 @@ namespace DcsBriefop.Forms
 		{
 			FrmMissionMaps.CreateModal(m_briefopManager, ParentForm);
 		}
+		private void BtBriefingPage_Click(object sender, System.EventArgs e)
+		{
+			FrmBriefingPage.CreateModal(m_briefopManager, ParentForm);
+		}
 		#endregion
+
+
 	}
 }

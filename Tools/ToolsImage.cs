@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using DcsBriefop.Properties;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.IO;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Tools
 {
@@ -23,7 +19,7 @@ namespace DcsBriefop.Tools
 				}
 				else
 				{
-					bmp = Properties.Resources.ResourceManager.GetObject(sBitmapName, Properties.Resources.Culture) as Bitmap;
+					bmp = Resources.ResourceManager.GetObject(sBitmapName) as Bitmap;
 				}
 
 				if (bmp is null)

@@ -29,6 +29,8 @@
 		private void InitializeComponent()
 		{
 			this.PnMission = new System.Windows.Forms.Panel();
+			this.PnMissionTheatre = new System.Windows.Forms.Panel();
+			this.LbTheatre = new System.Windows.Forms.Label();
 			this.PnMissionActions = new System.Windows.Forms.Panel();
 			this.BtMissionPackages = new System.Windows.Forms.Button();
 			this.BtMissionInformations = new System.Windows.Forms.Button();
@@ -38,17 +40,16 @@
 			this.BtMissionComs = new System.Windows.Forms.Button();
 			this.LbMissionDirectory = new System.Windows.Forms.LinkLabel();
 			this.LbSortie = new System.Windows.Forms.Label();
-			this.LbTheatre = new System.Windows.Forms.Label();
 			this.LbMissionTitle = new System.Windows.Forms.Label();
 			this.PnBriefing = new System.Windows.Forms.Panel();
 			this.LbBriefingTitle = new System.Windows.Forms.Label();
 			this.PnBackground = new System.Windows.Forms.Panel();
-			this.PnMissionTheatre = new System.Windows.Forms.Panel();
+			this.BtBriefingPage = new System.Windows.Forms.Button();
 			this.PnMission.SuspendLayout();
+			this.PnMissionTheatre.SuspendLayout();
 			this.PnMissionActions.SuspendLayout();
 			this.PnBriefing.SuspendLayout();
 			this.PnBackground.SuspendLayout();
-			this.PnMissionTheatre.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// PnMission
@@ -66,6 +67,25 @@
 			this.PnMission.Name = "PnMission";
 			this.PnMission.Size = new System.Drawing.Size(887, 205);
 			this.PnMission.TabIndex = 0;
+			// 
+			// PnMissionTheatre
+			// 
+			this.PnMissionTheatre.Controls.Add(this.LbTheatre);
+			this.PnMissionTheatre.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.PnMissionTheatre.Location = new System.Drawing.Point(0, 148);
+			this.PnMissionTheatre.Name = "PnMissionTheatre";
+			this.PnMissionTheatre.Size = new System.Drawing.Size(885, 55);
+			this.PnMissionTheatre.TabIndex = 10;
+			// 
+			// LbTheatre
+			// 
+			this.LbTheatre.AutoSize = true;
+			this.LbTheatre.Location = new System.Drawing.Point(411, 20);
+			this.LbTheatre.Name = "LbTheatre";
+			this.LbTheatre.Size = new System.Drawing.Size(44, 13);
+			this.LbTheatre.TabIndex = 1;
+			this.LbTheatre.Text = "Theatre";
+			this.LbTheatre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// PnMissionActions
 			// 
@@ -161,16 +181,6 @@
 			this.LbSortie.Text = "sortie";
 			this.LbSortie.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// LbTheatre
-			// 
-			this.LbTheatre.AutoSize = true;
-			this.LbTheatre.Location = new System.Drawing.Point(411, 20);
-			this.LbTheatre.Name = "LbTheatre";
-			this.LbTheatre.Size = new System.Drawing.Size(44, 13);
-			this.LbTheatre.TabIndex = 1;
-			this.LbTheatre.Text = "Theatre";
-			this.LbTheatre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
 			// LbMissionTitle
 			// 
 			this.LbMissionTitle.Dock = System.Windows.Forms.DockStyle.Top;
@@ -187,6 +197,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.PnBriefing.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.PnBriefing.Controls.Add(this.BtBriefingPage);
 			this.PnBriefing.Controls.Add(this.LbBriefingTitle);
 			this.PnBriefing.Location = new System.Drawing.Point(0, 223);
 			this.PnBriefing.Name = "PnBriefing";
@@ -213,14 +224,15 @@
 			this.PnBackground.Size = new System.Drawing.Size(887, 461);
 			this.PnBackground.TabIndex = 2;
 			// 
-			// PnMissionTheatre
+			// BtBriefingPage
 			// 
-			this.PnMissionTheatre.Controls.Add(this.LbTheatre);
-			this.PnMissionTheatre.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.PnMissionTheatre.Location = new System.Drawing.Point(0, 148);
-			this.PnMissionTheatre.Name = "PnMissionTheatre";
-			this.PnMissionTheatre.Size = new System.Drawing.Size(885, 55);
-			this.PnMissionTheatre.TabIndex = 10;
+			this.BtBriefingPage.Location = new System.Drawing.Point(378, 101);
+			this.BtBriefingPage.Name = "BtBriefingPage";
+			this.BtBriefingPage.Size = new System.Drawing.Size(129, 35);
+			this.BtBriefingPage.TabIndex = 4;
+			this.BtBriefingPage.Text = "Page";
+			this.BtBriefingPage.UseVisualStyleBackColor = true;
+			this.BtBriefingPage.Click += new System.EventHandler(this.BtBriefingPage_Click);
 			// 
 			// UcBriefop
 			// 
@@ -231,11 +243,11 @@
 			this.Size = new System.Drawing.Size(893, 467);
 			this.PnMission.ResumeLayout(false);
 			this.PnMission.PerformLayout();
+			this.PnMissionTheatre.ResumeLayout(false);
+			this.PnMissionTheatre.PerformLayout();
 			this.PnMissionActions.ResumeLayout(false);
 			this.PnBriefing.ResumeLayout(false);
 			this.PnBackground.ResumeLayout(false);
-			this.PnMissionTheatre.ResumeLayout(false);
-			this.PnMissionTheatre.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -258,5 +270,6 @@
 		private System.Windows.Forms.Panel PnMissionActions;
 		private System.Windows.Forms.Button BtMissionPackages;
 		private System.Windows.Forms.Panel PnMissionTheatre;
+		private System.Windows.Forms.Button BtBriefingPage;
 	}
 }
