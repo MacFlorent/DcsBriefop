@@ -1,4 +1,6 @@
-﻿using DcsBriefop.net.Tools;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataBopBriefing;
+using DcsBriefop.net.Tools;
 using GMap.NET.MapProviders;
 using Maroontress.Html;
 using PuppeteerSharp;
@@ -23,19 +25,17 @@ namespace DcsBriefop.Forms
 		#region CTOR
 		public FrmBriefingPage(BriefopManager briefopManager, WaitDialog waitDialog) : base(waitDialog)
 		{
+			m_briefopManager = briefopManager;
+
 			InitializeComponent();
 
 			//https://github.com/maroontress/HtmlBuilder
 			//https://github.com/hardkoded/puppeteer-sharp
 
-			var nodeOf = Nodes.NewFactory();
-			var html = nodeOf.Html.Add(
-					nodeOf.Head.Add(
-							nodeOf.Title.Add("My first web page")),
-					nodeOf.Body.Add(
-							nodeOf.P.Add("Hello, World!")));
-			var result = html.ToString();
-			textBox1.Text = result;
+			BopBriefingOptions options = new BopBriefingOptions() { CoalitionName = ElementCoalition.Blue, CoordinateDisplay = ElementCoordinateDisplay.Dms, UnitSystem = ElementUnitSystem.Imperial };
+			BopBriefingPage testPage = new BopBriefingPage(m_briefopManager.BopMission, options);
+			testPage.Parts.Add(new BopBriefingPartBullseye(m_briefopManager.BopMission, options));
+			textBox1.Text = testPage.BuildHtmlContentString();
 		}
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)

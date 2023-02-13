@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DcsBriefop.Data;
 
 namespace DcsBriefop.DataBopBriefing
 {
 	internal class BopBriefingFolder
 	{
-		public string Name { get; set; }	
+		public string Name { get; set; }
+		public List<string> AircraftTypes { get; set; }
+		BopBriefingOptions Options { get; set; }
+		public List<BopBriefingPage> Pages { get; set; }
 
 	}
 }
