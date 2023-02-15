@@ -13,7 +13,7 @@ namespace DcsBriefop.net.Tools
 		}
 
 		//ScreenshotStreamAsync
-		public async Task<byte[]> RenderImageDataAsync(string sHtml, ScreenshotOptions options)
+		public async Task<byte[]> RenderImageDataAsync(string sHtml, ScreenshotOptions options, ViewPortOptions viewPortOptions)
 		{
 			byte[] resultBytes = null;
 			try
@@ -25,12 +25,18 @@ namespace DcsBriefop.net.Tools
 				await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
 				await using var page = await browser.NewPageAsync();
 				await page.SetContentAsync(sHtml);
+
+				if (viewPortOptions is object)
+				{
+					await page.SetViewportAsync(viewPortOptions);
+				}
+
 				resultBytes = await page.ScreenshotDataAsync(options);
 
 				await browser.CloseAsync();
 				return resultBytes;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				// Log ex $"{nameof(RenderImageDataAsync)}: Unable to render image from {nameof(html)}={html}");
 			}
@@ -38,10 +44,10 @@ namespace DcsBriefop.net.Tools
 			return null;
 		}
 
-		public async Task<Image> RenderImageAsync(string sHtml, ScreenshotOptions options)
+		public async Task<Image> RenderImageAsync(string sHtml, ScreenshotOptions options, ViewPortOptions viewPortOptions)
 		{
 			Image resultImage = null;
-			byte[] byteArrayIn = await RenderImageDataAsync(sHtml, options);
+			byte[] byteArrayIn = await RenderImageDataAsync(sHtml, options, viewPortOptions);
 			using (var ms = new MemoryStream(byteArrayIn))
 			{
 				resultImage = Image.FromStream(ms);

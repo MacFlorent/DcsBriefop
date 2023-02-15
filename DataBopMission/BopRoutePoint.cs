@@ -97,11 +97,6 @@ namespace DcsBriefop.DataBopMission
 			return $"{Number}:{Name}";
 		}
 
-		public virtual string ToStringCoordinate()
-		{
-			return Coordinate.ToString(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
-		}
-
 		public string ToStringAdditionnal()
 		{
 			StringBuilder sb = new StringBuilder();

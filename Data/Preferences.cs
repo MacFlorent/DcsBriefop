@@ -1,10 +1,4 @@
-﻿using DcsBriefop.Data;
-using DcsBriefop.Tools;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
+﻿using DcsBriefop.Tools;
 
 namespace DcsBriefop.Data
 {
@@ -12,13 +6,15 @@ namespace DcsBriefop.Data
 	{
 		public PreferencesApplication Application { get; set; } = new PreferencesApplication();
 		public PreferencesMission Mission { get; set; } = new PreferencesMission();
-		//public PreferencesBriefing Briefing { get; set; } = new PreferencesBriefing();
 		public PreferencesMap Map { get; set; } = new PreferencesMap();
+		public PreferencesBriefing Briefing { get; set; } = new PreferencesBriefing();
+
 		public void InitializeDefault()
 		{
 			Application.InitializeDefault();
 			Mission.InitializeDefault();
 			Map.InitializeDefault();
+			Briefing.InitializeDefault();
 		}
 	}
 
@@ -54,40 +50,33 @@ namespace DcsBriefop.Data
 	internal class PreferencesMission
 	{
 		public bool NoCallsignForPlayableFlights { get; set; } = true;
-		public ElementWeatherDisplay WeatherDisplay { get; set; } = ElementWeatherDisplay.Plain;
-		public ElementCoordinateDisplay CoordinateDisplay { get; set; } = ElementCoordinateDisplay.Mgrs;
-
+		public bool BullseyeWaypoint { get; set; } = true;
 		public void InitializeDefault() { }
 	}
-
-	//internal class PreferencesBriefing
-	//{
-	//	public bool ExportOnSave { get; set; } = true;
-	//	public bool ExportMiz { get; set; } = true;
-	//	public bool ExportLocalDirectory { get; set; } = true;
-	//	public bool ExportLocalDirectoryHtml { get; set; } = false;
-	//	public string ExportLocalDirectoryPath { get; set; }
-	//	public Size ExportImageSize { get; set; } = new Size(720, 1085);
-	//	public string ExportImageBackgroundColor { get; set; }
-	//	public List<ElementExportFileType> ExportFileTypes { get; set; } = new List<ElementExportFileType>();
-
-	//	public void InitializeDefault()
-	//	{
-	//		ExportImageBackgroundColor = ColorTranslator.ToHtml(Color.Black);
-
-	//		ExportFileTypes.Clear();
-	//		ExportFileTypes.Add(ElementExportFileType.Operations);
-	//		ExportFileTypes.Add(ElementExportFileType.Opposition);
-	//		ExportFileTypes.Add(ElementExportFileType.Missions);
-	//	}
-	//}
 
 	internal class PreferencesMap
 	{
-		public string DefaultProviderName { get; set; } = GMap.NET.MapProviders.BingMapProvider.Instance.Name;
-		public double DefaultZoom { get; set; } = 9;
+		public string ProviderName { get; set; } = GMap.NET.MapProviders.BingMapProvider.Instance.Name;
+		public double Zoom { get; set; } = 9;
 
 		public void InitializeDefault() { }
 	}
+
+	internal class PreferencesBriefing
+	{
+		public ElementWeatherDisplay WeatherDisplay { get; set; } = ElementWeatherDisplay.Plain;
+		public ElementMeasurementSystem MeasurementSystem { get; set; } = ElementMeasurementSystem.Imperial;
+		public ElementCoordinateDisplay CoordinateDisplay { get; set; } = ElementCoordinateDisplay.Mgrs;
+		public Size ImageSize { get; set; } = new Size(720, 1085);
+		public bool GenerateOnSave { get; set; } = true;
+		public bool GenerateMiz { get; set; } = true;
+		public bool GenerateDirectory { get; set; } = false;
+		public bool GenerateDirectoryHtml { get; set; } = false;
+		public string GenerateDirectoryName { get; set; }
+
+		public void InitializeDefault() { }
+	}
+
+
 }
 

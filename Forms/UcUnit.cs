@@ -1,7 +1,7 @@
-﻿using DcsBriefop.DataBopMission;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataBopMission;
 using DcsBriefop.Map;
-using System;
-using System.Windows.Forms;
+using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms
 {
@@ -54,7 +54,7 @@ namespace DcsBriefop.Forms
 			TbAttributes.Text = m_bopUnit.Attributes.ToString();
 			TbOther.Text = m_bopUnit.ToStringAdditionnal();
 			TbAltitude.Text = $"{m_bopUnit.AltitudeFeet:0}";
-			TbCoordinates.Text = m_bopUnit.ToStringCoordinate();
+			TbCoordinates.Text = m_bopUnit.Coordinate.ToString(ElementCoordinateDisplay.All);
 			CbMapMarker.Text = m_bopUnit.MapMarker;
 
 			CbMapMarker.SelectedValueChanged += CbMapMarker_SelectedValueChanged;

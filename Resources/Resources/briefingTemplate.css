@@ -4,26 +4,31 @@
     border: 0;
     font-size: 16px;
     font-family: 'Arial';
-    font-weight: bold;
+    font-weight: normal;
+    color: lightgrey;
+    border-color: beige;
 }
 
 #wrapper {
-    color: white;
-    background-color: __colorBack__;
+    background-color: black;
     width: 100%;
+    border: 2px solid red;
 }
 
 div.header {
-    color: __colorLight__;
-    background-color: __colorDark__;
-    border-bottom: 2px solid yellow;
+    border-bottom: 2px solid;
     padding: 5px 0px 5px 0px;
     text-align: center;
 }
 
 div.content {
-    border-bottom: 1px solid yellow;
-    padding: 5px 0px 5px 0px;
+    border-bottom: 1px solid;
+    padding: 5px 1px 5px 1px;
+}
+
+div.table {
+    border-bottom: 1px solid;
+    padding: 3px 1px 3px 1px;
 }
 
 h1 {
@@ -45,19 +50,18 @@ p {
 
 table {
     border-collapse: collapse;
-    border: 2px solid yellow;
+    border: 2px solid burlywood;
 }
 
 td.header,
 th {
-    color: cyan;
-    background-color: black;
+    color: burlywood;
     font-weight: bold;
 }
 th,
 td {
     padding: 8px;
-    border:1px solid yellow
+    border:1px solid burlywood;
 }
 
 td.fixed-height > div {

@@ -19,13 +19,13 @@
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
     <PackageReference Include="CoordinateSharp" Version="2.15.2.1" />
+    <PackageReference Include="Definux.HtmlBuilder" Version="1.0.16" />
     <PackageReference Include="DG.AdvancedDataGridView" Version="1.2.27706.9" />
     <PackageReference Include="GMap.NET.WinForms" Version="2.1.7" />
     <PackageReference Include="log4net" Version="2.0.15" />
-    <PackageReference Include="Maroontress.HtmlBuilder" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="PuppeteerSharp" Version="9.0.2" />
-    <PackageReference Include="UnitsNet" Version="5.1.0" />
+    <PackageReference Include="UnitsNet" Version="5.2.0" />
   </ItemGroup>
 
   <ItemGroup>

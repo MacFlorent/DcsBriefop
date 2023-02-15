@@ -1,8 +1,4 @@
 ﻿using DcsBriefop.Tools;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Data
 {
@@ -12,7 +8,9 @@ namespace DcsBriefop.Data
 		RadioModulation,
 		ComPresetMode,
 		WeatherDisplay,
-		CoordinateDisplay
+		MeasurementSystem,
+		CoordinateDisplay,
+		Coalition
 	}
 
 	internal static class MasterDataColumn
@@ -32,8 +30,11 @@ namespace DcsBriefop.Data
 
 	internal static class MasterDataRepository
 	{
+		#region Fields
 		private static Dictionary<MasterDataType, List<MasterData>> m_repository = new Dictionary<MasterDataType, List<MasterData>>();
+		#endregion
 
+		#region CTOR
 		static MasterDataRepository()
 		{
 			//m_repository.Add(MasterDataType.AssetMapDisplay, BuildListAssetMapDisplay());
@@ -41,8 +42,12 @@ namespace DcsBriefop.Data
 			m_repository.Add(MasterDataType.ComPresetMode, BuildListComPresetMode());
 			m_repository.Add(MasterDataType.WeatherDisplay, BuildListWeatherDisplay());
 			m_repository.Add(MasterDataType.CoordinateDisplay, BuildListCoordinateDisplay());
+			m_repository.Add(MasterDataType.MeasurementSystem, BuildListMeasurementSystem());
+			m_repository.Add(MasterDataType.Coalition, BuildListCoalition());
 		}
+		#endregion
 
+		#region Build lists
 		//private static List<MasterData> BuildListAssetMapDisplay()
 		//{
 		//	return new List<MasterData>()
@@ -91,6 +96,28 @@ namespace DcsBriefop.Data
 				new MasterData() { Id = (int)ElementCoordinateDisplay.Mgrs, Label = "MGRS" },
 			};
 		}
+
+		private static List<MasterData> BuildListMeasurementSystem()
+		{
+			return new List<MasterData>()
+			{
+				new MasterData() { Id = (int)ElementMeasurementSystem.Imperial, Label = "Imperial" },
+				new MasterData() { Id = (int)ElementMeasurementSystem.Metric, Label = "Metric" },
+			};
+		}
+
+		private static List<MasterData> BuildListCoalition()
+		{
+			return new List<MasterData>()
+			{
+				new MasterData() { Id = 1, Label = ElementCoalition.Red },
+				new MasterData() { Id = 2, Label = ElementCoalition.Blue },
+				new MasterData() { Id = 3, Label = ElementCoalition.Neutral }
+			};
+		}
+		#endregion
+
+		#region Methods
 		public static List<MasterData> GetMasterDataList(MasterDataType type)
 		{
 			if (m_repository.TryGetValue(type, out List<MasterData> list))
@@ -135,5 +162,7 @@ namespace DcsBriefop.Data
 			}
 			return iFlag;
 		}
+
+		#endregion
 	}
 }

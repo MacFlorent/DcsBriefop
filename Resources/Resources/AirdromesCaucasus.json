@@ -16,8 +16,8 @@
     {"Id": 14, "Name": "Novorossiysk", "Latitude": 44.673, "Longitude": 37.786, "Radios": [ { "Frequency": 252, "Modulation": 0 }, { "Frequency": 123, "Modulation": 0 } ]},
     {"Id": 23, "Name": "Senaki", "Latitude": 42.239, "Longitude": 42.061, "Radios": [ { "Frequency": 261, "Modulation": 0 }, { "Frequency": 132, "Modulation": 0 } ], "Tacan": { "Channel": 31, "Mode": "X" }},
     {"Id": 18, "Name": "Sochi-Adler", "Latitude": 43.439, "Longitude": 39.924, "Radios": [ { "Frequency": 256, "Modulation": 0 }, { "Frequency": 127, "Modulation": 0 } ]},
-    {"Id": 30, "Name": "Soganlug", "Latitude": 41.641, "Longitude": 44.947, "Radios": [ { "Frequency": 268, "Modulation": 0 }, { "Frequency": 139, "Modulation": 0 } ]},
+    {"Id": 30, "Name": "Soganlug", "Latitude": 41.641, "Longitude": 44.947, "Radios": [ { "Frequency": 268, "Modulation": 0 }, { "Frequency": 139, "Modulation": 0 } ], "Tacan": { "Channel": 25, "Mode": "X" }},
     {"Id": 20, "Name": "Sukhumi-Babushara", "Latitude": 42.853, "Longitude": 41.142, "Radios": [ { "Frequency": 258, "Modulation": 0 }, { "Frequency": 129, "Modulation": 0 } ]},
     {"Id": 29, "Name": "Tbilisi-Lochini", "Latitude": 41.674, "Longitude": 44.947, "Radios": [ { "Frequency": 267, "Modulation": 0 }, { "Frequency": 138, "Modulation": 0 } ], "Tacan": { "Channel": 25, "Mode": "X" }},
-    {"Id": 31, "Name": "Vaziani", "Latitude": 41.638, "Longitude": 45.019, "Radios": [ { "Frequency": 269, "Modulation": 0 }, { "Frequency": 140, "Modulation": 0 } ], "Tacan": { "Channel": 22, "Mode": "X" }}       
+    {"Id": 31, "Name": "Vaziani", "Latitude": 41.638, "Longitude": 45.019, "Radios": [ { "Frequency": 269, "Modulation": 0 }, { "Frequency": 140, "Modulation": 0 } ], "Tacan": { "Channel": 22, "Mode": "X" }}
 ]

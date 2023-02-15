@@ -5,10 +5,6 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
@@ -50,7 +46,7 @@ namespace DcsBriefop.Forms
 		{
 			CbMapProvider.SelectedValueChanged -= CbMapProvider_SelectedValueChanged;
 
-			CbMapProvider.SelectedItem = GMapProviders.TryGetProvider(m_briefopManager.BopMission.PreferencesMap.DefaultProviderName);
+			CbMapProvider.SelectedItem = GMapProviders.TryGetProvider(m_briefopManager.BopMission.PreferencesMap.ProviderName);
 
 			m_ucMap = new UcMap();
 			m_ucMap.Dock = DockStyle.Fill;
@@ -82,13 +78,13 @@ namespace DcsBriefop.Forms
 
 			m_ucMap.MapData = mapData;
 			m_ucMap.StaticOverlays = staticOverlays;
-			m_ucMap.MapProviderName = m_briefopManager.BopMission.PreferencesMap.DefaultProviderName;
+			m_ucMap.MapProviderName = m_briefopManager.BopMission.PreferencesMap.ProviderName;
 			m_ucMap.RefreshMapData();
 		}
 
 		private void ScreenToData()
 		{
-			m_briefopManager.BopMission.PreferencesMap.DefaultProviderName = (CbMapProvider.SelectedItem as GMapProvider)?.Name; ;
+			m_briefopManager.BopMission.PreferencesMap.ProviderName = (CbMapProvider.SelectedItem as GMapProvider)?.Name; ;
 		}
 		#endregion
 

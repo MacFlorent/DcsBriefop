@@ -4,9 +4,6 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.MapProviders;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
@@ -43,7 +40,7 @@ namespace DcsBriefop.Forms
 			//m_gridManagerAirbases.SelectionChangedTyped += SelectionChangedTypedEvent;
 
 			MapControl.InitializeMapControl();
-			MapControl.MapProvider = GMapProviders.TryGetProvider(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.DefaultProviderName);
+			MapControl.MapProvider = GMapProviders.TryGetProvider(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.ProviderName);
 
 			MapTemplateMarker.FillCombo(CbMapMarker, CbMapMarker_SelectedValueChanged);
 
@@ -63,7 +60,7 @@ namespace DcsBriefop.Forms
 			TbType.Text = m_bopAirbase.AirbaseType.ToString();
 			TbTacan.Text = m_bopAirbase.Tacan?.ToString();
 			TbName.Text = m_bopAirbase.Name;
-			TbCoordinates.Text = m_bopAirbase.ToStringCoordinate();
+			TbCoordinates.Text = m_bopAirbase.Coordinate.ToString(ElementCoordinateDisplay.All);
 			CbMapMarker.Text = m_bopAirbase.MapMarker;
 
 			m_gridManagerAirbaseRadios.AirbaseRadios = m_bopAirbase.Radios;

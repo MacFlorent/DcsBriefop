@@ -1,13 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
-using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -127,18 +121,13 @@ namespace DcsBriefop.DataBopMission
 					Miz.MizBopCustom.MapData.CenterLatitude = firstAirdrome.Latitude;
 					Miz.MizBopCustom.MapData.CenterLongitude = firstAirdrome.Longitude;
 				}
-				Miz.MizBopCustom.MapData.Zoom = PreferencesManager.Preferences.Map.DefaultZoom;
+				Miz.MizBopCustom.MapData.Zoom = PreferencesManager.Preferences.Map.Zoom;
 				Miz.MizBopCustom.MapData.MapOverlay = new GMapOverlay();
 			}
 		}
 		#endregion
 
 		#region Methods
-		public string ToStringWeather()
-		{
-			return Weather.ToString(PreferencesMission.WeatherDisplay);
-		}
-
 		public GMapOverlay GetMapOverlay()
 		{
 			GMapOverlay mapOverlay = new GMapOverlay();

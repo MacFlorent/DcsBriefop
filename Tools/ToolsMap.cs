@@ -5,12 +5,6 @@ using DcsBriefop.Map;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Tools
 {
@@ -19,13 +13,12 @@ namespace DcsBriefop.Tools
 		#region MapControl
 		public static void InitializeMapControl(this GMapControl mapControl)
 		{
-			mapControl.MapProvider = GMapProviders.TryGetProvider(PreferencesManager.Preferences.Map.DefaultProviderName);
+			mapControl.MapProvider = GMapProviders.TryGetProvider(PreferencesManager.Preferences.Map.ProviderName);
 			GMaps.Instance.Mode = AccessMode.ServerOnly;
 			mapControl.ShowCenter = false;
-			//MapControl.Position = new PointLatLng(26.1702778, 56.24);
 			mapControl.MinZoom = ElementMapValue.MinZoom;
 			mapControl.MaxZoom = ElementMapValue.MaxZoom;
-			mapControl.Zoom = PreferencesManager.Preferences.Map.DefaultZoom;
+			mapControl.Zoom = PreferencesManager.Preferences.Map.Zoom;
 		}
 
 		public static void ForceRefresh(this GMapControl mapControl)

@@ -123,11 +123,6 @@ namespace DcsBriefop.DataBopMission
 			return "";
 		}
 
-		public virtual string ToStringCoordinate()
-		{
-			return Coordinate.ToString(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
-		}
-
 		public GMarkerBriefop GetMarkerBriefop(Color? color)
 		{
 			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree), MapMarker, color ?? ToolsBriefop.GetCoalitionColor(BopGroup.CoalitionName), ToStringDisplayName(), 1, 0);

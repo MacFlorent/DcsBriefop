@@ -56,7 +56,7 @@ namespace DcsBriefop.Forms
 			TcDetails.SelectedIndexChanged += TcDetails_SelectedIndexChanged;
 
 			MapControl.InitializeMapControl();
-			MapControl.MapProvider = GMapProviders.TryGetProvider(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.DefaultProviderName);
+			MapControl.MapProvider = GMapProviders.TryGetProvider(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.ProviderName);
 		}
 		#endregion
 

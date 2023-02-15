@@ -1,7 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
@@ -29,7 +28,7 @@ namespace DcsBriefop.Forms
 		{
 			CkBullseyeWaypoint.CheckedChanged -= CkBullseyeWaypoint_CheckedChanged;
 
-			DisplayCurrentBullseyeLocalisation(m_briefopManager.BopMission.PreferencesMission.CoordinateDisplay);
+			TbBullseye.Text = m_bopCoalition.Bullseye.ToString(ElementCoordinateDisplay.All);
 			TbBullseyeDescription.Text = m_bopCoalition.BullseyeDescription;
 			CkBullseyeWaypoint.Checked = m_bopCoalition.BullseyeWaypoint;
 			TbTask.Text = m_bopCoalition.Task;
@@ -42,11 +41,6 @@ namespace DcsBriefop.Forms
 			m_bopCoalition.BullseyeDescription = TbBullseyeDescription.Text;
 			m_bopCoalition.BullseyeWaypoint = CkBullseyeWaypoint.Checked;
 			m_bopCoalition.Task = TbTask.Text;
-		}
-
-		public void DisplayCurrentBullseyeLocalisation(ElementCoordinateDisplay coordinateDisplay)
-		{
-			TbBullseye.Text = m_bopCoalition.Bullseye.ToString(coordinateDisplay);
 		}
 		#endregion
 

@@ -5,9 +5,6 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 
 namespace DcsBriefop.DataBopMission
@@ -91,11 +88,6 @@ namespace DcsBriefop.DataBopMission
 				sb.AppendWithSeparator($"TACAN:{Tacan}", " ");
 
 			return sb.ToString();
-		}
-
-		public virtual string ToStringCoordinate()
-		{
-			return Coordinate.ToString(Miz.MizBopCustom.PreferencesMission.CoordinateDisplay);
 		}
 
 		public GMapOverlay GetMapOverlayPosition()

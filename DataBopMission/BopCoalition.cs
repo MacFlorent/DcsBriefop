@@ -5,7 +5,6 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using System.Linq;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -74,7 +73,7 @@ namespace DcsBriefop.DataBopMission
 				m_mizBopCoalition.MapData = new MizBopMap();
 				m_mizBopCoalition.MapData.CenterLatitude = centerCoordinate.Latitude.DecimalDegree;
 				m_mizBopCoalition.MapData.CenterLongitude = centerCoordinate.Longitude.DecimalDegree;
-				m_mizBopCoalition.MapData.Zoom = PreferencesManager.Preferences.Map.DefaultZoom;
+				m_mizBopCoalition.MapData.Zoom = PreferencesManager.Preferences.Map.Zoom;
 				m_mizBopCoalition.MapData.MapOverlay = new GMapOverlay();
 
 				m_mizBopCoalition.SetDefaultData();

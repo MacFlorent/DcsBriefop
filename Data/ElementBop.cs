@@ -32,7 +32,7 @@ namespace DcsBriefop.Data
 		Metar
 	}
 
-	internal enum ElementUnitSystem
+	internal enum ElementMeasurementSystem
 	{
 		Metric,
 		Imperial
@@ -41,9 +41,11 @@ namespace DcsBriefop.Data
 	[Flags]
 	internal enum ElementCoordinateDisplay
 	{
+		None = 0,
 		Dms = 1,
 		Ddm = 2,
-		Mgrs = 4
+		Mgrs = 4,
+		All = ~None
 	}
 
 	[Flags]
@@ -64,6 +66,7 @@ namespace DcsBriefop.Data
 		Farp = 3
 	}
 
+	[Flags]
 	internal enum ElementBriefingPageContent
 	{
 		None = 0,

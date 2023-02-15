@@ -1,8 +1,7 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET.MapProviders;
-using System;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
@@ -22,14 +21,15 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 			ToolsStyle.LabelHeader(LbTitleApplication);
 			ToolsStyle.LabelHeader(LbTitleMission);
+			ToolsStyle.LabelHeader(LbTitleBriefing);
 			ToolsStyle.LabelHeader(LbTitleMap);
 			ToolsStyle.ButtonOk(BtOk);
 			ToolsStyle.ButtonCancel(BtCancel);
 
-			CbMapProvider.ValueMember = "Name";
-			CbMapProvider.DataSource = GMapProviders.List;
-			MasterDataRepository.FillCombo(MasterDataType.WeatherDisplay, CbMissionWeatherDisplay, null);
-			MasterDataRepository.FillListBox(MasterDataType.CoordinateDisplay, LstCoordinateDisplay);
+			MapProviders.FillCombo(CbMapProvider, null);
+			MasterDataRepository.FillCombo(MasterDataType.WeatherDisplay, CbBriefingWeatherDisplay, null);
+			MasterDataRepository.FillCombo(MasterDataType.MeasurementSystem, CbBriefingMeasurementSystem, null);
+			MasterDataRepository.FillListBox(MasterDataType.CoordinateDisplay, LstBriefingCoordinateDisplay);
 
 			DataToScreen();
 		}
@@ -38,16 +38,31 @@ namespace DcsBriefop.Forms
 		#region Methods
 		private void DataToScreen()
 		{
+			CkBriefingGenerateDirectory.CheckedChanged -= CkBriefingGenerateDirectory_CheckedChanged;
+
 			TbApplicationWorkingDirectory.Text = m_preferences.Application.WorkingDirectory;
 			TbApplicationRecentMiz.Text = string.Join(",", m_preferences.Application.RecentMiz);
 			CkApplicationMizBackup.Checked = m_preferences.Application.BackupBeforeOverwrite;
 			CkApplicationGenerateBatch.Checked = m_preferences.Application.GenerateBatchCommandOnSave;
 
-			CbMissionWeatherDisplay.SelectedValue = (int)m_preferences.Mission.WeatherDisplay;
-			MasterDataRepository.SetFlagCheckedListbox((int)m_preferences.Mission.CoordinateDisplay, LstCoordinateDisplay);
+			CkMissionBullseyeWaypoint.Checked = m_preferences.Mission.BullseyeWaypoint;
+			CkMissionNoCallsignForPlayable.Checked = m_preferences.Mission.NoCallsignForPlayableFlights;
 
-			CbMapProvider.SelectedItem = GMapProviders.TryGetProvider(m_preferences.Map.DefaultProviderName);
-			NudMapZoom.Value = (decimal)m_preferences.Map.DefaultZoom;
+			CbMapProvider.SelectedItem = GMapProviders.TryGetProvider(m_preferences.Map.ProviderName);
+			NudMapZoom.Value = (decimal)m_preferences.Map.Zoom;
+
+			CbBriefingWeatherDisplay.SelectedValue = (int)m_preferences.Briefing.WeatherDisplay;
+			CbBriefingMeasurementSystem.SelectedValue = (int)m_preferences.Briefing.MeasurementSystem;
+			MasterDataRepository.SetFlagCheckedListbox((int)m_preferences.Briefing.CoordinateDisplay, LstBriefingCoordinateDisplay);
+			UcBriefingImageSize.SelectedSize = m_preferences.Briefing.ImageSize;
+			CkBriefingGenerateOnSave.Checked = m_preferences.Briefing.GenerateOnSave;
+			CkBriefingGenerateMiz.Checked = m_preferences.Briefing.GenerateMiz;
+			CkBriefingGenerateDirectory.Checked = m_preferences.Briefing.GenerateDirectory;
+			CkBriefingGenerateDirectoryHtml.Checked = m_preferences.Briefing.GenerateDirectoryHtml;
+			TbBriefingDirectoryName.Text = m_preferences.Briefing.GenerateDirectoryName;
+			DisplayCurrentBriefingGenerateDirectory();
+
+			CkBriefingGenerateDirectory.CheckedChanged += CkBriefingGenerateDirectory_CheckedChanged;
 		}
 
 		private void ScreenToData()
@@ -60,11 +75,26 @@ namespace DcsBriefop.Forms
 			m_preferences.Application.BackupBeforeOverwrite = CkApplicationMizBackup.Checked;
 			m_preferences.Application.GenerateBatchCommandOnSave = CkApplicationGenerateBatch.Checked;
 
-			m_preferences.Mission.WeatherDisplay = (ElementWeatherDisplay)CbMissionWeatherDisplay.SelectedValue;
-			m_preferences.Mission.CoordinateDisplay = (ElementCoordinateDisplay)MasterDataRepository.GetFlagCheckedListbox(LstCoordinateDisplay);
+			m_preferences.Mission.BullseyeWaypoint = CkMissionBullseyeWaypoint.Checked;
+			m_preferences.Mission.NoCallsignForPlayableFlights = CkMissionNoCallsignForPlayable.Checked;
 
-			m_preferences.Map.DefaultProviderName = (CbMapProvider.SelectedItem as GMapProvider)?.Name;
-			m_preferences.Map.DefaultZoom = (double)NudMapZoom.Value;
+			m_preferences.Map.ProviderName = (CbMapProvider.SelectedItem as GMapProvider)?.Name;
+			m_preferences.Map.Zoom = (double)NudMapZoom.Value;
+
+			m_preferences.Briefing.WeatherDisplay = (ElementWeatherDisplay)CbBriefingWeatherDisplay.SelectedValue;
+			m_preferences.Briefing.MeasurementSystem = (ElementMeasurementSystem)CbBriefingMeasurementSystem.SelectedValue;
+			m_preferences.Briefing.CoordinateDisplay = (ElementCoordinateDisplay)MasterDataRepository.GetFlagCheckedListbox(LstBriefingCoordinateDisplay);
+			m_preferences.Briefing.ImageSize = UcBriefingImageSize.SelectedSize;
+			m_preferences.Briefing.GenerateOnSave = CkBriefingGenerateOnSave.Checked;
+			m_preferences.Briefing.GenerateMiz = CkBriefingGenerateMiz.Checked;
+			m_preferences.Briefing.GenerateDirectory = CkBriefingGenerateDirectory.Checked;
+			m_preferences.Briefing.GenerateDirectoryHtml = CkBriefingGenerateDirectoryHtml.Checked;
+			m_preferences.Briefing.GenerateDirectoryName = TbBriefingDirectoryName.Text;
+		}
+
+		private void DisplayCurrentBriefingGenerateDirectory()
+		{
+			CkBriefingGenerateDirectoryHtml.Visible = LbBriefingDirectoryName.Visible = TbBriefingDirectoryName.Visible = CkBriefingGenerateDirectory.Checked;
 		}
 		#endregion
 
@@ -114,6 +144,13 @@ namespace DcsBriefop.Forms
 		{
 			TbApplicationRecentMiz.Text = null;
 		}
+
+		private void CkBriefingGenerateDirectory_CheckedChanged(object sender, EventArgs e)
+		{
+			DisplayCurrentBriefingGenerateDirectory();
+		}
 		#endregion
+
+
 	}
 }

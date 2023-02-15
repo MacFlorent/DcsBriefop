@@ -1,4 +1,5 @@
-﻿using DcsBriefop.DataBopMission;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataBopMission;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
@@ -42,7 +43,7 @@ namespace DcsBriefop.Forms
 			TbRadio.Text = m_bopGroup.Radio?.ToString();
 			TbOther.Text = m_bopGroup.ToStringAdditionnal();
 			TbAltitude.Text = $"{m_bopGroup.AltitudeFeet:0}";
-			TbCoordinates.Text = m_bopGroup.ToStringCoordinate();
+			TbCoordinates.Text = m_bopGroup.Coordinate.ToString(ElementCoordinateDisplay.All);
 			CbMapMarker.Text = m_bopGroup.MapMarker;
 
 			DataToScreenMap();
@@ -54,7 +55,7 @@ namespace DcsBriefop.Forms
 		{
 			m_mapControl.Overlays.Clear();
 			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayPosition());
-			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayRoute(null, Data.ElementMapOverlayRouteDisplay.NoMarkerFirstPoint));
+			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayRoute(null, ElementMapOverlayRouteDisplay.NoMarkerFirstPoint));
 
 			m_mapControl.Position = new PointLatLng(m_bopGroup.Coordinate.Latitude.DecimalDegree, m_bopGroup.Coordinate.Longitude.DecimalDegree);
 			m_mapControl.ForceRefresh();
