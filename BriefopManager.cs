@@ -2,11 +2,7 @@
 using DcsBriefop.DataBopMission;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
-using Newtonsoft.Json;
-using System;
-using System.IO;
 using System.IO.Compression;
-using System.Reflection;
 
 namespace DcsBriefop
 {

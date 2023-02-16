@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.DataBopBriefing;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 using GMap.NET.WindowsForms;
@@ -22,6 +23,7 @@ namespace DcsBriefop.DataBopMission
 
 		public PreferencesMission PreferencesMission { get { return Miz.MizBopCustom.PreferencesMission; } }
 		public PreferencesMap PreferencesMap { get { return Miz.MizBopCustom.PreferencesMap; } }
+		public List<BopBriefingFolder> BopBriefingFolders { get { return Miz.MizBopCustom.BopBriefingFolders; } }
 		#endregion
 
 		#region CTOR

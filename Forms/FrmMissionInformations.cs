@@ -46,10 +46,6 @@ namespace DcsBriefop.Forms
 		{
 			TbSortie.Text = m_briefopManager.BopMission.Sortie;
 			DtpDate.Value = m_briefopManager.BopMission.Date;
-			//CbWeatherDisplay.SelectedValue = (int)m_briefopManager.BopMission.PreferencesMission.WeatherDisplay;
-			//CkCoordinateDisplayDms.Checked = (m_briefopManager.BopMission.PreferencesMission.CoordinateDisplay & ElementCoordinateDisplay.Dms) > 0;
-			//CkCoordinateDisplayDdm.Checked = (m_briefopManager.BopMission.PreferencesMission.CoordinateDisplay & ElementCoordinateDisplay.Ddm) > 0;
-			//CkCoordinateDisplayMgrs.Checked = (m_briefopManager.BopMission.PreferencesMission.CoordinateDisplay & ElementCoordinateDisplay.Mgrs) > 0;
 			TbWeather.Text = $"{m_briefopManager.BopMission.Weather.ToString(ElementWeatherDisplay.Metar)}{Environment.NewLine}{Environment.NewLine}{m_briefopManager.BopMission.Weather.ToString(ElementWeatherDisplay.Plain)}";
 
 			m_tbDescription.Text = m_briefopManager.BopMission.Description;
@@ -63,9 +59,6 @@ namespace DcsBriefop.Forms
 		{
 			m_briefopManager.BopMission.Sortie = TbSortie.Text;
 			m_briefopManager.BopMission.Date = DtpDate.Value;
-			//m_briefopManager.BopMission.PreferencesMission.WeatherDisplay = (ElementWeatherDisplay)CbWeatherDisplay.SelectedValue;
-
-			//m_briefopManager.BopMission.PreferencesMission.CoordinateDisplay = GetCoordinateDisplayFromCheckboxes();
 			m_briefopManager.BopMission.Description = m_tbDescription.Text;
 			foreach (UcMissionCoalition ucCoalition in m_ucCoalitionsControls.Values)
 				ucCoalition.ScreenToData();

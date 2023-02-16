@@ -1,8 +1,5 @@
 ﻿using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {

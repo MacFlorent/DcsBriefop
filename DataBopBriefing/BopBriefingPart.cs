@@ -1,5 +1,5 @@
 ﻿using DcsBriefop.DataBopMission;
-using Definux.HtmlBuilder;
+using HtmlTags;
 
 namespace DcsBriefop.DataBopBriefing
 {
@@ -13,7 +13,7 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Properties
-		public string PartName { get; protected set; }
+		public string PartType { get; protected set; }
 		#endregion
 
 		#region CTOR
@@ -21,22 +21,18 @@ namespace DcsBriefop.DataBopBriefing
 		{
 			m_bopMission = bopMission;
 			m_bopBriefingFolder = bopBriefingFolder;
-			PartName = sPartType;
+			PartType = sPartType;
 			m_sCssClass = sCssClass;
 		}
 		#endregion
 
 		#region Methods
-		public Definux.HtmlBuilder.HtmlElement BuildHtml(HtmlBuilder builder)
+		public HtmlTag BuildHtml()
 		{
-			Definux.HtmlBuilder.HtmlElement htmlElement =
-				builder.StartElement(HtmlTags.Div).WithClasses(m_sCssClass).Append(BuildHtmlContent(builder));
-
-
-			//return nodeOf.Div.WithClass(m_sCssClass).Add(BuildHtmlContent(nodeOf));
+			return new HtmlTag("div").AddClass(m_sCssClass).Append(BuildHtmlContent());
 		}
 
-		protected abstract IEnumerable<Definux.HtmlBuilder.HtmlElement> BuildHtmlContent(HtmlBuilder builder);
+		protected abstract IEnumerable<HtmlTag> BuildHtmlContent();
 		#endregion
 	}
 }

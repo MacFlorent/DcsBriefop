@@ -1,12 +1,9 @@
 ﻿using LsonLib;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Text;
 
 namespace DcsBriefop.Tools
 {
-	internal class ToolsLua
+	internal static class ToolsLua
 	{
 		public static string ReadLuaFileContent(string sFilePath)
 		{

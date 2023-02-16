@@ -1,6 +1,7 @@
-﻿using DcsBriefop.DataBopMission;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
-using Maroontress.Html;
+using HtmlTags;
 
 namespace DcsBriefop.DataBopBriefing
 {
@@ -11,13 +12,13 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region CTOR
-		public BopBriefingPartBullseye(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder, "Bullseye", "table") { }
+		public BopBriefingPartBullseye(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder, ElementBriefingPartType.Bullseye, "table") { }
 		#endregion
 
 		#region Methods
-		protected override IEnumerable<Tag> BuildHtmlContent(NodeFactory nodeOf)
+		protected override IEnumerable<HtmlTag> BuildHtmlContent()
 		{
-			List<Tag> tags = new List<Tag>();
+			List<HtmlTag> tags = new List<HtmlTag>();
 
 			if (m_bopMission.Coalitions.TryGetValue(m_bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
 			{
@@ -25,22 +26,16 @@ namespace DcsBriefop.DataBopBriefing
 				if (bopCoalition.BullseyeWaypoint)
 					sHeader += " [WP1]";
 
-				Tag tagTable = nodeOf.Table.AddAttributes(("width", "100%")).Add
-				(
-					nodeOf.Tr.Add
-					(
-						nodeOf.Td.WithClass("header").Add(sHeader),
-						nodeOf.Td.Add(bopCoalition.Bullseye.ToString(m_bopBriefingFolder.CoordinateDisplay))
-					)
-				);
+				HtmlTag tagTable = new HtmlTag("table").Attr("width", "100%");
+				HtmlTag tagTr = tagTable.Add("tr");
+				tagTr.Add("td").AddClass("header").AppendText(sHeader);
+				tagTr.Add("td").Append(bopCoalition.Bullseye.ToString(m_bopBriefingFolder.CoordinateDisplay).HtmlLineBreaks());
 
 				if (WithDescription && !string.IsNullOrEmpty(bopCoalition.BullseyeDescription))
 				{
-					tagTable = tagTable.Add
-					(
-						nodeOf.Td.WithClass("header").Add("Notes"),
-						nodeOf.Td.Add(bopCoalition.BullseyeDescription)
-					);
+					tagTr = tagTable.Add("tr");
+					tagTr.Add("td").AddClass("header").AppendText("Notes");
+					tagTr.Add("td").Append(bopCoalition.BullseyeDescription.HtmlLineBreaks());
 				}
 				tags.Add(tagTable);
 			}

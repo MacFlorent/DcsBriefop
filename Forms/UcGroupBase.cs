@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.DataBopMission;
 using GMap.NET.WindowsForms;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
@@ -26,17 +25,12 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcGroupBase()
-		{
-			InitializeComponent();
-		}
-		public UcGroupBase(BriefopManager briefopManager, BopGroup bopGroup, GMapControl mapControl) : this()
+		public UcGroupBase() { InitializeComponent(); }
+		public UcGroupBase(BriefopManager briefopManager, BopGroup bopGroup, GMapControl mapControl)
 		{
 			m_briefopManager = briefopManager;
 			m_bopGroup = bopGroup;
 			m_mapControl = mapControl;
-
-			InitializeComponent();
 		}
 		#endregion
 

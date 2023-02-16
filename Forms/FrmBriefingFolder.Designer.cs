@@ -47,6 +47,7 @@
 			this.TbName = new System.Windows.Forms.TextBox();
 			this.LbName = new System.Windows.Forms.Label();
 			this.ScMain = new System.Windows.Forms.SplitContainer();
+			this.LbHeader = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.DgvPages)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.ScMain)).BeginInit();
 			this.ScMain.Panel1.SuspendLayout();
@@ -56,7 +57,7 @@
 			// BtPageRemove
 			// 
 			this.BtPageRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtPageRemove.Location = new System.Drawing.Point(293, 743);
+			this.BtPageRemove.Location = new System.Drawing.Point(210, 741);
 			this.BtPageRemove.Name = "BtPageRemove";
 			this.BtPageRemove.Size = new System.Drawing.Size(75, 23);
 			this.BtPageRemove.TabIndex = 41;
@@ -66,7 +67,7 @@
 			// BtPageAdd
 			// 
 			this.BtPageAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtPageAdd.Location = new System.Drawing.Point(212, 743);
+			this.BtPageAdd.Location = new System.Drawing.Point(129, 741);
 			this.BtPageAdd.Name = "BtPageAdd";
 			this.BtPageAdd.Size = new System.Drawing.Size(75, 23);
 			this.BtPageAdd.TabIndex = 40;
@@ -81,18 +82,18 @@
 			this.DgvPages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.DgvPages.FilterAndSortEnabled = true;
 			this.DgvPages.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.DgvPages.Location = new System.Drawing.Point(12, 278);
+			this.DgvPages.Location = new System.Drawing.Point(3, 309);
 			this.DgvPages.Name = "DgvPages";
 			this.DgvPages.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.DgvPages.RowTemplate.Height = 25;
-			this.DgvPages.Size = new System.Drawing.Size(356, 459);
+			this.DgvPages.Size = new System.Drawing.Size(282, 426);
 			this.DgvPages.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			this.DgvPages.TabIndex = 39;
 			// 
 			// LbPages
 			// 
 			this.LbPages.AutoSize = true;
-			this.LbPages.Location = new System.Drawing.Point(13, 260);
+			this.LbPages.Location = new System.Drawing.Point(11, 291);
 			this.LbPages.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.LbPages.Name = "LbPages";
 			this.LbPages.Size = new System.Drawing.Size(38, 15);
@@ -102,7 +103,7 @@
 			// LbBriefingImageSize
 			// 
 			this.LbBriefingImageSize.AutoSize = true;
-			this.LbBriefingImageSize.Location = new System.Drawing.Point(13, 212);
+			this.LbBriefingImageSize.Location = new System.Drawing.Point(12, 243);
 			this.LbBriefingImageSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.LbBriefingImageSize.Name = "LbBriefingImageSize";
 			this.LbBriefingImageSize.Size = new System.Drawing.Size(62, 15);
@@ -113,11 +114,11 @@
 			// 
 			this.UcImageSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.UcImageSize.Location = new System.Drawing.Point(13, 230);
+			this.UcImageSize.Location = new System.Drawing.Point(12, 261);
 			this.UcImageSize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.UcImageSize.Name = "UcImageSize";
 			this.UcImageSize.SelectedSize = new System.Drawing.Size(1, 1);
-			this.UcImageSize.Size = new System.Drawing.Size(355, 27);
+			this.UcImageSize.Size = new System.Drawing.Size(272, 27);
 			this.UcImageSize.TabIndex = 36;
 			// 
 			// CbMeasurementSystem
@@ -125,16 +126,16 @@
 			this.CbMeasurementSystem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.CbMeasurementSystem.FormattingEnabled = true;
-			this.CbMeasurementSystem.Location = new System.Drawing.Point(139, 121);
+			this.CbMeasurementSystem.Location = new System.Drawing.Point(138, 152);
 			this.CbMeasurementSystem.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.CbMeasurementSystem.Name = "CbMeasurementSystem";
-			this.CbMeasurementSystem.Size = new System.Drawing.Size(230, 23);
+			this.CbMeasurementSystem.Size = new System.Drawing.Size(147, 23);
 			this.CbMeasurementSystem.TabIndex = 35;
 			// 
 			// LbMeasurementSystem
 			// 
 			this.LbMeasurementSystem.AutoSize = true;
-			this.LbMeasurementSystem.Location = new System.Drawing.Point(13, 125);
+			this.LbMeasurementSystem.Location = new System.Drawing.Point(12, 156);
 			this.LbMeasurementSystem.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.LbMeasurementSystem.Name = "LbMeasurementSystem";
 			this.LbMeasurementSystem.Size = new System.Drawing.Size(120, 15);
@@ -146,10 +147,10 @@
 			this.LstCoordinateDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.LstCoordinateDisplay.FormattingEnabled = true;
-			this.LstCoordinateDisplay.Location = new System.Drawing.Point(139, 150);
+			this.LstCoordinateDisplay.Location = new System.Drawing.Point(138, 181);
 			this.LstCoordinateDisplay.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.LstCoordinateDisplay.Name = "LstCoordinateDisplay";
-			this.LstCoordinateDisplay.Size = new System.Drawing.Size(230, 58);
+			this.LstCoordinateDisplay.Size = new System.Drawing.Size(147, 58);
 			this.LstCoordinateDisplay.TabIndex = 33;
 			// 
 			// CbWeatherDisplay
@@ -157,16 +158,16 @@
 			this.CbWeatherDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.CbWeatherDisplay.FormattingEnabled = true;
-			this.CbWeatherDisplay.Location = new System.Drawing.Point(139, 92);
+			this.CbWeatherDisplay.Location = new System.Drawing.Point(138, 123);
 			this.CbWeatherDisplay.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
 			this.CbWeatherDisplay.Name = "CbWeatherDisplay";
-			this.CbWeatherDisplay.Size = new System.Drawing.Size(230, 23);
+			this.CbWeatherDisplay.Size = new System.Drawing.Size(147, 23);
 			this.CbWeatherDisplay.TabIndex = 32;
 			// 
 			// LbCoordinateDisplay
 			// 
 			this.LbCoordinateDisplay.AutoSize = true;
-			this.LbCoordinateDisplay.Location = new System.Drawing.Point(13, 150);
+			this.LbCoordinateDisplay.Location = new System.Drawing.Point(12, 181);
 			this.LbCoordinateDisplay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.LbCoordinateDisplay.Name = "LbCoordinateDisplay";
 			this.LbCoordinateDisplay.Size = new System.Drawing.Size(106, 15);
@@ -176,7 +177,7 @@
 			// LbWeatherDisplay
 			// 
 			this.LbWeatherDisplay.AutoSize = true;
-			this.LbWeatherDisplay.Location = new System.Drawing.Point(12, 100);
+			this.LbWeatherDisplay.Location = new System.Drawing.Point(11, 131);
 			this.LbWeatherDisplay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.LbWeatherDisplay.Name = "LbWeatherDisplay";
 			this.LbWeatherDisplay.Size = new System.Drawing.Size(91, 15);
@@ -188,15 +189,15 @@
 			this.CbCoalition.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.CbCoalition.FormattingEnabled = true;
-			this.CbCoalition.Location = new System.Drawing.Point(139, 63);
+			this.CbCoalition.Location = new System.Drawing.Point(138, 94);
 			this.CbCoalition.Name = "CbCoalition";
-			this.CbCoalition.Size = new System.Drawing.Size(230, 23);
+			this.CbCoalition.Size = new System.Drawing.Size(147, 23);
 			this.CbCoalition.TabIndex = 5;
 			// 
 			// LbCoalition
 			// 
 			this.LbCoalition.AutoSize = true;
-			this.LbCoalition.Location = new System.Drawing.Point(13, 66);
+			this.LbCoalition.Location = new System.Drawing.Point(12, 97);
 			this.LbCoalition.Name = "LbCoalition";
 			this.LbCoalition.Size = new System.Drawing.Size(55, 15);
 			this.LbCoalition.TabIndex = 4;
@@ -206,15 +207,15 @@
 			// 
 			this.TbUnitTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbUnitTypes.Location = new System.Drawing.Point(139, 34);
+			this.TbUnitTypes.Location = new System.Drawing.Point(138, 65);
 			this.TbUnitTypes.Name = "TbUnitTypes";
-			this.TbUnitTypes.Size = new System.Drawing.Size(230, 23);
+			this.TbUnitTypes.Size = new System.Drawing.Size(147, 23);
 			this.TbUnitTypes.TabIndex = 3;
 			// 
 			// LbUnitTypes
 			// 
 			this.LbUnitTypes.AutoSize = true;
-			this.LbUnitTypes.Location = new System.Drawing.Point(12, 37);
+			this.LbUnitTypes.Location = new System.Drawing.Point(11, 68);
 			this.LbUnitTypes.Name = "LbUnitTypes";
 			this.LbUnitTypes.Size = new System.Drawing.Size(60, 15);
 			this.LbUnitTypes.TabIndex = 2;
@@ -224,15 +225,15 @@
 			// 
 			this.TbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbName.Location = new System.Drawing.Point(139, 5);
+			this.TbName.Location = new System.Drawing.Point(138, 36);
 			this.TbName.Name = "TbName";
-			this.TbName.Size = new System.Drawing.Size(230, 23);
+			this.TbName.Size = new System.Drawing.Size(147, 23);
 			this.TbName.TabIndex = 1;
 			// 
 			// LbName
 			// 
 			this.LbName.AutoSize = true;
-			this.LbName.Location = new System.Drawing.Point(13, 8);
+			this.LbName.Location = new System.Drawing.Point(12, 39);
 			this.LbName.Name = "LbName";
 			this.LbName.Size = new System.Drawing.Size(39, 15);
 			this.LbName.TabIndex = 0;
@@ -240,6 +241,7 @@
 			// 
 			// ScMain
 			// 
+			this.ScMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.ScMain.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.ScMain.Location = new System.Drawing.Point(0, 0);
 			this.ScMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -247,6 +249,7 @@
 			// 
 			// ScMain.Panel1
 			// 
+			this.ScMain.Panel1.Controls.Add(this.LbHeader);
 			this.ScMain.Panel1.Controls.Add(this.BtPageRemove);
 			this.ScMain.Panel1.Controls.Add(this.BtPageAdd);
 			this.ScMain.Panel1.Controls.Add(this.DgvPages);
@@ -270,9 +273,19 @@
 			// 
 			this.ScMain.Panel2.AutoScroll = true;
 			this.ScMain.Size = new System.Drawing.Size(1179, 769);
-			this.ScMain.SplitterDistance = 372;
+			this.ScMain.SplitterDistance = 291;
 			this.ScMain.SplitterWidth = 5;
 			this.ScMain.TabIndex = 2;
+			// 
+			// LbHeader
+			// 
+			this.LbHeader.Dock = System.Windows.Forms.DockStyle.Top;
+			this.LbHeader.Location = new System.Drawing.Point(0, 0);
+			this.LbHeader.Name = "LbHeader";
+			this.LbHeader.Size = new System.Drawing.Size(289, 33);
+			this.LbHeader.TabIndex = 42;
+			this.LbHeader.Text = "Folder";
+			this.LbHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// FrmBriefingFolder
 			// 
@@ -282,6 +295,7 @@
 			this.Controls.Add(this.ScMain);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.Name = "FrmBriefingFolder";
+			this.ShowInTaskbar = false;
 			this.Text = "Briefing folder";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmBriefingFolder_FormClosed);
 			((System.ComponentModel.ISupportInitialize)(this.DgvPages)).EndInit();
@@ -314,5 +328,6 @@
 		private TextBox TbName;
 		private Label LbName;
 		private SplitContainer ScMain;
+		private Label LbHeader;
 	}
 }

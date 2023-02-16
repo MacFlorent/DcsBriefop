@@ -1,9 +1,11 @@
-﻿using DcsBriefop.DataBopMission;
-using Maroontress.Html;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataBopMission;
+using DcsBriefop.Tools;
+using HtmlTags;
 
 namespace DcsBriefop.DataBopBriefing
 {
-	internal abstract class BopBriefingPartParagraph : BopBriefingPart
+	internal abstract class BopBriefingPartParagraphBase : BopBriefingPart
 	{
 		#region Fields
 		protected string m_sHeader;
@@ -11,33 +13,22 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region CTOR
-		public BopBriefingPartParagraph(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder, "Paragraph", "content") { }
+		public BopBriefingPartParagraphBase(BopMission bopMission, BopBriefingFolder bopBriefingFolder, string sPartType) : base(bopMission, bopBriefingFolder, sPartType, "content") { }
 		#endregion
 
 		#region Methods
-		private static List<Tag> BuildHtmlContentParagraph(string sParagraph, NodeFactory nodeOf)
+		protected override IEnumerable<HtmlTag> BuildHtmlContent()
 		{
-			List<Tag> tags = new List<Tag>();
-
-			string[] strings = sParagraph.Split(Environment.NewLine);
-			foreach (string s in strings)
-			{
-				tags.Add(nodeOf.Span.AddAttributes(("style", "white-space: pre-line")).Add(s));
-			}
-
-			return tags;
-		}
-
-		protected override IEnumerable<Tag> BuildHtmlContent(NodeFactory nodeOf)
-		{
-			List<Tag> tags = new List<Tag>();
+			List<HtmlTag> tags = new List<HtmlTag>();
 			if (!string.IsNullOrEmpty(m_sHeader))
 			{
-				tags.Add(nodeOf.H2.Add(m_sHeader.Replace(Environment.NewLine, nodeOf.Entity.NewLine.ToString())));
+				//tags.Add(new HtmlTag("h2").AppendText(m_sHeader));
+				tags.Add(new HtmlTag("h2").Append(m_sHeader.HtmlLineBreaks()));
 			}
 			if (!string.IsNullOrEmpty(m_sText))
 			{
-				tags.Add(nodeOf.P.Add(m_sText.Replace(Environment.NewLine, nodeOf.Entity.NewLine.ToString())));
+				//tags.Add(new HtmlTag("p").AppendText(m_sText));
+				tags.Add(new HtmlTag("p").Append(m_sText.HtmlLineBreaks()));
 			}
 
 			return tags;
@@ -45,7 +36,7 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 	}
 
-	internal class BopBriefingPartParagraphFree : BopBriefingPartParagraph
+	internal class BopBriefingPartParagraph : BopBriefingPartParagraphBase
 	{
 		#region Properties
 		public string Header
@@ -60,33 +51,29 @@ namespace DcsBriefop.DataBopBriefing
 		}
 		#endregion
 
-		public BopBriefingPartParagraphFree(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder) { }
+		public BopBriefingPartParagraph(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder, ElementBriefingPartType.Paragraph) { }
 	}
 
-	internal class BopBriefingPartParagraphSortie : BopBriefingPartParagraph
+	internal class BopBriefingPartSortie : BopBriefingPartParagraphBase
 	{
-		public BopBriefingPartParagraphSortie(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder)
+		public BopBriefingPartSortie(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder, ElementBriefingPartType.Sortie)
 		{
-			PartName = "Sortie";
 			m_sHeader = m_bopMission.Sortie;
 		}
 	}
 
-	internal class BopBriefingPartParagraphDescription : BopBriefingPartParagraph
+	internal class BopBriefingPartDescription : BopBriefingPartParagraphBase
 	{
-		public BopBriefingPartParagraphDescription(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder)
+		public BopBriefingPartDescription(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder, ElementBriefingPartType.Description)
 		{
-			PartName = "Description";
 			m_sText = m_bopMission.Description;
 		}
 	}
 
-	internal class BopBriefingPartParagraphTask : BopBriefingPartParagraph
+	internal class BopBriefingPartTask : BopBriefingPartParagraphBase
 	{
-		public BopBriefingPartParagraphTask(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder)
+		public BopBriefingPartTask(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder, ElementBriefingPartType.Task)
 		{
-			PartName = "Task";
-
 			if (m_bopMission.Coalitions.TryGetValue(m_bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
 			{
 				m_sHeader = $"{bopCoalition.CoalitionName} task";

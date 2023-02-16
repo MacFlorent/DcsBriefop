@@ -2,8 +2,6 @@
 using DcsBriefop.DataBopBriefing;
 using DcsBriefop.Tools;
 using System.Diagnostics;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
@@ -105,18 +103,22 @@ namespace DcsBriefop.Forms
 		}
 		private void BtBriefingPage_Click(object sender, System.EventArgs e)
 		{
-			BopBriefingFolder bopBriefingFolder = new BopBriefingFolder(m_briefopManager.BopMission);
-			bopBriefingFolder.CoalitionName = ElementCoalition.Blue;
+			BopBriefingFolder bopBriefingFolder = m_briefopManager.BopMission.BopBriefingFolders.FirstOrDefault();
+			if (bopBriefingFolder is null)
+			{
+				bopBriefingFolder = new BopBriefingFolder(m_briefopManager.BopMission);
+				bopBriefingFolder.Name = "TEST FOLDER";
+				m_briefopManager.BopMission.BopBriefingFolders.Add(bopBriefingFolder);
 
-			BopBriefingPage bopBriefingPage = new BopBriefingPage(m_briefopManager.BopMission, bopBriefingFolder);
-			bopBriefingPage.Title = "TEST PAGE";
-			bopBriefingPage.DisplayTitle = true;
-			bopBriefingPage.Parts.Add(new BopBriefingPartParagraphSortie(m_briefopManager.BopMission, bopBriefingFolder));
-			bopBriefingPage.Parts.Add(new BopBriefingPartParagraphDescription(m_briefopManager.BopMission, bopBriefingFolder));
-			bopBriefingPage.Parts.Add(new BopBriefingPartParagraphTask(m_briefopManager.BopMission, bopBriefingFolder));
-			bopBriefingPage.Parts.Add(new BopBriefingPartBullseye(m_briefopManager.BopMission, bopBriefingFolder));
+				bopBriefingFolder.CoalitionName = ElementCoalition.Blue;
+				BopBriefingPage bopBriefingPage = bopBriefingFolder.AddPage();
+				bopBriefingPage.DisplayTitle = true;
 
-			bopBriefingFolder.Pages.Add(bopBriefingPage);
+				bopBriefingPage.AddPart(ElementBriefingPartType.Sortie);
+				bopBriefingPage.AddPart(ElementBriefingPartType.Description);
+				bopBriefingPage.AddPart(ElementBriefingPartType.Task);
+				bopBriefingPage.AddPart(ElementBriefingPartType.Bullseye);
+			}
 
 			FrmBriefingFolder.CreateModal(bopBriefingFolder, ParentForm);
 		}

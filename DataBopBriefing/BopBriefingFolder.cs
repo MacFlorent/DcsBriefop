@@ -34,7 +34,13 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Methods
-
+		public BopBriefingPage AddPage()
+		{
+			BopBriefingPage bopBriefingPage = new BopBriefingPage(m_bopMission, this);
+			bopBriefingPage.Title = $"{Name}_{Pages.Count:000}";
+			Pages.Add(bopBriefingPage);
+			return bopBriefingPage;
+		}
 		#endregion
 
 	}

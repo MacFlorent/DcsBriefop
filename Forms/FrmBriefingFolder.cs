@@ -20,6 +20,8 @@ namespace DcsBriefop.Forms
 
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
+			ToolsStyle.LabelTitle(LbHeader);
+			ToolsStyle.LabelHeader(LbPages);
 			ToolsStyle.ButtonOk(BtPageAdd);
 			ToolsStyle.ButtonCancel(BtPageRemove);
 
@@ -58,7 +60,6 @@ namespace DcsBriefop.Forms
 			DataToScreenDetail();
 
 			m_gridManagerBriefingPages.SelectionChangedTyped += SelectionChangedTypedEvent;
-
 		}
 
 		private void DataToScreenDetail()
@@ -73,7 +74,7 @@ namespace DcsBriefop.Forms
 				}
 				if (m_ucBriefingPage is null)
 				{
-					m_ucBriefingPage = new UcBriefingPage(selectedPage);
+					m_ucBriefingPage = new UcBriefingPage(selectedPage, this);
 				}
 				else
 				{
@@ -92,7 +93,7 @@ namespace DcsBriefop.Forms
 			}
 		}
 
-		private void ScreenToData()
+		public void ScreenToData()
 		{
 			m_bopBriefingFolder.Name = TbName.Text;
 			m_bopBriefingFolder.CoalitionName = CbCoalition.Text;

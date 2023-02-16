@@ -1,9 +1,11 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
+using DcsBriefop.DataMiz;
 using DcsBriefop.net.Tools;
 using DcsBriefop.Tools;
-using Maroontress.Html;
+using HtmlTags;
 using PuppeteerSharp;
+using System.Xml.Linq;
 
 namespace DcsBriefop.DataBopBriefing
 {
@@ -17,8 +19,9 @@ namespace DcsBriefop.DataBopBriefing
 		#region Properties
 		public string Title { get; set; }
 		public bool DisplayTitle { get; set; }
-		public ElementBriefingPageContent PageContent { get; set; } = (ElementBriefingPageContent.Map | ElementBriefingPageContent.Html);
+		public ElementBriefingPageRender Render { get; set; } = (ElementBriefingPageRender.Map | ElementBriefingPageRender.Html);
 		public List<BopBriefingPart> Parts { get; set; } = new List<BopBriefingPart>();
+		public MizBopMap MapData { get; set; }
 		#endregion
 
 		#region CTOR
@@ -30,69 +33,85 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Methods
+		public BopBriefingPart AddPart(string sPartType)
+		{
+			BopBriefingPart bopBriefingPart = null;
+			
+			if (sPartType == ElementBriefingPartType.Bullseye)
+				bopBriefingPart = new BopBriefingPartBullseye(m_bopMission, m_bopBriefingFolder);
+			else if (sPartType == ElementBriefingPartType.Paragraph)
+				bopBriefingPart = new BopBriefingPartParagraph(m_bopMission, m_bopBriefingFolder);
+			else if (sPartType == ElementBriefingPartType.Sortie)
+				bopBriefingPart = new BopBriefingPartSortie(m_bopMission, m_bopBriefingFolder);
+			else if(sPartType == ElementBriefingPartType.Description)
+				bopBriefingPart = new BopBriefingPartDescription(m_bopMission, m_bopBriefingFolder);
+			else if(sPartType == ElementBriefingPartType.Task)
+				bopBriefingPart = new BopBriefingPartTask(m_bopMission, m_bopBriefingFolder);
+
+			if (bopBriefingPart is object)
+			{
+				Parts.Add(bopBriefingPart);
+			}
+
+			return bopBriefingPart;
+		}
+		#endregion
+
+		#region Html
 		public async Task<Image> BuildHtmlImage()
 		{
 			Image image = null;
-			string sHtml = BuildHtmlContentString();
-			using (HtmlImageRenderer i = new HtmlImageRenderer())
+			string sHtml = BuildHtmlString();
+			using (HtmlImageRenderer renderer = new HtmlImageRenderer())
 			{
 				ScreenshotOptions screenshotOptions = new ScreenshotOptions() { Type = ScreenshotType.Png };
 				ViewPortOptions viewPortOptions = new ViewPortOptions() { Height = m_bopBriefingFolder.ImageSize.Height, Width = m_bopBriefingFolder.ImageSize.Width };
 
-				image = await i.RenderImageAsync(sHtml, screenshotOptions, viewPortOptions);
+				image = await renderer.RenderImageAsync(sHtml, screenshotOptions, viewPortOptions);
 			}
 
 			return image;
 		}
 
-		public string BuildHtmlContentString()
+		public string BuildHtmlString()
 		{
-			Tag tagHtml = BuildHtmlContent();
-			return tagHtml.ToString(FormatOptions.DefaultIndent);
+			return BuildHtml()?.ToString();
 		}
 
-		public Tag BuildHtmlContent()
+		public HtmlTags.HtmlDocument BuildHtml()
 		{
-			NodeFactory nodeOf = Nodes.NewFactory();
-			return nodeOf.Html.Add
-			(
-				BuildHtmlContentHead(nodeOf),
-				BuildHtmlContentBody(nodeOf)
-			);
+			HtmlTags.HtmlDocument html = new();
+			html.Head.Append(BuildHtmlStyle());
+			html.Body.Append(BuildHtmlWrapper());
+
+			return html;
 		}
 
-		private Tag BuildHtmlContentHead(NodeFactory nodeOf)
+		private HtmlTag BuildHtmlStyle()
 		{
+			HtmlTag tag = new("style");
 			string sStyle = ToolsResources.GetTextResourceContent("briefingTemplate", "css");
-			return nodeOf.Head.Add (nodeOf.Style.Add(sStyle));
+			return tag.AppendHtml(sStyle);
 		}
 
-		private Tag BuildHtmlContentBody(NodeFactory nodeOf)
+		private HtmlTag BuildHtmlWrapper()
 		{
-			return nodeOf.Body.Add (BuildHtmlContentWrapper(nodeOf));
-		}
-
-		private Tag BuildHtmlContentWrapper(NodeFactory nodeOf)
-		{
-			Tag tagWrapper = nodeOf.Div.WithId("wrapper");
+			HtmlTag tag = new HtmlTag("div").Id("wrapper");
 			if (DisplayTitle)
 			{
-				tagWrapper = tagWrapper.Add
-				(
-					nodeOf.Div.WithClass("header").Add(nodeOf.H1).Add(Title)
-				);
+				tag.Add("div").AddClass("header").Add("h1").AppendText(Title);
 			}
 
 			foreach (BopBriefingPart part in Parts)
 			{
-				Tag tagPart = part.BuildHtml(nodeOf);
+				HtmlTag tagPart = part.BuildHtml();
 				if (tagPart is object)
 				{
-					tagWrapper = tagWrapper.Add(tagPart);
+					tag.Append(tagPart);
 				}
 			}
 
-			return tagWrapper;
+			return tag;
 		}
 		#endregion
 

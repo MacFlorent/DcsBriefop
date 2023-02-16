@@ -1,9 +1,6 @@
-﻿using DcsBriefop.Data;
-using DcsBriefop.DataBopMission;
+﻿using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
-using GMap.NET;
 using GMap.NET.MapProviders;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
