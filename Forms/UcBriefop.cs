@@ -106,7 +106,7 @@ namespace DcsBriefop.Forms
 			BopBriefingFolder bopBriefingFolder = m_briefopManager.BopMission.BopBriefingFolders.FirstOrDefault();
 			if (bopBriefingFolder is null)
 			{
-				bopBriefingFolder = new BopBriefingFolder(m_briefopManager.BopMission);
+				bopBriefingFolder = new BopBriefingFolder();
 				bopBriefingFolder.Name = "TEST FOLDER";
 				m_briefopManager.BopMission.BopBriefingFolders.Add(bopBriefingFolder);
 
@@ -120,7 +120,7 @@ namespace DcsBriefop.Forms
 				bopBriefingPage.AddPart(ElementBriefingPartType.Bullseye);
 			}
 
-			FrmBriefingFolder.CreateModal(bopBriefingFolder, ParentForm);
+			FrmBriefingFolder.CreateModal(m_briefopManager.BopMission, bopBriefingFolder, ParentForm);
 		}
 		#endregion
 

@@ -74,15 +74,6 @@ namespace DcsBriefop.Data
 		Map = 2
 	}
 
-	internal static class ElementBriefingPartType
-	{
-		public static readonly string Bullseye = "Bullseye";
-		public static readonly string Paragraph = "Free paragraph";
-		public static readonly string Sortie = "Sortie";
-		public static readonly string Description = "Description";
-		public static readonly string Task = "Task";
-	}
-
 	internal static class ElementGlobalData
 	{
 		public static readonly string ResourcesDirectory = "Resources";

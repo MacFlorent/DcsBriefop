@@ -1,12 +1,16 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopBriefing;
+using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
+using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
 	internal partial class UcBriefingPage : UserControl
 	{
 		#region Fields
+		private BopMission m_bopMission;
+		private BopBriefingFolder m_bopBriefingFolder;
 		private BopBriefingPage m_bopBriefingPage;
 
 		private GridManagerBriefingParts m_gridManagerBriefingParts;
@@ -27,8 +31,10 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcBriefingPage(BopBriefingPage bopBriefingPage, FrmBriefingFolder frmBriefingFolderParent)
+		public UcBriefingPage(BopMission bopMission, BopBriefingFolder bopBriefingFolder, BopBriefingPage bopBriefingPage, FrmBriefingFolder frmBriefingFolderParent)
 		{
+			m_bopMission = bopMission;
+			m_bopBriefingFolder = bopBriefingFolder;
 			m_bopBriefingPage = bopBriefingPage;
 			m_frmBriefingFolderParent = frmBriefingFolderParent;
 
@@ -36,6 +42,8 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 			ToolsStyle.LabelTitle(LbHeader);
 			ToolsStyle.LabelHeader(LbParts);
+			ToolsStyle.ButtonOk(BtPartAdd);
+			ToolsStyle.ButtonCancel(BtPartRemove);
 
 
 			m_gridManagerBriefingParts = new GridManagerBriefingParts(DgvParts, m_bopBriefingPage.Parts);
@@ -70,10 +78,10 @@ namespace DcsBriefop.Forms
 		{
 			TpPartDetail.Controls.Clear();
 			m_ucBriefingPart = null;
-			IEnumerable<BopBriefingPart> selecteds = m_gridManagerBriefingParts.GetSelected();
+			IEnumerable<BopBriefingPartBase> selecteds = m_gridManagerBriefingParts.GetSelected();
 			if (selecteds.Count() == 1)
 			{
-				BopBriefingPart selected = selecteds.First();
+				BopBriefingPartBase selected = selecteds.First();
 				if (selected is BopBriefingPartBullseye partTyped)
 				{
 					m_ucBriefingPart = new UcBriefingPartBullseye(partTyped);
@@ -117,13 +125,19 @@ namespace DcsBriefop.Forms
 
 		private async void RefreshHtml()
 		{
-			PbHtml.Image = await m_bopBriefingPage.BuildHtmlImage();
-			TbHtmlSource.Text = m_bopBriefingPage.BuildHtmlString();
+			PbHtml.Image = await m_bopBriefingPage.BuildHtmlImage(m_bopMission, m_bopBriefingFolder);
+			TbHtmlSource.Text = m_bopBriefingPage.BuildHtmlString(m_bopMission, m_bopBriefingFolder);
 		}
 
-		#endregion
+		private void AddPart(string sPartType)
+		{
 
-		private void SelectionChangedTypedEvent(object sender, GridManagerBriefingParts.EventArgsBopBriefingParts e)
+		}
+
+#endregion
+
+	#region Events
+	private void SelectionChangedTypedEvent(object sender, GridManagerBriefingParts.EventArgsBopBriefingParts e)
 		{
 			ScreenToDataPart();
 			DataToScreenPart();
@@ -137,6 +151,23 @@ namespace DcsBriefop.Forms
 				ScreenToData();
 
 			RefreshHtml();
+		}
+		#endregion
+
+		private void BtPartAdd_MouseDown(object sender, MouseEventArgs e)
+		{
+			ContextMenuStrip menu = new ContextMenuStrip();
+			menu.Items.Clear();
+
+			menu.Items.AddMenuItem("Bullseye", (object _sender, EventArgs _e) => { AddPart(ElementBriefingPartType.Bullseye); });
+			menu.Items.AddMenuItem("Bullseye", (object _sender, EventArgs _e) => { AddPart(ElementBriefingPartType.Bullseye); });
+
+			if (menu.Items.Count > 0)
+			{
+				menu.Show(BtPartAdd, new Point(0, BtPartAdd.Height));
+			}
+
+
 		}
 	}
 }

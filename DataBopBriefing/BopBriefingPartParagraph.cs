@@ -2,84 +2,88 @@
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 using HtmlTags;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DcsBriefop.DataBopBriefing
 {
-	internal abstract class BopBriefingPartParagraphBase : BopBriefingPart
+	internal class BopBriefingPartParagraph : BopBriefingPartBase
 	{
-		#region Fields
-		protected string m_sHeader;
-		protected string m_sText;
+		#region Properties
+		public string Header { get; set; }
+		public string Text { get; set; }
 		#endregion
 
-		#region CTOR
-		public BopBriefingPartParagraphBase(BopMission bopMission, BopBriefingFolder bopBriefingFolder, string sPartType) : base(bopMission, bopBriefingFolder, sPartType, "content") { }
-		#endregion
+		public BopBriefingPartParagraph() : base(ElementBriefingPartType.Paragraph, "content") { }
 
-		#region Methods
-		protected override IEnumerable<HtmlTag> BuildHtmlContent()
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
-			if (!string.IsNullOrEmpty(m_sHeader))
+			if (!string.IsNullOrEmpty(Header))
 			{
-				//tags.Add(new HtmlTag("h2").AppendText(m_sHeader));
-				tags.Add(new HtmlTag("h2").Append(m_sHeader.HtmlLineBreaks()));
+				tags.Add(new HtmlTag("h2").Append(Header.HtmlLineBreaks()));
 			}
-			if (!string.IsNullOrEmpty(m_sText))
+			if (!string.IsNullOrEmpty(Text))
 			{
-				//tags.Add(new HtmlTag("p").AppendText(m_sText));
-				tags.Add(new HtmlTag("p").Append(m_sText.HtmlLineBreaks()));
+				tags.Add(new HtmlTag("p").Append(Text.HtmlLineBreaks()));
 			}
 
 			return tags;
 		}
-		#endregion
 	}
 
-	internal class BopBriefingPartParagraph : BopBriefingPartParagraphBase
+	internal class BopBriefingPartSortie : BopBriefingPartBase
 	{
-		#region Properties
-		public string Header
-		{ 
-			get {  return m_sHeader; }
-			set { m_sHeader = value; }
-		}
-		public string Text
-		{
-			get { return m_sText; }
-			set { m_sText = value; }
-		}
-		#endregion
+		public BopBriefingPartSortie() : base(ElementBriefingPartType.Sortie, "content") { }
 
-		public BopBriefingPartParagraph(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder, ElementBriefingPartType.Paragraph) { }
-	}
-
-	internal class BopBriefingPartSortie : BopBriefingPartParagraphBase
-	{
-		public BopBriefingPartSortie(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder, ElementBriefingPartType.Sortie)
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
-			m_sHeader = m_bopMission.Sortie;
-		}
-	}
-
-	internal class BopBriefingPartDescription : BopBriefingPartParagraphBase
-	{
-		public BopBriefingPartDescription(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder, ElementBriefingPartType.Description)
-		{
-			m_sText = m_bopMission.Description;
-		}
-	}
-
-	internal class BopBriefingPartTask : BopBriefingPartParagraphBase
-	{
-		public BopBriefingPartTask(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder, ElementBriefingPartType.Task)
-		{
-			if (m_bopMission.Coalitions.TryGetValue(m_bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
+			List<HtmlTag> tags = new List<HtmlTag>();
+			if (!string.IsNullOrEmpty(bopMission.Sortie))
 			{
-				m_sHeader = $"{bopCoalition.CoalitionName} task";
-				m_sText = bopCoalition.Task;
+				tags.Add(new HtmlTag("h2").Append(bopMission.Sortie.HtmlLineBreaks()));
 			}
+
+			return tags;
 		}
 	}
 
+	internal class BopBriefingPartDescription : BopBriefingPartBase
+	{
+		public BopBriefingPartDescription() : base(ElementBriefingPartType.Description, "content") { }
+
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		{
+			List<HtmlTag> tags = new List<HtmlTag>();
+
+			if (!string.IsNullOrEmpty(bopMission.Description))
+			{
+				tags.Add(new HtmlTag("h2").AppendText("Description"));
+				tags.Add(new HtmlTag("p").Append(bopMission.Description.HtmlLineBreaks()));
+			}
+
+			return tags;
+		}
+	}
+
+	internal class BopBriefingPartTask : BopBriefingPartBase
+	{
+		public BopBriefingPartTask() : base(ElementBriefingPartType.Task, "content") { }
+
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		{
+			List<HtmlTag> tags = new List<HtmlTag>();
+
+			if (bopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
+			{
+				if (!string.IsNullOrEmpty(bopCoalition.Task))
+				{
+					tags.Add(new HtmlTag("h2").AppendText($"{bopCoalition.CoalitionName} task"));
+					tags.Add(new HtmlTag("p").Append(bopCoalition.Task.HtmlLineBreaks()));
+				}
+			}
+
+			return tags;
+		}
+	}
 }

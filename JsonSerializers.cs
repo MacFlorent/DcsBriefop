@@ -4,10 +4,6 @@ using GMap.NET;
 using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 
 namespace DcsBriefop
 {

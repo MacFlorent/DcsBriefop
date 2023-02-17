@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopBriefing;
+using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms
@@ -7,6 +8,7 @@ namespace DcsBriefop.Forms
 	internal partial class FrmBriefingFolder : FrmWithWaitDialog
 	{
 		#region Fields
+		private BopMission m_bopMission;
 		private BopBriefingFolder m_bopBriefingFolder;
 
 		private GridManagerBriefingPages m_gridManagerBriefingPages;
@@ -14,8 +16,9 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public FrmBriefingFolder(BopBriefingFolder bopBriefingFolder, WaitDialog waitDialog) : base(waitDialog)
+		public FrmBriefingFolder(BopMission bopMission, BopBriefingFolder bopBriefingFolder, WaitDialog waitDialog) : base(waitDialog)
 		{
+			m_bopMission = bopMission;
 			m_bopBriefingFolder = bopBriefingFolder;
 
 			InitializeComponent();
@@ -36,10 +39,10 @@ namespace DcsBriefop.Forms
 			DataToScreen();
 		}
 
-		public static void CreateModal(BopBriefingFolder bopBriefingFolder, Form parentForm)
+		public static void CreateModal(BopMission bopMission, BopBriefingFolder bopBriefingFolder, Form parentForm)
 		{
 			WaitDialog waitDialog = new WaitDialog(parentForm);
-			FrmBriefingFolder f = new FrmBriefingFolder(bopBriefingFolder, waitDialog);
+			FrmBriefingFolder f = new FrmBriefingFolder(bopMission, bopBriefingFolder, waitDialog);
 			f.ShowDialog();
 		}
 		#endregion
@@ -74,7 +77,7 @@ namespace DcsBriefop.Forms
 				}
 				if (m_ucBriefingPage is null)
 				{
-					m_ucBriefingPage = new UcBriefingPage(selectedPage, this);
+					m_ucBriefingPage = new UcBriefingPage(m_bopMission, m_bopBriefingFolder, selectedPage, this);
 				}
 				else
 				{

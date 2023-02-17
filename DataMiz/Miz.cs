@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Tools;
 using LsonLib;
-using System.IO;
 
 namespace DcsBriefop.DataMiz
 {

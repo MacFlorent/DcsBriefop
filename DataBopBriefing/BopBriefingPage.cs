@@ -5,48 +5,42 @@ using DcsBriefop.net.Tools;
 using DcsBriefop.Tools;
 using HtmlTags;
 using PuppeteerSharp;
-using System.Xml.Linq;
 
 namespace DcsBriefop.DataBopBriefing
 {
 	internal class BopBriefingPage
 	{
 		#region Fields
-		private BopMission m_bopMission;
-		private BopBriefingFolder m_bopBriefingFolder;
 		#endregion
 
 		#region Properties
 		public string Title { get; set; }
 		public bool DisplayTitle { get; set; }
 		public ElementBriefingPageRender Render { get; set; } = (ElementBriefingPageRender.Map | ElementBriefingPageRender.Html);
-		public List<BopBriefingPart> Parts { get; set; } = new List<BopBriefingPart>();
+		
+		public List<BopBriefingPartBase> Parts { get; set; } = new List<BopBriefingPartBase>();
 		public MizBopMap MapData { get; set; }
 		#endregion
 
 		#region CTOR
-		public BopBriefingPage(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
-		{
-			m_bopMission = bopMission;
-			m_bopBriefingFolder = bopBriefingFolder;
-		}
+		public BopBriefingPage() { }
 		#endregion
 
 		#region Methods
-		public BopBriefingPart AddPart(string sPartType)
+		public BopBriefingPartBase AddPart(string sPartType)
 		{
-			BopBriefingPart bopBriefingPart = null;
+			BopBriefingPartBase bopBriefingPart = null;
 			
 			if (sPartType == ElementBriefingPartType.Bullseye)
-				bopBriefingPart = new BopBriefingPartBullseye(m_bopMission, m_bopBriefingFolder);
+				bopBriefingPart = new BopBriefingPartBullseye();
 			else if (sPartType == ElementBriefingPartType.Paragraph)
-				bopBriefingPart = new BopBriefingPartParagraph(m_bopMission, m_bopBriefingFolder);
+				bopBriefingPart = new BopBriefingPartParagraph();
 			else if (sPartType == ElementBriefingPartType.Sortie)
-				bopBriefingPart = new BopBriefingPartSortie(m_bopMission, m_bopBriefingFolder);
+				bopBriefingPart = new BopBriefingPartSortie();
 			else if(sPartType == ElementBriefingPartType.Description)
-				bopBriefingPart = new BopBriefingPartDescription(m_bopMission, m_bopBriefingFolder);
+				bopBriefingPart = new BopBriefingPartDescription();
 			else if(sPartType == ElementBriefingPartType.Task)
-				bopBriefingPart = new BopBriefingPartTask(m_bopMission, m_bopBriefingFolder);
+				bopBriefingPart = new BopBriefingPartTask();
 
 			if (bopBriefingPart is object)
 			{
@@ -58,14 +52,14 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Html
-		public async Task<Image> BuildHtmlImage()
+		public async Task<Image> BuildHtmlImage(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
 			Image image = null;
-			string sHtml = BuildHtmlString();
+			string sHtml = BuildHtmlString(bopMission, bopBriefingFolder);
 			using (HtmlImageRenderer renderer = new HtmlImageRenderer())
 			{
 				ScreenshotOptions screenshotOptions = new ScreenshotOptions() { Type = ScreenshotType.Png };
-				ViewPortOptions viewPortOptions = new ViewPortOptions() { Height = m_bopBriefingFolder.ImageSize.Height, Width = m_bopBriefingFolder.ImageSize.Width };
+				ViewPortOptions viewPortOptions = new ViewPortOptions() { Height = bopBriefingFolder.ImageSize.Height, Width = bopBriefingFolder.ImageSize.Width };
 
 				image = await renderer.RenderImageAsync(sHtml, screenshotOptions, viewPortOptions);
 			}
@@ -73,16 +67,16 @@ namespace DcsBriefop.DataBopBriefing
 			return image;
 		}
 
-		public string BuildHtmlString()
+		public string BuildHtmlString(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
-			return BuildHtml()?.ToString();
+			return BuildHtml(bopMission, bopBriefingFolder)?.ToString();
 		}
 
-		public HtmlTags.HtmlDocument BuildHtml()
+		public HtmlTags.HtmlDocument BuildHtml(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
 			HtmlTags.HtmlDocument html = new();
 			html.Head.Append(BuildHtmlStyle());
-			html.Body.Append(BuildHtmlWrapper());
+			html.Body.Append(BuildHtmlWrapper(bopMission, bopBriefingFolder));
 
 			return html;
 		}
@@ -94,7 +88,7 @@ namespace DcsBriefop.DataBopBriefing
 			return tag.AppendHtml(sStyle);
 		}
 
-		private HtmlTag BuildHtmlWrapper()
+		private HtmlTag BuildHtmlWrapper(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
 			HtmlTag tag = new HtmlTag("div").Id("wrapper");
 			if (DisplayTitle)
@@ -102,9 +96,9 @@ namespace DcsBriefop.DataBopBriefing
 				tag.Add("div").AddClass("header").Add("h1").AppendText(Title);
 			}
 
-			foreach (BopBriefingPart part in Parts)
+			foreach (BopBriefingPartBase part in Parts)
 			{
-				HtmlTag tagPart = part.BuildHtml();
+				HtmlTag tagPart = part.BuildHtml(bopMission, bopBriefingFolder);
 				if (tagPart is object)
 				{
 					tag.Append(tagPart);

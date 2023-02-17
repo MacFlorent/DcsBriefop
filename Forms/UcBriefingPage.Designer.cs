@@ -38,6 +38,8 @@
 			this.TpMap = new System.Windows.Forms.TabPage();
 			this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
 			this.ScMain = new System.Windows.Forms.SplitContainer();
+			this.BtPartRemove = new System.Windows.Forms.Button();
+			this.BtPartAdd = new System.Windows.Forms.Button();
 			this.LbParts = new System.Windows.Forms.Label();
 			this.CkRenderMap = new System.Windows.Forms.CheckBox();
 			this.CkRenderHtml = new System.Windows.Forms.CheckBox();
@@ -185,6 +187,8 @@
 			// 
 			// ScMain.Panel1
 			// 
+			this.ScMain.Panel1.Controls.Add(this.BtPartRemove);
+			this.ScMain.Panel1.Controls.Add(this.BtPartAdd);
 			this.ScMain.Panel1.Controls.Add(this.LbParts);
 			this.ScMain.Panel1.Controls.Add(this.CkRenderMap);
 			this.ScMain.Panel1.Controls.Add(this.CkRenderHtml);
@@ -203,6 +207,27 @@
 			this.ScMain.SplitterDistance = 251;
 			this.ScMain.SplitterWidth = 5;
 			this.ScMain.TabIndex = 2;
+			// 
+			// BtPartRemove
+			// 
+			this.BtPartRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.BtPartRemove.Location = new System.Drawing.Point(172, 474);
+			this.BtPartRemove.Name = "BtPartRemove";
+			this.BtPartRemove.Size = new System.Drawing.Size(75, 23);
+			this.BtPartRemove.TabIndex = 43;
+			this.BtPartRemove.Text = "Remove";
+			this.BtPartRemove.UseVisualStyleBackColor = true;
+			// 
+			// BtPartAdd
+			// 
+			this.BtPartAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.BtPartAdd.Location = new System.Drawing.Point(91, 474);
+			this.BtPartAdd.Name = "BtPartAdd";
+			this.BtPartAdd.Size = new System.Drawing.Size(75, 23);
+			this.BtPartAdd.TabIndex = 42;
+			this.BtPartAdd.Text = "Add";
+			this.BtPartAdd.UseVisualStyleBackColor = true;
+			this.BtPartAdd.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtPartAdd_MouseDown);
 			// 
 			// LbParts
 			// 
@@ -345,5 +370,7 @@
 		private CheckBox CkRenderMap;
 		private CheckBox CkRenderHtml;
 		private Label LbRender;
+		private Button BtPartRemove;
+		private Button BtPartAdd;
 	}
 }

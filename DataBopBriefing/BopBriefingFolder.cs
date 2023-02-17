@@ -1,12 +1,10 @@
 ﻿using DcsBriefop.Data;
-using DcsBriefop.DataBopMission;
 
 namespace DcsBriefop.DataBopBriefing
 {
 	internal class BopBriefingFolder
 	{
 		#region Fields
-		protected BopMission m_bopMission;
 		#endregion
 
 		#region Properties
@@ -22,10 +20,8 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region CTOR
-		public BopBriefingFolder(BopMission bopMission)
+		public BopBriefingFolder()
 		{
-			m_bopMission = bopMission;
-
 			WeatherDisplay = PreferencesManager.Preferences.Briefing.WeatherDisplay;
 			MeasurementSystem = PreferencesManager.Preferences.Briefing.MeasurementSystem;
 			CoordinateDisplay = PreferencesManager.Preferences.Briefing.CoordinateDisplay;
@@ -36,7 +32,7 @@ namespace DcsBriefop.DataBopBriefing
 		#region Methods
 		public BopBriefingPage AddPage()
 		{
-			BopBriefingPage bopBriefingPage = new BopBriefingPage(m_bopMission, this);
+			BopBriefingPage bopBriefingPage = new BopBriefingPage();
 			bopBriefingPage.Title = $"{Name}_{Pages.Count:000}";
 			Pages.Add(bopBriefingPage);
 			return bopBriefingPage;

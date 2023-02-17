@@ -5,22 +5,22 @@ using HtmlTags;
 
 namespace DcsBriefop.DataBopBriefing
 {
-	internal class BopBriefingPartBullseye : BopBriefingPart
+	internal class BopBriefingPartBullseye : BopBriefingPartBase
 	{
 		#region Properties
 		public bool WithDescription { get; set; }
 		#endregion
 
 		#region CTOR
-		public BopBriefingPartBullseye(BopMission bopMission, BopBriefingFolder bopBriefingFolder) : base(bopMission, bopBriefingFolder, ElementBriefingPartType.Bullseye, "table") { }
+		public BopBriefingPartBullseye() : base(ElementBriefingPartType.Bullseye, "table") { }
 		#endregion
 
 		#region Methods
-		protected override IEnumerable<HtmlTag> BuildHtmlContent()
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
 
-			if (m_bopMission.Coalitions.TryGetValue(m_bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
+			if (bopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
 			{
 				string sHeader = "Bullseye";
 				if (bopCoalition.BullseyeWaypoint)
@@ -29,7 +29,7 @@ namespace DcsBriefop.DataBopBriefing
 				HtmlTag tagTable = new HtmlTag("table").Attr("width", "100%");
 				HtmlTag tagTr = tagTable.Add("tr");
 				tagTr.Add("td").AddClass("header").AppendText(sHeader);
-				tagTr.Add("td").Append(bopCoalition.Bullseye.ToString(m_bopBriefingFolder.CoordinateDisplay).HtmlLineBreaks());
+				tagTr.Add("td").Append(bopCoalition.Bullseye.ToString(bopBriefingFolder.CoordinateDisplay).HtmlLineBreaks());
 
 				if (WithDescription && !string.IsNullOrEmpty(bopCoalition.BullseyeDescription))
 				{

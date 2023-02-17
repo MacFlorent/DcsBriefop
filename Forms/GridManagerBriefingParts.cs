@@ -15,11 +15,11 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Fields
-		private IEnumerable<BopBriefingPart> m_briefingParts;
+		private IEnumerable<BopBriefingPartBase> m_briefingParts;
 		#endregion
 
 		#region Properties
-		public IEnumerable<BopBriefingPart> BriefingParts
+		public IEnumerable<BopBriefingPartBase> BriefingParts
 		{
 			get { return m_briefingParts; }
 			set { m_briefingParts = value; }
@@ -27,7 +27,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public GridManagerBriefingParts(DataGridView dgv, IEnumerable<BopBriefingPart> briefingParts) : base(dgv)
+		public GridManagerBriefingParts(DataGridView dgv, IEnumerable<BopBriefingPartBase> briefingParts) : base(dgv)
 		{
 			m_briefingParts = briefingParts;
 		}
@@ -38,15 +38,15 @@ namespace DcsBriefop.Forms
 		{
 			m_dtSource = new DataTable();
 			m_dtSource.Columns.Add(GridColumn.PartName, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Data, typeof(BopBriefingPart));
+			m_dtSource.Columns.Add(GridColumn.Data, typeof(BopBriefingPartBase));
 
-			foreach (BopBriefingPart element in m_briefingParts)
+			foreach (BopBriefingPartBase element in m_briefingParts)
 				RefreshDataSourceRow(element);
 		}
 
-		private void RefreshDataSourceRow(BopBriefingPart element)
+		private void RefreshDataSourceRow(BopBriefingPartBase element)
 		{
-			DataRow dr = m_dtSource.AsEnumerable().Where(_dr => _dr.Field<BopBriefingPart>(GridColumn.Data) == element).FirstOrDefault();
+			DataRow dr = m_dtSource.AsEnumerable().Where(_dr => _dr.Field<BopBriefingPartBase>(GridColumn.Data) == element).FirstOrDefault();
 			if (dr is null)
 			{
 				dr = m_dtSource.NewRow();
@@ -70,9 +70,9 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns[GridColumn.Data].Visible = false;
 		}
 
-		public IEnumerable<BopBriefingPart> GetSelected()
+		public IEnumerable<BopBriefingPartBase> GetSelected()
 		{
-			return GetSelectedDataRows().Select(_dr => _dr.Field<BopBriefingPart>(GridColumn.Data)).ToList();
+			return GetSelectedDataRows().Select(_dr => _dr.Field<BopBriefingPartBase>(GridColumn.Data)).ToList();
 		}
 
 		protected override DataGridViewCellStyle CellFormatting(DataGridViewCell dgvc)
@@ -90,7 +90,7 @@ namespace DcsBriefop.Forms
 		#region Events
 		public class EventArgsBopBriefingParts : EventArgs
 		{
-			public IEnumerable<BopBriefingPart> BopBriefingParts { get; set; }
+			public IEnumerable<BopBriefingPartBase> BopBriefingParts { get; set; }
 		}
 		public event EventHandler<EventArgsBopBriefingParts> SelectionChangedTyped;
 		#endregion
