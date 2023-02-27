@@ -124,7 +124,6 @@ namespace DcsBriefop.DataBopMission
 					Miz.MizBopCustom.MapData.CenterLongitude = firstAirdrome.Longitude;
 				}
 				Miz.MizBopCustom.MapData.Zoom = PreferencesManager.Preferences.Map.Zoom;
-				Miz.MizBopCustom.MapData.MapOverlay = new GMapOverlay();
 			}
 		}
 		#endregion

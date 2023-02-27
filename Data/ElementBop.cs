@@ -1,7 +1,4 @@
-﻿using System;
-using System.Drawing;
-
-namespace DcsBriefop.Data
+﻿namespace DcsBriefop.Data
 {
 	//internal enum ElementAssetMapDisplay
 	//{
@@ -72,6 +69,24 @@ namespace DcsBriefop.Data
 		None = 0,
 		Html = 1,
 		Map = 2
+	}
+
+	//internal static class ElementBriefingPartType
+	//{
+	//	public static readonly string Bullseye = "Bullseye";
+	//	public static readonly string Paragraph = "Paragraph";
+	//	public static readonly string Sortie = "Sortie";
+	//	public static readonly string Description = "Description";
+	//	public static readonly string Task = "Task";
+	//}
+
+	internal enum ElementBriefingPartType
+	{
+		Bullseye,
+		Paragraph,
+		Sortie,
+		Description,
+		Task,
 	}
 
 	internal static class ElementGlobalData

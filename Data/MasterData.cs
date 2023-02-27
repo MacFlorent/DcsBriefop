@@ -10,7 +10,8 @@ namespace DcsBriefop.Data
 		WeatherDisplay,
 		MeasurementSystem,
 		CoordinateDisplay,
-		Coalition
+		Coalition,
+		BriefingPartType
 	}
 
 	internal static class MasterDataColumn
@@ -44,6 +45,7 @@ namespace DcsBriefop.Data
 			m_repository.Add(MasterDataType.CoordinateDisplay, BuildListCoordinateDisplay());
 			m_repository.Add(MasterDataType.MeasurementSystem, BuildListMeasurementSystem());
 			m_repository.Add(MasterDataType.Coalition, BuildListCoalition());
+			m_repository.Add(MasterDataType.BriefingPartType, BuildListBriefingPartType());
 		}
 		#endregion
 
@@ -115,6 +117,18 @@ namespace DcsBriefop.Data
 				new MasterData() { Id = 3, Label = ElementCoalition.Neutral }
 			};
 		}
+
+		private static List<MasterData> BuildListBriefingPartType()
+		{
+			return new List<MasterData>()
+			{
+				new MasterData() { Id = (int)ElementBriefingPartType.Bullseye, Label = "Bullseye" },
+				new MasterData() { Id = (int)ElementBriefingPartType.Paragraph, Label = "Paragraph" },
+				new MasterData() { Id = (int) ElementBriefingPartType.Sortie, Label =  "Sortie" },
+				new MasterData() { Id = (int)ElementBriefingPartType.Description, Label = "Description" },
+				new MasterData() { Id = (int)ElementBriefingPartType.Task, Label = "Task" }
+			};
+		}
 		#endregion
 
 		#region Methods
@@ -156,7 +170,7 @@ namespace DcsBriefop.Data
 		public static int GetFlagCheckedListbox(CheckedListBox lst)
 		{
 			int iFlag = 0;
-			foreach(MasterData masterData in lst.CheckedItems)
+			foreach (MasterData masterData in lst.CheckedItems)
 			{
 				iFlag = (iFlag | masterData.Id);
 			}

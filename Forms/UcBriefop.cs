@@ -44,7 +44,7 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ButtonLarge(BtMissionGroups);
 			ToolsStyle.ButtonLarge(BtMissionMaps);
 			ToolsStyle.ButtonLarge(BtMissionComs);
-			ToolsStyle.ButtonLarge(BtMissionPackages);
+			ToolsStyle.ButtonLarge(BtBriefingPackages);
 
 			PnMissionActions.CenterInParentHorizontal();
 		}
@@ -111,7 +111,7 @@ namespace DcsBriefop.Forms
 				m_briefopManager.BopMission.BopBriefingFolders.Add(bopBriefingFolder);
 
 				bopBriefingFolder.CoalitionName = ElementCoalition.Blue;
-				BopBriefingPage bopBriefingPage = bopBriefingFolder.AddPage();
+				BopBriefingPage bopBriefingPage = bopBriefingFolder.AddPage(m_briefopManager.BopMission);
 				bopBriefingPage.DisplayTitle = true;
 
 				bopBriefingPage.AddPart(ElementBriefingPartType.Sortie);

@@ -74,7 +74,6 @@ namespace DcsBriefop.DataBopMission
 				m_mizBopCoalition.MapData.CenterLatitude = centerCoordinate.Latitude.DecimalDegree;
 				m_mizBopCoalition.MapData.CenterLongitude = centerCoordinate.Longitude.DecimalDegree;
 				m_mizBopCoalition.MapData.Zoom = PreferencesManager.Preferences.Map.Zoom;
-				m_mizBopCoalition.MapData.MapOverlay = new GMapOverlay();
 
 				m_mizBopCoalition.SetDefaultData();
 				Miz.MizBopCustom.MizBopCoalitions.Add(m_mizBopCoalition);

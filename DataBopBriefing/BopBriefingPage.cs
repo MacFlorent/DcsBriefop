@@ -17,9 +17,10 @@ namespace DcsBriefop.DataBopBriefing
 		public string Title { get; set; }
 		public bool DisplayTitle { get; set; }
 		public ElementBriefingPageRender Render { get; set; } = (ElementBriefingPageRender.Map | ElementBriefingPageRender.Html);
-		
+		public bool MapIncludeBaseOverlays { get; set; } = true;
+
 		public List<BopBriefingPartBase> Parts { get; set; } = new List<BopBriefingPartBase>();
-		public MizBopMap MapData { get; set; }
+		public MizBopMap MapData { get; set; } = new MizBopMap();
 		#endregion
 
 		#region CTOR
@@ -27,19 +28,19 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Methods
-		public BopBriefingPartBase AddPart(string sPartType)
+		public BopBriefingPartBase AddPart(ElementBriefingPartType briefingPartType)
 		{
 			BopBriefingPartBase bopBriefingPart = null;
 			
-			if (sPartType == ElementBriefingPartType.Bullseye)
+			if (briefingPartType == ElementBriefingPartType.Bullseye)
 				bopBriefingPart = new BopBriefingPartBullseye();
-			else if (sPartType == ElementBriefingPartType.Paragraph)
+			else if (briefingPartType == ElementBriefingPartType.Paragraph)
 				bopBriefingPart = new BopBriefingPartParagraph();
-			else if (sPartType == ElementBriefingPartType.Sortie)
+			else if (briefingPartType == ElementBriefingPartType.Sortie)
 				bopBriefingPart = new BopBriefingPartSortie();
-			else if(sPartType == ElementBriefingPartType.Description)
+			else if(briefingPartType == ElementBriefingPartType.Description)
 				bopBriefingPart = new BopBriefingPartDescription();
-			else if(sPartType == ElementBriefingPartType.Task)
+			else if(briefingPartType == ElementBriefingPartType.Task)
 				bopBriefingPart = new BopBriefingPartTask();
 
 			if (bopBriefingPart is object)

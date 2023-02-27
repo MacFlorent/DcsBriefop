@@ -1,10 +1,7 @@
-﻿using DcsBriefop.Tools;
-using System;
-using System.Collections.Generic;
+﻿using DcsBriefop.DataBopBriefing;
+using DcsBriefop.Tools;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
@@ -107,7 +104,6 @@ namespace DcsBriefop.Forms
 
 		protected virtual void RefreshGridRow(DataGridViewRow dgvr) { }
 
-
 		protected IEnumerable<DataGridViewRow> GetSelectedRows()
 		{
 			return m_dgv.SelectedCells.Cast<DataGridViewCell>().Select(_dgvc => _dgvc.OwningRow).Distinct();
@@ -115,7 +111,16 @@ namespace DcsBriefop.Forms
 
 		protected IEnumerable<DataRow> GetSelectedDataRows()
 		{
-			return GetSelectedRows().Select(_dgvr => (_dgvr.DataBoundItem as DataRowView)?.Row).Where(_r => _r is object);
+			return GetSelectedRows().Select(_dgvr => (_dgvr.DataBoundItem as DataRowView)?.Row).Where(_dr => _dr is object);
+		}
+
+		protected void SelectRow(DataGridViewRow dgvr)
+		{
+			if (dgvr is object)
+			{
+				dgvr.Selected = true;
+				m_dgv.CurrentCell = dgvr.Cells[0];
+			}
 		}
 
 		protected virtual DataGridViewCellStyle CellFormatting(DataGridViewCell dgvc)

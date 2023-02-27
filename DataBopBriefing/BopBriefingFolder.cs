@@ -1,4 +1,8 @@
-﻿using DcsBriefop.Data;
+﻿using CoordinateSharp;
+using DcsBriefop.Data;
+using DcsBriefop.DataBopMission;
+using DcsBriefop.DataMiz;
+using GMap.NET.WindowsForms;
 
 namespace DcsBriefop.DataBopBriefing
 {
@@ -30,10 +34,27 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Methods
-		public BopBriefingPage AddPage()
+		public BopBriefingPage AddPage(BopMission bopMission)
 		{
 			BopBriefingPage bopBriefingPage = new BopBriefingPage();
 			bopBriefingPage.Title = $"{Name}_{Pages.Count:000}";
+
+			bopBriefingPage.MapData.Zoom = PreferencesManager.Preferences.Map.Zoom;
+			if (bopMission.Coalitions.TryGetValue(CoalitionName, out BopCoalition bopCoalition))
+			{
+				bopBriefingPage.MapData.CenterLatitude = bopCoalition.Bullseye.Latitude.DecimalDegree;
+				bopBriefingPage.MapData.CenterLongitude = bopCoalition.Bullseye.Longitude.DecimalDegree;
+			}
+			else
+			{
+				Airdrome firstAirdrome = bopMission.Theatre.Airdromes.FirstOrDefault();
+				if (firstAirdrome is object)
+				{
+					bopBriefingPage.MapData.CenterLatitude = firstAirdrome.Latitude;
+					bopBriefingPage.MapData.CenterLongitude = firstAirdrome.Longitude;
+				}
+			}
+
 			Pages.Add(bopBriefingPage);
 			return bopBriefingPage;
 		}

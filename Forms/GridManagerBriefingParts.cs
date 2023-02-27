@@ -1,5 +1,4 @@
-﻿using DcsBriefop.Data;
-using DcsBriefop.DataBopBriefing;
+﻿using DcsBriefop.DataBopBriefing;
 using System.Data;
 
 namespace DcsBriefop.Forms
@@ -70,20 +69,20 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns[GridColumn.Data].Visible = false;
 		}
 
-		public IEnumerable<BopBriefingPartBase> GetSelected()
+		public IEnumerable<BopBriefingPartBase> GetSelectedElements()
 		{
 			return GetSelectedDataRows().Select(_dr => _dr.Field<BopBriefingPartBase>(GridColumn.Data)).ToList();
 		}
 
-		protected override DataGridViewCellStyle CellFormatting(DataGridViewCell dgvc)
+		public void SelectElement(BopBriefingPartBase element)
 		{
-			DataGridViewCellStyle cellStyle = base.CellFormatting(dgvc);
-			return cellStyle;
+			DataGridViewRow rowToSelect = m_dgv.Rows.Cast<DataGridViewRow>().Where(_dgvr => (_dgvr.DataBoundItem as DataRowView)?.Row?.Field<BopBriefingPartBase>(GridColumn.Data) == element).FirstOrDefault();
+			SelectRow(rowToSelect);
 		}
 
 		protected override void SelectionChanged()
 		{
-			SelectionChangedTyped?.Invoke(this, new EventArgsBopBriefingParts() { BopBriefingParts = GetSelected() });
+			SelectionChangedTyped?.Invoke(this, new EventArgsBopBriefingParts() { BopBriefingParts = GetSelectedElements() });
 		}
 		#endregion
 

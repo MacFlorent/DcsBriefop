@@ -15,13 +15,13 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Properties
-		public string PartType { get; protected set; }
+		public ElementBriefingPartType PartType { get; protected set; }
 		#endregion
 
 		#region CTOR
-		public BopBriefingPartBase(string sPartType, string sCssClass)
+		public BopBriefingPartBase(ElementBriefingPartType partType, string sCssClass)
 		{
-			PartType = sPartType;
+			PartType = partType;
 			m_sCssClass = sCssClass;
 		}
 		#endregion
@@ -59,21 +59,18 @@ namespace DcsBriefop.DataBopBriefing
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 		{
 			JObject jo = JObject.Load(reader);
-			string sPartType = jo["PartType"].Value<string>();
-			Type concreteType = BopBriefingPartType.BopBriefingPartTypes.Where(_b => _b.Name == sPartType).Select(_b => _b.ClassType).FirstOrDefault();
+			ElementBriefingPartType partType = (ElementBriefingPartType)jo["PartType"].Value<int>();
 
-			if (concreteType is not null)
-				return DeserializeConcreteBriefingPart<concreteType>(jo);
-			//if (sPartType == ElementBriefingPartType.Bullseye)
-			//	return DeserializeConcreteBriefingPart<BopBriefingPartBullseye>(jo);
-			//if (sPartType == ElementBriefingPartType.Paragraph)
-			//	return DeserializeConcreteBriefingPart<BopBriefingPartParagraph>(jo);
-			//else if (sPartType == ElementBriefingPartType.Sortie)
-			//	return DeserializeConcreteBriefingPart<BopBriefingPartSortie>(jo);
-			//else if (sPartType == ElementBriefingPartType.Description)
-			//	return DeserializeConcreteBriefingPart<BopBriefingPartDescription>(jo);
-			//else if (sPartType == ElementBriefingPartType.Task)
-			//	return DeserializeConcreteBriefingPart<BopBriefingPartTask>(jo);
+			if (partType == ElementBriefingPartType.Bullseye)
+				return DeserializeConcreteBriefingPart<BopBriefingPartBullseye>(jo);
+			if (partType == ElementBriefingPartType.Paragraph)
+				return DeserializeConcreteBriefingPart<BopBriefingPartParagraph>(jo);
+			else if (partType == ElementBriefingPartType.Sortie)
+				return DeserializeConcreteBriefingPart<BopBriefingPartSortie>(jo);
+			else if (partType == ElementBriefingPartType.Description)
+				return DeserializeConcreteBriefingPart<BopBriefingPartDescription>(jo);
+			else if (partType == ElementBriefingPartType.Task)
+				return DeserializeConcreteBriefingPart<BopBriefingPartTask>(jo);
 			else
 				throw new ExceptionBop("Cannot deserialize Unknown part type");
 

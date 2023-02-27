@@ -28,228 +28,270 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.PnMission = new System.Windows.Forms.Panel();
-			this.PnMissionTheatre = new System.Windows.Forms.Panel();
-			this.LbTheatre = new System.Windows.Forms.Label();
-			this.PnMissionActions = new System.Windows.Forms.Panel();
-			this.BtMissionPackages = new System.Windows.Forms.Button();
-			this.BtMissionInformations = new System.Windows.Forms.Button();
-			this.BtMissionMaps = new System.Windows.Forms.Button();
-			this.BtMissionGroups = new System.Windows.Forms.Button();
-			this.BtMissionAirbases = new System.Windows.Forms.Button();
-			this.BtMissionComs = new System.Windows.Forms.Button();
-			this.LbMissionDirectory = new System.Windows.Forms.LinkLabel();
-			this.LbSortie = new System.Windows.Forms.Label();
-			this.LbMissionTitle = new System.Windows.Forms.Label();
-			this.PnBriefing = new System.Windows.Forms.Panel();
-			this.LbBriefingTitle = new System.Windows.Forms.Label();
-			this.PnBackground = new System.Windows.Forms.Panel();
-			this.BtBriefingPage = new System.Windows.Forms.Button();
-			this.PnMission.SuspendLayout();
-			this.PnMissionTheatre.SuspendLayout();
-			this.PnMissionActions.SuspendLayout();
-			this.PnBriefing.SuspendLayout();
-			this.PnBackground.SuspendLayout();
-			this.SuspendLayout();
+			PnMission = new Panel();
+			PnMissionTheatre = new Panel();
+			LbTheatre = new Label();
+			PnMissionActions = new Panel();
+			BtMissionInformations = new Button();
+			BtMissionMaps = new Button();
+			BtMissionGroups = new Button();
+			BtMissionAirbases = new Button();
+			BtMissionComs = new Button();
+			LbMissionDirectory = new LinkLabel();
+			LbSortie = new Label();
+			LbMissionTitle = new Label();
+			BtBriefingPackages = new Button();
+			PnBriefing = new Panel();
+			DgvBriefingFolders = new Zuby.ADGV.AdvancedDataGridView();
+			BtBriefingAto = new Button();
+			BtBriefingFolderTest = new Button();
+			LbBriefingTitle = new Label();
+			PnBackground = new Panel();
+			PnMission.SuspendLayout();
+			PnMissionTheatre.SuspendLayout();
+			PnMissionActions.SuspendLayout();
+			PnBriefing.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)DgvBriefingFolders).BeginInit();
+			PnBackground.SuspendLayout();
+			SuspendLayout();
 			// 
 			// PnMission
 			// 
-			this.PnMission.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.PnMission.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.PnMission.Controls.Add(this.PnMissionTheatre);
-			this.PnMission.Controls.Add(this.PnMissionActions);
-			this.PnMission.Controls.Add(this.LbMissionDirectory);
-			this.PnMission.Controls.Add(this.LbSortie);
-			this.PnMission.Controls.Add(this.LbMissionTitle);
-			this.PnMission.Location = new System.Drawing.Point(0, 0);
-			this.PnMission.Name = "PnMission";
-			this.PnMission.Size = new System.Drawing.Size(887, 205);
-			this.PnMission.TabIndex = 0;
+			PnMission.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			PnMission.BorderStyle = BorderStyle.FixedSingle;
+			PnMission.Controls.Add(PnMissionTheatre);
+			PnMission.Controls.Add(PnMissionActions);
+			PnMission.Controls.Add(LbMissionDirectory);
+			PnMission.Controls.Add(LbSortie);
+			PnMission.Controls.Add(LbMissionTitle);
+			PnMission.Location = new Point(0, 0);
+			PnMission.Margin = new Padding(4, 3, 4, 3);
+			PnMission.Name = "PnMission";
+			PnMission.Size = new Size(1034, 236);
+			PnMission.TabIndex = 0;
 			// 
 			// PnMissionTheatre
 			// 
-			this.PnMissionTheatre.Controls.Add(this.LbTheatre);
-			this.PnMissionTheatre.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.PnMissionTheatre.Location = new System.Drawing.Point(0, 148);
-			this.PnMissionTheatre.Name = "PnMissionTheatre";
-			this.PnMissionTheatre.Size = new System.Drawing.Size(885, 55);
-			this.PnMissionTheatre.TabIndex = 10;
+			PnMissionTheatre.Controls.Add(LbTheatre);
+			PnMissionTheatre.Dock = DockStyle.Bottom;
+			PnMissionTheatre.Location = new Point(0, 171);
+			PnMissionTheatre.Margin = new Padding(4, 3, 4, 3);
+			PnMissionTheatre.Name = "PnMissionTheatre";
+			PnMissionTheatre.Size = new Size(1032, 63);
+			PnMissionTheatre.TabIndex = 10;
 			// 
 			// LbTheatre
 			// 
-			this.LbTheatre.AutoSize = true;
-			this.LbTheatre.Location = new System.Drawing.Point(411, 20);
-			this.LbTheatre.Name = "LbTheatre";
-			this.LbTheatre.Size = new System.Drawing.Size(44, 13);
-			this.LbTheatre.TabIndex = 1;
-			this.LbTheatre.Text = "Theatre";
-			this.LbTheatre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			LbTheatre.AutoSize = true;
+			LbTheatre.Location = new Point(479, 23);
+			LbTheatre.Margin = new Padding(4, 0, 4, 0);
+			LbTheatre.Name = "LbTheatre";
+			LbTheatre.Size = new Size(46, 15);
+			LbTheatre.TabIndex = 1;
+			LbTheatre.Text = "Theatre";
+			LbTheatre.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// PnMissionActions
 			// 
-			this.PnMissionActions.AutoSize = true;
-			this.PnMissionActions.Controls.Add(this.BtMissionPackages);
-			this.PnMissionActions.Controls.Add(this.BtMissionInformations);
-			this.PnMissionActions.Controls.Add(this.BtMissionMaps);
-			this.PnMissionActions.Controls.Add(this.BtMissionGroups);
-			this.PnMissionActions.Controls.Add(this.BtMissionAirbases);
-			this.PnMissionActions.Controls.Add(this.BtMissionComs);
-			this.PnMissionActions.Location = new System.Drawing.Point(38, 104);
-			this.PnMissionActions.Name = "PnMissionActions";
-			this.PnMissionActions.Size = new System.Drawing.Size(810, 38);
-			this.PnMissionActions.TabIndex = 9;
-			// 
-			// BtMissionPackages
-			// 
-			this.BtMissionPackages.Location = new System.Drawing.Point(678, 0);
-			this.BtMissionPackages.Name = "BtMissionPackages";
-			this.BtMissionPackages.Size = new System.Drawing.Size(129, 35);
-			this.BtMissionPackages.TabIndex = 10;
-			this.BtMissionPackages.Text = "Packages";
-			this.BtMissionPackages.UseVisualStyleBackColor = true;
+			PnMissionActions.AutoSize = true;
+			PnMissionActions.Controls.Add(BtMissionInformations);
+			PnMissionActions.Controls.Add(BtMissionMaps);
+			PnMissionActions.Controls.Add(BtMissionGroups);
+			PnMissionActions.Controls.Add(BtMissionAirbases);
+			PnMissionActions.Controls.Add(BtMissionComs);
+			PnMissionActions.Location = new Point(44, 120);
+			PnMissionActions.Margin = new Padding(4, 3, 4, 3);
+			PnMissionActions.Name = "PnMissionActions";
+			PnMissionActions.Size = new Size(788, 44);
+			PnMissionActions.TabIndex = 9;
 			// 
 			// BtMissionInformations
 			// 
-			this.BtMissionInformations.Location = new System.Drawing.Point(3, 0);
-			this.BtMissionInformations.Name = "BtMissionInformations";
-			this.BtMissionInformations.Size = new System.Drawing.Size(129, 35);
-			this.BtMissionInformations.TabIndex = 3;
-			this.BtMissionInformations.Text = "Informations";
-			this.BtMissionInformations.UseVisualStyleBackColor = true;
-			this.BtMissionInformations.Click += new System.EventHandler(this.BtMissionInformations_Click);
+			BtMissionInformations.Location = new Point(4, 0);
+			BtMissionInformations.Margin = new Padding(4, 3, 4, 3);
+			BtMissionInformations.Name = "BtMissionInformations";
+			BtMissionInformations.Size = new Size(150, 40);
+			BtMissionInformations.TabIndex = 3;
+			BtMissionInformations.Text = "Informations";
+			BtMissionInformations.UseVisualStyleBackColor = true;
+			BtMissionInformations.Click += BtMissionInformations_Click;
 			// 
 			// BtMissionMaps
 			// 
-			this.BtMissionMaps.Location = new System.Drawing.Point(408, 0);
-			this.BtMissionMaps.Name = "BtMissionMaps";
-			this.BtMissionMaps.Size = new System.Drawing.Size(129, 35);
-			this.BtMissionMaps.TabIndex = 4;
-			this.BtMissionMaps.Text = "Maps";
-			this.BtMissionMaps.UseVisualStyleBackColor = true;
-			this.BtMissionMaps.Click += new System.EventHandler(this.BtMissionMaps_Click);
+			BtMissionMaps.Location = new Point(476, 0);
+			BtMissionMaps.Margin = new Padding(4, 3, 4, 3);
+			BtMissionMaps.Name = "BtMissionMaps";
+			BtMissionMaps.Size = new Size(150, 40);
+			BtMissionMaps.TabIndex = 4;
+			BtMissionMaps.Text = "Maps";
+			BtMissionMaps.UseVisualStyleBackColor = true;
+			BtMissionMaps.Click += BtMissionMaps_Click;
 			// 
 			// BtMissionGroups
 			// 
-			this.BtMissionGroups.Location = new System.Drawing.Point(273, 0);
-			this.BtMissionGroups.Name = "BtMissionGroups";
-			this.BtMissionGroups.Size = new System.Drawing.Size(129, 35);
-			this.BtMissionGroups.TabIndex = 5;
-			this.BtMissionGroups.Text = "Groups";
-			this.BtMissionGroups.UseVisualStyleBackColor = true;
-			this.BtMissionGroups.Click += new System.EventHandler(this.BtMissionGroups_Click);
+			BtMissionGroups.Location = new Point(318, 0);
+			BtMissionGroups.Margin = new Padding(4, 3, 4, 3);
+			BtMissionGroups.Name = "BtMissionGroups";
+			BtMissionGroups.Size = new Size(150, 40);
+			BtMissionGroups.TabIndex = 5;
+			BtMissionGroups.Text = "Groups";
+			BtMissionGroups.UseVisualStyleBackColor = true;
+			BtMissionGroups.Click += BtMissionGroups_Click;
 			// 
 			// BtMissionAirbases
 			// 
-			this.BtMissionAirbases.Location = new System.Drawing.Point(138, 0);
-			this.BtMissionAirbases.Name = "BtMissionAirbases";
-			this.BtMissionAirbases.Size = new System.Drawing.Size(129, 35);
-			this.BtMissionAirbases.TabIndex = 6;
-			this.BtMissionAirbases.Text = "Airbases";
-			this.BtMissionAirbases.UseVisualStyleBackColor = true;
-			this.BtMissionAirbases.Click += new System.EventHandler(this.BtMissionAirdromes_Click);
+			BtMissionAirbases.Location = new Point(161, 0);
+			BtMissionAirbases.Margin = new Padding(4, 3, 4, 3);
+			BtMissionAirbases.Name = "BtMissionAirbases";
+			BtMissionAirbases.Size = new Size(150, 40);
+			BtMissionAirbases.TabIndex = 6;
+			BtMissionAirbases.Text = "Airbases";
+			BtMissionAirbases.UseVisualStyleBackColor = true;
+			BtMissionAirbases.Click += BtMissionAirdromes_Click;
 			// 
 			// BtMissionComs
 			// 
-			this.BtMissionComs.Location = new System.Drawing.Point(543, 0);
-			this.BtMissionComs.Name = "BtMissionComs";
-			this.BtMissionComs.Size = new System.Drawing.Size(129, 35);
-			this.BtMissionComs.TabIndex = 7;
-			this.BtMissionComs.Text = "Coms";
-			this.BtMissionComs.UseVisualStyleBackColor = true;
+			BtMissionComs.Location = new Point(634, 0);
+			BtMissionComs.Margin = new Padding(4, 3, 4, 3);
+			BtMissionComs.Name = "BtMissionComs";
+			BtMissionComs.Size = new Size(150, 40);
+			BtMissionComs.TabIndex = 7;
+			BtMissionComs.Text = "Coms";
+			BtMissionComs.UseVisualStyleBackColor = true;
 			// 
 			// LbMissionDirectory
 			// 
-			this.LbMissionDirectory.Dock = System.Windows.Forms.DockStyle.Top;
-			this.LbMissionDirectory.Location = new System.Drawing.Point(0, 68);
-			this.LbMissionDirectory.Name = "LbMissionDirectory";
-			this.LbMissionDirectory.Size = new System.Drawing.Size(885, 20);
-			this.LbMissionDirectory.TabIndex = 8;
-			this.LbMissionDirectory.TabStop = true;
-			this.LbMissionDirectory.Text = "linkLabel1";
-			this.LbMissionDirectory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.LbMissionDirectory.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LbMissionDirectory_LinkClicked);
+			LbMissionDirectory.Dock = DockStyle.Top;
+			LbMissionDirectory.Location = new Point(0, 78);
+			LbMissionDirectory.Margin = new Padding(4, 0, 4, 0);
+			LbMissionDirectory.Name = "LbMissionDirectory";
+			LbMissionDirectory.Size = new Size(1032, 23);
+			LbMissionDirectory.TabIndex = 8;
+			LbMissionDirectory.TabStop = true;
+			LbMissionDirectory.Text = "linkLabel1";
+			LbMissionDirectory.TextAlign = ContentAlignment.MiddleCenter;
+			LbMissionDirectory.LinkClicked += LbMissionDirectory_LinkClicked;
 			// 
 			// LbSortie
 			// 
-			this.LbSortie.Dock = System.Windows.Forms.DockStyle.Top;
-			this.LbSortie.Location = new System.Drawing.Point(0, 34);
-			this.LbSortie.Name = "LbSortie";
-			this.LbSortie.Size = new System.Drawing.Size(885, 34);
-			this.LbSortie.TabIndex = 0;
-			this.LbSortie.Text = "sortie";
-			this.LbSortie.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			LbSortie.Dock = DockStyle.Top;
+			LbSortie.Location = new Point(0, 39);
+			LbSortie.Margin = new Padding(4, 0, 4, 0);
+			LbSortie.Name = "LbSortie";
+			LbSortie.Size = new Size(1032, 39);
+			LbSortie.TabIndex = 0;
+			LbSortie.Text = "sortie";
+			LbSortie.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// LbMissionTitle
 			// 
-			this.LbMissionTitle.Dock = System.Windows.Forms.DockStyle.Top;
-			this.LbMissionTitle.Location = new System.Drawing.Point(0, 0);
-			this.LbMissionTitle.Name = "LbMissionTitle";
-			this.LbMissionTitle.Size = new System.Drawing.Size(885, 34);
-			this.LbMissionTitle.TabIndex = 2;
-			this.LbMissionTitle.Text = "Mission";
-			this.LbMissionTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			LbMissionTitle.Dock = DockStyle.Top;
+			LbMissionTitle.Location = new Point(0, 0);
+			LbMissionTitle.Margin = new Padding(4, 0, 4, 0);
+			LbMissionTitle.Name = "LbMissionTitle";
+			LbMissionTitle.Size = new Size(1032, 39);
+			LbMissionTitle.TabIndex = 2;
+			LbMissionTitle.Text = "Mission";
+			LbMissionTitle.TextAlign = ContentAlignment.MiddleCenter;
+			// 
+			// BtBriefingPackages
+			// 
+			BtBriefingPackages.Location = new Point(587, 229);
+			BtBriefingPackages.Margin = new Padding(4, 3, 4, 3);
+			BtBriefingPackages.Name = "BtBriefingPackages";
+			BtBriefingPackages.Size = new Size(150, 40);
+			BtBriefingPackages.TabIndex = 10;
+			BtBriefingPackages.Text = "Packages";
+			BtBriefingPackages.UseVisualStyleBackColor = true;
 			// 
 			// PnBriefing
 			// 
-			this.PnBriefing.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.PnBriefing.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.PnBriefing.Controls.Add(this.BtBriefingPage);
-			this.PnBriefing.Controls.Add(this.LbBriefingTitle);
-			this.PnBriefing.Location = new System.Drawing.Point(0, 223);
-			this.PnBriefing.Name = "PnBriefing";
-			this.PnBriefing.Size = new System.Drawing.Size(887, 238);
-			this.PnBriefing.TabIndex = 1;
+			PnBriefing.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			PnBriefing.BorderStyle = BorderStyle.FixedSingle;
+			PnBriefing.Controls.Add(DgvBriefingFolders);
+			PnBriefing.Controls.Add(BtBriefingAto);
+			PnBriefing.Controls.Add(BtBriefingPackages);
+			PnBriefing.Controls.Add(BtBriefingFolderTest);
+			PnBriefing.Controls.Add(LbBriefingTitle);
+			PnBriefing.Location = new Point(0, 257);
+			PnBriefing.Margin = new Padding(4, 3, 4, 3);
+			PnBriefing.Name = "PnBriefing";
+			PnBriefing.Size = new Size(1034, 274);
+			PnBriefing.TabIndex = 1;
+			// 
+			// DgvBriefingFolders
+			// 
+			DgvBriefingFolders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			DgvBriefingFolders.FilterAndSortEnabled = true;
+			DgvBriefingFolders.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
+			DgvBriefingFolders.Location = new Point(3, 42);
+			DgvBriefingFolders.Name = "DgvBriefingFolders";
+			DgvBriefingFolders.RightToLeft = RightToLeft.No;
+			DgvBriefingFolders.RowTemplate.Height = 25;
+			DgvBriefingFolders.Size = new Size(1026, 150);
+			DgvBriefingFolders.SortStringChangedInvokeBeforeDatasourceUpdate = true;
+			DgvBriefingFolders.TabIndex = 12;
+			// 
+			// BtBriefingAto
+			// 
+			BtBriefingAto.Location = new Point(745, 229);
+			BtBriefingAto.Margin = new Padding(4, 3, 4, 3);
+			BtBriefingAto.Name = "BtBriefingAto";
+			BtBriefingAto.Size = new Size(150, 40);
+			BtBriefingAto.TabIndex = 11;
+			BtBriefingAto.Text = "ATO";
+			BtBriefingAto.UseVisualStyleBackColor = true;
+			// 
+			// BtBriefingFolderTest
+			// 
+			BtBriefingFolderTest.Location = new Point(4, 198);
+			BtBriefingFolderTest.Margin = new Padding(4, 3, 4, 3);
+			BtBriefingFolderTest.Name = "BtBriefingFolderTest";
+			BtBriefingFolderTest.Size = new Size(150, 40);
+			BtBriefingFolderTest.TabIndex = 4;
+			BtBriefingFolderTest.Text = "Test folder";
+			BtBriefingFolderTest.UseVisualStyleBackColor = true;
+			BtBriefingFolderTest.Click += BtBriefingPage_Click;
 			// 
 			// LbBriefingTitle
 			// 
-			this.LbBriefingTitle.Dock = System.Windows.Forms.DockStyle.Top;
-			this.LbBriefingTitle.Location = new System.Drawing.Point(0, 0);
-			this.LbBriefingTitle.Name = "LbBriefingTitle";
-			this.LbBriefingTitle.Size = new System.Drawing.Size(885, 34);
-			this.LbBriefingTitle.TabIndex = 3;
-			this.LbBriefingTitle.Text = "Briefing";
-			this.LbBriefingTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			LbBriefingTitle.Dock = DockStyle.Top;
+			LbBriefingTitle.Location = new Point(0, 0);
+			LbBriefingTitle.Margin = new Padding(4, 0, 4, 0);
+			LbBriefingTitle.Name = "LbBriefingTitle";
+			LbBriefingTitle.Size = new Size(1032, 39);
+			LbBriefingTitle.TabIndex = 3;
+			LbBriefingTitle.Text = "Briefing";
+			LbBriefingTitle.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// PnBackground
 			// 
-			this.PnBackground.BackColor = System.Drawing.Color.Transparent;
-			this.PnBackground.Controls.Add(this.PnMission);
-			this.PnBackground.Controls.Add(this.PnBriefing);
-			this.PnBackground.Location = new System.Drawing.Point(3, 3);
-			this.PnBackground.Name = "PnBackground";
-			this.PnBackground.Size = new System.Drawing.Size(887, 461);
-			this.PnBackground.TabIndex = 2;
-			// 
-			// BtBriefingPage
-			// 
-			this.BtBriefingPage.Location = new System.Drawing.Point(378, 101);
-			this.BtBriefingPage.Name = "BtBriefingPage";
-			this.BtBriefingPage.Size = new System.Drawing.Size(129, 35);
-			this.BtBriefingPage.TabIndex = 4;
-			this.BtBriefingPage.Text = "Page";
-			this.BtBriefingPage.UseVisualStyleBackColor = true;
-			this.BtBriefingPage.Click += new System.EventHandler(this.BtBriefingPage_Click);
+			PnBackground.BackColor = Color.Transparent;
+			PnBackground.Controls.Add(PnMission);
+			PnBackground.Controls.Add(PnBriefing);
+			PnBackground.Location = new Point(4, 3);
+			PnBackground.Margin = new Padding(4, 3, 4, 3);
+			PnBackground.Name = "PnBackground";
+			PnBackground.Size = new Size(1035, 532);
+			PnBackground.TabIndex = 2;
 			// 
 			// UcBriefop
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.PnBackground);
-			this.Name = "UcBriefop";
-			this.Size = new System.Drawing.Size(893, 467);
-			this.PnMission.ResumeLayout(false);
-			this.PnMission.PerformLayout();
-			this.PnMissionTheatre.ResumeLayout(false);
-			this.PnMissionTheatre.PerformLayout();
-			this.PnMissionActions.ResumeLayout(false);
-			this.PnBriefing.ResumeLayout(false);
-			this.PnBackground.ResumeLayout(false);
-			this.ResumeLayout(false);
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(PnBackground);
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "UcBriefop";
+			Size = new Size(1042, 539);
+			PnMission.ResumeLayout(false);
+			PnMission.PerformLayout();
+			PnMissionTheatre.ResumeLayout(false);
+			PnMissionTheatre.PerformLayout();
+			PnMissionActions.ResumeLayout(false);
+			PnBriefing.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)DgvBriefingFolders).EndInit();
+			PnBackground.ResumeLayout(false);
+			ResumeLayout(false);
 		}
 
 		#endregion
@@ -268,8 +310,10 @@
 		private System.Windows.Forms.Button BtMissionComs;
 		private System.Windows.Forms.LinkLabel LbMissionDirectory;
 		private System.Windows.Forms.Panel PnMissionActions;
-		private System.Windows.Forms.Button BtMissionPackages;
+		private System.Windows.Forms.Button BtBriefingPackages;
 		private System.Windows.Forms.Panel PnMissionTheatre;
-		private System.Windows.Forms.Button BtBriefingPage;
+		private System.Windows.Forms.Button BtBriefingFolderTest;
+		private Button BtBriefingAto;
+		private Zuby.ADGV.AdvancedDataGridView DgvBriefingFolders;
 	}
 }
