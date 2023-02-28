@@ -29,6 +29,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Forms\UcBriefingPartAirbases.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Forms\UcBriefingPartParagraph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

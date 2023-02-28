@@ -44,7 +44,7 @@ namespace DcsBriefop.Forms
 			TbAction.Text = m_bopRoutePoint.Action;
 			TbAltitude.Text = $"{m_bopRoutePoint.AltitudeFeet:0} ft";
 			TbCoordinates.Text = m_bopRoutePoint.Coordinate.ToString(ElementCoordinateDisplay.All);
-			TbAdditionnal.Text = m_bopRoutePoint.ToStringAdditionnal();
+			TbAdditional.Text = m_bopRoutePoint.ToStringAdditional();
 		}
 
 		public void ScreenToData()

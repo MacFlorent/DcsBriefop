@@ -30,8 +30,8 @@
 		{
 			this.LbCoordinates = new System.Windows.Forms.Label();
 			this.TbCoordinates = new System.Windows.Forms.TextBox();
-			this.LbAdditionnal = new System.Windows.Forms.Label();
-			this.TbAdditionnal = new System.Windows.Forms.TextBox();
+			this.LbAdditional = new System.Windows.Forms.Label();
+			this.TbAdditional = new System.Windows.Forms.TextBox();
 			this.LbAction = new System.Windows.Forms.Label();
 			this.TbAction = new System.Windows.Forms.TextBox();
 			this.LbType = new System.Windows.Forms.Label();
@@ -65,27 +65,27 @@
 			this.TbCoordinates.Size = new System.Drawing.Size(291, 47);
 			this.TbCoordinates.TabIndex = 99;
 			// 
-			// LbAdditionnal
+			// LbAdditional
 			// 
-			this.LbAdditionnal.AutoSize = true;
-			this.LbAdditionnal.Location = new System.Drawing.Point(5, 189);
-			this.LbAdditionnal.Name = "LbAdditionnal";
-			this.LbAdditionnal.Size = new System.Drawing.Size(33, 13);
-			this.LbAdditionnal.TabIndex = 98;
-			this.LbAdditionnal.Text = "Other";
+			this.LbAdditional.AutoSize = true;
+			this.LbAdditional.Location = new System.Drawing.Point(5, 189);
+			this.LbAdditional.Name = "LbAdditional";
+			this.LbAdditional.Size = new System.Drawing.Size(33, 13);
+			this.LbAdditional.TabIndex = 98;
+			this.LbAdditional.Text = "Other";
 			// 
-			// TbAdditionnal
+			// TbAdditional
 			// 
-			this.TbAdditionnal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.TbAdditional.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbAdditionnal.Location = new System.Drawing.Point(81, 186);
-			this.TbAdditionnal.Multiline = true;
-			this.TbAdditionnal.Name = "TbAdditionnal";
-			this.TbAdditionnal.ReadOnly = true;
-			this.TbAdditionnal.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbAdditionnal.Size = new System.Drawing.Size(291, 120);
-			this.TbAdditionnal.TabIndex = 95;
+			this.TbAdditional.Location = new System.Drawing.Point(81, 186);
+			this.TbAdditional.Multiline = true;
+			this.TbAdditional.Name = "TbAdditional";
+			this.TbAdditional.ReadOnly = true;
+			this.TbAdditional.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.TbAdditional.Size = new System.Drawing.Size(291, 120);
+			this.TbAdditional.TabIndex = 95;
 			// 
 			// LbAction
 			// 
@@ -188,8 +188,8 @@
 			this.Controls.Add(this.TbAltitude);
 			this.Controls.Add(this.LbCoordinates);
 			this.Controls.Add(this.TbCoordinates);
-			this.Controls.Add(this.LbAdditionnal);
-			this.Controls.Add(this.TbAdditionnal);
+			this.Controls.Add(this.LbAdditional);
+			this.Controls.Add(this.TbAdditional);
 			this.Controls.Add(this.LbAction);
 			this.Controls.Add(this.TbAction);
 			this.Controls.Add(this.LbType);
@@ -208,8 +208,8 @@
 		#endregion
 		private System.Windows.Forms.Label LbCoordinates;
 		private System.Windows.Forms.TextBox TbCoordinates;
-		private System.Windows.Forms.Label LbAdditionnal;
-		private System.Windows.Forms.TextBox TbAdditionnal;
+		private System.Windows.Forms.Label LbAdditional;
+		private System.Windows.Forms.TextBox TbAdditional;
 		private System.Windows.Forms.Label LbAction;
 		private System.Windows.Forms.TextBox TbAction;
 		private System.Windows.Forms.Label LbType;

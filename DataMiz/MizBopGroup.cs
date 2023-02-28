@@ -5,7 +5,7 @@
 		#region Properties
 		public int Id { get; set; }
 		//		public string DisplayName { get; set; }
-		//		public string Additionnal { get; set; }
+		//		public string Additional { get; set; }
 		public string MapMarker { get; set; }
 		#endregion
 

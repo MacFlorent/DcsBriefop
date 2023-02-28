@@ -55,9 +55,9 @@ namespace DcsBriefop.DataBopMission
 				return sDisplayName;
 		}
 
-		public override string ToStringAdditionnal()
+		public override string ToStringAdditional()
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
 
 			if (Tacan is object)
 				sb.AppendWithSeparator($"TACAN:{Tacan}", " ");

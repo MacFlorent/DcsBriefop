@@ -3,6 +3,8 @@ using DcsBriefop.DataBopMission;
 using DcsBriefop.DataMiz;
 using DcsBriefop.net.Tools;
 using DcsBriefop.Tools;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
 using HtmlTags;
 using PuppeteerSharp;
 
@@ -42,6 +44,8 @@ namespace DcsBriefop.DataBopBriefing
 				bopBriefingPart = new BopBriefingPartDescription();
 			else if(briefingPartType == ElementBriefingPartType.Task)
 				bopBriefingPart = new BopBriefingPartTask();
+			else if (briefingPartType == ElementBriefingPartType.Airbases)
+				bopBriefingPart = new BopBriefingPartAirbases();
 
 			if (bopBriefingPart is object)
 			{
@@ -110,5 +114,28 @@ namespace DcsBriefop.DataBopBriefing
 		}
 		#endregion
 
+		#region Map
+		public Image BuildMapImage(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		{
+			GMapProvider mapProvider = GMapProviders.TryGetProvider(bopMission.PreferencesMap.ProviderName);
+			return ToolsMap.GenerateMapImage(MapData, mapProvider, GetMapAdditionalOverlays(bopMission, bopBriefingFolder), bopBriefingFolder.ImageSize);
+		}
+
+		public IEnumerable<GMapOverlay> GetMapAdditionalOverlays(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		{
+			List<GMapOverlay> additionalOverlays = null;
+
+			if (MapIncludeBaseOverlays)
+			{
+				additionalOverlays = new List<GMapOverlay> { bopMission.GetMapOverlay() };
+				if (bopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
+				{
+					additionalOverlays.Add(bopCoalition.GetMapOverlay());
+				}
+			}
+
+			return additionalOverlays;
+		}
+		#endregion
 	}
 }

@@ -146,7 +146,7 @@ namespace DcsBriefop.DataBopMission
 			return Name;
 		}
 
-		public virtual string ToStringAdditionnal()
+		public virtual string ToStringAdditional()
 		{
 			return "";
 		}

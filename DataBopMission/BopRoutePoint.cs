@@ -4,10 +4,6 @@ using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using UnitsNet.Units;
 
@@ -97,7 +93,7 @@ namespace DcsBriefop.DataBopMission
 			return $"{Number}:{Name}";
 		}
 
-		public string ToStringAdditionnal()
+		public string ToStringAdditional()
 		{
 			StringBuilder sb = new StringBuilder();
 
@@ -109,7 +105,7 @@ namespace DcsBriefop.DataBopMission
 
 			foreach (BopRouteTask task in Tasks)
 			{
-				sb.AppendWithSeparator($"{task.ToStringDisplayName()}:{task.ToStringAdditionnal()}", Environment.NewLine);
+				sb.AppendWithSeparator($"{task.ToStringDisplayName()}:{task.ToStringAdditional()}", Environment.NewLine);
 			}
 
 			return sb.ToString();

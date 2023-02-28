@@ -1,7 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
-using System.Runtime.CompilerServices;
 using System.Text;
 using UnitsNet.Units;
 
@@ -41,7 +40,7 @@ namespace DcsBriefop.DataBopMission
 			return $"{Number?.ToString() ?? "x"}:{ToString()}";
 		}
 
-		public virtual string ToStringAdditionnal()
+		public virtual string ToStringAdditional()
 		{
 			StringBuilder sb = new StringBuilder(Enabled ? "" : "[disabled]");
 
@@ -90,9 +89,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditionnal()
+		public override string ToStringAdditional()
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
 
 			if (!string.IsNullOrEmpty(Pattern))
 				sb.AppendWithSeparator($"Pattern:{Pattern}", " ");
@@ -128,9 +127,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditionnal()
+		public override string ToStringAdditional()
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
 
 			if (Callsign is object)
 				sb.AppendWithSeparator($"Callsign:{Callsign}", " ");
@@ -164,9 +163,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditionnal()
+		public override string ToStringAdditional()
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
 
 			if (Callsign is object)
 				sb.AppendWithSeparator($"Callsign:{Callsign}", " ");
@@ -198,9 +197,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditionnal()
+		public override string ToStringAdditional()
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
 
 			if (Radio is object)
 				sb.AppendWithSeparator($"Radio:{Radio}", " ");
@@ -233,9 +232,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditionnal()
+		public override string ToStringAdditional()
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
 
 			if (Tacan is object)
 				sb.AppendWithSeparator($"TACAN:{Tacan}", " ");
@@ -268,9 +267,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditionnal()
+		public override string ToStringAdditional()
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
 
 			if (Icls is object)
 				sb.AppendWithSeparator($"ICLS:{Icls}", " ");
@@ -303,9 +302,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditionnal()
+		public override string ToStringAdditional()
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
 
 			if (Link4 is object)
 				sb.AppendWithSeparator($"LNK4:{Link4:###.000}", " ");

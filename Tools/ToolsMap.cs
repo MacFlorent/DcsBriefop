@@ -5,16 +5,26 @@ using DcsBriefop.Map;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
+using System.Drawing.Drawing2D;
 
 namespace DcsBriefop.Tools
 {
 	internal static class ToolsMap
 	{
 		#region MapControl
-		public static void InitializeMapControl(this GMapControl mapControl)
+		public static void InitializeMapControl(this GMapControl mapControl, string sProvider)
 		{
-			mapControl.MapProvider = GMapProviders.TryGetProvider(PreferencesManager.Preferences.Map.ProviderName);
-			GMaps.Instance.Mode = AccessMode.ServerOnly;
+			if (string.IsNullOrEmpty(sProvider))
+				sProvider = PreferencesManager.Preferences.Map.ProviderName;
+
+			GMapProvider mapProvider = GMapProviders.TryGetProvider(sProvider);
+			mapControl.InitializeMapControl (mapProvider);
+		}
+
+		public static void InitializeMapControl(this GMapControl mapControl, GMapProvider mapProvider)
+		{
+			mapControl.MapProvider = mapProvider;
+			//mapControl.MapProvider = GMapProviders.BingMap;
 			mapControl.ShowCenter = false;
 			mapControl.MinZoom = ElementMapValue.MinZoom;
 			mapControl.MaxZoom = ElementMapValue.MaxZoom;
@@ -169,203 +179,203 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region Image Generation
-		//public static Bitmap GenerateMapImage(BopCustomMap mapData, Size outputSize)
-		//{
-		//	GMapProvider mapProvider = mapData.GetMapProvider(); ;
-		//	List<GMapOverlay> overlays = new List<GMapOverlay>();
-		//	overlays.Add(mapData.MapOverlayCustom);
-		//	overlays.AddRange(mapData.AdditionalMapOverlays);
-		//	PointLatLng centerLatLng = new PointLatLng(mapData.CenterLatitude, mapData.CenterLongitude);
-		//	return GenerateMapImage(centerLatLng, (int)mapData.Zoom, mapProvider, overlays, outputSize);
-		//}
+		public static Bitmap GenerateMapImage(MizBopMap mapData, GMapProvider mapProvider, IEnumerable<GMapOverlay> additionalOverlays, Size outputSize)
+		{
+			List<GMapOverlay> overlays = new List<GMapOverlay> { mapData.MapOverlay };
+			if (additionalOverlays is object && additionalOverlays.Any())
+				overlays.AddRange(additionalOverlays);
 
-		//public static Bitmap GenerateMapImage(PointLatLng centerLatLng, int iZoom, GMapProvider mapProvider, List<GMapOverlay> overlays, Size outputSize)
-		//{
-		//	GPoint centerPoint = mapProvider.Projection.FromLatLngToPixel(centerLatLng, iZoom);
-		//	GPoint topLeft = new GPoint(centerPoint.X - outputSize.Width / 2, centerPoint.Y - outputSize.Height / 2);
-		//	GPoint bottomRight = new GPoint(topLeft.X + outputSize.Width, topLeft.Y + outputSize.Height);
+			PointLatLng centerLatLng = new PointLatLng(mapData.CenterLatitude, mapData.CenterLongitude);
+			return GenerateMapImage(centerLatLng, (int)mapData.Zoom, mapProvider, overlays, outputSize);
+		}
 
-		//	PointLatLng topLeftLatLng = mapProvider.Projection.FromPixelToLatLng(topLeft, iZoom);
-		//	PointLatLng bottomRightLatLng = mapProvider.Projection.FromPixelToLatLng(bottomRight, iZoom);
-		//	RectLatLng rectLatLng = RectLatLng.FromLTRB(topLeftLatLng.Lng, topLeftLatLng.Lat, bottomRightLatLng.Lng, bottomRightLatLng.Lat);
+		public static Bitmap GenerateMapImage(PointLatLng centerLatLng, int iZoom, GMapProvider mapProvider, List<GMapOverlay> overlays, Size outputSize)
+		{
+			GPoint centerPoint = mapProvider.Projection.FromLatLngToPixel(centerLatLng, iZoom);
+			GPoint topLeft = new GPoint(centerPoint.X - outputSize.Width / 2, centerPoint.Y - outputSize.Height / 2);
+			GPoint bottomRight = new GPoint(topLeft.X + outputSize.Width, topLeft.Y + outputSize.Height);
 
-		//	List<GPoint> tileArea = new List<GPoint>();
-		//	tileArea.AddRange(mapProvider.Projection.GetAreaTileList(rectLatLng, iZoom, 1));
-		//	tileArea.TrimExcess();
+			PointLatLng topLeftLatLng = mapProvider.Projection.FromPixelToLatLng(topLeft, iZoom);
+			PointLatLng bottomRightLatLng = mapProvider.Projection.FromPixelToLatLng(bottomRight, iZoom);
+			RectLatLng rectLatLng = RectLatLng.FromLTRB(topLeftLatLng.Lng, topLeftLatLng.Lat, bottomRightLatLng.Lng, bottomRightLatLng.Lat);
 
-		//	GPoint pxDelta = new GPoint(bottomRight.X - topLeft.X, bottomRight.Y - topLeft.Y);
-		//	GSize maxOfTiles = mapProvider.Projection.GetTileMatrixMaxXY(iZoom);
+			List<GPoint> tileArea = new List<GPoint>();
+			tileArea.AddRange(mapProvider.Projection.GetAreaTileList(rectLatLng, iZoom, 1));
+			tileArea.TrimExcess();
 
-		//	Bitmap bmpDestination = new Bitmap((int)(pxDelta.X), (int)(pxDelta.Y));
+			GPoint pxDelta = new GPoint(bottomRight.X - topLeft.X, bottomRight.Y - topLeft.Y);
+			GSize maxOfTiles = mapProvider.Projection.GetTileMatrixMaxXY(iZoom);
 
-		//	using (var gfx = Graphics.FromImage(bmpDestination))
-		//	{
-		//		gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-		//		gfx.SmoothingMode = SmoothingMode.HighQuality;
+			Bitmap bmpDestination = new Bitmap((int)(pxDelta.X), (int)(pxDelta.Y));
 
-		//		//get tiles &combine into one
-		//		lock (tileArea)
-		//		{
-		//			foreach (var p in tileArea)
-		//			{
-		//				foreach (var tp in mapProvider.Overlays)
-		//				{
-		//					Exception ex;
-		//					GMapImage tile;
+			using (var gfx = Graphics.FromImage(bmpDestination))
+			{
+				gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
+				gfx.SmoothingMode = SmoothingMode.HighQuality;
 
-		//					// tile number inversion(BottomLeft -> TopLeft) for pergo maps
-		//					if (tp.InvertedAxisY)
-		//					{
-		//						tile = GMaps.Instance.GetImageFrom(tp, new GPoint(p.X, maxOfTiles.Height - p.Y), iZoom, out ex) as GMapImage;
-		//					}
-		//					else // ok
-		//					{
-		//						tile = GMaps.Instance.GetImageFrom(tp, p, iZoom, out ex) as GMapImage;
-		//					}
+				//get tiles &combine into one
+				lock (tileArea)
+				{
+					foreach (var p in tileArea)
+					{
+						foreach (var tp in mapProvider.Overlays)
+						{
+							Exception ex;
+							GMapImage tile;
 
-		//					if (tile != null)
-		//					{
-		//						using (tile)
-		//						{
-		//							long x = p.X * mapProvider.Projection.TileSize.Width - topLeft.X;
-		//							long y = p.Y * mapProvider.Projection.TileSize.Width - topLeft.Y;
-		//							{
-		//								gfx.DrawImage(tile.Img, x, y, mapProvider.Projection.TileSize.Width, mapProvider.Projection.TileSize.Height);
-		//							}
-		//						}
-		//					}
-		//				}
-		//			}
-		//		}
+							// tile number inversion(BottomLeft -> TopLeft) for pergo maps
+							if (tp.InvertedAxisY)
+							{
+								tile = GMaps.Instance.GetImageFrom(tp, new GPoint(p.X, maxOfTiles.Height - p.Y), iZoom, out ex) as GMapImage;
+							}
+							else // ok
+							{
+								tile = GMaps.Instance.GetImageFrom(tp, p, iZoom, out ex) as GMapImage;
+							}
 
-		//		foreach (GMapOverlay overlay in overlays)
-		//		{
-		//			// draw routes
-		//			// we cannot use the route render method as there is too much private/internal data and interconnections with the MapControl to do so
-		//			// so we just redraw the lines specifically here
-		//			foreach (GMapRoute route in overlay.Routes.Where(_r => _r.IsVisible))
-		//			{
-		//				if (route.Points is object && route.Points.Count > 0)
-		//				{
-		//					if (route is GRouteBriefop routeBriefop)
-		//					{
-		//						DrawRouteBriefop(gfx, mapProvider, iZoom, topLeft, routeBriefop);
-		//					}
-		//					else
-		//					{
-		//						DrawRoute(gfx, mapProvider, iZoom, topLeft, route);
-		//					}
-		//				}
-		//			}
+							if (tile != null)
+							{
+								using (tile)
+								{
+									long x = p.X * mapProvider.Projection.TileSize.Width - topLeft.X;
+									long y = p.Y * mapProvider.Projection.TileSize.Width - topLeft.Y;
+									{
+										gfx.DrawImage(tile.Img, x, y, mapProvider.Projection.TileSize.Width, mapProvider.Projection.TileSize.Height);
+									}
+								}
+							}
+						}
+					}
+				}
 
-		//			//// draw polygons
-		//			//foreach (var r in overlay.Polygons)
-		//			//{
-		//			//	if (r.IsVisible)
-		//			//	{
-		//			//		using (var rp = new GraphicsPath())
-		//			//		{
-		//			//			for (int j = 0; j < r.Points.Count; j++)
-		//			//			{
-		//			//				var pr = r.Points[j];
-		//			//				var px = mapProvider.Projection.FromLatLngToPixel(pr.Lat, pr.Lng, iZoom);
+				foreach (GMapOverlay overlay in overlays)
+				{
+					// draw routes
+					// we cannot use the route render method as there is too much private/internal data and interconnections with the MapControl to do so
+					// so we just redraw the lines specifically here
+					foreach (GMapRoute route in overlay.Routes.Where(_r => _r.IsVisible))
+					{
+						if (route.Points is object && route.Points.Count > 0)
+						{
+							if (route is GRouteBriefop routeBriefop)
+							{
+								DrawRouteBriefop(gfx, mapProvider, iZoom, topLeft, routeBriefop);
+							}
+							else
+							{
+								DrawRoute(gfx, mapProvider, iZoom, topLeft, route);
+							}
+						}
+					}
 
-		//			//				px.Offset(iPadding, iPadding);
-		//			//				px.Offset(-topLeft.X, -topLeft.Y);
+					//// draw polygons
+					//foreach (var r in overlay.Polygons)
+					//{
+					//	if (r.IsVisible)
+					//	{
+					//		using (var rp = new GraphicsPath())
+					//		{
+					//			for (int j = 0; j < r.Points.Count; j++)
+					//			{
+					//				var pr = r.Points[j];
+					//				var px = mapProvider.Projection.FromLatLngToPixel(pr.Lat, pr.Lng, iZoom);
 
-		//			//				var p2 = px;
+					//				px.Offset(iPadding, iPadding);
+					//				px.Offset(-topLeft.X, -topLeft.Y);
 
-		//			//				if (j == 0)
-		//			//				{
-		//			//					rp.AddLine(p2.X, p2.Y, p2.X, p2.Y);
-		//			//				}
-		//			//				else
-		//			//				{
-		//			//					var p = rp.GetLastPoint();
-		//			//					rp.AddLine(p.X, p.Y, p2.X, p2.Y);
-		//			//				}
-		//			//			}
+					//				var p2 = px;
 
-		//			//			if (rp.PointCount > 0)
-		//			//			{
-		//			//				rp.CloseFigure();
+					//				if (j == 0)
+					//				{
+					//					rp.AddLine(p2.X, p2.Y, p2.X, p2.Y);
+					//				}
+					//				else
+					//				{
+					//					var p = rp.GetLastPoint();
+					//					rp.AddLine(p.X, p.Y, p2.X, p2.Y);
+					//				}
+					//			}
 
-		//			//				gfx.FillPath(r.Fill, rp);
+					//			if (rp.PointCount > 0)
+					//			{
+					//				rp.CloseFigure();
 
-		//			//				gfx.DrawPath(r.Stroke, rp);
-		//			//			}
-		//			//		}
-		//			//	}
-		//			//}
+					//				gfx.FillPath(r.Fill, rp);
+
+					//				gfx.DrawPath(r.Stroke, rp);
+					//			}
+					//		}
+					//	}
+					//}
 
 
-		//			// draw markers
-		//			foreach (GMapMarker marker in overlay.Markers.Where(_m => _m.IsVisible))
-		//			{
-		//				DrawMarker(gfx, mapProvider, iZoom, topLeft, marker);
-		//			}
-		//		}
+					// draw markers
+					foreach (GMapMarker marker in overlay.Markers.Where(_m => _m.IsVisible))
+					{
+						DrawMarker(gfx, mapProvider, iZoom, topLeft, marker);
+					}
+				}
 
-		//		gfx.ResetTransform();
-		//	}
+				gfx.ResetTransform();
+			}
 
-		//	return bmpDestination;
-		//}
+			return bmpDestination;
+		}
 
-		//private static void TranslateGraphics(Graphics gfx, GPoint topLeft)
-		//{
-		//	gfx.ResetTransform(); // need to reset before transforming, if not sometimes will be drawn in the wrong position
-		//	gfx.TranslateTransform(-topLeft.X, -topLeft.Y);
-		//}
+		private static void TranslateGraphics(Graphics gfx, GPoint topLeft)
+		{
+			gfx.ResetTransform(); // need to reset before transforming, if not sometimes will be drawn in the wrong position
+			gfx.TranslateTransform(-topLeft.X, -topLeft.Y);
+		}
 
-		//private static void DrawRouteBriefop(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GRouteBriefop routeBriefop)
-		//{
-		//	List<GPoint> gPoints = new List<GPoint>();
-		//	foreach (PointLatLng routePoint in routeBriefop.Points)
-		//	{
-		//		GPoint routePointPixel = mapProvider.Projection.FromLatLngToPixel(routePoint.Lat, routePoint.Lng, iZoom);
-		//		gPoints.Add(routePointPixel);
-		//	}
+		private static void DrawRouteBriefop(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GRouteBriefop routeBriefop)
+		{
+			List<GPoint> gPoints = new List<GPoint>();
+			foreach (PointLatLng routePoint in routeBriefop.Points)
+			{
+				GPoint routePointPixel = mapProvider.Projection.FromLatLngToPixel(routePoint.Lat, routePoint.Lng, iZoom);
+				gPoints.Add(routePointPixel);
+			}
 
-		//	TranslateGraphics(gfx, topLeft);
-		//	routeBriefop.Render(gfx, gPoints);
-		//}
+			TranslateGraphics(gfx, topLeft);
+			routeBriefop.Render(gfx, gPoints);
+		}
 
-		//private static void DrawRoute(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GMapRoute route)
-		//{
-		//	using (GraphicsPath graphicsPath = new GraphicsPath())
-		//	{
-		//		GPoint? lastPointPixel = null;
+		private static void DrawRoute(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GMapRoute route)
+		{
+			using (GraphicsPath graphicsPath = new GraphicsPath())
+			{
+				GPoint? lastPointPixel = null;
 
-		//		foreach (PointLatLng routePoint in route.Points)
-		//		{
-		//			GPoint routePointPixel = mapProvider.Projection.FromLatLngToPixel(routePoint.Lat, routePoint.Lng, iZoom);
+				foreach (PointLatLng routePoint in route.Points)
+				{
+					GPoint routePointPixel = mapProvider.Projection.FromLatLngToPixel(routePoint.Lat, routePoint.Lng, iZoom);
 
-		//			if (lastPointPixel is object)
-		//			{
-		//				graphicsPath.AddLine(lastPointPixel.Value.X, lastPointPixel.Value.Y, routePointPixel.X, routePointPixel.Y);
-		//			}
+					if (lastPointPixel is object)
+					{
+						graphicsPath.AddLine(lastPointPixel.Value.X, lastPointPixel.Value.Y, routePointPixel.X, routePointPixel.Y);
+					}
 
-		//			lastPointPixel = routePointPixel;
-		//		}
+					lastPointPixel = routePointPixel;
+				}
 
-		//		if (graphicsPath.PointCount > 0)
-		//		{
-		//			TranslateGraphics(gfx, topLeft);
-		//			gfx.DrawPath(route.Stroke, graphicsPath);
-		//		}
-		//	}
-		//}
+				if (graphicsPath.PointCount > 0)
+				{
+					TranslateGraphics(gfx, topLeft);
+					gfx.DrawPath(route.Stroke, graphicsPath);
+				}
+			}
+		}
 
-		//private static void DrawMarker(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GMapMarker marker)
-		//{
-		//	GPoint markerPointPixel = mapProvider.Projection.FromLatLngToPixel(marker.Position.Lat, marker.Position.Lng, iZoom);
-		//	TranslateGraphics(gfx, topLeft);
-		//	gfx.TranslateTransform(markerPointPixel.X, markerPointPixel.Y); // account for marker position within the global map as the render method will draw at this postion
-		//	gfx.TranslateTransform(-marker.LocalPosition.X, -marker.LocalPosition.Y); // account for (nullify) local position of relative to displayed map control if any, as it will be used in the render
-		//	gfx.TranslateTransform(marker.Offset.X, marker.Offset.Y); // account for marker offset positioning
-		//	marker.OnRender(gfx);
-		//}
+		private static void DrawMarker(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GMapMarker marker)
+		{
+			GPoint markerPointPixel = mapProvider.Projection.FromLatLngToPixel(marker.Position.Lat, marker.Position.Lng, iZoom);
+			TranslateGraphics(gfx, topLeft);
+			gfx.TranslateTransform(markerPointPixel.X, markerPointPixel.Y); // account for marker position within the global map as the render method will draw at this postion
+			gfx.TranslateTransform(-marker.LocalPosition.X, -marker.LocalPosition.Y); // account for (nullify) local position of relative to displayed map control if any, as it will be used in the render
+			gfx.TranslateTransform(marker.Offset.X, marker.Offset.Y); // account for marker offset positioning
+			marker.OnRender(gfx);
+		}
 		#endregion
 	}
 }

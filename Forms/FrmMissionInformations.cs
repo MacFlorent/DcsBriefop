@@ -9,7 +9,7 @@ namespace DcsBriefop.Forms
 		private BriefopManager m_briefopManager;
 
 		private TextBox m_tbDescription;
-		private Dictionary <string, UcMissionCoalition> m_ucCoalitionsControls;
+		private Dictionary<string, UcMissionCoalition> m_ucCoalitionsControls;
 		#endregion
 
 		#region CTOR
@@ -29,8 +29,6 @@ namespace DcsBriefop.Forms
 
 			ToolsStyle.ApplyStyle(this);
 			ToolsStyle.ButtonCancel(BtClose);
-
-			DataToScreen();
 		}
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
@@ -50,7 +48,7 @@ namespace DcsBriefop.Forms
 
 			m_tbDescription.Text = m_briefopManager.BopMission.Description;
 
-			foreach(UcMissionCoalition ucCoalition in m_ucCoalitionsControls.Values)
+			foreach (UcMissionCoalition ucCoalition in m_ucCoalitionsControls.Values)
 				ucCoalition.DataToScreen();
 
 		}
@@ -67,7 +65,7 @@ namespace DcsBriefop.Forms
 		private void AddTabDescription()
 		{
 			m_tbDescription = new TextBox();
-			m_tbDescription.Multiline= true;
+			m_tbDescription.Multiline = true;
 			TcDetails.AddTab("Description", m_tbDescription);
 		}
 
@@ -93,6 +91,11 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
+		private void FrmMissionInformations_Shown(object sender, EventArgs e)
+		{
+			DataToScreen();
+		}
+
 		private void FrmMissionInformations_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			ScreenToData();

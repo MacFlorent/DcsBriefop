@@ -35,8 +35,6 @@ namespace DcsBriefop.Forms
 
 			m_gridManagerBriefingPages = new GridManagerBriefingPages(DgvPages, m_bopBriefingFolder.Pages);
 			m_gridManagerBriefingPages.SelectionChangedTyped += SelectionChangedTypedEvent;
-
-			DataToScreen();
 		}
 
 		public static void CreateModal(BopMission bopMission, BopBriefingFolder bopBriefingFolder, Form parentForm)
@@ -115,6 +113,11 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
+		private void FrmBriefingFolder_Shown(object sender, EventArgs e)
+		{
+			DataToScreen();
+		}
+
 		private void FrmBriefingFolder_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			ScreenToData();

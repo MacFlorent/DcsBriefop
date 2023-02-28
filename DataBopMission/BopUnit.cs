@@ -4,9 +4,6 @@ using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using UnitsNet.Units;
 
 namespace DcsBriefop.DataBopMission
@@ -118,7 +115,7 @@ namespace DcsBriefop.DataBopMission
 				return Name;
 		}
 
-		public virtual string ToStringAdditionnal()
+		public virtual string ToStringAdditional()
 		{
 			return "";
 		}

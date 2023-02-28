@@ -28,153 +28,149 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.LbSortie = new System.Windows.Forms.Label();
-			this.LbDate = new System.Windows.Forms.Label();
-			this.LbWeather = new System.Windows.Forms.Label();
-			this.TcDetails = new System.Windows.Forms.TabControl();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.TbSortie = new System.Windows.Forms.TextBox();
-			this.TbWeather = new System.Windows.Forms.TextBox();
-			this.DtpDate = new System.Windows.Forms.DateTimePicker();
-			this.BtClose = new System.Windows.Forms.Button();
-			this.TcDetails.SuspendLayout();
-			this.SuspendLayout();
+			LbSortie = new Label();
+			LbDate = new Label();
+			LbWeather = new Label();
+			TcDetails = new TabControl();
+			tabPage1 = new TabPage();
+			tabPage2 = new TabPage();
+			TbSortie = new TextBox();
+			TbWeather = new TextBox();
+			DtpDate = new DateTimePicker();
+			BtClose = new Button();
+			TcDetails.SuspendLayout();
+			SuspendLayout();
 			// 
 			// LbSortie
 			// 
-			this.LbSortie.AutoSize = true;
-			this.LbSortie.Location = new System.Drawing.Point(14, 10);
-			this.LbSortie.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbSortie.Name = "LbSortie";
-			this.LbSortie.Size = new System.Drawing.Size(37, 15);
-			this.LbSortie.TabIndex = 0;
-			this.LbSortie.Text = "Sortie";
+			LbSortie.AutoSize = true;
+			LbSortie.Location = new Point(14, 10);
+			LbSortie.Margin = new Padding(4, 0, 4, 0);
+			LbSortie.Name = "LbSortie";
+			LbSortie.Size = new Size(37, 15);
+			LbSortie.TabIndex = 0;
+			LbSortie.Text = "Sortie";
 			// 
 			// LbDate
 			// 
-			this.LbDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.LbDate.AutoSize = true;
-			this.LbDate.Location = new System.Drawing.Point(760, 10);
-			this.LbDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbDate.Name = "LbDate";
-			this.LbDate.Size = new System.Drawing.Size(31, 15);
-			this.LbDate.TabIndex = 1;
-			this.LbDate.Text = "Date";
+			LbDate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			LbDate.AutoSize = true;
+			LbDate.Location = new Point(760, 10);
+			LbDate.Margin = new Padding(4, 0, 4, 0);
+			LbDate.Name = "LbDate";
+			LbDate.Size = new Size(31, 15);
+			LbDate.TabIndex = 1;
+			LbDate.Text = "Date";
 			// 
 			// LbWeather
 			// 
-			this.LbWeather.AutoSize = true;
-			this.LbWeather.Location = new System.Drawing.Point(14, 40);
-			this.LbWeather.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbWeather.Name = "LbWeather";
-			this.LbWeather.Size = new System.Drawing.Size(51, 15);
-			this.LbWeather.TabIndex = 2;
-			this.LbWeather.Text = "Weather";
+			LbWeather.AutoSize = true;
+			LbWeather.Location = new Point(14, 40);
+			LbWeather.Margin = new Padding(4, 0, 4, 0);
+			LbWeather.Name = "LbWeather";
+			LbWeather.Size = new Size(51, 15);
+			LbWeather.TabIndex = 2;
+			LbWeather.Text = "Weather";
 			// 
 			// TcDetails
 			// 
-			this.TcDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TcDetails.Controls.Add(this.tabPage1);
-			this.TcDetails.Controls.Add(this.tabPage2);
-			this.TcDetails.Location = new System.Drawing.Point(14, 152);
-			this.TcDetails.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.TcDetails.Name = "TcDetails";
-			this.TcDetails.SelectedIndex = 0;
-			this.TcDetails.Size = new System.Drawing.Size(1032, 563);
-			this.TcDetails.TabIndex = 3;
+			TcDetails.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			TcDetails.Controls.Add(tabPage1);
+			TcDetails.Controls.Add(tabPage2);
+			TcDetails.Location = new Point(14, 152);
+			TcDetails.Margin = new Padding(4, 3, 4, 3);
+			TcDetails.Name = "TcDetails";
+			TcDetails.SelectedIndex = 0;
+			TcDetails.Size = new Size(1032, 563);
+			TcDetails.TabIndex = 3;
 			// 
 			// tabPage1
 			// 
-			this.tabPage1.Location = new System.Drawing.Point(4, 24);
-			this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.tabPage1.Size = new System.Drawing.Size(1024, 535);
-			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "tabPage1";
-			this.tabPage1.UseVisualStyleBackColor = true;
+			tabPage1.Location = new Point(4, 24);
+			tabPage1.Margin = new Padding(4, 3, 4, 3);
+			tabPage1.Name = "tabPage1";
+			tabPage1.Padding = new Padding(4, 3, 4, 3);
+			tabPage1.Size = new Size(1024, 535);
+			tabPage1.TabIndex = 0;
+			tabPage1.Text = "tabPage1";
+			tabPage1.UseVisualStyleBackColor = true;
 			// 
 			// tabPage2
 			// 
-			this.tabPage2.Location = new System.Drawing.Point(4, 24);
-			this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.tabPage2.Size = new System.Drawing.Size(1024, 535);
-			this.tabPage2.TabIndex = 1;
-			this.tabPage2.Text = "tabPage2";
-			this.tabPage2.UseVisualStyleBackColor = true;
+			tabPage2.Location = new Point(4, 24);
+			tabPage2.Margin = new Padding(4, 3, 4, 3);
+			tabPage2.Name = "tabPage2";
+			tabPage2.Padding = new Padding(4, 3, 4, 3);
+			tabPage2.Size = new Size(1024, 535);
+			tabPage2.TabIndex = 1;
+			tabPage2.Text = "tabPage2";
+			tabPage2.UseVisualStyleBackColor = true;
 			// 
 			// TbSortie
 			// 
-			this.TbSortie.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbSortie.Location = new System.Drawing.Point(73, 7);
-			this.TbSortie.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.TbSortie.Name = "TbSortie";
-			this.TbSortie.Size = new System.Drawing.Size(664, 23);
-			this.TbSortie.TabIndex = 4;
+			TbSortie.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbSortie.Location = new Point(73, 7);
+			TbSortie.Margin = new Padding(4, 3, 4, 3);
+			TbSortie.Name = "TbSortie";
+			TbSortie.Size = new Size(664, 23);
+			TbSortie.TabIndex = 4;
 			// 
 			// TbWeather
 			// 
-			this.TbWeather.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbWeather.Location = new System.Drawing.Point(73, 37);
-			this.TbWeather.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.TbWeather.Multiline = true;
-			this.TbWeather.Name = "TbWeather";
-			this.TbWeather.ReadOnly = true;
-			this.TbWeather.Size = new System.Drawing.Size(972, 108);
-			this.TbWeather.TabIndex = 6;
+			TbWeather.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbWeather.Location = new Point(73, 37);
+			TbWeather.Margin = new Padding(4, 3, 4, 3);
+			TbWeather.Multiline = true;
+			TbWeather.Name = "TbWeather";
+			TbWeather.ReadOnly = true;
+			TbWeather.Size = new Size(972, 108);
+			TbWeather.TabIndex = 6;
 			// 
 			// DtpDate
 			// 
-			this.DtpDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.DtpDate.Location = new System.Drawing.Point(812, 7);
-			this.DtpDate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.DtpDate.Name = "DtpDate";
-			this.DtpDate.Size = new System.Drawing.Size(233, 23);
-			this.DtpDate.TabIndex = 7;
+			DtpDate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			DtpDate.Location = new Point(812, 7);
+			DtpDate.Margin = new Padding(4, 3, 4, 3);
+			DtpDate.Name = "DtpDate";
+			DtpDate.Size = new Size(233, 23);
+			DtpDate.TabIndex = 7;
 			// 
 			// BtClose
 			// 
-			this.BtClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtClose.Location = new System.Drawing.Point(951, 722);
-			this.BtClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.BtClose.Name = "BtClose";
-			this.BtClose.Size = new System.Drawing.Size(94, 27);
-			this.BtClose.TabIndex = 9;
-			this.BtClose.Text = "Close";
-			this.BtClose.UseVisualStyleBackColor = true;
-			this.BtClose.Click += new System.EventHandler(this.BtClose_Click);
+			BtClose.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			BtClose.Location = new Point(951, 722);
+			BtClose.Margin = new Padding(4, 3, 4, 3);
+			BtClose.Name = "BtClose";
+			BtClose.Size = new Size(94, 27);
+			BtClose.TabIndex = 9;
+			BtClose.Text = "Close";
+			BtClose.UseVisualStyleBackColor = true;
+			BtClose.Click += BtClose_Click;
 			// 
 			// FrmMissionInformations
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1060, 752);
-			this.Controls.Add(this.TbWeather);
-			this.Controls.Add(this.BtClose);
-			this.Controls.Add(this.DtpDate);
-			this.Controls.Add(this.TbSortie);
-			this.Controls.Add(this.TcDetails);
-			this.Controls.Add(this.LbWeather);
-			this.Controls.Add(this.LbDate);
-			this.Controls.Add(this.LbSortie);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-			this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.Name = "FrmMissionInformations";
-			this.ShowInTaskbar = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Mission informations";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMissionInformations_FormClosed);
-			this.TcDetails.ResumeLayout(false);
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			ClientSize = new Size(1060, 752);
+			Controls.Add(TbWeather);
+			Controls.Add(BtClose);
+			Controls.Add(DtpDate);
+			Controls.Add(TbSortie);
+			Controls.Add(TcDetails);
+			Controls.Add(LbWeather);
+			Controls.Add(LbDate);
+			Controls.Add(LbSortie);
+			FormBorderStyle = FormBorderStyle.SizableToolWindow;
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "FrmMissionInformations";
+			ShowInTaskbar = false;
+			StartPosition = FormStartPosition.CenterParent;
+			Text = "Mission informations";
+			FormClosed += FrmMissionInformations_FormClosed;
+			Shown += FrmMissionInformations_Shown;
+			TcDetails.ResumeLayout(false);
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion

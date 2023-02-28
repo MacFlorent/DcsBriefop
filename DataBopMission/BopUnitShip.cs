@@ -37,9 +37,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditionnal()
+		public override string ToStringAdditional()
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
 
 			if (Radio is object)
 				sb.AppendWithSeparator($"Radio:{Radio}", " ");

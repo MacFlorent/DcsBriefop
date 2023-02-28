@@ -1,5 +1,4 @@
-﻿using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
+﻿using GMap.NET.WindowsForms;
 
 namespace DcsBriefop.DataMiz
 {

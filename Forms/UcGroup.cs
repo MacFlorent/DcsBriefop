@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
-using GMap.NET.MapProviders;
 
 namespace DcsBriefop.Forms
 {
@@ -52,8 +51,7 @@ namespace DcsBriefop.Forms
 			TcDetails.AddTab("Route", m_ucGroupRoutePoints);
 			TcDetails.SelectedIndexChanged += TcDetails_SelectedIndexChanged;
 
-			MapControl.InitializeMapControl();
-			MapControl.MapProvider = GMapProviders.TryGetProvider(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.ProviderName);
+			MapControl.InitializeMapControl(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.ProviderName);
 		}
 		#endregion
 

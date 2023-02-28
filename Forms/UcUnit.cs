@@ -52,7 +52,7 @@ namespace DcsBriefop.Forms
 			TbDisplayName.Text = m_bopUnit.ToStringDisplayName();
 			TbType.Text = m_bopUnit.Type;
 			TbAttributes.Text = m_bopUnit.Attributes.ToString();
-			TbOther.Text = m_bopUnit.ToStringAdditionnal();
+			TbOther.Text = m_bopUnit.ToStringAdditional();
 			TbAltitude.Text = $"{m_bopUnit.AltitudeFeet:0}";
 			TbCoordinates.Text = m_bopUnit.Coordinate.ToString(ElementCoordinateDisplay.All);
 			CbMapMarker.Text = m_bopUnit.MapMarker;

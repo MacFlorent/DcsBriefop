@@ -107,9 +107,8 @@
 			// 
 			// CkMapIncludeBaseOverlays
 			// 
-			CkMapIncludeBaseOverlays.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			CkMapIncludeBaseOverlays.AutoSize = true;
-			CkMapIncludeBaseOverlays.Location = new Point(0, 453);
+			CkMapIncludeBaseOverlays.Location = new Point(3, 2);
 			CkMapIncludeBaseOverlays.Name = "CkMapIncludeBaseOverlays";
 			CkMapIncludeBaseOverlays.Size = new Size(138, 19);
 			CkMapIncludeBaseOverlays.TabIndex = 4;
@@ -119,10 +118,10 @@
 			// 
 			// PnMap
 			// 
-			PnMap.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			PnMap.Dock = DockStyle.Fill;
 			PnMap.Location = new Point(4, 3);
 			PnMap.Name = "PnMap";
-			PnMap.Size = new Size(650, 459);
+			PnMap.Size = new Size(649, 466);
 			PnMap.TabIndex = 5;
 			// 
 			// TpHtmlPreview

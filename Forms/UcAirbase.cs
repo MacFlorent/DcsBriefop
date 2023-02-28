@@ -3,7 +3,6 @@ using DcsBriefop.DataBopMission;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
-using GMap.NET.MapProviders;
 
 namespace DcsBriefop.Forms
 {
@@ -37,10 +36,8 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 
 			m_gridManagerAirbaseRadios = new GridManagerAirbaseRadios(DgvRadios, m_bopAirbase.Radios);
-			//m_gridManagerAirbases.SelectionChangedTyped += SelectionChangedTypedEvent;
 
-			MapControl.InitializeMapControl();
-			MapControl.MapProvider = GMapProviders.TryGetProvider(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.ProviderName);
+			MapControl.InitializeMapControl(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.ProviderName);
 
 			MapTemplateMarker.FillCombo(CbMapMarker, CbMapMarker_SelectedValueChanged);
 

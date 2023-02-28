@@ -29,8 +29,6 @@ namespace DcsBriefop.Forms
 			RbMapSelectionNeutral.Tag = ElementCoalition.Neutral;
 
 			MapProviders.FillCombo(CbMapProvider, CbMapProvider_SelectedValueChanged);
-
-			DataToScreen();
 		}
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
@@ -89,6 +87,11 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
+		private void FrmMissionMaps_Shown(object sender, EventArgs e)
+		{
+			DataToScreen();
+		}
+
 		private void FrmMissionMaps_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			ScreenToData();
@@ -105,7 +108,5 @@ namespace DcsBriefop.Forms
 			DataToScreenDetail();
 		}
 		#endregion
-
-
 	}
 }

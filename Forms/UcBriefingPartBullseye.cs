@@ -1,13 +1,16 @@
 ﻿using DcsBriefop.DataBopBriefing;
+using DcsBriefop.DataBopMission;
+using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms
 {
 	internal partial class UcBriefingPartBullseye : UcBriefingPartBase
 	{
 		#region CTOR
-		public UcBriefingPartBullseye(BopBriefingPartBullseye bopBriefingPart) : base(bopBriefingPart)
+		public UcBriefingPartBullseye(BopBriefingPartBase bopBriefingPart, BopMission bopMission) : base(bopBriefingPart, bopMission)
 		{
 			InitializeComponent();
+			ToolsStyle.ApplyStyle(this);
 
 			DataToScreen();
 		}

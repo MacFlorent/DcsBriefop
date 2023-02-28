@@ -28,148 +28,159 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.PnTop = new System.Windows.Forms.Panel();
-			this.LbMapProvider = new System.Windows.Forms.Label();
-			this.CbMapProvider = new System.Windows.Forms.ComboBox();
-			this.PnMapSelection = new System.Windows.Forms.Panel();
-			this.LbMaps = new System.Windows.Forms.Label();
-			this.RbMapSelectionNeutral = new System.Windows.Forms.RadioButton();
-			this.RbMapSelectionGlobal = new System.Windows.Forms.RadioButton();
-			this.RbMapSelectionRed = new System.Windows.Forms.RadioButton();
-			this.RbMapSelectionBlue = new System.Windows.Forms.RadioButton();
-			this.PnMap = new System.Windows.Forms.Panel();
-			this.PnTop.SuspendLayout();
-			this.PnMapSelection.SuspendLayout();
-			this.SuspendLayout();
+			PnTop = new Panel();
+			LbMapProvider = new Label();
+			CbMapProvider = new ComboBox();
+			PnMapSelection = new Panel();
+			LbMaps = new Label();
+			RbMapSelectionNeutral = new RadioButton();
+			RbMapSelectionGlobal = new RadioButton();
+			RbMapSelectionRed = new RadioButton();
+			RbMapSelectionBlue = new RadioButton();
+			PnMap = new Panel();
+			PnTop.SuspendLayout();
+			PnMapSelection.SuspendLayout();
+			SuspendLayout();
 			// 
 			// PnTop
 			// 
-			this.PnTop.Controls.Add(this.LbMapProvider);
-			this.PnTop.Controls.Add(this.CbMapProvider);
-			this.PnTop.Controls.Add(this.PnMapSelection);
-			this.PnTop.Dock = System.Windows.Forms.DockStyle.Top;
-			this.PnTop.Location = new System.Drawing.Point(0, 0);
-			this.PnTop.Name = "PnTop";
-			this.PnTop.Size = new System.Drawing.Size(1403, 40);
-			this.PnTop.TabIndex = 0;
+			PnTop.Controls.Add(LbMapProvider);
+			PnTop.Controls.Add(CbMapProvider);
+			PnTop.Controls.Add(PnMapSelection);
+			PnTop.Dock = DockStyle.Top;
+			PnTop.Location = new Point(0, 0);
+			PnTop.Margin = new Padding(4, 3, 4, 3);
+			PnTop.Name = "PnTop";
+			PnTop.Size = new Size(1637, 46);
+			PnTop.TabIndex = 0;
 			// 
 			// LbMapProvider
 			// 
-			this.LbMapProvider.AutoSize = true;
-			this.LbMapProvider.Location = new System.Drawing.Point(13, 18);
-			this.LbMapProvider.Name = "LbMapProvider";
-			this.LbMapProvider.Size = new System.Drawing.Size(69, 13);
-			this.LbMapProvider.TabIndex = 6;
-			this.LbMapProvider.Text = "Map provider";
+			LbMapProvider.AutoSize = true;
+			LbMapProvider.Location = new Point(15, 21);
+			LbMapProvider.Margin = new Padding(4, 0, 4, 0);
+			LbMapProvider.Name = "LbMapProvider";
+			LbMapProvider.Size = new Size(78, 15);
+			LbMapProvider.TabIndex = 6;
+			LbMapProvider.Text = "Map provider";
 			// 
 			// CbMapProvider
 			// 
-			this.CbMapProvider.FormattingEnabled = true;
-			this.CbMapProvider.Location = new System.Drawing.Point(88, 13);
-			this.CbMapProvider.Name = "CbMapProvider";
-			this.CbMapProvider.Size = new System.Drawing.Size(121, 21);
-			this.CbMapProvider.TabIndex = 5;
-			this.CbMapProvider.SelectedValueChanged += new System.EventHandler(this.CbMapProvider_SelectedValueChanged);
+			CbMapProvider.FormattingEnabled = true;
+			CbMapProvider.Location = new Point(103, 15);
+			CbMapProvider.Margin = new Padding(4, 3, 4, 3);
+			CbMapProvider.Name = "CbMapProvider";
+			CbMapProvider.Size = new Size(140, 23);
+			CbMapProvider.TabIndex = 5;
+			CbMapProvider.SelectedValueChanged += CbMapProvider_SelectedValueChanged;
 			// 
 			// PnMapSelection
 			// 
-			this.PnMapSelection.AutoSize = true;
-			this.PnMapSelection.BackColor = System.Drawing.Color.Transparent;
-			this.PnMapSelection.Controls.Add(this.LbMaps);
-			this.PnMapSelection.Controls.Add(this.RbMapSelectionNeutral);
-			this.PnMapSelection.Controls.Add(this.RbMapSelectionGlobal);
-			this.PnMapSelection.Controls.Add(this.RbMapSelectionRed);
-			this.PnMapSelection.Controls.Add(this.RbMapSelectionBlue);
-			this.PnMapSelection.Location = new System.Drawing.Point(215, 7);
-			this.PnMapSelection.Name = "PnMapSelection";
-			this.PnMapSelection.Size = new System.Drawing.Size(521, 33);
-			this.PnMapSelection.TabIndex = 4;
+			PnMapSelection.AutoSize = true;
+			PnMapSelection.BackColor = Color.Transparent;
+			PnMapSelection.Controls.Add(LbMaps);
+			PnMapSelection.Controls.Add(RbMapSelectionNeutral);
+			PnMapSelection.Controls.Add(RbMapSelectionGlobal);
+			PnMapSelection.Controls.Add(RbMapSelectionRed);
+			PnMapSelection.Controls.Add(RbMapSelectionBlue);
+			PnMapSelection.Location = new Point(251, 8);
+			PnMapSelection.Margin = new Padding(4, 3, 4, 3);
+			PnMapSelection.Name = "PnMapSelection";
+			PnMapSelection.Size = new Size(609, 38);
+			PnMapSelection.TabIndex = 4;
 			// 
 			// LbMaps
 			// 
-			this.LbMaps.AutoSize = true;
-			this.LbMaps.Location = new System.Drawing.Point(37, 12);
-			this.LbMaps.Name = "LbMaps";
-			this.LbMaps.Size = new System.Drawing.Size(33, 13);
-			this.LbMaps.TabIndex = 7;
-			this.LbMaps.Text = "Maps";
+			LbMaps.AutoSize = true;
+			LbMaps.Location = new Point(43, 14);
+			LbMaps.Margin = new Padding(4, 0, 4, 0);
+			LbMaps.Name = "LbMaps";
+			LbMaps.Size = new Size(36, 15);
+			LbMaps.TabIndex = 7;
+			LbMaps.Text = "Maps";
 			// 
 			// RbMapSelectionNeutral
 			// 
-			this.RbMapSelectionNeutral.Appearance = System.Windows.Forms.Appearance.Button;
-			this.RbMapSelectionNeutral.Location = new System.Drawing.Point(412, 6);
-			this.RbMapSelectionNeutral.Name = "RbMapSelectionNeutral";
-			this.RbMapSelectionNeutral.Size = new System.Drawing.Size(106, 23);
-			this.RbMapSelectionNeutral.TabIndex = 1;
-			this.RbMapSelectionNeutral.Text = "Neutral";
-			this.RbMapSelectionNeutral.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.RbMapSelectionNeutral.UseVisualStyleBackColor = true;
-			this.RbMapSelectionNeutral.CheckedChanged += new System.EventHandler(this.RbMapSelection_CheckedChanged);
+			RbMapSelectionNeutral.Appearance = Appearance.Button;
+			RbMapSelectionNeutral.Location = new Point(481, 7);
+			RbMapSelectionNeutral.Margin = new Padding(4, 3, 4, 3);
+			RbMapSelectionNeutral.Name = "RbMapSelectionNeutral";
+			RbMapSelectionNeutral.Size = new Size(124, 27);
+			RbMapSelectionNeutral.TabIndex = 1;
+			RbMapSelectionNeutral.Text = "Neutral";
+			RbMapSelectionNeutral.TextAlign = ContentAlignment.MiddleCenter;
+			RbMapSelectionNeutral.UseVisualStyleBackColor = true;
+			RbMapSelectionNeutral.CheckedChanged += RbMapSelection_CheckedChanged;
 			// 
 			// RbMapSelectionGlobal
 			// 
-			this.RbMapSelectionGlobal.Appearance = System.Windows.Forms.Appearance.Button;
-			this.RbMapSelectionGlobal.Checked = true;
-			this.RbMapSelectionGlobal.Location = new System.Drawing.Point(76, 6);
-			this.RbMapSelectionGlobal.Name = "RbMapSelectionGlobal";
-			this.RbMapSelectionGlobal.Size = new System.Drawing.Size(106, 23);
-			this.RbMapSelectionGlobal.TabIndex = 3;
-			this.RbMapSelectionGlobal.TabStop = true;
-			this.RbMapSelectionGlobal.Text = "Global";
-			this.RbMapSelectionGlobal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.RbMapSelectionGlobal.UseVisualStyleBackColor = true;
-			this.RbMapSelectionGlobal.CheckedChanged += new System.EventHandler(this.RbMapSelection_CheckedChanged);
+			RbMapSelectionGlobal.Appearance = Appearance.Button;
+			RbMapSelectionGlobal.Checked = true;
+			RbMapSelectionGlobal.Location = new Point(89, 7);
+			RbMapSelectionGlobal.Margin = new Padding(4, 3, 4, 3);
+			RbMapSelectionGlobal.Name = "RbMapSelectionGlobal";
+			RbMapSelectionGlobal.Size = new Size(124, 27);
+			RbMapSelectionGlobal.TabIndex = 3;
+			RbMapSelectionGlobal.TabStop = true;
+			RbMapSelectionGlobal.Text = "Global";
+			RbMapSelectionGlobal.TextAlign = ContentAlignment.MiddleCenter;
+			RbMapSelectionGlobal.UseVisualStyleBackColor = true;
+			RbMapSelectionGlobal.CheckedChanged += RbMapSelection_CheckedChanged;
 			// 
 			// RbMapSelectionRed
 			// 
-			this.RbMapSelectionRed.Appearance = System.Windows.Forms.Appearance.Button;
-			this.RbMapSelectionRed.Location = new System.Drawing.Point(188, 6);
-			this.RbMapSelectionRed.Name = "RbMapSelectionRed";
-			this.RbMapSelectionRed.Size = new System.Drawing.Size(106, 24);
-			this.RbMapSelectionRed.TabIndex = 0;
-			this.RbMapSelectionRed.Text = "Red";
-			this.RbMapSelectionRed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.RbMapSelectionRed.UseVisualStyleBackColor = true;
-			this.RbMapSelectionRed.CheckedChanged += new System.EventHandler(this.RbMapSelection_CheckedChanged);
+			RbMapSelectionRed.Appearance = Appearance.Button;
+			RbMapSelectionRed.Location = new Point(219, 7);
+			RbMapSelectionRed.Margin = new Padding(4, 3, 4, 3);
+			RbMapSelectionRed.Name = "RbMapSelectionRed";
+			RbMapSelectionRed.Size = new Size(124, 28);
+			RbMapSelectionRed.TabIndex = 0;
+			RbMapSelectionRed.Text = "Red";
+			RbMapSelectionRed.TextAlign = ContentAlignment.MiddleCenter;
+			RbMapSelectionRed.UseVisualStyleBackColor = true;
+			RbMapSelectionRed.CheckedChanged += RbMapSelection_CheckedChanged;
 			// 
 			// RbMapSelectionBlue
 			// 
-			this.RbMapSelectionBlue.Appearance = System.Windows.Forms.Appearance.Button;
-			this.RbMapSelectionBlue.Location = new System.Drawing.Point(300, 6);
-			this.RbMapSelectionBlue.Name = "RbMapSelectionBlue";
-			this.RbMapSelectionBlue.Size = new System.Drawing.Size(106, 23);
-			this.RbMapSelectionBlue.TabIndex = 2;
-			this.RbMapSelectionBlue.Text = "Blue";
-			this.RbMapSelectionBlue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.RbMapSelectionBlue.UseVisualStyleBackColor = true;
-			this.RbMapSelectionBlue.CheckedChanged += new System.EventHandler(this.RbMapSelection_CheckedChanged);
+			RbMapSelectionBlue.Appearance = Appearance.Button;
+			RbMapSelectionBlue.Location = new Point(350, 7);
+			RbMapSelectionBlue.Margin = new Padding(4, 3, 4, 3);
+			RbMapSelectionBlue.Name = "RbMapSelectionBlue";
+			RbMapSelectionBlue.Size = new Size(124, 27);
+			RbMapSelectionBlue.TabIndex = 2;
+			RbMapSelectionBlue.Text = "Blue";
+			RbMapSelectionBlue.TextAlign = ContentAlignment.MiddleCenter;
+			RbMapSelectionBlue.UseVisualStyleBackColor = true;
+			RbMapSelectionBlue.CheckedChanged += RbMapSelection_CheckedChanged;
 			// 
 			// PnMap
 			// 
-			this.PnMap.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.PnMap.Location = new System.Drawing.Point(0, 40);
-			this.PnMap.Name = "PnMap";
-			this.PnMap.Size = new System.Drawing.Size(1403, 597);
-			this.PnMap.TabIndex = 1;
+			PnMap.Dock = DockStyle.Fill;
+			PnMap.Location = new Point(0, 46);
+			PnMap.Margin = new Padding(4, 3, 4, 3);
+			PnMap.Name = "PnMap";
+			PnMap.Size = new Size(1637, 689);
+			PnMap.TabIndex = 1;
 			// 
 			// FrmMissionMaps
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1403, 637);
-			this.Controls.Add(this.PnMap);
-			this.Controls.Add(this.PnTop);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-			this.Name = "FrmMissionMaps";
-			this.ShowInTaskbar = false;
-			this.Text = "Mission maps";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMissionMaps_FormClosed);
-			this.PnTop.ResumeLayout(false);
-			this.PnTop.PerformLayout();
-			this.PnMapSelection.ResumeLayout(false);
-			this.PnMapSelection.PerformLayout();
-			this.ResumeLayout(false);
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			ClientSize = new Size(1637, 735);
+			Controls.Add(PnMap);
+			Controls.Add(PnTop);
+			FormBorderStyle = FormBorderStyle.SizableToolWindow;
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "FrmMissionMaps";
+			ShowInTaskbar = false;
+			Text = "Mission maps";
+			FormClosed += FrmMissionMaps_FormClosed;
+			Shown += FrmMissionMaps_Shown;
+			PnTop.ResumeLayout(false);
+			PnTop.PerformLayout();
+			PnMapSelection.ResumeLayout(false);
+			PnMapSelection.PerformLayout();
+			ResumeLayout(false);
 		}
 
 		#endregion

@@ -71,6 +71,8 @@ namespace DcsBriefop.DataBopBriefing
 				return DeserializeConcreteBriefingPart<BopBriefingPartDescription>(jo);
 			else if (partType == ElementBriefingPartType.Task)
 				return DeserializeConcreteBriefingPart<BopBriefingPartTask>(jo);
+			else if (partType == ElementBriefingPartType.Airbases)
+				return DeserializeConcreteBriefingPart<BopBriefingPartAirbases>(jo);
 			else
 				throw new ExceptionBop("Cannot deserialize Unknown part type");
 

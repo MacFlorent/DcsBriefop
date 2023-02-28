@@ -126,7 +126,8 @@ namespace DcsBriefop.Data
 				new MasterData() { Id = (int)ElementBriefingPartType.Paragraph, Label = "Paragraph" },
 				new MasterData() { Id = (int) ElementBriefingPartType.Sortie, Label =  "Sortie" },
 				new MasterData() { Id = (int)ElementBriefingPartType.Description, Label = "Description" },
-				new MasterData() { Id = (int)ElementBriefingPartType.Task, Label = "Task" }
+				new MasterData() { Id = (int)ElementBriefingPartType.Task, Label = "Task" },
+				new MasterData() { Id = (int)ElementBriefingPartType.Airbases, Label = "Airbases" }
 			};
 		}
 		#endregion

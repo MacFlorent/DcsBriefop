@@ -28,60 +28,64 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.ScMain = new System.Windows.Forms.SplitContainer();
-			this.DgvGroups = new Zuby.ADGV.AdvancedDataGridView();
-			((System.ComponentModel.ISupportInitialize)(this.ScMain)).BeginInit();
-			this.ScMain.Panel1.SuspendLayout();
-			this.ScMain.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.DgvGroups)).BeginInit();
-			this.SuspendLayout();
+			ScMain = new SplitContainer();
+			DgvGroups = new Zuby.ADGV.AdvancedDataGridView();
+			((System.ComponentModel.ISupportInitialize)ScMain).BeginInit();
+			ScMain.Panel1.SuspendLayout();
+			ScMain.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)DgvGroups).BeginInit();
+			SuspendLayout();
 			// 
 			// ScMain
 			// 
-			this.ScMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.ScMain.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ScMain.Location = new System.Drawing.Point(0, 0);
-			this.ScMain.Name = "ScMain";
-			this.ScMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			ScMain.BorderStyle = BorderStyle.FixedSingle;
+			ScMain.Dock = DockStyle.Fill;
+			ScMain.Location = new Point(0, 0);
+			ScMain.Margin = new Padding(4, 3, 4, 3);
+			ScMain.Name = "ScMain";
+			ScMain.Orientation = Orientation.Horizontal;
 			// 
 			// ScMain.Panel1
 			// 
-			this.ScMain.Panel1.Controls.Add(this.DgvGroups);
-			this.ScMain.Size = new System.Drawing.Size(976, 792);
-			this.ScMain.SplitterDistance = 274;
-			this.ScMain.TabIndex = 0;
+			ScMain.Panel1.Controls.Add(DgvGroups);
+			ScMain.Size = new Size(1139, 914);
+			ScMain.SplitterDistance = 316;
+			ScMain.SplitterWidth = 5;
+			ScMain.TabIndex = 0;
 			// 
 			// DgvGroups
 			// 
-			this.DgvGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DgvGroups.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.DgvGroups.FilterAndSortEnabled = true;
-			this.DgvGroups.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.DgvGroups.Location = new System.Drawing.Point(0, 0);
-			this.DgvGroups.Name = "DgvGroups";
-			this.DgvGroups.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.DgvGroups.Size = new System.Drawing.Size(974, 272);
-			this.DgvGroups.SortStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.DgvGroups.TabIndex = 0;
+			DgvGroups.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			DgvGroups.Dock = DockStyle.Fill;
+			DgvGroups.FilterAndSortEnabled = true;
+			DgvGroups.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
+			DgvGroups.Location = new Point(0, 0);
+			DgvGroups.Margin = new Padding(4, 3, 4, 3);
+			DgvGroups.Name = "DgvGroups";
+			DgvGroups.RightToLeft = RightToLeft.No;
+			DgvGroups.Size = new Size(1137, 314);
+			DgvGroups.SortStringChangedInvokeBeforeDatasourceUpdate = true;
+			DgvGroups.TabIndex = 0;
 			// 
 			// FrmMissionGroups
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(976, 792);
-			this.Controls.Add(this.ScMain);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-			this.Name = "FrmMissionGroups";
-			this.ShowInTaskbar = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Mission groups";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMissionGroups_FormClosed);
-			this.ScMain.Panel1.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.ScMain)).EndInit();
-			this.ScMain.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.DgvGroups)).EndInit();
-			this.ResumeLayout(false);
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			ClientSize = new Size(1139, 914);
+			Controls.Add(ScMain);
+			FormBorderStyle = FormBorderStyle.SizableToolWindow;
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "FrmMissionGroups";
+			ShowInTaskbar = false;
+			StartPosition = FormStartPosition.CenterParent;
+			Text = "Mission groups";
+			FormClosed += FrmMissionGroups_FormClosed;
+			Shown += FrmMissionGroups_Shown;
+			ScMain.Panel1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)ScMain).EndInit();
+			ScMain.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)DgvGroups).EndInit();
+			ResumeLayout(false);
 		}
 
 		#endregion

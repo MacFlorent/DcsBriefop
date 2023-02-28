@@ -1,8 +1,5 @@
 ﻿using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
@@ -25,8 +22,6 @@ namespace DcsBriefop.Forms
 
 			m_gridManagerAirbases = new GridManagerAirbases(DgvAirbases, m_briefopManager.BopMission.Airbases);
 			m_gridManagerAirbases.SelectionChangedTyped += SelectionChangedTypedEvent;
-
-			DataToScreen();
 		}
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
@@ -86,6 +81,11 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
+		private void FrmMissionAirbases_Shown(object sender, EventArgs e)
+		{
+			DataToScreen();
+		}
+
 		private void FrmMissionAirbases_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			ScreenToDataDetail();

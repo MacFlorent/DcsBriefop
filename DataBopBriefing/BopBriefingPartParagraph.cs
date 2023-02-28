@@ -2,8 +2,6 @@
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 using HtmlTags;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DcsBriefop.DataBopBriefing
 {

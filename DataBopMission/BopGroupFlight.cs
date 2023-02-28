@@ -1,8 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace DcsBriefop.DataBopMission
@@ -72,9 +70,9 @@ namespace DcsBriefop.DataBopMission
 				return sDisplayName;
 		}
 
-		public override string ToStringAdditionnal()
+		public override string ToStringAdditional()
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditionnal());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
 
 			if (!string.IsNullOrEmpty(Task))
 				sb.AppendWithSeparator($"Task:{Task}", " ");

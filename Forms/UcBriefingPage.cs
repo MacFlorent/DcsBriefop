@@ -91,10 +91,12 @@ namespace DcsBriefop.Forms
 			if (selecteds.Count() == 1)
 			{
 				BopBriefingPartBase selected = selecteds.First();
-				if (selected is BopBriefingPartBullseye partTyped)
-				{
-					m_ucBriefingPart = new UcBriefingPartBullseye(partTyped);
-				}
+				if (selected is BopBriefingPartBullseye)
+					m_ucBriefingPart = new UcBriefingPartBullseye(selected, m_bopMission);
+				else if (selected is BopBriefingPartParagraph)
+					m_ucBriefingPart = new UcBriefingPartParagraph(selected, m_bopMission);
+				else if (selected is BopBriefingPartAirbases)
+					m_ucBriefingPart = new UcBriefingPartAirbases(selected, m_bopMission);
 
 				if (m_ucBriefingPart is object)
 				{
@@ -142,10 +144,23 @@ namespace DcsBriefop.Forms
 			m_bopBriefingPage.MapIncludeBaseOverlays = CkMapIncludeBaseOverlays.Checked;
 		}
 
+		private void ScreenToDataFromParent()
+		{
+			if (m_frmBriefingFolderParent is object)
+				m_frmBriefingFolderParent.ScreenToData();
+			else
+				ScreenToData();
+		}
+
 		private async void RefreshHtmlPreview()
 		{
 			PbHtmlPreview.Image = await m_bopBriefingPage.BuildHtmlImage(m_bopMission, m_bopBriefingFolder);
 			TbHtmlPreviewSource.Text = m_bopBriefingPage.BuildHtmlString(m_bopMission, m_bopBriefingFolder);
+		}
+
+		private void RefreshMapPreview()
+		{
+			PbMapPreview.Image = m_bopBriefingPage.BuildMapImage(m_bopMission, m_bopBriefingFolder);
 		}
 
 		private void DisplayCurrentRender()
@@ -167,18 +182,7 @@ namespace DcsBriefop.Forms
 
 		private void DisplayCurrentMap()
 		{
-			List<GMapOverlay> staticOverlays = new List<GMapOverlay>();
-
-			if (CkMapIncludeBaseOverlays.Checked)
-			{
-				staticOverlays.Add(m_bopMission.GetMapOverlay());
-				if (m_bopMission.Coalitions.TryGetValue(m_bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
-				{
-					staticOverlays.Add(bopCoalition.GetMapOverlay());
-				}
-			}
-
-			m_ucMap.StaticOverlays = staticOverlays;
+			m_ucMap.StaticOverlays = m_bopBriefingPage.GetMapAdditionalOverlays(m_bopMission, m_bopBriefingFolder);
 			m_ucMap.RefreshMapData();
 		}
 
@@ -234,22 +238,20 @@ namespace DcsBriefop.Forms
 
 		private void CkMapIncludeBaseOverlays_CheckedChanged(object sender, EventArgs e)
 		{
+			ScreenToData();
 			DisplayCurrentMap();
 		}
 
 		private void BtHtmlPreviewRefresh_Click(object sender, EventArgs e)
 		{
-			if (m_frmBriefingFolderParent is object)
-				m_frmBriefingFolderParent.ScreenToData();
-			else
-				ScreenToData();
-
+			ScreenToDataFromParent();
 			RefreshHtmlPreview();
 		}
 
 		private void BtMapPreviewRefresh_Click(object sender, EventArgs e)
 		{
-
+			ScreenToDataFromParent();
+			RefreshMapPreview();
 		}
 
 		#endregion

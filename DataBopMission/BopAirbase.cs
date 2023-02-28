@@ -81,7 +81,7 @@ namespace DcsBriefop.DataBopMission
 			return Name;
 		}
 
-		public virtual string ToStringAdditionnal()
+		public virtual string ToStringAdditional()
 		{
 			StringBuilder sb = new StringBuilder();
 			if (Tacan is object)
@@ -219,9 +219,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditionnal()
+		public override string ToStringAdditional()
 		{
-			StringBuilder sb = new StringBuilder (base.ToStringAdditionnal());
+			StringBuilder sb = new StringBuilder (base.ToStringAdditional());
 			if (Icls is object)
 				sb.AppendWithSeparator($"ICLS:{Icls}", " ");
 			if (Link4 is object)

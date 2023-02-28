@@ -4,9 +4,6 @@ using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
 
 //https://stackoverflow.com/questions/9308673/how-to-draw-circle-on-the-map-using-gmap-net-in-c-sharp
 //http://www.independent-software.com/gmap-net-beginners-tutorial-maps-markers-polygons-routes-updated-for-vs2015-and-gmap1-7.html
@@ -26,7 +23,7 @@ namespace DcsBriefop.Forms
 		public string MapProviderName
 		{
 			get { return m_mapProvider.Name; }
-			set { m_mapProvider = GMapProviders.TryGetProvider(value);}
+			set { m_mapProvider = GMapProviders.TryGetProvider(value); }
 		}
 		#endregion
 
@@ -37,8 +34,7 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 
 			PnSelectionDetail.Visible = false;
-			MapControl.InitializeMapControl();
-			m_mapProvider = MapControl.MapProvider;
+			MapControl.InitializeMapControl(MapControl.MapProvider);
 		}
 		#endregion
 
@@ -63,7 +59,7 @@ namespace DcsBriefop.Forms
 			UnselectAll();
 			if (StaticOverlays is object)
 			{
-				foreach(GMapOverlay staticOverlay in StaticOverlays)
+				foreach (GMapOverlay staticOverlay in StaticOverlays)
 					MapControl.Overlays.Add(staticOverlay);
 			}
 			if (MapData is object)

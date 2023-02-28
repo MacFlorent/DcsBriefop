@@ -28,59 +28,63 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.DgvAirbases = new Zuby.ADGV.AdvancedDataGridView();
-			this.ScMain = new System.Windows.Forms.SplitContainer();
-			((System.ComponentModel.ISupportInitialize)(this.DgvAirbases)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.ScMain)).BeginInit();
-			this.ScMain.Panel1.SuspendLayout();
-			this.ScMain.SuspendLayout();
-			this.SuspendLayout();
+			DgvAirbases = new Zuby.ADGV.AdvancedDataGridView();
+			ScMain = new SplitContainer();
+			((System.ComponentModel.ISupportInitialize)DgvAirbases).BeginInit();
+			((System.ComponentModel.ISupportInitialize)ScMain).BeginInit();
+			ScMain.Panel1.SuspendLayout();
+			ScMain.SuspendLayout();
+			SuspendLayout();
 			// 
 			// DgvAirbases
 			// 
-			this.DgvAirbases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DgvAirbases.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.DgvAirbases.FilterAndSortEnabled = true;
-			this.DgvAirbases.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.DgvAirbases.Location = new System.Drawing.Point(0, 0);
-			this.DgvAirbases.Name = "DgvAirbases";
-			this.DgvAirbases.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.DgvAirbases.Size = new System.Drawing.Size(798, 153);
-			this.DgvAirbases.SortStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.DgvAirbases.TabIndex = 0;
+			DgvAirbases.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			DgvAirbases.Dock = DockStyle.Fill;
+			DgvAirbases.FilterAndSortEnabled = true;
+			DgvAirbases.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
+			DgvAirbases.Location = new Point(0, 0);
+			DgvAirbases.Margin = new Padding(4, 3, 4, 3);
+			DgvAirbases.Name = "DgvAirbases";
+			DgvAirbases.RightToLeft = RightToLeft.No;
+			DgvAirbases.Size = new Size(931, 176);
+			DgvAirbases.SortStringChangedInvokeBeforeDatasourceUpdate = true;
+			DgvAirbases.TabIndex = 0;
 			// 
 			// ScMain
 			// 
-			this.ScMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.ScMain.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ScMain.Location = new System.Drawing.Point(0, 0);
-			this.ScMain.Name = "ScMain";
-			this.ScMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			ScMain.BorderStyle = BorderStyle.FixedSingle;
+			ScMain.Dock = DockStyle.Fill;
+			ScMain.Location = new Point(0, 0);
+			ScMain.Margin = new Padding(4, 3, 4, 3);
+			ScMain.Name = "ScMain";
+			ScMain.Orientation = Orientation.Horizontal;
 			// 
 			// ScMain.Panel1
 			// 
-			this.ScMain.Panel1.Controls.Add(this.DgvAirbases);
-			this.ScMain.Size = new System.Drawing.Size(800, 450);
-			this.ScMain.SplitterDistance = 155;
-			this.ScMain.TabIndex = 1;
+			ScMain.Panel1.Controls.Add(DgvAirbases);
+			ScMain.Size = new Size(933, 519);
+			ScMain.SplitterDistance = 178;
+			ScMain.SplitterWidth = 5;
+			ScMain.TabIndex = 1;
 			// 
 			// FrmMissionAirbases
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
-			this.Controls.Add(this.ScMain);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-			this.Name = "FrmMissionAirbases";
-			this.ShowInTaskbar = false;
-			this.Text = "Mission airbases";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMissionAirbases_FormClosed);
-			((System.ComponentModel.ISupportInitialize)(this.DgvAirbases)).EndInit();
-			this.ScMain.Panel1.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.ScMain)).EndInit();
-			this.ScMain.ResumeLayout(false);
-			this.ResumeLayout(false);
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			ClientSize = new Size(933, 519);
+			Controls.Add(ScMain);
+			FormBorderStyle = FormBorderStyle.SizableToolWindow;
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "FrmMissionAirbases";
+			ShowInTaskbar = false;
+			Text = "Mission airbases";
+			FormClosed += FrmMissionAirbases_FormClosed;
+			Shown += FrmMissionAirbases_Shown;
+			((System.ComponentModel.ISupportInitialize)DgvAirbases).EndInit();
+			ScMain.Panel1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)ScMain).EndInit();
+			ScMain.ResumeLayout(false);
+			ResumeLayout(false);
 		}
 
 		#endregion
