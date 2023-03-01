@@ -23,14 +23,13 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Properties
-		public List<int> CheckedIds {  get; set; } = null;
+		public List<Tuple<int, ElementAirbaseType>> CheckedElements = null;
 		#endregion
 
 		#region CTOR
 		public GridManagerAirbases(DataGridView dgv, IEnumerable<BopAirbase> airbases) : base(dgv)
 		{
 			m_airbases = airbases;
-			m_dgv.CellMouseUp += CellMouseUp;
 		}
 		#endregion
 
@@ -59,7 +58,7 @@ namespace DcsBriefop.Forms
 				m_dtSource.Rows.Add(dr);
 			}
 
-			dr.SetField(GridColumn.Checked, CheckedIds is object && CheckedIds.Contains(bopAirbase.Id));
+			dr.SetField(GridColumn.Checked, CheckedElements is not null && CheckedElements.Contains(new Tuple<int, ElementAirbaseType>(bopAirbase.Id, bopAirbase.AirbaseType)));
 			dr.SetField(GridColumn.Id, bopAirbase.Id);
 			dr.SetField(GridColumn.AirbaseType, bopAirbase.AirbaseType);
 			dr.SetField(GridColumn.Name, bopAirbase.Name);
@@ -76,55 +75,52 @@ namespace DcsBriefop.Forms
 			}
 
 			m_dgv.Columns[GridColumn.Checked].ReadOnly = false;
-			m_dgv.Columns[GridColumn.Checked].Visible = CheckedIds is not null;
+			m_dgv.Columns[GridColumn.Checked].Visible = CheckedElements is not null;
 			m_dgv.Columns[GridColumn.Data].Visible = false;
 			m_dgv.Columns[GridColumn.AirbaseType].HeaderText = "Type";
 		}
 
-		public IEnumerable<BopAirbase> GetSelected()
+		public IEnumerable<BopAirbase> GetSelectedElements()
 		{
 			return GetSelectedDataRows().Select(_dr => _dr.Field<BopAirbase>(GridColumn.Data)).ToList();
 		}
 
-		protected override DataGridViewCellStyle CellFormatting(DataGridViewCell dgvc)
+		//protected override void SelectionChanged()
+		//{
+		//	SelectionChangedTyped?.Invoke(this, new EventArgsBopAirbases() { BopAirbases = GetSelected() });
+		//}
+
+		protected override void CellEndEditInternal(DataGridView dgv, DataGridViewCell dgvc)
 		{
-			DataGridViewCellStyle cellStyle = base.CellFormatting(dgvc);
-			return cellStyle;
+			BopAirbase bopAirbase = dgvc.OwningRow.Cells[GridColumn.Data].Value as BopAirbase;
+			if (bopAirbase is not null && CheckedElements is not null && dgvc.OwningColumn.Name == GridColumn.Checked)
+			{
+				Tuple<int, ElementAirbaseType> airbase = new(bopAirbase.Id, bopAirbase.AirbaseType);
+				if ((bool)dgvc.Value)
+				{
+					if (!CheckedElements.Contains(airbase))
+						CheckedElements.Add(airbase);
+				}
+				else
+				{
+					while (CheckedElements.Remove(airbase));
+				}
+			}
 		}
 
-		protected override void SelectionChanged()
+		protected override void CellMouseUpInternal(DataGridView dgv, DataGridViewCell dgvc)
 		{
-			SelectionChangedTyped?.Invoke(this, new EventArgsBopAirbases() { BopAirbases = GetSelected() });
+			if (dgvc.OwningColumn.Name == GridColumn.Checked)
+				dgv.EndEdit();
 		}
 		#endregion
 
 		#region Events
-		public class EventArgsBopAirbases : EventArgs
-		{
-			public IEnumerable<BopAirbase> BopAirbases { get; set; }
-		}
-		public event EventHandler<EventArgsBopAirbases> SelectionChangedTyped;
-
-		private void CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
-		{
-			if (e.RowIndex < 0)
-				return;
-
-			DataGridView dgv = (sender as DataGridView);
-			if (dgv is null)
-				return;
-
-			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
-			DataGridViewCell cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-			BopAirbase airbase = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as BopAirbase;
-			if (column.Name == GridColumn.Checked)
-			{
-				if ((bool)cell.Value)
-					CheckedIds.Add(airbase.Id);
-				else
-					CheckedIds.Remove(airbase.Id);
-			}
-		}
+		//public class EventArgsBopAirbases : EventArgs
+		//{
+		//	public IEnumerable<BopAirbase> BopAirbases { get; set; }
+		//}
+		//public event EventHandler<EventArgsBopAirbases> SelectionChangedTyped;
 		#endregion
 	}
 }

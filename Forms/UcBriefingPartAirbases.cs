@@ -11,14 +11,15 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcBriefingPartAirbases(BopBriefingPartBase bopBriefingPart, BopMission bopMission) : base(bopBriefingPart, bopMission)
+		public UcBriefingPartAirbases(BopBriefingPartBase bopBriefingPart, BopMission bopMission, UcBriefingPage ucBriefingPageParent) : base(bopBriefingPart, bopMission, ucBriefingPageParent)
 		{
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
 			BopBriefingPartAirbases briefingPart = m_bopBriefingPart as BopBriefingPartAirbases;
 			m_gridManagerAirbases = new GridManagerAirbases(DgvAirbases, m_bopMission.Airbases);
-			m_gridManagerAirbases.CheckedIds = briefingPart.AirbasesIds;
+			m_gridManagerAirbases.CheckedElements = briefingPart.Airbases;
+			m_gridManagerAirbases.CellEndEdit += CellEndEditEvent;
 
 			DataToScreen();
 		}
@@ -36,6 +37,13 @@ namespace DcsBriefop.Forms
 		{
 			BopBriefingPartAirbases briefingPart = m_bopBriefingPart as BopBriefingPartAirbases;
 			briefingPart.Header = TbHeader.Text;
+		}
+		#endregion
+
+		#region Events
+		private void CellEndEditEvent(object sender, EventArgs e)
+		{
+			m_ucBriefingPageParent?.DisplayCurrentMap();
 		}
 		#endregion
 	}

@@ -7,7 +7,7 @@ namespace DcsBriefop.Forms
 	internal partial class UcBriefingPartParagraph : UcBriefingPartBase
 	{
 		#region CTOR
-		public UcBriefingPartParagraph(BopBriefingPartBase bopBriefingPart, BopMission bopMission) : base(bopBriefingPart, bopMission)
+		public UcBriefingPartParagraph(BopBriefingPartBase bopBriefingPart, BopMission bopMission, UcBriefingPage ucBriefingPageParent) : base(bopBriefingPart, bopMission, ucBriefingPageParent)
 		{
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);

@@ -1,11 +1,5 @@
-﻿using DcsBriefop.Data;
-using DcsBriefop.DataBopMission;
-using DcsBriefop.DataMiz;
-using System;
-using System.Collections.Generic;
+﻿using DcsBriefop.DataBopMission;
 using System.Data;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
@@ -87,29 +81,23 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns[GridColumn.AltitudeFeet].HeaderText = "Altitude (ft)";
 		}
 
-		public IEnumerable<BopRoutePoint> GetSelected()
+		public IEnumerable<BopRoutePoint> GetSelectedElements()
 		{
 			return GetSelectedDataRows().Select(_dr => _dr.Field<BopRoutePoint>(GridColumn.Data)).ToList();
 		}
 
-		protected override DataGridViewCellStyle CellFormatting(DataGridViewCell dgvc)
-		{
-			DataGridViewCellStyle cellStyle = base.CellFormatting(dgvc);
-			return cellStyle;
-		}
-
-		protected override void SelectionChanged()
-		{
-			SelectionChangedTyped?.Invoke(this, new EventArgsBopRoutePoints() { BopRoutePoints = GetSelected() });
-		}
+		//protected override void SelectionChanged()
+		//{
+		//	SelectionChangedTyped?.Invoke(this, new EventArgsBopRoutePoints() { BopRoutePoints = GetSelectedElements() });
+		//}
 		#endregion
 
 		#region Events
-		public class EventArgsBopRoutePoints : EventArgs
-		{
-			public IEnumerable<BopRoutePoint> BopRoutePoints { get; set; }
-		}
-		public event EventHandler<EventArgsBopRoutePoints> SelectionChangedTyped;
+		//public class EventArgsBopRoutePoints : EventArgs
+		//{
+		//	public IEnumerable<BopRoutePoint> BopRoutePoints { get; set; }
+		//}
+		//public event EventHandler<EventArgsBopRoutePoints> SelectionChangedTyped;
 		#endregion
 	}
 }

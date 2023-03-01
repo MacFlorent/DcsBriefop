@@ -90,6 +90,17 @@ namespace DcsBriefop.DataBopMission
 			return sb.ToString();
 		}
 
+		public string ToStringRadios()
+		{
+			StringBuilder sb = new ();
+			foreach(BopAirbaseRadio radio in Radios.Where(_r => _r.Used))
+			{
+				sb.AppendWithSeparator(radio.ToString(), " ");
+			}
+
+			return sb.ToString();
+		}
+
 		public GMapOverlay GetMapOverlayPosition()
 		{
 			GMapOverlay mapOverlay = new GMapOverlay();
@@ -306,7 +317,12 @@ namespace DcsBriefop.DataBopMission
 		#region Methods
 		public override string ToString()
 		{
-			return Radio.ToString();
+			string sLabel = "";
+			if (!string.IsNullOrEmpty(Label))
+			{
+				sLabel = $"{Label}:";
+			}
+			return $"{sLabel}{Radio}";
 		}
 		#endregion
 	}

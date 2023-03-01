@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
+using GMap.NET.WindowsForms;
 using HtmlTags;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -33,6 +34,8 @@ namespace DcsBriefop.DataBopBriefing
 		}
 
 		protected abstract IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder);
+
+		public virtual IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission) { return null; }
 		#endregion
 	}
 
@@ -73,6 +76,15 @@ namespace DcsBriefop.DataBopBriefing
 				return DeserializeConcreteBriefingPart<BopBriefingPartTask>(jo);
 			else if (partType == ElementBriefingPartType.Airbases)
 				return DeserializeConcreteBriefingPart<BopBriefingPartAirbases>(jo);
+			else if (partType == ElementBriefingPartType.Groups)
+				return DeserializeConcreteBriefingPart<BopBriefingPartGroups>(jo);
+			//else if (partType == ElementBriefingPartType.Units)
+			//	return DeserializeConcreteBriefingPart<BopBriefingPartAirbases>(jo);
+			//else if (partType == ElementBriefingPartType.Waypoints)
+			//	return DeserializeConcreteBriefingPart<BopBriefingPartAirbases>(jo);
+			//else if (partType == ElementBriefingPartType.Image)
+			//	return DeserializeConcreteBriefingPart<BopBriefingPartAirbases>(jo);
+
 			else
 				throw new ExceptionBop("Cannot deserialize Unknown part type");
 

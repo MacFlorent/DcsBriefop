@@ -80,18 +80,18 @@ namespace DcsBriefop.Forms
 			SelectRow(rowToSelect);
 		}
 
-		protected override void SelectionChanged()
-		{
-			SelectionChangedTyped?.Invoke(this, new EventArgsBopBriefingParts() { BopBriefingParts = GetSelectedElements() });
-		}
+		//protected override void SelectionChanged()
+		//{
+		//	SelectionChangedTyped?.Invoke(this, new EventArgsBopBriefingParts() { BopBriefingParts = GetSelectedElements() });
+		//}
 		#endregion
 
 		#region Events
-		public class EventArgsBopBriefingParts : EventArgs
-		{
-			public IEnumerable<BopBriefingPartBase> BopBriefingParts { get; set; }
-		}
-		public event EventHandler<EventArgsBopBriefingParts> SelectionChangedTyped;
+		//public class EventArgsBopBriefingParts : EventArgs
+		//{
+		//	public IEnumerable<BopBriefingPartBase> BopBriefingParts { get; set; }
+		//}
+		//public event EventHandler<EventArgsBopBriefingParts> SelectionChangedTyped;
 		#endregion
 	}
 }

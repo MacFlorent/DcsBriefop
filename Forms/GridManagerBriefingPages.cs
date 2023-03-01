@@ -72,29 +72,23 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns[GridColumn.Data].Visible = false;
 		}
 
-		public IEnumerable<BopBriefingPage> GetSelected()
+		public IEnumerable<BopBriefingPage> GetSelectedElements()
 		{
 			return GetSelectedDataRows().Select(_dr => _dr.Field<BopBriefingPage>(GridColumn.Data)).ToList();
 		}
 
-		protected override DataGridViewCellStyle CellFormatting(DataGridViewCell dgvc)
-		{
-			DataGridViewCellStyle cellStyle = base.CellFormatting(dgvc);
-			return cellStyle;
-		}
-
-		protected override void SelectionChanged()
-		{
-			SelectionChangedTyped?.Invoke(this, new EventArgsBopBriefingPages() { BopBriefingPages = GetSelected() });
-		}
+		//protected override void SelectionChanged()
+		//{
+		//	SelectionChangedTyped?.Invoke(this, new EventArgsBopBriefingPages() { BopBriefingPages = GetSelectedElements() });
+		//}
 		#endregion
 
 		#region Events
-		public class EventArgsBopBriefingPages : EventArgs
-		{
-			public IEnumerable<BopBriefingPage> BopBriefingPages { get; set; }
-		}
-		public event EventHandler<EventArgsBopBriefingPages> SelectionChangedTyped;
+		//public class EventArgsBopBriefingPages : EventArgs
+		//{
+		//	public IEnumerable<BopBriefingPage> BopBriefingPages { get; set; }
+		//}
+		//public event EventHandler<EventArgsBopBriefingPages> SelectionChangedTyped;
 		#endregion
 	}
 }

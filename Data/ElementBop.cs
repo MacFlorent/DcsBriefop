@@ -78,7 +78,11 @@
 		Sortie,
 		Description,
 		Task,
-		Airbases
+		Airbases,
+		Groups,
+		Units,
+		Waypoints,
+		Image
 	}
 
 	internal static class ElementGlobalData

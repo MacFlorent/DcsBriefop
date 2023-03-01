@@ -33,19 +33,28 @@ namespace DcsBriefop.DataBopBriefing
 		public BopBriefingPartBase AddPart(ElementBriefingPartType briefingPartType)
 		{
 			BopBriefingPartBase bopBriefingPart = null;
-			
+
 			if (briefingPartType == ElementBriefingPartType.Bullseye)
 				bopBriefingPart = new BopBriefingPartBullseye();
 			else if (briefingPartType == ElementBriefingPartType.Paragraph)
 				bopBriefingPart = new BopBriefingPartParagraph();
 			else if (briefingPartType == ElementBriefingPartType.Sortie)
 				bopBriefingPart = new BopBriefingPartSortie();
-			else if(briefingPartType == ElementBriefingPartType.Description)
+			else if (briefingPartType == ElementBriefingPartType.Description)
 				bopBriefingPart = new BopBriefingPartDescription();
-			else if(briefingPartType == ElementBriefingPartType.Task)
+			else if (briefingPartType == ElementBriefingPartType.Task)
 				bopBriefingPart = new BopBriefingPartTask();
 			else if (briefingPartType == ElementBriefingPartType.Airbases)
 				bopBriefingPart = new BopBriefingPartAirbases();
+			else if (briefingPartType == ElementBriefingPartType.Groups)
+				bopBriefingPart = new BopBriefingPartAirbases();
+			//else if (briefingPartType == ElementBriefingPartType.Units)
+			//	bopBriefingPart = new BopBriefingPartAirbases();
+			//else if (briefingPartType == ElementBriefingPartType.Waypoints)
+			//	bopBriefingPart = new BopBriefingPartAirbases();
+			//else if (briefingPartType == ElementBriefingPartType.Image)
+			//	bopBriefingPart = new BopBriefingPartAirbases();
+
 
 			if (bopBriefingPart is object)
 			{
@@ -53,6 +62,25 @@ namespace DcsBriefop.DataBopBriefing
 			}
 
 			return bopBriefingPart;
+		}
+
+		public void OrderPart(BopBriefingPartBase bopBriefingPart, int iWay)
+		{
+			if (iWay < 0)
+				iWay = -1;
+			else
+				iWay = 1;
+
+			int iCurrentIndex = Parts.IndexOf(bopBriefingPart);
+			if (iCurrentIndex < 0)
+				return;
+
+			int iNewIndex = iCurrentIndex + iWay;
+			if (iNewIndex >= 0 && iNewIndex < Parts.Count)
+			{
+				Parts.Remove(bopBriefingPart);
+				Parts.Insert(iNewIndex, bopBriefingPart);
+			}
 		}
 		#endregion
 
@@ -123,15 +151,22 @@ namespace DcsBriefop.DataBopBriefing
 
 		public IEnumerable<GMapOverlay> GetMapAdditionalOverlays(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
-			List<GMapOverlay> additionalOverlays = null;
+			List<GMapOverlay> additionalOverlays = new List<GMapOverlay>();
 
 			if (MapIncludeBaseOverlays)
 			{
-				additionalOverlays = new List<GMapOverlay> { bopMission.GetMapOverlay() };
+				additionalOverlays.Add(bopMission.GetMapOverlay());
 				if (bopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
 				{
 					additionalOverlays.Add(bopCoalition.GetMapOverlay());
 				}
+			}
+
+			foreach (BopBriefingPartBase bopBriefingPart in Parts)
+			{
+				IEnumerable<GMapOverlay> partOverlays = bopBriefingPart.BuildMapOverlays(bopMission);
+				if (partOverlays is not null)
+					additionalOverlays.AddRange(partOverlays);
 			}
 
 			return additionalOverlays;

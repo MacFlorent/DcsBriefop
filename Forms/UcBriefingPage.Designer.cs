@@ -43,6 +43,8 @@
 			PnMapPreview = new Panel();
 			PbMapPreview = new PictureBox();
 			ScMain = new SplitContainer();
+			BtPartOrderDown = new Button();
+			BtPartOrderUp = new Button();
 			BtPartRemove = new Button();
 			BtPartAdd = new Button();
 			LbParts = new Label();
@@ -229,6 +231,8 @@
 			// 
 			// ScMain.Panel1
 			// 
+			ScMain.Panel1.Controls.Add(BtPartOrderDown);
+			ScMain.Panel1.Controls.Add(BtPartOrderUp);
 			ScMain.Panel1.Controls.Add(BtPartRemove);
 			ScMain.Panel1.Controls.Add(BtPartAdd);
 			ScMain.Panel1.Controls.Add(LbParts);
@@ -249,6 +253,28 @@
 			ScMain.SplitterDistance = 251;
 			ScMain.SplitterWidth = 5;
 			ScMain.TabIndex = 2;
+			// 
+			// BtPartOrderDown
+			// 
+			BtPartOrderDown.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			BtPartOrderDown.Location = new Point(35, 474);
+			BtPartOrderDown.Name = "BtPartOrderDown";
+			BtPartOrderDown.Size = new Size(26, 23);
+			BtPartOrderDown.TabIndex = 45;
+			BtPartOrderDown.Text = "v";
+			BtPartOrderDown.UseVisualStyleBackColor = true;
+			BtPartOrderDown.Click += BtPartOrderDown_Click;
+			// 
+			// BtPartOrderUp
+			// 
+			BtPartOrderUp.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			BtPartOrderUp.Location = new Point(3, 474);
+			BtPartOrderUp.Name = "BtPartOrderUp";
+			BtPartOrderUp.Size = new Size(26, 23);
+			BtPartOrderUp.TabIndex = 44;
+			BtPartOrderUp.Text = "^";
+			BtPartOrderUp.UseVisualStyleBackColor = true;
+			BtPartOrderUp.Click += BtPartOrderUp_Click;
 			// 
 			// BtPartRemove
 			// 
@@ -357,7 +383,7 @@
 			// 
 			DgvParts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			DgvParts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			DgvParts.FilterAndSortEnabled = true;
+			DgvParts.FilterAndSortEnabled = false;
 			DgvParts.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvParts.Location = new Point(4, 134);
 			DgvParts.Margin = new Padding(4, 3, 4, 3);
@@ -423,5 +449,7 @@
 		private Panel PnMapPreview;
 		private PictureBox PbMapPreview;
 		private Panel PnMap;
+		private Button BtPartOrderDown;
+		private Button BtPartOrderUp;
 	}
 }

@@ -6,15 +6,15 @@ using HtmlTags;
 
 namespace DcsBriefop.DataBopBriefing
 {
-	internal class BopBriefingPartAirbases : BopBriefingPartBase
+	internal class BopBriefingPartGroups : BopBriefingPartBase
 	{
 		#region Properties
 		public string Header { get; set; }
-		public List<Tuple<int, ElementAirbaseType>> Airbases { get; set; } = new();
+		public List<int> Groups { get; set; } = new();
 		#endregion
 
 		#region CTOR
-		public BopBriefingPartAirbases() : base(ElementBriefingPartType.Groups, "table") { }
+		public BopBriefingPartGroups() : base(ElementBriefingPartType.Airbases, "table") { }
 		#endregion
 
 		#region Methods
@@ -54,25 +54,25 @@ namespace DcsBriefop.DataBopBriefing
 		public override IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission)
 		{
 			List<GMapOverlay> partOverlays = new List<GMapOverlay>();
-			foreach (BopAirbase bopAirbase in GetOrderedBopAirbases(bopMission))
-			{
-				bopAirbase.FinalizeFromMiz();
-				partOverlays.Add(bopAirbase.GetMapOverlayPosition());
-			}
+			//foreach (BopAirbase bopAirbase in GetOrderedBopAirbases(bopMission))
+			//{
+			//	bopAirbase.FinalizeFromMiz();
+			//	partOverlays.Add(bopAirbase.GetMapOverlayPosition());
+			//}
 			return partOverlays;
 		}
 
 		private List<BopAirbase> GetOrderedBopAirbases(BopMission bopMission)
 		{
 			List<BopAirbase> orderedBopAirbases = new List<BopAirbase>();
-			foreach (Tuple<int, ElementAirbaseType> airbase in Airbases.OrderBy(_a => _a.Item2).ThenBy(_a => _a.Item1))
-			{
-				BopAirbase bopAirbase = bopMission.Airbases.Where(_ba => _ba.Id == airbase.Item1 && _ba.AirbaseType == airbase.Item2).FirstOrDefault();
-				if (bopAirbase is not null)
-				{
-					orderedBopAirbases.Add(bopAirbase);
-				}
-			}
+			//foreach (Tuple<int, ElementAirbaseType> airbase in Groups.OrderBy(_a => _a.Item2).ThenBy(_a => _a.Item1))
+			//{
+			//	BopAirbase bopAirbase = bopMission.Airbases.Where(_ba => _ba.Id == airbase.Item1 && _ba.AirbaseType == airbase.Item2).FirstOrDefault();
+			//	if (bopAirbase is not null)
+			//	{
+			//		orderedBopAirbases.Add(bopAirbase);
+			//	}
+			//}
 			return orderedBopAirbases;
 		}
 		#endregion

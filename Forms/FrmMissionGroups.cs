@@ -21,7 +21,7 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 
 			m_gridManagerGroups = new GridManagerGroups(DgvGroups, m_briefopManager.BopMission.Groups);
-			m_gridManagerGroups.SelectionChangedTyped += SelectionChangedTypedEvent;
+			m_gridManagerGroups.SelectionChanged += SelectionChangedEvent;
 		}
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
@@ -35,17 +35,17 @@ namespace DcsBriefop.Forms
 		#region Methods
 		private void DataToScreen()
 		{
-			m_gridManagerGroups.SelectionChangedTyped -= SelectionChangedTypedEvent;
+			m_gridManagerGroups.SelectionChanged -= SelectionChangedEvent;
 
 			m_gridManagerGroups.Initialize();
 			DataToScreenDetail();
 
-			m_gridManagerGroups.SelectionChangedTyped += SelectionChangedTypedEvent;
+			m_gridManagerGroups.SelectionChanged += SelectionChangedEvent;
 		}
 
 		private void DataToScreenDetail()
 		{
-			IEnumerable<BopGroup> selectedBopGroups = m_gridManagerGroups.GetSelected();
+			IEnumerable<BopGroup> selectedBopGroups = m_gridManagerGroups.GetSelectedElements();
 			if (selectedBopGroups.Count() == 1)
 			{
 				BopGroup selectedBopGroup = selectedBopGroups.First();
@@ -91,7 +91,7 @@ namespace DcsBriefop.Forms
 			ScreenToDataDetail();
 		}
 
-		private void SelectionChangedTypedEvent(object sender, GridManagerGroups.EventArgsBopGroups e)
+		private void SelectionChangedEvent(object sender, EventArgs e)
 		{
 			ScreenToDataDetail();
 			DataToScreenDetail();

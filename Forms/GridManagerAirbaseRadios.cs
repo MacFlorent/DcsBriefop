@@ -87,93 +87,124 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns[GridColumn.Used].ReadOnly = false;
 		}
 
-		public IEnumerable<BopAirbaseRadio> GetSelected()
+		public IEnumerable<BopAirbaseRadio> GetSelectedElements()
 		{
 			return GetSelectedDataRows().Select(_dr => _dr.Field<BopAirbaseRadio>(GridColumn.Data)).ToList();
 		}
 
-		protected override void SelectionChanged()
+		//protected override void SelectionChanged()
+		//{
+		//	SelectionChangedTyped?.Invoke(this, new EventArgsBopAirbaseRadios() { BopAirbaseRadios = GetSelectedElements() });
+		//}
+
+		protected override void CellEndEditInternal(DataGridView dgv, DataGridViewCell dgvc)
 		{
-			SelectionChangedTyped?.Invoke(this, new EventArgsBopAirbaseRadios() { BopAirbaseRadios = GetSelected() });
-		}
-		#endregion
-
-		#region Events
-		public class EventArgsBopAirbaseRadios : EventArgs
-		{
-			public IEnumerable<BopAirbaseRadio> BopAirbaseRadios { get; set; }
-		}
-		public event EventHandler<EventArgsBopAirbaseRadios> SelectionChangedTyped;
-		public event EventHandler<EventArgsBopAirbaseRadios> ElementsModified;
-
-		protected override void AddEvents()
-		{
-			base.AddEvents();
-			m_dgv.CellEndEdit += CellEndEditEvent;
-			m_dgv.CellMouseUp += CellMouseUpEvent;
-		}
-
-		protected override void RemoveEvents()
-		{
-			base.RemoveEvents();
-			m_dgv.CellEndEdit -= CellEndEditEvent;
-			m_dgv.CellMouseUp -= CellMouseUpEvent;
-		}
-
-		private void CellEndEditEvent(object sender, DataGridViewCellEventArgs e)
-		{
-			if (e.RowIndex < 0)
-				return;
-
-			DataGridView dgv = (sender as DataGridView);
-			if (dgv is null)
-				return;
-
-			DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
-			DataGridViewCell cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-			BopAirbaseRadio airbaseRadio = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as BopAirbaseRadio;
+			BopAirbaseRadio airbaseRadio = dgvc.OwningRow.Cells[GridColumn.Data].Value as BopAirbaseRadio;
 
 			if (airbaseRadio is object)
 			{
-				bool bFireEvent = false;
-
-				if (column.Name == GridColumn.Used && (bool)cell.Value != airbaseRadio.Used)
+				if (dgvc.OwningColumn.Name == GridColumn.Used && (bool)dgvc.Value != airbaseRadio.Used)
 				{
-					airbaseRadio.Used = (bool)cell.Value;
-					bFireEvent = true;
+					airbaseRadio.Used = (bool)dgvc.Value;
 				}
-				else if (column.Name == GridColumn.Label && cell.Value as string != airbaseRadio.Label)
+				else if (dgvc.OwningColumn.Name == GridColumn.Label && dgvc.Value as string != airbaseRadio.Label)
 				{
-					airbaseRadio.Label = cell.Value as string;
-					bFireEvent = true;
+					airbaseRadio.Label = dgvc.Value as string;
 				}
-				else if (column.Name == GridColumn.Radio)
+				else if (dgvc.OwningColumn.Name == GridColumn.Radio)
 				{
-					Radio radio = Radio.NewFromString(cell.Value as string);
+					Radio radio = Radio.NewFromString(dgvc.Value as string);
 					if (radio is object && !radio.Equals(airbaseRadio.Radio))
 						airbaseRadio.Radio = radio;
 
 					RefreshDataSourceRow(airbaseRadio);
-					bFireEvent = true;
 				}
-
-				if (bFireEvent)
-					ElementsModified?.Invoke(this, new EventArgsBopAirbaseRadios() { BopAirbaseRadios = new List<BopAirbaseRadio>() { airbaseRadio } });
 			}
-
 		}
 
-		private void CellMouseUpEvent(object sender, DataGridViewCellMouseEventArgs e)
+		protected override void CellMouseUpInternal(DataGridView dgv, DataGridViewCell dgvc)
 		{
-			if (e.RowIndex < 0)
-				return;
-
-			DataGridViewColumn column = (sender as DataGridView).Columns[e.ColumnIndex];
-			if (column.Name == GridColumn.Used)
-			{
-				(sender as DataGridView).EndEdit();
-			}
+			if (dgvc.OwningColumn.Name == GridColumn.Used)
+				dgv.EndEdit();
 		}
+		#endregion
+
+		#region Events
+		//public class EventArgsBopAirbaseRadios : EventArgs
+		//{
+		//	public IEnumerable<BopAirbaseRadio> BopAirbaseRadios { get; set; }
+		//}
+		//public event EventHandler<EventArgsBopAirbaseRadios> SelectionChangedTyped;
+		//public event EventHandler<EventArgsBopAirbaseRadios> ElementsModified;
+
+		//protected override void AssignEvents()
+		//{
+		//	base.AssignEvents();
+		//	m_dgv.CellEndEdit += CellEndEditEvent;
+		//	m_dgv.CellMouseUp += CellMouseUpEvent;
+		//}
+
+		//protected override void RemoveEvents()
+		//{
+		//	base.RemoveEvents();
+		//	m_dgv.CellEndEdit -= CellEndEditEvent;
+		//	m_dgv.CellMouseUp -= CellMouseUpEvent;
+		//}
+
+		//private void CellEndEditEvent(object sender, DataGridViewCellEventArgs e)
+		//{
+		//	if (e.RowIndex < 0)
+		//		return;
+
+		//	DataGridView dgv = (sender as DataGridView);
+		//	if (dgv is null)
+		//		return;
+
+		//	DataGridViewColumn column = dgv.Columns[e.ColumnIndex];
+		//	DataGridViewCell cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+		//	BopAirbaseRadio airbaseRadio = dgv.Rows[e.RowIndex].Cells[GridColumn.Data].Value as BopAirbaseRadio;
+
+		//	if (airbaseRadio is object)
+		//	{
+		//		bool bFireEvent = false;
+
+		//		if (column.Name == GridColumn.Used && (bool)cell.Value != airbaseRadio.Used)
+		//		{
+		//			airbaseRadio.Used = (bool)cell.Value;
+		//			bFireEvent = true;
+		//		}
+		//		else if (column.Name == GridColumn.Label && cell.Value as string != airbaseRadio.Label)
+		//		{
+		//			airbaseRadio.Label = cell.Value as string;
+		//			bFireEvent = true;
+		//		}
+		//		else if (column.Name == GridColumn.Radio)
+		//		{
+		//			Radio radio = Radio.NewFromString(cell.Value as string);
+		//			if (radio is object && !radio.Equals(airbaseRadio.Radio))
+		//				airbaseRadio.Radio = radio;
+
+		//			RefreshDataSourceRow(airbaseRadio);
+		//			bFireEvent = true;
+		//		}
+
+		//		if (bFireEvent)
+		//			ElementsModified?.Invoke(this, new EventArgsBopAirbaseRadios() { BopAirbaseRadios = new List<BopAirbaseRadio>() { airbaseRadio } });
+		//	}
+
+		//}
+
+		//private void CellMouseUpEvent(object sender, DataGridViewCellMouseEventArgs e)
+		//{
+		//	if (e.RowIndex < 0)
+		//		return;
+
+		//	DataGridViewColumn column = (sender as DataGridView).Columns[e.ColumnIndex];
+		//	if (column.Name == GridColumn.Used)
+		//	{
+		//		(sender as DataGridView).EndEdit();
+		//	}
+		//}
 		#endregion
 	}
 }

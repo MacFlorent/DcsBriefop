@@ -1,10 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopBriefing;
 using DcsBriefop.DataBopMission;
-using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
-using GMap.NET.WindowsForms;
-using System.Collections.Generic;
 
 namespace DcsBriefop.Forms
 {
@@ -49,7 +46,9 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ButtonCancel(BtPartRemove);
 
 			m_gridManagerBriefingParts = new GridManagerBriefingParts(DgvParts, m_bopBriefingPage.Parts);
-			m_gridManagerBriefingParts.SelectionChangedTyped += SelectionChangedTypedEvent;
+			m_gridManagerBriefingParts.SelectionChanged += SelectionChangedEvent;
+			DgvParts.FilterAndSortEnabled = false;
+			DgvParts.MultiSelect = false;
 
 			m_ucMap = new UcMap();
 			m_ucMap.Dock = DockStyle.Fill;
@@ -63,7 +62,7 @@ namespace DcsBriefop.Forms
 		#region Methods
 		private void DataToScreen()
 		{
-			m_gridManagerBriefingParts.SelectionChangedTyped -= SelectionChangedTypedEvent;
+			m_gridManagerBriefingParts.SelectionChanged -= SelectionChangedEvent;
 			CkRenderHtml.CheckedChanged -= CkRender_CheckedChanged;
 			CkRenderMap.CheckedChanged -= CkRender_CheckedChanged;
 
@@ -78,7 +77,7 @@ namespace DcsBriefop.Forms
 			DataToScreenPart();
 			DataToScreenMap();
 
-			m_gridManagerBriefingParts.SelectionChangedTyped += SelectionChangedTypedEvent;
+			m_gridManagerBriefingParts.SelectionChanged += SelectionChangedEvent;
 			CkRenderHtml.CheckedChanged += CkRender_CheckedChanged;
 			CkRenderMap.CheckedChanged += CkRender_CheckedChanged;
 		}
@@ -92,11 +91,11 @@ namespace DcsBriefop.Forms
 			{
 				BopBriefingPartBase selected = selecteds.First();
 				if (selected is BopBriefingPartBullseye)
-					m_ucBriefingPart = new UcBriefingPartBullseye(selected, m_bopMission);
+					m_ucBriefingPart = new UcBriefingPartBullseye(selected, m_bopMission, this);
 				else if (selected is BopBriefingPartParagraph)
-					m_ucBriefingPart = new UcBriefingPartParagraph(selected, m_bopMission);
+					m_ucBriefingPart = new UcBriefingPartParagraph(selected, m_bopMission, this);
 				else if (selected is BopBriefingPartAirbases)
-					m_ucBriefingPart = new UcBriefingPartAirbases(selected, m_bopMission);
+					m_ucBriefingPart = new UcBriefingPartAirbases(selected, m_bopMission, this);
 
 				if (m_ucBriefingPart is object)
 				{
@@ -180,7 +179,7 @@ namespace DcsBriefop.Forms
 				TcDetail.SelectedTab = tpSelected;
 		}
 
-		private void DisplayCurrentMap()
+		public void DisplayCurrentMap()
 		{
 			m_ucMap.StaticOverlays = m_bopBriefingPage.GetMapAdditionalOverlays(m_bopMission, m_bopBriefingFolder);
 			m_ucMap.RefreshMapData();
@@ -201,6 +200,17 @@ namespace DcsBriefop.Forms
 			}
 			m_gridManagerBriefingParts.Initialize();
 		}
+
+		private void OrderPart(int iWay)
+		{
+			BopBriefingPartBase selectedElement = m_gridManagerBriefingParts.GetSelectedElements().FirstOrDefault();
+			if (selectedElement is not null)
+			{
+				m_bopBriefingPage.OrderPart(selectedElement, iWay);
+				m_gridManagerBriefingParts.Initialize();
+				m_gridManagerBriefingParts.SelectElement(selectedElement);
+			}
+		}
 		#endregion
 
 		#region Events
@@ -209,7 +219,7 @@ namespace DcsBriefop.Forms
 			DisplayCurrentRender();
 		}
 
-		private void SelectionChangedTypedEvent(object sender, GridManagerBriefingParts.EventArgsBopBriefingParts e)
+		private void SelectionChangedEvent(object sender, EventArgs e)
 		{
 			ScreenToDataPart();
 			DataToScreenPart();
@@ -257,5 +267,14 @@ namespace DcsBriefop.Forms
 		#endregion
 
 
+		private void BtPartOrderUp_Click(object sender, EventArgs e)
+		{
+			OrderPart(-1);
+		}
+
+		private void BtPartOrderDown_Click(object sender, EventArgs e)
+		{
+			OrderPart(1);
+		}
 	}
 }

@@ -1,10 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
@@ -97,48 +93,23 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns[GridColumn.Data].Visible = false;
 		}
 
-		public IEnumerable<BopUnit> GetSelected()
+		public IEnumerable<BopUnit> GetSelectedElements()
 		{
 			return GetSelectedDataRows().Select(_dr => _dr.Field<BopUnit>(GridColumn.Data)).ToList();
 		}
 
-		protected override DataGridViewCellStyle CellFormatting(DataGridViewCell dgvc)
-		{
-			DataGridViewCellStyle cellStyle = base.CellFormatting(dgvc);
-
-			//DataGridViewColumn column = dgvc.DataGridView.Columns[dgvc.ColumnIndex];
-			//Asset asset = dgvc.DataGridView.Rows[dgvc.RowIndex].Cells[GridColumn.Data].Value as Asset;
-
-			//if (column.DataPropertyName == GridColumn.Included)
-			//{
-			//	if ((asset is object && AssetOrUnitIncluded(asset)))
-			//	{
-			//		cellStyle.BackColor = Color.LightGreen;
-			//	}
-			//}
-			//else if (column.DataPropertyName == GridColumn.Mission)
-			//{
-			//	if (asset is AssetFlight flight && flight.MissionData is object)
-			//	{
-			//		cellStyle.BackColor = Color.LightGreen;
-			//	}
-			//}
-
-			return cellStyle;
-		}
-
-		protected override void SelectionChanged()
-		{
-			SelectionChangedTyped?.Invoke(this, new EventArgsBopUnits() { BopUnits = GetSelected() });
-		}
+		//protected override void SelectionChanged()
+		//{
+		//	SelectionChangedTyped?.Invoke(this, new EventArgsBopUnits() { BopUnits = GetSelectedElements() });
+		//}
 		#endregion
 
 		#region Events
-		public class EventArgsBopUnits : EventArgs
-		{
-			public IEnumerable<BopUnit> BopUnits { get; set; }
-		}
-		public event EventHandler<EventArgsBopUnits> SelectionChangedTyped;
+		//public class EventArgsBopUnits : EventArgs
+		//{
+		//	public IEnumerable<BopUnit> BopUnits { get; set; }
+		//}
+		//public event EventHandler<EventArgsBopUnits> SelectionChangedTyped;
 		#endregion
 	}
 }

@@ -34,7 +34,7 @@ namespace DcsBriefop.Forms
 			MasterDataRepository.FillListBox(MasterDataType.CoordinateDisplay, LstCoordinateDisplay);
 
 			m_gridManagerBriefingPages = new GridManagerBriefingPages(DgvPages, m_bopBriefingFolder.Pages);
-			m_gridManagerBriefingPages.SelectionChangedTyped += SelectionChangedTypedEvent;
+			m_gridManagerBriefingPages.SelectionChanged += SelectionChangedEvent;
 		}
 
 		public static void CreateModal(BopMission bopMission, BopBriefingFolder bopBriefingFolder, Form parentForm)
@@ -48,7 +48,7 @@ namespace DcsBriefop.Forms
 		#region Methods
 		private void DataToScreen()
 		{
-			m_gridManagerBriefingPages.SelectionChangedTyped -= SelectionChangedTypedEvent;
+			m_gridManagerBriefingPages.SelectionChanged -= SelectionChangedEvent;
 
 			TbName.Text = m_bopBriefingFolder.Name;
 			CbCoalition.Text = m_bopBriefingFolder.CoalitionName;
@@ -60,12 +60,12 @@ namespace DcsBriefop.Forms
 			m_gridManagerBriefingPages.Initialize();
 			DataToScreenDetail();
 
-			m_gridManagerBriefingPages.SelectionChangedTyped += SelectionChangedTypedEvent;
+			m_gridManagerBriefingPages.SelectionChanged += SelectionChangedEvent;
 		}
 
 		private void DataToScreenDetail()
 		{
-			IEnumerable<BopBriefingPage> selectedPages = m_gridManagerBriefingPages.GetSelected();
+			IEnumerable<BopBriefingPage> selectedPages = m_gridManagerBriefingPages.GetSelectedElements();
 			if (selectedPages.Count() == 1)
 			{
 				BopBriefingPage selectedPage = selectedPages.First();
@@ -123,7 +123,7 @@ namespace DcsBriefop.Forms
 			ScreenToData();
 		}
 
-		private void SelectionChangedTypedEvent(object sender, GridManagerBriefingPages.EventArgsBopBriefingPages e)
+		private void SelectionChangedEvent(object sender, EventArgs e)
 		{
 			ScreenToDataDetail();
 			DataToScreenDetail();

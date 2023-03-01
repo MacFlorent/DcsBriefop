@@ -1,10 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
@@ -92,48 +88,23 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns[GridColumn.Data].Visible = false;
 		}
 
-		public IEnumerable<BopGroup> GetSelected()
+		public IEnumerable<BopGroup> GetSelectedElements()
 		{
 			return GetSelectedDataRows().Select(_dr => _dr.Field<BopGroup>(GridColumn.Data)).ToList();
 		}
 
-		protected override DataGridViewCellStyle CellFormatting(DataGridViewCell dgvc)
-		{
-			DataGridViewCellStyle cellStyle = base.CellFormatting(dgvc);
-
-			//DataGridViewColumn column = dgvc.DataGridView.Columns[dgvc.ColumnIndex];
-			//Asset asset = dgvc.DataGridView.Rows[dgvc.RowIndex].Cells[GridColumn.Data].Value as Asset;
-
-			//if (column.DataPropertyName == GridColumn.Included)
-			//{
-			//	if ((asset is object && AssetOrUnitIncluded(asset)))
-			//	{
-			//		cellStyle.BackColor = Color.LightGreen;
-			//	}
-			//}
-			//else if (column.DataPropertyName == GridColumn.Mission)
-			//{
-			//	if (asset is AssetFlight flight && flight.MissionData is object)
-			//	{
-			//		cellStyle.BackColor = Color.LightGreen;
-			//	}
-			//}
-
-			return cellStyle;
-		}
-
-		protected override void SelectionChanged()
-		{
-			SelectionChangedTyped?.Invoke(this, new EventArgsBopGroups() { BopGroups = GetSelected() });
-		}
+		//protected override void SelectionChanged()
+		//{
+		//	SelectionChangedTyped?.Invoke(this, new EventArgsBopGroups() { BopGroups = GetSelected() });
+		//}
 		#endregion
 
 		#region Events
-		public class EventArgsBopGroups : EventArgs
-		{
-			public IEnumerable<BopGroup> BopGroups { get; set; }
-		}
-		public event EventHandler<EventArgsBopGroups> SelectionChangedTyped;
+		//public class EventArgsBopGroups : EventArgs
+		//{
+		//	public IEnumerable<BopGroup> BopGroups { get; set; }
+		//}
+		//public event EventHandler<EventArgsBopGroups> SelectionChangedTyped;
 		#endregion
 	}
 }

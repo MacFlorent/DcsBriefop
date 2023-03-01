@@ -109,7 +109,7 @@ namespace DcsBriefop.Forms
 
 		private void BtRadioRemove_Click(object sender, EventArgs e)
 		{
-			BopAirbaseRadio airbaseRadio = m_gridManagerAirbaseRadios.GetSelected().FirstOrDefault();
+			BopAirbaseRadio airbaseRadio = m_gridManagerAirbaseRadios.GetSelectedElements().FirstOrDefault();
 			if (airbaseRadio is object && !airbaseRadio.Default)
 				m_bopAirbase.Radios.Remove(airbaseRadio);
 

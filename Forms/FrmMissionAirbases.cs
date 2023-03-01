@@ -21,7 +21,7 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 
 			m_gridManagerAirbases = new GridManagerAirbases(DgvAirbases, m_briefopManager.BopMission.Airbases);
-			m_gridManagerAirbases.SelectionChangedTyped += SelectionChangedTypedEvent;
+			m_gridManagerAirbases.SelectionChanged += SelectionChangedEvent;
 		}
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
@@ -35,17 +35,17 @@ namespace DcsBriefop.Forms
 		#region Methods
 		private void DataToScreen()
 		{
-			m_gridManagerAirbases.SelectionChangedTyped -= SelectionChangedTypedEvent;
+			m_gridManagerAirbases.SelectionChanged -= SelectionChangedEvent;
 
 			m_gridManagerAirbases.Initialize();
 			DataToScreenDetail();
 
-			m_gridManagerAirbases.SelectionChangedTyped += SelectionChangedTypedEvent;
+			m_gridManagerAirbases.SelectionChanged += SelectionChangedEvent;
 		}
 
 		private void DataToScreenDetail()
 		{
-			IEnumerable<BopAirbase> selectedBopAirbases = m_gridManagerAirbases.GetSelected();
+			IEnumerable<BopAirbase> selectedBopAirbases = m_gridManagerAirbases.GetSelectedElements();
 			if (selectedBopAirbases.Count() == 1)
 			{
 				BopAirbase selectedBopAirbase = selectedBopAirbases.First();
@@ -91,7 +91,7 @@ namespace DcsBriefop.Forms
 			ScreenToDataDetail();
 		}
 
-		private void SelectionChangedTypedEvent(object sender, GridManagerAirbases.EventArgsBopAirbases e)
+		private void SelectionChangedEvent(object sender, EventArgs e)
 		{
 			ScreenToDataDetail();
 			DataToScreenDetail();

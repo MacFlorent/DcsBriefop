@@ -1,6 +1,9 @@
-﻿using DcsBriefop.Tools;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataBopMission;
+using DcsBriefop.Tools;
 using System.ComponentModel;
 using System.Data;
+using static DcsBriefop.Forms.GridManagerAirbases;
 
 namespace DcsBriefop.Forms
 {
@@ -30,7 +33,7 @@ namespace DcsBriefop.Forms
 			m_dgv.AutoGenerateColumns = true;
 			m_dgv.DataSource = new BindingSource();
 
-			AddEvents();
+			AssignEvents();
 		}
 		#endregion
 
@@ -69,7 +72,7 @@ namespace DcsBriefop.Forms
 				m_dgv.ColumnHeadersHeight = 25; // not ideal, but if the header is to narrow, it will be widened by AdvancedDataGridView.OnColumnAdded, and sometimes it will cause problems that I don't understand
 				(m_dgv.DataSource as BindingSource).DataSource = m_dtSource.DefaultView;
 				m_dgv.ResumeDrawing();
-				AddEvents();
+				AssignEvents();
 			}
 			catch (Exception ex) { ToolsControls.ShowMessageBoxError(ex.Message); } // to check the problem addressed by "m_dgv.ColumnHeadersHeight = 25"
 		}
@@ -122,13 +125,17 @@ namespace DcsBriefop.Forms
 			}
 		}
 
-		protected virtual DataGridViewCellStyle CellFormatting(DataGridViewCell dgvc)
+		protected virtual DataGridViewCellStyle CellFormattingInternal(DataGridViewCell dgvc)
 		{
 			DataGridViewCellStyle cellStyle = dgvc.InheritedStyle;
 			return cellStyle;
 		}
-		
-		protected virtual void SelectionChanged() {}
+
+		protected virtual void SelectionChangedInternal() { }
+
+		protected virtual void CellEndEditInternal(DataGridView dgv, DataGridViewCell dgvc) { }
+
+		protected virtual void CellMouseUpInternal(DataGridView dgv, DataGridViewCell dgvc) { }
 		#endregion
 
 		#region Menus
@@ -142,11 +149,21 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
-		protected virtual void AddEvents()
+		public class EventArgsCell : EventArgs
+		{
+			public DataGridViewCell Cell { get; set; }
+		}
+
+		public event EventHandler SelectionChanged;
+		public event EventHandler<EventArgsCell> CellEndEdit;
+
+		protected virtual void AssignEvents()
 		{
 			m_dgv.CellFormatting += CellFormattingEvent;
 			m_dgv.MouseDown += MouseDownEvent;
 			m_dgv.SelectionChanged += SelectionChangedEvent;
+			m_dgv.CellMouseUp += CellMouseUpEvent;
+			m_dgv.CellEndEdit += CellEndEditEvent;
 		}
 
 		protected virtual void RemoveEvents()
@@ -154,6 +171,14 @@ namespace DcsBriefop.Forms
 			m_dgv.CellFormatting -= CellFormattingEvent;
 			m_dgv.MouseDown -= MouseDownEvent;
 			m_dgv.SelectionChanged -= SelectionChangedEvent;
+			m_dgv.CellMouseUp -= CellMouseUpEvent;
+			m_dgv.CellEndEdit -= CellEndEditEvent;
+		}
+
+		private void SelectionChangedEvent(object sender, EventArgs e)
+		{
+			SelectionChangedInternal();
+			SelectionChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		private void CellFormattingEvent(object sender, DataGridViewCellFormattingEventArgs e)
@@ -165,8 +190,22 @@ namespace DcsBriefop.Forms
 				return;
 
 			DataGridViewCell dgvc = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-			e.CellStyle = CellFormatting(dgvc);
+			e.CellStyle = CellFormattingInternal(dgvc);
 			e.CellStyle.SelectionBackColor = ToolsImage.Lerp(dgv.DefaultCellStyle.SelectionBackColor, e.CellStyle.BackColor, 0.5f);
+		}
+
+		private void CellEndEditEvent(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex < 0)
+				return;
+
+			DataGridView dgv = (sender as DataGridView);
+			if (dgv is null)
+				return;
+
+			DataGridViewCell dgvc = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+			CellEndEditInternal(dgv, dgvc);
+			CellEndEdit?.Invoke(this, new EventArgsCell() { Cell = dgvc });
 		}
 
 		private void MouseDownEvent(object sender, MouseEventArgs e)
@@ -183,9 +222,17 @@ namespace DcsBriefop.Forms
 			}
 		}
 
-		private void SelectionChangedEvent(object sender, EventArgs e)
+		private void CellMouseUpEvent(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			SelectionChanged();
+			if (e.RowIndex < 0)
+				return;
+
+			DataGridView dgv = (sender as DataGridView);
+			if (dgv is null)
+				return;
+
+			DataGridViewCell dgvc = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+			CellMouseUpInternal(dgv, dgvc);
 		}
 		#endregion
 
