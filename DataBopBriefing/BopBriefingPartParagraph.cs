@@ -14,6 +14,11 @@ namespace DcsBriefop.DataBopBriefing
 
 		public BopBriefingPartParagraph() : base(ElementBriefingPartType.Paragraph, "content") { }
 
+		public override string ToStringAdditional()
+		{
+			return Header ?? "-no header-";
+		}
+
 		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();

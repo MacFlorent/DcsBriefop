@@ -175,7 +175,12 @@ namespace DcsBriefop.DataBopMission
 			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree), MapMarker, color ?? ToolsBriefop.GetCoalitionColor(CoalitionName), ToStringDisplayName(), 1, 0);
 		}
 
-		public GMapOverlay GetMapOverlayPosition()
+		public GMapOverlay GetMapOverlay()
+		{
+			return GetMapOverlayPosition();
+		}
+
+			public GMapOverlay GetMapOverlayPosition()
 		{
 			GMapOverlay mapOverlay = new GMapOverlay();
 			mapOverlay.Markers.Add(GetMarkerBriefop(null));

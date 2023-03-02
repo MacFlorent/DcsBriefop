@@ -9,6 +9,7 @@ namespace DcsBriefop.Forms
 		#region Columns
 		public static class GridColumn
 		{
+			public static readonly string Checked = "Checked";
 			public static readonly string Id = "Id";
 			public static readonly string Coalition = "Coalition";
 			public static readonly string Country = "Country";
@@ -27,6 +28,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Properties
+		public List<int> CheckedElements = null;
 		#endregion
 
 		#region CTOR
@@ -40,6 +42,7 @@ namespace DcsBriefop.Forms
 		protected override void InitializeDataSource()
 		{
 			m_dtSource = new DataTable();
+			m_dtSource.Columns.Add(GridColumn.Checked, typeof(bool));
 			m_dtSource.Columns.Add(GridColumn.Id, typeof(int));
 			m_dtSource.Columns.Add(GridColumn.Coalition, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Country, typeof(string));
@@ -65,6 +68,7 @@ namespace DcsBriefop.Forms
 				m_dtSource.Rows.Add(dr);
 			}
 
+			dr.SetField(GridColumn.Checked, CheckedElements is not null && CheckedElements.Contains(bopGroup.Id));
 			dr.SetField(GridColumn.Id, bopGroup.Id);
 			dr.SetField(GridColumn.Coalition, bopGroup.CoalitionName);
 			dr.SetField(GridColumn.Country, bopGroup.CountryName);
@@ -85,6 +89,8 @@ namespace DcsBriefop.Forms
 				column.ReadOnly = true;
 			}
 
+			m_dgv.Columns[GridColumn.Checked].ReadOnly = false;
+			m_dgv.Columns[GridColumn.Checked].Visible = CheckedElements is not null;
 			m_dgv.Columns[GridColumn.Data].Visible = false;
 		}
 
@@ -97,6 +103,29 @@ namespace DcsBriefop.Forms
 		//{
 		//	SelectionChangedTyped?.Invoke(this, new EventArgsBopGroups() { BopGroups = GetSelected() });
 		//}
+
+		protected override void CellEndEditInternal(DataGridView dgv, DataGridViewCell dgvc)
+		{
+			BopGroup element = dgvc.OwningRow.Cells[GridColumn.Data].Value as BopGroup;
+			if (element is not null && CheckedElements is not null && dgvc.OwningColumn.Name == GridColumn.Checked)
+			{
+				if ((bool)dgvc.Value)
+				{
+					if (!CheckedElements.Contains(element.Id))
+						CheckedElements.Add(element.Id);
+				}
+				else
+				{
+					while (CheckedElements.Remove(element.Id)) ;
+				}
+			}
+		}
+
+		protected override void CellMouseUpInternal(DataGridView dgv, DataGridViewCell dgvc)
+		{
+			if (dgvc.OwningColumn.Name == GridColumn.Checked)
+				dgv.EndEdit();
+		}
 		#endregion
 
 		#region Events

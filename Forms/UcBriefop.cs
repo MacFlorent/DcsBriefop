@@ -1,5 +1,4 @@
-﻿using DcsBriefop.Data;
-using DcsBriefop.DataBopBriefing;
+﻿using DcsBriefop.DataBopBriefing;
 using DcsBriefop.Tools;
 using System.Diagnostics;
 
@@ -9,6 +8,8 @@ namespace DcsBriefop.Forms
 	{
 		#region Fields
 		private BriefopManager m_briefopManager;
+
+		private GridManagerBriefingFolders m_gridManagerBriefingFolders;
 		#endregion
 
 		#region Properties
@@ -30,33 +31,61 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 			ToolsStyle.SetBackgroundImage(this);
 			PnBackground.CenterInParent();
+
 			PnMission.BackColor = ToolsStyle.ColorLightLight;
-			PnBriefing.BackColor = ToolsStyle.ColorLightLight;
-
+			SetImagePanel(PnMissionPicture, "backgroundMission", "jpg");
 			ToolsStyle.LabelTitle(LbMissionTitle);
-			ToolsStyle.LabelHeader(LbTheatre);
-			ToolsStyle.LabelHeader(LbSortie);
-
-			ToolsStyle.LabelTitle(LbBriefingTitle);
+			LbMissionTitle.BackColor = Color.Transparent;
+			LbMissionTitle.CenterInParent();
+			ToolsStyle.LabelHeader(LbMissionTheatre);
+			ToolsStyle.LabelHeader(LbMissionSortie);
 
 			ToolsStyle.ButtonLarge(BtMissionInformations);
 			ToolsStyle.ButtonLarge(BtMissionAirbases);
 			ToolsStyle.ButtonLarge(BtMissionGroups);
 			ToolsStyle.ButtonLarge(BtMissionMaps);
 			ToolsStyle.ButtonLarge(BtMissionComs);
-			ToolsStyle.ButtonLarge(BtBriefingPackages);
 
 			PnMissionActions.CenterInParentHorizontal();
+
+			PnBriefing.BackColor = ToolsStyle.ColorLightLight;
+			SetImagePanel(PnBriefingPicture, "backgroundBriefing", "jpg");
+			ToolsStyle.LabelTitle(LbBriefingTitle);
+			LbBriefingTitle.BackColor = Color.Transparent;
+			LbBriefingTitle.CenterInParent();
+
+			ToolsStyle.LabelHeader(LbBriefingFolders);
+
+			ToolsStyle.ButtonLarge(BtBriefingGenerate);
+			ToolsStyle.ButtonLarge(BtBriefingPackages);
+			ToolsStyle.ButtonLarge(BtBriefingAto);
+
+			PnBriefingActions.CenterInParentHorizontal();
+			LbBriefingFolders.CenterInParentHorizontal();
+			ToolsStyle.ButtonOk(BtBriefingFolderAdd);
+			ToolsStyle.ButtonCancel(BtBriefingFolderDelete);
+			DgvBriefingFolders.MultiSelect = false;
+		}
+
+		private void SetImagePanel(Panel pn, string sImageName, string sImageExtension)
+		{
+			Image backgroundImage = ToolsResources.GetImageResource(sImageName, sImageExtension);
+			if (backgroundImage is object)
+			{
+				backgroundImage = ToolsImage.SetImageOpacity(backgroundImage, 0.25f);
+				pn.BackgroundImage = backgroundImage;
+				pn.BackgroundImageLayout = ImageLayout.Stretch;
+			}
 		}
 		#endregion
 
 		#region Methods
 		private void DataToScreen()
 		{
-			LbSortie.Text = m_briefopManager.BopMission.Sortie;
+			LbMissionSortie.Text = m_briefopManager.BopMission.Sortie;
 			LbMissionDirectory.Text = m_briefopManager.MizFilePath;
-			LbTheatre.Text = m_briefopManager.BopMission.Theatre.Name;
-			LbTheatre.CenterInParent();
+			LbMissionTheatre.Text = m_briefopManager.BopMission.Theatre.Name;
+			LbMissionTheatre.CenterInParent();
 
 			Image theatreImage = ToolsResources.GetImageResource($"theatre{m_briefopManager.BopMission.Theatre.Name}", "jpg");
 			if (theatreImage is object)
@@ -68,10 +97,32 @@ namespace DcsBriefop.Forms
 			{
 				PnMissionTheatre.BackgroundImage = null;
 			}
+
+			DataToScreenFolders();
+		}
+
+		private void DataToScreenFolders()
+		{
+			m_gridManagerBriefingFolders = new GridManagerBriefingFolders(DgvBriefingFolders, m_briefopManager.BopMission.BopBriefingFolders);
+			m_gridManagerBriefingFolders.Initialize();
 		}
 
 		public void ScreenToData()
 		{
+		}
+
+		private void BriefingFolderDetail()
+		{
+			BriefingFolderDetail(m_gridManagerBriefingFolders.GetSelectedElements().FirstOrDefault());
+		}
+
+		private void BriefingFolderDetail(BopBriefingFolder bopBriefingFolder)
+		{
+			if (bopBriefingFolder is not null)
+			{
+				FrmBriefingFolder.CreateModal(m_briefopManager.BopMission, bopBriefingFolder, ParentForm);
+				DataToScreenFolders();
+			}
 		}
 		#endregion
 
@@ -101,26 +152,22 @@ namespace DcsBriefop.Forms
 		{
 			FrmMissionMaps.CreateModal(m_briefopManager, ParentForm);
 		}
-		private void BtBriefingPage_Click(object sender, System.EventArgs e)
+
+		private void BtBriefingFolderDetail_Click(object sender, EventArgs e)
 		{
-			BopBriefingFolder bopBriefingFolder = m_briefopManager.BopMission.BopBriefingFolders.FirstOrDefault();
-			if (bopBriefingFolder is null)
-			{
-				bopBriefingFolder = new BopBriefingFolder();
-				bopBriefingFolder.Name = "TEST FOLDER";
-				m_briefopManager.BopMission.BopBriefingFolders.Add(bopBriefingFolder);
+			BriefingFolderDetail();
+		}
 
-				bopBriefingFolder.CoalitionName = ElementCoalition.Blue;
-				BopBriefingPage bopBriefingPage = bopBriefingFolder.AddPage(m_briefopManager.BopMission);
-				bopBriefingPage.DisplayTitle = true;
+		private void BtBriefingFolderAdd_Click(object sender, EventArgs e)
+		{
+			BopBriefingFolder bopBriefingFolder = new BopBriefingFolder();
+			m_briefopManager.BopMission.BopBriefingFolders.Add(bopBriefingFolder);
+			BriefingFolderDetail(bopBriefingFolder);
+		}
 
-				bopBriefingPage.AddPart(ElementBriefingPartType.Sortie);
-				bopBriefingPage.AddPart(ElementBriefingPartType.Description);
-				bopBriefingPage.AddPart(ElementBriefingPartType.Task);
-				bopBriefingPage.AddPart(ElementBriefingPartType.Bullseye);
-			}
-
-			FrmBriefingFolder.CreateModal(m_briefopManager.BopMission, bopBriefingFolder, ParentForm);
+		private void DgvBriefingFolders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			BriefingFolderDetail();
 		}
 		#endregion
 

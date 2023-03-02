@@ -29,6 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Forms\UcBriefingPartGroups.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Forms\UcBriefingPartAirbases.cs">
       <SubType>UserControl</SubType>
     </Compile>

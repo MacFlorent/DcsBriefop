@@ -4,24 +4,24 @@ using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms
 {
-	internal partial class UcBriefingPartAirbases : UcBriefingPartBase
+	internal partial class UcBriefingPartGroups : UcBriefingPartBase
 	{
 		#region Fields
-		private GridManagerAirbases m_gridManagerAirbases;
+		private GridManagerGroups m_gridManager;
 		#endregion
 
 		#region CTOR
-		public UcBriefingPartAirbases(BopBriefingPartBase bopBriefingPart, BopMission bopMission, UcBriefingPage ucBriefingPageParent) : base(bopBriefingPart, bopMission, ucBriefingPageParent)
+		public UcBriefingPartGroups(BopBriefingPartBase bopBriefingPart, BopMission bopMission, UcBriefingPage ucBriefingPageParent) : base(bopBriefingPart, bopMission, ucBriefingPageParent)
 		{
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			BopBriefingPartAirbases briefingPart = m_bopBriefingPart as BopBriefingPartAirbases;
-			m_gridManagerAirbases = new GridManagerAirbases(DgvAirbases, m_bopMission.Airbases);
-			m_gridManagerAirbases.CheckedElements = briefingPart.Airbases;
-			m_gridManagerAirbases.CellEndEdit += CellEndEditEvent;
+			BopBriefingPartGroups briefingPart = m_bopBriefingPart as BopBriefingPartGroups;
+			m_gridManager = new GridManagerGroups(DgvGroups, m_bopMission.Groups);
+			m_gridManager.CheckedElements = briefingPart.Groups;
+			m_gridManager.CellEndEdit += CellEndEditEvent;
 
-			LstColumns.DataSource = BopBriefingPartAirbases.AvailableColumns;
+			LstColumns.DataSource = BopBriefingPartGroups.AvailableColumns;
 
 			DataToScreen();
 		}
@@ -30,9 +30,9 @@ namespace DcsBriefop.Forms
 		#region Methods
 		public override void DataToScreen()
 		{
-			BopBriefingPartAirbases briefingPart = m_bopBriefingPart as BopBriefingPartAirbases;
+			BopBriefingPartGroups briefingPart = m_bopBriefingPart as BopBriefingPartGroups;
 			TbHeader.Text = briefingPart.Header;
-			m_gridManagerAirbases.Initialize();
+			m_gridManager.Initialize();
 
 			for (int i = 0; i < LstColumns.Items.Count; i++)
 			{
@@ -42,7 +42,7 @@ namespace DcsBriefop.Forms
 
 		public override void ScreenToData()
 		{
-			BopBriefingPartAirbases briefingPart = m_bopBriefingPart as BopBriefingPartAirbases;
+			BopBriefingPartGroups briefingPart = m_bopBriefingPart as BopBriefingPartGroups;
 			briefingPart.Header = TbHeader.Text;
 
 			briefingPart.SelectedColumns.Clear();

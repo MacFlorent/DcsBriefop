@@ -85,6 +85,13 @@
 		Image
 	}
 
+	internal enum ElementBriefingPartGroupColumns
+	{
+		Allied,
+		Opposing,
+		Full
+	}
+
 	internal static class ElementGlobalData
 	{
 		public static readonly string ResourcesDirectory = "Resources";

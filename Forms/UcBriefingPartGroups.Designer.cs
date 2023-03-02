@@ -1,6 +1,6 @@
 ﻿namespace DcsBriefop.Forms
 {
-	partial class UcBriefingPartAirbases
+	partial class UcBriefingPartGroups
 	{
 		/// <summary> 
 		/// Required designer variable.
@@ -29,12 +29,12 @@
 		private void InitializeComponent()
 		{
 			LbHeader = new Label();
-			LbAirbases = new Label();
+			LbGroups = new Label();
 			TbHeader = new TextBox();
-			DgvAirbases = new Zuby.ADGV.AdvancedDataGridView();
+			DgvGroups = new Zuby.ADGV.AdvancedDataGridView();
 			LbColumns = new Label();
 			LstColumns = new CheckedListBox();
-			((System.ComponentModel.ISupportInitialize)DgvAirbases).BeginInit();
+			((System.ComponentModel.ISupportInitialize)DgvGroups).BeginInit();
 			SuspendLayout();
 			// 
 			// LbHeader
@@ -46,14 +46,14 @@
 			LbHeader.TabIndex = 0;
 			LbHeader.Text = "Header";
 			// 
-			// LbAirbases
+			// LbGroups
 			// 
-			LbAirbases.AutoSize = true;
-			LbAirbases.Location = new Point(3, 33);
-			LbAirbases.Name = "LbAirbases";
-			LbAirbases.Size = new Size(51, 15);
-			LbAirbases.TabIndex = 1;
-			LbAirbases.Text = "Airbases";
+			LbGroups.AutoSize = true;
+			LbGroups.Location = new Point(3, 33);
+			LbGroups.Name = "LbGroups";
+			LbGroups.Size = new Size(45, 15);
+			LbGroups.TabIndex = 1;
+			LbGroups.Text = "Groups";
 			// 
 			// TbHeader
 			// 
@@ -63,19 +63,19 @@
 			TbHeader.Size = new Size(244, 23);
 			TbHeader.TabIndex = 2;
 			// 
-			// DgvAirbases
+			// DgvGroups
 			// 
-			DgvAirbases.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			DgvAirbases.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			DgvAirbases.FilterAndSortEnabled = true;
-			DgvAirbases.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			DgvAirbases.Location = new Point(3, 51);
-			DgvAirbases.Name = "DgvAirbases";
-			DgvAirbases.RightToLeft = RightToLeft.No;
-			DgvAirbases.RowTemplate.Height = 25;
-			DgvAirbases.Size = new Size(315, 118);
-			DgvAirbases.SortStringChangedInvokeBeforeDatasourceUpdate = true;
-			DgvAirbases.TabIndex = 3;
+			DgvGroups.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			DgvGroups.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			DgvGroups.FilterAndSortEnabled = true;
+			DgvGroups.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
+			DgvGroups.Location = new Point(3, 51);
+			DgvGroups.Name = "DgvGroups";
+			DgvGroups.RightToLeft = RightToLeft.No;
+			DgvGroups.RowTemplate.Height = 25;
+			DgvGroups.Size = new Size(315, 118);
+			DgvGroups.SortStringChangedInvokeBeforeDatasourceUpdate = true;
+			DgvGroups.TabIndex = 3;
 			// 
 			// LbColumns
 			// 
@@ -96,19 +96,19 @@
 			LstColumns.Size = new Size(315, 94);
 			LstColumns.TabIndex = 6;
 			// 
-			// UcBriefingPartAirbases
+			// UcBriefingPartGroups
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			Controls.Add(LstColumns);
 			Controls.Add(LbColumns);
-			Controls.Add(DgvAirbases);
+			Controls.Add(DgvGroups);
 			Controls.Add(TbHeader);
-			Controls.Add(LbAirbases);
+			Controls.Add(LbGroups);
 			Controls.Add(LbHeader);
-			Name = "UcBriefingPartAirbases";
+			Name = "UcBriefingPartGroups";
 			Size = new Size(321, 287);
-			((System.ComponentModel.ISupportInitialize)DgvAirbases).EndInit();
+			((System.ComponentModel.ISupportInitialize)DgvGroups).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -116,9 +116,9 @@
 		#endregion
 
 		private Label LbHeader;
-		private Label LbAirbases;
+		private Label LbGroups;
 		private TextBox TbHeader;
-		private Zuby.ADGV.AdvancedDataGridView DgvAirbases;
+		private Zuby.ADGV.AdvancedDataGridView DgvGroups;
 		private Label LbColumns;
 		private CheckedListBox LstColumns;
 	}

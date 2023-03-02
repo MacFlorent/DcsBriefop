@@ -8,16 +8,43 @@ namespace DcsBriefop.DataBopBriefing
 {
 	internal class BopBriefingPartGroups : BopBriefingPartBase
 	{
+		#region Fields
+		private static class TableColumns
+		{
+			public static readonly string Coalition = "Coalition";
+			public static readonly string Name = "Name";
+			public static readonly string Class = "Class";
+			public static readonly string Radio = "Radio";
+			public static readonly string Localisation = "Localisation";
+			public static readonly string Notes = "Notes";
+		}
+		public static List<string> AvailableColumns = new()
+		{
+			TableColumns.Coalition,
+			TableColumns.Name,
+			TableColumns.Class,
+			TableColumns.Radio,
+			TableColumns.Localisation,
+			TableColumns.Notes
+		};
+		#endregion
+
 		#region Properties
 		public string Header { get; set; }
 		public List<int> Groups { get; set; } = new();
+		public List<string> SelectedColumns { get; set; } = new() { TableColumns.Name, TableColumns.Class, TableColumns.Notes };
 		#endregion
 
 		#region CTOR
-		public BopBriefingPartGroups() : base(ElementBriefingPartType.Airbases, "table") { }
+		public BopBriefingPartGroups() : base(ElementBriefingPartType.Groups, "table") { }
 		#endregion
 
 		#region Methods
+		public override string ToStringAdditional()
+		{
+			return Header ?? "-no header-";
+		}
+
 		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
@@ -27,23 +54,35 @@ namespace DcsBriefop.DataBopBriefing
 				tags.Add(new HtmlTag("h2").Append(Header.HtmlLineBreaks()));
 			}
 
+			IEnumerable<string> columns = GetColumns();
 			HtmlTag tagTable = new HtmlTag("table").Attr("width", "100%");
-
 			HtmlTag tagThead = tagTable.Add("thead");
-			tagThead.Add("td").AddClass("header").AppendText("Name");
-			tagThead.Add("td").AddClass("header").AppendText("Type");
-			tagThead.Add("td").AddClass("header").AppendText("Radio");
-			tagThead.Add("td").AddClass("header").AppendText("Notes");
-
-			foreach (BopAirbase bopAirbase in GetOrderedBopAirbases(bopMission))
+			foreach (string sColumn in columns)
 			{
-				if (bopAirbase is object)
+				tagThead.Add("td").AddClass("header").AppendText(sColumn);
+			}
+
+			foreach (BopGroup element in GetOrderedElements(bopMission))
+			{
+				if (element is object)
 				{
 					HtmlTag tagTr = tagTable.Add("tr");
-					tagTr.Add("td").AppendText(bopAirbase.Name);
-					tagTr.Add("td").AppendText(bopAirbase.AirbaseType.ToString());
-					tagTr.Add("td").AppendText(bopAirbase.ToStringRadios());
-					tagTr.Add("td").AppendText(bopAirbase.ToStringAdditional());
+					foreach (string sColumn in columns)
+					{
+						element.FinalizeFromMiz();
+						if (sColumn == TableColumns.Coalition)
+							tagTr.Add("td").AppendText(element.CoalitionName);
+						else if (sColumn == TableColumns.Name)
+							tagTr.Add("td").AppendText(element.ToStringDisplayName());
+						else if (sColumn == TableColumns.Class)
+							tagTr.Add("td").AppendText(element.GroupClass.ToString());
+						else if (sColumn == TableColumns.Radio)
+							tagTr.Add("td").AppendText(element.Radio.ToString());
+						else if (sColumn == TableColumns.Localisation)
+							tagTr.Add("td").Append(element.Coordinate.ToString(bopBriefingFolder.CoordinateDisplay)?.HtmlLineBreaks());
+						else if (sColumn == TableColumns.Name)
+							tagTr.Add("td").AppendText(element.ToStringAdditional());
+					}
 				}
 			}
 
@@ -54,26 +93,25 @@ namespace DcsBriefop.DataBopBriefing
 		public override IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission)
 		{
 			List<GMapOverlay> partOverlays = new List<GMapOverlay>();
-			//foreach (BopAirbase bopAirbase in GetOrderedBopAirbases(bopMission))
-			//{
-			//	bopAirbase.FinalizeFromMiz();
-			//	partOverlays.Add(bopAirbase.GetMapOverlayPosition());
-			//}
+			foreach (BopGroup element in GetOrderedElements(bopMission))
+			{
+				element.FinalizeFromMiz();
+				partOverlays.Add(element.GetMapOverlay());
+			}
 			return partOverlays;
 		}
 
-		private List<BopAirbase> GetOrderedBopAirbases(BopMission bopMission)
+		private IEnumerable<string> GetColumns()
 		{
-			List<BopAirbase> orderedBopAirbases = new List<BopAirbase>();
-			//foreach (Tuple<int, ElementAirbaseType> airbase in Groups.OrderBy(_a => _a.Item2).ThenBy(_a => _a.Item1))
-			//{
-			//	BopAirbase bopAirbase = bopMission.Airbases.Where(_ba => _ba.Id == airbase.Item1 && _ba.AirbaseType == airbase.Item2).FirstOrDefault();
-			//	if (bopAirbase is not null)
-			//	{
-			//		orderedBopAirbases.Add(bopAirbase);
-			//	}
-			//}
-			return orderedBopAirbases;
+			if (SelectedColumns is not null && SelectedColumns.Count > 0)
+				return AvailableColumns.Where(_c => SelectedColumns.Contains(_c));
+			else
+				return AvailableColumns;
+		}
+
+		private IEnumerable<BopGroup> GetOrderedElements(BopMission bopMission)
+		{
+			return bopMission.Groups.Where(_e => Groups.Contains(_e.Id));
 		}
 		#endregion
 	}

@@ -96,6 +96,8 @@ namespace DcsBriefop.Forms
 					m_ucBriefingPart = new UcBriefingPartParagraph(selected, m_bopMission, this);
 				else if (selected is BopBriefingPartAirbases)
 					m_ucBriefingPart = new UcBriefingPartAirbases(selected, m_bopMission, this);
+				else if (selected is BopBriefingPartGroups)
+					m_ucBriefingPart = new UcBriefingPartGroups(selected, m_bopMission, this);
 
 				if (m_ucBriefingPart is object)
 				{

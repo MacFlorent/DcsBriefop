@@ -9,6 +9,7 @@ namespace DcsBriefop.Forms
 		public static class GridColumn
 		{
 			public static readonly string PartName = "PartName";
+			public static readonly string Information = "Information";
 			public static readonly string Data = "Data";
 		}
 		#endregion
@@ -37,6 +38,7 @@ namespace DcsBriefop.Forms
 		{
 			m_dtSource = new DataTable();
 			m_dtSource.Columns.Add(GridColumn.PartName, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.Information, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Data, typeof(BopBriefingPartBase));
 
 			foreach (BopBriefingPartBase element in m_briefingParts)
@@ -54,6 +56,7 @@ namespace DcsBriefop.Forms
 			}
 
 			dr.SetField(GridColumn.PartName, element.PartType);
+			dr.SetField(GridColumn.Information, element.ToStringAdditional());
 		}
 
 		protected override void PostInitializeColumns()

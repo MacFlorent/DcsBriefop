@@ -81,6 +81,17 @@ namespace DcsBriefop.DataBopMission
 			return Name;
 		}
 
+		public string ToStringRadios()
+		{
+			StringBuilder sb = new();
+			foreach (BopAirbaseRadio radio in Radios.Where(_r => _r.Used))
+			{
+				sb.AppendWithSeparator(radio.ToString(), " ");
+			}
+
+			return sb.ToString();
+		}
+
 		public virtual string ToStringAdditional()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -90,18 +101,7 @@ namespace DcsBriefop.DataBopMission
 			return sb.ToString();
 		}
 
-		public string ToStringRadios()
-		{
-			StringBuilder sb = new ();
-			foreach(BopAirbaseRadio radio in Radios.Where(_r => _r.Used))
-			{
-				sb.AppendWithSeparator(radio.ToString(), " ");
-			}
-
-			return sb.ToString();
-		}
-
-		public GMapOverlay GetMapOverlayPosition()
+		public GMapOverlay GetMapOverlay()
 		{
 			GMapOverlay mapOverlay = new GMapOverlay();
 			mapOverlay.Markers.Add(GetMarkerBriefop(null));

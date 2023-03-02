@@ -47,7 +47,7 @@ namespace DcsBriefop.DataBopBriefing
 			else if (briefingPartType == ElementBriefingPartType.Airbases)
 				bopBriefingPart = new BopBriefingPartAirbases();
 			else if (briefingPartType == ElementBriefingPartType.Groups)
-				bopBriefingPart = new BopBriefingPartAirbases();
+				bopBriefingPart = new BopBriefingPartGroups();
 			//else if (briefingPartType == ElementBriefingPartType.Units)
 			//	bopBriefingPart = new BopBriefingPartAirbases();
 			//else if (briefingPartType == ElementBriefingPartType.Waypoints)
