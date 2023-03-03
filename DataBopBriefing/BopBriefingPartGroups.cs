@@ -3,6 +3,7 @@ using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 using GMap.NET.WindowsForms;
 using HtmlTags;
+using System.Text;
 
 namespace DcsBriefop.DataBopBriefing
 {
@@ -42,7 +43,10 @@ namespace DcsBriefop.DataBopBriefing
 		#region Methods
 		public override string ToStringAdditional()
 		{
-			return Header ?? "-no header-";
+			StringBuilder sb = new StringBuilder();
+			sb.AppendWithSeparator(Header, " ");
+			sb.AppendWithSeparator($"{Groups.Count} groups", " - ");
+			return sb.ToString();
 		}
 
 		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)

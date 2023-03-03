@@ -82,14 +82,8 @@
 		Groups,
 		Units,
 		Waypoints,
-		Image
-	}
-
-	internal enum ElementBriefingPartGroupColumns
-	{
-		Allied,
-		Opposing,
-		Full
+		Image,
+		Weather
 	}
 
 	internal static class ElementGlobalData

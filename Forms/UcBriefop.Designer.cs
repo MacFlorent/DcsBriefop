@@ -161,6 +161,7 @@
 			// 
 			// BtMissionComs
 			// 
+			BtMissionComs.Enabled = false;
 			BtMissionComs.Location = new Point(634, 0);
 			BtMissionComs.Margin = new Padding(4, 3, 4, 3);
 			BtMissionComs.Name = "BtMissionComs";
@@ -215,6 +216,7 @@
 			// 
 			// BtBriefingPackages
 			// 
+			BtBriefingPackages.Enabled = false;
 			BtBriefingPackages.Location = new Point(162, 3);
 			BtBriefingPackages.Margin = new Padding(4, 3, 4, 3);
 			BtBriefingPackages.Name = "BtBriefingPackages";
@@ -262,6 +264,7 @@
 			BtBriefingFolderDelete.TabIndex = 17;
 			BtBriefingFolderDelete.Text = "Delete";
 			BtBriefingFolderDelete.UseVisualStyleBackColor = true;
+			BtBriefingFolderDelete.Click += BtBriefingFolderDelete_Click;
 			// 
 			// BtBriefingFolderDetail
 			// 
@@ -324,9 +327,11 @@
 			BtBriefingGenerate.TabIndex = 12;
 			BtBriefingGenerate.Text = "Generate";
 			BtBriefingGenerate.UseVisualStyleBackColor = true;
+			BtBriefingGenerate.MouseDown += BtBriefingGenerate_MouseDown;
 			// 
 			// BtBriefingAto
 			// 
+			BtBriefingAto.Enabled = false;
 			BtBriefingAto.Location = new Point(318, 3);
 			BtBriefingAto.Margin = new Padding(4, 3, 4, 3);
 			BtBriefingAto.Name = "BtBriefingAto";

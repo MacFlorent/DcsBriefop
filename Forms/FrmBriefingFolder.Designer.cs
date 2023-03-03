@@ -48,6 +48,8 @@
 			LbName = new Label();
 			ScMain = new SplitContainer();
 			LbHeader = new Label();
+			BtPageOrderDown = new Button();
+			BtPageOrderUp = new Button();
 			((System.ComponentModel.ISupportInitialize)DgvPages).BeginInit();
 			((System.ComponentModel.ISupportInitialize)ScMain).BeginInit();
 			ScMain.Panel1.SuspendLayout();
@@ -63,6 +65,7 @@
 			BtPageRemove.TabIndex = 41;
 			BtPageRemove.Text = "Remove";
 			BtPageRemove.UseVisualStyleBackColor = true;
+			BtPageRemove.Click += BtPageRemove_Click;
 			// 
 			// BtPageAdd
 			// 
@@ -73,6 +76,7 @@
 			BtPageAdd.TabIndex = 40;
 			BtPageAdd.Text = "Add";
 			BtPageAdd.UseVisualStyleBackColor = true;
+			BtPageAdd.Click += BtPageAdd_Click;
 			// 
 			// DgvPages
 			// 
@@ -240,6 +244,8 @@
 			// 
 			// ScMain.Panel1
 			// 
+			ScMain.Panel1.Controls.Add(BtPageOrderDown);
+			ScMain.Panel1.Controls.Add(BtPageOrderUp);
 			ScMain.Panel1.Controls.Add(LbHeader);
 			ScMain.Panel1.Controls.Add(BtPageRemove);
 			ScMain.Panel1.Controls.Add(BtPageAdd);
@@ -277,6 +283,28 @@
 			LbHeader.TabIndex = 42;
 			LbHeader.Text = "Folder";
 			LbHeader.TextAlign = ContentAlignment.MiddleCenter;
+			// 
+			// BtPageOrderDown
+			// 
+			BtPageOrderDown.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			BtPageOrderDown.Location = new Point(35, 741);
+			BtPageOrderDown.Name = "BtPageOrderDown";
+			BtPageOrderDown.Size = new Size(26, 23);
+			BtPageOrderDown.TabIndex = 47;
+			BtPageOrderDown.Text = "v";
+			BtPageOrderDown.UseVisualStyleBackColor = true;
+			BtPageOrderDown.Click += BtPageOrderDown_Click;
+			// 
+			// BtPageOrderUp
+			// 
+			BtPageOrderUp.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			BtPageOrderUp.Location = new Point(3, 741);
+			BtPageOrderUp.Name = "BtPageOrderUp";
+			BtPageOrderUp.Size = new Size(26, 23);
+			BtPageOrderUp.TabIndex = 46;
+			BtPageOrderUp.Text = "^";
+			BtPageOrderUp.UseVisualStyleBackColor = true;
+			BtPageOrderUp.Click += BtPageOrderUp_Click;
 			// 
 			// FrmBriefingFolder
 			// 
@@ -320,5 +348,7 @@
 		private Label LbName;
 		private SplitContainer ScMain;
 		private Label LbHeader;
+		private Button BtPageOrderDown;
+		private Button BtPageOrderUp;
 	}
 }

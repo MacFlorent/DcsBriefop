@@ -1,8 +1,6 @@
-﻿using CoordinateSharp;
-using DcsBriefop.Data;
+﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
-using DcsBriefop.DataMiz;
-using GMap.NET.WindowsForms;
+using System.Collections.Generic;
 
 namespace DcsBriefop.DataBopBriefing
 {
@@ -37,7 +35,6 @@ namespace DcsBriefop.DataBopBriefing
 		public BopBriefingPage AddPage(BopMission bopMission)
 		{
 			BopBriefingPage bopBriefingPage = new BopBriefingPage();
-			bopBriefingPage.Title = $"{Name}_{Pages.Count:000}";
 
 			bopBriefingPage.MapData.Zoom = PreferencesManager.Preferences.Map.Zoom;
 			if (bopMission.Coalitions.TryGetValue(CoalitionName, out BopCoalition bopCoalition))
@@ -58,7 +55,59 @@ namespace DcsBriefop.DataBopBriefing
 			Pages.Add(bopBriefingPage);
 			return bopBriefingPage;
 		}
+
+		public void OrderPage(BopBriefingPage bopBriefingPage, int iWay)
+		{
+			if (iWay < 0)
+				iWay = -1;
+			else
+				iWay = 1;
+
+			int iCurrentIndex = Pages.IndexOf(bopBriefingPage);
+			if (iCurrentIndex < 0)
+				return;
+
+			int iNewIndex = iCurrentIndex + iWay;
+			if (iNewIndex >= 0 && iNewIndex < Pages.Count)
+			{
+				Pages.Remove(bopBriefingPage);
+				Pages.Insert(iNewIndex, bopBriefingPage);
+			}
+		}
 		#endregion
+
+		public async Task<List<BopBriefingGeneratedFile>> GenerateFiles(BopMission bopMission)
+		{
+			List<BopBriefingGeneratedFile> files = new();
+			int iFolder = bopMission.BopBriefingFolders.IndexOf(this);
+			int iPage = 0;
+			foreach(BopBriefingPage page in Pages)
+			{
+				string sPageFileName = $"{iFolder:000}{Name}_{iPage:000}{page.Title}";
+
+				if (page.Render.HasFlag(ElementBriefingPageRender.Html))
+				{
+					BopBriefingGeneratedFile file = new BopBriefingGeneratedFile();
+					file.FileName = sPageFileName;
+					//file.FileDirectories.AddRange(AircraftTypes);
+					file.Image = await page.BuildHtmlImage(bopMission, this);
+					file.Html = page.BuildHtmlString(bopMission, this);
+
+					files.Add(file);
+				}
+				if (page.Render.HasFlag(ElementBriefingPageRender.Map))
+				{
+					BopBriefingGeneratedFile file = new BopBriefingGeneratedFile();
+					file.FileName = $"{sPageFileName}_map";
+					//file.FileDirectories.AddRange(AircraftTypes);
+					file.Image = page.BuildMapImage(bopMission, this);
+
+					files.Add(file);
+				}
+			}
+
+			return files;
+		}
 
 	}
 }

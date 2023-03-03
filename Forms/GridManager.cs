@@ -98,7 +98,7 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns.Add(dgvcComboBox);
 		}
 
-		protected void RefreshGridRows()
+		public void RefreshGridRows()
 		{
 			foreach (DataGridViewRow dgvr in m_dgv.Rows)
 				RefreshGridRow(dgvr);

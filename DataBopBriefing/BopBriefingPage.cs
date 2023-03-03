@@ -54,7 +54,8 @@ namespace DcsBriefop.DataBopBriefing
 			//	bopBriefingPart = new BopBriefingPartAirbases();
 			//else if (briefingPartType == ElementBriefingPartType.Image)
 			//	bopBriefingPart = new BopBriefingPartAirbases();
-
+			else if (briefingPartType == ElementBriefingPartType.Weather)
+				bopBriefingPart = new BopBriefingPartWeather();
 
 			if (bopBriefingPart is object)
 			{

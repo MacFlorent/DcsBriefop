@@ -1,7 +1,9 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.DataBopBriefing;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
+using System.Drawing.Imaging;
 using System.IO.Compression;
 
 namespace DcsBriefop
@@ -30,10 +32,6 @@ namespace DcsBriefop
 		#region Methods
 		public void MizLoad()
 		{
-			//var stopWatch = System.Diagnostics.Stopwatch.StartNew();
-			//Log.Debug("Initialize all briefing data start");
-			//stopWatch.Stop();
-			//Log.Debug($@"Initialize all briefing data end [{stopWatch.Elapsed:hh\:mm\:ss\.ff}]");
 			Log.Debug($"Start for miz file : {MizFilePath}");
 			string sMissionFilePath = null, sDictionaryFilePath = null, sCustomFilePath = null;
 
@@ -163,6 +161,38 @@ namespace DcsBriefop
 			sw.Close();
 		}
 
+		public async void GenerateBriefingFiles()
+		{
+			CleanFilesToPath();
+			List<BopBriefingGeneratedFile> files = await BopMission.GenerateBriefingFiles();
+			foreach(BopBriefingGeneratedFile file in files)
+			{
+				string sFinalFileName = $"bop_{file.FileName}";
+				string sPath = MizFileDirectory;
+
+				string sFileFullPath = Path.Combine(sPath, $"{sFinalFileName}.jpg");
+				if (File.Exists(sFileFullPath))
+					File.Delete(sFileFullPath);
+				file.Image.Save(sFileFullPath, ImageFormat.Jpeg);
+
+				if (!string.IsNullOrEmpty(file.Html) && PreferencesManager.Preferences.Briefing.GenerateDirectoryHtml)
+				{
+					sFileFullPath = Path.Combine(sPath, $"{sFinalFileName}.html");
+					if (File.Exists(sFileFullPath))
+						File.Delete(sFileFullPath);
+					File.WriteAllText(sFileFullPath, file.Html);
+				}
+			}
+		}
+
+		private void CleanFilesToPath()
+		{
+			DirectoryInfo di = new DirectoryInfo(MizFileDirectory);
+			foreach (FileInfo file in di.GetFiles().Where(_f => _f.Name.StartsWith("bop_")))
+			{
+				file.Delete();
+			}
+		}
 		#endregion
 	}
 }

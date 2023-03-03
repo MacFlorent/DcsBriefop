@@ -48,8 +48,6 @@ namespace DcsBriefop.Forms
 		#region Methods
 		private void DataToScreen()
 		{
-			m_gridManagerBriefingPages.SelectionChanged -= SelectionChangedEvent;
-
 			TbName.Text = m_bopBriefingFolder.Name;
 			CbCoalition.Text = m_bopBriefingFolder.CoalitionName;
 			CbWeatherDisplay.SelectedValue = (int)m_bopBriefingFolder.WeatherDisplay;
@@ -57,9 +55,16 @@ namespace DcsBriefop.Forms
 			MasterDataRepository.SetFlagCheckedListbox((int)m_bopBriefingFolder.CoordinateDisplay, LstCoordinateDisplay);
 			UcImageSize.SelectedSize = m_bopBriefingFolder.ImageSize;
 
-			m_gridManagerBriefingPages.Initialize();
+			DataToScreenGrid();
 			DataToScreenDetail();
 
+
+		}
+
+		private void DataToScreenGrid()
+		{
+			m_gridManagerBriefingPages.SelectionChanged -= SelectionChangedEvent;
+			m_gridManagerBriefingPages.Initialize();
 			m_gridManagerBriefingPages.SelectionChanged += SelectionChangedEvent;
 		}
 
@@ -110,6 +115,23 @@ namespace DcsBriefop.Forms
 		{
 			m_ucBriefingPage?.ScreenToData();
 		}
+
+		private void RemovePage()
+		{
+			m_bopBriefingFolder.Pages.Remove(m_gridManagerBriefingPages.GetSelectedElements().FirstOrDefault());
+			DataToScreenGrid();
+		}
+
+		private void OrderPage(int iWay)
+		{
+			BopBriefingPage selectedElement = m_gridManagerBriefingPages.GetSelectedElements().FirstOrDefault();
+			if (selectedElement is not null)
+			{
+				m_bopBriefingFolder.OrderPage(selectedElement, iWay);
+				m_gridManagerBriefingPages.Initialize();
+				m_gridManagerBriefingPages.SelectElement(selectedElement);
+			}
+		}
 		#endregion
 
 		#region Events
@@ -126,7 +148,33 @@ namespace DcsBriefop.Forms
 		private void SelectionChangedEvent(object sender, EventArgs e)
 		{
 			ScreenToDataDetail();
+			m_gridManagerBriefingPages.RefreshDataSourceRows();
 			DataToScreenDetail();
+		}
+
+		private void BtPageAdd_Click(object sender, EventArgs e)
+		{
+			BopBriefingPage bopBriefingPage = m_bopBriefingFolder.AddPage(m_bopMission);
+			DataToScreenGrid();
+			if (m_bopBriefingFolder.Pages.Count() == 1)
+				DataToScreenDetail();
+			else
+				m_gridManagerBriefingPages.SelectElement(bopBriefingPage);
+		}
+
+		private void BtPageRemove_Click(object sender, EventArgs e)
+		{
+			RemovePage();
+		}
+
+		private void BtPageOrderUp_Click(object sender, EventArgs e)
+		{
+			OrderPage(-1);
+		}
+
+		private void BtPageOrderDown_Click(object sender, EventArgs e)
+		{
+			OrderPage(1);
 		}
 		#endregion
 	}

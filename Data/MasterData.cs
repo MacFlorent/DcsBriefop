@@ -122,15 +122,16 @@ namespace DcsBriefop.Data
 		{
 			return new List<MasterData>()
 			{
-				new MasterData() { Id = (int)ElementBriefingPartType.Bullseye, Label = "Bullseye" },
-				new MasterData() { Id = (int)ElementBriefingPartType.Paragraph, Label = "Paragraph" },
-				new MasterData() { Id = (int) ElementBriefingPartType.Sortie, Label =  "Sortie" },
-				new MasterData() { Id = (int)ElementBriefingPartType.Description, Label = "Description" },
-				new MasterData() { Id = (int)ElementBriefingPartType.Task, Label = "Task" },
 				new MasterData() { Id = (int)ElementBriefingPartType.Airbases, Label = "Airbases" },
 				new MasterData() { Id = (int)ElementBriefingPartType.Groups, Label = "Groups" },
 				new MasterData() { Id = (int)ElementBriefingPartType.Units, Label = "Units" },
 				new MasterData() { Id = (int)ElementBriefingPartType.Waypoints, Label = "Waypoints" },
+				new MasterData() { Id = (int) ElementBriefingPartType.Sortie, Label =  "Sortie" },
+				new MasterData() { Id = (int)ElementBriefingPartType.Bullseye, Label = "Bullseye" },
+				new MasterData() { Id = (int)ElementBriefingPartType.Weather, Label = "Weather" },
+				new MasterData() { Id = (int)ElementBriefingPartType.Description, Label = "Description" },
+				new MasterData() { Id = (int)ElementBriefingPartType.Task, Label = "Task" },
+				new MasterData() { Id = (int)ElementBriefingPartType.Paragraph, Label = "Paragraph" },
 				new MasterData() { Id = (int)ElementBriefingPartType.Image, Label = "Image" }
 			};
 		}

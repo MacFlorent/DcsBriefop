@@ -41,6 +41,11 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Information, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Data, typeof(BopBriefingPartBase));
 
+			RefreshDataSourceRows();
+		}
+
+		public void RefreshDataSourceRows()
+		{
 			foreach (BopBriefingPartBase element in m_briefingParts)
 				RefreshDataSourceRow(element);
 		}

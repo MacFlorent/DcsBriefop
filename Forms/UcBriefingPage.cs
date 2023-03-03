@@ -71,6 +71,7 @@ namespace DcsBriefop.Forms
 			CkRenderHtml.Checked = (m_bopBriefingPage.Render & ElementBriefingPageRender.Html) != 0;
 			CkRenderMap.Checked = (m_bopBriefingPage.Render & ElementBriefingPageRender.Map) != 0;
 
+			m_gridManagerBriefingParts.BriefingParts = m_bopBriefingPage.Parts;
 			m_gridManagerBriefingParts.Initialize();
 
 			DisplayCurrentRender();
@@ -191,7 +192,11 @@ namespace DcsBriefop.Forms
 		{
 			BopBriefingPartBase newPart = m_bopBriefingPage.AddPart(partType);
 			m_gridManagerBriefingParts.Initialize();
-			m_gridManagerBriefingParts.SelectElement(newPart);
+			if (m_bopBriefingFolder.Pages.Count() == 1)
+				DataToScreenPart();
+			else
+				m_gridManagerBriefingParts.SelectElement(newPart);
+
 		}
 
 		private void RemovePart()
@@ -224,6 +229,7 @@ namespace DcsBriefop.Forms
 		private void SelectionChangedEvent(object sender, EventArgs e)
 		{
 			ScreenToDataPart();
+			m_gridManagerBriefingParts.RefreshDataSourceRows();
 			DataToScreenPart();
 		}
 

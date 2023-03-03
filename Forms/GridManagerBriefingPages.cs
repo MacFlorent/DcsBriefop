@@ -42,6 +42,11 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Render, typeof(ElementBriefingPageRender));
 			m_dtSource.Columns.Add(GridColumn.Data, typeof(BopBriefingPage));
 
+			RefreshDataSourceRows();
+		}
+
+		public void RefreshDataSourceRows()
+		{
 			foreach (BopBriefingPage element in m_briefingPages)
 				RefreshDataSourceRow(element);
 		}
@@ -77,18 +82,14 @@ namespace DcsBriefop.Forms
 			return GetSelectedDataRows().Select(_dr => _dr.Field<BopBriefingPage>(GridColumn.Data)).ToList();
 		}
 
-		//protected override void SelectionChanged()
-		//{
-		//	SelectionChangedTyped?.Invoke(this, new EventArgsBopBriefingPages() { BopBriefingPages = GetSelectedElements() });
-		//}
+		public void SelectElement(BopBriefingPage element)
+		{
+			DataGridViewRow rowToSelect = m_dgv.Rows.Cast<DataGridViewRow>().Where(_dgvr => (_dgvr.DataBoundItem as DataRowView)?.Row?.Field<BopBriefingPage>(GridColumn.Data) == element).FirstOrDefault();
+			SelectRow(rowToSelect);
+		}
 		#endregion
 
 		#region Events
-		//public class EventArgsBopBriefingPages : EventArgs
-		//{
-		//	public IEnumerable<BopBriefingPage> BopBriefingPages { get; set; }
-		//}
-		//public event EventHandler<EventArgsBopBriefingPages> SelectionChangedTyped;
 		#endregion
 	}
 }

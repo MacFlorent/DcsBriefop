@@ -165,9 +165,34 @@ namespace DcsBriefop.Forms
 			BriefingFolderDetail(bopBriefingFolder);
 		}
 
+		private void BtBriefingFolderDelete_Click(object sender, EventArgs e)
+		{
+			m_briefopManager.BopMission.BopBriefingFolders.Remove(m_gridManagerBriefingFolders.GetSelectedElements().FirstOrDefault());
+			DataToScreenFolders();
+		}
+
 		private void DgvBriefingFolders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 		{
 			BriefingFolderDetail();
+		}
+
+		private void GenerateBriefing()
+		{
+			m_briefopManager.GenerateBriefingFiles();
+		}
+
+		private void BtBriefingGenerate_MouseDown(object sender, MouseEventArgs e)
+		{
+			ContextMenuStrip menu = new ContextMenuStrip();
+			menu.Items.Clear();
+
+			menu.Items.AddMenuItem("In miz", (object _sender, EventArgs _e) => { GenerateBriefing(); });
+			menu.Items.AddMenuItem("In directory", (object _sender, EventArgs _e) => { GenerateBriefing(); });
+
+			if (menu.Items.Count > 0)
+			{
+				menu.Show(BtBriefingGenerate, new Point(0, BtBriefingGenerate.Height));
+			}
 		}
 		#endregion
 

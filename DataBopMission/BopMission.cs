@@ -143,6 +143,17 @@ namespace DcsBriefop.DataBopMission
 				bopGroupFlight.SetBullseyeRoutePoint(Coalitions[bopGroupFlight.CoalitionName]);
 			}
 		}
-		#endregion
-	}
+
+		public async Task<List<BopBriefingGeneratedFile>> GenerateBriefingFiles()
+		{
+			List<BopBriefingGeneratedFile> files = new();
+			foreach(BopBriefingFolder folder in BopBriefingFolders)
+			{
+				files.AddRange(await folder.GenerateFiles(this));
+			}
+
+			return files;
+		}
+			#endregion
+		}
 }

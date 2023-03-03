@@ -16,6 +16,11 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Methods
+		public override string ToStringAdditional()
+		{
+			return WithDescription ? "With description" : "";
+		}
+
 		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();

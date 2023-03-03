@@ -16,7 +16,7 @@ namespace DcsBriefop.DataBopBriefing
 
 		public override string ToStringAdditional()
 		{
-			return Header ?? "-no header-";
+			return Header ?? "";
 		}
 
 		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
