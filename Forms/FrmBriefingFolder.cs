@@ -2,6 +2,7 @@
 using DcsBriefop.DataBopBriefing;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
+using System.Collections.Generic;
 
 namespace DcsBriefop.Forms
 {
@@ -33,6 +34,17 @@ namespace DcsBriefop.Forms
 			MasterDataRepository.FillCombo(MasterDataType.MeasurementSystem, CbMeasurementSystem, null);
 			MasterDataRepository.FillListBox(MasterDataType.CoordinateDisplay, LstCoordinateDisplay);
 
+			List<DcsObject> unitTypes = new();
+			foreach (string sType in bopMission.Groups.Where(_g => _g.Playable && (m_bopBriefingFolder.CoalitionName is null || _g.CoalitionName == m_bopBriefingFolder.CoalitionName)).Select(_g => _g.Type).Distinct())
+			{
+				unitTypes.Add(DcsObjectManager.GetObject(sType));
+			}
+
+			LstUnitTypes.ValueMember = "TypeName";
+			LstUnitTypes.DisplayMember = "DisplayName";
+			LstUnitTypes.DataSource = unitTypes;
+
+
 			m_gridManagerBriefingPages = new GridManagerBriefingPages(DgvPages, m_bopBriefingFolder.Pages);
 			m_gridManagerBriefingPages.SelectionChanged += SelectionChangedEvent;
 		}
@@ -55,13 +67,11 @@ namespace DcsBriefop.Forms
 			MasterDataRepository.SetFlagCheckedListbox((int)m_bopBriefingFolder.CoordinateDisplay, LstCoordinateDisplay);
 			UcImageSize.SelectedSize = m_bopBriefingFolder.ImageSize;
 
-			DataToScreenGrid();
+			DataToScreenGridPages();
 			DataToScreenDetail();
-
-
 		}
 
-		private void DataToScreenGrid()
+		private void DataToScreenGridPages()
 		{
 			m_gridManagerBriefingPages.SelectionChanged -= SelectionChangedEvent;
 			m_gridManagerBriefingPages.Initialize();
@@ -116,10 +126,22 @@ namespace DcsBriefop.Forms
 			m_ucBriefingPage?.ScreenToData();
 		}
 
+		private void AddPage()
+		{
+			BopBriefingPage bopBriefingPage = m_bopBriefingFolder.AddPage(m_bopMission);
+			DataToScreenGridPages();
+			if (m_bopBriefingFolder.Pages.Count() == 1)
+				DataToScreenDetail();
+			else
+				m_gridManagerBriefingPages.SelectElement(bopBriefingPage);
+		}
+
+
 		private void RemovePage()
 		{
 			m_bopBriefingFolder.Pages.Remove(m_gridManagerBriefingPages.GetSelectedElements().FirstOrDefault());
-			DataToScreenGrid();
+			DataToScreenGridPages();
+			DataToScreenDetail();
 		}
 
 		private void OrderPage(int iWay)
@@ -154,12 +176,7 @@ namespace DcsBriefop.Forms
 
 		private void BtPageAdd_Click(object sender, EventArgs e)
 		{
-			BopBriefingPage bopBriefingPage = m_bopBriefingFolder.AddPage(m_bopMission);
-			DataToScreenGrid();
-			if (m_bopBriefingFolder.Pages.Count() == 1)
-				DataToScreenDetail();
-			else
-				m_gridManagerBriefingPages.SelectElement(bopBriefingPage);
+			AddPage();
 		}
 
 		private void BtPageRemove_Click(object sender, EventArgs e)

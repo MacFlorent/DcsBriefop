@@ -1,4 +1,5 @@
-﻿using DcsBriefop.DataBopBriefing;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataBopBriefing;
 using DcsBriefop.Tools;
 using System.Diagnostics;
 
@@ -176,9 +177,13 @@ namespace DcsBriefop.Forms
 			BriefingFolderDetail();
 		}
 
-		private void GenerateBriefing()
+		private async void GenerateBriefing(ElementBriefingGeneration briefingGeneration)
 		{
-			m_briefopManager.GenerateBriefingFiles();
+			using (new WaitDialog(ParentForm))
+			{
+				await m_briefopManager.GenerateBriefingFiles(briefingGeneration);
+			}
+
 		}
 
 		private void BtBriefingGenerate_MouseDown(object sender, MouseEventArgs e)
@@ -186,8 +191,8 @@ namespace DcsBriefop.Forms
 			ContextMenuStrip menu = new ContextMenuStrip();
 			menu.Items.Clear();
 
-			menu.Items.AddMenuItem("In miz", (object _sender, EventArgs _e) => { GenerateBriefing(); });
-			menu.Items.AddMenuItem("In directory", (object _sender, EventArgs _e) => { GenerateBriefing(); });
+			menu.Items.AddMenuItem("In miz", (object _sender, EventArgs _e) => { GenerateBriefing(ElementBriefingGeneration.Miz); });
+			menu.Items.AddMenuItem("In directory", (object _sender, EventArgs _e) => { GenerateBriefing(ElementBriefingGeneration.Directory); });
 
 			if (menu.Items.Count > 0)
 			{

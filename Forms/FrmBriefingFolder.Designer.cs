@@ -42,24 +42,30 @@
 			LbWeatherDisplay = new Label();
 			CbCoalition = new ComboBox();
 			LbCoalition = new Label();
-			TbUnitTypes = new TextBox();
 			LbUnitTypes = new Label();
 			TbName = new TextBox();
 			LbName = new Label();
 			ScMain = new SplitContainer();
-			LbHeader = new Label();
+			TlGrids = new TableLayoutPanel();
+			PnGridUnitTypes = new Panel();
+			PnGridsPages = new Panel();
 			BtPageOrderDown = new Button();
 			BtPageOrderUp = new Button();
+			LbHeader = new Label();
+			LstUnitTypes = new CheckedListBox();
 			((System.ComponentModel.ISupportInitialize)DgvPages).BeginInit();
 			((System.ComponentModel.ISupportInitialize)ScMain).BeginInit();
 			ScMain.Panel1.SuspendLayout();
 			ScMain.SuspendLayout();
+			TlGrids.SuspendLayout();
+			PnGridUnitTypes.SuspendLayout();
+			PnGridsPages.SuspendLayout();
 			SuspendLayout();
 			// 
 			// BtPageRemove
 			// 
 			BtPageRemove.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtPageRemove.Location = new Point(210, 741);
+			BtPageRemove.Location = new Point(207, 264);
 			BtPageRemove.Name = "BtPageRemove";
 			BtPageRemove.Size = new Size(75, 23);
 			BtPageRemove.TabIndex = 41;
@@ -70,7 +76,7 @@
 			// BtPageAdd
 			// 
 			BtPageAdd.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtPageAdd.Location = new Point(129, 741);
+			BtPageAdd.Location = new Point(126, 264);
 			BtPageAdd.Name = "BtPageAdd";
 			BtPageAdd.Size = new Size(75, 23);
 			BtPageAdd.TabIndex = 40;
@@ -84,18 +90,18 @@
 			DgvPages.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			DgvPages.FilterAndSortEnabled = true;
 			DgvPages.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			DgvPages.Location = new Point(3, 309);
+			DgvPages.Location = new Point(0, 19);
 			DgvPages.Name = "DgvPages";
 			DgvPages.RightToLeft = RightToLeft.No;
 			DgvPages.RowTemplate.Height = 25;
-			DgvPages.Size = new Size(282, 426);
+			DgvPages.Size = new Size(283, 243);
 			DgvPages.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvPages.TabIndex = 39;
 			// 
 			// LbPages
 			// 
 			LbPages.AutoSize = true;
-			LbPages.Location = new Point(11, 291);
+			LbPages.Location = new Point(0, 0);
 			LbPages.Margin = new Padding(4, 0, 4, 0);
 			LbPages.Name = "LbPages";
 			LbPages.Size = new Size(38, 15);
@@ -105,7 +111,7 @@
 			// LbBriefingImageSize
 			// 
 			LbBriefingImageSize.AutoSize = true;
-			LbBriefingImageSize.Location = new Point(12, 243);
+			LbBriefingImageSize.Location = new Point(13, 231);
 			LbBriefingImageSize.Margin = new Padding(4, 0, 4, 0);
 			LbBriefingImageSize.Name = "LbBriefingImageSize";
 			LbBriefingImageSize.Size = new Size(62, 15);
@@ -115,7 +121,7 @@
 			// UcImageSize
 			// 
 			UcImageSize.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			UcImageSize.Location = new Point(12, 261);
+			UcImageSize.Location = new Point(12, 249);
 			UcImageSize.Margin = new Padding(4, 3, 4, 3);
 			UcImageSize.Name = "UcImageSize";
 			UcImageSize.SelectedSize = new Size(1, 1);
@@ -126,7 +132,7 @@
 			// 
 			CbMeasurementSystem.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			CbMeasurementSystem.FormattingEnabled = true;
-			CbMeasurementSystem.Location = new Point(138, 152);
+			CbMeasurementSystem.Location = new Point(139, 140);
 			CbMeasurementSystem.Margin = new Padding(4, 3, 4, 3);
 			CbMeasurementSystem.Name = "CbMeasurementSystem";
 			CbMeasurementSystem.Size = new Size(147, 23);
@@ -135,7 +141,7 @@
 			// LbMeasurementSystem
 			// 
 			LbMeasurementSystem.AutoSize = true;
-			LbMeasurementSystem.Location = new Point(12, 156);
+			LbMeasurementSystem.Location = new Point(13, 144);
 			LbMeasurementSystem.Margin = new Padding(4, 0, 4, 0);
 			LbMeasurementSystem.Name = "LbMeasurementSystem";
 			LbMeasurementSystem.Size = new Size(120, 15);
@@ -146,7 +152,7 @@
 			// 
 			LstCoordinateDisplay.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			LstCoordinateDisplay.FormattingEnabled = true;
-			LstCoordinateDisplay.Location = new Point(138, 181);
+			LstCoordinateDisplay.Location = new Point(139, 169);
 			LstCoordinateDisplay.Margin = new Padding(4, 3, 4, 3);
 			LstCoordinateDisplay.Name = "LstCoordinateDisplay";
 			LstCoordinateDisplay.Size = new Size(147, 58);
@@ -156,7 +162,7 @@
 			// 
 			CbWeatherDisplay.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			CbWeatherDisplay.FormattingEnabled = true;
-			CbWeatherDisplay.Location = new Point(138, 123);
+			CbWeatherDisplay.Location = new Point(139, 111);
 			CbWeatherDisplay.Margin = new Padding(4, 3, 4, 3);
 			CbWeatherDisplay.Name = "CbWeatherDisplay";
 			CbWeatherDisplay.Size = new Size(147, 23);
@@ -165,7 +171,7 @@
 			// LbCoordinateDisplay
 			// 
 			LbCoordinateDisplay.AutoSize = true;
-			LbCoordinateDisplay.Location = new Point(12, 181);
+			LbCoordinateDisplay.Location = new Point(13, 169);
 			LbCoordinateDisplay.Margin = new Padding(4, 0, 4, 0);
 			LbCoordinateDisplay.Name = "LbCoordinateDisplay";
 			LbCoordinateDisplay.Size = new Size(106, 15);
@@ -175,7 +181,7 @@
 			// LbWeatherDisplay
 			// 
 			LbWeatherDisplay.AutoSize = true;
-			LbWeatherDisplay.Location = new Point(11, 131);
+			LbWeatherDisplay.Location = new Point(12, 119);
 			LbWeatherDisplay.Margin = new Padding(4, 0, 4, 0);
 			LbWeatherDisplay.Name = "LbWeatherDisplay";
 			LbWeatherDisplay.Size = new Size(91, 15);
@@ -186,7 +192,7 @@
 			// 
 			CbCoalition.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			CbCoalition.FormattingEnabled = true;
-			CbCoalition.Location = new Point(138, 94);
+			CbCoalition.Location = new Point(139, 82);
 			CbCoalition.Name = "CbCoalition";
 			CbCoalition.Size = new Size(147, 23);
 			CbCoalition.TabIndex = 5;
@@ -194,24 +200,16 @@
 			// LbCoalition
 			// 
 			LbCoalition.AutoSize = true;
-			LbCoalition.Location = new Point(12, 97);
+			LbCoalition.Location = new Point(13, 85);
 			LbCoalition.Name = "LbCoalition";
 			LbCoalition.Size = new Size(55, 15);
 			LbCoalition.TabIndex = 4;
 			LbCoalition.Text = "Coalition";
 			// 
-			// TbUnitTypes
-			// 
-			TbUnitTypes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbUnitTypes.Location = new Point(138, 65);
-			TbUnitTypes.Name = "TbUnitTypes";
-			TbUnitTypes.Size = new Size(147, 23);
-			TbUnitTypes.TabIndex = 3;
-			// 
 			// LbUnitTypes
 			// 
 			LbUnitTypes.AutoSize = true;
-			LbUnitTypes.Location = new Point(11, 68);
+			LbUnitTypes.Location = new Point(0, 0);
 			LbUnitTypes.Name = "LbUnitTypes";
 			LbUnitTypes.Size = new Size(60, 15);
 			LbUnitTypes.TabIndex = 2;
@@ -228,7 +226,7 @@
 			// LbName
 			// 
 			LbName.AutoSize = true;
-			LbName.Location = new Point(12, 39);
+			LbName.Location = new Point(11, 39);
 			LbName.Name = "LbName";
 			LbName.Size = new Size(39, 15);
 			LbName.TabIndex = 0;
@@ -244,13 +242,8 @@
 			// 
 			// ScMain.Panel1
 			// 
-			ScMain.Panel1.Controls.Add(BtPageOrderDown);
-			ScMain.Panel1.Controls.Add(BtPageOrderUp);
+			ScMain.Panel1.Controls.Add(TlGrids);
 			ScMain.Panel1.Controls.Add(LbHeader);
-			ScMain.Panel1.Controls.Add(BtPageRemove);
-			ScMain.Panel1.Controls.Add(BtPageAdd);
-			ScMain.Panel1.Controls.Add(DgvPages);
-			ScMain.Panel1.Controls.Add(LbPages);
 			ScMain.Panel1.Controls.Add(LbBriefingImageSize);
 			ScMain.Panel1.Controls.Add(UcImageSize);
 			ScMain.Panel1.Controls.Add(CbMeasurementSystem);
@@ -261,18 +254,77 @@
 			ScMain.Panel1.Controls.Add(LbWeatherDisplay);
 			ScMain.Panel1.Controls.Add(CbCoalition);
 			ScMain.Panel1.Controls.Add(LbCoalition);
-			ScMain.Panel1.Controls.Add(TbUnitTypes);
-			ScMain.Panel1.Controls.Add(LbUnitTypes);
 			ScMain.Panel1.Controls.Add(TbName);
 			ScMain.Panel1.Controls.Add(LbName);
 			// 
 			// ScMain.Panel2
 			// 
 			ScMain.Panel2.AutoScroll = true;
-			ScMain.Size = new Size(1179, 769);
+			ScMain.Size = new Size(1179, 764);
 			ScMain.SplitterDistance = 291;
 			ScMain.SplitterWidth = 5;
 			ScMain.TabIndex = 2;
+			// 
+			// TlGrids
+			// 
+			TlGrids.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			TlGrids.ColumnCount = 1;
+			TlGrids.ColumnStyles.Add(new ColumnStyle());
+			TlGrids.Controls.Add(PnGridUnitTypes, 0, 0);
+			TlGrids.Controls.Add(PnGridsPages, 0, 1);
+			TlGrids.Location = new Point(0, 276);
+			TlGrids.Name = "TlGrids";
+			TlGrids.RowCount = 2;
+			TlGrids.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
+			TlGrids.RowStyles.Add(new RowStyle(SizeType.Percent, 60F));
+			TlGrids.Size = new Size(289, 487);
+			TlGrids.TabIndex = 49;
+			// 
+			// PnGridUnitTypes
+			// 
+			PnGridUnitTypes.Controls.Add(LstUnitTypes);
+			PnGridUnitTypes.Controls.Add(LbUnitTypes);
+			PnGridUnitTypes.Dock = DockStyle.Fill;
+			PnGridUnitTypes.Location = new Point(3, 3);
+			PnGridUnitTypes.Name = "PnGridUnitTypes";
+			PnGridUnitTypes.Size = new Size(283, 188);
+			PnGridUnitTypes.TabIndex = 0;
+			// 
+			// PnGridsPages
+			// 
+			PnGridsPages.Controls.Add(LbPages);
+			PnGridsPages.Controls.Add(BtPageOrderDown);
+			PnGridsPages.Controls.Add(BtPageRemove);
+			PnGridsPages.Controls.Add(BtPageOrderUp);
+			PnGridsPages.Controls.Add(BtPageAdd);
+			PnGridsPages.Controls.Add(DgvPages);
+			PnGridsPages.Dock = DockStyle.Fill;
+			PnGridsPages.Location = new Point(3, 197);
+			PnGridsPages.Name = "PnGridsPages";
+			PnGridsPages.Size = new Size(283, 287);
+			PnGridsPages.TabIndex = 1;
+			// 
+			// BtPageOrderDown
+			// 
+			BtPageOrderDown.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			BtPageOrderDown.Location = new Point(34, 264);
+			BtPageOrderDown.Name = "BtPageOrderDown";
+			BtPageOrderDown.Size = new Size(26, 23);
+			BtPageOrderDown.TabIndex = 47;
+			BtPageOrderDown.Text = "v";
+			BtPageOrderDown.UseVisualStyleBackColor = true;
+			BtPageOrderDown.Click += BtPageOrderDown_Click;
+			// 
+			// BtPageOrderUp
+			// 
+			BtPageOrderUp.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			BtPageOrderUp.Location = new Point(2, 264);
+			BtPageOrderUp.Name = "BtPageOrderUp";
+			BtPageOrderUp.Size = new Size(26, 23);
+			BtPageOrderUp.TabIndex = 46;
+			BtPageOrderUp.Text = "^";
+			BtPageOrderUp.UseVisualStyleBackColor = true;
+			BtPageOrderUp.Click += BtPageOrderUp_Click;
 			// 
 			// LbHeader
 			// 
@@ -284,33 +336,21 @@
 			LbHeader.Text = "Folder";
 			LbHeader.TextAlign = ContentAlignment.MiddleCenter;
 			// 
-			// BtPageOrderDown
+			// LstUnitTypes
 			// 
-			BtPageOrderDown.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			BtPageOrderDown.Location = new Point(35, 741);
-			BtPageOrderDown.Name = "BtPageOrderDown";
-			BtPageOrderDown.Size = new Size(26, 23);
-			BtPageOrderDown.TabIndex = 47;
-			BtPageOrderDown.Text = "v";
-			BtPageOrderDown.UseVisualStyleBackColor = true;
-			BtPageOrderDown.Click += BtPageOrderDown_Click;
-			// 
-			// BtPageOrderUp
-			// 
-			BtPageOrderUp.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			BtPageOrderUp.Location = new Point(3, 741);
-			BtPageOrderUp.Name = "BtPageOrderUp";
-			BtPageOrderUp.Size = new Size(26, 23);
-			BtPageOrderUp.TabIndex = 46;
-			BtPageOrderUp.Text = "^";
-			BtPageOrderUp.UseVisualStyleBackColor = true;
-			BtPageOrderUp.Click += BtPageOrderUp_Click;
+			LstUnitTypes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			LstUnitTypes.FormattingEnabled = true;
+			LstUnitTypes.Location = new Point(2, 33);
+			LstUnitTypes.Margin = new Padding(4, 3, 4, 3);
+			LstUnitTypes.Name = "LstUnitTypes";
+			LstUnitTypes.Size = new Size(262, 148);
+			LstUnitTypes.TabIndex = 34;
 			// 
 			// FrmBriefingFolder
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(1179, 769);
+			ClientSize = new Size(1179, 764);
 			Controls.Add(ScMain);
 			FormBorderStyle = FormBorderStyle.SizableToolWindow;
 			Name = "FrmBriefingFolder";
@@ -323,6 +363,11 @@
 			ScMain.Panel1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)ScMain).EndInit();
 			ScMain.ResumeLayout(false);
+			TlGrids.ResumeLayout(false);
+			PnGridUnitTypes.ResumeLayout(false);
+			PnGridUnitTypes.PerformLayout();
+			PnGridsPages.ResumeLayout(false);
+			PnGridsPages.PerformLayout();
 			ResumeLayout(false);
 		}
 
@@ -342,7 +387,6 @@
 		private Label LbWeatherDisplay;
 		private ComboBox CbCoalition;
 		private Label LbCoalition;
-		private TextBox TbUnitTypes;
 		private Label LbUnitTypes;
 		private TextBox TbName;
 		private Label LbName;
@@ -350,5 +394,9 @@
 		private Label LbHeader;
 		private Button BtPageOrderDown;
 		private Button BtPageOrderUp;
+		private TableLayoutPanel TlGrids;
+		private Panel PnGridUnitTypes;
+		private Panel PnGridsPages;
+		private CheckedListBox LstUnitTypes;
 	}
 }

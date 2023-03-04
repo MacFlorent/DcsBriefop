@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Forms;
 using DcsBriefop.Tools;
 using GMap.NET;
+using GMap.NET.WindowsForms;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
@@ -14,7 +15,9 @@ namespace DcsBriefop
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			InitializeCulture();
+
 			GMaps.Instance.Mode = AccessMode.ServerOnly; // the program has trouble terminating all its threads in cached mode, don't know why, better stick to server only for now
+			GMapImageProxy.Enable();
 
 			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);

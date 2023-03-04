@@ -79,11 +79,14 @@ namespace DcsBriefop.DataBopBriefing
 		public async Task<List<BopBriefingGeneratedFile>> GenerateFiles(BopMission bopMission)
 		{
 			List<BopBriefingGeneratedFile> files = new();
-			int iFolder = bopMission.BopBriefingFolders.IndexOf(this);
+			string sFolderName = Name;
+			if (string.IsNullOrEmpty(sFolderName))
+				sFolderName = $"{bopMission.BopBriefingFolders.IndexOf(this):000}";
+
 			int iPage = 0;
 			foreach(BopBriefingPage page in Pages)
 			{
-				string sPageFileName = $"{iFolder:000}{Name}_{iPage:000}{page.Title}";
+				string sPageFileName = $"{sFolderName}_{iPage:000}{page.Title}";
 
 				if (page.Render.HasFlag(ElementBriefingPageRender.Html))
 				{
@@ -104,6 +107,8 @@ namespace DcsBriefop.DataBopBriefing
 
 					files.Add(file);
 				}
+
+				iPage++;
 			}
 
 			return files;

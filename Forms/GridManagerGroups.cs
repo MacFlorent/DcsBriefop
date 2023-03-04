@@ -99,11 +99,6 @@ namespace DcsBriefop.Forms
 			return GetSelectedDataRows().Select(_dr => _dr.Field<BopGroup>(GridColumn.Data)).ToList();
 		}
 
-		//protected override void SelectionChanged()
-		//{
-		//	SelectionChangedTyped?.Invoke(this, new EventArgsBopGroups() { BopGroups = GetSelected() });
-		//}
-
 		protected override void CellEndEditInternal(DataGridView dgv, DataGridViewCell dgvc)
 		{
 			BopGroup element = dgvc.OwningRow.Cells[GridColumn.Data].Value as BopGroup;
@@ -129,11 +124,6 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
-		//public class EventArgsBopGroups : EventArgs
-		//{
-		//	public IEnumerable<BopGroup> BopGroups { get; set; }
-		//}
-		//public event EventHandler<EventArgsBopGroups> SelectionChangedTyped;
 		#endregion
 	}
 }

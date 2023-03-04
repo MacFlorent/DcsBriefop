@@ -86,6 +86,14 @@
 		Weather
 	}
 
+	[Flags]
+	internal enum ElementBriefingGeneration
+	{
+		None = 0,
+		Miz = 1,
+		Directory = 2
+	}
+
 	internal static class ElementGlobalData
 	{
 		public static readonly string ResourcesDirectory = "Resources";

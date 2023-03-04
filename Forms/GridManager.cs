@@ -1,9 +1,6 @@
-﻿using DcsBriefop.Data;
-using DcsBriefop.DataBopMission;
-using DcsBriefop.Tools;
+﻿using DcsBriefop.Tools;
 using System.ComponentModel;
 using System.Data;
-using static DcsBriefop.Forms.GridManagerAirbases;
 
 namespace DcsBriefop.Forms
 {

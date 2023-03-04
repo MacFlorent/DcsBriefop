@@ -95,7 +95,7 @@ namespace DcsBriefop.DataBopBriefing
 				ScreenshotOptions screenshotOptions = new ScreenshotOptions() { Type = ScreenshotType.Png };
 				ViewPortOptions viewPortOptions = new ViewPortOptions() { Height = bopBriefingFolder.ImageSize.Height, Width = bopBriefingFolder.ImageSize.Width };
 
-				image = await renderer.RenderImageAsync(sHtml, screenshotOptions, viewPortOptions);
+				image = await renderer.RenderImageAsync(sHtml, screenshotOptions, viewPortOptions); // ConfigureAwait(false); https://devblogs.microsoft.com/dotnet/configureawait-faq/
 			}
 
 			return image;

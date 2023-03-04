@@ -11,6 +11,7 @@ namespace DcsBriefop
 	internal class BriefopManager
 	{
 		#region Fields
+		private static readonly string m_sBriefingFilePrefix = "bop_";
 		#endregion
 
 		#region Properties
@@ -29,7 +30,7 @@ namespace DcsBriefop
 		}
 		#endregion
 
-		#region Methods
+		#region Miz
 		public void MizLoad()
 		{
 			Log.Debug($"Start for miz file : {MizFilePath}");
@@ -137,7 +138,7 @@ namespace DcsBriefop
 			}
 
 			// DEBUG
-			string sDebugFilePath = Path.Combine(Path.GetDirectoryName (sFilePath), $"{MizFileName}_{Miz.BopCustomFileName}.json");
+			string sDebugFilePath = Path.Combine(Path.GetDirectoryName(sFilePath), $"{MizFileName}_{Miz.BopCustomFileName}.json");
 			File.WriteAllText(sDebugFilePath, BopMission.Miz.MizBopCustom.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
 			//			
 
@@ -160,35 +161,56 @@ namespace DcsBriefop
 			sw.Write(sCommandFileContent);
 			sw.Close();
 		}
+		#endregion
 
-		public async void GenerateBriefingFiles()
+		#region Briefing generation
+		public async Task GenerateBriefingFiles(ElementBriefingGeneration briefingGeneration)
 		{
-			CleanFilesToPath();
+			CleanBriefingFilesMiz();
+			CleanBriefingFilesDirectory();
+
 			List<BopBriefingGeneratedFile> files = await BopMission.GenerateBriefingFiles();
-			foreach(BopBriefingGeneratedFile file in files)
+			foreach (BopBriefingGeneratedFile file in files)
 			{
-				string sFinalFileName = $"bop_{file.FileName}";
-				string sPath = MizFileDirectory;
+				string sFinalFileName = $"{m_sBriefingFilePrefix}{file.FileName}";
 
-				string sFileFullPath = Path.Combine(sPath, $"{sFinalFileName}.jpg");
-				if (File.Exists(sFileFullPath))
-					File.Delete(sFileFullPath);
-				file.Image.Save(sFileFullPath, ImageFormat.Jpeg);
-
-				if (!string.IsNullOrEmpty(file.Html) && PreferencesManager.Preferences.Briefing.GenerateDirectoryHtml)
-				{
-					sFileFullPath = Path.Combine(sPath, $"{sFinalFileName}.html");
-					if (File.Exists(sFileFullPath))
-						File.Delete(sFileFullPath);
-					File.WriteAllText(sFileFullPath, file.Html);
-				}
+				if (briefingGeneration.HasFlag(ElementBriefingGeneration.Miz))
+					GenerateBriefingFileMiz(file, sFinalFileName);
+				if (briefingGeneration.HasFlag(ElementBriefingGeneration.Directory))
+					GenerateBriefingFileDirectory(file, sFinalFileName);
 			}
 		}
 
-		private void CleanFilesToPath()
+		private void GenerateBriefingFileMiz(BopBriefingGeneratedFile file, string sFinalFileName)
+		{
+		}
+
+		private void CleanBriefingFilesMiz()
+		{
+		}
+
+		private void GenerateBriefingFileDirectory(BopBriefingGeneratedFile file, string sFinalFileName)
+		{
+			string sPath = MizFileDirectory;
+
+			string sFileFullPath = Path.Combine(sPath, $"{sFinalFileName}.jpg");
+			if (File.Exists(sFileFullPath))
+				File.Delete(sFileFullPath);
+			file.Image.Save(sFileFullPath, ImageFormat.Jpeg);
+
+			if (!string.IsNullOrEmpty(file.Html) && PreferencesManager.Preferences.Briefing.GenerateDirectoryHtml)
+			{
+				sFileFullPath = Path.Combine(sPath, $"{sFinalFileName}.html");
+				if (File.Exists(sFileFullPath))
+					File.Delete(sFileFullPath);
+				File.WriteAllText(sFileFullPath, file.Html);
+			}
+		}
+
+		private void CleanBriefingFilesDirectory()
 		{
 			DirectoryInfo di = new DirectoryInfo(MizFileDirectory);
-			foreach (FileInfo file in di.GetFiles().Where(_f => _f.Name.StartsWith("bop_")))
+			foreach (FileInfo file in di.GetFiles().Where(_f => _f.Name.StartsWith(m_sBriefingFilePrefix)))
 			{
 				file.Delete();
 			}

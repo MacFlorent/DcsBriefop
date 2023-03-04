@@ -29,72 +29,75 @@ namespace DcsBriefop.Forms
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.PbWait = new System.Windows.Forms.PictureBox();
-			this.LbElapsed = new System.Windows.Forms.Label();
-			this.PnMain = new System.Windows.Forms.Panel();
-			((System.ComponentModel.ISupportInitialize)(this.PbWait)).BeginInit();
-			this.PnMain.SuspendLayout();
-			this.SuspendLayout();
+			PbWait = new PictureBox();
+			LbElapsed = new Label();
+			PnMain = new Panel();
+			((System.ComponentModel.ISupportInitialize)PbWait).BeginInit();
+			PnMain.SuspendLayout();
+			SuspendLayout();
 			// 
 			// PbWait
 			// 
-			this.PbWait.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.PbWait.Location = new System.Drawing.Point(0, 0);
-			this.PbWait.Name = "PbWait";
-			this.PbWait.Size = new System.Drawing.Size(131, 128);
-			this.PbWait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-			this.PbWait.TabIndex = 0;
-			this.PbWait.TabStop = false;
-			this.PbWait.UseWaitCursor = true;
+			PbWait.Dock = DockStyle.Fill;
+			PbWait.Location = new Point(0, 0);
+			PbWait.Margin = new Padding(4, 3, 4, 3);
+			PbWait.Name = "PbWait";
+			PbWait.Size = new Size(153, 148);
+			PbWait.SizeMode = PictureBoxSizeMode.StretchImage;
+			PbWait.TabIndex = 0;
+			PbWait.TabStop = false;
+			PbWait.UseWaitCursor = true;
 			// 
 			// LbElapsed
 			// 
-			this.LbElapsed.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.LbElapsed.Location = new System.Drawing.Point(0, 128);
-			this.LbElapsed.Name = "LbElapsed";
-			this.LbElapsed.Size = new System.Drawing.Size(131, 19);
-			this.LbElapsed.TabIndex = 1;
-			this.LbElapsed.Text = "Elapsed";
-			this.LbElapsed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.LbElapsed.UseWaitCursor = true;
+			LbElapsed.Dock = DockStyle.Bottom;
+			LbElapsed.Location = new Point(0, 148);
+			LbElapsed.Margin = new Padding(4, 0, 4, 0);
+			LbElapsed.Name = "LbElapsed";
+			LbElapsed.Size = new Size(153, 22);
+			LbElapsed.TabIndex = 1;
+			LbElapsed.Text = "Elapsed";
+			LbElapsed.TextAlign = ContentAlignment.MiddleCenter;
+			LbElapsed.UseWaitCursor = true;
 			// 
 			// PnMain
 			// 
-			this.PnMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.PnMain.Controls.Add(this.PbWait);
-			this.PnMain.Controls.Add(this.LbElapsed);
-			this.PnMain.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.PnMain.Location = new System.Drawing.Point(0, 0);
-			this.PnMain.Name = "PnMain";
-			this.PnMain.Size = new System.Drawing.Size(133, 149);
-			this.PnMain.TabIndex = 2;
-			this.PnMain.UseWaitCursor = true;
+			PnMain.BorderStyle = BorderStyle.FixedSingle;
+			PnMain.Controls.Add(PbWait);
+			PnMain.Controls.Add(LbElapsed);
+			PnMain.Dock = DockStyle.Fill;
+			PnMain.Location = new Point(0, 0);
+			PnMain.Margin = new Padding(4, 3, 4, 3);
+			PnMain.Name = "PnMain";
+			PnMain.Size = new Size(155, 172);
+			PnMain.TabIndex = 2;
+			PnMain.UseWaitCursor = true;
 			// 
 			// FrmWait
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(133, 149);
-			this.ControlBox = false;
-			this.Controls.Add(this.PnMain);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.Name = "FrmWait";
-			this.ShowIcon = false;
-			this.ShowInTaskbar = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "FrmWait";
-			this.UseWaitCursor = true;
-			this.Load += new System.EventHandler(this.FrmWait_Load);
-			((System.ComponentModel.ISupportInitialize)(this.PbWait)).EndInit();
-			this.PnMain.ResumeLayout(false);
-			this.ResumeLayout(false);
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			ClientSize = new Size(155, 172);
+			ControlBox = false;
+			Controls.Add(PnMain);
+			FormBorderStyle = FormBorderStyle.None;
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "FrmWait";
+			ShowIcon = false;
+			ShowInTaskbar = false;
+			StartPosition = FormStartPosition.CenterScreen;
+			Text = "FrmWait";
+			UseWaitCursor = true;
+			Load += FrmWait_Load;
+			((System.ComponentModel.ISupportInitialize)PbWait).EndInit();
+			PnMain.ResumeLayout(false);
+			ResumeLayout(false);
 		}
 
 		#endregion
 
 		private System.Windows.Forms.PictureBox PbWait;
 		private System.Windows.Forms.Label LbElapsed;
-        private System.Windows.Forms.Panel PnMain;
-    }
+		private System.Windows.Forms.Panel PnMain;
+	}
 }

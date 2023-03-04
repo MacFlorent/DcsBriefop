@@ -192,11 +192,10 @@ namespace DcsBriefop.Forms
 		{
 			BopBriefingPartBase newPart = m_bopBriefingPage.AddPart(partType);
 			m_gridManagerBriefingParts.Initialize();
-			if (m_bopBriefingFolder.Pages.Count() == 1)
+			if (m_bopBriefingPage.Parts.Count() == 1)
 				DataToScreenPart();
 			else
 				m_gridManagerBriefingParts.SelectElement(newPart);
-
 		}
 
 		private void RemovePart()
@@ -206,6 +205,7 @@ namespace DcsBriefop.Forms
 				m_bopBriefingPage.Parts.Remove(partToRemove);
 			}
 			m_gridManagerBriefingParts.Initialize();
+			DataToScreenPart();
 		}
 
 		private void OrderPart(int iWay)
