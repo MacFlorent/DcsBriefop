@@ -57,7 +57,7 @@ namespace DcsBriefop.Forms
 			}
 
 			dr.SetField(GridColumn.Name, element.DisplayName);
-			dr.SetField(GridColumn.Kneeboard, element.KneeboardFolder);
+			dr.SetField(GridColumn.Kneeboard, element.KneeboardDirectory);
 		}
 
 		protected override void PostInitializeColumns()

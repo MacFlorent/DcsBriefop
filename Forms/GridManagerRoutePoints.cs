@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.DataBopMission;
+using DcsBriefop.Tools;
 using System.Data;
 
 namespace DcsBriefop.Forms
@@ -12,7 +13,7 @@ namespace DcsBriefop.Forms
 			public static readonly string Name = "Name";
 			public static readonly string Type = "Type";
 			public static readonly string Action = "Action";
-			public static readonly string AltitudeFeet = "AltitudeFeet";
+			public static readonly string Altitude = "Altitude";
 			public static readonly string Data = "Data";
 		}
 		#endregion
@@ -44,7 +45,7 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Name, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Type, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Action, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.AltitudeFeet, typeof(decimal));
+			m_dtSource.Columns.Add(GridColumn.Altitude, typeof(decimal));
 			m_dtSource.Columns.Add(GridColumn.Data, typeof(BopRoutePoint));
 
 			foreach (BopRoutePoint bopRoutePoint in m_routePoints)
@@ -65,7 +66,7 @@ namespace DcsBriefop.Forms
 			dr.SetField(GridColumn.Name, bopRoutePoint.Name);
 			dr.SetField(GridColumn.Type, bopRoutePoint.Type);
 			dr.SetField(GridColumn.Action, bopRoutePoint.Action);
-			dr.SetField(GridColumn.AltitudeFeet, $"{bopRoutePoint.AltitudeFeet:0}");
+			dr.SetField(GridColumn.Altitude, $"{bopRoutePoint.GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}");
 		}
 
 		protected override void PostInitializeColumns()
@@ -78,7 +79,7 @@ namespace DcsBriefop.Forms
 			}
 
 			m_dgv.Columns[GridColumn.Data].Visible = false;
-			m_dgv.Columns[GridColumn.AltitudeFeet].HeaderText = "Altitude (ft)";
+			m_dgv.Columns[GridColumn.Altitude].HeaderText = $"Altitude ({ToolsBriefop.GetUnitAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
 		}
 
 		public IEnumerable<BopRoutePoint> GetSelectedElements()

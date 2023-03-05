@@ -5,6 +5,7 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
+using UnitsNet;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -31,7 +32,7 @@ namespace DcsBriefop.DataBopMission
 		public List<BopUnit> Units { get; set; }
 		public BopUnit MainUnit { get; set; }
 		public List<BopRoutePoint> RoutePoints { get; set; }
-		public decimal? AltitudeFeet { get; set; }
+		public decimal? AltitudeMeters { get; set; }
 		public Coordinate Coordinate { get; set; }
 		public string MapMarker { get; set; }
 		#endregion
@@ -103,6 +104,8 @@ namespace DcsBriefop.DataBopMission
 				else if (!MainUnit.MainInGroup && bopUnit.MainInGroup)
 					MainUnit = bopUnit;
 			}
+
+			AltitudeMeters = RoutePoints.FirstOrDefault()?.AltitudeMeters ?? MainUnit.AltitudeMeters;
 		}
 
 		protected override void FinalizeFromMizInternal()
@@ -119,8 +122,6 @@ namespace DcsBriefop.DataBopMission
 			{
 				bopRoutePoint.FinalizeFromMiz();
 			}
-
-			AltitudeFeet = RoutePoints.FirstOrDefault()?.AltitudeFeet ?? MainUnit.AltitudeFeet;
 		}
 
 		private void InitializeMizBopCustom()
@@ -149,6 +150,17 @@ namespace DcsBriefop.DataBopMission
 		public virtual string ToStringAdditional()
 		{
 			return "";
+		}
+
+		public decimal? GetAltitude(ElementMeasurementSystem measurementSystem)
+		{
+			if (AltitudeMeters is null)
+				return null;
+
+			if (measurementSystem == ElementMeasurementSystem.Imperial)
+				return Convert.ToDecimal(UnitConverter.Convert(AltitudeMeters.Value, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
+			else
+				return AltitudeMeters;
 		}
 
 		public BopRouteTask GetRouteTask(IEnumerable<string> sTaskIds, int? iUnitId)

@@ -156,11 +156,8 @@ namespace DcsBriefop.Data
 			ToolsControls.FillCombo(cb, GetMasterDataList(type), MasterDataColumn.Id, MasterDataColumn.Label, selectedValueChanged);
 		}
 
-		public static void FillListBox(MasterDataType type, ListBox lst)
+		public static void FillCheckedListBox(MasterDataType type, CheckedListBox lst)
 		{
-			lst.Items.Clear();
-			lst.ValueMember = MasterDataColumn.Id;
-			lst.DisplayMember = MasterDataColumn.Label;
 			lst.DataSource = GetMasterDataList(type);
 		}
 

@@ -177,11 +177,11 @@ namespace DcsBriefop.Forms
 			BriefingFolderDetail();
 		}
 
-		private async void GenerateBriefing(ElementBriefingGeneration briefingGeneration)
+		private async void GenerateBriefing(ElementBriefingOutput briefingOutput)
 		{
 			using (new WaitDialog(ParentForm))
 			{
-				await m_briefopManager.GenerateBriefingFiles(briefingGeneration);
+				await m_briefopManager.GenerateBriefing(briefingOutput);
 			}
 
 		}
@@ -191,8 +191,8 @@ namespace DcsBriefop.Forms
 			ContextMenuStrip menu = new ContextMenuStrip();
 			menu.Items.Clear();
 
-			menu.Items.AddMenuItem("In miz", (object _sender, EventArgs _e) => { GenerateBriefing(ElementBriefingGeneration.Miz); });
-			menu.Items.AddMenuItem("In directory", (object _sender, EventArgs _e) => { GenerateBriefing(ElementBriefingGeneration.Directory); });
+			menu.Items.AddMenuItem("In miz", (object _sender, EventArgs _e) => { GenerateBriefing(ElementBriefingOutput.Miz); });
+			menu.Items.AddMenuItem("In directory", (object _sender, EventArgs _e) => { GenerateBriefing(ElementBriefingOutput.Directory); });
 
 			if (menu.Items.Count > 0)
 			{

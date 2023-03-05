@@ -83,11 +83,12 @@
 		Units,
 		Waypoints,
 		Image,
-		Weather
+		Weather,
+		GroupsUnits,
 	}
 
 	[Flags]
-	internal enum ElementBriefingGeneration
+	internal enum ElementBriefingOutput
 	{
 		None = 0,
 		Miz = 1,

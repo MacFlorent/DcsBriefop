@@ -48,11 +48,11 @@
 			ScMain = new SplitContainer();
 			TlGrids = new TableLayoutPanel();
 			PnGridUnitTypes = new Panel();
+			LstUnitTypes = new CheckedListBox();
 			PnGridsPages = new Panel();
 			BtPageOrderDown = new Button();
 			BtPageOrderUp = new Button();
 			LbHeader = new Label();
-			LstUnitTypes = new CheckedListBox();
 			((System.ComponentModel.ISupportInitialize)DgvPages).BeginInit();
 			((System.ComponentModel.ISupportInitialize)ScMain).BeginInit();
 			ScMain.Panel1.SuspendLayout();
@@ -196,6 +196,7 @@
 			CbCoalition.Name = "CbCoalition";
 			CbCoalition.Size = new Size(147, 23);
 			CbCoalition.TabIndex = 5;
+			CbCoalition.SelectedValueChanged += CbCoalition_SelectedValueChanged;
 			// 
 			// LbCoalition
 			// 
@@ -290,6 +291,16 @@
 			PnGridUnitTypes.Size = new Size(283, 188);
 			PnGridUnitTypes.TabIndex = 0;
 			// 
+			// LstUnitTypes
+			// 
+			LstUnitTypes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			LstUnitTypes.FormattingEnabled = true;
+			LstUnitTypes.Location = new Point(2, 33);
+			LstUnitTypes.Margin = new Padding(4, 3, 4, 3);
+			LstUnitTypes.Name = "LstUnitTypes";
+			LstUnitTypes.Size = new Size(262, 148);
+			LstUnitTypes.TabIndex = 34;
+			// 
 			// PnGridsPages
 			// 
 			PnGridsPages.Controls.Add(LbPages);
@@ -335,16 +346,6 @@
 			LbHeader.TabIndex = 42;
 			LbHeader.Text = "Folder";
 			LbHeader.TextAlign = ContentAlignment.MiddleCenter;
-			// 
-			// LstUnitTypes
-			// 
-			LstUnitTypes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			LstUnitTypes.FormattingEnabled = true;
-			LstUnitTypes.Location = new Point(2, 33);
-			LstUnitTypes.Margin = new Padding(4, 3, 4, 3);
-			LstUnitTypes.Name = "LstUnitTypes";
-			LstUnitTypes.Size = new Size(262, 148);
-			LstUnitTypes.TabIndex = 34;
 			// 
 			// FrmBriefingFolder
 			// 

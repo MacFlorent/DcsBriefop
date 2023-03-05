@@ -5,13 +5,15 @@ using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 using System.Drawing.Imaging;
 using System.IO.Compression;
+using System.Text;
 
 namespace DcsBriefop
 {
 	internal class BriefopManager
 	{
 		#region Fields
-		private static readonly string m_sBriefingFilePrefix = "bop_";
+		private static readonly string m_sBriefingMizPrefix = "bop_";
+		private static readonly string m_sBriefingDirectory = "BriefopGenerated";
 		#endregion
 
 		#region Properties
@@ -102,7 +104,7 @@ namespace DcsBriefop
 			PreferencesManager.Save();
 		}
 
-		public void MizSave(string sFilePath)
+		public async void MizSave(string sFilePath)
 		{
 			if (!File.Exists(MizFilePath))
 				throw new ExceptionBop($"Original mission miz file not found : {MizFilePath}");
@@ -142,7 +144,11 @@ namespace DcsBriefop
 			File.WriteAllText(sDebugFilePath, BopMission.Miz.MizBopCustom.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
 			//			
 
-			//ToolsBriefop.MizCheck(MizFilePath);
+			if (PreferencesManager.Preferences.Briefing.GenerateOnSave)
+				await GenerateBriefing(ElementBriefingOutput.Miz);
+
+
+			ToolsBriefop.MizCheck(MizFilePath);
 		}
 
 		public string MizBatchCommandFileName()
@@ -164,55 +170,102 @@ namespace DcsBriefop
 		#endregion
 
 		#region Briefing generation
-		public async Task GenerateBriefingFiles(ElementBriefingGeneration briefingGeneration)
+		public async Task GenerateBriefing(ElementBriefingOutput briefingOutput)
 		{
-			CleanBriefingFilesMiz();
-			CleanBriefingFilesDirectory();
-
-			List<BopBriefingGeneratedFile> files = await BopMission.GenerateBriefingFiles();
-			foreach (BopBriefingGeneratedFile file in files)
+			using (ListBopBriefingGeneratedFile files = await BopMission.GenerateBriefingFiles())
 			{
-				string sFinalFileName = $"{m_sBriefingFilePrefix}{file.FileName}";
-
-				if (briefingGeneration.HasFlag(ElementBriefingGeneration.Miz))
-					GenerateBriefingFileMiz(file, sFinalFileName);
-				if (briefingGeneration.HasFlag(ElementBriefingGeneration.Directory))
-					GenerateBriefingFileDirectory(file, sFinalFileName);
+				if (briefingOutput.HasFlag(ElementBriefingOutput.Miz))
+					GenerateBriefingMiz(files);
+				if (briefingOutput.HasFlag(ElementBriefingOutput.Directory))
+					GenerateBriefingDirectory(files);
 			}
 		}
 
-		private void GenerateBriefingFileMiz(BopBriefingGeneratedFile file, string sFinalFileName)
+		public void GenerateBriefingMiz(ListBopBriefingGeneratedFile files)
 		{
-		}
+			if (!File.Exists(MizFilePath))
+				throw new ExceptionBop($"Miz file not found : {MizFilePath}");
 
-		private void CleanBriefingFilesMiz()
-		{
-		}
-
-		private void GenerateBriefingFileDirectory(BopBriefingGeneratedFile file, string sFinalFileName)
-		{
-			string sPath = MizFileDirectory;
-
-			string sFileFullPath = Path.Combine(sPath, $"{sFinalFileName}.jpg");
-			if (File.Exists(sFileFullPath))
-				File.Delete(sFileFullPath);
-			file.Image.Save(sFileFullPath, ImageFormat.Jpeg);
-
-			if (!string.IsNullOrEmpty(file.Html) && PreferencesManager.Preferences.Briefing.GenerateDirectoryHtml)
+			using (ZipArchive za = ZipFile.Open(MizFilePath, ZipArchiveMode.Update))
 			{
-				sFileFullPath = Path.Combine(sPath, $"{sFinalFileName}.html");
-				if (File.Exists(sFileFullPath))
-					File.Delete(sFileFullPath);
-				File.WriteAllText(sFileFullPath, file.Html);
+				CleanBriefingFilesMiz(za);
+
+				foreach (BopBriefingGeneratedFile file in files.Where(_f => _f.UnitDirectories is not null))
+				{
+					foreach (string sUnitDirectory in file.UnitDirectories)
+					{
+						string sUnitDirectoryWithSeparator = sUnitDirectory;
+						if (!string.IsNullOrEmpty(sUnitDirectoryWithSeparator))
+							sUnitDirectoryWithSeparator = $"{sUnitDirectoryWithSeparator}/";
+
+						string sZipEntry = $@"KNEEBOARD/{sUnitDirectoryWithSeparator}IMAGES/{m_sBriefingMizPrefix}{file.FileName}.jpg"; ;
+						string sTempPath = Path.GetTempFileName();
+						file.Image.Save(sTempPath, ImageFormat.Jpeg);
+
+						ToolsZip.RemoveZipEntries(za, sZipEntry);
+						za.CreateEntryFromFile(sTempPath, sZipEntry);
+					}
+				}
 			}
 		}
 
-		private void CleanBriefingFilesDirectory()
+		private void CleanBriefingFilesMiz(ZipArchive za)
 		{
-			DirectoryInfo di = new DirectoryInfo(MizFileDirectory);
-			foreach (FileInfo file in di.GetFiles().Where(_f => _f.Name.StartsWith(m_sBriefingFilePrefix)))
+			List<string> listToDelete = new List<string>();
+			foreach (ZipArchiveEntry entry in za.Entries.Where(_ze => _ze.Name.StartsWith(m_sBriefingMizPrefix)))
+			{
+				listToDelete.Add(entry.FullName);
+			}
+
+			foreach (string sEntry in listToDelete)
+			{
+				ToolsZip.RemoveZipEntries(za, sEntry);
+			}
+		}
+
+		private void GenerateBriefingDirectory(ListBopBriefingGeneratedFile files)
+		{
+			string sDirectoryRoot = Path.Combine(MizFileDirectory, m_sBriefingDirectory);
+
+			if (!Path.Exists(sDirectoryRoot))
+				Directory.CreateDirectory(sDirectoryRoot);
+			else
+				CleanBriefingDirectory(sDirectoryRoot);
+
+			foreach (BopBriefingGeneratedFile file in files.Where(_f => _f.UnitDirectories is not null))
+			{
+				foreach (string sUnitDirectory in file.UnitDirectories)
+				{
+					string sDirectory = Path.Combine(sDirectoryRoot, sUnitDirectory);
+					if (!Path.Exists(sDirectory))
+						Directory.CreateDirectory(sDirectory);
+
+					string sFilePath = Path.Combine(sDirectory, $"{file.FileName}.jpg");
+					if (File.Exists(sFilePath))
+						File.Delete(sFilePath);
+					file.Image.Save(sFilePath, ImageFormat.Jpeg);
+
+					if (!string.IsNullOrEmpty(file.Html) && PreferencesManager.Preferences.Briefing.GenerateDirectoryHtml)
+					{
+						sFilePath = Path.Combine(sDirectory, $"{file.FileName}.html");
+						if (File.Exists(sFilePath))
+							File.Delete(sFilePath);
+						File.WriteAllText(sFilePath, file.Html);
+					}
+				}
+			}
+		}
+
+		private void CleanBriefingDirectory(string sDirectoryRoot)
+		{
+			DirectoryInfo di = new DirectoryInfo(sDirectoryRoot);
+			foreach (FileInfo file in di.GetFiles())
 			{
 				file.Delete();
+			}
+			foreach (DirectoryInfo dir in di.GetDirectories())
+			{
+				dir.Delete(true);
 			}
 		}
 		#endregion

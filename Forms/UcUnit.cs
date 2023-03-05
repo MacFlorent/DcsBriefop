@@ -53,7 +53,8 @@ namespace DcsBriefop.Forms
 			TbType.Text = m_bopUnit.Type;
 			TbAttributes.Text = m_bopUnit.Attributes.ToString();
 			TbOther.Text = m_bopUnit.ToStringAdditional();
-			TbAltitude.Text = $"{m_bopUnit.AltitudeFeet:0}";
+			LbAltitude.Text = $"Altitude ({ToolsBriefop.GetUnitAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
+			TbAltitude.Text = $"{m_bopUnit.GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}";
 			TbCoordinates.Text = m_bopUnit.Coordinate.ToString(ElementCoordinateDisplay.All);
 			CbMapMarker.Text = m_bopUnit.MapMarker;
 

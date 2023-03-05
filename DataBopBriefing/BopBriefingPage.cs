@@ -157,7 +157,7 @@ namespace DcsBriefop.DataBopBriefing
 			if (MapIncludeBaseOverlays)
 			{
 				additionalOverlays.Add(bopMission.GetMapOverlay());
-				if (bopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
+				if (bopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName ?? "", out BopCoalition bopCoalition))
 				{
 					additionalOverlays.Add(bopCoalition.GetMapOverlay());
 				}

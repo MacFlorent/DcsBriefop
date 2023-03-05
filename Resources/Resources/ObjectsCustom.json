@@ -5,7 +5,7 @@
     "MapMarker": null,
     "Information": "RWR=6 HARM=108",
     "MainInGroup": false,
-    "KneeboardFolder": null
+    "KneeboardDirectory": null
   },
   {
     "TypeName": "SNR_75V",
@@ -13,7 +13,7 @@
     "MapMarker": null,
     "Information": "RWR=2 HARM=126",
     "MainInGroup": true,
-    "KneeboardFolder": null
+    "KneeboardDirectory": null
   },
   {
     "TypeName": "S-300PS 40B6M tr",
@@ -21,7 +21,7 @@
     "MapMarker": null,
     "Information": "RWR=10 HARM=110",
     "MainInGroup": false,
-    "KneeboardFolder": null
+    "KneeboardDirectory": null
   },
   {
     "TypeName": "ZSU-23-4 Shilka",
@@ -29,7 +29,7 @@
     "MapMarker": null,
     "Information": "RWR=A HARM=121",
     "MainInGroup": false,
-    "KneeboardFolder": null
+    "KneeboardDirectory": null
   },
   {
     "TypeName": "p-19 s-125 sr",
@@ -37,7 +37,7 @@
     "MapMarker": null,
     "Information": "RWR=S/FF HARM=122",
     "MainInGroup": false,
-    "KneeboardFolder": null
+    "KneeboardDirectory": null
   },
   {
     "TypeName": "Dog Ear radar",
@@ -45,7 +45,7 @@
     "MapMarker": null,
     "Information": "RWR=DE HARM=109",
     "MainInGroup": false,
-    "KneeboardFolder": null
+    "KneeboardDirectory": null
   },
   {
     "TypeName": "1L13 EWR",
@@ -53,7 +53,7 @@
     "MapMarker": null,
     "Information": "RWR=S HARM=101",
     "MainInGroup": false,
-    "KneeboardFolder": null
+    "KneeboardDirectory": null
   },
   {
     "TypeName": "S-300PS 40B6MD sr",
@@ -61,7 +61,7 @@
     "MapMarker": null,
     "Information": "RWR=CS HARM=103",
     "MainInGroup": false,
-    "KneeboardFolder": null
+    "KneeboardDirectory": null
   },
   {
     "TypeName": "S-300PS 64H6E sr",
@@ -69,7 +69,7 @@
     "MapMarker": null,
     "Information": "RWR=BB HARM=104",
     "MainInGroup": false,
-    "KneeboardFolder": null
+    "KneeboardDirectory": null
   },
   {
     "TypeName": "Osa 9A33 ln",
@@ -77,7 +77,7 @@
     "MapMarker": null,
     "Information": "RWR=8 HARM=117",
     "MainInGroup": false,
-    "KneeboardFolder": null
+    "KneeboardDirectory": null
   },
   {
     "TypeName": "55G6 EWR",
@@ -85,7 +85,7 @@
     "MapMarker": null,
     "Information": "RWR=S HARM=102",
     "MainInGroup": false,
-    "KneeboardFolder": null
+    "KneeboardDirectory": null
   },
   {
     "TypeName": "Tor 9A331",
@@ -93,6 +93,6 @@
     "MapMarker": null,
     "Information": "RWR=15 HARM=119",
     "MainInGroup": false,
-    "KneeboardFolder": null
+    "KneeboardDirectory": null
   }
 ]

@@ -4,6 +4,7 @@ using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
+using UnitsNet;
 using UnitsNet.Units;
 
 namespace DcsBriefop.DataBopMission
@@ -27,7 +28,7 @@ namespace DcsBriefop.DataBopMission
 		public string Type { get; set; }
 		public bool Playable { get; set; }
 		public bool MainInGroup { get; set; }
-		public decimal? AltitudeFeet { get; set; }
+		public decimal? AltitudeMeters{ get; set; }
 		public Coordinate Coordinate { get; set; }
 		public string MapMarker { get; set; }
 		public Radio HeliportRadio { get; set; }
@@ -81,9 +82,9 @@ namespace DcsBriefop.DataBopMission
 			base.FinalizeFromMizInternal();
 
 			if (m_mizUnit.Altitude is object)
-				AltitudeFeet = (decimal)UnitsNet.UnitConverter.Convert(m_mizUnit.Altitude.Value, LengthUnit.Meter, LengthUnit.Foot);
+				AltitudeMeters = m_mizUnit.Altitude.Value;
 			else
-				AltitudeFeet = BopGroup.RoutePoints.FirstOrDefault()?.AltitudeFeet;
+				AltitudeMeters = BopGroup.RoutePoints.FirstOrDefault()?.AltitudeMeters;
 
 			Coordinate = Theatre.GetCoordinate(m_mizUnit.Y, m_mizUnit.X);
 		}
@@ -118,6 +119,17 @@ namespace DcsBriefop.DataBopMission
 		public virtual string ToStringAdditional()
 		{
 			return "";
+		}
+
+		public decimal? GetAltitude(ElementMeasurementSystem measurementSystem)
+		{
+			if (AltitudeMeters is null)
+				return null;
+
+			if (measurementSystem == ElementMeasurementSystem.Imperial)
+				return Convert.ToDecimal(UnitConverter.Convert(AltitudeMeters.Value, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
+			else
+				return AltitudeMeters;
 		}
 
 		public GMarkerBriefop GetMarkerBriefop(Color? color)

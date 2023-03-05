@@ -52,9 +52,9 @@ namespace DcsBriefop.DataMiz
 			Dust = Lsd[LuaNode.DustEnable].GetBool();
 
 			LsonDict lsdWinds = Lsd[LuaNode.Wind].GetDict();
-			WindAtGround = new MizWeatherWind(lsdWinds[LuaNode.WindAtGround].GetDict());
-			WindAt2000 = new MizWeatherWind(lsdWinds[LuaNode.WindAt2000].GetDict());
-			WindAt8000 = new MizWeatherWind(lsdWinds[LuaNode.WindAt8000].GetDict());
+			WindAtGround = new MizWeatherWind(lsdWinds[LuaNode.WindAtGround].GetDict(), 10);
+			WindAt2000 = new MizWeatherWind(lsdWinds[LuaNode.WindAt2000].GetDict(), 2000);
+			WindAt8000 = new MizWeatherWind(lsdWinds[LuaNode.WindAt8000].GetDict(), 8000);
 
 			Cloud = new MizWeatherCloud(Lsd[LuaNode.Clouds].GetDict());
 
@@ -80,7 +80,7 @@ namespace DcsBriefop.DataMiz
 
 			Cloud.ToLua();
 
-			if (Fog is object)
+			if (Fog is not null)
 			{
 				Lsd[LuaNode.FogEnable] = true;
 				Fog.ToLua();
@@ -100,10 +100,14 @@ namespace DcsBriefop.DataMiz
 			public static readonly string Direction = "dir";
 		}
 
+		public int Altitude { get; set; } // Speed in m/s
 		public decimal Speed { get; set; } // Speed in m/s
 		public decimal Direction { get; set; } // Direction the wind is goind towards, in degrees true
 
-		public MizWeatherWind(LsonDict lsd) : base(lsd) { }
+		public MizWeatherWind(LsonDict lsd, int iAltitude) : base(lsd)
+		{
+			Altitude = iAltitude;
+		}
 
 		public override void FromLua()
 		{

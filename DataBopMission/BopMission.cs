@@ -138,22 +138,35 @@ namespace DcsBriefop.DataBopMission
 
 		public void SetBullseyeRoutePoint()
 		{
-			foreach(BopGroupFlight bopGroupFlight in Groups.OfType<BopGroupFlight>())
+			foreach (BopGroupFlight bopGroupFlight in Groups.OfType<BopGroupFlight>())
 			{
 				bopGroupFlight.SetBullseyeRoutePoint(Coalitions[bopGroupFlight.CoalitionName]);
 			}
 		}
 
-		public async Task<List<BopBriefingGeneratedFile>> GenerateBriefingFiles()
+		public async Task<ListBopBriefingGeneratedFile> GenerateBriefingFiles()
 		{
-			List<BopBriefingGeneratedFile> files = new();
-			foreach(BopBriefingFolder folder in BopBriefingFolders)
+			ListBopBriefingGeneratedFile files = new();
+			foreach (BopBriefingFolder folder in BopBriefingFolders)
 			{
 				files.AddRange(await folder.GenerateFiles(this));
 			}
 
 			return files;
 		}
-			#endregion
+
+		public IEnumerable<DcsObject> GetBriefiableObjects(string sCoalitionName)
+		{
+			List<DcsObject> unitTypes = new();
+			foreach (string sUnitType in Groups.Where(_g => _g.Playable && (string.IsNullOrEmpty(sCoalitionName) || _g.CoalitionName == sCoalitionName)).Select(_g => _g.Type).Distinct())
+			{
+				if (DcsObjectManager.GetObject(sUnitType) is DcsObject dcsObject)
+				{
+					unitTypes.Add(dcsObject);
+				}
+			}
+			return unitTypes;
 		}
+		#endregion
+	}
 }

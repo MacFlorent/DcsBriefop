@@ -1,13 +1,6 @@
-﻿using DcsBriefop.Forms;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+﻿using DcsBriefop.Data;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using static GMap.NET.Entity.OpenStreetMapGraphHopperRouteEntity;
 
 namespace DcsBriefop.Tools
 {
@@ -34,6 +27,40 @@ namespace DcsBriefop.Tools
 			ShowMessageBoxError($"{sMessage}{Environment.NewLine}{Environment.NewLine}{e.Message}");
 			Log.Error(sMessage, sMemberName, iLineNumber);
 			Log.Exception(e, sMemberName, iLineNumber);
+		}
+		#endregion
+
+		#region Miscellaneous
+		[DllImport("user32.dll", EntryPoint = "SendMessageA", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
+		private static extern int SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
+		private const int WM_SETREDRAW = 0xB;
+
+		public static void SuspendDrawing(this Control target)
+		{
+			SendMessage(target.Handle, WM_SETREDRAW, 0, 0);
+		}
+
+		public static void ResumeDrawing(this Control target) { ResumeDrawing(target, true); }
+		public static void ResumeDrawing(this Control target, bool redraw)
+		{
+			SendMessage(target.Handle, WM_SETREDRAW, 1, 0);
+
+			if (redraw)
+			{
+				target.Refresh();
+			}
+		}
+
+		public static void CenterInParent(this Control c)
+		{
+			c.Location = new Point(c.Parent.ClientSize.Width / 2 - c.Size.Width / 2, c.Parent.ClientSize.Height / 2 - c.Size.Height / 2);
+			c.Anchor = AnchorStyles.None;
+		}
+
+		public static void CenterInParentHorizontal(this Control c)
+		{
+			c.Location = new Point(c.Parent.ClientSize.Width / 2 - c.Size.Width / 2, c.Location.Y);
+			c.Anchor = AnchorStyles.None;
 		}
 		#endregion
 
@@ -114,29 +141,7 @@ namespace DcsBriefop.Tools
 		//}
 		#endregion
 
-		#region Redraw Suspend/Resume
-		[DllImport("user32.dll", EntryPoint = "SendMessageA", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
-		private static extern int SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
-		private const int WM_SETREDRAW = 0xB;
-
-		public static void SuspendDrawing(this Control target)
-		{
-			SendMessage(target.Handle, WM_SETREDRAW, 0, 0);
-		}
-
-		public static void ResumeDrawing(this Control target) { ResumeDrawing(target, true); }
-		public static void ResumeDrawing(this Control target, bool redraw)
-		{
-			SendMessage(target.Handle, WM_SETREDRAW, 1, 0);
-
-			if (redraw)
-			{
-				target.Refresh();
-			}
-		}
-		#endregion
-
-		#region Controls
+		#region TabControl
 		public static void AddTab(this TabControl tc, string sText, Control control)
 		{
 			control.Dock = DockStyle.Fill;
@@ -151,19 +156,9 @@ namespace DcsBriefop.Tools
 				tc.TabPages[0].Dispose();
 			tc.TabPages.Clear();
 		}
+		#endregion
 
-		public static void CenterInParent(this Control c)
-		{
-			c.Location = new Point(c.Parent.ClientSize.Width / 2 - c.Size.Width / 2, c.Parent.ClientSize.Height / 2 - c.Size.Height / 2);
-			c.Anchor = AnchorStyles.None;
-		}
-
-		public static void CenterInParentHorizontal(this Control c)
-		{
-			c.Location = new Point(c.Parent.ClientSize.Width / 2 - c.Size.Width / 2, c.Location.Y);
-			c.Anchor = AnchorStyles.None;
-		}
-
+		#region ComboBox
 		public static void FillCombo(ComboBox cb, object dataSource, string sValueMember, string sDisplayMember, EventHandler selectedValueChanged)
 		{
 			if (selectedValueChanged is object)
@@ -174,12 +169,31 @@ namespace DcsBriefop.Tools
 			cb.DisplayMember = sDisplayMember;
 			if (!string.IsNullOrEmpty(sValueMember))
 				cb.ValueMember = sValueMember;
-						
+
 			cb.DataSource = dataSource;
 
 			if (selectedValueChanged is object)
 				cb.SelectedValueChanged += selectedValueChanged;
 		}
+		#endregion
+
+		#region ListBox
+		//public static void FillListBox(ListBox lst, object dataSource, string sValueMember, string sDisplayMember)
+		//{
+		//	lst.Items.Clear();
+
+		//	lst.DisplayMember = sDisplayMember;
+		//	if (!string.IsNullOrEmpty(sValueMember))
+		//		lst.ValueMember = sValueMember;
+
+		//	lst.DataSource = dataSource;
+		//}
+
+		//public static void FillCheckedListBox(CheckedListBox lst, object dataSource)
+		//{
+		//	lst.Items.Clear();
+		//	lst.DataSource = dataSource;
+		//}
 		#endregion
 	}
 }

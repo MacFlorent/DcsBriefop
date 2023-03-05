@@ -2,7 +2,7 @@
 using DcsBriefop.DataBopBriefing;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace DcsBriefop.Forms
 {
@@ -29,21 +29,10 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ButtonOk(BtPageAdd);
 			ToolsStyle.ButtonCancel(BtPageRemove);
 
-			MasterDataRepository.FillCombo(MasterDataType.Coalition, CbCoalition, null);
+			MasterDataRepository.FillCombo(MasterDataType.Coalition, CbCoalition, CbCoalition_SelectedValueChanged);
 			MasterDataRepository.FillCombo(MasterDataType.WeatherDisplay, CbWeatherDisplay, null);
 			MasterDataRepository.FillCombo(MasterDataType.MeasurementSystem, CbMeasurementSystem, null);
-			MasterDataRepository.FillListBox(MasterDataType.CoordinateDisplay, LstCoordinateDisplay);
-
-			List<DcsObject> unitTypes = new();
-			foreach (string sType in bopMission.Groups.Where(_g => _g.Playable && (m_bopBriefingFolder.CoalitionName is null || _g.CoalitionName == m_bopBriefingFolder.CoalitionName)).Select(_g => _g.Type).Distinct())
-			{
-				unitTypes.Add(DcsObjectManager.GetObject(sType));
-			}
-
-			LstUnitTypes.ValueMember = "TypeName";
-			LstUnitTypes.DisplayMember = "DisplayName";
-			LstUnitTypes.DataSource = unitTypes;
-
+			MasterDataRepository.FillCheckedListBox(MasterDataType.CoordinateDisplay, LstCoordinateDisplay);
 
 			m_gridManagerBriefingPages = new GridManagerBriefingPages(DgvPages, m_bopBriefingFolder.Pages);
 			m_gridManagerBriefingPages.SelectionChanged += SelectionChangedEvent;
@@ -60,6 +49,8 @@ namespace DcsBriefop.Forms
 		#region Methods
 		private void DataToScreen()
 		{
+			CbCoalition.SelectedValueChanged -= CbCoalition_SelectedValueChanged;
+
 			TbName.Text = m_bopBriefingFolder.Name;
 			CbCoalition.Text = m_bopBriefingFolder.CoalitionName;
 			CbWeatherDisplay.SelectedValue = (int)m_bopBriefingFolder.WeatherDisplay;
@@ -67,10 +58,24 @@ namespace DcsBriefop.Forms
 			MasterDataRepository.SetFlagCheckedListbox((int)m_bopBriefingFolder.CoordinateDisplay, LstCoordinateDisplay);
 			UcImageSize.SelectedSize = m_bopBriefingFolder.ImageSize;
 
+			DataToScreenUnitTypes();
 			DataToScreenGridPages();
 			DataToScreenDetail();
+
+			CbCoalition.SelectedValueChanged += CbCoalition_SelectedValueChanged;
 		}
 
+		private void DataToScreenUnitTypes()
+		{
+			LstUnitTypes.DataSource = m_bopMission.GetBriefiableObjects(m_bopBriefingFolder.CoalitionName);
+			for (int i = 0; i < LstUnitTypes.Items.Count; i++)
+			{
+				DcsObject item = LstUnitTypes.Items[i] as DcsObject;
+				if (item is not null)
+					LstUnitTypes.SetItemChecked(i, m_bopBriefingFolder.UnitTypes.Contains(item.TypeName));
+			}
+
+		}
 		private void DataToScreenGridPages()
 		{
 			m_gridManagerBriefingPages.SelectionChanged -= SelectionChangedEvent;
@@ -117,6 +122,9 @@ namespace DcsBriefop.Forms
 			m_bopBriefingFolder.MeasurementSystem = (ElementMeasurementSystem)CbMeasurementSystem.SelectedValue;
 			m_bopBriefingFolder.CoordinateDisplay = (ElementCoordinateDisplay)MasterDataRepository.GetFlagCheckedListbox(LstCoordinateDisplay);
 			m_bopBriefingFolder.ImageSize = UcImageSize.SelectedSize;
+
+			m_bopBriefingFolder.UnitTypes.Clear();
+			m_bopBriefingFolder.UnitTypes.AddRange(LstUnitTypes.CheckedItems.OfType<DcsObject>().Select(_o => _o.TypeName));
 
 			ScreenToDataDetail();
 		}
@@ -167,6 +175,12 @@ namespace DcsBriefop.Forms
 			ScreenToData();
 		}
 
+		private void CbCoalition_SelectedValueChanged(object sender, EventArgs e)
+		{
+			ScreenToData();
+			DataToScreenUnitTypes();
+		}
+
 		private void SelectionChangedEvent(object sender, EventArgs e)
 		{
 			ScreenToDataDetail();
@@ -194,6 +208,8 @@ namespace DcsBriefop.Forms
 			OrderPage(1);
 		}
 		#endregion
+
+
 	}
 
 

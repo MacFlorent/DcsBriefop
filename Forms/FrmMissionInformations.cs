@@ -44,7 +44,9 @@ namespace DcsBriefop.Forms
 		{
 			TbSortie.Text = m_briefopManager.BopMission.Sortie;
 			DtpDate.Value = m_briefopManager.BopMission.Date;
-			TbWeather.Text = $"{m_briefopManager.BopMission.Weather.ToString(ElementWeatherDisplay.Metar)}{Environment.NewLine}{Environment.NewLine}{m_briefopManager.BopMission.Weather.ToString(ElementWeatherDisplay.Plain)}";
+
+			ElementMeasurementSystem measurementSystem =  PreferencesManager.Preferences.Briefing.MeasurementSystem;
+			TbWeather.Text = $"{m_briefopManager.BopMission.Weather.ToString(ElementWeatherDisplay.Metar, measurementSystem)}{Environment.NewLine}{Environment.NewLine}{m_briefopManager.BopMission.Weather.ToString(ElementWeatherDisplay.Plain, measurementSystem)}";
 
 			m_tbDescription.Text = m_briefopManager.BopMission.Description;
 

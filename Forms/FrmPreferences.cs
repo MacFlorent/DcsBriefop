@@ -29,7 +29,7 @@ namespace DcsBriefop.Forms
 			MapProviders.FillCombo(CbMapProvider, null);
 			MasterDataRepository.FillCombo(MasterDataType.WeatherDisplay, CbBriefingWeatherDisplay, null);
 			MasterDataRepository.FillCombo(MasterDataType.MeasurementSystem, CbBriefingMeasurementSystem, null);
-			MasterDataRepository.FillListBox(MasterDataType.CoordinateDisplay, LstBriefingCoordinateDisplay);
+			MasterDataRepository.FillCheckedListBox(MasterDataType.CoordinateDisplay, LstBriefingCoordinateDisplay);
 
 			DataToScreen();
 		}
@@ -38,8 +38,6 @@ namespace DcsBriefop.Forms
 		#region Methods
 		private void DataToScreen()
 		{
-			CkBriefingGenerateDirectory.CheckedChanged -= CkBriefingGenerateDirectory_CheckedChanged;
-
 			TbApplicationWorkingDirectory.Text = m_preferences.Application.WorkingDirectory;
 			TbApplicationRecentMiz.Text = string.Join(",", m_preferences.Application.RecentMiz);
 			CkApplicationMizBackup.Checked = m_preferences.Application.BackupBeforeOverwrite;
@@ -56,13 +54,7 @@ namespace DcsBriefop.Forms
 			MasterDataRepository.SetFlagCheckedListbox((int)m_preferences.Briefing.CoordinateDisplay, LstBriefingCoordinateDisplay);
 			UcBriefingImageSize.SelectedSize = m_preferences.Briefing.ImageSize;
 			CkBriefingGenerateOnSave.Checked = m_preferences.Briefing.GenerateOnSave;
-			CkBriefingGenerateMiz.Checked = m_preferences.Briefing.GenerateMiz;
-			CkBriefingGenerateDirectory.Checked = m_preferences.Briefing.GenerateDirectory;
 			CkBriefingGenerateDirectoryHtml.Checked = m_preferences.Briefing.GenerateDirectoryHtml;
-			TbBriefingDirectoryName.Text = m_preferences.Briefing.GenerateDirectoryName;
-			DisplayCurrentBriefingGenerateDirectory();
-
-			CkBriefingGenerateDirectory.CheckedChanged += CkBriefingGenerateDirectory_CheckedChanged;
 		}
 
 		private void ScreenToData()
@@ -86,15 +78,7 @@ namespace DcsBriefop.Forms
 			m_preferences.Briefing.CoordinateDisplay = (ElementCoordinateDisplay)MasterDataRepository.GetFlagCheckedListbox(LstBriefingCoordinateDisplay);
 			m_preferences.Briefing.ImageSize = UcBriefingImageSize.SelectedSize;
 			m_preferences.Briefing.GenerateOnSave = CkBriefingGenerateOnSave.Checked;
-			m_preferences.Briefing.GenerateMiz = CkBriefingGenerateMiz.Checked;
-			m_preferences.Briefing.GenerateDirectory = CkBriefingGenerateDirectory.Checked;
 			m_preferences.Briefing.GenerateDirectoryHtml = CkBriefingGenerateDirectoryHtml.Checked;
-			m_preferences.Briefing.GenerateDirectoryName = TbBriefingDirectoryName.Text;
-		}
-
-		private void DisplayCurrentBriefingGenerateDirectory()
-		{
-			CkBriefingGenerateDirectoryHtml.Visible = LbBriefingDirectoryName.Visible = TbBriefingDirectoryName.Visible = CkBriefingGenerateDirectory.Checked;
 		}
 		#endregion
 
@@ -143,11 +127,6 @@ namespace DcsBriefop.Forms
 		private void BtApplicationRecentMiz_Click(object sender, EventArgs e)
 		{
 			TbApplicationRecentMiz.Text = null;
-		}
-
-		private void CkBriefingGenerateDirectory_CheckedChanged(object sender, EventArgs e)
-		{
-			DisplayCurrentBriefingGenerateDirectory();
 		}
 		#endregion
 

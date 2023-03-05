@@ -1,7 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
-using System;
 using System.Text;
 using UnitsNet;
 
@@ -22,16 +21,7 @@ namespace DcsBriefop.DataBopMission
 
 		public int CloudDensityOkta { get; private set; }
 		public int CloudBaseMeter { get; private set; }
-		public int CloudBaseFoot
-		{
-			get { return Convert.ToInt32(UnitConverter.Convert(CloudBaseMeter, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot)); }
-		}
-
 		public int VisibilityMeter { get; private set; }
-		public int VisibilityStatuteMile
-		{
-			get { return Convert.ToInt32(UnitConverter.Convert(VisibilityMeter, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Mile)); }
-		}
 		public bool Fog { get; private set; }
 		public bool Dust { get; private set; }
 		public bool Precipitation { get; private set; }
@@ -110,33 +100,43 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public string ToString(ElementWeatherDisplay weatherDisplay)
+		public string ToString(ElementWeatherDisplay weatherDisplay, ElementMeasurementSystem measurementSystem)
 		{
 			if (weatherDisplay == ElementWeatherDisplay.Plain)
-				return ToStringPlain();
+				return ToStringPlain(measurementSystem);
 			else if (weatherDisplay == ElementWeatherDisplay.Metar)
-				return ToStringMetar();
+				return ToStringMetar(measurementSystem);
 			else
 				return "";
 		}
 
-		public string ToStringPlain()
+		public string ToStringPlain(ElementMeasurementSystem measurementSystem)
 		{
-			return ToStringPlain(Environment.NewLine);
+			return ToStringPlain(measurementSystem, Environment.NewLine);
 		}
 
-		public string ToStringPlain(string sNewLine)
+		public string ToStringPlain(ElementMeasurementSystem measurementSystem, string sNewLine)
 		{
 			StringBuilder sb = new StringBuilder();
 			// wind
-			sb.AppendWithSeparator($"Wind: {ToStringPlain_Wind(0, WindGround)} - {ToStringPlain_Wind(2000, Wind2000)} - {ToStringPlain_Wind(8000, Wind8000)}", sNewLine);
+			sb.AppendWithSeparator($"Wind: {ToStringPlain_Wind(measurementSystem, WindGround)} - {ToStringPlain_Wind(measurementSystem, Wind2000)} - {ToStringPlain_Wind(measurementSystem, Wind8000)}", sNewLine);
 
 			// visibility and clouds
-			int iVisibilityKilometer = VisibilityMeter / 1000;
-			if (iVisibilityKilometer > 10)
-				iVisibilityKilometer = 10;
+			int iVisibility;
+			if (measurementSystem == ElementMeasurementSystem.Imperial)
+			{
+				iVisibility = Convert.ToInt32(UnitConverter.Convert(VisibilityMeter, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Mile));
+				if (iVisibility > 6)
+					iVisibility = 6;
+			}
+			else
+			{
+				iVisibility = Convert.ToInt32(UnitConverter.Convert(VisibilityMeter, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Kilometer));
+				if (iVisibility > 10)
+					iVisibility = 10;
+			}
 
-			sb.AppendWithSeparator($"Visibility {iVisibilityKilometer} km", sNewLine);
+			sb.AppendWithSeparator($"Visibility {iVisibility} {ToolsBriefop.GetUnitVisibility(measurementSystem)}", sNewLine);
 			if (Precipitation)
 				sb.Append(" precipitations");
 			if (Fog)
@@ -158,33 +158,61 @@ namespace DcsBriefop.DataBopMission
 				else
 					sDensity = "Overcast";
 
-				int CloudBaseRoundedFoot = CloudBaseFoot / 1000 * 1000;
-				sb.Append($" - {sDensity} clouds at {CloudBaseRoundedFoot} ft");
+				int iCloudBaseRounded;
+				if (measurementSystem == ElementMeasurementSystem.Imperial)
+					iCloudBaseRounded = Convert.ToInt32(UnitConverter.Convert(CloudBaseMeter, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
+				else
+					iCloudBaseRounded = CloudBaseMeter;
+
+				iCloudBaseRounded = iCloudBaseRounded / 1000 * 1000;
+				sb.Append($" - {sDensity} clouds at {iCloudBaseRounded} {ToolsBriefop.GetUnitAltitude(measurementSystem)}");
 			}
 
 			//T° and QNH
-			sb.AppendWithSeparator($"{TemperatureCelcius:0}°C - QNH {QnhHpa:0} hPa - {QnhInHg:00.00} inHg", sNewLine);
+			int iTemperature;
+			if (measurementSystem == ElementMeasurementSystem.Imperial)
+				iTemperature = Convert.ToInt32(UnitConverter.Convert(TemperatureCelcius, UnitsNet.Units.TemperatureUnit.DegreeCelsius, UnitsNet.Units.TemperatureUnit.DegreeFahrenheit));
+			else
+				iTemperature = Convert.ToInt32(TemperatureCelcius);
+
+			sb.AppendWithSeparator($"{iTemperature:0}{ToolsBriefop.GetUnitTemperature(measurementSystem)} - QNH {QnhHpa:0} hPa - {QnhInHg:00.00} inHg", sNewLine);
 
 			return sb.ToString();
 		}
 
-		private string ToStringPlain_Wind(int iAltitudeFoot, BopWeatherWind ww)
+		private string ToStringPlain_Wind(ElementMeasurementSystem measurementSystem, BopWeatherWind ww)
 		{
-			return $"{iAltitudeFoot} ft: {ww.DirectionTrue:000}° @ {ww.SpeedKnot:00} kt";
+			int iAltitude;
+			double dSpeed;
+			if (measurementSystem == ElementMeasurementSystem.Imperial)
+			{
+				iAltitude = Convert.ToInt32(UnitConverter.Convert(ww.Altitude, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
+				dSpeed = UnitConverter.Convert(ww.SpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.Knot);
+			}
+			else
+			{
+				iAltitude = ww.Altitude;
+				dSpeed = UnitConverter.Convert(ww.SpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.KilometerPerHour);
+
+			}
+
+			return $"{iAltitude} {ToolsBriefop.GetUnitAltitude(measurementSystem)}: {ww.DirectionTrue:000}° @ {dSpeed:00} {ToolsBriefop.GetUnitSpeed(measurementSystem)}";
 		}
 
-		public string ToStringMetar()
+		public string ToStringMetar(ElementMeasurementSystem measurementsystem)
 		{
 			StringBuilder sb = new StringBuilder();
 
 			sb.AppendWithSeparator($"{Date.Day:00}{Date.Hour:00}{Date.Minute:00}L", " ");
 
-			if (WindGround.SpeedKnot < 1)
+			double dSpeedKnot = UnitConverter.Convert(WindGround.SpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.Knot);
+			if (dSpeedKnot < 1)
 				sb.AppendWithSeparator("00000KT", " ");
 			else
-				sb.AppendWithSeparator($"{WindGround.DirectionTrue:000}{WindGround.SpeedKnot:0}KT", " ");
+				sb.AppendWithSeparator($"{WindGround.DirectionTrue:000}{dSpeedKnot:0}KT", " ");
 
-			if (VisibilityMeter >= 10000 && CloudBaseFoot >= 5000 && !Precipitation && !Fog && !Dust)
+			int iCloudBaseFoot = Convert.ToInt32(UnitConverter.Convert(CloudBaseMeter, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
+			if (VisibilityMeter >= 10000 && iCloudBaseFoot >= 5000 && !Precipitation && !Fog && !Dust)
 				sb.Append(" CAVOK");
 			else
 			{
@@ -204,7 +232,7 @@ namespace DcsBriefop.DataBopMission
 					sb.Append(" SKC");
 				else
 				{
-					int iCloudBaseRounded = CloudBaseFoot / 100;
+					int iCloudBaseRounded = iCloudBaseFoot / 100;
 
 					string sDensity;
 					if (CloudDensityOkta <= 2)
@@ -230,15 +258,13 @@ namespace DcsBriefop.DataBopMission
 	internal class BopWeatherWind
 	{
 		public decimal SpeedMs { get; private set; }
-		public decimal SpeedKnot
-		{
-			get { return Convert.ToDecimal(UnitConverter.Convert(SpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.Knot)); }
-		}
+		public int Altitude { get; private set; }
 		public int DirectionTrue { get; private set; } // Direction the wind is coming from
 
-		public BopWeatherWind(DataMiz.MizWeatherWind lson)
+		public BopWeatherWind(MizWeatherWind lson)
 		{
 			SpeedMs = lson.Speed;
+			Altitude = lson.Altitude;
 			DirectionTrue = ((int)Math.Round(lson.Direction) + 180) % 360;
 		}
 	}

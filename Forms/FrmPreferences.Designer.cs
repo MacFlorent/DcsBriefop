@@ -28,554 +28,484 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.BtCancel = new System.Windows.Forms.Button();
-			this.BtOk = new System.Windows.Forms.Button();
-			this.LbTitleApplication = new System.Windows.Forms.Label();
-			this.PnApplication = new System.Windows.Forms.Panel();
-			this.CkApplicationGenerateBatch = new System.Windows.Forms.CheckBox();
-			this.CkApplicationMizBackup = new System.Windows.Forms.CheckBox();
-			this.BtApplicationRecentMiz = new System.Windows.Forms.Button();
-			this.TbApplicationRecentMiz = new System.Windows.Forms.TextBox();
-			this.LbApplicationRecentMiz = new System.Windows.Forms.Label();
-			this.BtApplicationWorkingDirectoryReset = new System.Windows.Forms.Button();
-			this.BtApplicationWorkingDirectorySelect = new System.Windows.Forms.Button();
-			this.TbApplicationWorkingDirectory = new System.Windows.Forms.TextBox();
-			this.LbApplicationWorkingDirectory = new System.Windows.Forms.Label();
-			this.PnMission = new System.Windows.Forms.Panel();
-			this.CkMissionBullseyeWaypoint = new System.Windows.Forms.CheckBox();
-			this.CkMissionNoCallsignForPlayable = new System.Windows.Forms.CheckBox();
-			this.LbTitleMission = new System.Windows.Forms.Label();
-			this.PnMap = new System.Windows.Forms.Panel();
-			this.NudMapZoom = new System.Windows.Forms.NumericUpDown();
-			this.CbMapProvider = new System.Windows.Forms.ComboBox();
-			this.LbMapZoom = new System.Windows.Forms.Label();
-			this.LbMapProvider = new System.Windows.Forms.Label();
-			this.LbTitleMap = new System.Windows.Forms.Label();
-			this.BtDefaults = new System.Windows.Forms.Button();
-			this.PnBriefing = new System.Windows.Forms.Panel();
-			this.TbBriefingDirectoryName = new System.Windows.Forms.TextBox();
-			this.LbBriefingDirectoryName = new System.Windows.Forms.Label();
-			this.CkBriefingGenerateDirectoryHtml = new System.Windows.Forms.CheckBox();
-			this.CkBriefingGenerateDirectory = new System.Windows.Forms.CheckBox();
-			this.CkBriefingGenerateMiz = new System.Windows.Forms.CheckBox();
-			this.LbBriefingImageSize = new System.Windows.Forms.Label();
-			this.UcBriefingImageSize = new DcsBriefop.Forms.UcImageSize();
-			this.CkBriefingGenerateOnSave = new System.Windows.Forms.CheckBox();
-			this.CbBriefingMeasurementSystem = new System.Windows.Forms.ComboBox();
-			this.LbBriefingMeasurementSystem = new System.Windows.Forms.Label();
-			this.LstBriefingCoordinateDisplay = new System.Windows.Forms.CheckedListBox();
-			this.CbBriefingWeatherDisplay = new System.Windows.Forms.ComboBox();
-			this.LbBriefingCoordinateDisplay = new System.Windows.Forms.Label();
-			this.LbBriefingWeatherDisplay = new System.Windows.Forms.Label();
-			this.LbTitleBriefing = new System.Windows.Forms.Label();
-			this.PnApplication.SuspendLayout();
-			this.PnMission.SuspendLayout();
-			this.PnMap.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.NudMapZoom)).BeginInit();
-			this.PnBriefing.SuspendLayout();
-			this.SuspendLayout();
+			BtCancel = new Button();
+			BtOk = new Button();
+			LbTitleApplication = new Label();
+			PnApplication = new Panel();
+			CkApplicationGenerateBatch = new CheckBox();
+			CkApplicationMizBackup = new CheckBox();
+			BtApplicationRecentMiz = new Button();
+			TbApplicationRecentMiz = new TextBox();
+			LbApplicationRecentMiz = new Label();
+			BtApplicationWorkingDirectoryReset = new Button();
+			BtApplicationWorkingDirectorySelect = new Button();
+			TbApplicationWorkingDirectory = new TextBox();
+			LbApplicationWorkingDirectory = new Label();
+			PnMission = new Panel();
+			CkMissionBullseyeWaypoint = new CheckBox();
+			CkMissionNoCallsignForPlayable = new CheckBox();
+			LbTitleMission = new Label();
+			PnMap = new Panel();
+			NudMapZoom = new NumericUpDown();
+			CbMapProvider = new ComboBox();
+			LbMapZoom = new Label();
+			LbMapProvider = new Label();
+			LbTitleMap = new Label();
+			BtDefaults = new Button();
+			PnBriefing = new Panel();
+			CkBriefingGenerateDirectoryHtml = new CheckBox();
+			LbBriefingImageSize = new Label();
+			UcBriefingImageSize = new UcImageSize();
+			CkBriefingGenerateOnSave = new CheckBox();
+			CbBriefingMeasurementSystem = new ComboBox();
+			LbBriefingMeasurementSystem = new Label();
+			LstBriefingCoordinateDisplay = new CheckedListBox();
+			CbBriefingWeatherDisplay = new ComboBox();
+			LbBriefingCoordinateDisplay = new Label();
+			LbBriefingWeatherDisplay = new Label();
+			LbTitleBriefing = new Label();
+			PnApplication.SuspendLayout();
+			PnMission.SuspendLayout();
+			PnMap.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)NudMapZoom).BeginInit();
+			PnBriefing.SuspendLayout();
+			SuspendLayout();
 			// 
 			// BtCancel
 			// 
-			this.BtCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtCancel.Location = new System.Drawing.Point(472, 638);
-			this.BtCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.BtCancel.Name = "BtCancel";
-			this.BtCancel.Size = new System.Drawing.Size(88, 27);
-			this.BtCancel.TabIndex = 12;
-			this.BtCancel.Text = "Cancel";
-			this.BtCancel.UseVisualStyleBackColor = true;
-			this.BtCancel.Click += new System.EventHandler(this.BtCancel_Click);
+			BtCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			BtCancel.Location = new Point(472, 586);
+			BtCancel.Margin = new Padding(4, 3, 4, 3);
+			BtCancel.Name = "BtCancel";
+			BtCancel.Size = new Size(88, 27);
+			BtCancel.TabIndex = 12;
+			BtCancel.Text = "Cancel";
+			BtCancel.UseVisualStyleBackColor = true;
+			BtCancel.Click += BtCancel_Click;
 			// 
 			// BtOk
 			// 
-			this.BtOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtOk.Location = new System.Drawing.Point(378, 638);
-			this.BtOk.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.BtOk.Name = "BtOk";
-			this.BtOk.Size = new System.Drawing.Size(88, 27);
-			this.BtOk.TabIndex = 11;
-			this.BtOk.Text = "OK";
-			this.BtOk.UseVisualStyleBackColor = true;
-			this.BtOk.Click += new System.EventHandler(this.BtOk_Click);
+			BtOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			BtOk.Location = new Point(378, 586);
+			BtOk.Margin = new Padding(4, 3, 4, 3);
+			BtOk.Name = "BtOk";
+			BtOk.Size = new Size(88, 27);
+			BtOk.TabIndex = 11;
+			BtOk.Text = "OK";
+			BtOk.UseVisualStyleBackColor = true;
+			BtOk.Click += BtOk_Click;
 			// 
 			// LbTitleApplication
 			// 
-			this.LbTitleApplication.Dock = System.Windows.Forms.DockStyle.Top;
-			this.LbTitleApplication.Location = new System.Drawing.Point(0, 0);
-			this.LbTitleApplication.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbTitleApplication.Name = "LbTitleApplication";
-			this.LbTitleApplication.Size = new System.Drawing.Size(544, 32);
-			this.LbTitleApplication.TabIndex = 13;
-			this.LbTitleApplication.Text = "Application";
-			this.LbTitleApplication.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			LbTitleApplication.Dock = DockStyle.Top;
+			LbTitleApplication.Location = new Point(0, 0);
+			LbTitleApplication.Margin = new Padding(4, 0, 4, 0);
+			LbTitleApplication.Name = "LbTitleApplication";
+			LbTitleApplication.Size = new Size(544, 32);
+			LbTitleApplication.TabIndex = 13;
+			LbTitleApplication.Text = "Application";
+			LbTitleApplication.TextAlign = ContentAlignment.MiddleLeft;
 			// 
 			// PnApplication
 			// 
-			this.PnApplication.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.PnApplication.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.PnApplication.Controls.Add(this.CkApplicationGenerateBatch);
-			this.PnApplication.Controls.Add(this.CkApplicationMizBackup);
-			this.PnApplication.Controls.Add(this.BtApplicationRecentMiz);
-			this.PnApplication.Controls.Add(this.TbApplicationRecentMiz);
-			this.PnApplication.Controls.Add(this.LbApplicationRecentMiz);
-			this.PnApplication.Controls.Add(this.BtApplicationWorkingDirectoryReset);
-			this.PnApplication.Controls.Add(this.BtApplicationWorkingDirectorySelect);
-			this.PnApplication.Controls.Add(this.TbApplicationWorkingDirectory);
-			this.PnApplication.Controls.Add(this.LbApplicationWorkingDirectory);
-			this.PnApplication.Controls.Add(this.LbTitleApplication);
-			this.PnApplication.Location = new System.Drawing.Point(14, 14);
-			this.PnApplication.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.PnApplication.Name = "PnApplication";
-			this.PnApplication.Size = new System.Drawing.Size(546, 135);
-			this.PnApplication.TabIndex = 14;
+			PnApplication.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			PnApplication.BorderStyle = BorderStyle.FixedSingle;
+			PnApplication.Controls.Add(CkApplicationGenerateBatch);
+			PnApplication.Controls.Add(CkApplicationMizBackup);
+			PnApplication.Controls.Add(BtApplicationRecentMiz);
+			PnApplication.Controls.Add(TbApplicationRecentMiz);
+			PnApplication.Controls.Add(LbApplicationRecentMiz);
+			PnApplication.Controls.Add(BtApplicationWorkingDirectoryReset);
+			PnApplication.Controls.Add(BtApplicationWorkingDirectorySelect);
+			PnApplication.Controls.Add(TbApplicationWorkingDirectory);
+			PnApplication.Controls.Add(LbApplicationWorkingDirectory);
+			PnApplication.Controls.Add(LbTitleApplication);
+			PnApplication.Location = new Point(14, 14);
+			PnApplication.Margin = new Padding(4, 3, 4, 3);
+			PnApplication.Name = "PnApplication";
+			PnApplication.Size = new Size(546, 135);
+			PnApplication.TabIndex = 14;
 			// 
 			// CkApplicationGenerateBatch
 			// 
-			this.CkApplicationGenerateBatch.AutoSize = true;
-			this.CkApplicationGenerateBatch.Location = new System.Drawing.Point(259, 100);
-			this.CkApplicationGenerateBatch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.CkApplicationGenerateBatch.Name = "CkApplicationGenerateBatch";
-			this.CkApplicationGenerateBatch.Size = new System.Drawing.Size(207, 19);
-			this.CkApplicationGenerateBatch.TabIndex = 22;
-			this.CkApplicationGenerateBatch.Text = "Generate batch command on save";
-			this.CkApplicationGenerateBatch.UseVisualStyleBackColor = true;
+			CkApplicationGenerateBatch.AutoSize = true;
+			CkApplicationGenerateBatch.Location = new Point(259, 100);
+			CkApplicationGenerateBatch.Margin = new Padding(4, 3, 4, 3);
+			CkApplicationGenerateBatch.Name = "CkApplicationGenerateBatch";
+			CkApplicationGenerateBatch.Size = new Size(207, 19);
+			CkApplicationGenerateBatch.TabIndex = 22;
+			CkApplicationGenerateBatch.Text = "Generate batch command on save";
+			CkApplicationGenerateBatch.UseVisualStyleBackColor = true;
 			// 
 			// CkApplicationMizBackup
 			// 
-			this.CkApplicationMizBackup.AutoSize = true;
-			this.CkApplicationMizBackup.Location = new System.Drawing.Point(42, 100);
-			this.CkApplicationMizBackup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.CkApplicationMizBackup.Name = "CkApplicationMizBackup";
-			this.CkApplicationMizBackup.Size = new System.Drawing.Size(187, 19);
-			this.CkApplicationMizBackup.TabIndex = 21;
-			this.CkApplicationMizBackup.Text = "Backup Miz before overwriting";
-			this.CkApplicationMizBackup.UseVisualStyleBackColor = true;
+			CkApplicationMizBackup.AutoSize = true;
+			CkApplicationMizBackup.Location = new Point(42, 100);
+			CkApplicationMizBackup.Margin = new Padding(4, 3, 4, 3);
+			CkApplicationMizBackup.Name = "CkApplicationMizBackup";
+			CkApplicationMizBackup.Size = new Size(187, 19);
+			CkApplicationMizBackup.TabIndex = 21;
+			CkApplicationMizBackup.Text = "Backup Miz before overwriting";
+			CkApplicationMizBackup.UseVisualStyleBackColor = true;
 			// 
 			// BtApplicationRecentMiz
 			// 
-			this.BtApplicationRecentMiz.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtApplicationRecentMiz.Location = new System.Drawing.Point(448, 61);
-			this.BtApplicationRecentMiz.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.BtApplicationRecentMiz.Name = "BtApplicationRecentMiz";
-			this.BtApplicationRecentMiz.Size = new System.Drawing.Size(86, 27);
-			this.BtApplicationRecentMiz.TabIndex = 20;
-			this.BtApplicationRecentMiz.Text = "Clear";
-			this.BtApplicationRecentMiz.UseVisualStyleBackColor = true;
-			this.BtApplicationRecentMiz.Click += new System.EventHandler(this.BtApplicationRecentMiz_Click);
+			BtApplicationRecentMiz.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			BtApplicationRecentMiz.Location = new Point(448, 61);
+			BtApplicationRecentMiz.Margin = new Padding(4, 3, 4, 3);
+			BtApplicationRecentMiz.Name = "BtApplicationRecentMiz";
+			BtApplicationRecentMiz.Size = new Size(86, 27);
+			BtApplicationRecentMiz.TabIndex = 20;
+			BtApplicationRecentMiz.Text = "Clear";
+			BtApplicationRecentMiz.UseVisualStyleBackColor = true;
+			BtApplicationRecentMiz.Click += BtApplicationRecentMiz_Click;
 			// 
 			// TbApplicationRecentMiz
 			// 
-			this.TbApplicationRecentMiz.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbApplicationRecentMiz.Location = new System.Drawing.Point(131, 63);
-			this.TbApplicationRecentMiz.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.TbApplicationRecentMiz.Name = "TbApplicationRecentMiz";
-			this.TbApplicationRecentMiz.ReadOnly = true;
-			this.TbApplicationRecentMiz.Size = new System.Drawing.Size(310, 23);
-			this.TbApplicationRecentMiz.TabIndex = 19;
+			TbApplicationRecentMiz.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbApplicationRecentMiz.Location = new Point(131, 63);
+			TbApplicationRecentMiz.Margin = new Padding(4, 3, 4, 3);
+			TbApplicationRecentMiz.Name = "TbApplicationRecentMiz";
+			TbApplicationRecentMiz.ReadOnly = true;
+			TbApplicationRecentMiz.Size = new Size(310, 23);
+			TbApplicationRecentMiz.TabIndex = 19;
 			// 
 			// LbApplicationRecentMiz
 			// 
-			this.LbApplicationRecentMiz.AutoSize = true;
-			this.LbApplicationRecentMiz.Location = new System.Drawing.Point(5, 67);
-			this.LbApplicationRecentMiz.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbApplicationRecentMiz.Name = "LbApplicationRecentMiz";
-			this.LbApplicationRecentMiz.Size = new System.Drawing.Size(65, 15);
-			this.LbApplicationRecentMiz.TabIndex = 18;
-			this.LbApplicationRecentMiz.Text = "Recent Miz";
+			LbApplicationRecentMiz.AutoSize = true;
+			LbApplicationRecentMiz.Location = new Point(5, 67);
+			LbApplicationRecentMiz.Margin = new Padding(4, 0, 4, 0);
+			LbApplicationRecentMiz.Name = "LbApplicationRecentMiz";
+			LbApplicationRecentMiz.Size = new Size(65, 15);
+			LbApplicationRecentMiz.TabIndex = 18;
+			LbApplicationRecentMiz.Text = "Recent Miz";
 			// 
 			// BtApplicationWorkingDirectoryReset
 			// 
-			this.BtApplicationWorkingDirectoryReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtApplicationWorkingDirectoryReset.Location = new System.Drawing.Point(495, 31);
-			this.BtApplicationWorkingDirectoryReset.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.BtApplicationWorkingDirectoryReset.Name = "BtApplicationWorkingDirectoryReset";
-			this.BtApplicationWorkingDirectoryReset.Size = new System.Drawing.Size(40, 27);
-			this.BtApplicationWorkingDirectoryReset.TabIndex = 17;
-			this.BtApplicationWorkingDirectoryReset.Text = "R";
-			this.BtApplicationWorkingDirectoryReset.UseVisualStyleBackColor = true;
-			this.BtApplicationWorkingDirectoryReset.Click += new System.EventHandler(this.BtApplicationWorkingDirectoryReset_Click);
+			BtApplicationWorkingDirectoryReset.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			BtApplicationWorkingDirectoryReset.Location = new Point(495, 31);
+			BtApplicationWorkingDirectoryReset.Margin = new Padding(4, 3, 4, 3);
+			BtApplicationWorkingDirectoryReset.Name = "BtApplicationWorkingDirectoryReset";
+			BtApplicationWorkingDirectoryReset.Size = new Size(40, 27);
+			BtApplicationWorkingDirectoryReset.TabIndex = 17;
+			BtApplicationWorkingDirectoryReset.Text = "R";
+			BtApplicationWorkingDirectoryReset.UseVisualStyleBackColor = true;
+			BtApplicationWorkingDirectoryReset.Click += BtApplicationWorkingDirectoryReset_Click;
 			// 
 			// BtApplicationWorkingDirectorySelect
 			// 
-			this.BtApplicationWorkingDirectorySelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtApplicationWorkingDirectorySelect.Location = new System.Drawing.Point(448, 31);
-			this.BtApplicationWorkingDirectorySelect.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.BtApplicationWorkingDirectorySelect.Name = "BtApplicationWorkingDirectorySelect";
-			this.BtApplicationWorkingDirectorySelect.Size = new System.Drawing.Size(40, 27);
-			this.BtApplicationWorkingDirectorySelect.TabIndex = 16;
-			this.BtApplicationWorkingDirectorySelect.Text = "...";
-			this.BtApplicationWorkingDirectorySelect.UseVisualStyleBackColor = true;
-			this.BtApplicationWorkingDirectorySelect.Click += new System.EventHandler(this.BtApplicationWorkingDirectorySelect_Click);
+			BtApplicationWorkingDirectorySelect.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			BtApplicationWorkingDirectorySelect.Location = new Point(448, 31);
+			BtApplicationWorkingDirectorySelect.Margin = new Padding(4, 3, 4, 3);
+			BtApplicationWorkingDirectorySelect.Name = "BtApplicationWorkingDirectorySelect";
+			BtApplicationWorkingDirectorySelect.Size = new Size(40, 27);
+			BtApplicationWorkingDirectorySelect.TabIndex = 16;
+			BtApplicationWorkingDirectorySelect.Text = "...";
+			BtApplicationWorkingDirectorySelect.UseVisualStyleBackColor = true;
+			BtApplicationWorkingDirectorySelect.Click += BtApplicationWorkingDirectorySelect_Click;
 			// 
 			// TbApplicationWorkingDirectory
 			// 
-			this.TbApplicationWorkingDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbApplicationWorkingDirectory.Location = new System.Drawing.Point(131, 33);
-			this.TbApplicationWorkingDirectory.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.TbApplicationWorkingDirectory.Name = "TbApplicationWorkingDirectory";
-			this.TbApplicationWorkingDirectory.ReadOnly = true;
-			this.TbApplicationWorkingDirectory.Size = new System.Drawing.Size(310, 23);
-			this.TbApplicationWorkingDirectory.TabIndex = 15;
+			TbApplicationWorkingDirectory.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbApplicationWorkingDirectory.Location = new Point(131, 33);
+			TbApplicationWorkingDirectory.Margin = new Padding(4, 3, 4, 3);
+			TbApplicationWorkingDirectory.Name = "TbApplicationWorkingDirectory";
+			TbApplicationWorkingDirectory.ReadOnly = true;
+			TbApplicationWorkingDirectory.Size = new Size(310, 23);
+			TbApplicationWorkingDirectory.TabIndex = 15;
 			// 
 			// LbApplicationWorkingDirectory
 			// 
-			this.LbApplicationWorkingDirectory.AutoSize = true;
-			this.LbApplicationWorkingDirectory.Location = new System.Drawing.Point(5, 37);
-			this.LbApplicationWorkingDirectory.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbApplicationWorkingDirectory.Name = "LbApplicationWorkingDirectory";
-			this.LbApplicationWorkingDirectory.Size = new System.Drawing.Size(102, 15);
-			this.LbApplicationWorkingDirectory.TabIndex = 14;
-			this.LbApplicationWorkingDirectory.Text = "Working directory";
+			LbApplicationWorkingDirectory.AutoSize = true;
+			LbApplicationWorkingDirectory.Location = new Point(5, 37);
+			LbApplicationWorkingDirectory.Margin = new Padding(4, 0, 4, 0);
+			LbApplicationWorkingDirectory.Name = "LbApplicationWorkingDirectory";
+			LbApplicationWorkingDirectory.Size = new Size(102, 15);
+			LbApplicationWorkingDirectory.TabIndex = 14;
+			LbApplicationWorkingDirectory.Text = "Working directory";
 			// 
 			// PnMission
 			// 
-			this.PnMission.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.PnMission.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.PnMission.Controls.Add(this.CkMissionBullseyeWaypoint);
-			this.PnMission.Controls.Add(this.CkMissionNoCallsignForPlayable);
-			this.PnMission.Controls.Add(this.LbTitleMission);
-			this.PnMission.Location = new System.Drawing.Point(14, 156);
-			this.PnMission.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.PnMission.Name = "PnMission";
-			this.PnMission.Size = new System.Drawing.Size(546, 65);
-			this.PnMission.TabIndex = 15;
+			PnMission.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			PnMission.BorderStyle = BorderStyle.FixedSingle;
+			PnMission.Controls.Add(CkMissionBullseyeWaypoint);
+			PnMission.Controls.Add(CkMissionNoCallsignForPlayable);
+			PnMission.Controls.Add(LbTitleMission);
+			PnMission.Location = new Point(14, 156);
+			PnMission.Margin = new Padding(4, 3, 4, 3);
+			PnMission.Name = "PnMission";
+			PnMission.Size = new Size(546, 65);
+			PnMission.TabIndex = 15;
 			// 
 			// CkMissionBullseyeWaypoint
 			// 
-			this.CkMissionBullseyeWaypoint.AutoSize = true;
-			this.CkMissionBullseyeWaypoint.Location = new System.Drawing.Point(259, 35);
-			this.CkMissionBullseyeWaypoint.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.CkMissionBullseyeWaypoint.Name = "CkMissionBullseyeWaypoint";
-			this.CkMissionBullseyeWaypoint.Size = new System.Drawing.Size(281, 19);
-			this.CkMissionBullseyeWaypoint.TabIndex = 26;
-			this.CkMissionBullseyeWaypoint.Text = "Add Bulls as first waypoint for all playable flights";
-			this.CkMissionBullseyeWaypoint.UseVisualStyleBackColor = true;
+			CkMissionBullseyeWaypoint.AutoSize = true;
+			CkMissionBullseyeWaypoint.Location = new Point(259, 35);
+			CkMissionBullseyeWaypoint.Margin = new Padding(4, 3, 4, 3);
+			CkMissionBullseyeWaypoint.Name = "CkMissionBullseyeWaypoint";
+			CkMissionBullseyeWaypoint.Size = new Size(281, 19);
+			CkMissionBullseyeWaypoint.TabIndex = 26;
+			CkMissionBullseyeWaypoint.Text = "Add Bulls as first waypoint for all playable flights";
+			CkMissionBullseyeWaypoint.UseVisualStyleBackColor = true;
 			// 
 			// CkMissionNoCallsignForPlayable
 			// 
-			this.CkMissionNoCallsignForPlayable.AutoSize = true;
-			this.CkMissionNoCallsignForPlayable.Location = new System.Drawing.Point(42, 35);
-			this.CkMissionNoCallsignForPlayable.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.CkMissionNoCallsignForPlayable.Name = "CkMissionNoCallsignForPlayable";
-			this.CkMissionNoCallsignForPlayable.Size = new System.Drawing.Size(186, 19);
-			this.CkMissionNoCallsignForPlayable.TabIndex = 25;
-			this.CkMissionNoCallsignForPlayable.Text = "No callsign for playable flights";
-			this.CkMissionNoCallsignForPlayable.UseVisualStyleBackColor = true;
+			CkMissionNoCallsignForPlayable.AutoSize = true;
+			CkMissionNoCallsignForPlayable.Location = new Point(42, 35);
+			CkMissionNoCallsignForPlayable.Margin = new Padding(4, 3, 4, 3);
+			CkMissionNoCallsignForPlayable.Name = "CkMissionNoCallsignForPlayable";
+			CkMissionNoCallsignForPlayable.Size = new Size(186, 19);
+			CkMissionNoCallsignForPlayable.TabIndex = 25;
+			CkMissionNoCallsignForPlayable.Text = "No callsign for playable flights";
+			CkMissionNoCallsignForPlayable.UseVisualStyleBackColor = true;
 			// 
 			// LbTitleMission
 			// 
-			this.LbTitleMission.Dock = System.Windows.Forms.DockStyle.Top;
-			this.LbTitleMission.Location = new System.Drawing.Point(0, 0);
-			this.LbTitleMission.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbTitleMission.Name = "LbTitleMission";
-			this.LbTitleMission.Size = new System.Drawing.Size(544, 32);
-			this.LbTitleMission.TabIndex = 13;
-			this.LbTitleMission.Text = "Mission";
-			this.LbTitleMission.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			LbTitleMission.Dock = DockStyle.Top;
+			LbTitleMission.Location = new Point(0, 0);
+			LbTitleMission.Margin = new Padding(4, 0, 4, 0);
+			LbTitleMission.Name = "LbTitleMission";
+			LbTitleMission.Size = new Size(544, 32);
+			LbTitleMission.TabIndex = 13;
+			LbTitleMission.Text = "Mission";
+			LbTitleMission.TextAlign = ContentAlignment.MiddleLeft;
 			// 
 			// PnMap
 			// 
-			this.PnMap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.PnMap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.PnMap.Controls.Add(this.NudMapZoom);
-			this.PnMap.Controls.Add(this.CbMapProvider);
-			this.PnMap.Controls.Add(this.LbMapZoom);
-			this.PnMap.Controls.Add(this.LbMapProvider);
-			this.PnMap.Controls.Add(this.LbTitleMap);
-			this.PnMap.Location = new System.Drawing.Point(14, 227);
-			this.PnMap.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.PnMap.Name = "PnMap";
-			this.PnMap.Size = new System.Drawing.Size(546, 99);
-			this.PnMap.TabIndex = 16;
+			PnMap.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			PnMap.BorderStyle = BorderStyle.FixedSingle;
+			PnMap.Controls.Add(NudMapZoom);
+			PnMap.Controls.Add(CbMapProvider);
+			PnMap.Controls.Add(LbMapZoom);
+			PnMap.Controls.Add(LbMapProvider);
+			PnMap.Controls.Add(LbTitleMap);
+			PnMap.Location = new Point(14, 227);
+			PnMap.Margin = new Padding(4, 3, 4, 3);
+			PnMap.Name = "PnMap";
+			PnMap.Size = new Size(546, 99);
+			PnMap.TabIndex = 16;
 			// 
 			// NudMapZoom
 			// 
-			this.NudMapZoom.Location = new System.Drawing.Point(131, 65);
-			this.NudMapZoom.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.NudMapZoom.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
-			this.NudMapZoom.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.NudMapZoom.Name = "NudMapZoom";
-			this.NudMapZoom.Size = new System.Drawing.Size(85, 23);
-			this.NudMapZoom.TabIndex = 24;
-			this.NudMapZoom.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			NudMapZoom.Location = new Point(131, 65);
+			NudMapZoom.Margin = new Padding(4, 3, 4, 3);
+			NudMapZoom.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
+			NudMapZoom.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			NudMapZoom.Name = "NudMapZoom";
+			NudMapZoom.Size = new Size(85, 23);
+			NudMapZoom.TabIndex = 24;
+			NudMapZoom.Value = new decimal(new int[] { 1, 0, 0, 0 });
 			// 
 			// CbMapProvider
 			// 
-			this.CbMapProvider.FormattingEnabled = true;
-			this.CbMapProvider.Location = new System.Drawing.Point(131, 32);
-			this.CbMapProvider.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.CbMapProvider.Name = "CbMapProvider";
-			this.CbMapProvider.Size = new System.Drawing.Size(310, 23);
-			this.CbMapProvider.TabIndex = 23;
+			CbMapProvider.FormattingEnabled = true;
+			CbMapProvider.Location = new Point(131, 32);
+			CbMapProvider.Margin = new Padding(4, 3, 4, 3);
+			CbMapProvider.Name = "CbMapProvider";
+			CbMapProvider.Size = new Size(310, 23);
+			CbMapProvider.TabIndex = 23;
 			// 
 			// LbMapZoom
 			// 
-			this.LbMapZoom.AutoSize = true;
-			this.LbMapZoom.Location = new System.Drawing.Point(5, 67);
-			this.LbMapZoom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbMapZoom.Name = "LbMapZoom";
-			this.LbMapZoom.Size = new System.Drawing.Size(78, 15);
-			this.LbMapZoom.TabIndex = 18;
-			this.LbMapZoom.Text = "Default zoom";
+			LbMapZoom.AutoSize = true;
+			LbMapZoom.Location = new Point(5, 67);
+			LbMapZoom.Margin = new Padding(4, 0, 4, 0);
+			LbMapZoom.Name = "LbMapZoom";
+			LbMapZoom.Size = new Size(78, 15);
+			LbMapZoom.TabIndex = 18;
+			LbMapZoom.Text = "Default zoom";
 			// 
 			// LbMapProvider
 			// 
-			this.LbMapProvider.AutoSize = true;
-			this.LbMapProvider.Location = new System.Drawing.Point(5, 36);
-			this.LbMapProvider.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbMapProvider.Name = "LbMapProvider";
-			this.LbMapProvider.Size = new System.Drawing.Size(92, 15);
-			this.LbMapProvider.TabIndex = 14;
-			this.LbMapProvider.Text = "Default provider";
+			LbMapProvider.AutoSize = true;
+			LbMapProvider.Location = new Point(5, 36);
+			LbMapProvider.Margin = new Padding(4, 0, 4, 0);
+			LbMapProvider.Name = "LbMapProvider";
+			LbMapProvider.Size = new Size(92, 15);
+			LbMapProvider.TabIndex = 14;
+			LbMapProvider.Text = "Default provider";
 			// 
 			// LbTitleMap
 			// 
-			this.LbTitleMap.Dock = System.Windows.Forms.DockStyle.Top;
-			this.LbTitleMap.Location = new System.Drawing.Point(0, 0);
-			this.LbTitleMap.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbTitleMap.Name = "LbTitleMap";
-			this.LbTitleMap.Size = new System.Drawing.Size(544, 32);
-			this.LbTitleMap.TabIndex = 13;
-			this.LbTitleMap.Text = "Map";
-			this.LbTitleMap.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			LbTitleMap.Dock = DockStyle.Top;
+			LbTitleMap.Location = new Point(0, 0);
+			LbTitleMap.Margin = new Padding(4, 0, 4, 0);
+			LbTitleMap.Name = "LbTitleMap";
+			LbTitleMap.Size = new Size(544, 32);
+			LbTitleMap.TabIndex = 13;
+			LbTitleMap.Text = "Map";
+			LbTitleMap.TextAlign = ContentAlignment.MiddleLeft;
 			// 
 			// BtDefaults
 			// 
-			this.BtDefaults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtDefaults.Location = new System.Drawing.Point(14, 638);
-			this.BtDefaults.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.BtDefaults.Name = "BtDefaults";
-			this.BtDefaults.Size = new System.Drawing.Size(124, 27);
-			this.BtDefaults.TabIndex = 17;
-			this.BtDefaults.Text = "Reset defaults";
-			this.BtDefaults.UseVisualStyleBackColor = true;
-			this.BtDefaults.Click += new System.EventHandler(this.BtDefaults_Click);
+			BtDefaults.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			BtDefaults.Location = new Point(14, 586);
+			BtDefaults.Margin = new Padding(4, 3, 4, 3);
+			BtDefaults.Name = "BtDefaults";
+			BtDefaults.Size = new Size(124, 27);
+			BtDefaults.TabIndex = 17;
+			BtDefaults.Text = "Reset defaults";
+			BtDefaults.UseVisualStyleBackColor = true;
+			BtDefaults.Click += BtDefaults_Click;
 			// 
 			// PnBriefing
 			// 
-			this.PnBriefing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.PnBriefing.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.PnBriefing.Controls.Add(this.TbBriefingDirectoryName);
-			this.PnBriefing.Controls.Add(this.LbBriefingDirectoryName);
-			this.PnBriefing.Controls.Add(this.CkBriefingGenerateDirectoryHtml);
-			this.PnBriefing.Controls.Add(this.CkBriefingGenerateDirectory);
-			this.PnBriefing.Controls.Add(this.CkBriefingGenerateMiz);
-			this.PnBriefing.Controls.Add(this.LbBriefingImageSize);
-			this.PnBriefing.Controls.Add(this.UcBriefingImageSize);
-			this.PnBriefing.Controls.Add(this.CkBriefingGenerateOnSave);
-			this.PnBriefing.Controls.Add(this.CbBriefingMeasurementSystem);
-			this.PnBriefing.Controls.Add(this.LbBriefingMeasurementSystem);
-			this.PnBriefing.Controls.Add(this.LstBriefingCoordinateDisplay);
-			this.PnBriefing.Controls.Add(this.CbBriefingWeatherDisplay);
-			this.PnBriefing.Controls.Add(this.LbBriefingCoordinateDisplay);
-			this.PnBriefing.Controls.Add(this.LbBriefingWeatherDisplay);
-			this.PnBriefing.Controls.Add(this.LbTitleBriefing);
-			this.PnBriefing.Location = new System.Drawing.Point(14, 332);
-			this.PnBriefing.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.PnBriefing.Name = "PnBriefing";
-			this.PnBriefing.Size = new System.Drawing.Size(546, 301);
-			this.PnBriefing.TabIndex = 18;
-			// 
-			// TbBriefingDirectoryName
-			// 
-			this.TbBriefingDirectoryName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbBriefingDirectoryName.Location = new System.Drawing.Point(213, 262);
-			this.TbBriefingDirectoryName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.TbBriefingDirectoryName.Name = "TbBriefingDirectoryName";
-			this.TbBriefingDirectoryName.Size = new System.Drawing.Size(226, 23);
-			this.TbBriefingDirectoryName.TabIndex = 34;
-			// 
-			// LbBriefingDirectoryName
-			// 
-			this.LbBriefingDirectoryName.AutoSize = true;
-			this.LbBriefingDirectoryName.Location = new System.Drawing.Point(150, 265);
-			this.LbBriefingDirectoryName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbBriefingDirectoryName.Name = "LbBriefingDirectoryName";
-			this.LbBriefingDirectoryName.Size = new System.Drawing.Size(55, 15);
-			this.LbBriefingDirectoryName.TabIndex = 33;
-			this.LbBriefingDirectoryName.Text = "Directory";
+			PnBriefing.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			PnBriefing.BorderStyle = BorderStyle.FixedSingle;
+			PnBriefing.Controls.Add(CkBriefingGenerateDirectoryHtml);
+			PnBriefing.Controls.Add(LbBriefingImageSize);
+			PnBriefing.Controls.Add(UcBriefingImageSize);
+			PnBriefing.Controls.Add(CkBriefingGenerateOnSave);
+			PnBriefing.Controls.Add(CbBriefingMeasurementSystem);
+			PnBriefing.Controls.Add(LbBriefingMeasurementSystem);
+			PnBriefing.Controls.Add(LstBriefingCoordinateDisplay);
+			PnBriefing.Controls.Add(CbBriefingWeatherDisplay);
+			PnBriefing.Controls.Add(LbBriefingCoordinateDisplay);
+			PnBriefing.Controls.Add(LbBriefingWeatherDisplay);
+			PnBriefing.Controls.Add(LbTitleBriefing);
+			PnBriefing.Location = new Point(14, 332);
+			PnBriefing.Margin = new Padding(4, 3, 4, 3);
+			PnBriefing.Name = "PnBriefing";
+			PnBriefing.Size = new Size(546, 246);
+			PnBriefing.TabIndex = 18;
 			// 
 			// CkBriefingGenerateDirectoryHtml
 			// 
-			this.CkBriefingGenerateDirectoryHtml.AutoSize = true;
-			this.CkBriefingGenerateDirectoryHtml.Location = new System.Drawing.Point(360, 237);
-			this.CkBriefingGenerateDirectoryHtml.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.CkBriefingGenerateDirectoryHtml.Name = "CkBriefingGenerateDirectoryHtml";
-			this.CkBriefingGenerateDirectoryHtml.Size = new System.Drawing.Size(79, 19);
-			this.CkBriefingGenerateDirectoryHtml.TabIndex = 32;
-			this.CkBriefingGenerateDirectoryHtml.Text = "With html";
-			this.CkBriefingGenerateDirectoryHtml.UseVisualStyleBackColor = true;
-			// 
-			// CkBriefingGenerateDirectory
-			// 
-			this.CkBriefingGenerateDirectory.AutoSize = true;
-			this.CkBriefingGenerateDirectory.Location = new System.Drawing.Point(131, 237);
-			this.CkBriefingGenerateDirectory.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.CkBriefingGenerateDirectory.Name = "CkBriefingGenerateDirectory";
-			this.CkBriefingGenerateDirectory.Size = new System.Drawing.Size(221, 19);
-			this.CkBriefingGenerateDirectory.TabIndex = 31;
-			this.CkBriefingGenerateDirectory.Text = "Generate in directory (relative to miz)";
-			this.CkBriefingGenerateDirectory.UseVisualStyleBackColor = true;
-			this.CkBriefingGenerateDirectory.CheckedChanged += new System.EventHandler(this.CkBriefingGenerateDirectory_CheckedChanged);
-			// 
-			// CkBriefingGenerateMiz
-			// 
-			this.CkBriefingGenerateMiz.AutoSize = true;
-			this.CkBriefingGenerateMiz.Location = new System.Drawing.Point(131, 212);
-			this.CkBriefingGenerateMiz.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.CkBriefingGenerateMiz.Name = "CkBriefingGenerateMiz";
-			this.CkBriefingGenerateMiz.Size = new System.Drawing.Size(127, 19);
-			this.CkBriefingGenerateMiz.TabIndex = 30;
-			this.CkBriefingGenerateMiz.Text = "Generate in miz file";
-			this.CkBriefingGenerateMiz.UseVisualStyleBackColor = true;
+			CkBriefingGenerateDirectoryHtml.AutoSize = true;
+			CkBriefingGenerateDirectoryHtml.Location = new Point(131, 212);
+			CkBriefingGenerateDirectoryHtml.Margin = new Padding(4, 3, 4, 3);
+			CkBriefingGenerateDirectoryHtml.Name = "CkBriefingGenerateDirectoryHtml";
+			CkBriefingGenerateDirectoryHtml.Size = new Size(164, 19);
+			CkBriefingGenerateDirectoryHtml.TabIndex = 35;
+			CkBriefingGenerateDirectoryHtml.Text = "Generate html in directory";
+			CkBriefingGenerateDirectoryHtml.UseVisualStyleBackColor = true;
 			// 
 			// LbBriefingImageSize
 			// 
-			this.LbBriefingImageSize.AutoSize = true;
-			this.LbBriefingImageSize.Location = new System.Drawing.Point(5, 159);
-			this.LbBriefingImageSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbBriefingImageSize.Name = "LbBriefingImageSize";
-			this.LbBriefingImageSize.Size = new System.Drawing.Size(62, 15);
-			this.LbBriefingImageSize.TabIndex = 29;
-			this.LbBriefingImageSize.Text = "Image size";
+			LbBriefingImageSize.AutoSize = true;
+			LbBriefingImageSize.Location = new Point(5, 159);
+			LbBriefingImageSize.Margin = new Padding(4, 0, 4, 0);
+			LbBriefingImageSize.Name = "LbBriefingImageSize";
+			LbBriefingImageSize.Size = new Size(62, 15);
+			LbBriefingImageSize.TabIndex = 29;
+			LbBriefingImageSize.Text = "Image size";
 			// 
 			// UcBriefingImageSize
 			// 
-			this.UcBriefingImageSize.Location = new System.Drawing.Point(131, 154);
-			this.UcBriefingImageSize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.UcBriefingImageSize.Name = "UcBriefingImageSize";
-			this.UcBriefingImageSize.SelectedSize = new System.Drawing.Size(1, 1);
-			this.UcBriefingImageSize.Size = new System.Drawing.Size(327, 27);
-			this.UcBriefingImageSize.TabIndex = 28;
+			UcBriefingImageSize.Location = new Point(131, 154);
+			UcBriefingImageSize.Margin = new Padding(4, 3, 4, 3);
+			UcBriefingImageSize.Name = "UcBriefingImageSize";
+			UcBriefingImageSize.SelectedSize = new Size(1, 1);
+			UcBriefingImageSize.Size = new Size(327, 27);
+			UcBriefingImageSize.TabIndex = 28;
 			// 
 			// CkBriefingGenerateOnSave
 			// 
-			this.CkBriefingGenerateOnSave.AutoSize = true;
-			this.CkBriefingGenerateOnSave.Location = new System.Drawing.Point(131, 187);
-			this.CkBriefingGenerateOnSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.CkBriefingGenerateOnSave.Name = "CkBriefingGenerateOnSave";
-			this.CkBriefingGenerateOnSave.Size = new System.Drawing.Size(250, 19);
-			this.CkBriefingGenerateOnSave.TabIndex = 27;
-			this.CkBriefingGenerateOnSave.Text = "Generate briefing when saving the mission";
-			this.CkBriefingGenerateOnSave.UseVisualStyleBackColor = true;
+			CkBriefingGenerateOnSave.AutoSize = true;
+			CkBriefingGenerateOnSave.Location = new Point(131, 187);
+			CkBriefingGenerateOnSave.Margin = new Padding(4, 3, 4, 3);
+			CkBriefingGenerateOnSave.Name = "CkBriefingGenerateOnSave";
+			CkBriefingGenerateOnSave.Size = new Size(250, 19);
+			CkBriefingGenerateOnSave.TabIndex = 27;
+			CkBriefingGenerateOnSave.Text = "Generate briefing when saving the mission";
+			CkBriefingGenerateOnSave.UseVisualStyleBackColor = true;
 			// 
 			// CbBriefingMeasurementSystem
 			// 
-			this.CbBriefingMeasurementSystem.FormattingEnabled = true;
-			this.CbBriefingMeasurementSystem.Location = new System.Drawing.Point(131, 61);
-			this.CbBriefingMeasurementSystem.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.CbBriefingMeasurementSystem.Name = "CbBriefingMeasurementSystem";
-			this.CbBriefingMeasurementSystem.Size = new System.Drawing.Size(312, 23);
-			this.CbBriefingMeasurementSystem.TabIndex = 26;
+			CbBriefingMeasurementSystem.FormattingEnabled = true;
+			CbBriefingMeasurementSystem.Location = new Point(131, 61);
+			CbBriefingMeasurementSystem.Margin = new Padding(4, 3, 4, 3);
+			CbBriefingMeasurementSystem.Name = "CbBriefingMeasurementSystem";
+			CbBriefingMeasurementSystem.Size = new Size(312, 23);
+			CbBriefingMeasurementSystem.TabIndex = 26;
 			// 
 			// LbBriefingMeasurementSystem
 			// 
-			this.LbBriefingMeasurementSystem.AutoSize = true;
-			this.LbBriefingMeasurementSystem.Location = new System.Drawing.Point(5, 65);
-			this.LbBriefingMeasurementSystem.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbBriefingMeasurementSystem.Name = "LbBriefingMeasurementSystem";
-			this.LbBriefingMeasurementSystem.Size = new System.Drawing.Size(120, 15);
-			this.LbBriefingMeasurementSystem.TabIndex = 25;
-			this.LbBriefingMeasurementSystem.Text = "Measurement system";
+			LbBriefingMeasurementSystem.AutoSize = true;
+			LbBriefingMeasurementSystem.Location = new Point(5, 65);
+			LbBriefingMeasurementSystem.Margin = new Padding(4, 0, 4, 0);
+			LbBriefingMeasurementSystem.Name = "LbBriefingMeasurementSystem";
+			LbBriefingMeasurementSystem.Size = new Size(120, 15);
+			LbBriefingMeasurementSystem.TabIndex = 25;
+			LbBriefingMeasurementSystem.Text = "Measurement system";
 			// 
 			// LstBriefingCoordinateDisplay
 			// 
-			this.LstBriefingCoordinateDisplay.FormattingEnabled = true;
-			this.LstBriefingCoordinateDisplay.Location = new System.Drawing.Point(131, 90);
-			this.LstBriefingCoordinateDisplay.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.LstBriefingCoordinateDisplay.Name = "LstBriefingCoordinateDisplay";
-			this.LstBriefingCoordinateDisplay.Size = new System.Drawing.Size(312, 58);
-			this.LstBriefingCoordinateDisplay.TabIndex = 24;
+			LstBriefingCoordinateDisplay.FormattingEnabled = true;
+			LstBriefingCoordinateDisplay.Location = new Point(131, 90);
+			LstBriefingCoordinateDisplay.Margin = new Padding(4, 3, 4, 3);
+			LstBriefingCoordinateDisplay.Name = "LstBriefingCoordinateDisplay";
+			LstBriefingCoordinateDisplay.Size = new Size(312, 58);
+			LstBriefingCoordinateDisplay.TabIndex = 24;
 			// 
 			// CbBriefingWeatherDisplay
 			// 
-			this.CbBriefingWeatherDisplay.FormattingEnabled = true;
-			this.CbBriefingWeatherDisplay.Location = new System.Drawing.Point(131, 32);
-			this.CbBriefingWeatherDisplay.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.CbBriefingWeatherDisplay.Name = "CbBriefingWeatherDisplay";
-			this.CbBriefingWeatherDisplay.Size = new System.Drawing.Size(312, 23);
-			this.CbBriefingWeatherDisplay.TabIndex = 23;
+			CbBriefingWeatherDisplay.FormattingEnabled = true;
+			CbBriefingWeatherDisplay.Location = new Point(131, 32);
+			CbBriefingWeatherDisplay.Margin = new Padding(4, 3, 4, 3);
+			CbBriefingWeatherDisplay.Name = "CbBriefingWeatherDisplay";
+			CbBriefingWeatherDisplay.Size = new Size(312, 23);
+			CbBriefingWeatherDisplay.TabIndex = 23;
 			// 
 			// LbBriefingCoordinateDisplay
 			// 
-			this.LbBriefingCoordinateDisplay.AutoSize = true;
-			this.LbBriefingCoordinateDisplay.Location = new System.Drawing.Point(5, 90);
-			this.LbBriefingCoordinateDisplay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbBriefingCoordinateDisplay.Name = "LbBriefingCoordinateDisplay";
-			this.LbBriefingCoordinateDisplay.Size = new System.Drawing.Size(106, 15);
-			this.LbBriefingCoordinateDisplay.TabIndex = 18;
-			this.LbBriefingCoordinateDisplay.Text = "Coordinate display";
+			LbBriefingCoordinateDisplay.AutoSize = true;
+			LbBriefingCoordinateDisplay.Location = new Point(5, 90);
+			LbBriefingCoordinateDisplay.Margin = new Padding(4, 0, 4, 0);
+			LbBriefingCoordinateDisplay.Name = "LbBriefingCoordinateDisplay";
+			LbBriefingCoordinateDisplay.Size = new Size(106, 15);
+			LbBriefingCoordinateDisplay.TabIndex = 18;
+			LbBriefingCoordinateDisplay.Text = "Coordinate display";
 			// 
 			// LbBriefingWeatherDisplay
 			// 
-			this.LbBriefingWeatherDisplay.AutoSize = true;
-			this.LbBriefingWeatherDisplay.Location = new System.Drawing.Point(5, 36);
-			this.LbBriefingWeatherDisplay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbBriefingWeatherDisplay.Name = "LbBriefingWeatherDisplay";
-			this.LbBriefingWeatherDisplay.Size = new System.Drawing.Size(91, 15);
-			this.LbBriefingWeatherDisplay.TabIndex = 14;
-			this.LbBriefingWeatherDisplay.Text = "Weather display";
+			LbBriefingWeatherDisplay.AutoSize = true;
+			LbBriefingWeatherDisplay.Location = new Point(5, 36);
+			LbBriefingWeatherDisplay.Margin = new Padding(4, 0, 4, 0);
+			LbBriefingWeatherDisplay.Name = "LbBriefingWeatherDisplay";
+			LbBriefingWeatherDisplay.Size = new Size(91, 15);
+			LbBriefingWeatherDisplay.TabIndex = 14;
+			LbBriefingWeatherDisplay.Text = "Weather display";
 			// 
 			// LbTitleBriefing
 			// 
-			this.LbTitleBriefing.Dock = System.Windows.Forms.DockStyle.Top;
-			this.LbTitleBriefing.Location = new System.Drawing.Point(0, 0);
-			this.LbTitleBriefing.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.LbTitleBriefing.Name = "LbTitleBriefing";
-			this.LbTitleBriefing.Size = new System.Drawing.Size(544, 32);
-			this.LbTitleBriefing.TabIndex = 13;
-			this.LbTitleBriefing.Text = "Briefing";
-			this.LbTitleBriefing.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			LbTitleBriefing.Dock = DockStyle.Top;
+			LbTitleBriefing.Location = new Point(0, 0);
+			LbTitleBriefing.Margin = new Padding(4, 0, 4, 0);
+			LbTitleBriefing.Name = "LbTitleBriefing";
+			LbTitleBriefing.Size = new Size(544, 32);
+			LbTitleBriefing.TabIndex = 13;
+			LbTitleBriefing.Text = "Briefing";
+			LbTitleBriefing.TextAlign = ContentAlignment.MiddleLeft;
 			// 
 			// FrmPreferences
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(574, 673);
-			this.Controls.Add(this.PnBriefing);
-			this.Controls.Add(this.BtDefaults);
-			this.Controls.Add(this.PnMap);
-			this.Controls.Add(this.PnMission);
-			this.Controls.Add(this.PnApplication);
-			this.Controls.Add(this.BtCancel);
-			this.Controls.Add(this.BtOk);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-			this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-			this.Name = "FrmPreferences";
-			this.ShowInTaskbar = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Preferences";
-			this.PnApplication.ResumeLayout(false);
-			this.PnApplication.PerformLayout();
-			this.PnMission.ResumeLayout(false);
-			this.PnMission.PerformLayout();
-			this.PnMap.ResumeLayout(false);
-			this.PnMap.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.NudMapZoom)).EndInit();
-			this.PnBriefing.ResumeLayout(false);
-			this.PnBriefing.PerformLayout();
-			this.ResumeLayout(false);
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			ClientSize = new Size(574, 621);
+			Controls.Add(PnBriefing);
+			Controls.Add(BtDefaults);
+			Controls.Add(PnMap);
+			Controls.Add(PnMission);
+			Controls.Add(PnApplication);
+			Controls.Add(BtCancel);
+			Controls.Add(BtOk);
+			FormBorderStyle = FormBorderStyle.FixedToolWindow;
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "FrmPreferences";
+			ShowInTaskbar = false;
+			StartPosition = FormStartPosition.CenterParent;
+			Text = "Preferences";
+			PnApplication.ResumeLayout(false);
+			PnApplication.PerformLayout();
+			PnMission.ResumeLayout(false);
+			PnMission.PerformLayout();
+			PnMap.ResumeLayout(false);
+			PnMap.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)NudMapZoom).EndInit();
+			PnBriefing.ResumeLayout(false);
+			PnBriefing.PerformLayout();
+			ResumeLayout(false);
 		}
 
 		#endregion
@@ -616,9 +546,5 @@
 		private Label LbBriefingImageSize;
 		private UcImageSize UcBriefingImageSize;
 		private CheckBox CkBriefingGenerateDirectoryHtml;
-		private CheckBox CkBriefingGenerateDirectory;
-		private CheckBox CkBriefingGenerateMiz;
-		private TextBox TbBriefingDirectoryName;
-		private Label LbBriefingDirectoryName;
 	}
 }

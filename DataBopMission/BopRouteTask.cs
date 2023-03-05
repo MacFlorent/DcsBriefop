@@ -2,6 +2,7 @@
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 using System.Text;
+using UnitsNet;
 using UnitsNet.Units;
 
 namespace DcsBriefop.DataBopMission
@@ -40,7 +41,7 @@ namespace DcsBriefop.DataBopMission
 			return $"{Number?.ToString() ?? "x"}:{ToString()}";
 		}
 
-		public virtual string ToStringAdditional()
+		public virtual string ToStringAdditional(ElementMeasurementSystem measurementSystem)
 		{
 			StringBuilder sb = new StringBuilder(Enabled ? "" : "[disabled]");
 
@@ -56,8 +57,8 @@ namespace DcsBriefop.DataBopMission
 	{
 		#region Properties
 		public string Pattern { get; set; }
-		public decimal? AltitudeFeet { get; set; }
-		public decimal? SpeedKnots { get; set; }
+		public decimal? AltitudeMeters { get; set; }
+		public decimal? SpeedMs { get; set; }
 		#endregion
 
 		#region CTOR
@@ -68,37 +69,45 @@ namespace DcsBriefop.DataBopMission
 			if (m_mizRouteTask.Params is MizRouteTaskParams taskParams)
 			{
 				Pattern = taskParams.Pattern;
+
+				if (taskParams.Altitude is object)
+					AltitudeMeters = taskParams.Altitude.Value;
+				if (taskParams.Speed is object)
+					SpeedMs = taskParams.Speed.Value;
 			}
 		}
 		#endregion
 
 		#region Miz
-		protected override void FinalizeFromMizInternal()
-		{
-			base.FinalizeFromMizInternal();
-
-			if (m_mizRouteTask.Params is MizRouteTaskParams taskParams)
-			{
-				if (taskParams.Altitude is object)
-					AltitudeFeet = (decimal)UnitsNet.UnitConverter.Convert(taskParams.Altitude.Value, LengthUnit.Meter, LengthUnit.Foot);
-				if (taskParams.Speed is object)
-					SpeedKnots = (decimal)UnitsNet.UnitConverter.Convert(taskParams.Speed.Value, SpeedUnit.MeterPerSecond, SpeedUnit.Knot);
-			}
-
-		}
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditional()
+		public override string ToStringAdditional(ElementMeasurementSystem measurementSystem)
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional(measurementSystem));
 
 			if (!string.IsNullOrEmpty(Pattern))
 				sb.AppendWithSeparator($"Pattern:{Pattern}", " ");
-			if (AltitudeFeet is object)
-				sb.AppendWithSeparator($"Altitude:{AltitudeFeet:0}", " ");
-			if (SpeedKnots is object)
-				sb.AppendWithSeparator($"Speed:{SpeedKnots:0}", " ");
+			if (AltitudeMeters is object)
+			{
+				int iAltitude;
+				if (measurementSystem == ElementMeasurementSystem.Imperial)
+					iAltitude = Convert.ToInt32(UnitConverter.Convert(AltitudeMeters.Value, LengthUnit.Meter, LengthUnit.Foot));
+				else
+					iAltitude = Convert.ToInt32(AltitudeMeters.Value);
+
+				sb.AppendWithSeparator($"Altitude:{iAltitude:0} {ToolsBriefop.GetUnitAltitude(measurementSystem)}", " ");
+			}
+			if (SpeedMs is object)
+			{
+				int iSpeed;
+				if (measurementSystem == ElementMeasurementSystem.Imperial)
+					iSpeed = Convert.ToInt32(UnitConverter.Convert(SpeedMs.Value, SpeedUnit.MeterPerSecond, SpeedUnit.Knot));
+				else
+					iSpeed = Convert.ToInt32(SpeedMs.Value);
+
+				sb.AppendWithSeparator($"Speed:{iSpeed:0} {ToolsBriefop.GetUnitSpeed(measurementSystem)}", " ");
+			}
 
 			return sb.ToString();
 		}
@@ -127,9 +136,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditional()
+		public override string ToStringAdditional(ElementMeasurementSystem measurementSystem)
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional(measurementSystem));
 
 			if (Callsign is object)
 				sb.AppendWithSeparator($"Callsign:{Callsign}", " ");
@@ -163,9 +172,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditional()
+		public override string ToStringAdditional(ElementMeasurementSystem measurementSystem)
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional(measurementSystem));
 
 			if (Callsign is object)
 				sb.AppendWithSeparator($"Callsign:{Callsign}", " ");
@@ -197,9 +206,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditional()
+		public override string ToStringAdditional(ElementMeasurementSystem measurementSystem)
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional(measurementSystem));
 
 			if (Radio is object)
 				sb.AppendWithSeparator($"Radio:{Radio}", " ");
@@ -232,9 +241,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditional()
+		public override string ToStringAdditional(ElementMeasurementSystem measurementSystem)
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional(measurementSystem));
 
 			if (Tacan is object)
 				sb.AppendWithSeparator($"TACAN:{Tacan}", " ");
@@ -267,9 +276,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditional()
+		public override string ToStringAdditional(ElementMeasurementSystem measurementSystem)
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional(measurementSystem));
 
 			if (Icls is object)
 				sb.AppendWithSeparator($"ICLS:{Icls}", " ");
@@ -302,9 +311,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public override string ToStringAdditional()
+		public override string ToStringAdditional(ElementMeasurementSystem measurementSystem)
 		{
-			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional(measurementSystem));
 
 			if (Link4 is object)
 				sb.AppendWithSeparator($"LNK4:{Link4:###.000}", " ");

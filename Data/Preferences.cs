@@ -69,10 +69,10 @@ namespace DcsBriefop.Data
 		public ElementCoordinateDisplay CoordinateDisplay { get; set; } = ElementCoordinateDisplay.Mgrs;
 		public Size ImageSize { get; set; } = new Size(720, 1085);
 		public bool GenerateOnSave { get; set; } = true;
-		public bool GenerateMiz { get; set; } = true;
-		public bool GenerateDirectory { get; set; } = false;
+		//public bool GenerateMiz { get; set; } = true;
+		//public bool GenerateDirectory { get; set; } = false;
 		public bool GenerateDirectoryHtml { get; set; } = false;
-		public string GenerateDirectoryName { get; set; }
+		//public string GenerateDirectoryName { get; set; } = "BriefopGenerated";
 
 		public void InitializeDefault() { }
 	}

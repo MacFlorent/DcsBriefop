@@ -5,7 +5,7 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using System.Text;
-using UnitsNet.Units;
+using UnitsNet;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -20,7 +20,7 @@ namespace DcsBriefop.DataBopMission
 		public string Name { get; set; }
 		public string Type { get; set; }
 		public string Action { get; set; }
-		public decimal AltitudeFeet { get; set; }
+		public decimal AltitudeMeters { get; set; }
 		public Coordinate Coordinate { get; set; }
 		public int? AirdromeId { get; set; }
 		public int? HelipadId { get; set; }
@@ -38,6 +38,7 @@ namespace DcsBriefop.DataBopMission
 			Type = m_mizRoutePoint.Type;
 			AirdromeId = m_mizRoutePoint.AirdromeId;
 			HelipadId = m_mizRoutePoint.HelipadId;
+			AltitudeMeters = m_mizRoutePoint.Altitude;
 
 			Tasks = new List<BopRouteTask>();
 			if (m_mizRoutePoint.RouteTaskHolder is object)
@@ -79,7 +80,6 @@ namespace DcsBriefop.DataBopMission
 		{
 			base.FinalizeFromMizInternal();
 
-			AltitudeFeet = (decimal)UnitsNet.UnitConverter.Convert(m_mizRoutePoint.Altitude, LengthUnit.Meter, LengthUnit.Foot);
 			Coordinate = Theatre.GetCoordinate(m_mizRoutePoint.Y, m_mizRoutePoint.X);
 
 			foreach (BopRouteTask task in Tasks)
@@ -93,7 +93,7 @@ namespace DcsBriefop.DataBopMission
 			return $"{Number}:{Name}";
 		}
 
-		public string ToStringAdditional()
+		public string ToStringAdditional(ElementMeasurementSystem measurementSystem)
 		{
 			StringBuilder sb = new StringBuilder();
 
@@ -105,10 +105,18 @@ namespace DcsBriefop.DataBopMission
 
 			foreach (BopRouteTask task in Tasks)
 			{
-				sb.AppendWithSeparator($"{task.ToStringDisplayName()}:{task.ToStringAdditional()}", Environment.NewLine);
+				sb.AppendWithSeparator($"{task.ToStringDisplayName()}:{task.ToStringAdditional(measurementSystem)}", Environment.NewLine);
 			}
 
 			return sb.ToString();
+		}
+
+		public decimal? GetAltitude(ElementMeasurementSystem measurementSystem)
+		{
+			if (measurementSystem == ElementMeasurementSystem.Imperial)
+				return Convert.ToDecimal(UnitConverter.Convert(AltitudeMeters, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
+			else
+				return AltitudeMeters;
 		}
 
 		public IEnumerable<BopRouteTask> GetTasks(IEnumerable<string> sTaskIds, int? iUnitId)

@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
+using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms
@@ -42,9 +43,10 @@ namespace DcsBriefop.Forms
 			TbName.Text = m_bopRoutePoint.Name;
 			TbType.Text = m_bopRoutePoint.Type;
 			TbAction.Text = m_bopRoutePoint.Action;
-			TbAltitude.Text = $"{m_bopRoutePoint.AltitudeFeet:0} ft";
+			LbAltitude.Text = $"Altitude ({ToolsBriefop.GetUnitAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
+			TbAltitude.Text = $"{m_bopRoutePoint.GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}";
 			TbCoordinates.Text = m_bopRoutePoint.Coordinate.ToString(ElementCoordinateDisplay.All);
-			TbAdditional.Text = m_bopRoutePoint.ToStringAdditional();
+			TbAdditional.Text = m_bopRoutePoint.ToStringAdditional(PreferencesManager.Preferences.Briefing.MeasurementSystem);
 		}
 
 		public void ScreenToData()

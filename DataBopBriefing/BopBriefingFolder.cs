@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
-using System.Collections.Generic;
 
 namespace DcsBriefop.DataBopBriefing
 {
@@ -11,7 +10,7 @@ namespace DcsBriefop.DataBopBriefing
 
 		#region Properties
 		public string Name { get; set; }
-		public List<string> AircraftTypes { get; set; }
+		public List<string> UnitTypes { get; set; } = new List<string>();
 		public string CoalitionName { get; set; }
 		public ElementWeatherDisplay WeatherDisplay { get; set; }
 		public ElementMeasurementSystem MeasurementSystem { get; set; }
@@ -37,7 +36,7 @@ namespace DcsBriefop.DataBopBriefing
 			BopBriefingPage bopBriefingPage = new BopBriefingPage();
 
 			bopBriefingPage.MapData.Zoom = PreferencesManager.Preferences.Map.Zoom;
-			if (bopMission.Coalitions.TryGetValue(CoalitionName, out BopCoalition bopCoalition))
+			if (bopMission.Coalitions.TryGetValue(CoalitionName ?? "", out BopCoalition bopCoalition))
 			{
 				bopBriefingPage.MapData.CenterLatitude = bopCoalition.Bullseye.Latitude.DecimalDegree;
 				bopBriefingPage.MapData.CenterLongitude = bopCoalition.Bullseye.Longitude.DecimalDegree;
@@ -76,12 +75,31 @@ namespace DcsBriefop.DataBopBriefing
 		}
 		#endregion
 
-		public async Task<List<BopBriefingGeneratedFile>> GenerateFiles(BopMission bopMission)
+		#region Generation
+		private IEnumerable<string> GetUnitsDirectories()
 		{
-			List<BopBriefingGeneratedFile> files = new();
+			List<string> directories = new List<string>();
+			if (UnitTypes is null || UnitTypes.Count <= 0)
+				directories.Add("");
+			else
+			{
+				foreach(DcsObject dcsObject in UnitTypes.Select(_s => DcsObjectManager.GetObject(_s)))
+				{
+					directories.Add(dcsObject.KneeboardDirectory);
+				}
+			}
+
+			return directories;
+		}
+
+		public async Task<ListBopBriefingGeneratedFile> GenerateFiles(BopMission bopMission)
+		{
+			ListBopBriefingGeneratedFile files = new();
 			string sFolderName = Name;
 			if (string.IsNullOrEmpty(sFolderName))
 				sFolderName = $"{bopMission.BopBriefingFolders.IndexOf(this):000}";
+
+			IEnumerable<string> directories = GetUnitsDirectories();
 
 			int iPage = 0;
 			foreach(BopBriefingPage page in Pages)
@@ -92,7 +110,7 @@ namespace DcsBriefop.DataBopBriefing
 				{
 					BopBriefingGeneratedFile file = new BopBriefingGeneratedFile();
 					file.FileName = sPageFileName;
-					//file.FileDirectories.AddRange(AircraftTypes);
+					file.UnitDirectories.AddRange(directories);
 					file.Image = await page.BuildHtmlImage(bopMission, this);
 					file.Html = page.BuildHtmlString(bopMission, this);
 
@@ -102,7 +120,7 @@ namespace DcsBriefop.DataBopBriefing
 				{
 					BopBriefingGeneratedFile file = new BopBriefingGeneratedFile();
 					file.FileName = $"{sPageFileName}_map";
-					//file.FileDirectories.AddRange(AircraftTypes);
+					file.UnitDirectories.AddRange(directories);
 					file.Image = page.BuildMapImage(bopMission, this);
 
 					files.Add(file);
@@ -113,6 +131,6 @@ namespace DcsBriefop.DataBopBriefing
 
 			return files;
 		}
-
+		#endregion
 	}
 }
