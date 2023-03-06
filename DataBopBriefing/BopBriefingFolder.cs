@@ -10,7 +10,7 @@ namespace DcsBriefop.DataBopBriefing
 
 		#region Properties
 		public string Name { get; set; }
-		public List<string> UnitTypes { get; set; } = new List<string>();
+		public List<string> Kneeboards { get; set; } = new List<string>();
 		public string CoalitionName { get; set; }
 		public ElementWeatherDisplay WeatherDisplay { get; set; }
 		public ElementMeasurementSystem MeasurementSystem { get; set; }
@@ -76,18 +76,13 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Generation
-		private IEnumerable<string> GetUnitsDirectories()
+		private IEnumerable<string> GetKneeboards()
 		{
 			List<string> directories = new List<string>();
-			if (UnitTypes is null || UnitTypes.Count <= 0)
+			if (Kneeboards is null || Kneeboards.Count <= 0)
 				directories.Add("");
 			else
-			{
-				foreach(DcsObject dcsObject in UnitTypes.Select(_s => DcsObjectManager.GetObject(_s)))
-				{
-					directories.Add(dcsObject.KneeboardDirectory);
-				}
-			}
+				directories = Kneeboards;
 
 			return directories;
 		}
@@ -99,7 +94,7 @@ namespace DcsBriefop.DataBopBriefing
 			if (string.IsNullOrEmpty(sFolderName))
 				sFolderName = $"{bopMission.BopBriefingFolders.IndexOf(this):000}";
 
-			IEnumerable<string> directories = GetUnitsDirectories();
+			IEnumerable<string> kneeboards = GetKneeboards();
 
 			int iPage = 0;
 			foreach(BopBriefingPage page in Pages)
@@ -110,7 +105,7 @@ namespace DcsBriefop.DataBopBriefing
 				{
 					BopBriefingGeneratedFile file = new BopBriefingGeneratedFile();
 					file.FileName = sPageFileName;
-					file.UnitDirectories.AddRange(directories);
+					file.Kneeboards.AddRange(kneeboards);
 					file.Image = await page.BuildHtmlImage(bopMission, this);
 					file.Html = page.BuildHtmlString(bopMission, this);
 
@@ -120,7 +115,7 @@ namespace DcsBriefop.DataBopBriefing
 				{
 					BopBriefingGeneratedFile file = new BopBriefingGeneratedFile();
 					file.FileName = $"{sPageFileName}_map";
-					file.UnitDirectories.AddRange(directories);
+					file.Kneeboards.AddRange(kneeboards);
 					file.Image = page.BuildMapImage(bopMission, this);
 
 					files.Add(file);

@@ -28,6 +28,7 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Methods
+		public virtual void InitializeDefault() { }
 		public virtual string ToStringAdditional() { return null; }
 
 		public HtmlTag BuildHtml(BopMission bopMission, BopBriefingFolder bopBriefingFolder)

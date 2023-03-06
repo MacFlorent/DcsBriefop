@@ -67,12 +67,10 @@ namespace DcsBriefop.Forms
 
 		private void DataToScreenUnitTypes()
 		{
-			LstUnitTypes.DataSource = m_bopMission.GetBriefiableObjects(m_bopBriefingFolder.CoalitionName);
-			for (int i = 0; i < LstUnitTypes.Items.Count; i++)
+			LstKneeboards.DataSource = m_bopMission.GetKneeboards(m_bopBriefingFolder.CoalitionName).OrderBy(_k => _k).ToList();
+			for (int i = 0; i < LstKneeboards.Items.Count; i++)
 			{
-				DcsObject item = LstUnitTypes.Items[i] as DcsObject;
-				if (item is not null)
-					LstUnitTypes.SetItemChecked(i, m_bopBriefingFolder.UnitTypes.Contains(item.TypeName));
+				LstKneeboards.SetItemChecked(i, m_bopBriefingFolder.Kneeboards.Contains(LstKneeboards.Items[i]));
 			}
 
 		}
@@ -123,8 +121,8 @@ namespace DcsBriefop.Forms
 			m_bopBriefingFolder.CoordinateDisplay = (ElementCoordinateDisplay)MasterDataRepository.GetFlagCheckedListbox(LstCoordinateDisplay);
 			m_bopBriefingFolder.ImageSize = UcImageSize.SelectedSize;
 
-			m_bopBriefingFolder.UnitTypes.Clear();
-			m_bopBriefingFolder.UnitTypes.AddRange(LstUnitTypes.CheckedItems.OfType<DcsObject>().Select(_o => _o.TypeName));
+			m_bopBriefingFolder.Kneeboards.Clear();
+			m_bopBriefingFolder.Kneeboards.AddRange(LstKneeboards.CheckedItems.OfType<string>());
 
 			ScreenToDataDetail();
 		}

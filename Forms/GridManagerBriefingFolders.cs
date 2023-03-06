@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.DataBopBriefing;
 using System.Data;
-using static GMap.NET.Entity.OpenStreetMapGraphHopperRouteEntity;
 
 namespace DcsBriefop.Forms
 {
@@ -11,7 +10,7 @@ namespace DcsBriefop.Forms
 		{
 			public static readonly string Name = "Name";
 			public static readonly string Coalition = "Coalition";
-			public static readonly string UnitTypes = "UnitTypes";
+			public static readonly string Kneeboards = "Kneeboards";
 			public static readonly string Data = "Data";
 		}
 		#endregion
@@ -41,7 +40,7 @@ namespace DcsBriefop.Forms
 			m_dtSource = new DataTable();
 			m_dtSource.Columns.Add(GridColumn.Name, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Coalition, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.UnitTypes, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.Kneeboards, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Data, typeof(BopBriefingFolder));
 
 			foreach (BopBriefingFolder element in m_briefingFolders)
@@ -60,7 +59,7 @@ namespace DcsBriefop.Forms
 
 			dr.SetField(GridColumn.Name, element.Name);
 			dr.SetField(GridColumn.Coalition, element.CoalitionName);
-			dr.SetField(GridColumn.UnitTypes, string.Join(",", element.UnitTypes));
+			dr.SetField(GridColumn.Kneeboards, string.Join(",", element.Kneeboards));
 		}
 
 		protected override void PostInitializeColumns()
@@ -72,7 +71,6 @@ namespace DcsBriefop.Forms
 				column.ReadOnly = true;
 			}
 
-			m_dgv.Columns[GridColumn.UnitTypes].HeaderText = "Unit types";
 			m_dgv.Columns[GridColumn.Data].Visible = false;
 		}
 

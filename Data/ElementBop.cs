@@ -80,11 +80,9 @@
 		Task,
 		Airbases,
 		Groups,
-		Units,
 		Waypoints,
 		Image,
 		Weather,
-		GroupsUnits,
 	}
 
 	[Flags]

@@ -147,7 +147,6 @@ namespace DcsBriefop
 			if (PreferencesManager.Preferences.Briefing.GenerateOnSave)
 				await GenerateBriefing(ElementBriefingOutput.Miz);
 
-
 			ToolsBriefop.MizCheck(MizFilePath);
 		}
 
@@ -190,9 +189,9 @@ namespace DcsBriefop
 			{
 				CleanBriefingFilesMiz(za);
 
-				foreach (BopBriefingGeneratedFile file in files.Where(_f => _f.UnitDirectories is not null))
+				foreach (BopBriefingGeneratedFile file in files.Where(_f => _f.Kneeboards is not null))
 				{
-					foreach (string sUnitDirectory in file.UnitDirectories)
+					foreach (string sUnitDirectory in file.Kneeboards)
 					{
 						string sUnitDirectoryWithSeparator = sUnitDirectory;
 						if (!string.IsNullOrEmpty(sUnitDirectoryWithSeparator))
@@ -232,9 +231,9 @@ namespace DcsBriefop
 			else
 				CleanBriefingDirectory(sDirectoryRoot);
 
-			foreach (BopBriefingGeneratedFile file in files.Where(_f => _f.UnitDirectories is not null))
+			foreach (BopBriefingGeneratedFile file in files.Where(_f => _f.Kneeboards is not null))
 			{
-				foreach (string sUnitDirectory in file.UnitDirectories)
+				foreach (string sUnitDirectory in file.Kneeboards)
 				{
 					string sDirectory = Path.Combine(sDirectoryRoot, sUnitDirectory);
 					if (!Path.Exists(sDirectory))

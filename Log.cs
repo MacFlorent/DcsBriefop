@@ -1,7 +1,5 @@
 ﻿using log4net;
 using log4net.Repository.Hierarchy;
-using System;
-using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 

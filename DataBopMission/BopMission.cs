@@ -155,17 +155,9 @@ namespace DcsBriefop.DataBopMission
 			return files;
 		}
 
-		public IEnumerable<DcsObject> GetBriefiableObjects(string sCoalitionName)
+		public IEnumerable<string> GetKneeboards(string sCoalitionName)
 		{
-			List<DcsObject> unitTypes = new();
-			foreach (string sUnitType in Groups.Where(_g => _g.Playable && (string.IsNullOrEmpty(sCoalitionName) || _g.CoalitionName == sCoalitionName)).Select(_g => _g.Type).Distinct())
-			{
-				if (DcsObjectManager.GetObject(sUnitType) is DcsObject dcsObject)
-				{
-					unitTypes.Add(dcsObject);
-				}
-			}
-			return unitTypes;
+			return Groups.Where(_g => _g.Playable && (string.IsNullOrEmpty(sCoalitionName) || _g.CoalitionName == sCoalitionName)).Select(_g => _g.Type).Distinct();
 		}
 		#endregion
 	}

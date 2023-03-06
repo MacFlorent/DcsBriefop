@@ -31,7 +31,7 @@ namespace DcsBriefop.DataBopBriefing
 		#region Properties
 		public string Header { get; set; }
 		public List<Tuple<int, ElementAirbaseType>> Airbases { get; set; } = new();
-		public List<string> SelectedColumns { get; set; } = new() { TableColumns.Name, TableColumns.Radio, TableColumns.Notes };
+		public List<string> SelectedColumns { get; set; } = new();
 		#endregion
 
 		#region CTOR
@@ -39,6 +39,12 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Methods
+		public override void InitializeDefault()
+		{
+			base.InitializeDefault();
+			SelectedColumns.AddRange(new List<string> { TableColumns.Name, TableColumns.Radio, TableColumns.Notes });
+		}
+
 		public override string ToStringAdditional()
 		{
 			StringBuilder sb = new StringBuilder();

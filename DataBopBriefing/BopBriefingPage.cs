@@ -59,6 +59,7 @@ namespace DcsBriefop.DataBopBriefing
 
 			if (bopBriefingPart is object)
 			{
+				bopBriefingPart.InitializeDefault();
 				Parts.Add(bopBriefingPart);
 			}
 

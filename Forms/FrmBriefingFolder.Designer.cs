@@ -48,7 +48,7 @@
 			ScMain = new SplitContainer();
 			TlGrids = new TableLayoutPanel();
 			PnGridUnitTypes = new Panel();
-			LstUnitTypes = new CheckedListBox();
+			LstKneeboards = new CheckedListBox();
 			PnGridsPages = new Panel();
 			BtPageOrderDown = new Button();
 			BtPageOrderUp = new Button();
@@ -283,7 +283,7 @@
 			// 
 			// PnGridUnitTypes
 			// 
-			PnGridUnitTypes.Controls.Add(LstUnitTypes);
+			PnGridUnitTypes.Controls.Add(LstKneeboards);
 			PnGridUnitTypes.Controls.Add(LbUnitTypes);
 			PnGridUnitTypes.Dock = DockStyle.Fill;
 			PnGridUnitTypes.Location = new Point(3, 3);
@@ -293,13 +293,13 @@
 			// 
 			// LstUnitTypes
 			// 
-			LstUnitTypes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			LstUnitTypes.FormattingEnabled = true;
-			LstUnitTypes.Location = new Point(2, 33);
-			LstUnitTypes.Margin = new Padding(4, 3, 4, 3);
-			LstUnitTypes.Name = "LstUnitTypes";
-			LstUnitTypes.Size = new Size(262, 148);
-			LstUnitTypes.TabIndex = 34;
+			LstKneeboards.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			LstKneeboards.FormattingEnabled = true;
+			LstKneeboards.Location = new Point(2, 33);
+			LstKneeboards.Margin = new Padding(4, 3, 4, 3);
+			LstKneeboards.Name = "LstUnitTypes";
+			LstKneeboards.Size = new Size(262, 148);
+			LstKneeboards.TabIndex = 34;
 			// 
 			// PnGridsPages
 			// 
@@ -398,6 +398,6 @@
 		private TableLayoutPanel TlGrids;
 		private Panel PnGridUnitTypes;
 		private Panel PnGridsPages;
-		private CheckedListBox LstUnitTypes;
+		private CheckedListBox LstKneeboards;
 	}
 }

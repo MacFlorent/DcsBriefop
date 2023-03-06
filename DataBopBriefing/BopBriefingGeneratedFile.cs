@@ -3,7 +3,7 @@
 	internal class BopBriefingGeneratedFile : IDisposable
 	{
 		public string FileName { get; set; }
-		public List<string> UnitDirectories { get; set; } = new List<string>();
+		public List<string> Kneeboards { get; set; } = new List<string>();
 		public Image Image { get; set; }
 		public string Html { get; set; }
 

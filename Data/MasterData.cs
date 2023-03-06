@@ -124,7 +124,6 @@ namespace DcsBriefop.Data
 			{
 				new MasterData() { Id = (int)ElementBriefingPartType.Airbases, Label = "Airbases" },
 				new MasterData() { Id = (int)ElementBriefingPartType.Groups, Label = "Groups" },
-				new MasterData() { Id = (int)ElementBriefingPartType.Units, Label = "Units" },
 				new MasterData() { Id = (int)ElementBriefingPartType.Waypoints, Label = "Waypoints" },
 				new MasterData() { Id = (int) ElementBriefingPartType.Sortie, Label =  "Sortie" },
 				new MasterData() { Id = (int)ElementBriefingPartType.Bullseye, Label = "Bullseye" },

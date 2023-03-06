@@ -183,7 +183,6 @@ namespace DcsBriefop.Forms
 			{
 				await m_briefopManager.GenerateBriefing(briefingOutput);
 			}
-
 		}
 
 		private void BtBriefingGenerate_MouseDown(object sender, MouseEventArgs e)

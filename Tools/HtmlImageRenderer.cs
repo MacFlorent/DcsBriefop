@@ -1,5 +1,5 @@
 ﻿using PuppeteerSharp;
-using System.Windows.Forms;
+using DcsBriefop.Tools;
 
 namespace DcsBriefop.net.Tools
 {
@@ -22,6 +22,10 @@ namespace DcsBriefop.net.Tools
 				await m_browserFetcher.DownloadAsync();
 
 				// Launch the browser and set the given html.
+
+				//const browser = await puppeteer.launch({
+				//ignoreDefaultArgs: ['--disable-extensions'],
+				//await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true, Args = new[] { "--disable-extensions" } });
 				await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
 				await using var page = await browser.NewPageAsync();
 				await page.SetContentAsync(sHtml);
@@ -36,9 +40,10 @@ namespace DcsBriefop.net.Tools
 				await browser.CloseAsync();
 				return resultBytes;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				// Log ex $"{nameof(RenderImageDataAsync)}: Unable to render image from {nameof(html)}={html}");
+				Log.Exception(ex);
+				throw;
 			}
 
 			return null;

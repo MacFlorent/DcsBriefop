@@ -76,15 +76,6 @@ namespace DcsBriefop.Forms
 			using (new WaitDialog(this))
 			{
 				m_briefopManager.MizSave(sMizFilePath);
-				//if (m_briefopManager.Miz.BriefopCustomData.ExportOnSave)
-				//{
-				//	using (BriefingFilesBuilder builder = new BriefingFilesBuilder(m_briefingContainer, m_missionManager))
-				//		builder.Generate();
-				//}
-				//if (Preferences.PreferencesManager.Preferences.General.GenerateBatchCommandOnSave)
-				//{
-				//	m_missionManager.MizBatchCommand();
-				//}
 			}
 
 			MizReload();

@@ -156,8 +156,11 @@ namespace DcsBriefop.Forms
 
 		private async void RefreshHtmlPreview()
 		{
-			PbHtmlPreview.Image = await m_bopBriefingPage.BuildHtmlImage(m_bopMission, m_bopBriefingFolder);
-			TbHtmlPreviewSource.Text = m_bopBriefingPage.BuildHtmlString(m_bopMission, m_bopBriefingFolder);
+			using (new WaitDialog(ParentForm))
+			{
+				PbHtmlPreview.Image = await m_bopBriefingPage.BuildHtmlImage(m_bopMission, m_bopBriefingFolder);
+				TbHtmlPreviewSource.Text = m_bopBriefingPage.BuildHtmlString(m_bopMission, m_bopBriefingFolder);
+			}
 		}
 
 		private void RefreshMapPreview()
