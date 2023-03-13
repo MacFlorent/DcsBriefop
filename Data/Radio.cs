@@ -1,8 +1,4 @@
-﻿using DcsBriefop.DataMiz;
-using System;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
+﻿using System.Text.RegularExpressions;
 
 namespace DcsBriefop.Data
 {
@@ -101,7 +97,9 @@ namespace DcsBriefop.Data
 			else if (Frequency >= 225m)
 				Modulation = ElementRadioModulation.AM;
 		}
-		
+		#endregion
+
+		#region IEquatable
 		public bool Equals(Radio other)
 		{
 			if (other is null)

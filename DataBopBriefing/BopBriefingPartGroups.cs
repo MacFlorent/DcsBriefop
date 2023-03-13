@@ -125,4 +125,9 @@ namespace DcsBriefop.DataBopBriefing
 		}
 		#endregion
 	}
-}
+
+	internal class BopBriefingPartGroup
+	{
+
+	}
+	}

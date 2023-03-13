@@ -10,12 +10,13 @@ using PuppeteerSharp;
 
 namespace DcsBriefop.DataBopBriefing
 {
-	internal class BopBriefingPage
+	internal class BopBriefingPage : IEquatable<BopBriefingPage>
 	{
 		#region Fields
 		#endregion
 
 		#region Properties
+		public Guid Guid { get; set; }
 		public string Title { get; set; }
 		public bool DisplayTitle { get; set; }
 		public ElementBriefingPageRender Render { get; set; } = (ElementBriefingPageRender.Map | ElementBriefingPageRender.Html);
@@ -26,7 +27,10 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region CTOR
-		public BopBriefingPage() { }
+		public BopBriefingPage()
+		{
+			Guid = Guid.NewGuid();
+		}
 		#endregion
 
 		#region Methods
@@ -173,6 +177,23 @@ namespace DcsBriefop.DataBopBriefing
 
 			return additionalOverlays;
 		}
+		#endregion
+
+		#region IEquatable
+		public bool Equals(BopBriefingPage other)
+		{
+			if (other is null)
+				return false;
+
+			return (Guid == other.Guid);
+		}
+
+		public override bool Equals(object obj)
+		{
+			return Equals(obj as BopBriefingPage);
+		}
+
+		public override int GetHashCode() => Guid.GetHashCode();
 		#endregion
 	}
 }

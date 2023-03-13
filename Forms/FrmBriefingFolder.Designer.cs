@@ -88,7 +88,7 @@
 			// 
 			DgvPages.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			DgvPages.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			DgvPages.FilterAndSortEnabled = true;
+			DgvPages.FilterAndSortEnabled = false;
 			DgvPages.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvPages.Location = new Point(0, 19);
 			DgvPages.Name = "DgvPages";
@@ -291,13 +291,13 @@
 			PnGridUnitTypes.Size = new Size(283, 188);
 			PnGridUnitTypes.TabIndex = 0;
 			// 
-			// LstUnitTypes
+			// LstKneeboards
 			// 
 			LstKneeboards.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			LstKneeboards.FormattingEnabled = true;
 			LstKneeboards.Location = new Point(2, 33);
 			LstKneeboards.Margin = new Padding(4, 3, 4, 3);
-			LstKneeboards.Name = "LstUnitTypes";
+			LstKneeboards.Name = "LstKneeboards";
 			LstKneeboards.Size = new Size(262, 148);
 			LstKneeboards.TabIndex = 34;
 			// 

@@ -4,7 +4,7 @@ using System.Data;
 
 namespace DcsBriefop.Forms
 {
-	internal abstract class GridManager : IDisposable
+	internal abstract class GridManagerBase : IDisposable
 	{
 		#region Fields
 		protected DataGridView m_dgv;
@@ -17,7 +17,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public GridManager(DataGridView dgv)
+		public GridManagerBase(DataGridView dgv)
 		{
 			m_dgv = dgv;
 

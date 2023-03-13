@@ -30,7 +30,7 @@ namespace DcsBriefop.DataBopBriefing
 
 		#region Properties
 		public string Header { get; set; }
-		public List<Tuple<int, ElementAirbaseType>> Airbases { get; set; } = new();
+		public List<BopBriefingPartAirbase> Airbases { get; set; } = new();
 		public List<string> SelectedColumns { get; set; } = new();
 		#endregion
 
@@ -70,7 +70,7 @@ namespace DcsBriefop.DataBopBriefing
 				tagThead.Add("td").AddClass("header").AppendText(sColumn);
 			}
 
-			foreach (BopAirbase bopAirbase in GetOrderedBopElements(bopMission))
+			foreach (BopAirbase bopAirbase in GetBopAirbases(bopMission))
 			{
 				if (bopAirbase is object)
 				{
@@ -101,7 +101,7 @@ namespace DcsBriefop.DataBopBriefing
 		public override IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission)
 		{
 			List<GMapOverlay> partOverlays = new List<GMapOverlay>();
-			foreach (BopAirbase bopAirbase in GetOrderedBopElements(bopMission))
+			foreach (BopAirbase bopAirbase in GetBopAirbases(bopMission))
 			{
 				bopAirbase.FinalizeFromMiz();
 				partOverlays.Add(bopAirbase.GetMapOverlay());
@@ -117,19 +117,32 @@ namespace DcsBriefop.DataBopBriefing
 				return AvailableColumns;
 		}
 
-		private IEnumerable<BopAirbase> GetOrderedBopElements(BopMission bopMission)
+		public List<BopAirbase> GetBopAirbases(BopMission bopMission)
 		{
-			List<BopAirbase> orderedElements = new List<BopAirbase>();
-			foreach (Tuple<int, ElementAirbaseType> airbase in Airbases.OrderBy(_a => _a.Item2).ThenBy(_a => _a.Item1))
+			List<BopAirbase> elements = new List<BopAirbase>();
+			foreach (BopBriefingPartAirbase airbase in Airbases)
 			{
-				BopAirbase bopAirbase = bopMission.Airbases.Where(_ba => _ba.Id == airbase.Item1 && _ba.AirbaseType == airbase.Item2).FirstOrDefault();
+				BopAirbase bopAirbase = bopMission.Airbases.Where(_ba => _ba.Id == airbase.Id && _ba.AirbaseType == airbase.AirbaseType).FirstOrDefault();
 				if (bopAirbase is not null)
 				{
-					orderedElements.Add(bopAirbase);
+					elements.Add(bopAirbase);
 				}
 			}
-			return orderedElements;
+			return elements;
+		}
+
+		public void SetBopAirbases(IEnumerable<BopAirbase> bopAirbases)
+		{
+			Airbases.Clear();
+			foreach (BopAirbase bopAirbase in bopAirbases)
+				Airbases.Add(new BopBriefingPartAirbase() { Id = bopAirbase.Id, AirbaseType = bopAirbase.AirbaseType });
 		}
 		#endregion
+	}
+
+	internal class BopBriefingPartAirbase
+	{
+		public int Id { get; set; }
+		public ElementAirbaseType AirbaseType { get; set; }
 	}
 }

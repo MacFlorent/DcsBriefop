@@ -64,7 +64,7 @@ namespace DcsBriefop.DataBopMission
 		{
 			string sDisplayName = base.ToStringDisplayName();
 
-			if (Callsign is object && Callsign.Number is null && (!Playable || !Miz.MizBopCustom.PreferencesMission.NoCallsignForPlayableFlights))
+			if (Callsign is object && Callsign.Number is null && (!Playable || !PreferencesManager.Preferences.Mission.NoCallsignForPlayableFlights))
 				return $"{Callsign} | {sDisplayName}";
 			else
 				return sDisplayName;

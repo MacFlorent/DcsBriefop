@@ -3,86 +3,47 @@ using System.Data;
 
 namespace DcsBriefop.Forms
 {
-	internal class GridManagerBriefingFolders : GridManager
+	internal class GridManagerBriefingFolders : GridManagerBase2<BopBriefingFolder>
 	{
 		#region Columns
 		public static class GridColumn
 		{
+			public static readonly string Id = "Id";
 			public static readonly string Name = "Name";
 			public static readonly string Coalition = "Coalition";
 			public static readonly string Kneeboards = "Kneeboards";
-			public static readonly string Data = "Data";
 		}
 		#endregion
 
 		#region Fields
-		private IEnumerable<BopBriefingFolder> m_briefingFolders;
 		#endregion
 
 		#region Properties
-		public IEnumerable<BopBriefingFolder> BriefingFolders
-		{
-			get { return m_briefingFolders; }
-			set { m_briefingFolders = value; }
-		}
 		#endregion
 
 		#region CTOR
-		public GridManagerBriefingFolders(DataGridView dgv, IEnumerable<BopBriefingFolder> briefingFolders) : base(dgv)
-		{
-			m_briefingFolders = briefingFolders;
-		}
+		public GridManagerBriefingFolders(DataGridView dgv, IEnumerable<BopBriefingFolder> briefingFolders) : base(dgv, briefingFolders) { }
 		#endregion
 
 		#region Methods
-		protected override void InitializeDataSource()
+		protected override void InitializeDataSourceColumns()
 		{
-			m_dtSource = new DataTable();
+			base.InitializeDataSourceColumns();
+
+			m_dtSource.Columns.Add(GridColumn.Id, typeof(Guid));
 			m_dtSource.Columns.Add(GridColumn.Name, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Coalition, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Kneeboards, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Data, typeof(BopBriefingFolder));
-
-			foreach (BopBriefingFolder element in m_briefingFolders)
-				RefreshDataSourceRow(element);
 		}
 
-		private void RefreshDataSourceRow(BopBriefingFolder element)
+		protected override void RefreshDataSourceRowContent(DataRow dr, BopBriefingFolder element)
 		{
-			DataRow dr = m_dtSource.AsEnumerable().Where(_dr => _dr.Field<BopBriefingFolder>(GridColumn.Data) == element).FirstOrDefault();
-			if (dr is null)
-			{
-				dr = m_dtSource.NewRow();
-				dr.SetField(GridColumn.Data, element);
-				m_dtSource.Rows.Add(dr);
-			}
+			base.RefreshDataSourceRowContent(dr, element);
 
+			dr.SetField(GridColumn.Id, element.Guid);
 			dr.SetField(GridColumn.Name, element.Name);
 			dr.SetField(GridColumn.Coalition, element.CoalitionName);
 			dr.SetField(GridColumn.Kneeboards, string.Join(",", element.Kneeboards));
-		}
-
-		protected override void PostInitializeColumns()
-		{
-			base.PostInitializeColumns();
-
-			foreach (DataGridViewColumn column in m_dgv.Columns)
-			{
-				column.ReadOnly = true;
-			}
-
-			m_dgv.Columns[GridColumn.Data].Visible = false;
-		}
-
-		public IEnumerable<BopBriefingFolder> GetSelectedElements()
-		{
-			return GetSelectedDataRows().Select(_dr => _dr.Field<BopBriefingFolder>(GridColumn.Data)).ToList();
-		}
-
-		public void SelectElement(BopBriefingFolder element)
-		{
-			DataGridViewRow rowToSelect = m_dgv.Rows.Cast<DataGridViewRow>().Where(_dgvr => (_dgvr.DataBoundItem as DataRowView)?.Row?.Field<BopBriefingFolder>(GridColumn.Data) == element).FirstOrDefault();
-			SelectRow(rowToSelect);
 		}
 		#endregion
 

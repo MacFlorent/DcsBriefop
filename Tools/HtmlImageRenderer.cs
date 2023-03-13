@@ -45,8 +45,6 @@ namespace DcsBriefop.net.Tools
 				Log.Exception(ex);
 				throw;
 			}
-
-			return null;
 		}
 
 		public async Task<Image> RenderImageAsync(string sHtml, ScreenshotOptions options, ViewPortOptions viewPortOptions)

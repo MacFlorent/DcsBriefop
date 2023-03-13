@@ -20,8 +20,6 @@ namespace DcsBriefop.DataBopMission
 		public Dictionary<string, BopCoalition> Coalitions { get; private set; }
 		public List<BopAirbase> Airbases { get; private set; }
 		public List<BopGroup> Groups { get; private set; }
-
-		public PreferencesMission PreferencesMission { get { return Miz.MizBopCustom.PreferencesMission; } }
 		public PreferencesMap PreferencesMap { get { return Miz.MizBopCustom.PreferencesMap; } }
 		public List<BopBriefingFolder> BopBriefingFolders { get { return Miz.MizBopCustom.BopBriefingFolders; } }
 		#endregion

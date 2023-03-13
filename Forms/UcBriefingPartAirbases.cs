@@ -7,7 +7,9 @@ namespace DcsBriefop.Forms
 	internal partial class UcBriefingPartAirbases : UcBriefingPartBase
 	{
 		#region Fields
-		private GridManagerAirbases m_gridManagerAirbases;
+		private GridManagerAirbases m_gmAvailable;
+		private GridManagerAirbases m_gmSelected;
+		List<BopAirbase> m_selectedAirbases;
 		#endregion
 
 		#region CTOR
@@ -17,9 +19,16 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 
 			BopBriefingPartAirbases briefingPart = m_bopBriefingPart as BopBriefingPartAirbases;
-			m_gridManagerAirbases = new GridManagerAirbases(DgvAirbases, m_bopMission.Airbases);
-			m_gridManagerAirbases.CheckedElements = briefingPart.Airbases;
-			m_gridManagerAirbases.CellEndEdit += CellEndEditEvent;
+
+			m_gmAvailable = new GridManagerAirbases(UcMultiSelection.DgvAvailable, m_bopMission.Airbases);
+			m_gmSelected = new GridManagerAirbases(UcMultiSelection.DgvSelected, m_bopMission.Airbases);
+
+			UcMultiSelection.BtAdd.Click += BtAdd_Click;
+			UcMultiSelection.BtRemove.Click += BtRemove_Click;
+			UcMultiSelection.BtAddAll.Click += BtAddAll_Click;
+			UcMultiSelection.BtRemoveAll.Click += BtRemoveAll_Click;
+			UcMultiSelection.BtUp.Click += BtUp_Click;
+			UcMultiSelection.BtDown.Click += BtDown_Click;
 
 			LstColumns.DataSource = BopBriefingPartAirbases.AvailableColumns;
 
@@ -32,7 +41,9 @@ namespace DcsBriefop.Forms
 		{
 			BopBriefingPartAirbases briefingPart = m_bopBriefingPart as BopBriefingPartAirbases;
 			TbHeader.Text = briefingPart.Header;
-			m_gridManagerAirbases.Initialize();
+
+			m_selectedAirbases = briefingPart.GetBopAirbases(m_bopMission);
+			RefreshGrids();
 
 			for (int i = 0; i < LstColumns.Items.Count; i++)
 			{
@@ -45,8 +56,19 @@ namespace DcsBriefop.Forms
 			BopBriefingPartAirbases briefingPart = m_bopBriefingPart as BopBriefingPartAirbases;
 			briefingPart.Header = TbHeader.Text;
 
+			briefingPart.SetBopAirbases(m_selectedAirbases);
+
 			briefingPart.SelectedColumns.Clear();
 			briefingPart.SelectedColumns.AddRange(LstColumns.CheckedItems.OfType<string>());
+		}
+
+		private void RefreshGrids()
+		{
+			m_gmAvailable.Elements = m_bopMission.Airbases.Where(_ba => !m_selectedAirbases.Contains(_ba));
+			m_gmSelected.Elements = m_bopMission.Airbases.Where(_ba => m_selectedAirbases.Contains(_ba));
+			m_gmAvailable.Initialize();
+			m_gmSelected.Initialize();
+
 		}
 		#endregion
 
@@ -54,6 +76,45 @@ namespace DcsBriefop.Forms
 		private void CellEndEditEvent(object sender, EventArgs e)
 		{
 			m_ucBriefingPageParent?.DisplayCurrentMap();
+		}
+
+		private void BtAdd_Click(object sender, EventArgs e)
+		{
+			foreach (BopAirbase ba in m_gmAvailable.GetSelectedElements().Where(_ba => !m_selectedAirbases.Contains(_ba)))
+				m_selectedAirbases.Add(ba);
+		
+			RefreshGrids();
+		}
+
+		private void BtRemove_Click(object sender, EventArgs e)
+		{
+			foreach (BopAirbase ba in m_gmSelected.GetSelectedElements())
+				m_selectedAirbases.Remove(ba);
+
+			RefreshGrids();
+		}
+
+		private void BtAddAll_Click(object sender, EventArgs e)
+		{
+			m_selectedAirbases.Clear();
+			m_selectedAirbases.AddRange(m_bopMission.Airbases);
+			RefreshGrids();
+		}
+
+		private void BtRemoveAll_Click(object sender, EventArgs e)
+		{
+			m_selectedAirbases.Clear();
+			RefreshGrids();
+		}
+
+		private void BtUp_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void BtDown_Click(object sender, EventArgs e)
+		{
+
 		}
 		#endregion
 	}

@@ -3,12 +3,13 @@ using DcsBriefop.DataBopMission;
 
 namespace DcsBriefop.DataBopBriefing
 {
-	internal class BopBriefingFolder
+	internal class BopBriefingFolder : IEquatable<BopBriefingFolder>
 	{
 		#region Fields
 		#endregion
 
 		#region Properties
+		public Guid Guid { get; set; }
 		public string Name { get; set; }
 		public List<string> Kneeboards { get; set; } = new List<string>();
 		public string CoalitionName { get; set; }
@@ -23,6 +24,7 @@ namespace DcsBriefop.DataBopBriefing
 		#region CTOR
 		public BopBriefingFolder()
 		{
+			Guid = Guid.NewGuid();
 			WeatherDisplay = PreferencesManager.Preferences.Briefing.WeatherDisplay;
 			MeasurementSystem = PreferencesManager.Preferences.Briefing.MeasurementSystem;
 			CoordinateDisplay = PreferencesManager.Preferences.Briefing.CoordinateDisplay;
@@ -126,6 +128,23 @@ namespace DcsBriefop.DataBopBriefing
 
 			return files;
 		}
+		#endregion
+
+		#region IEquatable
+		public bool Equals(BopBriefingFolder other)
+		{
+			if (other is null)
+				return false;
+
+			return (Guid == other.Guid);
+		}
+
+		public override bool Equals(object obj)
+		{
+			return Equals(obj as BopBriefingFolder);
+		}
+
+		public override int GetHashCode() => Guid.GetHashCode();
 		#endregion
 	}
 }

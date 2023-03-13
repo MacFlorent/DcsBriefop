@@ -139,7 +139,7 @@ namespace DcsBriefop.Forms
 			if (m_bopBriefingFolder.Pages.Count() == 1)
 				DataToScreenDetail();
 			else
-				m_gridManagerBriefingPages.SelectElement(bopBriefingPage);
+				m_gridManagerBriefingPages.SelectRow(bopBriefingPage);
 		}
 
 
@@ -157,7 +157,7 @@ namespace DcsBriefop.Forms
 			{
 				m_bopBriefingFolder.OrderPage(selectedElement, iWay);
 				m_gridManagerBriefingPages.Initialize();
-				m_gridManagerBriefingPages.SelectElement(selectedElement);
+				m_gridManagerBriefingPages.SelectRow(selectedElement);
 			}
 		}
 		#endregion

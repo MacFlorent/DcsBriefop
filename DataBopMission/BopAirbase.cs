@@ -6,10 +6,11 @@ using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Text;
+using UnitsNet;
 
 namespace DcsBriefop.DataBopMission
 {
-	internal abstract class BopAirbase : BaseBop
+	internal abstract class BopAirbase : BaseBop,  IEquatable<BopAirbase>
 	{
 		#region Fields
 		protected MizBopAirbase m_mizBopAirbase;
@@ -112,6 +113,23 @@ namespace DcsBriefop.DataBopMission
 		{
 			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree), MapMarker, color ?? Color.DarkGray, Name, 1, 0);
 		}
+		#endregion
+
+		#region IEquatable
+		public bool Equals(BopAirbase other)
+		{
+			if (other is null)
+				return false;
+
+			return (Id == other.Id && AirbaseType == other.AirbaseType);
+		}
+
+		public override bool Equals(object obj)
+		{
+			return Equals(obj as BopAirbase);
+		}
+
+		public override int GetHashCode() => (Id, AirbaseType).GetHashCode();
 		#endregion
 	}
 

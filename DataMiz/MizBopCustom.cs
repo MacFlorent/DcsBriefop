@@ -8,7 +8,6 @@ namespace DcsBriefop.DataMiz
 	internal class MizBopCustom : BaseMizBopSerializable
 	{
 		#region Properties
-		public PreferencesMission PreferencesMission { get; set; } = new PreferencesMission();
 		public PreferencesMap PreferencesMap { get; set; } = new PreferencesMap();
 		public MizBopMap MapData { get; set; }
 		public List<MizBopCoalition> MizBopCoalitions { get; private set; } = new List<MizBopCoalition>();
@@ -21,7 +20,6 @@ namespace DcsBriefop.DataMiz
 		#region Methods
 		public void InitializeEmpty()
 		{
-			PreferencesMission = PreferencesManager.Preferences.Mission.CloneJson();
 			PreferencesMap = PreferencesManager.Preferences.Map.CloneJson();
 		}
 

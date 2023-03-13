@@ -21,7 +21,7 @@ namespace DcsBriefop.DataBopMission
 		public string BullseyeDescription { get; set; }
 		public bool BullseyeWaypoint { get; set; }
 		public Coordinate Bullseye { get; set; }
-
+		public bool NoCallsignForPlayableFlights { get; set; }
 		//public ListComPreset ComPresets { get; set; }
 
 		public MizBopMap MapData { get { return m_mizBopCoalition.MapData; } }
@@ -74,6 +74,7 @@ namespace DcsBriefop.DataBopMission
 				m_mizBopCoalition.MapData.CenterLatitude = centerCoordinate.Latitude.DecimalDegree;
 				m_mizBopCoalition.MapData.CenterLongitude = centerCoordinate.Longitude.DecimalDegree;
 				m_mizBopCoalition.MapData.Zoom = PreferencesManager.Preferences.Map.Zoom;
+				m_mizBopCoalition.BullseyeWaypoint = PreferencesManager.Preferences.Mission.BullseyeWaypoint;
 
 				m_mizBopCoalition.SetDefaultData();
 				Miz.MizBopCustom.MizBopCoalitions.Add(m_mizBopCoalition);
