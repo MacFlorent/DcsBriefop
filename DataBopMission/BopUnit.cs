@@ -5,11 +5,10 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using UnitsNet;
-using UnitsNet.Units;
 
 namespace DcsBriefop.DataBopMission
 {
-	internal class BopUnit : BaseBop
+	internal class BopUnit : BaseBop, IEquatable<BopUnit>
 	{
 		#region Fields
 		protected MizUnit m_mizUnit;
@@ -136,6 +135,23 @@ namespace DcsBriefop.DataBopMission
 		{
 			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree), MapMarker, color ?? ToolsBriefop.GetCoalitionColor(BopGroup.CoalitionName), ToStringDisplayName(), 1, 0);
 		}
+		#endregion
+
+		#region IEquatable
+		public bool Equals(BopUnit other)
+		{
+			if (other is null)
+				return false;
+
+			return (Id == other.Id);
+		}
+
+		public override bool Equals(object obj)
+		{
+			return Equals(obj as BopUnit);
+		}
+
+		public override int GetHashCode() => Id.GetHashCode();
 		#endregion
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
+using DcsBriefop.DataBopBriefing;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
@@ -9,7 +10,7 @@ using UnitsNet;
 
 namespace DcsBriefop.DataBopMission
 {
-	internal class BopGroup : BaseBop
+	internal class BopGroup : BaseBop, IEquatable<BopGroup>
 	{
 		#region Fields
 		protected MizGroup m_mizGroup;
@@ -341,6 +342,23 @@ namespace DcsBriefop.DataBopMission
 		//		iNumber++;
 		//	}
 		//}
+		#endregion
+
+		#region IEquatable
+		public bool Equals(BopGroup other)
+		{
+			if (other is null)
+				return false;
+
+			return (Id == other.Id);
+		}
+
+		public override bool Equals(object obj)
+		{
+			return Equals(obj as BopGroup);
+		}
+
+		public override int GetHashCode() => Id.GetHashCode();
 		#endregion
 	}
 }

@@ -70,11 +70,6 @@ namespace DcsBriefop.Data
 			get { return (m_objectJsonCustom?.MainInGroup).GetValueOrDefault(false); }
 			set { GetOrAddJsonCustom().MainInGroup = value; }
 		}
-		public string KneeboardDirectory
-		{
-			get { return m_objectJsonCustom?.KneeboardDirectory ?? TypeName; }
-			set { GetOrAddJsonCustom().KneeboardDirectory = value; }
-		}
 		#endregion
 
 		#region CTOR
@@ -203,8 +198,6 @@ namespace DcsBriefop.Data
 				m_objectJsonCustom.MapMarker = null;
 			if (string.IsNullOrEmpty(m_objectJsonCustom.Information))
 				m_objectJsonCustom.Information = null;
-			if (string.IsNullOrEmpty(m_objectJsonCustom.KneeboardDirectory))
-				m_objectJsonCustom.KneeboardDirectory = null;
 
 			if (m_objectJsonCustom.DisplayName is object)
 				return;
@@ -213,8 +206,6 @@ namespace DcsBriefop.Data
 			if (m_objectJsonCustom.Information is object)
 				return;
 			if (m_objectJsonCustom.MainInGroup)
-				return;
-			if (m_objectJsonCustom.KneeboardDirectory is object)
 				return;
 
 			m_objectsJsonCustom.Remove(m_objectJsonCustom);
@@ -232,7 +223,6 @@ namespace DcsBriefop.Data
 		public string MapMarker { get; set; }
 		public string Information { get; set; }
 		public bool MainInGroup { get; set; }
-		public string KneeboardDirectory { get; set; }
 	}
 	#endregion
 

@@ -4,7 +4,7 @@ using System.Data;
 
 namespace DcsBriefop.Forms
 {
-	internal class GridManagerAirbaseRadios : GridManagerBase
+	internal class GridManagerAirbaseRadios : GridManagerBase<BopAirbaseRadio>
 	{
 		#region Columns
 		public static class GridColumn
@@ -13,62 +13,49 @@ namespace DcsBriefop.Forms
 			public static readonly string Label = "Label";
 			public static readonly string Default = "Default";
 			public static readonly string Used = "Used";
-			public static readonly string Data = "Data";
 		}
 		#endregion
 
 		#region Fields
-		private IEnumerable<BopAirbaseRadio> m_airbaseRadios;
 		#endregion
 
 		#region Properties
-		public IEnumerable<BopAirbaseRadio> AirbaseRadios
-		{
-			get { return m_airbaseRadios; }
-			set { m_airbaseRadios = value; }
-		}
 		#endregion
 
 		#region CTOR
-		public GridManagerAirbaseRadios(DataGridView dgv, IEnumerable<BopAirbaseRadio> airbaseRadios) : base(dgv)
-		{
-			m_airbaseRadios = airbaseRadios;
-		}
+		public GridManagerAirbaseRadios(DataGridView dgv, IEnumerable<BopAirbaseRadio> airbaseRadios) : base(dgv, airbaseRadios) { }
 		#endregion
 
 		#region Methods
-		protected override void InitializeDataSource()
+		protected override void InitializeDataSourceColumns()
 		{
-			m_dtSource = new DataTable();
+			base.InitializeDataSourceColumns();
+
 			m_dtSource.Columns.Add(GridColumn.Radio, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Label, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Default, typeof(bool));
 			m_dtSource.Columns.Add(GridColumn.Used, typeof(bool));
-			m_dtSource.Columns.Add(GridColumn.Data, typeof(BopAirbaseRadio));
-
-			foreach (BopAirbaseRadio bopAirbaseRadio in m_airbaseRadios)
-				RefreshDataSourceRow(bopAirbaseRadio);
 		}
 
-		private void RefreshDataSourceRow(BopAirbaseRadio bopAirbaseRadio)
+		protected override void RefreshDataSourceRowContent(DataRow dr, BopAirbaseRadio element)
 		{
-			DataRow dr = m_dtSource.AsEnumerable().Where(_dr => _dr.Field<BopAirbaseRadio>(GridColumn.Data) == bopAirbaseRadio).FirstOrDefault();
-			if (dr is null)
-			{
-				dr = m_dtSource.NewRow();
-				dr.SetField(GridColumn.Data, bopAirbaseRadio);
-				m_dtSource.Rows.Add(dr);
-			}
+			base.RefreshDataSourceRowContent(dr, element);
 
-			dr.SetField(GridColumn.Radio, bopAirbaseRadio.Radio?.ToString());
-			dr.SetField(GridColumn.Label, bopAirbaseRadio.Label);
-			dr.SetField(GridColumn.Default, bopAirbaseRadio.Default);
-			dr.SetField(GridColumn.Used, bopAirbaseRadio.Used);
+			dr.SetField(GridColumn.Radio, element.Radio?.ToString());
+			dr.SetField(GridColumn.Label, element.Label);
+			dr.SetField(GridColumn.Default, element.Default);
+			dr.SetField(GridColumn.Used, element.Used);
 		}
 
-		protected override void RefreshGridRow(DataGridViewRow dgvr)
+		private void RefreshGridRows()
 		{
-			BopAirbaseRadio bopAirbaseRadio = dgvr.Cells[GridColumn.Data].Value as BopAirbaseRadio;
+			foreach (DataGridViewRow dgvr in m_dgv.Rows)
+				RefreshGridRow(dgvr);
+		}
+
+		private void RefreshGridRow(DataGridViewRow dgvr)
+		{
+			BopAirbaseRadio bopAirbaseRadio = GetBoundElement(dgvr);
 			dgvr.Cells[GridColumn.Radio].ReadOnly = bopAirbaseRadio is null || bopAirbaseRadio.Default;
 		}
 
@@ -76,48 +63,33 @@ namespace DcsBriefop.Forms
 		{
 			base.PostInitializeColumns();
 
-			foreach (DataGridViewColumn column in m_dgv.Columns)
-			{
-				column.ReadOnly = true;
-			}
-
-			m_dgv.Columns[GridColumn.Data].Visible = false;
-			m_dgv.Columns[GridColumn.Radio].ReadOnly = false;
 			m_dgv.Columns[GridColumn.Label].ReadOnly = false;
 			m_dgv.Columns[GridColumn.Used].ReadOnly = false;
-		}
 
-		public IEnumerable<BopAirbaseRadio> GetSelectedElements()
-		{
-			return GetSelectedDataRows().Select(_dr => _dr.Field<BopAirbaseRadio>(GridColumn.Data)).ToList();
+			RefreshGridRows();
 		}
-
-		//protected override void SelectionChanged()
-		//{
-		//	SelectionChangedTyped?.Invoke(this, new EventArgsBopAirbaseRadios() { BopAirbaseRadios = GetSelectedElements() });
-		//}
 
 		protected override void CellEndEditInternal(DataGridView dgv, DataGridViewCell dgvc)
 		{
-			BopAirbaseRadio airbaseRadio = dgvc.OwningRow.Cells[GridColumn.Data].Value as BopAirbaseRadio;
+			BopAirbaseRadio bopAirbaseRadio = GetBoundElement(dgvc.OwningRow);
 
-			if (airbaseRadio is object)
+			if (bopAirbaseRadio is object)
 			{
-				if (dgvc.OwningColumn.Name == GridColumn.Used && (bool)dgvc.Value != airbaseRadio.Used)
+				if (dgvc.OwningColumn.Name == GridColumn.Used && (bool)dgvc.Value != bopAirbaseRadio.Used)
 				{
-					airbaseRadio.Used = (bool)dgvc.Value;
+					bopAirbaseRadio.Used = (bool)dgvc.Value;
 				}
-				else if (dgvc.OwningColumn.Name == GridColumn.Label && dgvc.Value as string != airbaseRadio.Label)
+				else if (dgvc.OwningColumn.Name == GridColumn.Label && dgvc.Value as string != bopAirbaseRadio.Label)
 				{
-					airbaseRadio.Label = dgvc.Value as string;
+					bopAirbaseRadio.Label = dgvc.Value as string;
 				}
 				else if (dgvc.OwningColumn.Name == GridColumn.Radio)
 				{
 					Radio radio = Radio.NewFromString(dgvc.Value as string);
-					if (radio is object && !radio.Equals(airbaseRadio.Radio))
-						airbaseRadio.Radio = radio;
+					if (radio is object && !radio.Equals(bopAirbaseRadio.Radio))
+						bopAirbaseRadio.Radio = radio;
 
-					RefreshDataSourceRow(airbaseRadio);
+					RefreshDataSourceRow(bopAirbaseRadio);
 				}
 			}
 		}

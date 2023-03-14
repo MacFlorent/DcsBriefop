@@ -6,7 +6,6 @@ using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Text;
-using UnitsNet;
 
 namespace DcsBriefop.DataBopMission
 {

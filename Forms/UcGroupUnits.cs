@@ -32,7 +32,7 @@ namespace DcsBriefop.Forms
 		#region Methods
 		public override void DataToScreen()
 		{
-			m_gridManagerUnits.Units = m_bopGroup.Units;
+			m_gridManagerUnits.Elements = m_bopGroup.Units;
 			m_gridManagerUnits.Initialize();
 			DataToScreenDetail();
 		}

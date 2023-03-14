@@ -9,19 +9,21 @@ using Newtonsoft.Json.Serialization;
 namespace DcsBriefop.DataBopBriefing
 {
 	[JsonConverter(typeof(BopBriefingPartAbstractConverter))]
-	internal abstract class BopBriefingPartBase
+	internal abstract class BopBriefingPartBase : IEquatable<BopBriefingPartBase>
 	{
 		#region Fields
 		protected string m_sCssClass;
 		#endregion
 
 		#region Properties
+		public Guid Guid { get; set; }
 		public ElementBriefingPartType PartType { get; protected set; }
 		#endregion
 
 		#region CTOR
 		public BopBriefingPartBase(ElementBriefingPartType partType, string sCssClass)
 		{
+			Guid = Guid.NewGuid();
 			PartType = partType;
 			m_sCssClass = sCssClass;
 		}
@@ -39,6 +41,23 @@ namespace DcsBriefop.DataBopBriefing
 		protected abstract IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder);
 
 		public virtual IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission) { return null; }
+		#endregion
+
+		#region IEquatable
+		public bool Equals(BopBriefingPartBase other)
+		{
+			if (other is null)
+				return false;
+
+			return (Guid == other.Guid);
+		}
+
+		public override bool Equals(object obj)
+		{
+			return Equals(obj as BopBriefingPartBase);
+		}
+
+		public override int GetHashCode() => Guid.GetHashCode();
 		#endregion
 	}
 

@@ -3,7 +3,7 @@ using System.Data;
 
 namespace DcsBriefop.Forms
 {
-	internal class GridManagerBriefingFolders : GridManagerBase2<BopBriefingFolder>
+	internal class GridManagerBriefingFolders : GridManagerBase<BopBriefingFolder>
 	{
 		#region Columns
 		public static class GridColumn

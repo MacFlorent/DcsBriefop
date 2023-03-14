@@ -5,7 +5,7 @@ using GMap.NET.MapProviders;
 
 namespace DcsBriefop.Forms
 {
-	public partial class FrmPreferences : Form
+	internal partial class FrmPreferences : Form
 	{
 		#region Fields
 		private Preferences m_preferences;

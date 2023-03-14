@@ -33,7 +33,7 @@ namespace DcsBriefop.Forms
 		#region Methods
 		public override void DataToScreen()
 		{
-			m_gridManagerRoutePoints.RoutePoints = m_bopGroup.RoutePoints;
+			m_gridManagerRoutePoints.Elements = m_bopGroup.RoutePoints;
 			m_gridManagerRoutePoints.Initialize();
 			DataToScreenDetail();
 		}

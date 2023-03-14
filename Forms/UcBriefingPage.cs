@@ -71,7 +71,7 @@ namespace DcsBriefop.Forms
 			CkRenderHtml.Checked = (m_bopBriefingPage.Render & ElementBriefingPageRender.Html) != 0;
 			CkRenderMap.Checked = (m_bopBriefingPage.Render & ElementBriefingPageRender.Map) != 0;
 
-			m_gridManagerBriefingParts.BriefingParts = m_bopBriefingPage.Parts;
+			m_gridManagerBriefingParts.Elements = m_bopBriefingPage.Parts;
 			m_gridManagerBriefingParts.Initialize();
 
 			DisplayCurrentRender();
@@ -198,7 +198,7 @@ namespace DcsBriefop.Forms
 			if (m_bopBriefingPage.Parts.Count() == 1)
 				DataToScreenPart();
 			else
-				m_gridManagerBriefingParts.SelectElement(newPart);
+				m_gridManagerBriefingParts.SelectRow(newPart);
 		}
 
 		private void RemovePart()
@@ -218,7 +218,7 @@ namespace DcsBriefop.Forms
 			{
 				m_bopBriefingPage.OrderPart(selectedElement, iWay);
 				m_gridManagerBriefingParts.Initialize();
-				m_gridManagerBriefingParts.SelectElement(selectedElement);
+				m_gridManagerBriefingParts.SelectRow(selectedElement);
 			}
 		}
 		#endregion

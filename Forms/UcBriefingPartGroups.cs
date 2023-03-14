@@ -18,7 +18,7 @@ namespace DcsBriefop.Forms
 
 			BopBriefingPartGroups briefingPart = m_bopBriefingPart as BopBriefingPartGroups;
 			m_gridManager = new GridManagerGroups(DgvGroups, m_bopMission.Groups);
-			m_gridManager.CheckedElements = briefingPart.Groups;
+			//m_gridManager.CheckedElements = briefingPart.Groups;
 			m_gridManager.CellEndEdit += CellEndEditEvent;
 
 			LstColumns.DataSource = BopBriefingPartGroups.AvailableColumns;

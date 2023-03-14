@@ -4,7 +4,7 @@ using System.Data;
 
 namespace DcsBriefop.Forms
 {
-	internal class GridManagerBriefingPages : GridManagerBase2<BopBriefingPage>
+	internal class GridManagerBriefingPages : GridManagerBase<BopBriefingPage>
 	{
 		#region Columns
 		public static class GridColumn

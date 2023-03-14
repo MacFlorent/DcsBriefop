@@ -109,44 +109,11 @@ namespace DcsBriefop.Forms
 			}
 		}
 
-		//private void OpenPreferencesMiz()
-		//{
-		//	if (m_missionManager is null)
-		//		throw new ExceptionDcsBriefop("No mission is currently loaded");
-
-		//	ScreenToData();
-
-		//	FrmPreferencesMiz f = new FrmPreferencesMiz(m_briefingContainer, delegate () { m_ucMap.RefreshMapData(); });
-		//	if (f.ShowDialog() == DialogResult.OK)
-		//	{
-		//		DataToScreen();
-		//	}
-		//}
-
-		//private void OpenPreferencesMizGenerate()
-		//{
-		//	if (m_missionManager is null)
-		//		throw new ExceptionDcsBriefop("No mission is currently loaded");
-
-		//	ScreenToData();
-
-		//	FrmPreferencesMizGenerate f = new FrmPreferencesMizGenerate(m_briefingContainer, m_missionManager);
-		//	f.ShowDialog();
-		//}
-
-		//private void GenerateFiles()
-		//{
-		//	if (m_missionManager is null)
-		//		throw new ExceptionDcsBriefop("No mission is currently loaded");
-
-		//	using (new WaitDialog(this))
-		//	{
-		//		ScreenToData();
-
-		//		using (BriefingFilesBuilder builder = new BriefingFilesBuilder(m_briefingContainer, m_missionManager))
-		//			builder.Generate();
-		//	}
-		//}
+		private void OpenDcsObjects()
+		{
+			FrmDcsObjects f = new FrmDcsObjects();
+			f.ShowDialog();
+		}
 
 		//private void GenerateBatchCommand()
 		//{
@@ -238,9 +205,7 @@ namespace DcsBriefop.Forms
 			ToolStripMenuItem tsmiTools = MainMenu.Items.AddMenuItem("Tools", null);
 			MainMenu.Items.Add(tsmiTools);
 			tsmiTools.DropDownItems.AddMenuItem("Preferences", (object _sender, EventArgs _e) => { OpenPreferences(); });
-			//tsmiTools.DropDownItems.AddMenuSeparator();
-			//tsmiTools.DropDownItems.AddMenuItem("Unit database", (object _sender, EventArgs _e) => { OpenDatabaseUnits(); });
-
+			tsmiTools.DropDownItems.AddMenuItem("DCS objects", (object _sender, EventArgs _e) => { OpenDcsObjects(); });
 		}
 
 		//private void AddMenuCoalition(ToolStripMenuItem tsmiBriefingCoalitions, string sCoalitionName)

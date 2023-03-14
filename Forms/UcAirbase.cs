@@ -60,7 +60,7 @@ namespace DcsBriefop.Forms
 			TbCoordinates.Text = m_bopAirbase.Coordinate.ToString(ElementCoordinateDisplay.All);
 			CbMapMarker.Text = m_bopAirbase.MapMarker;
 
-			m_gridManagerAirbaseRadios.AirbaseRadios = m_bopAirbase.Radios;
+			m_gridManagerAirbaseRadios.Elements = m_bopAirbase.Radios;
 			m_gridManagerAirbaseRadios.Initialize();
 			
 			DataToScreenMap();

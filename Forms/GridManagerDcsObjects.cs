@@ -1,80 +1,69 @@
 ﻿using DcsBriefop.Data;
-using DcsBriefop.DataBopBriefing;
 using System.Data;
 
 namespace DcsBriefop.Forms
 {
-	internal class GridManagerDcsObjects : GridManagerBase
+	internal class GridManagerDcsObjects : GridManagerBase<DcsObject>
 	{
 		#region Columns
 		public static class GridColumn
 		{
-			public static readonly string Name = "Name";
-			public static readonly string Kneeboard = "Kneeboard";
-			public static readonly string Data = "Data";
+			public static readonly string TypeName = "TypeName";
+			public static readonly string DisplayName = "DisplayName";
+			public static readonly string GroupClass = "GroupClass";
+			public static readonly string Attributes = "Attributes";
+			public static readonly string MapMarker = "MapMarker";
+			public static readonly string Information = "Information";
+			public static readonly string MainInGroup = "MainInGroup";
 		}
 		#endregion
 
 		#region Fields
-		private IEnumerable<DcsObject> m_dcsObjects;
 		#endregion
 
 		#region Properties
 		#endregion
 
 		#region CTOR
-		public GridManagerDcsObjects(DataGridView dgv, IEnumerable<DcsObject> elements) : base(dgv)
-		{
-			m_dcsObjects = elements;
-		}
+		public GridManagerDcsObjects(DataGridView dgv, IEnumerable<DcsObject> elements) : base(dgv, elements) { }
 		#endregion
 
 		#region Methods
-		protected override void InitializeDataSource()
+		protected override void InitializeDataSourceColumns()
 		{
-			m_dtSource = new DataTable();
-			m_dtSource.Columns.Add(GridColumn.Name, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Kneeboard, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Data, typeof(DcsObject));
+			base.InitializeDataSourceColumns();
 
-			RefreshDataSourceRows();
+			m_dtSource.Columns.Add(GridColumn.TypeName, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.DisplayName, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.GroupClass, typeof(ElementGroupClass));
+			m_dtSource.Columns.Add(GridColumn.Attributes, typeof(ElementDcsObjectAttribute));
+			m_dtSource.Columns.Add(GridColumn.MapMarker, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.Information, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.MainInGroup, typeof(bool));
 		}
 
-		public void RefreshDataSourceRows()
+		protected override void RefreshDataSourceRowContent(DataRow dr, DcsObject element)
 		{
-			foreach (DcsObject element in m_dcsObjects)
-				RefreshDataSourceRow(element);
-		}
+			base.RefreshDataSourceRowContent(dr, element);
 
-		private void RefreshDataSourceRow(DcsObject element)
-		{
-			DataRow dr = m_dtSource.AsEnumerable().Where(_dr => _dr.Field<DcsObject>(GridColumn.Data) == element).FirstOrDefault();
-			if (dr is null)
-			{
-				dr = m_dtSource.NewRow();
-				dr.SetField(GridColumn.Data, element);
-				m_dtSource.Rows.Add(dr);
-			}
-
-			dr.SetField(GridColumn.Name, element.DisplayName);
-			dr.SetField(GridColumn.Kneeboard, element.KneeboardDirectory);
+			dr.SetField(GridColumn.TypeName, element.TypeName);
+			dr.SetField(GridColumn.DisplayName, element.DisplayName);
+			dr.SetField(GridColumn.GroupClass, element.GroupClass);
+			dr.SetField(GridColumn.Attributes, element.Attributes);
+			dr.SetField(GridColumn.MapMarker, element.MapMarker);
+			dr.SetField(GridColumn.Information, element.Information);
+			dr.SetField(GridColumn.MainInGroup, element.MainInGroup);
 		}
 
 		protected override void PostInitializeColumns()
 		{
 			base.PostInitializeColumns();
 
-			foreach (DataGridViewColumn column in m_dgv.Columns)
-			{
-				column.ReadOnly = true;
-			}
-
-			m_dgv.Columns[GridColumn.Data].Visible = false;
-		}
-
-		public IEnumerable<BopBriefingPartBase> GetSelectedElements()
-		{
-			return GetSelectedDataRows().Select(_dr => _dr.Field<BopBriefingPartBase>(GridColumn.Data)).ToList();
+			m_dgv.Columns[GridColumn.TypeName].HeaderText = "Type";
+			m_dgv.Columns[GridColumn.DisplayName].HeaderText = "Name";
+			m_dgv.Columns[GridColumn.GroupClass].HeaderText = "Class";
+			m_dgv.Columns[GridColumn.MapMarker].HeaderText = "Marker";
+			m_dgv.Columns[GridColumn.MainInGroup].HeaderText = "Main in group";
 		}
 		#endregion
 

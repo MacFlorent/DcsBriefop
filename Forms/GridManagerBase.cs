@@ -4,22 +4,34 @@ using System.Data;
 
 namespace DcsBriefop.Forms
 {
-	internal abstract class GridManagerBase : IDisposable
+	internal abstract class GridManagerBase<T> : IDisposable where T : class
 	{
+		#region Columns
+		public static class GridColumnBase
+		{
+			public static readonly string Checked = "Checked";
+			public static readonly string Data = "Data";
+		}
+		#endregion
+
 		#region Fields
 		protected DataGridView m_dgv;
 		protected DataTable m_dtSource;
 		protected bool m_disposedValue;
+
 		#endregion
 
 		#region Properties
 		public List<string> ColumnsDisplayed { get; set; } = null;
+		public IEnumerable<T> Elements { get; set; }
+		public List<T> CheckedElements { get; set; }
 		#endregion
 
 		#region CTOR
-		public GridManagerBase(DataGridView dgv)
+		public GridManagerBase(DataGridView dgv, IEnumerable<T> elements)
 		{
 			m_dgv = dgv;
+			Elements = elements;
 
 			m_dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 			m_dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
@@ -35,29 +47,49 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Methods
-		public virtual void Initialize()
+		public void Initialize()
 		{
 			InitializeDataSource();
 			SetDataSource();
 			PostInitializeColumns();
-			RefreshGridRows();
 			InitializeContextMenu();
 		}
 
-		protected abstract void InitializeDataSource();
-
-		protected virtual void PostInitializeColumns()
+		private void InitializeDataSource()
 		{
-			if (ColumnsDisplayed is object)
+			m_dtSource = new DataTable();
+			InitializeDataSourceColumns();
+			RefreshDataSourceRows();
+		}
+
+		protected virtual void InitializeDataSourceColumns()
+		{
+			m_dtSource.Columns.Add(GridColumnBase.Data, typeof(T));
+			m_dtSource.Columns.Add(GridColumnBase.Checked, typeof(bool));
+		}
+
+		public void RefreshDataSourceRows()
+		{
+			foreach (T element in Elements)
+				RefreshDataSourceRow(element);
+		}
+
+		protected void RefreshDataSourceRow(T element)
+		{
+			DataRow dr = m_dtSource.AsEnumerable().Where(_dr => _dr.Field<T>(GridColumnBase.Data).Equals(element)).FirstOrDefault();
+			if (dr is null)
 			{
-				foreach (DataGridViewColumn column in m_dgv.Columns)
-				{
-					if (!ColumnsDisplayed.Contains(column.DataPropertyName))
-						column.Visible = false;
-					else
-						column.DisplayIndex = ColumnsDisplayed.IndexOf(column.DataPropertyName);
-				}
+				dr = m_dtSource.NewRow();
+				dr.SetField(GridColumnBase.Data, element);
+				m_dtSource.Rows.Add(dr);
 			}
+
+			RefreshDataSourceRowContent(dr, element);
+		}
+
+		protected virtual void RefreshDataSourceRowContent(DataRow dr, T element)
+		{
+			dr.SetField(GridColumnBase.Checked, CheckedElements is not null && CheckedElements.Contains(element));
 		}
 
 		protected void SetDataSource()
@@ -74,52 +106,109 @@ namespace DcsBriefop.Forms
 			catch (Exception ex) { ToolsControls.ShowMessageBoxError(ex.Message); } // to check the problem addressed by "m_dgv.ColumnHeadersHeight = 25"
 		}
 
-		protected void ReplaceColumnWithComboBox(string sColumnName, string sHeaderText, object dataSource, string sValueMember, string sDisplayMember)
+		protected virtual void PostInitializeColumns()
 		{
-			if (!m_dgv.Columns.Contains(sColumnName))
-				return;
-
-			DataGridViewColumn dgvc = m_dgv.Columns[sColumnName];
-			int iDisplayIndex = dgvc.DisplayIndex;
-			m_dgv.Columns.Remove(dgvc);
-
-			DataGridViewComboBoxColumn dgvcComboBox = new DataGridViewComboBoxColumn() { Name = sColumnName, DataPropertyName = sColumnName, HeaderText = sHeaderText };
-			if (dataSource is object)
+			if (ColumnsDisplayed is not null)
 			{
-				dgvcComboBox.DataSource = dataSource;
-				dgvcComboBox.ValueMember = sValueMember;
-				dgvcComboBox.DisplayMember = sDisplayMember;
+				foreach (DataGridViewColumn column in m_dgv.Columns)
+				{
+					if (!ColumnsDisplayed.Contains(column.DataPropertyName))
+						column.Visible = false;
+					else
+						column.DisplayIndex = ColumnsDisplayed.IndexOf(column.DataPropertyName);
+				}
 			}
 
-			dgvcComboBox.DisplayIndex = iDisplayIndex;
-			m_dgv.Columns.Add(dgvcComboBox);
+			foreach (DataGridViewColumn column in m_dgv.Columns)
+			{
+				column.ReadOnly = true;
+			}
+
+			m_dgv.Columns[GridColumnBase.Data].Visible = false;
+			m_dgv.Columns[GridColumnBase.Checked].ReadOnly = false;
+			m_dgv.Columns[GridColumnBase.Checked].Visible = CheckedElements is not null;
 		}
 
-		public void RefreshGridRows()
+		//public void RefreshGridRows()
+		//{
+		//	foreach (DataGridViewRow dgvr in m_dgv.Rows)
+		//		RefreshGridRow(dgvr);
+		//}
+
+		//public virtual void RefreshGridRow(DataGridViewRow dgvr) { }
+
+		//protected void ReplaceColumnWithComboBox(string sColumnName, string sHeaderText, object dataSource, string sValueMember, string sDisplayMember)
+		//{
+		//	if (!m_dgv.Columns.Contains(sColumnName))
+		//		return;
+
+		//	DataGridViewColumn dgvc = m_dgv.Columns[sColumnName];
+		//	int iDisplayIndex = dgvc.DisplayIndex;
+		//	m_dgv.Columns.Remove(dgvc);
+
+		//	DataGridViewComboBoxColumn dgvcComboBox = new DataGridViewComboBoxColumn() { Name = sColumnName, DataPropertyName = sColumnName, HeaderText = sHeaderText };
+		//	if (dataSource is object)
+		//	{
+		//		dgvcComboBox.DataSource = dataSource;
+		//		dgvcComboBox.ValueMember = sValueMember;
+		//		dgvcComboBox.DisplayMember = sDisplayMember;
+		//	}
+
+		//	dgvcComboBox.DisplayIndex = iDisplayIndex;
+		//	m_dgv.Columns.Add(dgvcComboBox);
+		//}
+
+		private DataRow GetBoundDataRow(DataGridViewRow dgvr)
 		{
-			foreach (DataGridViewRow dgvr in m_dgv.Rows)
-				RefreshGridRow(dgvr);
+			return (dgvr?.DataBoundItem as DataRowView)?.Row;
 		}
 
-		protected virtual void RefreshGridRow(DataGridViewRow dgvr) { }
+		protected T GetBoundElement(DataGridViewRow dgvr)
+		{
+			return GetBoundDataRow(dgvr)?.Field<T>(GridColumnBase.Data);
+		}
 
-		protected IEnumerable<DataGridViewRow> GetSelectedRows()
+		private void SelectCell(DataGridViewCell dgvc)
+		{
+			if (dgvc is not null)
+			{
+				dgvc.Selected = true;
+				m_dgv.CurrentCell = dgvc;
+			}
+		}
+
+		private void SelectRow(DataGridViewRow dgvr)
+		{
+			if (dgvr is not null)
+			{
+				dgvr.Selected = true;
+				DataGridViewCell dgvc = dgvr.Cells.OfType<DataGridViewCell>().Where(_c => _c.Visible).FirstOrDefault();
+				SelectCell(dgvc);
+			}
+		}
+
+		public void SelectRow(T element)
+		{
+			DataGridViewRow dgvr = m_dgv.Rows.Cast<DataGridViewRow>()
+				.Where(_dgvr => (GetBoundElement(_dgvr)?.Equals(element)).GetValueOrDefault(false))
+				.FirstOrDefault();
+
+			SelectRow(dgvr);
+		}
+
+		private IEnumerable<DataGridViewRow> GetSelectedRows()
 		{
 			return m_dgv.SelectedCells.Cast<DataGridViewCell>().Select(_dgvc => _dgvc.OwningRow).Distinct();
 		}
 
-		protected IEnumerable<DataRow> GetSelectedDataRows()
+		private IEnumerable<DataRow> GetSelectedDataRows()
 		{
-			return GetSelectedRows().Select(_dgvr => (_dgvr.DataBoundItem as DataRowView)?.Row).Where(_dr => _dr is object);
+			return GetSelectedRows().Select(_dgvr => GetBoundDataRow(_dgvr)).Where(_dr => _dr is object);
 		}
 
-		protected void SelectRow(DataGridViewRow dgvr)
+		public IEnumerable<T> GetSelectedElements()
 		{
-			if (dgvr is object)
-			{
-				dgvr.Selected = true;
-				m_dgv.CurrentCell = dgvr.Cells[0];
-			}
+			return GetSelectedDataRows().Select(_dr => _dr.Field<T>(GridColumnBase.Data));
 		}
 
 		protected virtual DataGridViewCellStyle CellFormattingInternal(DataGridViewCell dgvc)
@@ -130,9 +219,28 @@ namespace DcsBriefop.Forms
 
 		protected virtual void SelectionChangedInternal() { }
 
-		protected virtual void CellEndEditInternal(DataGridView dgv, DataGridViewCell dgvc) { }
+		protected virtual void CellEndEditInternal(DataGridView dgv, DataGridViewCell dgvc)
+		{
+			T element = GetBoundElement(dgvc.OwningRow);
+			if (element is not null && CheckedElements is not null && dgvc.OwningColumn.Name == GridColumnBase.Checked)
+			{
+				if ((bool)dgvc.Value)
+				{
+					if (!CheckedElements.Contains(element))
+						CheckedElements.Add(element);
+				}
+				else
+				{
+					while (CheckedElements.Remove(element)) ;
+				}
+			} 
+		}
 
-		protected virtual void CellMouseUpInternal(DataGridView dgv, DataGridViewCell dgvc) { }
+		protected virtual void CellMouseUpInternal(DataGridView dgv, DataGridViewCell dgvc)
+		{
+			if (dgvc.OwningColumn.Name == GridColumnBase.Checked)
+				dgv.EndEdit();
+		}
 		#endregion
 
 		#region Menus
@@ -210,11 +318,13 @@ namespace DcsBriefop.Forms
 			if (e.Button == MouseButtons.Right)
 			{
 				var hti = m_dgv.HitTest(e.X, e.Y);
-				DataGridViewCell dgvc = m_dgv.Rows[hti.RowIndex].Cells[hti.ColumnIndex];
-				if (!dgvc.Selected)
+				if (hti.RowIndex >= 0 && hti.ColumnIndex >= 0)
 				{
-					m_dgv.ClearSelection();
-					dgvc.Selected = true;
+					DataGridViewCell dgvc = m_dgv.Rows[hti.RowIndex].Cells[hti.ColumnIndex];
+					if (!dgvc.Selected)
+					{
+						SelectCell(dgvc);
+					}
 				}
 			}
 		}
