@@ -32,7 +32,7 @@ namespace DcsBriefop.DataBopBriefing
 
 		#region Properties
 		public string Header { get; set; }
-		public List<int> Groups { get; set; } = new();
+		public List<BopBriefingPartGroupOrUnit> GroupOrUnits { get; set; } = new();
 		public List<string> SelectedColumns { get; set; } = new();
 		#endregion
 
@@ -51,7 +51,7 @@ namespace DcsBriefop.DataBopBriefing
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.AppendWithSeparator(Header, " ");
-			sb.AppendWithSeparator($"{Groups.Count} groups", " - ");
+			sb.AppendWithSeparator($"{GroupOrUnits.Count} groups", " - ");
 			return sb.ToString();
 		}
 
@@ -72,7 +72,7 @@ namespace DcsBriefop.DataBopBriefing
 				tagThead.Add("td").AddClass("header").AppendText(sColumn);
 			}
 
-			foreach (BopGroup element in GetOrderedElements(bopMission))
+			foreach (BopGroupOrUnit element in GetBopGroupOrUnits(bopMission))
 			{
 				if (element is object)
 				{
@@ -80,10 +80,11 @@ namespace DcsBriefop.DataBopBriefing
 					foreach (string sColumn in columns)
 					{
 						element.FinalizeFromMiz();
+
 						if (sColumn == TableColumns.Coalition)
-							tagTr.Add("td").AppendText(element.CoalitionName);
+							tagTr.Add("td").AppendText(element.Coalition);
 						else if (sColumn == TableColumns.Name)
-							tagTr.Add("td").AppendText(element.ToStringDisplayName());
+							tagTr.Add("td").AppendText(element.DisplayName);
 						else if (sColumn == TableColumns.Class)
 							tagTr.Add("td").AppendText(element.GroupClass.ToString());
 						else if (sColumn == TableColumns.Radio)
@@ -91,7 +92,7 @@ namespace DcsBriefop.DataBopBriefing
 						else if (sColumn == TableColumns.Localisation)
 							tagTr.Add("td").Append(element.Coordinate.ToString(bopBriefingFolder.CoordinateDisplay)?.HtmlLineBreaks());
 						else if (sColumn == TableColumns.Name)
-							tagTr.Add("td").AppendText(element.ToStringAdditional());
+							tagTr.Add("td").AppendText(element.Additional);
 					}
 				}
 			}
@@ -103,10 +104,18 @@ namespace DcsBriefop.DataBopBriefing
 		public override IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission)
 		{
 			List<GMapOverlay> partOverlays = new List<GMapOverlay>();
-			foreach (BopGroup element in GetOrderedElements(bopMission))
+			foreach (BopGroupOrUnit element in GetBopGroupOrUnits(bopMission))
 			{
 				element.FinalizeFromMiz();
-				partOverlays.Add(element.GetMapOverlay());
+
+				if (element.BopUnit is not null)
+				{
+					partOverlays.Add(element.BopUnit.GetMapOverlay());
+				}
+				else
+				{
+					partOverlays.Add(element.BopGroup.GetMapOverlay());
+				}
 			}
 			return partOverlays;
 		}
@@ -119,15 +128,44 @@ namespace DcsBriefop.DataBopBriefing
 				return AvailableColumns;
 		}
 
-		private IEnumerable<BopGroup> GetOrderedElements(BopMission bopMission)
+		public List<BopGroupOrUnit> GetBopGroupOrUnits(BopMission bopMission)
 		{
-			return bopMission.Groups.Where(_e => Groups.Contains(_e.Id));
+			List<BopGroupOrUnit> missionGroupOrUnits = bopMission.GetGroupOrUnits();
+
+			List<BopGroupOrUnit> groupOrUnits = new List<BopGroupOrUnit>();
+			foreach (BopBriefingPartGroupOrUnit briefingGroupOrUnit in GroupOrUnits)
+			{
+				BopGroupOrUnit missionGroupOrUnit = null;
+				if (briefingGroupOrUnit.Object == "unit")
+					missionGroupOrUnit = missionGroupOrUnits.Where(_gou => (_gou.BopUnit?.Id).GetValueOrDefault(0) == briefingGroupOrUnit.Id).FirstOrDefault();
+				else
+					missionGroupOrUnit = missionGroupOrUnits.Where(_gou => (_gou.BopGroup?.Id).GetValueOrDefault(0) == briefingGroupOrUnit.Id).FirstOrDefault();
+
+				if (missionGroupOrUnit is not null)
+				{
+					groupOrUnits.Add(missionGroupOrUnit);
+				}
+			}
+			return groupOrUnits;
+		}
+
+		public void SetBopGroupOrUnits(IEnumerable<BopGroupOrUnit> bopGroupOrUnits)
+		{
+			GroupOrUnits.Clear();
+			foreach (BopGroupOrUnit groupOrUnit in bopGroupOrUnits)
+			{
+				if (groupOrUnit.BopUnit is not null)
+					GroupOrUnits.Add(new BopBriefingPartGroupOrUnit() { Id = groupOrUnit.BopUnit.Id, Object = "unit" });
+				else
+					GroupOrUnits.Add(new BopBriefingPartGroupOrUnit() { Id = groupOrUnit.BopGroup.Id, Object = "group" });
+			}
 		}
 		#endregion
 	}
 
-	internal class BopBriefingPartGroup
+	internal class BopBriefingPartGroupOrUnit
 	{
-
+		public int Id { get; set; }
+		public string Object { get; set; }
 	}
-	}
+}

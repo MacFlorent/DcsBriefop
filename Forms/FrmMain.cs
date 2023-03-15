@@ -189,54 +189,13 @@ namespace DcsBriefop.Forms
 			tsmiMiz.DropDownItems.AddMenuSeparator();
 			tsmiMiz.DropDownItems.AddMenuItem("Exit", (object _sender, EventArgs _e) => { Application.Exit(); });
 
-			//ToolStripMenuItem tsmiBriefing = MainMenu.Items.AddMenuItem("Briefing", null);
-			//MainMenu.Items.Add(tsmiBriefing);
-			//ToolStripMenuItem tsmiBriefingCoalitions = tsmiBriefing.DropDownItems.AddMenuItem("Coalitions", null);
-			//tsmiBriefing.DropDownItems.Add(tsmiBriefingCoalitions);
-			//AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Red);
-			//AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Blue);
-			////AddMenuCoalition(tsmiBriefingCoalitions, ElementCoalition.Neutral);
-			//tsmiBriefing.DropDownItems.AddMenuItem("Generate kneeboard", (object _sender, EventArgs _e) => { GenerateFiles(); });
 			//tsmiBriefing.DropDownItems.AddMenuItem("Generate batch command", (object _sender, EventArgs _e) => { GenerateBatchCommand(); });
-			//tsmiBriefing.DropDownItems.AddMenuSeparator();
-			//tsmiBriefing.DropDownItems.AddMenuItem("Kneeboard generation preferences", (object _sender, EventArgs _e) => { OpenPreferencesMizGenerate(); });
-			//tsmiBriefing.DropDownItems.AddMenuItem("Mission preferences", (object _sender, EventArgs _e) => { OpenPreferencesMiz(); });
 
 			ToolStripMenuItem tsmiTools = MainMenu.Items.AddMenuItem("Tools", null);
 			MainMenu.Items.Add(tsmiTools);
 			tsmiTools.DropDownItems.AddMenuItem("Preferences", (object _sender, EventArgs _e) => { OpenPreferences(); });
 			tsmiTools.DropDownItems.AddMenuItem("DCS objects", (object _sender, EventArgs _e) => { OpenDcsObjects(); });
 		}
-
-		//private void AddMenuCoalition(ToolStripMenuItem tsmiBriefingCoalitions, string sCoalitionName)
-		//{
-		//	if (m_briefingContainer is null)
-		//		return;
-
-		//	ToolStripMenuItem tsmiCoalition = tsmiBriefingCoalitions.DropDownItems.AddMenuItem(sCoalitionName, (object _sender, EventArgs _e) => { CoalitionMenuClick(_sender as ToolStripMenuItem, sCoalitionName); });
-		//	tsmiCoalition.Checked = (m_briefingContainer.GetCoalition(sCoalitionName) is BriefingCoalition coalition && coalition.Included);
-		//}
-
-		//private void CoalitionMenuClick(ToolStripMenuItem tsmiBriefingCoalition, string sCoalitionName)
-		//{
-		//	using (new WaitDialog(this))
-		//	{
-		//		BriefingCoalition coalition = m_briefingContainer.GetCoalition(sCoalitionName);
-		//		if (coalition is null)
-		//		{
-		//			m_briefingContainer.AddCoalition(sCoalitionName);
-		//			coalition = m_briefingContainer.GetCoalition(sCoalitionName);
-		//			coalition.Included = false;
-		//		}
-
-		//		coalition.Included = !coalition.Included;
-		//		tsmiBriefingCoalition.Checked = coalition.Included;
-
-		//		ScreenToData();
-		//		DataToScreen();
-		//	}
-		//}
-
 		#endregion
 
 		#region Events

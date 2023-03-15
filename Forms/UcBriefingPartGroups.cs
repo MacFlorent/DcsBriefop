@@ -7,7 +7,10 @@ namespace DcsBriefop.Forms
 	internal partial class UcBriefingPartGroups : UcBriefingPartBase
 	{
 		#region Fields
-		private GridManagerGroups m_gridManager;
+		private GridManagerGroupOrUnits m_gmMultiAvailable;
+		private GridManagerGroupOrUnits m_gmMultiSelected;
+		List<BopGroupOrUnit> m_selectedGroupOrUnits;
+		List<BopGroupOrUnit> m_missionGroupOrUnits;
 		#endregion
 
 		#region CTOR
@@ -16,10 +19,10 @@ namespace DcsBriefop.Forms
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			BopBriefingPartGroups briefingPart = m_bopBriefingPart as BopBriefingPartGroups;
-			m_gridManager = new GridManagerGroups(DgvGroups, m_bopMission.Groups);
-			//m_gridManager.CheckedElements = briefingPart.Groups;
-			m_gridManager.CellEndEdit += CellEndEditEvent;
+			m_missionGroupOrUnits = m_bopMission.GetGroupOrUnits();
+
+			m_gmMultiAvailable = new GridManagerGroupOrUnits(DgvMultiAvailable, null);
+			m_gmMultiSelected = new GridManagerGroupOrUnits(DgvMultiSelected, null);
 
 			LstColumns.DataSource = BopBriefingPartGroups.AvailableColumns;
 
@@ -32,7 +35,9 @@ namespace DcsBriefop.Forms
 		{
 			BopBriefingPartGroups briefingPart = m_bopBriefingPart as BopBriefingPartGroups;
 			TbHeader.Text = briefingPart.Header;
-			m_gridManager.Initialize();
+
+			m_selectedGroupOrUnits = briefingPart.GetBopGroupOrUnits(m_bopMission);
+			RefreshMultiGrids();
 
 			for (int i = 0; i < LstColumns.Items.Count; i++)
 			{
@@ -45,15 +50,109 @@ namespace DcsBriefop.Forms
 			BopBriefingPartGroups briefingPart = m_bopBriefingPart as BopBriefingPartGroups;
 			briefingPart.Header = TbHeader.Text;
 
+			briefingPart.SetBopGroupOrUnits(m_selectedGroupOrUnits);
+
 			briefingPart.SelectedColumns.Clear();
 			briefingPart.SelectedColumns.AddRange(LstColumns.CheckedItems.OfType<string>());
+		}
+
+		private void RefreshMultiGrids()
+		{
+			m_gmMultiAvailable.Elements = m_missionGroupOrUnits.Where(_gou => !m_selectedGroupOrUnits.Contains(_gou));
+			m_gmMultiSelected.Elements = m_selectedGroupOrUnits;
+			m_gmMultiAvailable.Initialize();
+			m_gmMultiSelected.Initialize();
+		}
+
+		private void MultiAdd()
+		{
+			foreach (BopGroupOrUnit ba in m_gmMultiAvailable.GetSelectedElements().Where(_ba => !m_selectedGroupOrUnits.Contains(_ba)))
+				m_selectedGroupOrUnits.Add(ba);
+
+			RefreshMultiGrids();
+		}
+
+		private void MultiRemove()
+		{
+			foreach (BopGroupOrUnit ba in m_gmMultiSelected.GetSelectedElements())
+				m_selectedGroupOrUnits.Remove(ba);
+
+			RefreshMultiGrids();
+		}
+
+		private void MultiOrder(int iWay)
+		{
+			BopGroupOrUnit selectedElement = m_gmMultiSelected.GetSelectedElements().FirstOrDefault();
+			if (selectedElement is not null)
+			{
+				MultiOrder(selectedElement, iWay);
+				m_gmMultiSelected.Initialize();
+				m_gmMultiSelected.SelectRow(selectedElement);
+			}
+		}
+
+		private void MultiOrder(BopGroupOrUnit bopAirbase, int iWay)
+		{
+			if (iWay < 0)
+				iWay = -1;
+			else
+				iWay = 1;
+
+			int iCurrentIndex = m_selectedGroupOrUnits.IndexOf(bopAirbase);
+			if (iCurrentIndex < 0)
+				return;
+
+			int iNewIndex = iCurrentIndex + iWay;
+			if (iNewIndex >= 0 && iNewIndex < m_selectedGroupOrUnits.Count)
+			{
+				m_selectedGroupOrUnits.Remove(bopAirbase);
+				m_selectedGroupOrUnits.Insert(iNewIndex, bopAirbase);
+			}
 		}
 		#endregion
 
 		#region Events
-		private void CellEndEditEvent(object sender, EventArgs e)
+		private void BtMultiAdd_Click(object sender, EventArgs e)
 		{
-			m_ucBriefingPageParent?.DisplayCurrentMap();
+			MultiAdd();
+		}
+
+		private void BtMultiRemove_Click(object sender, EventArgs e)
+		{
+			MultiRemove();
+		}
+
+		private void BtMultiAddAll_Click(object sender, EventArgs e)
+		{
+			m_selectedGroupOrUnits.Clear();
+			m_selectedGroupOrUnits.AddRange(m_missionGroupOrUnits);
+			RefreshMultiGrids();
+		}
+
+		private void BtMultiRemoveAll_Click(object sender, EventArgs e)
+		{
+			m_selectedGroupOrUnits.Clear();
+			RefreshMultiGrids();
+		}
+
+		private void BtMultiUp_Click(object sender, EventArgs e)
+		{
+			MultiOrder(-1);
+		}
+
+		private void BtMultiDown_Click(object sender, EventArgs e)
+		{
+			MultiOrder(1);
+		}
+
+		private void DgvMultiAvailable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			MultiAdd();
+		}
+
+		private void DgvMultiSelected_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			MultiRemove();
 		}
 		#endregion
 	}

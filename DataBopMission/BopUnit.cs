@@ -4,6 +4,7 @@ using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
+using GMap.NET.WindowsForms;
 using UnitsNet;
 
 namespace DcsBriefop.DataBopMission
@@ -135,6 +136,14 @@ namespace DcsBriefop.DataBopMission
 		{
 			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree), MapMarker, color ?? ToolsBriefop.GetCoalitionColor(BopGroup.CoalitionName), ToStringDisplayName(), 1, 0);
 		}
+
+		public GMapOverlay GetMapOverlay()
+		{
+			GMapOverlay mapOverlay = new GMapOverlay();
+			mapOverlay.Markers.Add(GetMarkerBriefop(null));
+			return mapOverlay;
+		}
+
 		#endregion
 
 		#region IEquatable

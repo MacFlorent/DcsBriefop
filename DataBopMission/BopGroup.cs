@@ -1,6 +1,5 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
-using DcsBriefop.DataBopBriefing;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
@@ -193,7 +192,7 @@ namespace DcsBriefop.DataBopMission
 			return GetMapOverlayPosition();
 		}
 
-			public GMapOverlay GetMapOverlayPosition()
+		public GMapOverlay GetMapOverlayPosition()
 		{
 			GMapOverlay mapOverlay = new GMapOverlay();
 			mapOverlay.Markers.Add(GetMarkerBriefop(null));
@@ -214,7 +213,7 @@ namespace DcsBriefop.DataBopMission
 				GMarkerBriefop marker = bopUnit.GetMarkerBriefop(color);
 				mapOverlay.Markers.Add(marker);
 			}
-			
+
 			if (selectedUnit is object)
 			{
 				GMarkerBriefop marker = selectedUnit.GetMarkerBriefop(null);

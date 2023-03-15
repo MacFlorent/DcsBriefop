@@ -157,6 +157,21 @@ namespace DcsBriefop.DataBopMission
 		{
 			return Groups.Where(_g => _g.Playable && (string.IsNullOrEmpty(sCoalitionName) || _g.CoalitionName == sCoalitionName)).Select(_g => _g.Type).Distinct();
 		}
+
+		public List<BopGroupOrUnit> GetGroupOrUnits()
+		{
+			List<BopGroupOrUnit> missionGroupOrUnits = new List<BopGroupOrUnit>();
+			foreach (BopGroup group in Groups)
+			{
+				missionGroupOrUnits.Add(new BopGroupOrUnit() { BopGroup = group });
+				foreach (BopUnit unit in group.Units)
+				{
+					missionGroupOrUnits.Add(new BopGroupOrUnit() { BopGroup = group, BopUnit = unit });
+				}
+			}
+
+			return missionGroupOrUnits;
+		}
 		#endregion
 	}
 }

@@ -18,8 +18,6 @@ namespace DcsBriefop.Forms
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			BopBriefingPartAirbases briefingPart = m_bopBriefingPart as BopBriefingPartAirbases;
-
 			m_gmMultiAvailable = new GridManagerAirbases(DgvMultiAvailable, null);
 			m_gmMultiSelected = new GridManagerAirbases(DgvMultiSelected, null);
 
