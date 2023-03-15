@@ -91,7 +91,7 @@ namespace DcsBriefop.DataBopBriefing
 							tagTr.Add("td").AppendText(element.Radio.ToString());
 						else if (sColumn == TableColumns.Localisation)
 							tagTr.Add("td").Append(element.Coordinate.ToString(bopBriefingFolder.CoordinateDisplay)?.HtmlLineBreaks());
-						else if (sColumn == TableColumns.Name)
+						else if (sColumn == TableColumns.Notes)
 							tagTr.Add("td").AppendText(element.Additional);
 					}
 				}
