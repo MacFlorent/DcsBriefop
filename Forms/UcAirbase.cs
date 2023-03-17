@@ -61,7 +61,7 @@ namespace DcsBriefop.Forms
 			CbMapMarker.Text = m_bopAirbase.MapMarker;
 
 			m_gridManagerAirbaseRadios.Elements = m_bopAirbase.Radios;
-			m_gridManagerAirbaseRadios.Initialize();
+			m_gridManagerAirbaseRadios.Refresh();
 			
 			DataToScreenMap();
 
@@ -104,7 +104,7 @@ namespace DcsBriefop.Forms
 			Radio radio = new Radio();
 			radio.Normalize();
 			m_bopAirbase.Radios.Add(new BopAirbaseRadio() { Radio = radio, Default = false, Used = true });
-			m_gridManagerAirbaseRadios.Initialize();
+			m_gridManagerAirbaseRadios.Refresh();
 		}
 
 		private void BtRadioRemove_Click(object sender, EventArgs e)
@@ -113,7 +113,7 @@ namespace DcsBriefop.Forms
 			if (airbaseRadio is object && !airbaseRadio.Default)
 				m_bopAirbase.Radios.Remove(airbaseRadio);
 
-			m_gridManagerAirbaseRadios.Initialize();
+			m_gridManagerAirbaseRadios.Refresh();
 		}
 
 		#endregion

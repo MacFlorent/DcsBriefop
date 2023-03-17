@@ -93,6 +93,12 @@
 		Directory = 2
 	}
 
+	internal enum ElementGroupOrUnit
+	{
+		Group = 1,
+		Unit = 2
+	}
+
 	internal static class ElementGlobalData
 	{
 		public static readonly string ResourcesDirectory = "Resources";

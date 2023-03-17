@@ -331,7 +331,6 @@
 			// 
 			// BtBriefingAto
 			// 
-			BtBriefingAto.Enabled = false;
 			BtBriefingAto.Location = new Point(318, 3);
 			BtBriefingAto.Margin = new Padding(4, 3, 4, 3);
 			BtBriefingAto.Name = "BtBriefingAto";
@@ -339,6 +338,7 @@
 			BtBriefingAto.TabIndex = 11;
 			BtBriefingAto.Text = "ATO";
 			BtBriefingAto.UseVisualStyleBackColor = true;
+			BtBriefingAto.Click += BtBriefingAto_Click;
 			// 
 			// DgvBriefingFolders
 			// 

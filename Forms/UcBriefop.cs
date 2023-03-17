@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopBriefing;
+using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 using System.Diagnostics;
 
@@ -105,7 +106,7 @@ namespace DcsBriefop.Forms
 		private void DataToScreenFolders()
 		{
 			m_gridManagerBriefingFolders = new GridManagerBriefingFolders(DgvBriefingFolders, m_briefopManager.BopMission.BopBriefingFolders);
-			m_gridManagerBriefingFolders.Initialize();
+			m_gridManagerBriefingFolders.Refresh();
 		}
 
 		public void ScreenToData()
@@ -200,6 +201,21 @@ namespace DcsBriefop.Forms
 		}
 		#endregion
 
-
+		#region TESTS
+		GridManagerGroupOrUnits m_gmMultiAvailable;
+		private void BtBriefingAto_Click(object sender, EventArgs e)
+		{
+			if (m_gmMultiAvailable is null)
+			{
+				m_gmMultiAvailable = new GridManagerGroupOrUnits(DgvBriefingFolders, m_briefopManager.BopMission.GetGroupOrUnits());
+				m_gmMultiAvailable.ColumnsDisplayed = GridManagerGroupOrUnits.ColumnsDisplayed1;
+			}
+			Stopwatch stopWatch = new Stopwatch();
+			stopWatch.Start();
+			m_gmMultiAvailable.Refresh();
+			stopWatch.Stop();
+			MessageBox.Show($"{stopWatch.Elapsed.TotalMilliseconds}");
+		}
+		#endregion
 	}
 }

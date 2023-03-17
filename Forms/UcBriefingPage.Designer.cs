@@ -82,14 +82,14 @@
 			TcDetail.Margin = new Padding(4, 3, 4, 3);
 			TcDetail.Name = "TcDetail";
 			TcDetail.SelectedIndex = 0;
-			TcDetail.Size = new Size(665, 500);
+			TcDetail.Size = new Size(692, 500);
 			TcDetail.TabIndex = 0;
 			// 
 			// TpPartDetail
 			// 
 			TpPartDetail.Location = new Point(4, 24);
 			TpPartDetail.Name = "TpPartDetail";
-			TpPartDetail.Size = new Size(657, 472);
+			TpPartDetail.Size = new Size(684, 472);
 			TpPartDetail.TabIndex = 2;
 			TpPartDetail.Text = "Part configuration";
 			TpPartDetail.UseVisualStyleBackColor = true;
@@ -250,14 +250,14 @@
 			ScMain.Panel2.AutoScroll = true;
 			ScMain.Panel2.Controls.Add(TcDetail);
 			ScMain.Size = new Size(921, 500);
-			ScMain.SplitterDistance = 251;
+			ScMain.SplitterDistance = 224;
 			ScMain.SplitterWidth = 5;
 			ScMain.TabIndex = 2;
 			// 
 			// BtPartOrderDown
 			// 
 			BtPartOrderDown.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			BtPartOrderDown.Location = new Point(35, 474);
+			BtPartOrderDown.Location = new Point(30, 474);
 			BtPartOrderDown.Name = "BtPartOrderDown";
 			BtPartOrderDown.Size = new Size(26, 23);
 			BtPartOrderDown.TabIndex = 45;
@@ -279,7 +279,7 @@
 			// BtPartRemove
 			// 
 			BtPartRemove.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtPartRemove.Location = new Point(172, 474);
+			BtPartRemove.Location = new Point(145, 474);
 			BtPartRemove.Name = "BtPartRemove";
 			BtPartRemove.Size = new Size(75, 23);
 			BtPartRemove.TabIndex = 43;
@@ -290,7 +290,7 @@
 			// BtPartAdd
 			// 
 			BtPartAdd.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtPartAdd.Location = new Point(91, 474);
+			BtPartAdd.Location = new Point(64, 474);
 			BtPartAdd.Name = "BtPartAdd";
 			BtPartAdd.Size = new Size(75, 23);
 			BtPartAdd.TabIndex = 42;
@@ -345,7 +345,7 @@
 			LbHeader.Dock = DockStyle.Top;
 			LbHeader.Location = new Point(0, 0);
 			LbHeader.Name = "LbHeader";
-			LbHeader.Size = new Size(251, 33);
+			LbHeader.Size = new Size(224, 33);
 			LbHeader.TabIndex = 4;
 			LbHeader.Text = "Page";
 			LbHeader.TextAlign = ContentAlignment.MiddleCenter;
@@ -366,7 +366,7 @@
 			TbTitle.Location = new Point(62, 36);
 			TbTitle.Margin = new Padding(4, 3, 4, 3);
 			TbTitle.Name = "TbTitle";
-			TbTitle.Size = new Size(185, 23);
+			TbTitle.Size = new Size(158, 23);
 			TbTitle.TabIndex = 2;
 			// 
 			// LbTitle
@@ -389,7 +389,7 @@
 			DgvParts.Margin = new Padding(4, 3, 4, 3);
 			DgvParts.Name = "DgvParts";
 			DgvParts.RightToLeft = RightToLeft.No;
-			DgvParts.Size = new Size(243, 338);
+			DgvParts.Size = new Size(216, 338);
 			DgvParts.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvParts.TabIndex = 0;
 			// 

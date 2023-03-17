@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Tools;
 using System.ComponentModel;
 using System.Data;
+using Zuby.ADGV;
 
 namespace DcsBriefop.Forms
 {
@@ -15,7 +16,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Fields
-		protected DataGridView m_dgv;
+		protected AdvancedDataGridView m_dgv;
 		protected DataTable m_dtSource;
 		protected bool m_disposedValue;
 
@@ -28,13 +29,13 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public GridManagerBase(DataGridView dgv, IEnumerable<T> elements)
+		public GridManagerBase(AdvancedDataGridView dgv, IEnumerable<T> elements)
 		{
 			m_dgv = dgv;
 			Elements = elements;
 
-			m_dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-			m_dgv.SelectionMode = DataGridViewSelectionMode.CellSelect;
+			m_dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+			m_dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 			m_dgv.AllowUserToResizeColumns = true;
 			m_dgv.AllowUserToAddRows = false;
 			m_dgv.RowHeadersVisible = false;
@@ -42,24 +43,29 @@ namespace DcsBriefop.Forms
 			m_dgv.AutoGenerateColumns = true;
 			m_dgv.DataSource = new BindingSource();
 
+			m_dtSource = new DataTable();
+			InitializeDataSourceColumns();
+			InitializeContextMenu();
 			AssignEvents();
 		}
 		#endregion
 
 		#region Methods
-		public void Initialize()
+		public void Refresh()
 		{
-			InitializeDataSource();
+			m_dgv.SuspendDrawing();
+			RemoveEvents();
+
+			m_dgv.CleanFilterAndSort();
+			(m_dgv.DataSource as BindingSource).DataSource = null;
+			m_dtSource.Rows.Clear();
+			AddDataSourceRows();
 			SetDataSource();
 			PostInitializeColumns();
-			InitializeContextMenu();
-		}
 
-		private void InitializeDataSource()
-		{
-			m_dtSource = new DataTable();
-			InitializeDataSourceColumns();
-			RefreshDataSourceRows();
+			AssignEvents();
+			m_dgv.ResumeDrawing();
+			m_dgv.Refresh();
 		}
 
 		protected virtual void InitializeDataSourceColumns()
@@ -68,23 +74,33 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumnBase.Checked, typeof(bool));
 		}
 
+		private void AddDataSourceRows()
+		{
+			foreach (T element in Elements)
+				AddDataSourceRow(element);
+		}
+
+		private void AddDataSourceRow(T element)
+		{
+			DataRow dr = m_dtSource.NewRow();
+			dr.SetField(GridColumnBase.Data, element);
+			m_dtSource.Rows.Add(dr);
+			RefreshDataSourceRowContent(dr, element);
+		}
+
 		public void RefreshDataSourceRows()
 		{
 			foreach (T element in Elements)
 				RefreshDataSourceRow(element);
 		}
 
-		protected void RefreshDataSourceRow(T element)
+		private void RefreshDataSourceRow(T element)
 		{
 			DataRow dr = m_dtSource.AsEnumerable().Where(_dr => _dr.Field<T>(GridColumnBase.Data).Equals(element)).FirstOrDefault();
 			if (dr is null)
-			{
-				dr = m_dtSource.NewRow();
-				dr.SetField(GridColumnBase.Data, element);
-				m_dtSource.Rows.Add(dr);
-			}
-
-			RefreshDataSourceRowContent(dr, element);
+				AddDataSourceRow(element);
+			else
+				RefreshDataSourceRowContent(dr, element);
 		}
 
 		protected virtual void RefreshDataSourceRowContent(DataRow dr, T element)
@@ -92,16 +108,12 @@ namespace DcsBriefop.Forms
 			dr.SetField(GridColumnBase.Checked, CheckedElements is not null && CheckedElements.Contains(element));
 		}
 
-		protected void SetDataSource()
+		private void SetDataSource()
 		{
 			try
 			{
-				RemoveEvents();
-				m_dgv.SuspendDrawing();
 				m_dgv.ColumnHeadersHeight = 25; // not ideal, but if the header is to narrow, it will be widened by AdvancedDataGridView.OnColumnAdded, and sometimes it will cause problems that I don't understand
 				(m_dgv.DataSource as BindingSource).DataSource = m_dtSource.DefaultView;
-				m_dgv.ResumeDrawing();
-				AssignEvents();
 			}
 			catch (Exception ex) { ToolsControls.ShowMessageBoxError(ex.Message); } // to check the problem addressed by "m_dgv.ColumnHeadersHeight = 25"
 		}
@@ -127,15 +139,8 @@ namespace DcsBriefop.Forms
 			m_dgv.Columns[GridColumnBase.Data].Visible = false;
 			m_dgv.Columns[GridColumnBase.Checked].ReadOnly = false;
 			m_dgv.Columns[GridColumnBase.Checked].Visible = CheckedElements is not null;
+			m_dgv.Columns[GridColumnBase.Checked].Width = 10;
 		}
-
-		//public void RefreshGridRows()
-		//{
-		//	foreach (DataGridViewRow dgvr in m_dgv.Rows)
-		//		RefreshGridRow(dgvr);
-		//}
-
-		//public virtual void RefreshGridRow(DataGridViewRow dgvr) { }
 
 		//protected void ReplaceColumnWithComboBox(string sColumnName, string sHeaderText, object dataSource, string sValueMember, string sDisplayMember)
 		//{
@@ -158,7 +163,7 @@ namespace DcsBriefop.Forms
 		//	m_dgv.Columns.Add(dgvcComboBox);
 		//}
 
-		private DataRow GetBoundDataRow(DataGridViewRow dgvr)
+		protected DataRow GetBoundDataRow(DataGridViewRow dgvr)
 		{
 			return (dgvr?.DataBoundItem as DataRowView)?.Row;
 		}
@@ -198,7 +203,10 @@ namespace DcsBriefop.Forms
 
 		private IEnumerable<DataGridViewRow> GetSelectedRows()
 		{
-			return m_dgv.SelectedCells.Cast<DataGridViewCell>().Select(_dgvc => _dgvc.OwningRow).Distinct();
+			if (m_dgv.SelectionMode == DataGridViewSelectionMode.CellSelect)
+				return m_dgv.SelectedCells.Cast<DataGridViewCell>().Select(_dgvc => _dgvc.OwningRow).Distinct();
+			else
+				return m_dgv.SelectedRows.Cast<DataGridViewRow>();
 		}
 
 		private IEnumerable<DataRow> GetSelectedDataRows()
@@ -290,14 +298,39 @@ namespace DcsBriefop.Forms
 		{
 			if (e.RowIndex < 0)
 				return;
-			DataGridView dgv = sender as DataGridView;
-			if (dgv == null)
+			if (sender is not DataGridView dgv)
 				return;
 
 			DataGridViewCell dgvc = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
 			e.CellStyle = CellFormattingInternal(dgvc);
 			e.CellStyle.SelectionBackColor = ToolsImage.Lerp(dgv.DefaultCellStyle.SelectionBackColor, e.CellStyle.BackColor, 0.5f);
 		}
+
+		//private void CellPaintingEvent(object sender, DataGridViewCellPaintingEventArgs e)
+		//{
+		//	if (e.RowIndex < 0)
+		//		return;
+		//	if (sender is not DataGridView dgv)
+		//		return;
+
+		//	DataGridViewPaintParts drawParts = DataGridViewPaintParts.All;
+		//	if (dgv.CurrentCell is not null && e.RowIndex == dgv.CurrentCell.RowIndex)
+		//	{
+		//		drawParts &= ~DataGridViewPaintParts.Border;
+		//		e.Paint(e.CellBounds, drawParts);
+		//		using (Pen pen = new Pen(Color.Red, 1))
+		//		{
+		//			Point p1 = new Point(e.CellBounds.X, e.CellBounds.Y);
+		//			Point p2 = new Point(e.CellBounds.X + e.CellBounds.Width - 1, e.CellBounds.Y);
+		//			e.Graphics.DrawLine(pen, p1, p2);
+
+		//			p1 = new Point(e.CellBounds.X, e.CellBounds.Y + e.CellBounds.Height - 1);
+		//			p2 = new Point(e.CellBounds.X + e.CellBounds.Width - 1, e.CellBounds.Y + e.CellBounds.Height - 1);
+		//			e.Graphics.DrawLine(pen, p1, p2);
+		//			e.Handled = true;
+		//		}
+		//	}
+		//}
 
 		private void CellEndEditEvent(object sender, DataGridViewCellEventArgs e)
 		{

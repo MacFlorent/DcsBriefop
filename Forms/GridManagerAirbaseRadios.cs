@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using System.Data;
+using Zuby.ADGV;
 
 namespace DcsBriefop.Forms
 {
@@ -23,7 +24,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public GridManagerAirbaseRadios(DataGridView dgv, IEnumerable<BopAirbaseRadio> airbaseRadios) : base(dgv, airbaseRadios) { }
+		public GridManagerAirbaseRadios(AdvancedDataGridView dgv, IEnumerable<BopAirbaseRadio> airbaseRadios) : base(dgv, airbaseRadios) { }
 		#endregion
 
 		#region Methods
@@ -71,6 +72,7 @@ namespace DcsBriefop.Forms
 
 		protected override void CellEndEditInternal(DataGridView dgv, DataGridViewCell dgvc)
 		{
+			DataRow dr = GetBoundDataRow(dgvc.OwningRow);
 			BopAirbaseRadio bopAirbaseRadio = GetBoundElement(dgvc.OwningRow);
 
 			if (bopAirbaseRadio is object)
@@ -89,7 +91,7 @@ namespace DcsBriefop.Forms
 					if (radio is object && !radio.Equals(bopAirbaseRadio.Radio))
 						bopAirbaseRadio.Radio = radio;
 
-					RefreshDataSourceRow(bopAirbaseRadio);
+					RefreshDataSourceRowContent(dr, bopAirbaseRadio);
 				}
 			}
 		}

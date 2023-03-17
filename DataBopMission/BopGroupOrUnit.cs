@@ -13,7 +13,7 @@ namespace DcsBriefop.DataBopMission
 		public string DisplayName { get { return BopUnit?.ToStringDisplayName() ?? BopGroup.ToStringDisplayName(); } }
 		public string Coalition { get { return BopGroup.CoalitionName; } }
 		public string Country { get { return BopGroup.CountryName; } }
-		public string Object { get { return BopUnit is not null ? "unit" : "group"; } }
+		public ElementGroupOrUnit GroupOrUnit { get { return BopUnit is not null ? ElementGroupOrUnit.Unit : ElementGroupOrUnit.Group; } }
 		public string Group { get { return BopGroup.Name; } }
 		public string Type { get { return BopUnit?.Type ?? BopGroup.Type; } }
 		public ElementGroupClass GroupClass { get { return BopUnit?.GroupClass ?? BopGroup.GroupClass; } }

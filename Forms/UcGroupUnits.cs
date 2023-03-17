@@ -33,7 +33,7 @@ namespace DcsBriefop.Forms
 		public override void DataToScreen()
 		{
 			m_gridManagerUnits.Elements = m_bopGroup.Units;
-			m_gridManagerUnits.Initialize();
+			m_gridManagerUnits.Refresh();
 			DataToScreenDetail();
 		}
 

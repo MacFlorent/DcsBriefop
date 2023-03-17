@@ -37,7 +37,7 @@ namespace DcsBriefop.Forms
 		{
 			m_gridManagerAirbases.SelectionChanged -= SelectionChangedEvent;
 
-			m_gridManagerAirbases.Initialize();
+			m_gridManagerAirbases.Refresh();
 			DataToScreenDetail();
 
 			m_gridManagerAirbases.SelectionChanged += SelectionChangedEvent;

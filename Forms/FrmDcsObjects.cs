@@ -33,7 +33,7 @@ namespace DcsBriefop.Forms
 		#region Methods
 		private void DataToScreen()
 		{
-			m_gmDcsObjects.Initialize();
+			m_gmDcsObjects.Refresh();
 		}
 
 		private void ScreenToData()

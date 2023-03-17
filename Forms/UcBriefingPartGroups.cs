@@ -22,7 +22,9 @@ namespace DcsBriefop.Forms
 			m_missionGroupOrUnits = m_bopMission.GetGroupOrUnits();
 
 			m_gmMultiAvailable = new GridManagerGroupOrUnits(DgvMultiAvailable, null);
+			m_gmMultiAvailable.ColumnsDisplayed = GridManagerGroupOrUnits.ColumnsDisplayed1;
 			m_gmMultiSelected = new GridManagerGroupOrUnits(DgvMultiSelected, null);
+			m_gmMultiSelected.ColumnsDisplayed = GridManagerGroupOrUnits.ColumnsDisplayed2;
 
 			LstColumns.DataSource = BopBriefingPartGroups.AvailableColumns;
 
@@ -60,8 +62,8 @@ namespace DcsBriefop.Forms
 		{
 			m_gmMultiAvailable.Elements = m_missionGroupOrUnits.Where(_gou => !m_selectedGroupOrUnits.Contains(_gou));
 			m_gmMultiSelected.Elements = m_selectedGroupOrUnits;
-			m_gmMultiAvailable.Initialize();
-			m_gmMultiSelected.Initialize();
+			m_gmMultiAvailable.Refresh();
+			m_gmMultiSelected.Refresh();
 		}
 
 		private void MultiAdd()
@@ -86,7 +88,7 @@ namespace DcsBriefop.Forms
 			if (selectedElement is not null)
 			{
 				MultiOrder(selectedElement, iWay);
-				m_gmMultiSelected.Initialize();
+				m_gmMultiSelected.Refresh();
 				m_gmMultiSelected.SelectRow(selectedElement);
 			}
 		}

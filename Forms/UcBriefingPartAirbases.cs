@@ -57,8 +57,8 @@ namespace DcsBriefop.Forms
 		{
 			m_gmMultiAvailable.Elements = m_bopMission.Airbases.Where(_ba => !m_selectedAirbases.Contains(_ba));
 			m_gmMultiSelected.Elements = m_selectedAirbases;
-			m_gmMultiAvailable.Initialize();
-			m_gmMultiSelected.Initialize();
+			m_gmMultiAvailable.Refresh();
+			m_gmMultiSelected.Refresh();
 		}
 
 		private void MultiAdd()
@@ -83,7 +83,7 @@ namespace DcsBriefop.Forms
 			if (selectedElement is not null)
 			{
 				MultiOrder(selectedElement, iWay);
-				m_gmMultiSelected.Initialize();
+				m_gmMultiSelected.Refresh();
 				m_gmMultiSelected.SelectRow(selectedElement);
 			}
 		}

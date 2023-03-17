@@ -77,7 +77,7 @@ namespace DcsBriefop.Forms
 		private void DataToScreenGridPages()
 		{
 			m_gridManagerBriefingPages.SelectionChanged -= SelectionChangedEvent;
-			m_gridManagerBriefingPages.Initialize();
+			m_gridManagerBriefingPages.Refresh();
 			m_gridManagerBriefingPages.SelectionChanged += SelectionChangedEvent;
 		}
 
@@ -156,7 +156,7 @@ namespace DcsBriefop.Forms
 			if (selectedElement is not null)
 			{
 				m_bopBriefingFolder.OrderPage(selectedElement, iWay);
-				m_gridManagerBriefingPages.Initialize();
+				m_gridManagerBriefingPages.Refresh();
 				m_gridManagerBriefingPages.SelectRow(selectedElement);
 			}
 		}

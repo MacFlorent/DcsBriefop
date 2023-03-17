@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-
-namespace DcsBriefop.Tools
+﻿namespace DcsBriefop.Tools
 {
 	public interface ICustomStylable
 	{

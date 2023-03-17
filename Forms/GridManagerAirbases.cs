@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using System.Data;
+using Zuby.ADGV;
 
 namespace DcsBriefop.Forms
 {
@@ -23,7 +24,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public GridManagerAirbases(DataGridView dgv, IEnumerable<BopAirbase> airbases) : base(dgv, airbases) { }
+		public GridManagerAirbases(AdvancedDataGridView dgv, IEnumerable<BopAirbase> airbases) : base(dgv, airbases) { }
 		#endregion
 
 		#region Methods

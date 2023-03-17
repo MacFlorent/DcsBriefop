@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using System.Data;
+using Zuby.ADGV;
 
 namespace DcsBriefop.Forms
 {
@@ -19,7 +20,7 @@ namespace DcsBriefop.Forms
 			public static readonly string Attributes = "Attributes";
 			public static readonly string Playable = "Playable";
 		}
-		public static List<string> ColumnsDisplayedGroup = new List<string>() { GridColumn.Id, GridColumn.DisplayName, GridColumn.ObjectClass, GridColumn.Type, GridColumn.Attributes, GridColumn.Playable };
+		public static List<string> ColumnsDisplayedGroup { get; private set; } = new List<string>() { GridColumn.Id, GridColumn.DisplayName, GridColumn.ObjectClass, GridColumn.Type, GridColumn.Attributes, GridColumn.Playable };
 		#endregion
 
 		#region Fields
@@ -29,7 +30,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public GridManagerUnits(DataGridView dgv, IEnumerable<BopUnit> units) : base(dgv, units) { }
+		public GridManagerUnits(AdvancedDataGridView dgv, IEnumerable<BopUnit> units) : base(dgv, units) { }
 		#endregion
 
 		#region Methods

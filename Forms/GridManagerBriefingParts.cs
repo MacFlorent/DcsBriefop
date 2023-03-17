@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.DataBopBriefing;
 using System.Data;
+using Zuby.ADGV;
 
 namespace DcsBriefop.Forms
 {
@@ -21,7 +22,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public GridManagerBriefingParts(DataGridView dgv, IEnumerable<BopBriefingPartBase> briefingParts) : base(dgv, briefingParts) { }
+		public GridManagerBriefingParts(AdvancedDataGridView dgv, IEnumerable<BopBriefingPartBase> briefingParts) : base(dgv, briefingParts) { }
 		#endregion
 
 		#region Methods

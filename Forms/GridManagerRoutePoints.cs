@@ -2,6 +2,7 @@
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 using System.Data;
+using Zuby.ADGV;
 
 namespace DcsBriefop.Forms
 {
@@ -25,7 +26,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public GridManagerRoutePoints(DataGridView dgv, IEnumerable<BopRoutePoint> routePoints) : base(dgv, routePoints) { }
+		public GridManagerRoutePoints(AdvancedDataGridView dgv, IEnumerable<BopRoutePoint> routePoints) : base(dgv, routePoints) { }
 		#endregion
 
 		#region Methods

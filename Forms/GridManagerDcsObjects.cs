@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using System.Data;
+using Zuby.ADGV;
 
 namespace DcsBriefop.Forms
 {
@@ -25,7 +26,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public GridManagerDcsObjects(DataGridView dgv, IEnumerable<DcsObject> elements) : base(dgv, elements) { }
+		public GridManagerDcsObjects(AdvancedDataGridView dgv, IEnumerable<DcsObject> elements) : base(dgv, elements) { }
 		#endregion
 
 		#region Methods
