@@ -137,7 +137,7 @@ namespace DcsBriefop.Tools
 			}
 
 
-			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, drawingObject.Name, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5));
+			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5));
 			overlay.Routes.Add(route);
 		}
 

@@ -10,7 +10,6 @@ namespace DcsBriefop.Forms
 		private GridManagerGroupOrUnits m_gmMultiAvailable;
 		private GridManagerGroupOrUnits m_gmMultiSelected;
 		List<BopGroupOrUnit> m_selectedGroupOrUnits;
-		List<BopGroupOrUnit> m_missionGroupOrUnits;
 		#endregion
 
 		#region CTOR
@@ -19,9 +18,7 @@ namespace DcsBriefop.Forms
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			m_missionGroupOrUnits = m_bopMission.GetGroupOrUnits();
-
-			m_gmMultiAvailable = new GridManagerGroupOrUnits(DgvMultiAvailable, null);
+			m_gmMultiAvailable = new GridManagerGroupOrUnits(DgvMultiAvailable, m_bopMission.GetGroupOrUnits());
 			m_gmMultiAvailable.ColumnsDisplayed = GridManagerGroupOrUnits.ColumnsDisplayed1;
 			m_gmMultiSelected = new GridManagerGroupOrUnits(DgvMultiSelected, null);
 			m_gmMultiSelected.ColumnsDisplayed = GridManagerGroupOrUnits.ColumnsDisplayed2;
@@ -39,7 +36,8 @@ namespace DcsBriefop.Forms
 			TbHeader.Text = briefingPart.Header;
 
 			m_selectedGroupOrUnits = briefingPart.GetBopGroupOrUnits(m_bopMission);
-			RefreshMultiGrids();
+			m_gmMultiAvailable.Refresh();
+			RefreshSelectedGrid();
 
 			for (int i = 0; i < LstColumns.Items.Count; i++)
 			{
@@ -58,11 +56,9 @@ namespace DcsBriefop.Forms
 			briefingPart.SelectedColumns.AddRange(LstColumns.CheckedItems.OfType<string>());
 		}
 
-		private void RefreshMultiGrids()
+		private void RefreshSelectedGrid()
 		{
-			m_gmMultiAvailable.Elements = m_missionGroupOrUnits.Where(_gou => !m_selectedGroupOrUnits.Contains(_gou));
 			m_gmMultiSelected.Elements = m_selectedGroupOrUnits;
-			m_gmMultiAvailable.Refresh();
 			m_gmMultiSelected.Refresh();
 		}
 
@@ -71,7 +67,8 @@ namespace DcsBriefop.Forms
 			foreach (BopGroupOrUnit ba in m_gmMultiAvailable.GetSelectedElements().Where(_ba => !m_selectedGroupOrUnits.Contains(_ba)))
 				m_selectedGroupOrUnits.Add(ba);
 
-			RefreshMultiGrids();
+			RefreshSelectedGrid();
+			RefreshMap();
 		}
 
 		private void MultiRemove()
@@ -79,7 +76,8 @@ namespace DcsBriefop.Forms
 			foreach (BopGroupOrUnit ba in m_gmMultiSelected.GetSelectedElements())
 				m_selectedGroupOrUnits.Remove(ba);
 
-			RefreshMultiGrids();
+			RefreshSelectedGrid();
+			//RefreshMap();
 		}
 
 		private void MultiOrder(int iWay)
@@ -111,6 +109,12 @@ namespace DcsBriefop.Forms
 				m_selectedGroupOrUnits.Insert(iNewIndex, bopAirbase);
 			}
 		}
+
+		private void RefreshMap()
+		{
+			ScreenToData();
+			m_ucBriefingPageParent.DisplayCurrentMap();
+		}
 		#endregion
 
 		#region Events
@@ -126,15 +130,17 @@ namespace DcsBriefop.Forms
 
 		private void BtMultiAddAll_Click(object sender, EventArgs e)
 		{
-			m_selectedGroupOrUnits.Clear();
-			m_selectedGroupOrUnits.AddRange(m_missionGroupOrUnits);
-			RefreshMultiGrids();
+			//m_selectedGroupOrUnits.Clear();
+			//m_selectedGroupOrUnits.AddRange(m_missionGroupOrUnits);
+			//RefreshMultiGrids();
+			//RefreshMap();
 		}
 
 		private void BtMultiRemoveAll_Click(object sender, EventArgs e)
 		{
-			m_selectedGroupOrUnits.Clear();
-			RefreshMultiGrids();
+			//m_selectedGroupOrUnits.Clear();
+			//RefreshMultiGrids();
+			//RefreshMap();
 		}
 
 		private void BtMultiUp_Click(object sender, EventArgs e)

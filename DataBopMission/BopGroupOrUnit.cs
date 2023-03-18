@@ -1,5 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
+using GMap.NET.WindowsForms;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -31,6 +32,22 @@ namespace DcsBriefop.DataBopMission
 		{
 			BopGroup?.FinalizeFromMiz();
 			BopUnit?.FinalizeFromMiz();
+		}
+
+		public GMapOverlay GetMapOverlay()
+		{
+			if (BopUnit is not null)
+				return BopUnit.GetMapOverlay();
+			else
+				return BopGroup.GetMapOverlay();
+		}
+
+		public string ToStringLocalisation(ElementCoordinateDisplay coordinateDisplay, ElementMeasurementSystem? measurementSystem)
+		{
+			if (BopUnit is not null)
+				return BopUnit.ToStringLocalisation(coordinateDisplay, measurementSystem);
+			else
+				return BopGroup.ToStringLocalisation(coordinateDisplay, measurementSystem);
 		}
 		#endregion
 

@@ -90,7 +90,7 @@ namespace DcsBriefop.DataBopBriefing
 						else if (sColumn == TableColumns.Radio)
 							tagTr.Add("td").AppendText(element.Radio.ToString());
 						else if (sColumn == TableColumns.Localisation)
-							tagTr.Add("td").Append(element.Coordinate.ToString(bopBriefingFolder.CoordinateDisplay)?.HtmlLineBreaks());
+							tagTr.Add("td").Append(element.ToStringLocalisation(bopBriefingFolder.CoordinateDisplay, bopBriefingFolder.MeasurementSystem)?.HtmlLineBreaks());
 						else if (sColumn == TableColumns.Notes)
 							tagTr.Add("td").AppendText(element.Additional);
 					}
@@ -107,15 +107,7 @@ namespace DcsBriefop.DataBopBriefing
 			foreach (BopGroupOrUnit element in GetBopGroupOrUnits(bopMission))
 			{
 				element.FinalizeFromMiz();
-
-				if (element.BopUnit is not null)
-				{
-					partOverlays.Add(element.BopUnit.GetMapOverlay());
-				}
-				else
-				{
-					partOverlays.Add(element.BopGroup.GetMapOverlay());
-				}
+				partOverlays.Add(element.GetMapOverlay());
 			}
 			return partOverlays;
 		}

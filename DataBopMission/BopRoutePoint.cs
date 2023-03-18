@@ -146,28 +146,6 @@ namespace DcsBriefop.DataBopMission
 			m_mizRoutePoint.X = dX;
 			Coordinate = Theatre.GetCoordinate(m_mizRoutePoint.Y, m_mizRoutePoint.X);
 		}
-		//public string GetOrbitPattern()
-		//{
-		//	string sOrbitPattern = null;
-		//	if (m_mizRoutePoint.RouteTaskHolder is object)
-		//	{
-		//		foreach (MizRouteTask mizTask in m_mizRoutePoint.RouteTaskHolder.Tasks)
-		//		{
-		//			if (mizTask.Id == ElementRouteTask.Orbit)
-		//			{
-		//				sOrbitPattern = mizTask.Params.Pattern;
-		//				break;
-		//			}
-		//			else if (mizTask.Params.Task is object && mizTask.Params.Task.Id == ElementRouteTask.Orbit)
-		//			{
-		//				sOrbitPattern = mizTask.Params.Task.Params.Pattern;
-		//				break;
-		//			}
-		//		}
-		//	}
-
-		//	return sOrbitPattern;
-		//}
 		#endregion
 	}
 }

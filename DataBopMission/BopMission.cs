@@ -22,6 +22,7 @@ namespace DcsBriefop.DataBopMission
 		public List<BopGroup> Groups { get; private set; }
 		public PreferencesMap PreferencesMap { get { return Miz.MizBopCustom.PreferencesMap; } }
 		public List<BopBriefingFolder> BopBriefingFolders { get { return Miz.MizBopCustom.BopBriefingFolders; } }
+		public GMapOverlay MapOverlay { get; private set; }
 		#endregion
 
 		#region CTOR
@@ -34,6 +35,9 @@ namespace DcsBriefop.DataBopMission
 			Date = new DateTime(Miz.RootMission.Date.Year, Miz.RootMission.Date.Month, Miz.RootMission.Date.Day).AddSeconds(Miz.RootMission.StartTime);
 
 			Weather = new BopWeather(Miz, Theatre, Date);
+
+			MapOverlay = new GMapOverlay();
+			ToolsMap.AddMizDrawingLayers(Theatre, MapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
 
 			Coalitions = new Dictionary<string, BopCoalition>
 			{
@@ -127,12 +131,12 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public GMapOverlay GetMapOverlay()
-		{
-			GMapOverlay mapOverlay = new GMapOverlay();
-			ToolsMap.AddMizDrawingLayers(Theatre, mapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
-			return mapOverlay;
-		}
+		//public GMapOverlay GetMapOverlay()
+		//{
+		//	GMapOverlay mapOverlay = new GMapOverlay();
+		//	ToolsMap.AddMizDrawingLayers(Theatre, mapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
+		//	return mapOverlay;
+		//}
 
 		public void SetBullseyeRoutePoint()
 		{

@@ -259,7 +259,7 @@ namespace DcsBriefop.Forms
 
 		private void CkMapIncludeBaseOverlays_CheckedChanged(object sender, EventArgs e)
 		{
-			ScreenToData();
+			ScreenToDataMap();
 			DisplayCurrentMap();
 		}
 

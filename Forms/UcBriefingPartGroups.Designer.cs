@@ -198,6 +198,7 @@
 			BtMultiAddAll.TabIndex = 10;
 			BtMultiAddAll.Text = ">>";
 			BtMultiAddAll.UseVisualStyleBackColor = true;
+			BtMultiAddAll.Visible = false;
 			BtMultiAddAll.Click += BtMultiAddAll_Click;
 			// 
 			// BtMultiRemoveAll
@@ -209,6 +210,7 @@
 			BtMultiRemoveAll.TabIndex = 11;
 			BtMultiRemoveAll.Text = "<<";
 			BtMultiRemoveAll.UseVisualStyleBackColor = true;
+			BtMultiRemoveAll.Visible = false;
 			BtMultiRemoveAll.Click += BtMultiRemoveAll_Click;
 			// 
 			// LbMultiAvailable

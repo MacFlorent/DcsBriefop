@@ -5,6 +5,7 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
+using System.Text;
 using UnitsNet;
 
 namespace DcsBriefop.DataBopMission
@@ -119,6 +120,17 @@ namespace DcsBriefop.DataBopMission
 		public virtual string ToStringAdditional()
 		{
 			return "";
+		}
+
+		public virtual string ToStringLocalisation(ElementCoordinateDisplay coordinateDisplay, ElementMeasurementSystem? measurementSystem)
+		{
+			StringBuilder sb = new StringBuilder(Coordinate.ToString(coordinateDisplay));
+			if (measurementSystem is not null && GroupClass == ElementGroupClass.Ground)
+			{
+				sb.AppendWithSeparator($"{GetAltitude(measurementSystem.Value):0}{ToolsBriefop.GetUnitAltitude(measurementSystem.Value)}", Environment.NewLine);
+			}
+
+			return sb.ToString();
 		}
 
 		public decimal? GetAltitude(ElementMeasurementSystem measurementSystem)

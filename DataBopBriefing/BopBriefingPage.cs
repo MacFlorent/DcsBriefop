@@ -161,10 +161,10 @@ namespace DcsBriefop.DataBopBriefing
 
 			if (MapIncludeBaseOverlays)
 			{
-				additionalOverlays.Add(bopMission.GetMapOverlay());
+				additionalOverlays.Add(bopMission.MapOverlay);
 				if (bopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName ?? "", out BopCoalition bopCoalition))
 				{
-					additionalOverlays.Add(bopCoalition.GetMapOverlay());
+					additionalOverlays.Add(bopCoalition.MapOverlay);
 				}
 			}
 

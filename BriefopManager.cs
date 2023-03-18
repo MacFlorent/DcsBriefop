@@ -5,7 +5,6 @@ using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 using System.Drawing.Imaging;
 using System.IO.Compression;
-using System.Text;
 
 namespace DcsBriefop
 {

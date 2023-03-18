@@ -1,10 +1,14 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
+using DcsBriefop.DataBopBriefing;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 using UnitsNet;
 
 namespace DcsBriefop.DataBopMission
@@ -152,6 +156,17 @@ namespace DcsBriefop.DataBopMission
 			return "";
 		}
 
+		public virtual string ToStringLocalisation(ElementCoordinateDisplay coordinateDisplay, ElementMeasurementSystem? measurementSystem)
+		{
+			StringBuilder sb = new StringBuilder(Coordinate.ToString(coordinateDisplay));
+			if (measurementSystem is not null && GroupClass == ElementGroupClass.Ground) 
+			{
+				sb.AppendWithSeparator($"{GetAltitude(measurementSystem.Value):0}{ToolsBriefop.GetUnitAltitude(measurementSystem.Value)}", Environment.NewLine);
+			}
+			
+			return sb.ToString();
+		}
+
 		public decimal? GetAltitude(ElementMeasurementSystem measurementSystem)
 		{
 			if (AltitudeMeters is null)
@@ -189,7 +204,11 @@ namespace DcsBriefop.DataBopMission
 
 		public GMapOverlay GetMapOverlay()
 		{
-			return GetMapOverlayPosition();
+			BopRoutePoint orbitPoint = RoutePoints.Where(_rp => _rp.Tasks.OfType<BopRouteTaskOrbit>().Any()).FirstOrDefault();
+			if (orbitPoint is not null)
+				return GetMapOverlayOrbit();
+			else
+				return GetMapOverlayPosition();
 		}
 
 		public GMapOverlay GetMapOverlayPosition()
@@ -223,52 +242,54 @@ namespace DcsBriefop.DataBopMission
 			return mapOverlay;
 		}
 
-		//public GRouteBriefop GetGMapRouteOrbit(GMapOverlay staticOverlay)
-		//{
-		//	List<PointLatLng> points = new List<PointLatLng>();
-		//	bool bDone = false;
-		//	int iCount = 0;
-		//	foreach (AssetMapPoint mapPoint in MapPoints)
-		//	{
-		//		iCount++;
+		public GMapOverlay GetMapOverlayOrbit()
+		{
+			GMapOverlay mapOverlay = new GMapOverlay();
+			List<PointLatLng> points = new List<PointLatLng>();
 
-		//		if (bDone)
-		//			break;
-		//		else if (points.Count <= 0 && mapPoint.GetOrbitPattern() is string sPattern)
-		//		{
-		//			PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
-		//			GMarkerBriefop marker;
-		//			if (sPattern == "Circle" || iCount == MapPoints.Count)
-		//			{
-		//				marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Circle, Color, Description, 2, 0);
-		//				bDone = true;
-		//			}
-		//			else
-		//			{
-		//				marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, Color, null, 1, 0);
-		//			}
+			bool bDone = false;
+			int iCount = 0;
+			foreach (BopRoutePoint bopRoutePoint in RoutePoints.Where(_bopRoutePoint => _bopRoutePoint.Name != ElementGlobalData.BullseyeRoutePointName))
+			{
+				iCount++;
 
-		//			staticOverlay.Markers.Add(marker);
-		//			points.Add(p);
-		//		}
-		//		else if (points.Count == 1)
-		//		{
-		//			PointLatLng p = new PointLatLng(mapPoint.Coordinate.Latitude.DecimalDegree, mapPoint.Coordinate.Longitude.DecimalDegree);
-		//			GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, Color, null, 1, 0);
-		//			staticOverlay.Markers.Add(marker);
-		//			points.Add(p);
-		//			bDone = true;
-		//		}
-		//	}
+				if (bDone)
+					break;
+				else if (points.Count <= 0 && bopRoutePoint.Tasks.OfType<BopRouteTaskOrbit>().FirstOrDefault() is BopRouteTaskOrbit bopRouteTaskOrbit)
+				{
+					PointLatLng p = new PointLatLng(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
+					GMarkerBriefop marker;
+					if (bopRouteTaskOrbit.Pattern == "Circle" || iCount == RoutePoints.Count)
+					{
+						marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Circle, ToolsBriefop.GetCoalitionColor(CoalitionName), ToStringDisplayName(), 2, 0);
+						bDone = true;
+					}
+					else
+					{
+						marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0);
+					}
 
-		//	if (points.Count > 1)
-		//	{
-		//		GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, Description, Description, ElementMapTemplateRoute.DashDot, Color, 2);
-		//		staticOverlay.Routes.Add(route);
-		//	}
+					mapOverlay.Markers.Add(marker);
+					points.Add(p);
+				}
+				else if (points.Count == 1)
+				{
+					PointLatLng p = new PointLatLng(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
+					GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0);
+					mapOverlay.Markers.Add(marker);
+					points.Add(p);
+					bDone = true;
+				}
+			}
 
-		//	return points;
-		//}
+			if (points.Count > 1)
+			{
+				GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, ToStringDisplayName(), ElementMapTemplateRoute.DashDot, ToolsBriefop.GetCoalitionColor(CoalitionName), 2);
+				mapOverlay.Routes.Add(route);
+			}
+
+			return mapOverlay;
+		}
 
 		public GMapOverlay GetMapOverlayRoute(int? iSelectedPointNumber, ElementMapOverlayRouteDisplay options)
 		{

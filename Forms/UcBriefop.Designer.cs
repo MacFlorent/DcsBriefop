@@ -331,6 +331,7 @@
 			// 
 			// BtBriefingAto
 			// 
+			BtBriefingAto.Enabled = false;
 			BtBriefingAto.Location = new Point(318, 3);
 			BtBriefingAto.Margin = new Padding(4, 3, 4, 3);
 			BtBriefingAto.Name = "BtBriefingAto";

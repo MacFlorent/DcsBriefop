@@ -66,12 +66,12 @@ namespace DcsBriefop.Forms
 			{
 				BopCoalition bopCoalition = m_briefopManager.BopMission.Coalitions[sCoalition];
 				mapData = bopCoalition.MapData;
-				staticOverlays.Add(bopCoalition.GetMapOverlay());
+				staticOverlays.Add(bopCoalition.MapOverlay);
 			}
 			else
 			{
 				mapData = m_briefopManager.BopMission.MapData;
-				staticOverlays.Add(m_briefopManager.BopMission.GetMapOverlay());
+				staticOverlays.Add(m_briefopManager.BopMission.MapOverlay);
 			}
 
 			m_ucMap.MapData = mapData;
