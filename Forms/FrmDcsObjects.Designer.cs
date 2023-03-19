@@ -52,9 +52,10 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(583, 620);
 			Controls.Add(DgvDcsObjects);
-			FormBorderStyle = FormBorderStyle.SizableToolWindow;
 			Name = "FrmDcsObjects";
+			ShowIcon = false;
 			Text = "DCS objects";
+			Shown += FrmDcsObjects_Shown;
 			((System.ComponentModel.ISupportInitialize)DgvDcsObjects).EndInit();
 			ResumeLayout(false);
 		}

@@ -30,8 +30,6 @@ namespace DcsBriefop.Forms
 			MasterDataRepository.FillCombo(MasterDataType.WeatherDisplay, CbBriefingWeatherDisplay, null);
 			MasterDataRepository.FillCombo(MasterDataType.MeasurementSystem, CbBriefingMeasurementSystem, null);
 			MasterDataRepository.FillCheckedListBox(MasterDataType.CoordinateDisplay, LstBriefingCoordinateDisplay);
-
-			DataToScreen();
 		}
 		#endregion
 
@@ -83,6 +81,12 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
+		private void FrmPreferences_Shown(object sender, EventArgs e)
+		{
+			using (new WaitDialog(this))
+				DataToScreen();
+		}
+
 		private void BtOk_Click(object sender, EventArgs e)
 		{
 			ScreenToData();
@@ -129,7 +133,5 @@ namespace DcsBriefop.Forms
 			TbApplicationRecentMiz.Text = null;
 		}
 		#endregion
-
-
 	}
 }

@@ -12,7 +12,7 @@ namespace DcsBriefop.Forms
 			public static readonly string Id = "Id";
 			public static readonly string Name = "Name";
 			public static readonly string Coalition = "Coalition";
-			public static readonly string Kneeboards = "Kneeboards";
+			public static readonly string UnitTypes = "UnitTypes";
 		}
 		#endregion
 
@@ -34,7 +34,7 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Id, typeof(Guid));
 			m_dtSource.Columns.Add(GridColumn.Name, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Coalition, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Kneeboards, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.UnitTypes, typeof(string));
 		}
 
 		protected override void RefreshDataSourceRowContent(DataRow dr, BopBriefingFolder element)
@@ -44,7 +44,17 @@ namespace DcsBriefop.Forms
 			dr.SetField(GridColumn.Id, element.Guid);
 			dr.SetField(GridColumn.Name, element.Name);
 			dr.SetField(GridColumn.Coalition, element.CoalitionName);
-			dr.SetField(GridColumn.Kneeboards, string.Join(",", element.Kneeboards));
+			dr.SetField(GridColumn.UnitTypes, string.Join(",", element.Kneeboards));
+		}
+
+		protected override void PostInitializeColumns()
+		{
+			base.PostInitializeColumns();
+
+			m_dgv.Columns[GridColumn.UnitTypes].HeaderText = "Unit types";
+
+			m_dgv.Columns[GridColumn.Id].Width = GridWidth.Small;
+			m_dgv.Columns[GridColumn.UnitTypes].Width = GridWidth.Large;
 		}
 		#endregion
 

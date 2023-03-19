@@ -3,7 +3,7 @@ using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms
 {
-	internal partial class FrmMissionAirbases : FrmWithWaitDialog
+	internal partial class FrmMissionAirbases : Form
 	{
 		#region Fields
 		private BriefopManager m_briefopManager;
@@ -13,7 +13,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		private FrmMissionAirbases(BriefopManager briefopManager, WaitDialog waitDialog) : base(waitDialog)
+		private FrmMissionAirbases(BriefopManager briefopManager)
 		{
 			m_briefopManager = briefopManager;
 
@@ -26,9 +26,8 @@ namespace DcsBriefop.Forms
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
 		{
-			WaitDialog waitDialog = new WaitDialog(parentForm);
-			FrmMissionAirbases f = new FrmMissionAirbases(briefopManager, waitDialog);
-			f.ShowDialog();
+			FrmMissionAirbases f = new FrmMissionAirbases(briefopManager);
+			f.ShowDialog(parentForm);
 		}
 		#endregion
 
@@ -83,7 +82,8 @@ namespace DcsBriefop.Forms
 		#region Events
 		private void FrmMissionAirbases_Shown(object sender, EventArgs e)
 		{
-			DataToScreen();
+			using (new WaitDialog(this))
+				DataToScreen();
 		}
 
 		private void FrmMissionAirbases_FormClosed(object sender, FormClosedEventArgs e)

@@ -496,6 +496,7 @@
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Preferences";
+			Shown += FrmPreferences_Shown;
 			PnApplication.ResumeLayout(false);
 			PnApplication.PerformLayout();
 			PnMission.ResumeLayout(false);

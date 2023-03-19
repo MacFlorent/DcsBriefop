@@ -2,11 +2,10 @@
 using DcsBriefop.DataBopBriefing;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
-using System.Linq;
 
 namespace DcsBriefop.Forms
 {
-	internal partial class FrmBriefingFolder : FrmWithWaitDialog
+	internal partial class FrmBriefingFolder : Form
 	{
 		#region Fields
 		private BopMission m_bopMission;
@@ -17,7 +16,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public FrmBriefingFolder(BopMission bopMission, BopBriefingFolder bopBriefingFolder, WaitDialog waitDialog) : base(waitDialog)
+		public FrmBriefingFolder(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
 			m_bopMission = bopMission;
 			m_bopBriefingFolder = bopBriefingFolder;
@@ -40,9 +39,8 @@ namespace DcsBriefop.Forms
 
 		public static void CreateModal(BopMission bopMission, BopBriefingFolder bopBriefingFolder, Form parentForm)
 		{
-			WaitDialog waitDialog = new WaitDialog(parentForm);
-			FrmBriefingFolder f = new FrmBriefingFolder(bopMission, bopBriefingFolder, waitDialog);
-			f.ShowDialog();
+			FrmBriefingFolder f = new FrmBriefingFolder(bopMission, bopBriefingFolder);
+			f.ShowDialog(parentForm);
 		}
 		#endregion
 
@@ -165,7 +163,8 @@ namespace DcsBriefop.Forms
 		#region Events
 		private void FrmBriefingFolder_Shown(object sender, EventArgs e)
 		{
-			DataToScreen();
+			using (new WaitDialog(this))
+				DataToScreen();
 		}
 
 		private void FrmBriefingFolder_FormClosed(object sender, FormClosedEventArgs e)

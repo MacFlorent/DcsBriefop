@@ -77,9 +77,9 @@ namespace DcsBriefop.Forms
 		{
 			base.PostInitializeColumns();
 
-			m_dgv.Columns[GridColumn.Id].Width = 50;
-			m_dgv.Columns[GridColumn.Coalition].Width = 70;
-			m_dgv.Columns[GridColumn.GroupOrUnit].Width = 70;
+			m_dgv.Columns[GridColumn.Id].Width = GridWidth.Small;
+			m_dgv.Columns[GridColumn.Coalition].Width = GridWidth.Small;
+			m_dgv.Columns[GridColumn.GroupOrUnit].Width = GridWidth.Small;
 		}
 
 		protected override DataGridViewCellStyle CellFormattingInternal(DataGridViewCell dgvc)

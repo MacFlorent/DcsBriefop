@@ -160,9 +160,9 @@
 			Controls.Add(LbWeather);
 			Controls.Add(LbDate);
 			Controls.Add(LbSortie);
-			FormBorderStyle = FormBorderStyle.SizableToolWindow;
 			Margin = new Padding(4, 3, 4, 3);
 			Name = "FrmMissionInformations";
+			ShowIcon = false;
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Mission informations";

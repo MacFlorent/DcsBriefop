@@ -3,7 +3,7 @@ using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms
 {
-	internal partial class FrmMissionGroups : FrmWithWaitDialog
+	internal partial class FrmMissionGroups : Form
 	{
 		#region Fields
 		private BriefopManager m_briefopManager;
@@ -13,7 +13,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		private FrmMissionGroups(BriefopManager briefopManager, WaitDialog waitDialog) : base(waitDialog)
+		private FrmMissionGroups(BriefopManager briefopManager)
 		{
 			m_briefopManager = briefopManager;
 
@@ -26,9 +26,8 @@ namespace DcsBriefop.Forms
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
 		{
-			WaitDialog waitDialog = new WaitDialog(parentForm);
-			FrmMissionGroups f = new FrmMissionGroups(briefopManager, waitDialog);
-			f.ShowDialog();
+			FrmMissionGroups f = new FrmMissionGroups(briefopManager);
+			f.ShowDialog(parentForm);
 		}
 		#endregion
 
@@ -49,7 +48,7 @@ namespace DcsBriefop.Forms
 			if (selectedBopGroups.Count() == 1)
 			{
 				BopGroup selectedBopGroup = selectedBopGroups.First();
-				if (ScMain.Panel2.Controls.Count > 0 && !(ScMain.Panel2.Controls[0] is UcGroup))
+				if (ScMain.Panel2.Controls.Count > 0 && ScMain.Panel2.Controls[0] is not UcGroup)
 				{
 					ScMain.Panel2.Controls.Clear();
 				}
@@ -83,7 +82,8 @@ namespace DcsBriefop.Forms
 		#region Events
 		private void FrmMissionGroups_Shown(object sender, EventArgs e)
 		{
-			DataToScreen();
+			using (new WaitDialog(this))
+				DataToScreen();
 		}
 
 		private void FrmMissionGroups_FormClosed(object sender, FormClosedEventArgs e)

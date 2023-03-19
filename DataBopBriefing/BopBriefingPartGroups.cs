@@ -15,6 +15,7 @@ namespace DcsBriefop.DataBopBriefing
 			public static readonly string Coalition = "Coalition";
 			public static readonly string Name = "Name";
 			public static readonly string Class = "Class";
+			public static readonly string Type = "Type";
 			public static readonly string Radio = "Radio";
 			public static readonly string Localisation = "Localisation";
 			public static readonly string Notes = "Notes";
@@ -24,6 +25,7 @@ namespace DcsBriefop.DataBopBriefing
 			TableColumns.Coalition,
 			TableColumns.Name,
 			TableColumns.Class,
+			TableColumns.Type,
 			TableColumns.Radio,
 			TableColumns.Localisation,
 			TableColumns.Notes
@@ -87,6 +89,8 @@ namespace DcsBriefop.DataBopBriefing
 							tagTr.Add("td").AppendText(element.DisplayName);
 						else if (sColumn == TableColumns.Class)
 							tagTr.Add("td").AppendText(element.GroupClass.ToString());
+						else if (sColumn == TableColumns.Type)
+							tagTr.Add("td").AppendText(element.Type);
 						else if (sColumn == TableColumns.Radio)
 							tagTr.Add("td").AppendText(element.Radio.ToString());
 						else if (sColumn == TableColumns.Localisation)

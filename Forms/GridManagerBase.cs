@@ -13,6 +13,15 @@ namespace DcsBriefop.Forms
 			public static readonly string Checked = "Checked";
 			public static readonly string Data = "Data";
 		}
+
+		protected static class GridWidth
+		{
+			public static readonly int Tiny = 25;
+			public static readonly int Small = 50;
+			public static readonly int Medium = 100; // default width
+			public static readonly int Large = 200;
+			public static readonly int ExtraLarge = 300;
+		}
 		#endregion
 
 		#region Fields

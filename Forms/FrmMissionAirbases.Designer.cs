@@ -73,9 +73,9 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(933, 519);
 			Controls.Add(ScMain);
-			FormBorderStyle = FormBorderStyle.SizableToolWindow;
 			Margin = new Padding(4, 3, 4, 3);
 			Name = "FrmMissionAirbases";
+			ShowIcon = false;
 			ShowInTaskbar = false;
 			Text = "Mission airbases";
 			FormClosed += FrmMissionAirbases_FormClosed;

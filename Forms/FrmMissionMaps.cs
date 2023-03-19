@@ -8,7 +8,7 @@ using GMap.NET.WindowsForms;
 
 namespace DcsBriefop.Forms
 {
-	internal partial class FrmMissionMaps : FrmWithWaitDialog
+	internal partial class FrmMissionMaps : Form
 	{
 		#region Fields
 		private BriefopManager m_briefopManager;
@@ -17,7 +17,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public FrmMissionMaps(BriefopManager briefopManager, WaitDialog waitDialog) : base(waitDialog)
+		public FrmMissionMaps(BriefopManager briefopManager)
 		{
 			m_briefopManager = briefopManager;
 
@@ -33,9 +33,8 @@ namespace DcsBriefop.Forms
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
 		{
-			WaitDialog waitDialog = new WaitDialog(parentForm);
-			FrmMissionMaps f = new FrmMissionMaps(briefopManager, waitDialog);
-			f.ShowDialog();
+			FrmMissionMaps f = new FrmMissionMaps(briefopManager);
+			f.ShowDialog(parentForm);
 		}
 		#endregion
 
@@ -89,7 +88,8 @@ namespace DcsBriefop.Forms
 		#region Events
 		private void FrmMissionMaps_Shown(object sender, EventArgs e)
 		{
-			DataToScreen();
+			using (new WaitDialog(this))
+				DataToScreen();
 		}
 
 		private void FrmMissionMaps_FormClosed(object sender, FormClosedEventArgs e)

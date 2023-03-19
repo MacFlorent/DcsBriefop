@@ -3,7 +3,7 @@ using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms
 {
-	internal partial class FrmMissionInformations : FrmWithWaitDialog
+	internal partial class FrmMissionInformations : Form
 	{
 		#region Fields
 		private BriefopManager m_briefopManager;
@@ -13,7 +13,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		private FrmMissionInformations(BriefopManager briefopManager, WaitDialog waitDialog) : base(waitDialog)
+		public FrmMissionInformations(BriefopManager briefopManager)
 		{
 			m_briefopManager = briefopManager;
 
@@ -33,9 +33,8 @@ namespace DcsBriefop.Forms
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
 		{
-			WaitDialog waitDialog = new WaitDialog(parentForm);
-			FrmMissionInformations f = new FrmMissionInformations(briefopManager, waitDialog);
-			f.ShowDialog();
+			FrmMissionInformations f = new FrmMissionInformations(briefopManager);
+			f.ShowDialog(parentForm);
 		}
 		#endregion
 
@@ -45,7 +44,7 @@ namespace DcsBriefop.Forms
 			TbSortie.Text = m_briefopManager.BopMission.Sortie;
 			DtpDate.Value = m_briefopManager.BopMission.Date;
 
-			ElementMeasurementSystem measurementSystem =  PreferencesManager.Preferences.Briefing.MeasurementSystem;
+			ElementMeasurementSystem measurementSystem = PreferencesManager.Preferences.Briefing.MeasurementSystem;
 			TbWeather.Text = $"{m_briefopManager.BopMission.Weather.ToString(ElementWeatherDisplay.Metar, measurementSystem)}{Environment.NewLine}{Environment.NewLine}{m_briefopManager.BopMission.Weather.ToString(ElementWeatherDisplay.Plain, measurementSystem)}";
 
 			m_tbDescription.Text = m_briefopManager.BopMission.Description;
@@ -77,25 +76,13 @@ namespace DcsBriefop.Forms
 			m_ucCoalitionsControls.Add(sCoalitionName, uc);
 			TcDetails.AddTab(sCoalitionName, uc);
 		}
-
-		//private ElementCoordinateDisplay GetCoordinateDisplayFromCheckboxes()
-		//{
-		//	ElementCoordinateDisplay coordinateDisplay = 0;
-		//	if (CkCoordinateDisplayDms.Checked)
-		//		coordinateDisplay |= ElementCoordinateDisplay.Dms;
-		//	if (CkCoordinateDisplayDdm.Checked)
-		//		coordinateDisplay |= ElementCoordinateDisplay.Ddm;
-		//	if (CkCoordinateDisplayMgrs.Checked)
-		//		coordinateDisplay |= ElementCoordinateDisplay.Mgrs;
-
-		//	return coordinateDisplay;
-		//}
 		#endregion
 
 		#region Events
 		private void FrmMissionInformations_Shown(object sender, EventArgs e)
 		{
-			DataToScreen();
+			using (new WaitDialog(this))
+				DataToScreen();
 		}
 
 		private void FrmMissionInformations_FormClosed(object sender, FormClosedEventArgs e)

@@ -169,9 +169,9 @@
 			ClientSize = new Size(1637, 735);
 			Controls.Add(PnMap);
 			Controls.Add(PnTop);
-			FormBorderStyle = FormBorderStyle.SizableToolWindow;
 			Margin = new Padding(4, 3, 4, 3);
 			Name = "FrmMissionMaps";
+			ShowIcon = false;
 			ShowInTaskbar = false;
 			Text = "Mission maps";
 			FormClosed += FrmMissionMaps_FormClosed;

@@ -295,10 +295,10 @@
 			// 
 			LstKneeboards.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			LstKneeboards.FormattingEnabled = true;
-			LstKneeboards.Location = new Point(2, 33);
+			LstKneeboards.Location = new Point(2, 15);
 			LstKneeboards.Margin = new Padding(4, 3, 4, 3);
 			LstKneeboards.Name = "LstKneeboards";
-			LstKneeboards.Size = new Size(289, 148);
+			LstKneeboards.Size = new Size(304, 166);
 			LstKneeboards.TabIndex = 34;
 			// 
 			// PnGridsPages
@@ -353,8 +353,8 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(1291, 764);
 			Controls.Add(ScMain);
-			FormBorderStyle = FormBorderStyle.SizableToolWindow;
 			Name = "FrmBriefingFolder";
+			ShowIcon = false;
 			ShowInTaskbar = false;
 			Text = "Briefing folder";
 			FormClosed += FrmBriefingFolder_FormClosed;

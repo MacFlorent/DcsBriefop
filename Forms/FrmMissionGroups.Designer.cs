@@ -73,9 +73,9 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(1139, 914);
 			Controls.Add(ScMain);
-			FormBorderStyle = FormBorderStyle.SizableToolWindow;
 			Margin = new Padding(4, 3, 4, 3);
 			Name = "FrmMissionGroups";
+			ShowIcon = false;
 			ShowInTaskbar = false;
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "Mission groups";

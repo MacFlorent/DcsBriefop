@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
+using DcsBriefop.Tools;
 using System.Data;
 using Zuby.ADGV;
 
@@ -11,7 +12,7 @@ namespace DcsBriefop.Forms
 		public static class GridColumn
 		{
 			public static readonly string Id = "Id";
-			public static readonly string AirbaseType = "AirbaseType"; 
+			public static readonly string AirbaseType = "AirbaseType";
 			public static readonly string Name = "Name";
 			public static readonly string Additional = "Additional";
 		}
@@ -52,6 +53,28 @@ namespace DcsBriefop.Forms
 			base.PostInitializeColumns();
 
 			m_dgv.Columns[GridColumn.AirbaseType].HeaderText = "Type";
+
+			m_dgv.Columns[GridColumn.Id].Width = GridWidth.Small;
+			m_dgv.Columns[GridColumn.Name].Width = GridWidth.Large;
+			m_dgv.Columns[GridColumn.Additional].Width = GridWidth.ExtraLarge;
+		}
+
+		protected override DataGridViewCellStyle CellFormattingInternal(DataGridViewCell dgvc)
+		{
+			DataGridViewCellStyle cellStyle = base.CellFormattingInternal(dgvc);
+
+			DataGridViewColumn column = dgvc.OwningColumn;
+			BopAirbase element = GetBoundElement(dgvc.OwningRow);
+
+			if (column.DataPropertyName == GridColumn.AirbaseType)
+			{
+				if (element.AirbaseType == ElementAirbaseType.Ship)
+					cellStyle.BackColor = Color.LightBlue;
+				else if (element.AirbaseType == ElementAirbaseType.Farp)
+					cellStyle.BackColor = Color.Salmon;
+
+			}
+			return cellStyle;
 		}
 		#endregion
 
