@@ -15,7 +15,6 @@ namespace DcsBriefop.DataBopBriefing
 			public static readonly string Name = "Name";
 			public static readonly string Type = "Type";
 			public static readonly string Radio = "Radio";
-			public static readonly string Localisation = "Localisation";
 			public static readonly string Notes = "Notes";
 		}
 		public static List<string> AvailableColumns = new()
@@ -23,7 +22,6 @@ namespace DcsBriefop.DataBopBriefing
 			TableColumns.Name,
 			TableColumns.Type,
 			TableColumns.Radio,
-			TableColumns.Localisation,
 			TableColumns.Notes
 		};
 		#endregion
@@ -85,8 +83,6 @@ namespace DcsBriefop.DataBopBriefing
 							tagTr.Add("td").AppendText(bopAirbase.AirbaseType.ToString());
 						else if (sColumn == TableColumns.Radio)
 							tagTr.Add("td").AppendText(bopAirbase.ToStringRadios());
-						else if (sColumn == TableColumns.Localisation)
-							tagTr.Add("td").AppendText(bopAirbase.Coordinate.ToString(bopBriefingFolder.CoordinateDisplay));
 						else if (sColumn == TableColumns.Notes)
 							tagTr.Add("td").AppendText(bopAirbase.ToStringAdditional());
 
@@ -98,13 +94,13 @@ namespace DcsBriefop.DataBopBriefing
 			return tags;
 		}
 
-		public override IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission)
+		public override IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
 			List<GMapOverlay> partOverlays = new List<GMapOverlay>();
 			foreach (BopAirbase bopAirbase in GetBopAirbases(bopMission))
 			{
 				bopAirbase.FinalizeFromMiz();
-				partOverlays.Add(bopAirbase.GetMapOverlay());
+				partOverlays.Add(bopAirbase.GetMapOverlay(ToolsBriefop.GetCoalitionColor(bopBriefingFolder.CoalitionName)));
 			}
 			return partOverlays;
 		}

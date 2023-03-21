@@ -44,6 +44,13 @@ namespace DcsBriefop.Forms
 			dr.SetField(GridColumn.Title, element.Title);
 			dr.SetField(GridColumn.Render, element.Render);
 		}
+
+		protected override void PostInitializeColumns()
+		{
+			base.PostInitializeColumns();
+
+			m_dgv.Columns[GridColumn.Id].Width = GridWidth.Small;
+		}
 		#endregion
 
 		#region Events

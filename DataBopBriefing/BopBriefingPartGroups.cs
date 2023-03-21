@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
+using DcsBriefop.Forms;
 using DcsBriefop.Tools;
 using GMap.NET.WindowsForms;
 using HtmlTags;
@@ -10,32 +11,35 @@ namespace DcsBriefop.DataBopBriefing
 	internal class BopBriefingPartGroups : BopBriefingPartBase
 	{
 		#region Fields
-		private static class TableColumns
+		private static class HtmlColumns
 		{
 			public static readonly string Coalition = "Coalition";
+			public static readonly string GroupName = "Group name";
 			public static readonly string Name = "Name";
-			public static readonly string Class = "Class";
+			public static readonly string NameType = "Name/type";
 			public static readonly string Type = "Type";
 			public static readonly string Radio = "Radio";
 			public static readonly string Localisation = "Localisation";
 			public static readonly string Notes = "Notes";
 		}
-		public static List<string> AvailableColumns = new()
+		public static List<string> AvailableHtmlColumns = new()
 		{
-			TableColumns.Coalition,
-			TableColumns.Name,
-			TableColumns.Class,
-			TableColumns.Type,
-			TableColumns.Radio,
-			TableColumns.Localisation,
-			TableColumns.Notes
+			HtmlColumns.Coalition,
+			HtmlColumns.GroupName,
+			HtmlColumns.Name,
+			HtmlColumns.NameType,
+			HtmlColumns.Type,
+			HtmlColumns.Radio,
+			HtmlColumns.Localisation,
+			HtmlColumns.Notes
 		};
 		#endregion
 
 		#region Properties
+		public ElementBriefingPartGroupType PartGroupType { get; set; } = ElementBriefingPartGroupType.GroupsAndUnits;
 		public string Header { get; set; }
 		public List<BopBriefingPartGroupOrUnit> GroupOrUnits { get; set; } = new();
-		public List<string> SelectedColumns { get; set; } = new();
+		public List<string> SelectedHtmlColumns { get; set; } = new();
 		#endregion
 
 		#region CTOR
@@ -46,7 +50,7 @@ namespace DcsBriefop.DataBopBriefing
 		public override void InitializeDefault()
 		{
 			base.InitializeDefault();
-			SelectedColumns.AddRange(new List<string> { TableColumns.Name, TableColumns.Class, TableColumns.Notes });
+			SelectedHtmlColumns = new List<string> { HtmlColumns.Coalition, HtmlColumns.GroupName, HtmlColumns.Name, HtmlColumns.Type, HtmlColumns.Notes };
 		}
 
 		public override string ToStringAdditional()
@@ -56,6 +60,41 @@ namespace DcsBriefop.DataBopBriefing
 			sb.AppendWithSeparator($"{GroupOrUnits.Count} groups", " - ");
 			return sb.ToString();
 		}
+
+		//public static void GetPartGroupTypeDataGrid(out List<string> gridColumns, out List<BopGroupOrUnit> availableGroupOrUnits, ElementBriefingPartGroupType partGroupType, BopMission bopMission)
+		//{
+		//	availableGroupOrUnits = bopMission.GetGroupOrUnits();
+
+		//	if (partGroupType == ElementBriefingPartGroupType.GroupsOnly)
+		//	{
+		//		gridColumns = new List<string>() { GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes };
+		//		availableGroupOrUnits = availableGroupOrUnits.Where(_gou => _gou.GroupOrUnit == ElementGroupOrUnit.Group).ToList();
+		//	}
+		//	else if (partGroupType == ElementBriefingPartGroupType.UnitsOnly)
+		//	{
+		//		gridColumns = new List<string>() { GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Group, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes };
+		//		availableGroupOrUnits = availableGroupOrUnits.Where(_gou => _gou.GroupOrUnit == ElementGroupOrUnit.Unit).ToList();
+		//	}
+		//	else
+		//	{
+		//		gridColumns = new List<string>() { GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.GroupOrUnit, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Group, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes };
+		//	}
+		//}
+
+		//public static List<string> GetPartGroupTypeDataHtml(ElementBriefingPartGroupType partGroupType)
+		//{
+		//	List<string> htmlColumns;
+		//	if (partGroupType == ElementBriefingPartGroupType.GroupsOnly)
+		//	{
+		//		htmlColumns = new List<string> { TableColumns.Coalition, TableColumns.Name, TableColumns.Type, TableColumns.Notes };
+		//	}
+		//	else
+		//	{
+		//		htmlColumns = new List<string> { TableColumns.Coalition, TableColumns.GroupName, TableColumns.Name, TableColumns.Type, TableColumns.Notes };
+		//	}
+
+		//	return htmlColumns;
+		//}
 
 		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
@@ -83,19 +122,21 @@ namespace DcsBriefop.DataBopBriefing
 					{
 						element.FinalizeFromMiz();
 
-						if (sColumn == TableColumns.Coalition)
+						if (sColumn == HtmlColumns.Coalition)
 							tagTr.Add("td").AppendText(element.Coalition);
-						else if (sColumn == TableColumns.Name)
+						else if (sColumn == HtmlColumns.GroupName)
+							tagTr.Add("td").AppendText(element.Group);
+						else if (sColumn == HtmlColumns.Name)
 							tagTr.Add("td").AppendText(element.DisplayName);
-						else if (sColumn == TableColumns.Class)
-							tagTr.Add("td").AppendText(element.GroupClass.ToString());
-						else if (sColumn == TableColumns.Type)
-							tagTr.Add("td").AppendText(element.Type);
-						else if (sColumn == TableColumns.Radio)
+						else if (sColumn == HtmlColumns.NameType)
+							tagTr.Add("td").Append($"{element.DisplayName}{Environment.NewLine}{element.Type.Truncate(20)}".HtmlLineBreaks());
+						else if (sColumn == HtmlColumns.Type)
+							tagTr.Add("td").AppendText(element.Type.Truncate(20));
+						else if (sColumn == HtmlColumns.Radio)
 							tagTr.Add("td").AppendText(element.Radio.ToString());
-						else if (sColumn == TableColumns.Localisation)
+						else if (sColumn == HtmlColumns.Localisation)
 							tagTr.Add("td").Append(element.ToStringLocalisation(bopBriefingFolder.CoordinateDisplay, bopBriefingFolder.MeasurementSystem)?.HtmlLineBreaks());
-						else if (sColumn == TableColumns.Notes)
+						else if (sColumn == HtmlColumns.Notes)
 							tagTr.Add("td").AppendText(element.Additional);
 					}
 				}
@@ -105,7 +146,7 @@ namespace DcsBriefop.DataBopBriefing
 			return tags;
 		}
 
-		public override IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission)
+		public override IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
 			List<GMapOverlay> partOverlays = new List<GMapOverlay>();
 			foreach (BopGroupOrUnit element in GetBopGroupOrUnits(bopMission))
@@ -118,10 +159,10 @@ namespace DcsBriefop.DataBopBriefing
 
 		private IEnumerable<string> GetColumns()
 		{
-			if (SelectedColumns is not null && SelectedColumns.Count > 0)
-				return AvailableColumns.Where(_c => SelectedColumns.Contains(_c));
+			if (SelectedHtmlColumns is not null && SelectedHtmlColumns.Count > 0)
+				return AvailableHtmlColumns.Where(_c => SelectedHtmlColumns.Contains(_c));
 			else
-				return AvailableColumns;
+				return AvailableHtmlColumns;
 		}
 
 		public List<BopGroupOrUnit> GetBopGroupOrUnits(BopMission bopMission)

@@ -28,6 +28,11 @@ namespace DcsBriefop.Tools
 			return sDirectoryString;
 		}
 
+		public static string Truncate(this string sValue, int iMaxChars)
+		{
+			return sValue.Length <= iMaxChars ? sValue : sValue.Substring(0, iMaxChars) + "...";
+		}
+
 		public static string GetDirectoryDcsSave()
 		{
 			return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Saved Games\DCS");

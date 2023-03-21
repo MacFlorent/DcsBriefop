@@ -1,4 +1,5 @@
-﻿using DcsBriefop.DataBopBriefing;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataBopBriefing;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 
@@ -18,12 +19,12 @@ namespace DcsBriefop.Forms
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			m_gmMultiAvailable = new GridManagerGroupOrUnits(DgvMultiAvailable, m_bopMission.GetGroupOrUnits());
-			m_gmMultiAvailable.ColumnsDisplayed = GridManagerGroupOrUnits.ColumnsDisplayed1;
-			m_gmMultiSelected = new GridManagerGroupOrUnits(DgvMultiSelected, null);
-			m_gmMultiSelected.ColumnsDisplayed = GridManagerGroupOrUnits.ColumnsDisplayed2;
+			MasterDataRepository.FillCombo(MasterDataType.BriefingPartGroupType, CbPartGroupType, CbPartGroupType_SelectedValueChanged);
 
-			LstColumns.DataSource = BopBriefingPartGroups.AvailableColumns;
+			m_gmMultiAvailable = new GridManagerGroupOrUnits(DgvMultiAvailable, null);
+			m_gmMultiSelected = new GridManagerGroupOrUnits(DgvMultiSelected, null);
+
+			LstColumns.DataSource = BopBriefingPartGroups.AvailableHtmlColumns;
 
 			DataToScreen();
 		}
@@ -32,28 +33,62 @@ namespace DcsBriefop.Forms
 		#region Methods
 		public override void DataToScreen()
 		{
+			CbPartGroupType.SelectedValueChanged -= CbPartGroupType_SelectedValueChanged;
+
 			BopBriefingPartGroups briefingPart = m_bopBriefingPart as BopBriefingPartGroups;
 			TbHeader.Text = briefingPart.Header;
+			CbPartGroupType.SelectedValue = (int)briefingPart.PartGroupType;
+			DisplayCurrentPartGroupTypeGrid();
 
 			m_selectedGroupOrUnits = briefingPart.GetBopGroupOrUnits(m_bopMission);
-			m_gmMultiAvailable.Refresh();
+			m_gmMultiSelected.ColumnsDisplayed = new List<string>() { GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Group, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.ObjectClass };
 			RefreshSelectedGrid();
 
 			for (int i = 0; i < LstColumns.Items.Count; i++)
 			{
-				LstColumns.SetItemChecked(i, briefingPart.SelectedColumns.Contains(LstColumns.Items[i]));
+				LstColumns.SetItemChecked(i, briefingPart.SelectedHtmlColumns.Contains(LstColumns.Items[i]));
 			}
+
+			CbPartGroupType.SelectedValueChanged += CbPartGroupType_SelectedValueChanged;
 		}
 
 		public override void ScreenToData()
 		{
 			BopBriefingPartGroups briefingPart = m_bopBriefingPart as BopBriefingPartGroups;
 			briefingPart.Header = TbHeader.Text;
+			briefingPart.PartGroupType = (ElementBriefingPartGroupType)CbPartGroupType.SelectedValue;
 
 			briefingPart.SetBopGroupOrUnits(m_selectedGroupOrUnits);
 
-			briefingPart.SelectedColumns.Clear();
-			briefingPart.SelectedColumns.AddRange(LstColumns.CheckedItems.OfType<string>());
+			briefingPart.SelectedHtmlColumns.Clear();
+			briefingPart.SelectedHtmlColumns.AddRange(LstColumns.CheckedItems.OfType<string>());
+		}
+
+		private void DisplayCurrentPartGroupTypeGrid()
+		{
+			ElementBriefingPartGroupType partGroupType = (ElementBriefingPartGroupType)CbPartGroupType.SelectedValue;
+
+			IEnumerable<string> gridColumns;
+			IEnumerable<BopGroupOrUnit> availableElements = m_bopMission.GetGroupOrUnits();
+
+			if (partGroupType == ElementBriefingPartGroupType.GroupsOnly)
+			{
+				gridColumns = new List<string>() { GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes };
+				availableElements = availableElements.Where(_gou => _gou.GroupOrUnit == ElementGroupOrUnit.Group).ToList();
+			}
+			else if (partGroupType == ElementBriefingPartGroupType.UnitsOnly)
+			{
+				gridColumns = new List<string>() { GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Group, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes };
+				availableElements = availableElements.Where(_gou => _gou.GroupOrUnit == ElementGroupOrUnit.Unit).ToList();
+			}
+			else
+			{
+				gridColumns = new List<string>() { GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.GroupOrUnit, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Group, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes };
+			}
+
+			m_gmMultiAvailable.Elements = availableElements;
+			m_gmMultiAvailable.ColumnsDisplayed = gridColumns.ToList();
+			m_gmMultiAvailable.Refresh();
 		}
 
 		private void RefreshSelectedGrid()
@@ -77,7 +112,7 @@ namespace DcsBriefop.Forms
 				m_selectedGroupOrUnits.Remove(ba);
 
 			RefreshSelectedGrid();
-			//RefreshMap();
+			RefreshMap();
 		}
 
 		private void MultiOrder(int iWay)
@@ -118,6 +153,11 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Events
+		private void CbPartGroupType_SelectedValueChanged(object sender, EventArgs e)
+		{
+			DisplayCurrentPartGroupTypeGrid();
+		}
+
 		private void BtMultiAdd_Click(object sender, EventArgs e)
 		{
 			MultiAdd();

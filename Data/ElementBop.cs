@@ -85,6 +85,13 @@
 		Weather,
 	}
 
+	internal enum ElementBriefingPartGroupType
+	{
+		GroupsAndUnits,
+		GroupsOnly,
+		UnitsOnly
+	}
+
 	[Flags]
 	internal enum ElementBriefingOutput
 	{

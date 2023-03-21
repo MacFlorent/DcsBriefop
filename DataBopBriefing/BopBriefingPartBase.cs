@@ -40,7 +40,7 @@ namespace DcsBriefop.DataBopBriefing
 
 		protected abstract IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder);
 
-		public virtual IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission) { return null; }
+		public virtual IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission, BopBriefingFolder bopBriefingFolder) { return null; }
 		#endregion
 
 		#region IEquatable

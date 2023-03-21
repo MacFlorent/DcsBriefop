@@ -170,7 +170,7 @@ namespace DcsBriefop.DataBopBriefing
 
 			foreach (BopBriefingPartBase bopBriefingPart in Parts)
 			{
-				IEnumerable<GMapOverlay> partOverlays = bopBriefingPart.BuildMapOverlays(bopMission);
+				IEnumerable<GMapOverlay> partOverlays = bopBriefingPart.BuildMapOverlays(bopMission, bopBriefingFolder);
 				if (partOverlays is not null)
 					additionalOverlays.AddRange(partOverlays);
 			}

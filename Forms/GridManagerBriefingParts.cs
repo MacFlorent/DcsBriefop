@@ -50,6 +50,8 @@ namespace DcsBriefop.Forms
 			base.PostInitializeColumns();
 
 			m_dgv.Columns[GridColumn.PartName].HeaderText = "Part name";
+
+			m_dgv.Columns[GridColumn.Id].Width = GridWidth.Small;
 		}
 		#endregion
 

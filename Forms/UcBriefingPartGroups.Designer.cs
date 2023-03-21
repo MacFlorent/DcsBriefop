@@ -45,6 +45,7 @@
 			LbMultiAvailable = new Label();
 			LbMultiSelected = new Label();
 			DgvMultiSelected = new Zuby.ADGV.AdvancedDataGridView();
+			CbPartGroupType = new ComboBox();
 			TlpMulti.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)DgvMultiAvailable).BeginInit();
 			PnMultiButtons.SuspendLayout();
@@ -63,11 +64,11 @@
 			// LbGroups
 			// 
 			LbGroups.AutoSize = true;
-			LbGroups.Location = new Point(3, 33);
+			LbGroups.Location = new Point(3, 37);
 			LbGroups.Name = "LbGroups";
-			LbGroups.Size = new Size(45, 15);
+			LbGroups.Size = new Size(55, 15);
 			LbGroups.TabIndex = 1;
-			LbGroups.Text = "Groups";
+			LbGroups.Text = "Selection";
 			// 
 			// TbHeader
 			// 
@@ -108,7 +109,7 @@
 			TlpMulti.Controls.Add(LbMultiAvailable, 0, 0);
 			TlpMulti.Controls.Add(LbMultiSelected, 2, 0);
 			TlpMulti.Controls.Add(DgvMultiSelected, 2, 1);
-			TlpMulti.Location = new Point(3, 51);
+			TlpMulti.Location = new Point(3, 58);
 			TlpMulti.Name = "TlpMulti";
 			TlpMulti.RowCount = 2;
 			TlpMulti.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
@@ -248,10 +249,20 @@
 			DgvMultiSelected.TabIndex = 5;
 			DgvMultiSelected.CellDoubleClick += DgvMultiSelected_CellDoubleClick;
 			// 
+			// CbPartGroupType
+			// 
+			CbPartGroupType.FormattingEnabled = true;
+			CbPartGroupType.Location = new Point(74, 33);
+			CbPartGroupType.Name = "CbPartGroupType";
+			CbPartGroupType.Size = new Size(159, 23);
+			CbPartGroupType.TabIndex = 9;
+			CbPartGroupType.SelectedValueChanged += CbPartGroupType_SelectedValueChanged;
+			// 
 			// UcBriefingPartGroups
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(CbPartGroupType);
 			Controls.Add(TlpMulti);
 			Controls.Add(LstColumns);
 			Controls.Add(LbColumns);
@@ -287,5 +298,6 @@
 		private Label LbMultiAvailable;
 		private Label LbMultiSelected;
 		private Zuby.ADGV.AdvancedDataGridView DgvMultiSelected;
+		private ComboBox CbPartGroupType;
 	}
 }

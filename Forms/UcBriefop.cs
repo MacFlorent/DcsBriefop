@@ -205,16 +205,16 @@ namespace DcsBriefop.Forms
 		GridManagerGroupOrUnits m_gmMultiAvailable;
 		private void BtBriefingAto_Click(object sender, EventArgs e)
 		{
-			if (m_gmMultiAvailable is null)
-			{
-				m_gmMultiAvailable = new GridManagerGroupOrUnits(DgvBriefingFolders, m_briefopManager.BopMission.GetGroupOrUnits());
-				m_gmMultiAvailable.ColumnsDisplayed = GridManagerGroupOrUnits.ColumnsDisplayed1;
-			}
-			Stopwatch stopWatch = new Stopwatch();
-			stopWatch.Start();
-			m_gmMultiAvailable.Refresh();
-			stopWatch.Stop();
-			MessageBox.Show($"{stopWatch.Elapsed.TotalMilliseconds}");
+			//if (m_gmMultiAvailable is null)
+			//{
+			//	m_gmMultiAvailable = new GridManagerGroupOrUnits(DgvBriefingFolders, m_briefopManager.BopMission.GetGroupOrUnits());
+			//	m_gmMultiAvailable.ColumnsDisplayed = GridManagerGroupOrUnits.ColumnsDisplayed1;
+			//}
+			//Stopwatch stopWatch = new Stopwatch();
+			//stopWatch.Start();
+			//m_gmMultiAvailable.Refresh();
+			//stopWatch.Stop();
+			//MessageBox.Show($"{stopWatch.Elapsed.TotalMilliseconds}");
 		}
 		#endregion
 	}

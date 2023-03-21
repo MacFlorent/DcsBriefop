@@ -74,7 +74,7 @@ namespace DcsBriefop.Forms
 		private void DataToScreenMap()
 		{
 			MapControl.Overlays.Clear();
-			MapControl.Overlays.Add(m_bopAirbase.GetMapOverlay());
+			MapControl.Overlays.Add(m_bopAirbase.GetMapOverlay(null));
 			MapControl.Position = new PointLatLng(m_bopAirbase.Coordinate.Latitude.DecimalDegree, m_bopAirbase.Coordinate.Longitude.DecimalDegree);
 			MapControl.ForceRefresh();
 		}

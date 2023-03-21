@@ -11,7 +11,8 @@ namespace DcsBriefop.Data
 		MeasurementSystem,
 		CoordinateDisplay,
 		Coalition,
-		BriefingPartType
+		BriefingPartType,
+		BriefingPartGroupType
 	}
 
 	internal static class MasterDataColumn
@@ -46,6 +47,7 @@ namespace DcsBriefop.Data
 			m_repository.Add(MasterDataType.MeasurementSystem, BuildListMeasurementSystem());
 			m_repository.Add(MasterDataType.Coalition, BuildListCoalition());
 			m_repository.Add(MasterDataType.BriefingPartType, BuildListBriefingPartType());
+			m_repository.Add(MasterDataType.BriefingPartGroupType, BuildListBriefingPartGroupType());
 		}
 		#endregion
 
@@ -132,6 +134,16 @@ namespace DcsBriefop.Data
 				new MasterData() { Id = (int)ElementBriefingPartType.Task, Label = "Task" },
 				new MasterData() { Id = (int)ElementBriefingPartType.Paragraph, Label = "Paragraph" },
 				new MasterData() { Id = (int)ElementBriefingPartType.Image, Label = "Image" }
+			};
+		}
+
+		private static List<MasterData> BuildListBriefingPartGroupType()
+		{
+			return new List<MasterData>()
+			{
+				new MasterData() { Id = (int)ElementBriefingPartGroupType.GroupsAndUnits, Label = "Groups and units" },
+				new MasterData() { Id = (int)ElementBriefingPartGroupType.GroupsOnly, Label = "Groups only" },
+				new MasterData() { Id = (int)ElementBriefingPartGroupType.UnitsOnly, Label = "Units only" }
 			};
 		}
 		#endregion

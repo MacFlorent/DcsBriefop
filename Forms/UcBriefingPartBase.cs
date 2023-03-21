@@ -12,15 +12,6 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Properties
-		//public BopBriefingPart BopBriefingPart
-		//{
-		//	protected get { return m_bopBriefingPart; }
-		//	set
-		//	{
-		//		m_bopBriefingPart = value;
-		//		DataToScreen();
-		//	}
-		//}
 		#endregion
 
 		#region CTOR

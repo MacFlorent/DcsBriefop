@@ -23,9 +23,6 @@ namespace DcsBriefop.Forms
 			public static readonly string Radio = "Radio";
 			public static readonly string Additional = "Additional";
 		}
-
-		public static List<string> ColumnsDisplayed1 { get; private set; } = new List<string>() { GridColumn.Id, GridColumn.DisplayName, GridColumn.Group, GridColumn.Type, GridColumn.ObjectClass, GridColumn.Attributes, GridColumn.GroupOrUnit, GridColumn.Coalition };
-		public static List<string> ColumnsDisplayed2 { get; private set; } = new List<string>() { GridColumn.Id, GridColumn.DisplayName, GridColumn.Group, GridColumn.Type, GridColumn.ObjectClass };
 		#endregion
 
 		#region Fields

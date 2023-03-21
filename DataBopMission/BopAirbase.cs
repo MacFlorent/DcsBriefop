@@ -101,10 +101,10 @@ namespace DcsBriefop.DataBopMission
 			return sb.ToString();
 		}
 
-		public GMapOverlay GetMapOverlay()
+		public GMapOverlay GetMapOverlay(Color? color)
 		{
 			GMapOverlay mapOverlay = new GMapOverlay();
-			mapOverlay.Markers.Add(GetMarkerBriefop(null));
+			mapOverlay.Markers.Add(GetMarkerBriefop(color));
 			return mapOverlay;
 		}
 

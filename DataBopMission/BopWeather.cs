@@ -183,20 +183,29 @@ namespace DcsBriefop.DataBopMission
 		private string ToStringPlain_Wind(ElementMeasurementSystem measurementSystem, BopWeatherWind ww)
 		{
 			int iAltitude;
+			string sAltitude;
 			double dSpeed;
 			if (measurementSystem == ElementMeasurementSystem.Imperial)
 			{
 				iAltitude = Convert.ToInt32(UnitConverter.Convert(ww.Altitude, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
+				iAltitude = iAltitude / 1000 * 1000;
+				if (iAltitude > 100)
+					sAltitude = $"FL{iAltitude / 100}";
+				else
+					sAltitude = $"{iAltitude} {ToolsBriefop.GetUnitAltitude(measurementSystem)}";
+				
 				dSpeed = UnitConverter.Convert(ww.SpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.Knot);
 			}
 			else
 			{
 				iAltitude = ww.Altitude;
+				iAltitude = iAltitude / 1000 * 1000;
+				sAltitude = $"{iAltitude} {ToolsBriefop.GetUnitAltitude(measurementSystem)}";
 				dSpeed = UnitConverter.Convert(ww.SpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.KilometerPerHour);
 
 			}
 
-			return $"{iAltitude} {ToolsBriefop.GetUnitAltitude(measurementSystem)}: {ww.DirectionTrue:000}° @ {dSpeed:00} {ToolsBriefop.GetUnitSpeed(measurementSystem)}";
+			return $"{sAltitude}: {ww.DirectionTrue:000}° @ {dSpeed:00} {ToolsBriefop.GetUnitSpeed(measurementSystem)}";
 		}
 
 		public string ToStringMetar(ElementMeasurementSystem measurementsystem)
