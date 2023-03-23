@@ -30,10 +30,9 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcGroup(BriefopManager briefopManager, BopGroup bopGroup)
+		public UcGroup(BriefopManager briefopManager)
 		{
 			m_briefopManager = briefopManager;
-			m_bopGroup = bopGroup;
 
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
@@ -42,9 +41,9 @@ namespace DcsBriefop.Forms
 			ToolsStyle.LabelHeader(LbDisplayName);
 
 			TcDetails.SelectedIndexChanged -= TcDetails_SelectedIndexChanged;
-			m_ucGroupInformation = new UcGroupInformation(m_briefopManager, m_bopGroup, MapControl);
-			m_ucGroupUnits = new UcGroupUnits(m_briefopManager, m_bopGroup, MapControl);
-			m_ucGroupRoutePoints = new UcGroupRoutePoints(m_briefopManager, m_bopGroup, MapControl);
+			m_ucGroupInformation = new UcGroupInformation(m_briefopManager, MapControl);
+			m_ucGroupUnits = new UcGroupUnits(m_briefopManager, MapControl);
+			m_ucGroupRoutePoints = new UcGroupRoutePoints(m_briefopManager, MapControl);
 			TcDetails.TabPages.Clear();
 			TcDetails.AddTab("Information", m_ucGroupInformation);
 			TcDetails.AddTab("Units", m_ucGroupUnits);
@@ -84,6 +83,8 @@ namespace DcsBriefop.Forms
 		public void ScreenToData()
 		{
 			m_ucGroupInformation.ScreenToData();
+			m_ucGroupUnits.ScreenToData();
+			m_ucGroupRoutePoints.ScreenToData();
 		}
 		#endregion
 

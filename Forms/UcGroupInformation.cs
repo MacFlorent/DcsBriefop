@@ -16,13 +16,11 @@ namespace DcsBriefop.Forms
 		#endregion
 		
 		#region CTOR
-		public UcGroupInformation(BriefopManager briefopManager, BopGroup bopGroup, GMapControl mapControl) : base (briefopManager, bopGroup, mapControl)
+		public UcGroupInformation(BriefopManager briefopManager, GMapControl mapControl) : base (briefopManager, mapControl)
 		{
 			InitializeComponent();
 
 			MapTemplateMarker.FillCombo(CbMapMarker, CbMapMarker_SelectedValueChanged);
-			
-			DataToScreen();
 		}
 		#endregion
 

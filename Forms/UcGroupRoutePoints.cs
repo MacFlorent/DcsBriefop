@@ -18,24 +18,25 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcGroupRoutePoints(BriefopManager briefopManager, BopGroup bopGroup, GMapControl mapControl) : base(briefopManager, bopGroup, mapControl)
+		public UcGroupRoutePoints(BriefopManager briefopManager, GMapControl mapControl) : base(briefopManager, mapControl)
 		{
 			InitializeComponent();
 
-			m_gridManagerRoutePoints = new GridManagerRoutePoints(DgvRoutePoints, m_bopGroup.RoutePoints);
+			m_gridManagerRoutePoints = new GridManagerRoutePoints(DgvRoutePoints, null);
 			m_gridManagerRoutePoints.SelectionChanged += SelectionChangedEvent;
-
-			DataToScreen();
-
 		}
 		#endregion
 
 		#region Methods
 		public override void DataToScreen()
 		{
+			m_gridManagerRoutePoints.SelectionChanged -= SelectionChangedEvent;
+			
 			m_gridManagerRoutePoints.Elements = m_bopGroup.RoutePoints;
 			m_gridManagerRoutePoints.Refresh();
 			DataToScreenDetail();
+			
+			m_gridManagerRoutePoints.SelectionChanged += SelectionChangedEvent;
 		}
 
 		private void DataToScreenDetail()
@@ -50,18 +51,15 @@ namespace DcsBriefop.Forms
 				}
 				if (m_ucRoutePoint is null)
 				{
-					m_ucRoutePoint = new UcRoutePoint(m_briefopManager, selectedBopRoutePoint);
+					m_ucRoutePoint = new UcRoutePoint(m_briefopManager);
 				}
-				else
-				{
-					m_ucRoutePoint.BopRoutePoint = selectedBopRoutePoint;
-				}
-
 				if (PnRoutePointDetail.Controls.Count == 0)
 				{
 					PnRoutePointDetail.Controls.Add(m_ucRoutePoint);
 					m_ucRoutePoint.Dock = DockStyle.Fill;
 				}
+
+				m_ucRoutePoint.BopRoutePoint = selectedBopRoutePoint;
 			}
 			else
 			{

@@ -1,6 +1,5 @@
 ﻿using CommandLine;
 using System.Collections;
-using System.IO;
 using System.Text;
 
 namespace DcsBriefop.Tools

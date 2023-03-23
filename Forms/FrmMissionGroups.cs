@@ -54,18 +54,15 @@ namespace DcsBriefop.Forms
 				}
 				if (m_ucGroup is null)
 				{
-					m_ucGroup = new UcGroup(m_briefopManager, selectedBopGroup);
+					m_ucGroup = new UcGroup(m_briefopManager);
 				}
-				else
-				{
-					m_ucGroup.BopGroup = selectedBopGroup;
-				}
-
 				if (ScMain.Panel2.Controls.Count == 0)
 				{
 					ScMain.Panel2.Controls.Add(m_ucGroup);
 					m_ucGroup.Dock = DockStyle.Fill;
 				}
+
+				m_ucGroup.BopGroup = selectedBopGroup;
 			}
 			else
 			{

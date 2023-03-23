@@ -1,4 +1,6 @@
 ﻿using log4net;
+using log4net.Config;
+using log4net.Repository;
 using log4net.Repository.Hierarchy;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -8,7 +10,7 @@ namespace DcsBriefop.Tools
 	internal class Log
 	{
 		#region Fields
-		private static readonly ILog m_logger = LogManager.GetLogger("MainLogger");
+		private static readonly ILog m_logger = LogManager.GetLogger("DcsBriefopLogger");
 		#endregion
 
 		#region Properties
@@ -30,7 +32,8 @@ namespace DcsBriefop.Tools
 		#region CTOR
 		static Log()
 		{
-			log4net.Config.XmlConfigurator.Configure();
+			ILoggerRepository logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+			XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
 		}
 		#endregion
 

@@ -52,6 +52,12 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /I /Y $(SolutionDir)Resources\Markers $(TargetDir)\Markers&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Routes $(TargetDir)\Routes&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Resources $(TargetDir)\Resources" />
   </Target>

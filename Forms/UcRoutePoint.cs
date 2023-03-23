@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
-using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms
@@ -25,10 +24,9 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcRoutePoint(BriefopManager briefopManager, BopRoutePoint bopRoutePoint)
+		public UcRoutePoint(BriefopManager briefopManager)
 		{
 			m_briefopManager = briefopManager;
-			m_bopRoutePoint = bopRoutePoint;
 
 			InitializeComponent();
 		}
@@ -46,11 +44,13 @@ namespace DcsBriefop.Forms
 			LbAltitude.Text = $"Altitude ({ToolsBriefop.GetUnitAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
 			TbAltitude.Text = $"{m_bopRoutePoint.GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}";
 			TbCoordinates.Text = m_bopRoutePoint.Coordinate.ToString(ElementCoordinateDisplay.All);
+			TbNotes.Text = m_bopRoutePoint.Notes;
 			TbAdditional.Text = m_bopRoutePoint.ToStringAdditional(PreferencesManager.Preferences.Briefing.MeasurementSystem);
 		}
 
 		public void ScreenToData()
 		{
+			m_bopRoutePoint.Notes = TbNotes.Text;
 		}
 		#endregion
 	}

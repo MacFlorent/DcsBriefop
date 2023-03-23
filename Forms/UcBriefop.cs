@@ -202,7 +202,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region TESTS
-		GridManagerGroupOrUnits m_gmMultiAvailable;
+		//GridManagerGroupOrUnits m_gmMultiAvailable;
 		private void BtBriefingAto_Click(object sender, EventArgs e)
 		{
 			//if (m_gmMultiAvailable is null)

@@ -27,10 +27,9 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcUnit(BriefopManager briefopManager, BopUnit bopUnit, UcGroupUnits ucParentGroupUnits)
+		public UcUnit(BriefopManager briefopManager, UcGroupUnits ucParentGroupUnits)
 		{
 			m_briefopManager = briefopManager;
-			m_bopUnit = bopUnit;
 			m_ucParentGroupUnits = ucParentGroupUnits;
 
 			InitializeComponent();

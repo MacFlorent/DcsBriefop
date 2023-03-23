@@ -75,7 +75,10 @@ namespace DcsBriefop.DataBopMission
 			m_mizUnit.Category = Category;
 			m_mizUnit.Name = Name;
 			m_mizUnit.Type = Type;
-			m_mizBopUnit.MapMarker = MapMarker;
+
+			m_mizBopUnit.MapMarker = null;
+			if (MapMarker != (m_dcsObject?.MapMarker ?? ToolsBriefop.GetDefaultMapMarker(GroupClass)))
+				m_mizBopUnit.MapMarker = MapMarker;
 		}
 
 		protected override void FinalizeFromMizInternal()
@@ -97,7 +100,6 @@ namespace DcsBriefop.DataBopMission
 			{
 				m_mizBopUnit = new MizBopUnit() { Id = m_mizUnit.Id };
 				m_mizBopUnit.MapMarker = m_dcsObject?.MapMarker ?? ToolsBriefop.GetDefaultMapMarker(GroupClass);
-				m_mizBopUnit.SetDefaultData();
 				Miz.MizBopCustom.MizBopUnits.Add(m_mizBopUnit);
 			}
 		}

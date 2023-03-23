@@ -24,7 +24,7 @@ namespace DcsBriefop.Forms
 			m_gmMultiAvailable = new GridManagerGroupOrUnits(DgvMultiAvailable, null);
 			m_gmMultiSelected = new GridManagerGroupOrUnits(DgvMultiSelected, null);
 
-			LstColumns.DataSource = BopBriefingPartGroups.AvailableHtmlColumns;
+			LstColumns.DataSource = BopBriefingPartGroups.AvailableTableColumns;
 
 			DataToScreen();
 		}
@@ -46,7 +46,7 @@ namespace DcsBriefop.Forms
 
 			for (int i = 0; i < LstColumns.Items.Count; i++)
 			{
-				LstColumns.SetItemChecked(i, briefingPart.SelectedHtmlColumns.Contains(LstColumns.Items[i]));
+				LstColumns.SetItemChecked(i, briefingPart.SelectedTableColumns.Contains(LstColumns.Items[i]));
 			}
 
 			CbPartGroupType.SelectedValueChanged += CbPartGroupType_SelectedValueChanged;
@@ -60,8 +60,8 @@ namespace DcsBriefop.Forms
 
 			briefingPart.SetBopGroupOrUnits(m_selectedGroupOrUnits);
 
-			briefingPart.SelectedHtmlColumns.Clear();
-			briefingPart.SelectedHtmlColumns.AddRange(LstColumns.CheckedItems.OfType<string>());
+			briefingPart.SelectedTableColumns.Clear();
+			briefingPart.SelectedTableColumns.AddRange(LstColumns.CheckedItems.OfType<string>());
 		}
 
 		private void DisplayCurrentPartGroupTypeGrid()

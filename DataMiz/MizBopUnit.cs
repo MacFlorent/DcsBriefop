@@ -8,6 +8,13 @@
 		#endregion
 
 		#region Methods
+		public override bool IsDefaultData()
+		{
+			if (!string.IsNullOrEmpty(MapMarker))
+				return false;
+
+			return true;
+		}
 		#endregion
 	}
 }

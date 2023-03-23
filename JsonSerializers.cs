@@ -178,4 +178,26 @@ namespace DcsBriefop
 			throw new NotImplementedException();
 		}
 	}
+
+	internal class ListMizBopRoutePointJsonConverter : JsonConverter<List<MizBopRoutePoint>>
+	{
+		public override void WriteJson(JsonWriter writer, List<MizBopRoutePoint> value, JsonSerializer serializer)
+		{
+			if (value is object && value.Count >= 0)
+			{
+				JArray ja = new JArray();
+				foreach (MizBopRoutePoint element in value.Where(_a => !_a.IsDefaultData()))
+				{
+					ja.Add(JToken.FromObject(element, serializer));
+				}
+
+				ja.WriteTo(writer);
+			}
+		}
+
+		public override List<MizBopRoutePoint> ReadJson(JsonReader reader, Type objectType, List<MizBopRoutePoint> existingValue, bool hasExistingValue, JsonSerializer serializer)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

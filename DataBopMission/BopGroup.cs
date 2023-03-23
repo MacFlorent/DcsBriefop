@@ -1,14 +1,11 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
-using DcsBriefop.DataBopBriefing;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using UnitsNet;
 
 namespace DcsBriefop.DataBopMission
@@ -63,7 +60,7 @@ namespace DcsBriefop.DataBopMission
 				int iNumber = 0;
 				foreach (MizRoutePoint mizRoutePoint in m_mizGroup.RoutePoints)
 				{
-					RoutePoints.Add(new BopRoutePoint(Miz, Theatre, iNumber, mizRoutePoint));
+					RoutePoints.Add(new BopRoutePoint(Miz, Theatre, Id, iNumber, mizRoutePoint));
 					iNumber++;
 				}
 			}
@@ -91,7 +88,12 @@ namespace DcsBriefop.DataBopMission
 			{
 				bopUnit.ToMiz();
 			}
+			foreach (BopRoutePoint bopRoutePoint in RoutePoints)
+			{
+				bopRoutePoint.ToMiz();
+			}
 
+			m_mizBopGroup.MapMarker = null;
 			if (MapMarker != MainUnit.MapMarker)
 				m_mizBopGroup.MapMarker = MapMarker;
 		}
@@ -134,7 +136,6 @@ namespace DcsBriefop.DataBopMission
 			if (m_mizBopGroup is null)
 			{
 				m_mizBopGroup = new MizBopGroup() { Id = m_mizGroup.Id };
-				m_mizBopGroup.SetDefaultData();
 				Miz.MizBopCustom.MizBopGroups.Add(m_mizBopGroup);
 			}
 		}
@@ -159,11 +160,11 @@ namespace DcsBriefop.DataBopMission
 		public virtual string ToStringLocalisation(ElementCoordinateDisplay coordinateDisplay, ElementMeasurementSystem? measurementSystem)
 		{
 			StringBuilder sb = new StringBuilder(Coordinate.ToString(coordinateDisplay));
-			if (measurementSystem is not null && GroupClass == ElementGroupClass.Ground) 
+			if (measurementSystem is not null && GroupClass == ElementGroupClass.Ground)
 			{
 				sb.AppendWithSeparator($"{GetAltitude(measurementSystem.Value):0}{ToolsBriefop.GetUnitAltitude(measurementSystem.Value)}", Environment.NewLine);
 			}
-			
+
 			return sb.ToString();
 		}
 
@@ -296,10 +297,13 @@ namespace DcsBriefop.DataBopMission
 			GMapOverlay mapOverlay = new GMapOverlay();
 			List<PointLatLng> points = new List<PointLatLng>();
 
-			foreach (BopRoutePoint bopRoutePoint in RoutePoints.Where(_bopRoutePoint => _bopRoutePoint.Name != ElementGlobalData.BullseyeRoutePointName))
+			foreach (BopRoutePoint bopRoutePoint in RoutePoints)
 			{
-				PointLatLng p = new PointLatLng(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
-				points.Add(p);
+				if (bopRoutePoint.Name != ElementGlobalData.BullseyeRoutePointName)
+				{
+					PointLatLng p = new PointLatLng(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
+					points.Add(p);
+				}
 
 				if (bopRoutePoint.Number > 0
 					|| iSelectedPointNumber.GetValueOrDefault(0) == bopRoutePoint.Number

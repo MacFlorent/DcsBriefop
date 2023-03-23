@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DcsBriefop": {
+      "commandName": "Project",
+      "commandLineArgs": "-l INFO"
+    }
+  }
+}

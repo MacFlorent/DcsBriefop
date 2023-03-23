@@ -164,6 +164,7 @@ namespace DcsBriefop.DataBopMission
 			if (Tacan is object && !Tacan.Equals(m_airdrome.Tacan))
 				m_mizBopAirbase.Tacan = Tacan;
 
+			m_mizBopAirbase.MapMarker = null;
 			if (MapMarker != ElementMapTemplateMarker.Airdrome)
 				m_mizBopAirbase.MapMarker = MapMarker;
 		}
@@ -180,7 +181,6 @@ namespace DcsBriefop.DataBopMission
 			if (m_mizBopAirbase is null)
 			{
 				m_mizBopAirbase = new MizBopAirbase() { Id = m_airdrome.Id, AirbaseType = AirbaseType };
-				m_mizBopAirbase.SetDefaultData();
 				Miz.MizBopCustom.MizBopAirbases.Add(m_mizBopAirbase);
 			}
 		}
@@ -222,6 +222,7 @@ namespace DcsBriefop.DataBopMission
 		{
 			base.ToMiz();
 
+			m_mizBopAirbase.MapMarker = null;
 			if (MapMarker != m_bopUnitShip.MapMarker)
 				m_mizBopAirbase.MapMarker = MapMarker;
 		}
@@ -240,7 +241,6 @@ namespace DcsBriefop.DataBopMission
 			if (m_mizBopAirbase is null)
 			{
 				m_mizBopAirbase = new MizBopAirbase() { Id = m_bopUnitShip.Id, AirbaseType = AirbaseType };
-				m_mizBopAirbase.SetDefaultData();
 				Miz.MizBopCustom.MizBopAirbases.Add(m_mizBopAirbase);
 			}
 		}
@@ -288,6 +288,7 @@ namespace DcsBriefop.DataBopMission
 		{
 			base.ToMiz();
 
+			m_mizBopAirbase.MapMarker = null;
 			if (MapMarker != m_bopUnit.MapMarker)
 				m_mizBopAirbase.MapMarker = MapMarker;
 		}
@@ -306,7 +307,6 @@ namespace DcsBriefop.DataBopMission
 			if (m_mizBopAirbase is null)
 			{
 				m_mizBopAirbase = new MizBopAirbase() { Id = m_bopUnit.Id, AirbaseType = AirbaseType };
-				m_mizBopAirbase.SetDefaultData();
 				Miz.MizBopCustom.MizBopAirbases.Add(m_mizBopAirbase);
 			}
 		}

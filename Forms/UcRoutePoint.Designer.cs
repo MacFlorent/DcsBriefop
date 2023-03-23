@@ -28,181 +28,211 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.LbCoordinates = new System.Windows.Forms.Label();
-			this.TbCoordinates = new System.Windows.Forms.TextBox();
-			this.LbAdditional = new System.Windows.Forms.Label();
-			this.TbAdditional = new System.Windows.Forms.TextBox();
-			this.LbAction = new System.Windows.Forms.Label();
-			this.TbAction = new System.Windows.Forms.TextBox();
-			this.LbType = new System.Windows.Forms.Label();
-			this.TbType = new System.Windows.Forms.TextBox();
-			this.LbName = new System.Windows.Forms.Label();
-			this.TbName = new System.Windows.Forms.TextBox();
-			this.LbNumber = new System.Windows.Forms.Label();
-			this.TbNumber = new System.Windows.Forms.TextBox();
-			this.LbAltitude = new System.Windows.Forms.Label();
-			this.TbAltitude = new System.Windows.Forms.TextBox();
-			this.SuspendLayout();
+			LbCoordinates = new Label();
+			TbCoordinates = new TextBox();
+			LbAdditional = new Label();
+			TbAdditional = new TextBox();
+			LbAction = new Label();
+			TbAction = new TextBox();
+			LbType = new Label();
+			TbType = new TextBox();
+			LbName = new Label();
+			TbName = new TextBox();
+			LbNumber = new Label();
+			TbNumber = new TextBox();
+			LbAltitude = new Label();
+			TbAltitude = new TextBox();
+			LbNotes = new Label();
+			TbNotes = new TextBox();
+			SuspendLayout();
 			// 
 			// LbCoordinates
 			// 
-			this.LbCoordinates.AutoSize = true;
-			this.LbCoordinates.Location = new System.Drawing.Point(5, 136);
-			this.LbCoordinates.Name = "LbCoordinates";
-			this.LbCoordinates.Size = new System.Drawing.Size(63, 13);
-			this.LbCoordinates.TabIndex = 100;
-			this.LbCoordinates.Text = "Coordinates";
+			LbCoordinates.AutoSize = true;
+			LbCoordinates.Location = new Point(6, 157);
+			LbCoordinates.Margin = new Padding(4, 0, 4, 0);
+			LbCoordinates.Name = "LbCoordinates";
+			LbCoordinates.Size = new Size(71, 15);
+			LbCoordinates.TabIndex = 100;
+			LbCoordinates.Text = "Coordinates";
 			// 
 			// TbCoordinates
 			// 
-			this.TbCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbCoordinates.Location = new System.Drawing.Point(81, 133);
-			this.TbCoordinates.Multiline = true;
-			this.TbCoordinates.Name = "TbCoordinates";
-			this.TbCoordinates.ReadOnly = true;
-			this.TbCoordinates.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbCoordinates.Size = new System.Drawing.Size(291, 47);
-			this.TbCoordinates.TabIndex = 99;
+			TbCoordinates.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbCoordinates.Location = new Point(94, 153);
+			TbCoordinates.Margin = new Padding(4, 3, 4, 3);
+			TbCoordinates.Multiline = true;
+			TbCoordinates.Name = "TbCoordinates";
+			TbCoordinates.ReadOnly = true;
+			TbCoordinates.ScrollBars = ScrollBars.Vertical;
+			TbCoordinates.Size = new Size(339, 54);
+			TbCoordinates.TabIndex = 99;
 			// 
 			// LbAdditional
 			// 
-			this.LbAdditional.AutoSize = true;
-			this.LbAdditional.Location = new System.Drawing.Point(5, 189);
-			this.LbAdditional.Name = "LbAdditional";
-			this.LbAdditional.Size = new System.Drawing.Size(33, 13);
-			this.LbAdditional.TabIndex = 98;
-			this.LbAdditional.Text = "Other";
+			LbAdditional.AutoSize = true;
+			LbAdditional.Location = new Point(6, 245);
+			LbAdditional.Margin = new Padding(4, 0, 4, 0);
+			LbAdditional.Name = "LbAdditional";
+			LbAdditional.Size = new Size(37, 15);
+			LbAdditional.TabIndex = 98;
+			LbAdditional.Text = "Other";
 			// 
 			// TbAdditional
 			// 
-			this.TbAdditional.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbAdditional.Location = new System.Drawing.Point(81, 186);
-			this.TbAdditional.Multiline = true;
-			this.TbAdditional.Name = "TbAdditional";
-			this.TbAdditional.ReadOnly = true;
-			this.TbAdditional.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbAdditional.Size = new System.Drawing.Size(291, 120);
-			this.TbAdditional.TabIndex = 95;
+			TbAdditional.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			TbAdditional.Location = new Point(94, 242);
+			TbAdditional.Margin = new Padding(4, 3, 4, 3);
+			TbAdditional.Multiline = true;
+			TbAdditional.Name = "TbAdditional";
+			TbAdditional.ReadOnly = true;
+			TbAdditional.ScrollBars = ScrollBars.Vertical;
+			TbAdditional.Size = new Size(339, 111);
+			TbAdditional.TabIndex = 95;
 			// 
 			// LbAction
 			// 
-			this.LbAction.AutoSize = true;
-			this.LbAction.Location = new System.Drawing.Point(6, 81);
-			this.LbAction.Name = "LbAction";
-			this.LbAction.Size = new System.Drawing.Size(37, 13);
-			this.LbAction.TabIndex = 94;
-			this.LbAction.Text = "Action";
+			LbAction.AutoSize = true;
+			LbAction.Location = new Point(7, 93);
+			LbAction.Margin = new Padding(4, 0, 4, 0);
+			LbAction.Name = "LbAction";
+			LbAction.Size = new Size(42, 15);
+			LbAction.TabIndex = 94;
+			LbAction.Text = "Action";
 			// 
 			// TbAction
 			// 
-			this.TbAction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbAction.Location = new System.Drawing.Point(81, 81);
-			this.TbAction.Name = "TbAction";
-			this.TbAction.ReadOnly = true;
-			this.TbAction.Size = new System.Drawing.Size(291, 20);
-			this.TbAction.TabIndex = 93;
+			TbAction.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbAction.Location = new Point(94, 93);
+			TbAction.Margin = new Padding(4, 3, 4, 3);
+			TbAction.Name = "TbAction";
+			TbAction.ReadOnly = true;
+			TbAction.Size = new Size(339, 23);
+			TbAction.TabIndex = 93;
 			// 
 			// LbType
 			// 
-			this.LbType.AutoSize = true;
-			this.LbType.Location = new System.Drawing.Point(6, 58);
-			this.LbType.Name = "LbType";
-			this.LbType.Size = new System.Drawing.Size(31, 13);
-			this.LbType.TabIndex = 91;
-			this.LbType.Text = "Type";
+			LbType.AutoSize = true;
+			LbType.Location = new Point(7, 67);
+			LbType.Margin = new Padding(4, 0, 4, 0);
+			LbType.Name = "LbType";
+			LbType.Size = new Size(31, 15);
+			LbType.TabIndex = 91;
+			LbType.Text = "Type";
 			// 
 			// TbType
 			// 
-			this.TbType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbType.Location = new System.Drawing.Point(81, 55);
-			this.TbType.Name = "TbType";
-			this.TbType.ReadOnly = true;
-			this.TbType.Size = new System.Drawing.Size(291, 20);
-			this.TbType.TabIndex = 90;
+			TbType.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbType.Location = new Point(94, 63);
+			TbType.Margin = new Padding(4, 3, 4, 3);
+			TbType.Name = "TbType";
+			TbType.ReadOnly = true;
+			TbType.Size = new Size(339, 23);
+			TbType.TabIndex = 90;
 			// 
 			// LbName
 			// 
-			this.LbName.AutoSize = true;
-			this.LbName.Location = new System.Drawing.Point(6, 35);
-			this.LbName.Name = "LbName";
-			this.LbName.Size = new System.Drawing.Size(35, 13);
-			this.LbName.TabIndex = 89;
-			this.LbName.Text = "Name";
+			LbName.AutoSize = true;
+			LbName.Location = new Point(7, 40);
+			LbName.Margin = new Padding(4, 0, 4, 0);
+			LbName.Name = "LbName";
+			LbName.Size = new Size(39, 15);
+			LbName.TabIndex = 89;
+			LbName.Text = "Name";
 			// 
 			// TbName
 			// 
-			this.TbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbName.Location = new System.Drawing.Point(81, 29);
-			this.TbName.Name = "TbName";
-			this.TbName.ReadOnly = true;
-			this.TbName.Size = new System.Drawing.Size(291, 20);
-			this.TbName.TabIndex = 88;
+			TbName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbName.Location = new Point(94, 33);
+			TbName.Margin = new Padding(4, 3, 4, 3);
+			TbName.Name = "TbName";
+			TbName.ReadOnly = true;
+			TbName.Size = new Size(339, 23);
+			TbName.TabIndex = 88;
 			// 
 			// LbNumber
 			// 
-			this.LbNumber.AutoSize = true;
-			this.LbNumber.Location = new System.Drawing.Point(6, 6);
-			this.LbNumber.Name = "LbNumber";
-			this.LbNumber.Size = new System.Drawing.Size(44, 13);
-			this.LbNumber.TabIndex = 87;
-			this.LbNumber.Text = "Number";
+			LbNumber.AutoSize = true;
+			LbNumber.Location = new Point(7, 7);
+			LbNumber.Margin = new Padding(4, 0, 4, 0);
+			LbNumber.Name = "LbNumber";
+			LbNumber.Size = new Size(51, 15);
+			LbNumber.TabIndex = 87;
+			LbNumber.Text = "Number";
 			// 
 			// TbNumber
 			// 
-			this.TbNumber.Location = new System.Drawing.Point(81, 3);
-			this.TbNumber.Name = "TbNumber";
-			this.TbNumber.ReadOnly = true;
-			this.TbNumber.Size = new System.Drawing.Size(306, 20);
-			this.TbNumber.TabIndex = 86;
+			TbNumber.Location = new Point(94, 3);
+			TbNumber.Margin = new Padding(4, 3, 4, 3);
+			TbNumber.Name = "TbNumber";
+			TbNumber.ReadOnly = true;
+			TbNumber.Size = new Size(356, 23);
+			TbNumber.TabIndex = 86;
 			// 
 			// LbAltitude
 			// 
-			this.LbAltitude.AutoSize = true;
-			this.LbAltitude.Location = new System.Drawing.Point(6, 110);
-			this.LbAltitude.Name = "LbAltitude";
-			this.LbAltitude.Size = new System.Drawing.Size(42, 13);
-			this.LbAltitude.TabIndex = 102;
-			this.LbAltitude.Text = "Altitude";
+			LbAltitude.AutoSize = true;
+			LbAltitude.Location = new Point(7, 127);
+			LbAltitude.Margin = new Padding(4, 0, 4, 0);
+			LbAltitude.Name = "LbAltitude";
+			LbAltitude.Size = new Size(49, 15);
+			LbAltitude.TabIndex = 102;
+			LbAltitude.Text = "Altitude";
 			// 
 			// TbAltitude
 			// 
-			this.TbAltitude.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbAltitude.Location = new System.Drawing.Point(81, 107);
-			this.TbAltitude.Name = "TbAltitude";
-			this.TbAltitude.ReadOnly = true;
-			this.TbAltitude.Size = new System.Drawing.Size(291, 20);
-			this.TbAltitude.TabIndex = 101;
+			TbAltitude.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbAltitude.Location = new Point(94, 123);
+			TbAltitude.Margin = new Padding(4, 3, 4, 3);
+			TbAltitude.Name = "TbAltitude";
+			TbAltitude.ReadOnly = true;
+			TbAltitude.Size = new Size(339, 23);
+			TbAltitude.TabIndex = 101;
+			// 
+			// LbNotes
+			// 
+			LbNotes.AutoSize = true;
+			LbNotes.Location = new Point(7, 217);
+			LbNotes.Margin = new Padding(4, 0, 4, 0);
+			LbNotes.Name = "LbNotes";
+			LbNotes.Size = new Size(38, 15);
+			LbNotes.TabIndex = 104;
+			LbNotes.Text = "Notes";
+			// 
+			// TbNotes
+			// 
+			TbNotes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbNotes.Location = new Point(94, 213);
+			TbNotes.Margin = new Padding(4, 3, 4, 3);
+			TbNotes.Name = "TbNotes";
+			TbNotes.Size = new Size(339, 23);
+			TbNotes.TabIndex = 103;
 			// 
 			// UcRoutePoint
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.LbAltitude);
-			this.Controls.Add(this.TbAltitude);
-			this.Controls.Add(this.LbCoordinates);
-			this.Controls.Add(this.TbCoordinates);
-			this.Controls.Add(this.LbAdditional);
-			this.Controls.Add(this.TbAdditional);
-			this.Controls.Add(this.LbAction);
-			this.Controls.Add(this.TbAction);
-			this.Controls.Add(this.LbType);
-			this.Controls.Add(this.TbType);
-			this.Controls.Add(this.LbName);
-			this.Controls.Add(this.TbName);
-			this.Controls.Add(this.LbNumber);
-			this.Controls.Add(this.TbNumber);
-			this.Name = "UcRoutePoint";
-			this.Size = new System.Drawing.Size(375, 309);
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(LbNotes);
+			Controls.Add(TbNotes);
+			Controls.Add(LbAltitude);
+			Controls.Add(TbAltitude);
+			Controls.Add(LbCoordinates);
+			Controls.Add(TbCoordinates);
+			Controls.Add(LbAdditional);
+			Controls.Add(TbAdditional);
+			Controls.Add(LbAction);
+			Controls.Add(TbAction);
+			Controls.Add(LbType);
+			Controls.Add(TbType);
+			Controls.Add(LbName);
+			Controls.Add(TbName);
+			Controls.Add(LbNumber);
+			Controls.Add(TbNumber);
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "UcRoutePoint";
+			Size = new Size(438, 357);
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion
@@ -220,5 +250,7 @@
 		private System.Windows.Forms.TextBox TbNumber;
 		private System.Windows.Forms.Label LbAltitude;
 		private System.Windows.Forms.TextBox TbAltitude;
+		private Label LbNotes;
+		private TextBox TbNotes;
 	}
 }

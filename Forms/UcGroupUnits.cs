@@ -17,24 +17,26 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcGroupUnits(BriefopManager briefopManager, BopGroup bopGroup, GMapControl mapControl) : base(briefopManager, bopGroup, mapControl)
+		public UcGroupUnits(BriefopManager briefopManager, GMapControl mapControl) : base(briefopManager, mapControl)
 		{
 			InitializeComponent();
 
-			m_gridManagerUnits = new GridManagerUnits(DgvUnits, m_bopGroup.Units);
+			m_gridManagerUnits = new GridManagerUnits(DgvUnits, null);
 			m_gridManagerUnits.ColumnsDisplayed = GridManagerUnits.ColumnsDisplayedGroup;
 			m_gridManagerUnits.SelectionChanged += SelectionChangedEvent;
-
-			DataToScreen();
 		}
 		#endregion
 
 		#region Methods
 		public override void DataToScreen()
 		{
+			m_gridManagerUnits.SelectionChanged -= SelectionChangedEvent;
+
 			m_gridManagerUnits.Elements = m_bopGroup.Units;
 			m_gridManagerUnits.Refresh();
 			DataToScreenDetail();
+
+			m_gridManagerUnits.SelectionChanged += SelectionChangedEvent;
 		}
 
 		private void DataToScreenDetail()
@@ -49,18 +51,15 @@ namespace DcsBriefop.Forms
 				}
 				if (m_ucUnit is null)
 				{
-					m_ucUnit = new UcUnit(m_briefopManager, selectedBopUnit, this);
+					m_ucUnit = new UcUnit(m_briefopManager, this);
 				}
-				else
-				{
-					m_ucUnit.BopUnit = selectedBopUnit;
-				}
-
 				if (PnUnitDetail.Controls.Count == 0)
 				{
 					PnUnitDetail.Controls.Add(m_ucUnit);
 					m_ucUnit.Dock = DockStyle.Fill;
 				}
+
+				m_ucUnit.BopUnit = selectedBopUnit;
 			}
 			else
 			{

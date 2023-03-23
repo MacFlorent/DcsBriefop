@@ -82,32 +82,15 @@ namespace DcsBriefop.DataBopMission
 				m_mizBopCoalition.MapData.Zoom = PreferencesManager.Preferences.Map.Zoom;
 				m_mizBopCoalition.BullseyeWaypoint = PreferencesManager.Preferences.Mission.BullseyeWaypoint;
 
-				m_mizBopCoalition.SetDefaultData();
 				Miz.MizBopCustom.MizBopCoalitions.Add(m_mizBopCoalition);
 			}
 		}
 		#endregion
 
 		#region Methods
-		//public GMapOverlay GetMapOverlay()
-		//{
-		//	GMapOverlay mapOverlay = new GMapOverlay();
-		//	mapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree), ElementMapTemplateMarker.Bullseye, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0));
-		//	ToolsMap.AddMizDrawingLayers(Theatre, mapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare (_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
-		//	ToolsMap.AddMizDrawingLayers(Theatre, mapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, CoalitionName, true) == 0).ToList());
-		//	return mapOverlay;
-		//}
-
-		public void SetBullseyeRoutePoint(ref BopRoutePoint bullseyeRoutePoint)
+		public void UpdateBullseyeRoutePoint(BopRoutePoint bullseyeRoutePoint)
 		{
-			if (bullseyeRoutePoint is null)
-			{
-				MizRoutePoint mizRoutePoint = MizRoutePoint.NewFromLuaTemplate();
-				bullseyeRoutePoint = new BopRoutePoint(Miz, Theatre, 0, mizRoutePoint);
-			}
-
 			bullseyeRoutePoint.SetYX(m_mizCoalition.BullseyeY, m_mizCoalition.BullseyeX);
-			bullseyeRoutePoint.Name = ElementGlobalData.BullseyeRoutePointName;
 		}
 		#endregion
 	}

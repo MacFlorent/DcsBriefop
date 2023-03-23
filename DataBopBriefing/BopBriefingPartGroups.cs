@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
-using DcsBriefop.Forms;
 using DcsBriefop.Tools;
 using GMap.NET.WindowsForms;
 using HtmlTags;
@@ -11,7 +10,7 @@ namespace DcsBriefop.DataBopBriefing
 	internal class BopBriefingPartGroups : BopBriefingPartBase
 	{
 		#region Fields
-		private static class HtmlColumns
+		private static class TableColumns
 		{
 			public static readonly string Coalition = "Coalition";
 			public static readonly string GroupName = "Group name";
@@ -22,16 +21,16 @@ namespace DcsBriefop.DataBopBriefing
 			public static readonly string Localisation = "Localisation";
 			public static readonly string Notes = "Notes";
 		}
-		public static List<string> AvailableHtmlColumns = new()
+		public static List<string> AvailableTableColumns = new()
 		{
-			HtmlColumns.Coalition,
-			HtmlColumns.GroupName,
-			HtmlColumns.Name,
-			HtmlColumns.NameType,
-			HtmlColumns.Type,
-			HtmlColumns.Radio,
-			HtmlColumns.Localisation,
-			HtmlColumns.Notes
+			TableColumns.Coalition,
+			TableColumns.GroupName,
+			TableColumns.Name,
+			TableColumns.NameType,
+			TableColumns.Type,
+			TableColumns.Radio,
+			TableColumns.Localisation,
+			TableColumns.Notes
 		};
 		#endregion
 
@@ -39,7 +38,7 @@ namespace DcsBriefop.DataBopBriefing
 		public ElementBriefingPartGroupType PartGroupType { get; set; } = ElementBriefingPartGroupType.GroupsAndUnits;
 		public string Header { get; set; }
 		public List<BopBriefingPartGroupOrUnit> GroupOrUnits { get; set; } = new();
-		public List<string> SelectedHtmlColumns { get; set; } = new();
+		public List<string> SelectedTableColumns { get; set; } = new();
 		#endregion
 
 		#region CTOR
@@ -50,7 +49,7 @@ namespace DcsBriefop.DataBopBriefing
 		public override void InitializeDefault()
 		{
 			base.InitializeDefault();
-			SelectedHtmlColumns = new List<string> { HtmlColumns.Coalition, HtmlColumns.GroupName, HtmlColumns.Name, HtmlColumns.Type, HtmlColumns.Notes };
+			SelectedTableColumns = new List<string> { TableColumns.Coalition, TableColumns.GroupName, TableColumns.Name, TableColumns.Type, TableColumns.Notes };
 		}
 
 		public override string ToStringAdditional()
@@ -122,21 +121,21 @@ namespace DcsBriefop.DataBopBriefing
 					{
 						element.FinalizeFromMiz();
 
-						if (sColumn == HtmlColumns.Coalition)
+						if (sColumn == TableColumns.Coalition)
 							tagTr.Add("td").AppendText(element.Coalition);
-						else if (sColumn == HtmlColumns.GroupName)
+						else if (sColumn == TableColumns.GroupName)
 							tagTr.Add("td").AppendText(element.Group);
-						else if (sColumn == HtmlColumns.Name)
+						else if (sColumn == TableColumns.Name)
 							tagTr.Add("td").AppendText(element.DisplayName);
-						else if (sColumn == HtmlColumns.NameType)
+						else if (sColumn == TableColumns.NameType)
 							tagTr.Add("td").Append($"{element.DisplayName}{Environment.NewLine}{element.Type.Truncate(20)}".HtmlLineBreaks());
-						else if (sColumn == HtmlColumns.Type)
+						else if (sColumn == TableColumns.Type)
 							tagTr.Add("td").AppendText(element.Type.Truncate(20));
-						else if (sColumn == HtmlColumns.Radio)
+						else if (sColumn == TableColumns.Radio)
 							tagTr.Add("td").AppendText(element.Radio.ToString());
-						else if (sColumn == HtmlColumns.Localisation)
+						else if (sColumn == TableColumns.Localisation)
 							tagTr.Add("td").Append(element.ToStringLocalisation(bopBriefingFolder.CoordinateDisplay, bopBriefingFolder.MeasurementSystem)?.HtmlLineBreaks());
-						else if (sColumn == HtmlColumns.Notes)
+						else if (sColumn == TableColumns.Notes)
 							tagTr.Add("td").AppendText(element.Additional);
 					}
 				}
@@ -159,10 +158,10 @@ namespace DcsBriefop.DataBopBriefing
 
 		private IEnumerable<string> GetColumns()
 		{
-			if (SelectedHtmlColumns is not null && SelectedHtmlColumns.Count > 0)
-				return AvailableHtmlColumns.Where(_c => SelectedHtmlColumns.Contains(_c));
+			if (SelectedTableColumns is not null && SelectedTableColumns.Count > 0)
+				return AvailableTableColumns.Where(_c => SelectedTableColumns.Contains(_c));
 			else
-				return AvailableHtmlColumns;
+				return AvailableTableColumns;
 		}
 
 		public List<BopGroupOrUnit> GetBopGroupOrUnits(BopMission bopMission)
