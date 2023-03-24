@@ -5,7 +5,7 @@ using HtmlTags;
 
 namespace DcsBriefop.DataBopBriefing
 {
-	internal class BopBriefingPartBullseye : BopBriefingPartBase
+	internal class BopBriefingPartBullseye : BaseBopBriefingPart
 	{
 		#region Properties
 		public bool WithDescription { get; set; }

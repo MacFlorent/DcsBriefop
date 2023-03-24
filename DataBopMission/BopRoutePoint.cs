@@ -13,7 +13,6 @@ namespace DcsBriefop.DataBopMission
 	{
 		#region Fields
 		private MizRoutePoint m_mizRoutePoint;
-		private MizBopRoutePoint m_mizBopRoutePoint;
 		#endregion
 
 		#region Properties
@@ -28,6 +27,7 @@ namespace DcsBriefop.DataBopMission
 		public int? AirdromeId { get; set; }
 		public int? HelipadId { get; set; }
 		public List<BopRouteTask> Tasks { get; set; }
+		public MizRoutePoint MizRoutePoint { get { return m_mizRoutePoint; } }
 		#endregion
 
 		#region CTOR
@@ -36,15 +36,10 @@ namespace DcsBriefop.DataBopMission
 			GroupId = iGroupId;
 			Number = iNumber;
 			m_mizRoutePoint = mizRoutePoint;
-			InitializeMizBopCustom();
-
-			TEST_CHECK();
-
 
 			Name = m_mizRoutePoint.Name;
 			Action = m_mizRoutePoint.Action;
 			Type = m_mizRoutePoint.Type;
-			Notes = m_mizBopRoutePoint.Notes;
 			AirdromeId = m_mizRoutePoint.AirdromeId;
 			HelipadId = m_mizRoutePoint.HelipadId;
 			AltitudeMeters = m_mizRoutePoint.Altitude;
@@ -72,18 +67,13 @@ namespace DcsBriefop.DataBopMission
 						Tasks.Add(new BopRouteTaskLink4(Miz, Theatre, mizRouteTask));
 				}
 			}
+
+			MizBopRoutePoint mizBopRoutePoint = Miz.MizBopCustom.MizBopRoutePoints.Where(_rp => _rp.GroupId == GroupId && _rp.Number == Number).FirstOrDefault();
+			Notes = mizBopRoutePoint?.Notes;
 		}
 		#endregion
 
 		#region Miz
-		public void TEST_CHECK()
-		{
-			if (m_mizBopRoutePoint.GroupId != GroupId || m_mizBopRoutePoint.Number != Number)
-			{
-				Log.Error($"Incoherent m_mizBopRoutePoint : {m_mizBopRoutePoint.GroupId}/{m_mizBopRoutePoint.Number}  --  {GroupId}/{Number}");
-			}
-		}
-
 		public override void ToMiz()
 		{
 			base.ToMiz();
@@ -91,9 +81,30 @@ namespace DcsBriefop.DataBopMission
 			m_mizRoutePoint.Name = Name;
 			m_mizRoutePoint.Action = Action;
 			m_mizRoutePoint.Type = Type;
-			m_mizBopRoutePoint.Notes = Notes;
 
-			TEST_CHECK();
+			ToMizBopCustom();
+		}
+
+		private void ToMizBopCustom()
+		{
+			MizBopRoutePoint mizBopRoutePoint = Miz.MizBopCustom.MizBopRoutePoints.Where(_rp => _rp.GroupId == GroupId && _rp.Number == Number).FirstOrDefault();
+			if (mizBopRoutePoint is null)
+			{
+				mizBopRoutePoint = new MizBopRoutePoint() { GroupId = GroupId, Number = Number };
+				Miz.MizBopCustom.MizBopRoutePoints.Add(mizBopRoutePoint);
+			}
+
+			mizBopRoutePoint.Notes = null;
+			bool bMizBopCustomModified = false;
+
+			if (!string.IsNullOrEmpty(Notes))
+			{
+				mizBopRoutePoint.Notes = Notes;
+				bMizBopCustomModified = true;
+			}
+
+			if (!bMizBopCustomModified)
+				Miz.MizBopCustom.MizBopRoutePoints.Remove(mizBopRoutePoint);
 		}
 
 		protected override void FinalizeFromMizInternal()
@@ -104,16 +115,6 @@ namespace DcsBriefop.DataBopMission
 
 			foreach (BopRouteTask task in Tasks)
 				task.FinalizeFromMiz();
-		}
-
-		private void InitializeMizBopCustom()
-		{
-			m_mizBopRoutePoint = Miz.MizBopCustom.MizBopRoutePoints.Where(_rp => _rp.GroupId == GroupId && _rp.Number == Number).FirstOrDefault();
-			if (m_mizBopRoutePoint is null)
-			{
-				m_mizBopRoutePoint = new MizBopRoutePoint() { GroupId = GroupId, Number = Number };
-				Miz.MizBopCustom.MizBopRoutePoints.Add(m_mizBopRoutePoint);
-			}
 		}
 		#endregion
 
@@ -175,17 +176,6 @@ namespace DcsBriefop.DataBopMission
 			m_mizRoutePoint.Y = dY;
 			m_mizRoutePoint.X = dX;
 			Coordinate = Theatre.GetCoordinate(m_mizRoutePoint.Y, m_mizRoutePoint.X);
-		}
-
-		public void RemoveMizBopCustom()
-		{
-			Miz.MizBopCustom.MizBopRoutePoints.Remove(m_mizBopRoutePoint);
-		}
-
-		public void SetNumber(int iNumber)
-		{
-			Number = iNumber;
-			m_mizBopRoutePoint.Number = iNumber;
 		}
 		#endregion
 	}

@@ -24,6 +24,7 @@ namespace DcsBriefop.DataBopMission
 
 		#region Miz
 		public virtual void ToMiz() { }
+
 		public void FinalizeFromMiz()
 		{
 			if (m_bIsFinalizedFromMiz)

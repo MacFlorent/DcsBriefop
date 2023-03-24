@@ -9,10 +9,9 @@ using System.Text;
 
 namespace DcsBriefop.DataBopMission
 {
-	internal abstract class BopAirbase : BaseBop,  IEquatable<BopAirbase>
+	internal abstract class BopAirbase : BaseBop, IEquatable<BopAirbase>
 	{
 		#region Fields
-		protected MizBopAirbase m_mizBopAirbase;
 		#endregion
 
 		#region Properties
@@ -38,21 +37,56 @@ namespace DcsBriefop.DataBopMission
 		{
 			base.ToMiz();
 
-			m_mizBopAirbase.Radios.Clear();
-			foreach (BopAirbaseRadio bopAirbaseRadio in Radios.Where(_r => !_r.Default || !string.IsNullOrEmpty(_r.Label) || !_r.Used))
-			{
-				m_mizBopAirbase.Radios.Add(new MizBopAirbaseRadio() { Radio = bopAirbaseRadio.Radio, Label = bopAirbaseRadio.Label, Used = bopAirbaseRadio.Used });
-			}
+			ToMizBopCustom();
 		}
 
-		protected void InitializeRadios(IEnumerable<Radio> defaultRadios)
+		protected void ToMizBopCustom()
+		{
+			MizBopAirbase mizBopAirbase = GetMizBopCustom();
+			if (mizBopAirbase is null)
+			{
+				mizBopAirbase = new MizBopAirbase() { Id = Id, AirbaseType = AirbaseType };
+				Miz.MizBopCustom.MizBopAirbases.Add(mizBopAirbase);
+			}
+
+			mizBopAirbase.MapMarker = null;
+			mizBopAirbase.Tacan = null;
+			mizBopAirbase.Radios.Clear();
+			bool bMizBopCustomModified = false;
+
+			if (MapMarker != GetDefaultMapMarker())
+			{
+				mizBopAirbase.MapMarker = MapMarker;
+				bMizBopCustomModified = true;
+			}
+			if (Tacan != GetDefaultTacan())
+			{
+				mizBopAirbase.Tacan = Tacan;
+				bMizBopCustomModified = true;
+			}
+			foreach (BopAirbaseRadio bopAirbaseRadio in Radios.Where(_r => !_r.Default || !string.IsNullOrEmpty(_r.Label) || !_r.Used))
+			{
+				mizBopAirbase.Radios.Add(new MizBopAirbaseRadio() { Radio = bopAirbaseRadio.Radio, Label = bopAirbaseRadio.Label, Used = bopAirbaseRadio.Used });
+				bMizBopCustomModified = true;
+			}
+
+			if (!bMizBopCustomModified)
+				Miz.MizBopCustom.MizBopAirbases.Remove(mizBopAirbase);
+		}
+
+		protected MizBopAirbase GetMizBopCustom()
+		{
+			return Miz.MizBopCustom.MizBopAirbases.Where(_a => _a.Id == Id && _a.AirbaseType == AirbaseType).FirstOrDefault();
+		}
+
+		protected void InitializeRadios(MizBopAirbase mizBopAirbase, IEnumerable<Radio> defaultRadios)
 		{
 			Radios = new List<BopAirbaseRadio>();
 			if (defaultRadios is object)
 			{
 				foreach (Radio radio in defaultRadios)
 				{
-					MizBopAirbaseRadio mizBopAirbaseRadio = m_mizBopAirbase.Radios.Where(_r => _r.Radio.Equals(radio)).FirstOrDefault();
+					MizBopAirbaseRadio mizBopAirbaseRadio = mizBopAirbase?.Radios.Where(_r => _r.Radio.Equals(radio)).FirstOrDefault();
 					Radios.Add(new BopAirbaseRadio()
 					{
 						Radio = radio,
@@ -62,15 +96,19 @@ namespace DcsBriefop.DataBopMission
 					});
 				}
 			}
-			foreach (MizBopAirbaseRadio mizBopAirbaseRadio in m_mizBopAirbase.Radios.Where(_r => !defaultRadios.Contains(_r.Radio)))
+
+			if (mizBopAirbase is not null && mizBopAirbase.Radios is not null)
 			{
-				Radios.Add(new BopAirbaseRadio()
+				foreach (MizBopAirbaseRadio mizBopAirbaseRadio in mizBopAirbase.Radios?.Where(_r => !defaultRadios.Contains(_r.Radio)))
 				{
-					Radio = mizBopAirbaseRadio.Radio,
-					Default = false,
-					Label = mizBopAirbaseRadio.Label,
-					Used = mizBopAirbaseRadio.Used
-				});
+					Radios.Add(new BopAirbaseRadio()
+					{
+						Radio = mizBopAirbaseRadio.Radio,
+						Default = false,
+						Label = mizBopAirbaseRadio.Label,
+						Used = mizBopAirbaseRadio.Used
+					});
+				}
 			}
 		}
 		#endregion
@@ -99,6 +137,16 @@ namespace DcsBriefop.DataBopMission
 				sb.AppendWithSeparator($"TACAN:{Tacan}", " ");
 
 			return sb.ToString();
+		}
+
+		protected virtual string GetDefaultMapMarker()
+		{
+			return null;
+		}
+
+		protected virtual Tacan GetDefaultTacan()
+		{
+			return null;
 		}
 
 		public GMapOverlay GetMapOverlay(Color? color)
@@ -145,48 +193,35 @@ namespace DcsBriefop.DataBopMission
 		public BopAirbaseAirdrome(Miz miz, Theatre theatre, Airdrome airdrome) : base(miz, theatre, ElementAirbaseType.Airdrome)
 		{
 			m_airdrome = airdrome;
-			InitializeMizBopCustom();
 
 			Id = m_airdrome.Id;
 			Name = m_airdrome.Name;
-			Tacan = m_mizBopAirbase.Tacan ?? m_airdrome.Tacan;
-			InitializeRadios(m_airdrome.Radios);
-			MapMarker = m_mizBopAirbase.MapMarker ?? ElementMapTemplateMarker.Airdrome;
+
+			MizBopAirbase mizBopAirbase = GetMizBopCustom();
+			Tacan = mizBopAirbase?.Tacan ?? GetDefaultTacan();
+			MapMarker = mizBopAirbase?.MapMarker ?? GetDefaultMapMarker();
+			InitializeRadios(mizBopAirbase, m_airdrome.Radios);
 		}
 		#endregion
 
 		#region Miz
-		public override void ToMiz()
-		{
-			base.ToMiz();
-
-			m_mizBopAirbase.Tacan = null;
-			if (Tacan is object && !Tacan.Equals(m_airdrome.Tacan))
-				m_mizBopAirbase.Tacan = Tacan;
-
-			m_mizBopAirbase.MapMarker = null;
-			if (MapMarker != ElementMapTemplateMarker.Airdrome)
-				m_mizBopAirbase.MapMarker = MapMarker;
-		}
-
 		protected override void FinalizeFromMizInternal()
 		{
 			base.FinalizeFromMizInternal();
 			Coordinate = new Coordinate(m_airdrome.Latitude, m_airdrome.Longitude);
 		}
-
-		private void InitializeMizBopCustom()
-		{
-			m_mizBopAirbase = Miz.MizBopCustom.MizBopAirbases.Where(_a => _a.Id == m_airdrome.Id && _a.AirbaseType == AirbaseType).FirstOrDefault();
-			if (m_mizBopAirbase is null)
-			{
-				m_mizBopAirbase = new MizBopAirbase() { Id = m_airdrome.Id, AirbaseType = AirbaseType };
-				Miz.MizBopCustom.MizBopAirbases.Add(m_mizBopAirbase);
-			}
-		}
 		#endregion
 
 		#region Methods
+		protected override string GetDefaultMapMarker()
+		{
+			return ElementMapTemplateMarker.Airdrome;
+		}
+
+		protected override Tacan GetDefaultTacan()
+		{
+			return m_airdrome.Tacan;
+		}
 		#endregion
 	}
 
@@ -205,28 +240,20 @@ namespace DcsBriefop.DataBopMission
 		public BopAirbaseShip(Miz miz, Theatre theatre, BopUnitShip bopUnitShip) : base(miz, theatre, ElementAirbaseType.Ship)
 		{
 			m_bopUnitShip = bopUnitShip;
-			InitializeMizBopCustom();
 
 			Id = m_bopUnitShip.Id;
 			Name = m_bopUnitShip.ToStringDisplayName();
-			Tacan = m_bopUnitShip.Tacan;
 			Icls = m_bopUnitShip.Icls;
 			Link4 = m_bopUnitShip.Link4;
-			InitializeRadios(new List<Radio>() { m_bopUnitShip.Radio });
-			MapMarker = m_mizBopAirbase.MapMarker ?? m_bopUnitShip.MapMarker;
+
+			MizBopAirbase mizBopAirbase = GetMizBopCustom();
+			Tacan = mizBopAirbase?.Tacan ?? GetDefaultTacan();
+			MapMarker = mizBopAirbase?.MapMarker ?? GetDefaultMapMarker();
+			InitializeRadios(mizBopAirbase, new List<Radio>() { m_bopUnitShip.Radio });
 		}
 		#endregion
 
 		#region Miz
-		public override void ToMiz()
-		{
-			base.ToMiz();
-
-			m_mizBopAirbase.MapMarker = null;
-			if (MapMarker != m_bopUnitShip.MapMarker)
-				m_mizBopAirbase.MapMarker = MapMarker;
-		}
-
 		protected override void FinalizeFromMizInternal()
 		{
 			base.FinalizeFromMizInternal();
@@ -234,28 +261,28 @@ namespace DcsBriefop.DataBopMission
 			m_bopUnitShip.FinalizeFromMiz();
 			Coordinate = m_bopUnitShip.Coordinate;
 		}
-
-		private void InitializeMizBopCustom()
-		{
-			m_mizBopAirbase = Miz.MizBopCustom.MizBopAirbases.Where(_a => _a.Id == m_bopUnitShip.Id && _a.AirbaseType == AirbaseType).FirstOrDefault();
-			if (m_mizBopAirbase is null)
-			{
-				m_mizBopAirbase = new MizBopAirbase() { Id = m_bopUnitShip.Id, AirbaseType = AirbaseType };
-				Miz.MizBopCustom.MizBopAirbases.Add(m_mizBopAirbase);
-			}
-		}
 		#endregion
 
 		#region Methods
 		public override string ToStringAdditional()
 		{
-			StringBuilder sb = new StringBuilder (base.ToStringAdditional());
+			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
 			if (Icls is object)
 				sb.AppendWithSeparator($"ICLS:{Icls}", " ");
 			if (Link4 is object)
 				sb.AppendWithSeparator($"LNK4:{Link4:###.000}", " ");
 
 			return sb.ToString();
+		}
+
+		protected override string GetDefaultMapMarker()
+		{
+			return m_bopUnitShip.MapMarker;
+		}
+
+		protected override Tacan GetDefaultTacan()
+		{
+			return m_bopUnitShip.Tacan;
 		}
 		#endregion
 	}
@@ -273,26 +300,18 @@ namespace DcsBriefop.DataBopMission
 		public BopAirbaseFarp(Miz miz, Theatre theatre, BopUnit bopUnit) : base(miz, theatre, ElementAirbaseType.Farp)
 		{
 			m_bopUnit = bopUnit;
-			InitializeMizBopCustom();
 
 			Id = m_bopUnit.Id;
 			Name = m_bopUnit.ToStringDisplayName();
-			Tacan = m_mizBopAirbase.Tacan;
-			InitializeRadios(new List<Radio>() { m_bopUnit.HeliportRadio });
-			MapMarker = m_mizBopAirbase.MapMarker ?? m_bopUnit.MapMarker;
+
+			MizBopAirbase mizBopAirbase = GetMizBopCustom();
+			Tacan = mizBopAirbase?.Tacan;
+			MapMarker = mizBopAirbase?.MapMarker ?? GetDefaultMapMarker();
+			InitializeRadios(mizBopAirbase, new List<Radio>() { m_bopUnit.HeliportRadio });
 		}
 		#endregion
 
 		#region Miz
-		public override void ToMiz()
-		{
-			base.ToMiz();
-
-			m_mizBopAirbase.MapMarker = null;
-			if (MapMarker != m_bopUnit.MapMarker)
-				m_mizBopAirbase.MapMarker = MapMarker;
-		}
-
 		protected override void FinalizeFromMizInternal()
 		{
 			base.FinalizeFromMizInternal();
@@ -300,19 +319,13 @@ namespace DcsBriefop.DataBopMission
 			m_bopUnit.FinalizeFromMiz();
 			Coordinate = m_bopUnit.Coordinate;
 		}
-
-		private void InitializeMizBopCustom()
-		{
-			m_mizBopAirbase = Miz.MizBopCustom.MizBopAirbases.Where(_a => _a.Id == m_bopUnit.Id && _a.AirbaseType == AirbaseType).FirstOrDefault();
-			if (m_mizBopAirbase is null)
-			{
-				m_mizBopAirbase = new MizBopAirbase() { Id = m_bopUnit.Id, AirbaseType = AirbaseType };
-				Miz.MizBopCustom.MizBopAirbases.Add(m_mizBopAirbase);
-			}
-		}
 		#endregion
 
 		#region Methods
+		protected override string GetDefaultMapMarker()
+		{
+			return m_bopUnit.MapMarker;
+		}
 		#endregion
 	}
 

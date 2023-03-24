@@ -141,6 +141,8 @@ namespace DcsBriefop
 			// DEBUG
 			string sDebugFilePath = Path.Combine(Path.GetDirectoryName(sFilePath), $"{MizFileName}_{Miz.BopCustomFileName}.json");
 			File.WriteAllText(sDebugFilePath, BopMission.Miz.MizBopCustom.SerializeToJson(Newtonsoft.Json.Formatting.Indented));
+			sDebugFilePath = Path.Combine(Path.GetDirectoryName(sFilePath), $"{MizFileName}_{Miz.MissionFileName}.lua");
+			File.WriteAllText(sDebugFilePath, ToolsLua.LsonRootToDcs(BopMission.Miz.RootMission.RootLua));
 			//			
 
 			if (PreferencesManager.Preferences.Briefing.GenerateOnSave)

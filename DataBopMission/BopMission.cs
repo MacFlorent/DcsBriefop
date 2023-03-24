@@ -100,6 +100,11 @@ namespace DcsBriefop.DataBopMission
 			Miz.RootMission.Date = new DateTime(Date.Year, Date.Month, Date.Day);
 			Miz.RootMission.StartTime = Convert.ToInt32((Date - Miz.RootMission.Date).TotalSeconds);
 
+			Miz.MizBopCustom.MizBopAirbases.Clear();
+			Miz.MizBopCustom.MizBopGroups.Clear();
+			Miz.MizBopCustom.MizBopUnits.Clear();
+			Miz.MizBopCustom.MizBopRoutePoints.Clear();
+
 			foreach (BopCoalition coalition in Coalitions.Values)
 			{
 				coalition.ToMiz();
@@ -131,13 +136,6 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		//public GMapOverlay GetMapOverlay()
-		//{
-		//	GMapOverlay mapOverlay = new GMapOverlay();
-		//	ToolsMap.AddMizDrawingLayers(Theatre, mapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
-		//	return mapOverlay;
-		//}
-
 		public void SetBullseyeRoutePoint()
 		{
 			foreach (BopGroupFlight bopGroupFlight in Groups.OfType<BopGroupFlight>())

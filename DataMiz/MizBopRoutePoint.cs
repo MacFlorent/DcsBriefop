@@ -1,6 +1,6 @@
 ﻿namespace DcsBriefop.DataMiz
 {
-	internal class MizBopRoutePoint : BaseMizBopWithDefault
+	internal class MizBopRoutePoint : BaseMizBopSerializable
 	{
 		#region Properties
 		public int GroupId { get; set; }
@@ -9,10 +9,6 @@
 		#endregion
 
 		#region Methods
-		public override bool IsDefaultData()
-		{
-			return string.IsNullOrEmpty(Notes);
-		}
 		#endregion
 	}
 }

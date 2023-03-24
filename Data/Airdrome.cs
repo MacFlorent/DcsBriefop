@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace DcsBriefop.Data
+﻿namespace DcsBriefop.Data
 {
 	internal class Airdrome
 	{

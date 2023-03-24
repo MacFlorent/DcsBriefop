@@ -4,7 +4,7 @@ using Zuby.ADGV;
 
 namespace DcsBriefop.Forms
 {
-	internal class GridManagerBriefingParts : GridManagerBase<BopBriefingPartBase>
+	internal class GridManagerBriefingParts : GridManagerBase<BaseBopBriefingPart>
 	{
 		#region Columns
 		public static class GridColumn
@@ -22,7 +22,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public GridManagerBriefingParts(AdvancedDataGridView dgv, IEnumerable<BopBriefingPartBase> briefingParts) : base(dgv, briefingParts) { }
+		public GridManagerBriefingParts(AdvancedDataGridView dgv, IEnumerable<BaseBopBriefingPart> briefingParts) : base(dgv, briefingParts) { }
 		#endregion
 
 		#region Methods
@@ -35,7 +35,7 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Information, typeof(string));
 		}
 
-		protected override void RefreshDataSourceRowContent(DataRow dr, BopBriefingPartBase element)
+		protected override void RefreshDataSourceRowContent(DataRow dr, BaseBopBriefingPart element)
 		{
 			base.RefreshDataSourceRowContent(dr, element);
 

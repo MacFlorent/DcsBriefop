@@ -7,6 +7,7 @@ using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Text;
 using UnitsNet;
+using UnitsNet.Units;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -14,7 +15,6 @@ namespace DcsBriefop.DataBopMission
 	{
 		#region Fields
 		protected MizUnit m_mizUnit;
-		protected MizBopUnit m_mizBopUnit;
 		protected DcsObject m_dcsObject;
 		#endregion
 
@@ -51,18 +51,18 @@ namespace DcsBriefop.DataBopMission
 				MainInGroup = m_dcsObject.MainInGroup;
 			}
 
-			InitializeMizBopCustom();
-
 			Id = m_mizUnit.Id;
 			Category = m_mizUnit.Category;
 			Name = m_mizUnit.Name;
 			Type = m_mizUnit.Type;
 			Playable = (m_mizUnit.Skill == ElementSkill.Player || m_mizUnit.Skill == ElementSkill.Client);
-			MapMarker = m_mizBopUnit.MapMarker;
 
 			if (m_mizUnit.HeliportFrequency is object)
 				HeliportRadio = new Radio(m_mizUnit.HeliportFrequency.Value, m_mizUnit.HeliportModulation ?? ElementRadioModulation.AM);
 			HeliportCallsign = BopCallsign.NewFromHeliportId(m_mizUnit.HeliportCallsignId);
+
+			MizBopUnit mizBopUnit = Miz.MizBopCustom.MizBopUnits.Where(_u => _u.Id == m_mizUnit.Id).FirstOrDefault();
+			MapMarker = mizBopUnit?.MapMarker ?? ToolsBriefop.GetDefaultMapMarker(GroupClass);
 		}
 		#endregion
 
@@ -76,9 +76,29 @@ namespace DcsBriefop.DataBopMission
 			m_mizUnit.Name = Name;
 			m_mizUnit.Type = Type;
 
-			m_mizBopUnit.MapMarker = null;
-			if (MapMarker != (m_dcsObject?.MapMarker ?? ToolsBriefop.GetDefaultMapMarker(GroupClass)))
-				m_mizBopUnit.MapMarker = MapMarker;
+			ToMizBopCustom();
+		}
+
+		protected void ToMizBopCustom()
+		{
+			MizBopUnit mizBopUnit = Miz.MizBopCustom.MizBopUnits.Where(_u => _u.Id == m_mizUnit.Id).FirstOrDefault();
+			if (mizBopUnit is null)
+			{
+				mizBopUnit = new MizBopUnit() { Id = m_mizUnit.Id };
+				Miz.MizBopCustom.MizBopUnits.Add(mizBopUnit);
+			}
+
+			mizBopUnit.MapMarker = null;
+			bool bMizBopCustomModified = false;
+
+			if (MapMarker != ToolsBriefop.GetDefaultMapMarker(GroupClass))
+			{
+				mizBopUnit.MapMarker = MapMarker;
+				bMizBopCustomModified = true;
+			}
+
+			if (!bMizBopCustomModified)
+				Miz.MizBopCustom.MizBopUnits.Remove(mizBopUnit);
 		}
 
 		protected override void FinalizeFromMizInternal()
@@ -91,17 +111,6 @@ namespace DcsBriefop.DataBopMission
 				AltitudeMeters = BopGroup.RoutePoints.FirstOrDefault()?.AltitudeMeters;
 
 			Coordinate = Theatre.GetCoordinate(m_mizUnit.Y, m_mizUnit.X);
-		}
-
-		private void InitializeMizBopCustom()
-		{
-			m_mizBopUnit = Miz.MizBopCustom.MizBopUnits.Where(_u => _u.Id == m_mizUnit.Id).FirstOrDefault();
-			if (m_mizBopUnit is null)
-			{
-				m_mizBopUnit = new MizBopUnit() { Id = m_mizUnit.Id };
-				m_mizBopUnit.MapMarker = m_dcsObject?.MapMarker ?? ToolsBriefop.GetDefaultMapMarker(GroupClass);
-				Miz.MizBopCustom.MizBopUnits.Add(m_mizBopUnit);
-			}
 		}
 		#endregion
 

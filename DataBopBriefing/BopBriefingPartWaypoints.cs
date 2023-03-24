@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DcsBriefop.DataBopBriefing
 {
-	internal class BopBriefingPartWaypoints : BopBriefingPartBase
+	internal class BopBriefingPartWaypoints : BaseBopBriefingPart
 	{
 		#region Fields
 		private static class TableColumns

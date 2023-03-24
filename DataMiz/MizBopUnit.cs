@@ -1,6 +1,6 @@
 ﻿namespace DcsBriefop.DataMiz
 {
-	internal class MizBopUnit : BaseMizBopWithDefault
+	internal class MizBopUnit : BaseMizBopSerializable
 	{
 		#region Properties
 		public int Id { get; set; }
@@ -8,13 +8,6 @@
 		#endregion
 
 		#region Methods
-		public override bool IsDefaultData()
-		{
-			if (!string.IsNullOrEmpty(MapMarker))
-				return false;
-
-			return true;
-		}
 		#endregion
 	}
 }

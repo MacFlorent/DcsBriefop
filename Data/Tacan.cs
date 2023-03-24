@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace DcsBriefop.Data
 {
@@ -51,7 +50,7 @@ namespace DcsBriefop.Data
 		{
 			if (Channel <= 0)
 				Channel = 1;
-			else if (Channel > 99)
+			else if (Channel > 999)
 				Channel = 99;
 
 			Mode = Mode.ToUpper();
@@ -60,13 +59,15 @@ namespace DcsBriefop.Data
 
 			Identifier = Identifier.Replace("[", "").Replace("]", "").Trim();
 		}
+		#endregion
 
+		#region IEquatable
 		public bool Equals(Tacan other)
 		{
 			if (other is null)
 				return false;
 
-			return (Channel == other.Channel && Mode == other.Mode && Identifier == other.Identifier);
+			return (Channel == other.Channel && Mode == other.Mode && (Identifier ?? string.Empty) == (other.Identifier ?? string.Empty));
 		}
 
 		public override bool Equals(object obj)
@@ -74,7 +75,26 @@ namespace DcsBriefop.Data
 			return Equals(obj as Tacan);
 		}
 
-		public override int GetHashCode() => (Channel, Mode, Identifier).GetHashCode();
+		public override int GetHashCode() => (Channel, Mode, Identifier ?? string.Empty).GetHashCode();
+
+		public static bool operator ==(Tacan a, Tacan b)
+		{
+			// If both are null, or both are same instance, return true.
+			if (ReferenceEquals(a, b))
+				return true;
+
+			// If one is null, but not both, return false.
+			if (a is null || b is null)
+				return false;
+
+			// Return true if the fields match:
+			return a.Equals(b);
+		}
+
+		public static bool operator !=(Tacan a, Tacan b)
+		{
+			return !(a == b);
+		}
 		#endregion
 	}
 }

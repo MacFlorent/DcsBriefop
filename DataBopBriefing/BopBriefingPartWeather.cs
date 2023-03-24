@@ -5,7 +5,7 @@ using HtmlTags;
 
 namespace DcsBriefop.DataBopBriefing
 {
-	internal class BopBriefingPartWeather : BopBriefingPartBase
+	internal class BopBriefingPartWeather : BaseBopBriefingPart
 	{
 		#region Properties
 		#endregion

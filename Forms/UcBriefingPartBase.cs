@@ -6,7 +6,7 @@ namespace DcsBriefop.Forms
 	internal partial class UcBriefingPartBase : UserControl
 	{
 		#region Fields
-		protected BopBriefingPartBase m_bopBriefingPart;
+		protected BaseBopBriefingPart m_bopBriefingPart;
 		protected BopMission m_bopMission;
 		protected UcBriefingPage m_ucBriefingPageParent;
 		#endregion
@@ -16,7 +16,7 @@ namespace DcsBriefop.Forms
 
 		#region CTOR
 		public UcBriefingPartBase() { InitializeComponent(); }
-		public UcBriefingPartBase(BopBriefingPartBase bopBriefingPart, BopMission bopMission, UcBriefingPage ucBriefingPageParent)
+		public UcBriefingPartBase(BaseBopBriefingPart bopBriefingPart, BopMission bopMission, UcBriefingPage ucBriefingPageParent)
 		{
 			m_bopBriefingPart = bopBriefingPart;
 			m_bopMission = bopMission;

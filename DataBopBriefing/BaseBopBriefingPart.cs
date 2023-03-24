@@ -9,7 +9,7 @@ using Newtonsoft.Json.Serialization;
 namespace DcsBriefop.DataBopBriefing
 {
 	[JsonConverter(typeof(BopBriefingPartAbstractConverter))]
-	internal abstract class BopBriefingPartBase : IEquatable<BopBriefingPartBase>
+	internal abstract class BaseBopBriefingPart : IEquatable<BaseBopBriefingPart>
 	{
 		#region Fields
 		protected string m_sCssClass;
@@ -21,7 +21,7 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region CTOR
-		public BopBriefingPartBase(ElementBriefingPartType partType, string sCssClass)
+		public BaseBopBriefingPart(ElementBriefingPartType partType, string sCssClass)
 		{
 			Guid = Guid.NewGuid();
 			PartType = partType;
@@ -44,7 +44,7 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region IEquatable
-		public bool Equals(BopBriefingPartBase other)
+		public bool Equals(BaseBopBriefingPart other)
 		{
 			if (other is null)
 				return false;
@@ -54,7 +54,7 @@ namespace DcsBriefop.DataBopBriefing
 
 		public override bool Equals(object obj)
 		{
-			return Equals(obj as BopBriefingPartBase);
+			return Equals(obj as BaseBopBriefingPart);
 		}
 
 		public override int GetHashCode() => Guid.GetHashCode();
@@ -66,7 +66,7 @@ namespace DcsBriefop.DataBopBriefing
 	{
 		protected override JsonConverter ResolveContractConverter(Type objectType)
 		{
-			if (typeof(BopBriefingPartBase).IsAssignableFrom(objectType) && !objectType.IsAbstract)
+			if (typeof(BaseBopBriefingPart).IsAssignableFrom(objectType) && !objectType.IsAbstract)
 				return null; // pretend TableSortRuleConvert is not specified (thus avoiding a stack overflow)
 			return base.ResolveContractConverter(objectType);
 		}
@@ -78,7 +78,7 @@ namespace DcsBriefop.DataBopBriefing
 
 		public override bool CanConvert(Type objectType)
 		{
-			return (objectType == typeof(BopBriefingPartBase));
+			return (objectType == typeof(BaseBopBriefingPart));
 		}
 
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

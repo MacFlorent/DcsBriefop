@@ -1,6 +1,6 @@
 ﻿namespace DcsBriefop.DataMiz
 {
-	internal class MizBopCoalition : BaseMizBopWithDefault
+	internal class MizBopCoalition : BaseMizBopSerializable
 	{
 		#region Properties
 		public string CoalitionName { get; set; }
@@ -10,10 +10,6 @@
 		#endregion
 
 		#region Methods
-		public override bool IsDefaultData()
-		{
-			return false;
-		}
 		#endregion
 	}
 }

@@ -1,5 +1,4 @@
-﻿using DcsBriefop.DataMiz;
-using DcsBriefop.Map;
+﻿using DcsBriefop.Map;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
@@ -110,94 +109,6 @@ namespace DcsBriefop
 			string sLabel = token[JsonNode.Label].Value<string>();
 
 			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(lat, lng), sMarkerType, tintColor, sLabel, iScale, iAngle);
-		}
-	}
-
-	internal class ListMizBopGroupJsonConverter : JsonConverter<List<MizBopGroup>>
-	{
-		public override void WriteJson(JsonWriter writer, List<MizBopGroup> value, JsonSerializer serializer)
-		{
-			if (value is object && value.Count >= 0)
-			{
-				JArray ja = new JArray();
-				foreach (MizBopGroup element in value.Where(_e => !_e.IsDefaultData()))
-				{
-					ja.Add(JToken.FromObject(element, serializer));
-				}
-
-				ja.WriteTo(writer);
-			}
-		}
-
-		public override List<MizBopGroup> ReadJson(JsonReader reader, Type objectType, List<MizBopGroup> existingValue, bool hasExistingValue, JsonSerializer serializer)
-		{
-			throw new NotImplementedException();
-		}
-	}
-
-	internal class ListMizBopUnitJsonConverter : JsonConverter<List<MizBopUnit>>
-	{
-		public override void WriteJson(JsonWriter writer, List<MizBopUnit> value, JsonSerializer serializer)
-		{
-			if (value is object && value.Count >= 0)
-			{
-				JArray ja = new JArray();
-				foreach (MizBopUnit element in value.Where(_e => !_e.IsDefaultData()))
-				{
-					ja.Add(JToken.FromObject(element, serializer));
-				}
-
-				ja.WriteTo(writer);
-			}
-		}
-
-		public override List<MizBopUnit> ReadJson(JsonReader reader, Type objectType, List<MizBopUnit> existingValue, bool hasExistingValue, JsonSerializer serializer)
-		{
-			throw new NotImplementedException();
-		}
-	}
-
-	internal class ListMizBopAirbaseJsonConverter : JsonConverter<List<MizBopAirbase>>
-	{
-		public override void WriteJson(JsonWriter writer, List<MizBopAirbase> value, JsonSerializer serializer)
-		{
-			if (value is object && value.Count >= 0)
-			{
-				JArray ja = new JArray();
-				foreach (MizBopAirbase element in value.Where(_a => !_a.IsDefaultData()))
-				{
-					ja.Add(JToken.FromObject(element, serializer));
-				}
-
-				ja.WriteTo(writer);
-			}
-		}
-
-		public override List<MizBopAirbase> ReadJson(JsonReader reader, Type objectType, List<MizBopAirbase> existingValue, bool hasExistingValue, JsonSerializer serializer)
-		{
-			throw new NotImplementedException();
-		}
-	}
-
-	internal class ListMizBopRoutePointJsonConverter : JsonConverter<List<MizBopRoutePoint>>
-	{
-		public override void WriteJson(JsonWriter writer, List<MizBopRoutePoint> value, JsonSerializer serializer)
-		{
-			if (value is object && value.Count >= 0)
-			{
-				JArray ja = new JArray();
-				foreach (MizBopRoutePoint element in value.Where(_a => !_a.IsDefaultData()))
-				{
-					ja.Add(JToken.FromObject(element, serializer));
-				}
-
-				ja.WriteTo(writer);
-			}
-		}
-
-		public override List<MizBopRoutePoint> ReadJson(JsonReader reader, Type objectType, List<MizBopRoutePoint> existingValue, bool hasExistingValue, JsonSerializer serializer)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

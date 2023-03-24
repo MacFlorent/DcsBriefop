@@ -87,10 +87,10 @@ namespace DcsBriefop.Forms
 		{
 			TpPartDetail.Controls.Clear();
 			m_ucBriefingPart = null;
-			IEnumerable<BopBriefingPartBase> selecteds = m_gridManagerBriefingParts.GetSelectedElements();
+			IEnumerable<BaseBopBriefingPart> selecteds = m_gridManagerBriefingParts.GetSelectedElements();
 			if (selecteds.Count() == 1)
 			{
-				BopBriefingPartBase selected = selecteds.First();
+				BaseBopBriefingPart selected = selecteds.First();
 				if (selected is BopBriefingPartBullseye)
 					m_ucBriefingPart = new UcBriefingPartBullseye(selected, m_bopMission, this);
 				else if (selected is BopBriefingPartParagraph)
@@ -193,7 +193,7 @@ namespace DcsBriefop.Forms
 
 		private void AddPart(ElementBriefingPartType partType)
 		{
-			BopBriefingPartBase newPart = m_bopBriefingPage.AddPart(partType);
+			BaseBopBriefingPart newPart = m_bopBriefingPage.AddPart(partType);
 			m_gridManagerBriefingParts.Refresh();
 			if (m_bopBriefingPage.Parts.Count() == 1)
 				DataToScreenPart();
@@ -203,7 +203,7 @@ namespace DcsBriefop.Forms
 
 		private void RemovePart()
 		{
-			foreach (BopBriefingPartBase partToRemove in m_gridManagerBriefingParts.GetSelectedElements())
+			foreach (BaseBopBriefingPart partToRemove in m_gridManagerBriefingParts.GetSelectedElements())
 			{
 				m_bopBriefingPage.Parts.Remove(partToRemove);
 			}
@@ -213,7 +213,7 @@ namespace DcsBriefop.Forms
 
 		private void OrderPart(int iWay)
 		{
-			BopBriefingPartBase selectedElement = m_gridManagerBriefingParts.GetSelectedElements().FirstOrDefault();
+			BaseBopBriefingPart selectedElement = m_gridManagerBriefingParts.GetSelectedElements().FirstOrDefault();
 			if (selectedElement is not null)
 			{
 				m_bopBriefingPage.OrderPart(selectedElement, iWay);

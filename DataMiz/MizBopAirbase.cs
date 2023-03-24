@@ -2,7 +2,7 @@
 
 namespace DcsBriefop.DataMiz
 {
-	internal class MizBopAirbase : BaseMizBopWithDefault
+	internal class MizBopAirbase : BaseMizBopSerializable
 	{
 		#region Properties
 		public int Id { get; set; }
@@ -13,17 +13,6 @@ namespace DcsBriefop.DataMiz
 		#endregion
 
 		#region Methods
-		public override bool IsDefaultData()
-		{
-			if (Tacan is object)
-				return false;
-			if (!string.IsNullOrEmpty(MapMarker))
-				return false;
-			if (Radios is object && Radios.Count > 0)
-				return false;
-
-			return true;
-		}
 		#endregion
 	}
 

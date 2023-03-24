@@ -162,7 +162,7 @@ namespace DcsBriefop.DataBopMission
 			if (bullseyeRoutePoint is null)
 			{
 				MizRoutePoint mizRoutePoint = MizRoutePoint.NewFromLuaTemplate();
-				bullseyeRoutePoint = new BopRoutePoint(Miz, Theatre, Id, 0, mizRoutePoint);
+				bullseyeRoutePoint = new BopRoutePoint(Miz, Theatre, Id, -1, mizRoutePoint);
 				bullseyeRoutePoint.Name = ElementGlobalData.BullseyeRoutePointName;
 				RoutePoints.Insert(1, bullseyeRoutePoint);
 				NumberRoutePoints();
@@ -176,7 +176,6 @@ namespace DcsBriefop.DataBopMission
 			BopRoutePoint bullseyeRoutePoint = GetBullseyeRoutePoint();
 			if (bullseyeRoutePoint is object)
 			{
-				bullseyeRoutePoint.RemoveMizBopCustom();
 				RoutePoints.Remove(bullseyeRoutePoint);
 			}
 
@@ -193,8 +192,7 @@ namespace DcsBriefop.DataBopMission
 			int iNumber = 0;
 			foreach (BopRoutePoint rp in RoutePoints)
 			{
-				rp.SetNumber(iNumber);
-				rp.TEST_CHECK();
+				rp.Number = iNumber;
 				iNumber++;
 			}
 		}

@@ -1,6 +1,7 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Forms;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
@@ -14,7 +15,6 @@ namespace DcsBriefop.DataBopMission
 	{
 		#region Fields
 		protected MizGroup m_mizGroup;
-		protected MizBopGroup m_mizBopGroup;
 		#endregion
 
 		#region Properties
@@ -46,7 +46,6 @@ namespace DcsBriefop.DataBopMission
 			DcsGroupType = sDcsGroupType;
 			GroupClass = groupClass;
 			m_mizGroup = mizGroup;
-			InitializeMizBopCustom();
 
 			Attributes = ElementDcsObjectAttribute.None;
 
@@ -71,7 +70,9 @@ namespace DcsBriefop.DataBopMission
 			GroupClass = MainUnit?.GroupClass ?? GroupClass;
 			Attributes = Units.Aggregate<BopUnit, ElementDcsObjectAttribute>(0, (currentAttributes, _bopUnit) => currentAttributes | _bopUnit.Attributes);
 			Type = string.Join(",", Units.GroupBy(_u => _u.Type).Select(_g => _g.Key));
-			MapMarker = m_mizBopGroup?.MapMarker ?? MainUnit.MapMarker;
+
+			MizBopGroup mizBopGroup = Miz.MizBopCustom.MizBopGroups.Where(_u => _u.Id == m_mizGroup.Id).FirstOrDefault();
+			MapMarker = mizBopGroup?.MapMarker ?? MainUnit.MapMarker;
 		}
 		#endregion
 
@@ -88,14 +89,37 @@ namespace DcsBriefop.DataBopMission
 			{
 				bopUnit.ToMiz();
 			}
+
+			m_mizGroup.RoutePoints.Clear();
 			foreach (BopRoutePoint bopRoutePoint in RoutePoints)
 			{
 				bopRoutePoint.ToMiz();
+				m_mizGroup.RoutePoints.Add(bopRoutePoint.MizRoutePoint);
 			}
 
-			m_mizBopGroup.MapMarker = null;
+			ToMizBopCustom();
+		}
+
+		protected void ToMizBopCustom()
+		{
+			MizBopGroup mizBopGroup = Miz.MizBopCustom.MizBopGroups.Where(_u => _u.Id == m_mizGroup.Id).FirstOrDefault();
+			if (mizBopGroup is null)
+			{
+				mizBopGroup = new MizBopGroup() { Id = m_mizGroup.Id };
+				Miz.MizBopCustom.MizBopGroups.Add(mizBopGroup);
+			}
+
+			mizBopGroup.MapMarker = null;
+			bool bMizBopCustomModified = false;
+
 			if (MapMarker != MainUnit.MapMarker)
-				m_mizBopGroup.MapMarker = MapMarker;
+			{
+				mizBopGroup.MapMarker = MapMarker;
+				bMizBopCustomModified = true;
+			}
+
+			if (!bMizBopCustomModified)
+				Miz.MizBopCustom.MizBopGroups.Remove(mizBopGroup);
 		}
 
 		protected virtual void FromMizUnits()
@@ -127,16 +151,6 @@ namespace DcsBriefop.DataBopMission
 			foreach (BopRoutePoint bopRoutePoint in RoutePoints)
 			{
 				bopRoutePoint.FinalizeFromMiz();
-			}
-		}
-
-		private void InitializeMizBopCustom()
-		{
-			m_mizBopGroup = Miz.MizBopCustom.MizBopGroups.Where(_u => _u.Id == m_mizGroup.Id).FirstOrDefault();
-			if (m_mizBopGroup is null)
-			{
-				m_mizBopGroup = new MizBopGroup() { Id = m_mizGroup.Id };
-				Miz.MizBopCustom.MizBopGroups.Add(m_mizBopGroup);
 			}
 		}
 		#endregion

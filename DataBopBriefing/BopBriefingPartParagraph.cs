@@ -5,7 +5,7 @@ using HtmlTags;
 
 namespace DcsBriefop.DataBopBriefing
 {
-	internal class BopBriefingPartParagraph : BopBriefingPartBase
+	internal class BopBriefingPartParagraph : BaseBopBriefingPart
 	{
 		#region Properties
 		public string Header { get; set; }
@@ -35,7 +35,7 @@ namespace DcsBriefop.DataBopBriefing
 		}
 	}
 
-	internal class BopBriefingPartSortie : BopBriefingPartBase
+	internal class BopBriefingPartSortie : BaseBopBriefingPart
 	{
 		public BopBriefingPartSortie() : base(ElementBriefingPartType.Sortie, "content") { }
 
@@ -51,7 +51,7 @@ namespace DcsBriefop.DataBopBriefing
 		}
 	}
 
-	internal class BopBriefingPartDescription : BopBriefingPartBase
+	internal class BopBriefingPartDescription : BaseBopBriefingPart
 	{
 		public BopBriefingPartDescription() : base(ElementBriefingPartType.Description, "content") { }
 
@@ -69,7 +69,7 @@ namespace DcsBriefop.DataBopBriefing
 		}
 	}
 
-	internal class BopBriefingPartTask : BopBriefingPartBase
+	internal class BopBriefingPartTask : BaseBopBriefingPart
 	{
 		public BopBriefingPartTask() : base(ElementBriefingPartType.Task, "content") { }
 

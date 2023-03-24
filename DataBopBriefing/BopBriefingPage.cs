@@ -22,7 +22,7 @@ namespace DcsBriefop.DataBopBriefing
 		public ElementBriefingPageRender Render { get; set; } = (ElementBriefingPageRender.Map | ElementBriefingPageRender.Html);
 		public bool MapIncludeBaseOverlays { get; set; } = true;
 
-		public List<BopBriefingPartBase> Parts { get; set; } = new List<BopBriefingPartBase>();
+		public List<BaseBopBriefingPart> Parts { get; set; } = new List<BaseBopBriefingPart>();
 		public MizBopMap MapData { get; set; } = new MizBopMap();
 		#endregion
 
@@ -34,9 +34,9 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Methods
-		public BopBriefingPartBase AddPart(ElementBriefingPartType briefingPartType)
+		public BaseBopBriefingPart AddPart(ElementBriefingPartType briefingPartType)
 		{
-			BopBriefingPartBase bopBriefingPart = null;
+			BaseBopBriefingPart bopBriefingPart = null;
 
 			if (briefingPartType == ElementBriefingPartType.Bullseye)
 				bopBriefingPart = new BopBriefingPartBullseye();
@@ -70,7 +70,7 @@ namespace DcsBriefop.DataBopBriefing
 			return bopBriefingPart;
 		}
 
-		public void OrderPart(BopBriefingPartBase bopBriefingPart, int iWay)
+		public void OrderPart(BaseBopBriefingPart bopBriefingPart, int iWay)
 		{
 			if (iWay < 0)
 				iWay = -1;
@@ -135,7 +135,7 @@ namespace DcsBriefop.DataBopBriefing
 				tag.Add("div").AddClass("header").Add("h1").AppendText(Title);
 			}
 
-			foreach (BopBriefingPartBase part in Parts)
+			foreach (BaseBopBriefingPart part in Parts)
 			{
 				HtmlTag tagPart = part.BuildHtml(bopMission, bopBriefingFolder);
 				if (tagPart is object)
@@ -168,7 +168,7 @@ namespace DcsBriefop.DataBopBriefing
 				}
 			}
 
-			foreach (BopBriefingPartBase bopBriefingPart in Parts)
+			foreach (BaseBopBriefingPart bopBriefingPart in Parts)
 			{
 				IEnumerable<GMapOverlay> partOverlays = bopBriefingPart.BuildMapOverlays(bopMission, bopBriefingFolder);
 				if (partOverlays is not null)
