@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
-using DcsBriefop.Tools;
 using System.Data;
 using Zuby.ADGV;
 

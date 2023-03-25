@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
+using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 using GMap.NET.WindowsForms;
 using HtmlTags;
@@ -12,43 +13,48 @@ namespace DcsBriefop.DataBopBriefing
 		#region Fields
 		private static class TableColumns
 		{
-			public static readonly string Number = "Name";
+			public static readonly string Number = "Number";
 			public static readonly string Name = "Name";
 			public static readonly string Type = "Type";
-			public static readonly string Radio = "Radio";
+			public static readonly string Altitude = "Altitude";
+			public static readonly string Task = "Task";
 			public static readonly string Notes = "Notes";
 		}
 		public static List<string> AvailableTableColumns = new()
 		{
+			TableColumns.Number,
 			TableColumns.Name,
 			TableColumns.Type,
-			TableColumns.Radio,
+			TableColumns.Altitude,
+			TableColumns.Task,
 			TableColumns.Notes
 		};
 		#endregion
 
 		#region Properties
 		public string Header { get; set; }
-		public List<BopBriefingPartAirbase> Airbases { get; set; } = new();
+		public int GroupId { get; set; }
+		public bool DisplayGroupName { get; set; }
 		public List<string> SelectedTableColumns { get; set; } = new();
 		#endregion
 
 		#region CTOR
-		public BopBriefingPartWaypoints() : base(ElementBriefingPartType.Airbases, "table") { }
+		public BopBriefingPartWaypoints() : base(ElementBriefingPartType.Waypoints, "table") { }
 		#endregion
 
 		#region Methods
 		public override void InitializeDefault()
 		{
 			base.InitializeDefault();
-			SelectedTableColumns.AddRange(new List<string> { TableColumns.Name, TableColumns.Radio, TableColumns.Notes });
+			DisplayGroupName = true;
+			SelectedTableColumns.AddRange(new List<string> { TableColumns.Number, TableColumns.Altitude, TableColumns.Notes });
 		}
 
 		public override string ToStringAdditional()
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.AppendWithSeparator(Header, " ");
-			sb.AppendWithSeparator($"{Airbases.Count} airbases", " - ");
+			sb.AppendWithSeparator($"group {GroupId}", " - ");
 			return sb.ToString();
 		}
 
@@ -56,9 +62,15 @@ namespace DcsBriefop.DataBopBriefing
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
 
+			BopGroup bopGroup = bopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
+
 			if (!string.IsNullOrEmpty(Header))
 			{
 				tags.Add(new HtmlTag("h2").Append(Header.HtmlLineBreaks()));
+			}
+			if (bopGroup is not null && DisplayGroupName)
+			{
+				tags.Add(new HtmlTag("h2").AppendText($"Waypoints: {bopGroup.ToStringDisplayName()}"));
 			}
 
 			IEnumerable<string> columns = GetColumns();
@@ -66,43 +78,56 @@ namespace DcsBriefop.DataBopBriefing
 			HtmlTag tagThead = tagTable.Add("thead");
 			foreach (string sColumn in columns)
 			{
-				tagThead.Add("td").AddClass("header").AppendText(sColumn);
+				string sTableHeader = sColumn;
+				if (sTableHeader == TableColumns.Altitude)
+					sTableHeader = $"{sColumn} {ToolsBriefop.GetUnitAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem)}";
+
+				tagThead.Add("td").AddClass("header").AppendText(sTableHeader);
 			}
 
-			foreach (BopAirbase bopAirbase in GetBopAirbases(bopMission))
+			if (bopGroup is not null)
 			{
-				if (bopAirbase is object)
+				bopGroup.FinalizeFromMiz();
+				foreach(BopRoutePoint bopRoutePoint in bopGroup.RoutePoints)
 				{
-					bopAirbase.FinalizeFromMiz();
-
 					HtmlTag tagTr = tagTable.Add("tr");
 					foreach (string sColumn in columns)
 					{
-						if (sColumn == TableColumns.Name)
-							tagTr.Add("td").AppendText(bopAirbase.Name);
+						if (sColumn == TableColumns.Number)
+							tagTr.Add("td").AppendText(bopRoutePoint.Number.ToString());
+						else if (sColumn == TableColumns.Name)
+							tagTr.Add("td").AppendText(bopRoutePoint.Name);
 						else if (sColumn == TableColumns.Type)
-							tagTr.Add("td").AppendText(bopAirbase.AirbaseType.ToString());
-						else if (sColumn == TableColumns.Radio)
-							tagTr.Add("td").AppendText(bopAirbase.ToStringRadios());
+							tagTr.Add("td").AppendText(bopRoutePoint.Type);
+						else if (sColumn == TableColumns.Altitude)
+							tagTr.Add("td").AppendText($"{bopRoutePoint.GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}");
+						else if (sColumn == TableColumns.Task)
+							tagTr.Add("td").AppendText(bopRoutePoint.Tasks.FirstOrDefault()?.ToStringDisplayName());
 						else if (sColumn == TableColumns.Notes)
-							tagTr.Add("td").AppendText(bopAirbase.ToStringAdditional());
-
+							tagTr.Add("td").AppendText(bopRoutePoint.Notes);
 					}
 				}
 			}
 
+			//HtmlTag tagCanvas = new HtmlTag("canvas").Attr("width", "100%").Id("myCanvas");
+			//HtmlTag tagScript = new HtmlTag("script");
+			//tagScript.AppendHtml("var c = document.getElementById(\"myCanvas\");var ctx = c.getContext(\"2d\");ctx.moveTo(0,0);ctx.fillStyle = \"#FF0000\";ctx.fillRect(0, 0, 150, 75);");
+
 			tags.Add(tagTable);
+
+			//tags.Add(tagCanvas);
+			//tags.Add(tagScript);
 			return tags;
 		}
 
 		public override IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
 			List<GMapOverlay> partOverlays = new List<GMapOverlay>();
-			foreach (BopAirbase bopAirbase in GetBopAirbases(bopMission))
-			{
-				bopAirbase.FinalizeFromMiz();
-				partOverlays.Add(bopAirbase.GetMapOverlay(ToolsBriefop.GetCoalitionColor(bopBriefingFolder.CoalitionName)));
-			}
+			BopGroup bopGroup = bopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
+			bopGroup.FinalizeFromMiz();
+
+			partOverlays.Add(bopGroup.GetMapOverlayRoute(null, ElementMapOverlayRouteDisplay.PointLabelLight));
+			
 			return partOverlays;
 		}
 
@@ -112,27 +137,6 @@ namespace DcsBriefop.DataBopBriefing
 				return AvailableTableColumns.Where(_c => SelectedTableColumns.Contains(_c));
 			else
 				return AvailableTableColumns;
-		}
-
-		public List<BopAirbase> GetBopAirbases(BopMission bopMission)
-		{
-			List<BopAirbase> elements = new List<BopAirbase>();
-			foreach (BopBriefingPartAirbase airbase in Airbases)
-			{
-				BopAirbase bopAirbase = bopMission.Airbases.Where(_ba => _ba.Id == airbase.Id && _ba.AirbaseType == airbase.AirbaseType).FirstOrDefault();
-				if (bopAirbase is not null)
-				{
-					elements.Add(bopAirbase);
-				}
-			}
-			return elements;
-		}
-
-		public void SetBopAirbases(IEnumerable<BopAirbase> bopAirbases)
-		{
-			Airbases.Clear();
-			foreach (BopAirbase bopAirbase in bopAirbases)
-				Airbases.Add(new BopBriefingPartAirbase() { Id = bopAirbase.Id, AirbaseType = bopAirbase.AirbaseType });
 		}
 		#endregion
 	}

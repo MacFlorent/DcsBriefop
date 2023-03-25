@@ -60,41 +60,6 @@ namespace DcsBriefop.DataBopBriefing
 			return sb.ToString();
 		}
 
-		//public static void GetPartGroupTypeDataGrid(out List<string> gridColumns, out List<BopGroupOrUnit> availableGroupOrUnits, ElementBriefingPartGroupType partGroupType, BopMission bopMission)
-		//{
-		//	availableGroupOrUnits = bopMission.GetGroupOrUnits();
-
-		//	if (partGroupType == ElementBriefingPartGroupType.GroupsOnly)
-		//	{
-		//		gridColumns = new List<string>() { GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes };
-		//		availableGroupOrUnits = availableGroupOrUnits.Where(_gou => _gou.GroupOrUnit == ElementGroupOrUnit.Group).ToList();
-		//	}
-		//	else if (partGroupType == ElementBriefingPartGroupType.UnitsOnly)
-		//	{
-		//		gridColumns = new List<string>() { GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Group, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes };
-		//		availableGroupOrUnits = availableGroupOrUnits.Where(_gou => _gou.GroupOrUnit == ElementGroupOrUnit.Unit).ToList();
-		//	}
-		//	else
-		//	{
-		//		gridColumns = new List<string>() { GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.GroupOrUnit, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Group, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes };
-		//	}
-		//}
-
-		//public static List<string> GetPartGroupTypeDataHtml(ElementBriefingPartGroupType partGroupType)
-		//{
-		//	List<string> htmlColumns;
-		//	if (partGroupType == ElementBriefingPartGroupType.GroupsOnly)
-		//	{
-		//		htmlColumns = new List<string> { TableColumns.Coalition, TableColumns.Name, TableColumns.Type, TableColumns.Notes };
-		//	}
-		//	else
-		//	{
-		//		htmlColumns = new List<string> { TableColumns.Coalition, TableColumns.GroupName, TableColumns.Name, TableColumns.Type, TableColumns.Notes };
-		//	}
-
-		//	return htmlColumns;
-		//}
-
 		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();

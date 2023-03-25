@@ -100,10 +100,8 @@ namespace DcsBriefop.DataBopBriefing
 				return DeserializeConcreteBriefingPart<BopBriefingPartAirbases>(jo);
 			else if (partType == ElementBriefingPartType.Groups)
 				return DeserializeConcreteBriefingPart<BopBriefingPartGroups>(jo);
-			//else if (partType == ElementBriefingPartType.Units)
-			//	return DeserializeConcreteBriefingPart<BopBriefingPartAirbases>(jo);
-			//else if (partType == ElementBriefingPartType.Waypoints)
-			//	return DeserializeConcreteBriefingPart<BopBriefingPartAirbases>(jo);
+			else if (partType == ElementBriefingPartType.Waypoints)
+				return DeserializeConcreteBriefingPart<BopBriefingPartWaypoints>(jo);
 			//else if (partType == ElementBriefingPartType.Image)
 			//	return DeserializeConcreteBriefingPart<BopBriefingPartAirbases>(jo);
 			else if (partType == ElementBriefingPartType.Weather)

@@ -13,6 +13,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Resources\canvas.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="icon256.ico" />
   </ItemGroup>
 
@@ -29,6 +33,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Forms\UcBriefingPartWaypoints.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Forms\UcBriefingPartGroups.cs">
       <SubType>UserControl</SubType>
     </Compile>

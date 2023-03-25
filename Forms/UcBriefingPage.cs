@@ -99,6 +99,8 @@ namespace DcsBriefop.Forms
 					m_ucBriefingPart = new UcBriefingPartAirbases(selected, m_bopMission, this);
 				else if (selected is BopBriefingPartGroups)
 					m_ucBriefingPart = new UcBriefingPartGroups(selected, m_bopMission, this);
+				else if (selected is BopBriefingPartWaypoints)
+					m_ucBriefingPart = new UcBriefingPartWaypoints(selected, m_bopMission, this);
 
 				if (m_ucBriefingPart is object)
 				{
@@ -257,6 +259,16 @@ namespace DcsBriefop.Forms
 			RemovePart();
 		}
 
+		private void BtPartOrderUp_Click(object sender, EventArgs e)
+		{
+			OrderPart(-1);
+		}
+
+		private void BtPartOrderDown_Click(object sender, EventArgs e)
+		{
+			OrderPart(1);
+		}
+
 		private void CkMapIncludeBaseOverlays_CheckedChanged(object sender, EventArgs e)
 		{
 			ScreenToDataMap();
@@ -277,15 +289,5 @@ namespace DcsBriefop.Forms
 
 		#endregion
 
-
-		private void BtPartOrderUp_Click(object sender, EventArgs e)
-		{
-			OrderPart(-1);
-		}
-
-		private void BtPartOrderDown_Click(object sender, EventArgs e)
-		{
-			OrderPart(1);
-		}
 	}
 }
