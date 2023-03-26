@@ -31,6 +31,8 @@ namespace DcsBriefop.Forms
 			BopBriefingPartWaypoints briefingPart = m_bopBriefingPart as BopBriefingPartWaypoints;
 			TbHeader.Text = briefingPart.Header;
 			CkDisplayGroupName.Checked = briefingPart.DisplayGroupName;
+			CkIncludeBullseye.Checked = briefingPart.IncludeBullseye;
+			CkDisplayGraph.Checked = briefingPart.DisplayGraph;
 			CbGroup.SelectedValue = briefingPart.GroupId;
 
 			for (int i = 0; i < LstColumns.Items.Count; i++)
@@ -46,6 +48,8 @@ namespace DcsBriefop.Forms
 			BopBriefingPartWaypoints briefingPart = m_bopBriefingPart as BopBriefingPartWaypoints;
 			briefingPart.Header = TbHeader.Text;
 			briefingPart.DisplayGroupName = CkDisplayGroupName.Checked;
+			briefingPart.IncludeBullseye = CkIncludeBullseye.Checked;
+			briefingPart.DisplayGraph = CkDisplayGraph.Checked;
 			briefingPart.GroupId = (CbGroup.SelectedValue as int?).GetValueOrDefault(-1);
 
 			briefingPart.SelectedTableColumns.Clear();

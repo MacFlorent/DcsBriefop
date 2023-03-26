@@ -113,6 +113,7 @@ namespace DcsBriefop.DataBopBriefing
 		{
 			HtmlTags.HtmlDocument html = new();
 			html.Head.Append(BuildHtmlStyle());
+			html.Head.Append(BuildHtmlScript());
 			html.Body.Append(BuildHtmlWrapper(bopMission, bopBriefingFolder));
 
 			return html;
@@ -122,6 +123,13 @@ namespace DcsBriefop.DataBopBriefing
 		{
 			HtmlTag tag = new("style");
 			string sStyle = ToolsResources.GetTextResourceContent("briefingTemplate", "css");
+			return tag.AppendHtml(sStyle);
+		}
+
+		private HtmlTag BuildHtmlScript()
+		{
+			HtmlTag tag = new("script");
+			string sStyle = ToolsResources.GetTextResourceContent("briefingTemplate", "js");
 			return tag.AppendHtml(sStyle);
 		}
 

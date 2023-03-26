@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
-using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 using GMap.NET.WindowsForms;
 using HtmlTags;
@@ -35,6 +34,8 @@ namespace DcsBriefop.DataBopBriefing
 		public string Header { get; set; }
 		public int GroupId { get; set; }
 		public bool DisplayGroupName { get; set; }
+		public bool DisplayGraph { get; set; }
+		public bool IncludeBullseye { get; set; }
 		public List<string> SelectedTableColumns { get; set; } = new();
 		#endregion
 
@@ -47,6 +48,8 @@ namespace DcsBriefop.DataBopBriefing
 		{
 			base.InitializeDefault();
 			DisplayGroupName = true;
+			IncludeBullseye = false;
+			DisplayGraph = false;
 			SelectedTableColumns.AddRange(new List<string> { TableColumns.Number, TableColumns.Altitude, TableColumns.Notes });
 		}
 
@@ -63,6 +66,11 @@ namespace DcsBriefop.DataBopBriefing
 			List<HtmlTag> tags = new List<HtmlTag>();
 
 			BopGroup bopGroup = bopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
+			if (bopGroup is null)
+				return tags;
+
+			bopGroup.FinalizeFromMiz();
+			IEnumerable<BopRoutePoint> bopRoutePoints = bopGroup.RoutePoints.Where(_brp => IncludeBullseye || _brp.Name != ElementGlobalData.BullseyeRoutePointName);
 
 			if (!string.IsNullOrEmpty(Header))
 			{
@@ -80,15 +88,14 @@ namespace DcsBriefop.DataBopBriefing
 			{
 				string sTableHeader = sColumn;
 				if (sTableHeader == TableColumns.Altitude)
-					sTableHeader = $"{sColumn} {ToolsBriefop.GetUnitAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem)}";
+					sTableHeader = $"{sColumn} {ToolsBriefop.GetUnitAltitude(bopBriefingFolder.MeasurementSystem)}";
 
 				tagThead.Add("td").AddClass("header").AppendText(sTableHeader);
 			}
 
-			if (bopGroup is not null)
+			if (bopRoutePoints is not null)
 			{
-				bopGroup.FinalizeFromMiz();
-				foreach(BopRoutePoint bopRoutePoint in bopGroup.RoutePoints)
+				foreach(BopRoutePoint bopRoutePoint in bopRoutePoints)
 				{
 					HtmlTag tagTr = tagTable.Add("tr");
 					foreach (string sColumn in columns)
@@ -100,7 +107,7 @@ namespace DcsBriefop.DataBopBriefing
 						else if (sColumn == TableColumns.Type)
 							tagTr.Add("td").AppendText(bopRoutePoint.Type);
 						else if (sColumn == TableColumns.Altitude)
-							tagTr.Add("td").AppendText($"{bopRoutePoint.GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}");
+							tagTr.Add("td").AppendText($"{bopRoutePoint.GetAltitude(bopBriefingFolder.MeasurementSystem):0}");
 						else if (sColumn == TableColumns.Task)
 							tagTr.Add("td").AppendText(bopRoutePoint.Tasks.FirstOrDefault()?.ToStringDisplayName());
 						else if (sColumn == TableColumns.Notes)
@@ -109,15 +116,65 @@ namespace DcsBriefop.DataBopBriefing
 				}
 			}
 
-			//HtmlTag tagCanvas = new HtmlTag("canvas").Attr("width", "100%").Id("myCanvas");
-			//HtmlTag tagScript = new HtmlTag("script");
-			//tagScript.AppendHtml("var c = document.getElementById(\"myCanvas\");var ctx = c.getContext(\"2d\");ctx.moveTo(0,0);ctx.fillStyle = \"#FF0000\";ctx.fillRect(0, 0, 150, 75);");
-
 			tags.Add(tagTable);
 
-			//tags.Add(tagCanvas);
-			//tags.Add(tagScript);
+			if (DisplayGraph && bopRoutePoints is not null)
+				tags.AddRange(BuildHtmlContentGraph(bopMission, bopBriefingFolder, bopRoutePoints));
+			
 			return tags;
+		}
+
+		private List<HtmlTag> BuildHtmlContentGraph(BopMission bopMission, BopBriefingFolder bopBriefingFolder, IEnumerable<BopRoutePoint> bopRoutePoints)
+		{
+			List<HtmlTag> tags = new List<HtmlTag>();
+			BopGroup bopGroup = bopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
+
+			string sCanvasName = "myCanvas";
+			HtmlTag tagCanvas = new HtmlTag("canvas")
+				.Attr("width", $"{bopBriefingFolder.ImageSize.Width}")
+				.Attr("height", $"{bopBriefingFolder.ImageSize.Height / 5}")
+				.Attr("style", $"border:1px solid #000000;")
+				.Id(sCanvasName);
+			HtmlTag tagScript = new HtmlTag("script");
+			string sScript =
+$$"""
+	var canvas = document.getElementById("{{sCanvasName}}");
+	var ctx = canvas.getContext("2d");
+	ctx.fillStyle = "white";
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+	var myLineChart = new LineChart({
+	canvasId: "{{sCanvasName}}",
+	minX: 0,
+	minY: 0,
+	maxX: {{bopRoutePoints.Max(_brp => _brp.Number)}},
+	maxY: {{bopRoutePoints.Max(_brp => _brp.GetAltitude(bopBriefingFolder.MeasurementSystem)) + 100}},
+	unitsPerTickX: 1,
+	unitsPerTickY: 10000
+	});
+	var data = [
+	{{BuildHtmlContentGraphPoints(bopMission, bopBriefingFolder, bopRoutePoints)}}
+	];
+	myLineChart.drawLine(data, "red", 3);
+""";
+
+			tagScript.AppendHtml(sScript);
+			tags.Add(tagCanvas);
+			tags.Add(tagScript);
+			return tags;
+		}
+
+		private string BuildHtmlContentGraphPoints(BopMission bopMission, BopBriefingFolder bopBriefingFolder, IEnumerable<BopRoutePoint> bopRoutePoints)
+		{
+			StringBuilder sb = new StringBuilder();
+			BopGroup bopGroup = bopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
+			
+			foreach (BopRoutePoint brp in bopRoutePoints)
+			{
+				sb.AppendWithSeparator($$"""{ x: {{brp.Number}}, y: {{brp.GetAltitude(bopBriefingFolder.MeasurementSystem)}} }""", ",");
+			}
+
+			return sb.ToString();
 		}
 
 		public override IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission, BopBriefingFolder bopBriefingFolder)

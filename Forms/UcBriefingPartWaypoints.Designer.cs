@@ -34,6 +34,8 @@
 			LbHeader = new Label();
 			TbHeader = new TextBox();
 			LstColumns = new CheckedListBox();
+			CkIncludeBullseye = new CheckBox();
+			CkDisplayGraph = new CheckBox();
 			SuspendLayout();
 			// 
 			// CkDisplayGroupName
@@ -91,10 +93,32 @@
 			LstColumns.Size = new Size(574, 130);
 			LstColumns.TabIndex = 7;
 			// 
+			// CkIncludeBullseye
+			// 
+			CkIncludeBullseye.AutoSize = true;
+			CkIncludeBullseye.Location = new Point(202, 29);
+			CkIncludeBullseye.Name = "CkIncludeBullseye";
+			CkIncludeBullseye.Size = new Size(132, 19);
+			CkIncludeBullseye.TabIndex = 8;
+			CkIncludeBullseye.Text = "Include Bullseye WP";
+			CkIncludeBullseye.UseVisualStyleBackColor = true;
+			// 
+			// CkDisplayGraph
+			// 
+			CkDisplayGraph.AutoSize = true;
+			CkDisplayGraph.Location = new Point(340, 29);
+			CkDisplayGraph.Name = "CkDisplayGraph";
+			CkDisplayGraph.Size = new Size(98, 19);
+			CkDisplayGraph.TabIndex = 9;
+			CkDisplayGraph.Text = "Display graph";
+			CkDisplayGraph.UseVisualStyleBackColor = true;
+			// 
 			// UcBriefingPartWaypoints
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(CkDisplayGraph);
+			Controls.Add(CkIncludeBullseye);
 			Controls.Add(LstColumns);
 			Controls.Add(TbHeader);
 			Controls.Add(LbHeader);
@@ -114,5 +138,7 @@
 		private Label LbHeader;
 		private TextBox TbHeader;
 		private CheckedListBox LstColumns;
+		private CheckBox CkIncludeBullseye;
+		private CheckBox CkDisplayGraph;
 	}
 }
