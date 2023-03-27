@@ -7,7 +7,7 @@ namespace DcsBriefop.Forms
 	{
 		#region Fields
 		protected BaseBopBriefingPart m_bopBriefingPart;
-		protected BopMission m_bopMission;
+		protected BriefopManager m_bopManager;
 		protected UcBriefingPage m_ucBriefingPageParent;
 		#endregion
 
@@ -16,10 +16,10 @@ namespace DcsBriefop.Forms
 
 		#region CTOR
 		public UcBriefingPartBase() { InitializeComponent(); }
-		public UcBriefingPartBase(BaseBopBriefingPart bopBriefingPart, BopMission bopMission, UcBriefingPage ucBriefingPageParent)
+		public UcBriefingPartBase(BaseBopBriefingPart bopBriefingPart, BriefopManager bopManager, UcBriefingPage ucBriefingPageParent)
 		{
 			m_bopBriefingPart = bopBriefingPart;
-			m_bopMission = bopMission;
+			m_bopManager = bopManager;
 			m_ucBriefingPageParent = ucBriefingPageParent;
 		}
 		#endregion

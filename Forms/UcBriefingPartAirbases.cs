@@ -13,7 +13,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcBriefingPartAirbases(BaseBopBriefingPart bopBriefingPart, BopMission bopMission, UcBriefingPage ucBriefingPageParent) : base(bopBriefingPart, bopMission, ucBriefingPageParent)
+		public UcBriefingPartAirbases(BaseBopBriefingPart bopBriefingPart, BriefopManager bopManager, UcBriefingPage ucBriefingPageParent) : base(bopBriefingPart, bopManager, ucBriefingPageParent)
 		{
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
@@ -33,7 +33,7 @@ namespace DcsBriefop.Forms
 			BopBriefingPartAirbases briefingPart = m_bopBriefingPart as BopBriefingPartAirbases;
 			TbHeader.Text = briefingPart.Header;
 
-			m_selectedAirbases = briefingPart.GetBopAirbases(m_bopMission);
+			m_selectedAirbases = briefingPart.GetBopAirbases(m_bopManager.BopMission);
 			RefreshMultiGrids();
 
 			for (int i = 0; i < LstColumns.Items.Count; i++)
@@ -55,7 +55,7 @@ namespace DcsBriefop.Forms
 
 		private void RefreshMultiGrids()
 		{
-			m_gmMultiAvailable.Elements = m_bopMission.Airbases.Where(_ba => !m_selectedAirbases.Contains(_ba));
+			m_gmMultiAvailable.Elements = m_bopManager.BopMission.Airbases.Where(_ba => !m_selectedAirbases.Contains(_ba));
 			m_gmMultiSelected.Elements = m_selectedAirbases;
 			m_gmMultiAvailable.Refresh();
 			m_gmMultiSelected.Refresh();
@@ -122,7 +122,7 @@ namespace DcsBriefop.Forms
 		private void BtMultiAddAll_Click(object sender, EventArgs e)
 		{
 			m_selectedAirbases.Clear();
-			m_selectedAirbases.AddRange(m_bopMission.Airbases);
+			m_selectedAirbases.AddRange(m_bopManager.BopMission.Airbases);
 			RefreshMultiGrids();
 		}
 

@@ -19,7 +19,7 @@ namespace DcsBriefop.DataBopBriefing
 			return Header ?? "";
 		}
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
 			if (!string.IsNullOrEmpty(Header))
@@ -39,12 +39,12 @@ namespace DcsBriefop.DataBopBriefing
 	{
 		public BopBriefingPartSortie() : base(ElementBriefingPartType.Sortie, "content") { }
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
-			if (!string.IsNullOrEmpty(bopMission.Sortie))
+			if (!string.IsNullOrEmpty(bopManager.BopMission.Sortie))
 			{
-				tags.Add(new HtmlTag("h2").Append(bopMission.Sortie.HtmlLineBreaks()));
+				tags.Add(new HtmlTag("h2").Append(bopManager.BopMission.Sortie.HtmlLineBreaks()));
 			}
 
 			return tags;
@@ -55,14 +55,14 @@ namespace DcsBriefop.DataBopBriefing
 	{
 		public BopBriefingPartDescription() : base(ElementBriefingPartType.Description, "content") { }
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
 
-			if (!string.IsNullOrEmpty(bopMission.Description))
+			if (!string.IsNullOrEmpty(bopManager.BopMission.Description))
 			{
 				tags.Add(new HtmlTag("h2").AppendText("Description"));
-				tags.Add(new HtmlTag("p").Append(bopMission.Description.HtmlLineBreaks()));
+				tags.Add(new HtmlTag("p").Append(bopManager.BopMission.Description.HtmlLineBreaks()));
 			}
 
 			return tags;
@@ -73,11 +73,11 @@ namespace DcsBriefop.DataBopBriefing
 	{
 		public BopBriefingPartTask() : base(ElementBriefingPartType.Task, "content") { }
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
 
-			if (bopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
+			if (bopManager.BopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
 			{
 				if (!string.IsNullOrEmpty(bopCoalition.Task))
 				{

@@ -144,12 +144,12 @@ namespace DcsBriefop.DataBopMission
 			}
 		}
 
-		public async Task<ListBopBriefingGeneratedFile> GenerateBriefingFiles()
+		public async Task<ListBopBriefingGeneratedFile> GenerateBriefingFiles(BriefopManager bopManager)
 		{
 			ListBopBriefingGeneratedFile files = new();
 			foreach (BopBriefingFolder folder in BopBriefingFolders)
 			{
-				files.AddRange(await folder.GenerateFiles(this));
+				files.AddRange(await folder.GenerateFiles(bopManager));
 			}
 
 			return files;

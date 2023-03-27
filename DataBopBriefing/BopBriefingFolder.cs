@@ -78,7 +78,7 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Generation
-		private IEnumerable<string> GetKneeboards()
+		private IEnumerable<string> GetDirectories()
 		{
 			List<string> directories = new List<string>();
 			if (Kneeboards is null || Kneeboards.Count <= 0)
@@ -89,14 +89,14 @@ namespace DcsBriefop.DataBopBriefing
 			return directories;
 		}
 
-		public async Task<ListBopBriefingGeneratedFile> GenerateFiles(BopMission bopMission)
+		public async Task<ListBopBriefingGeneratedFile> GenerateFiles(BriefopManager bopManager)
 		{
 			ListBopBriefingGeneratedFile files = new();
 			string sFolderName = Name;
 			if (string.IsNullOrEmpty(sFolderName))
-				sFolderName = $"{bopMission.BopBriefingFolders.IndexOf(this):000}";
+				sFolderName = $"{bopManager.BopMission.BopBriefingFolders.IndexOf(this):000}";
 
-			IEnumerable<string> kneeboards = GetKneeboards();
+			IEnumerable<string> kneeboards = GetDirectories();
 
 			int iPage = 0;
 			foreach(BopBriefingPage page in Pages)
@@ -105,11 +105,11 @@ namespace DcsBriefop.DataBopBriefing
 
 				if (page.Render.HasFlag(ElementBriefingPageRender.Html))
 				{
-					BopBriefingGeneratedFile file = new BopBriefingGeneratedFile();
+					BopBriefingGeneratedFile file = new();
 					file.FileName = sPageFileName;
 					file.Kneeboards.AddRange(kneeboards);
-					file.Image = await page.BuildHtmlImage(bopMission, this);
-					file.Html = page.BuildHtmlString(bopMission, this);
+					file.Image = await page.BuildHtmlImage(bopManager, this);
+					file.Html = page.BuildHtmlString(bopManager, this);
 
 					files.Add(file);
 				}
@@ -118,7 +118,7 @@ namespace DcsBriefop.DataBopBriefing
 					BopBriefingGeneratedFile file = new BopBriefingGeneratedFile();
 					file.FileName = $"{sPageFileName}_map";
 					file.Kneeboards.AddRange(kneeboards);
-					file.Image = page.BuildMapImage(bopMission, this);
+					file.Image = page.BuildMapImage(bopManager, this);
 
 					files.Add(file);
 				}

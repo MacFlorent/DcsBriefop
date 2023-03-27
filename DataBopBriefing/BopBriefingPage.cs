@@ -6,6 +6,7 @@ using DcsBriefop.Tools;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using HtmlTags;
+using log4net;
 using PuppeteerSharp;
 
 namespace DcsBriefop.DataBopBriefing
@@ -54,8 +55,8 @@ namespace DcsBriefop.DataBopBriefing
 				bopBriefingPart = new BopBriefingPartGroups();
 			else if (briefingPartType == ElementBriefingPartType.Waypoints)
 				bopBriefingPart = new BopBriefingPartWaypoints();
-			//else if (briefingPartType == ElementBriefingPartType.Image)
-			//	bopBriefingPart = new BopBriefingPartAirbases();
+			else if (briefingPartType == ElementBriefingPartType.Image)
+				bopBriefingPart = new BopBriefingPartImage();
 			else if (briefingPartType == ElementBriefingPartType.Weather)
 				bopBriefingPart = new BopBriefingPartWeather();
 
@@ -89,10 +90,10 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Html
-		public async Task<Image> BuildHtmlImage(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		public async Task<Image> BuildHtmlImage(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			Image image = null;
-			string sHtml = BuildHtmlString(bopMission, bopBriefingFolder);
+			string sHtml = BuildHtmlString(bopManager, bopBriefingFolder);
 			using (HtmlImageRenderer renderer = new HtmlImageRenderer())
 			{
 				ScreenshotOptions screenshotOptions = new ScreenshotOptions() { Type = ScreenshotType.Png };
@@ -104,17 +105,17 @@ namespace DcsBriefop.DataBopBriefing
 			return image;
 		}
 
-		public string BuildHtmlString(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		public string BuildHtmlString(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			return BuildHtml(bopMission, bopBriefingFolder)?.ToString();
+			return BuildHtml(bopManager, bopBriefingFolder)?.ToString();
 		}
 
-		public HtmlTags.HtmlDocument BuildHtml(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		public HtmlTags.HtmlDocument BuildHtml(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			HtmlTags.HtmlDocument html = new();
 			html.Head.Append(BuildHtmlStyle());
 			html.Head.Append(BuildHtmlScript());
-			html.Body.Append(BuildHtmlWrapper(bopMission, bopBriefingFolder));
+			html.Body.Append(BuildHtmlWrapper(bopManager, bopBriefingFolder));
 
 			return html;
 		}
@@ -133,7 +134,7 @@ namespace DcsBriefop.DataBopBriefing
 			return tag.AppendHtml(sStyle);
 		}
 
-		private HtmlTag BuildHtmlWrapper(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		private HtmlTag BuildHtmlWrapper(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			HtmlTag tag = new HtmlTag("div").Id("wrapper");
 			if (DisplayTitle)
@@ -143,7 +144,7 @@ namespace DcsBriefop.DataBopBriefing
 
 			foreach (BaseBopBriefingPart part in Parts)
 			{
-				HtmlTag tagPart = part.BuildHtml(bopMission, bopBriefingFolder);
+				HtmlTag tagPart = part.BuildHtml(bopManager, bopBriefingFolder);
 				if (tagPart is object)
 				{
 					tag.Append(tagPart);
@@ -155,20 +156,20 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Map
-		public Image BuildMapImage(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		public Image BuildMapImage(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			GMapProvider mapProvider = GMapProviders.TryGetProvider(bopMission.PreferencesMap.ProviderName);
-			return ToolsMap.GenerateMapImage(MapData, mapProvider, GetMapAdditionalOverlays(bopMission, bopBriefingFolder), bopBriefingFolder.ImageSize);
+			GMapProvider mapProvider = GMapProviders.TryGetProvider(bopManager.BopMission.PreferencesMap.ProviderName);
+			return ToolsMap.GenerateMapImage(MapData, mapProvider, GetMapAdditionalOverlays(bopManager, bopBriefingFolder), bopBriefingFolder.ImageSize);
 		}
 
-		public IEnumerable<GMapOverlay> GetMapAdditionalOverlays(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		public IEnumerable<GMapOverlay> GetMapAdditionalOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<GMapOverlay> additionalOverlays = new List<GMapOverlay>();
 
 			if (MapIncludeBaseOverlays)
 			{
-				additionalOverlays.Add(bopMission.MapOverlay);
-				if (bopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName ?? "", out BopCoalition bopCoalition))
+				additionalOverlays.Add(bopManager.BopMission.MapOverlay);
+				if (bopManager.BopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName ?? "", out BopCoalition bopCoalition))
 				{
 					additionalOverlays.Add(bopCoalition.MapOverlay);
 				}
@@ -176,7 +177,7 @@ namespace DcsBriefop.DataBopBriefing
 
 			foreach (BaseBopBriefingPart bopBriefingPart in Parts)
 			{
-				IEnumerable<GMapOverlay> partOverlays = bopBriefingPart.BuildMapOverlays(bopMission, bopBriefingFolder);
+				IEnumerable<GMapOverlay> partOverlays = bopBriefingPart.BuildMapOverlays(bopManager, bopBriefingFolder);
 				if (partOverlays is not null)
 					additionalOverlays.AddRange(partOverlays);
 			}

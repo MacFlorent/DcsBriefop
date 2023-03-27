@@ -33,14 +33,14 @@ namespace DcsBriefop.DataBopBriefing
 		public virtual void InitializeDefault() { }
 		public virtual string ToStringAdditional() { return null; }
 
-		public HtmlTag BuildHtml(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		public HtmlTag BuildHtml(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			return new HtmlTag("div").AddClass(m_sCssClass).Append(BuildHtmlContent(bopMission, bopBriefingFolder));
+			return new HtmlTag("div").AddClass(m_sCssClass).Append(BuildHtmlContent(bopManager, bopBriefingFolder));
 		}
 
-		protected abstract IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder);
+		protected abstract IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder);
 
-		public virtual IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission, BopBriefingFolder bopBriefingFolder) { return null; }
+		public virtual IEnumerable<GMapOverlay> BuildMapOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder) { return null; }
 		#endregion
 
 		#region IEquatable
@@ -102,8 +102,8 @@ namespace DcsBriefop.DataBopBriefing
 				return DeserializeConcreteBriefingPart<BopBriefingPartGroups>(jo);
 			else if (partType == ElementBriefingPartType.Waypoints)
 				return DeserializeConcreteBriefingPart<BopBriefingPartWaypoints>(jo);
-			//else if (partType == ElementBriefingPartType.Image)
-			//	return DeserializeConcreteBriefingPart<BopBriefingPartAirbases>(jo);
+			else if (partType == ElementBriefingPartType.Image)
+				return DeserializeConcreteBriefingPart<BopBriefingPartImage>(jo);
 			else if (partType == ElementBriefingPartType.Weather)
 				return DeserializeConcreteBriefingPart<BopBriefingPartWeather>(jo);
 

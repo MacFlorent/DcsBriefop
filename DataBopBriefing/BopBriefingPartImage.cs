@@ -1,5 +1,4 @@
 ﻿using DcsBriefop.Data;
-using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 using HtmlTags;
 
@@ -9,7 +8,7 @@ namespace DcsBriefop.DataBopBriefing
 	{
 		#region Properties
 		public string Header { get; set; }
-		public string ImageName { get; set; }
+		public string ImagePath { get; set; }
 		#endregion
 
 		#region CTOR
@@ -17,7 +16,7 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Methods
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
 			if (!string.IsNullOrEmpty(Header))
@@ -25,16 +24,22 @@ namespace DcsBriefop.DataBopBriefing
 				tags.Add(new HtmlTag("h2").Append(Header.HtmlLineBreaks()));
 			}
 
+			string sImageFullPath = GetImageFullPath(bopManager);
+			if(Path.Exists(sImageFullPath))
+			{
+				tags.Add(new HtmlTag("img").Attr("src", sImageFullPath));
+			}
+
 			return tags;
 		}
 
-		//private Image LoadImage()
-		//{
-		//	using (ZipArchive za = ZipFile.OpenRead(MizFilePath))
-		//	{
-		//		foreach (ZipArchiveEntry entry in za.Entries)
-
-		//}
+		private string GetImageFullPath(BriefopManager bopManager)
+		{
+			if (string.IsNullOrEmpty(ImagePath))
+				return null;
+			else
+				return Path.Join(bopManager.MizFileDirectory, ImagePath);
+		}
 		#endregion
 	}
 }

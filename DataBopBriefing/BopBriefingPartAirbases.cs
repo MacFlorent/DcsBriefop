@@ -3,6 +3,7 @@ using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 using GMap.NET.WindowsForms;
 using HtmlTags;
+using log4net;
 using System.Text;
 
 namespace DcsBriefop.DataBopBriefing
@@ -51,7 +52,7 @@ namespace DcsBriefop.DataBopBriefing
 			return sb.ToString();
 		}
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
 
@@ -68,7 +69,7 @@ namespace DcsBriefop.DataBopBriefing
 				tagThead.Add("td").AddClass("header").AppendText(sColumn);
 			}
 
-			foreach (BopAirbase bopAirbase in GetBopAirbases(bopMission))
+			foreach (BopAirbase bopAirbase in GetBopAirbases(bopManager.BopMission))
 			{
 				if (bopAirbase is object)
 				{
@@ -94,10 +95,10 @@ namespace DcsBriefop.DataBopBriefing
 			return tags;
 		}
 
-		public override IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<GMapOverlay> BuildMapOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<GMapOverlay> partOverlays = new List<GMapOverlay>();
-			foreach (BopAirbase bopAirbase in GetBopAirbases(bopMission))
+			foreach (BopAirbase bopAirbase in GetBopAirbases(bopManager.BopMission))
 			{
 				bopAirbase.FinalizeFromMiz();
 				partOverlays.Add(bopAirbase.GetMapOverlay(ToolsBriefop.GetCoalitionColor(bopBriefingFolder.CoalitionName)));

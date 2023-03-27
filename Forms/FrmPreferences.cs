@@ -133,5 +133,18 @@ namespace DcsBriefop.Forms
 			TbApplicationRecentMiz.Text = null;
 		}
 		#endregion
+
+		private void TbApplicationWorkingDirectory_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LbApplicationWorkingDirectory_Click(object sender, EventArgs e)
+		{
+		}
+
+		private void TbApplicationRecentMiz_TextChanged(object sender, EventArgs e)
+		{
+		}
 	}
 }

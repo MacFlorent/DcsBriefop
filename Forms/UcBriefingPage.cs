@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopBriefing;
-using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms
@@ -8,7 +7,7 @@ namespace DcsBriefop.Forms
 	internal partial class UcBriefingPage : UserControl
 	{
 		#region Fields
-		private BopMission m_bopMission;
+		private BriefopManager m_bopManager;
 		private BopBriefingFolder m_bopBriefingFolder;
 		private BopBriefingPage m_bopBriefingPage;
 
@@ -31,9 +30,9 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcBriefingPage(BopMission bopMission, BopBriefingFolder bopBriefingFolder, BopBriefingPage bopBriefingPage, FrmBriefingFolder frmBriefingFolderParent)
+		public UcBriefingPage(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder, BopBriefingPage bopBriefingPage, FrmBriefingFolder frmBriefingFolderParent)
 		{
-			m_bopMission = bopMission;
+			m_bopManager = bopManager;
 			m_bopBriefingFolder = bopBriefingFolder;
 			m_bopBriefingPage = bopBriefingPage;
 			m_frmBriefingFolderParent = frmBriefingFolderParent;
@@ -92,15 +91,17 @@ namespace DcsBriefop.Forms
 			{
 				BaseBopBriefingPart selected = selecteds.First();
 				if (selected is BopBriefingPartBullseye)
-					m_ucBriefingPart = new UcBriefingPartBullseye(selected, m_bopMission, this);
+					m_ucBriefingPart = new UcBriefingPartBullseye(selected, m_bopManager, this);
 				else if (selected is BopBriefingPartParagraph)
-					m_ucBriefingPart = new UcBriefingPartParagraph(selected, m_bopMission, this);
+					m_ucBriefingPart = new UcBriefingPartParagraph(selected, m_bopManager, this);
 				else if (selected is BopBriefingPartAirbases)
-					m_ucBriefingPart = new UcBriefingPartAirbases(selected, m_bopMission, this);
+					m_ucBriefingPart = new UcBriefingPartAirbases(selected, m_bopManager, this);
 				else if (selected is BopBriefingPartGroups)
-					m_ucBriefingPart = new UcBriefingPartGroups(selected, m_bopMission, this);
+					m_ucBriefingPart = new UcBriefingPartGroups(selected, m_bopManager, this);
+				else if (selected is BopBriefingPartImage)
+					m_ucBriefingPart = new UcBriefingPartImage(selected, m_bopManager, this);
 				else if (selected is BopBriefingPartWaypoints)
-					m_ucBriefingPart = new UcBriefingPartWaypoints(selected, m_bopMission, this);
+					m_ucBriefingPart = new UcBriefingPartWaypoints(selected, m_bopManager, this);
 
 				if (m_ucBriefingPart is object)
 				{
@@ -117,7 +118,7 @@ namespace DcsBriefop.Forms
 			CkMapIncludeBaseOverlays.Checked = m_bopBriefingPage.MapIncludeBaseOverlays;
 
 			m_ucMap.MapData = m_bopBriefingPage.MapData;
-			m_ucMap.MapProviderName = m_bopMission.PreferencesMap.ProviderName;
+			m_ucMap.MapProviderName = m_bopManager.BopMission.PreferencesMap.ProviderName;
 			DisplayCurrentMap();
 
 			CkMapIncludeBaseOverlays.CheckedChanged += CkMapIncludeBaseOverlays_CheckedChanged;
@@ -160,14 +161,14 @@ namespace DcsBriefop.Forms
 		{
 			using (new WaitDialog(ParentForm))
 			{
-				PbHtmlPreview.Image = await m_bopBriefingPage.BuildHtmlImage(m_bopMission, m_bopBriefingFolder);
-				TbHtmlPreviewSource.Text = m_bopBriefingPage.BuildHtmlString(m_bopMission, m_bopBriefingFolder);
+				PbHtmlPreview.Image = await m_bopBriefingPage.BuildHtmlImage(m_bopManager, m_bopBriefingFolder);
+				TbHtmlPreviewSource.Text = m_bopBriefingPage.BuildHtmlString(m_bopManager, m_bopBriefingFolder);
 			}
 		}
 
 		private void RefreshMapPreview()
 		{
-			PbMapPreview.Image = m_bopBriefingPage.BuildMapImage(m_bopMission, m_bopBriefingFolder);
+			PbMapPreview.Image = m_bopBriefingPage.BuildMapImage(m_bopManager, m_bopBriefingFolder);
 		}
 
 		private void DisplayCurrentRender()
@@ -189,7 +190,7 @@ namespace DcsBriefop.Forms
 
 		public void DisplayCurrentMap()
 		{
-			m_ucMap.StaticOverlays = m_bopBriefingPage.GetMapAdditionalOverlays(m_bopMission, m_bopBriefingFolder);
+			m_ucMap.StaticOverlays = m_bopBriefingPage.GetMapAdditionalOverlays(m_bopManager, m_bopBriefingFolder);
 			m_ucMap.RefreshMapData();
 		}
 

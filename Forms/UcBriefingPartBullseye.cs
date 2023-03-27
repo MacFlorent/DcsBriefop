@@ -7,7 +7,7 @@ namespace DcsBriefop.Forms
 	internal partial class UcBriefingPartBullseye : UcBriefingPartBase
 	{
 		#region CTOR
-		public UcBriefingPartBullseye(BaseBopBriefingPart bopBriefingPart, BopMission bopMission, UcBriefingPage ucBriefingPageParent) : base(bopBriefingPart, bopMission, ucBriefingPageParent)
+		public UcBriefingPartBullseye(BaseBopBriefingPart bopBriefingPart, BriefopManager bopManager, UcBriefingPage ucBriefingPageParent) : base(bopBriefingPart, bopManager, ucBriefingPageParent)
 		{
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);

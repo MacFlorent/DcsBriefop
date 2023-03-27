@@ -1,5 +1,4 @@
 ﻿using DcsBriefop.DataBopBriefing;
-using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms
@@ -10,12 +9,12 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcBriefingPartWaypoints(BaseBopBriefingPart bopBriefingPart, BopMission bopMission, UcBriefingPage ucBriefingPageParent) : base(bopBriefingPart, bopMission, ucBriefingPageParent)
+		public UcBriefingPartWaypoints(BaseBopBriefingPart bopBriefingPart, BriefopManager bopManager, UcBriefingPage ucBriefingPageParent) : base(bopBriefingPart, bopManager, ucBriefingPageParent)
 		{
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			ToolsControls.FillCombo(CbGroup, m_bopMission.Groups, "Id", "Name", CbGroup_SelectedValueChanged);
+			ToolsControls.FillCombo(CbGroup, m_bopManager.BopMission.Groups, "Id", "Name", CbGroup_SelectedValueChanged);
 			LstColumns.DataSource = BopBriefingPartWaypoints.AvailableTableColumns;
 
 			DataToScreen();

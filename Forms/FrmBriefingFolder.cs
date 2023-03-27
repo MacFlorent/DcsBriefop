@@ -8,7 +8,7 @@ namespace DcsBriefop.Forms
 	internal partial class FrmBriefingFolder : Form
 	{
 		#region Fields
-		private BopMission m_bopMission;
+		private BriefopManager m_bopManager;
 		private BopBriefingFolder m_bopBriefingFolder;
 
 		private GridManagerBriefingPages m_gridManagerBriefingPages;
@@ -16,9 +16,9 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public FrmBriefingFolder(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		public FrmBriefingFolder(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			m_bopMission = bopMission;
+			m_bopManager = bopManager;
 			m_bopBriefingFolder = bopBriefingFolder;
 
 			InitializeComponent();
@@ -37,9 +37,9 @@ namespace DcsBriefop.Forms
 			m_gridManagerBriefingPages.SelectionChanged += SelectionChangedEvent;
 		}
 
-		public static void CreateModal(BopMission bopMission, BopBriefingFolder bopBriefingFolder, Form parentForm)
+		public static void CreateModal(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder, Form parentForm)
 		{
-			FrmBriefingFolder f = new FrmBriefingFolder(bopMission, bopBriefingFolder);
+			FrmBriefingFolder f = new FrmBriefingFolder(bopManager, bopBriefingFolder);
 			f.ShowDialog(parentForm);
 		}
 		#endregion
@@ -65,7 +65,7 @@ namespace DcsBriefop.Forms
 
 		private void DataToScreenUnitTypes()
 		{
-			LstKneeboards.DataSource = m_bopMission.GetKneeboards(m_bopBriefingFolder.CoalitionName).OrderBy(_k => _k).ToList();
+			LstKneeboards.DataSource = m_bopManager.BopMission.GetKneeboards(m_bopBriefingFolder.CoalitionName).OrderBy(_k => _k).ToList();
 			for (int i = 0; i < LstKneeboards.Items.Count; i++)
 			{
 				LstKneeboards.SetItemChecked(i, m_bopBriefingFolder.Kneeboards.Contains(LstKneeboards.Items[i]));
@@ -91,7 +91,7 @@ namespace DcsBriefop.Forms
 				}
 				if (m_ucBriefingPage is null)
 				{
-					m_ucBriefingPage = new UcBriefingPage(m_bopMission, m_bopBriefingFolder, selectedPage, this);
+					m_ucBriefingPage = new UcBriefingPage(m_bopManager, m_bopBriefingFolder, selectedPage, this);
 				}
 				else
 				{
@@ -132,7 +132,7 @@ namespace DcsBriefop.Forms
 
 		private void AddPage()
 		{
-			BopBriefingPage bopBriefingPage = m_bopBriefingFolder.AddPage(m_bopMission);
+			BopBriefingPage bopBriefingPage = m_bopBriefingFolder.AddPage(m_bopManager.BopMission);
 			DataToScreenGridPages();
 			if (m_bopBriefingFolder.Pages.Count() == 1)
 				DataToScreenDetail();

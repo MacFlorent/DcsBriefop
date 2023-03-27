@@ -122,7 +122,7 @@ namespace DcsBriefop.Forms
 		{
 			if (bopBriefingFolder is not null)
 			{
-				FrmBriefingFolder.CreateModal(m_briefopManager.BopMission, bopBriefingFolder, ParentForm);
+				FrmBriefingFolder.CreateModal(m_briefopManager, bopBriefingFolder, ParentForm);
 				DataToScreenFolders();
 			}
 		}

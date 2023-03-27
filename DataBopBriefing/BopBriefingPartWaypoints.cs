@@ -61,11 +61,11 @@ namespace DcsBriefop.DataBopBriefing
 			return sb.ToString();
 		}
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
 
-			BopGroup bopGroup = bopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
+			BopGroup bopGroup = bopManager.BopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
 			if (bopGroup is null)
 				return tags;
 
@@ -119,15 +119,15 @@ namespace DcsBriefop.DataBopBriefing
 			tags.Add(tagTable);
 
 			if (DisplayGraph && bopRoutePoints is not null)
-				tags.AddRange(BuildHtmlContentGraph(bopMission, bopBriefingFolder, bopRoutePoints));
+				tags.AddRange(BuildHtmlContentGraph(bopManager, bopBriefingFolder, bopRoutePoints));
 			
 			return tags;
 		}
 
-		private List<HtmlTag> BuildHtmlContentGraph(BopMission bopMission, BopBriefingFolder bopBriefingFolder, IEnumerable<BopRoutePoint> bopRoutePoints)
+		private List<HtmlTag> BuildHtmlContentGraph(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder, IEnumerable<BopRoutePoint> bopRoutePoints)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
-			BopGroup bopGroup = bopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
+			BopGroup bopGroup = bopManager.BopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
 
 			string sCanvasName = "myCanvas";
 			HtmlTag tagCanvas = new HtmlTag("canvas")
@@ -153,7 +153,7 @@ $$"""
 	unitsPerTickY: 10000
 	});
 	var data = [
-	{{BuildHtmlContentGraphPoints(bopMission, bopBriefingFolder, bopRoutePoints)}}
+	{{BuildHtmlContentGraphPoints(bopManager, bopBriefingFolder, bopRoutePoints)}}
 	];
 	myLineChart.drawLine(data, "red", 3);
 """;
@@ -164,10 +164,10 @@ $$"""
 			return tags;
 		}
 
-		private string BuildHtmlContentGraphPoints(BopMission bopMission, BopBriefingFolder bopBriefingFolder, IEnumerable<BopRoutePoint> bopRoutePoints)
+		private string BuildHtmlContentGraphPoints(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder, IEnumerable<BopRoutePoint> bopRoutePoints)
 		{
 			StringBuilder sb = new StringBuilder();
-			BopGroup bopGroup = bopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
+			BopGroup bopGroup = bopManager.BopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
 			
 			foreach (BopRoutePoint brp in bopRoutePoints)
 			{
@@ -177,10 +177,10 @@ $$"""
 			return sb.ToString();
 		}
 
-		public override IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<GMapOverlay> BuildMapOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<GMapOverlay> partOverlays = new List<GMapOverlay>();
-			BopGroup bopGroup = bopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
+			BopGroup bopGroup = bopManager.BopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
 			bopGroup.FinalizeFromMiz();
 
 			partOverlays.Add(bopGroup.GetMapOverlayRoute(null, ElementMapOverlayRouteDisplay.PointLabelLight));

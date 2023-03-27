@@ -21,11 +21,11 @@ namespace DcsBriefop.DataBopBriefing
 			return WithDescription ? "With description" : "";
 		}
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
 
-			if (bopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
+			if (bopManager.BopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
 			{
 				string sHeader = "Bullseye";
 				if (bopCoalition.BullseyeWaypoint)

@@ -33,6 +33,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Forms\UcBriefingPartImage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Forms\UcBriefingPartWaypoints.cs">
       <SubType>UserControl</SubType>
     </Compile>

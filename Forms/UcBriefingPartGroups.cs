@@ -14,7 +14,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcBriefingPartGroups(BaseBopBriefingPart bopBriefingPart, BopMission bopMission, UcBriefingPage ucBriefingPageParent) : base(bopBriefingPart, bopMission, ucBriefingPageParent)
+		public UcBriefingPartGroups(BaseBopBriefingPart bopBriefingPart, BriefopManager bopManager, UcBriefingPage ucBriefingPageParent) : base(bopBriefingPart, bopManager, ucBriefingPageParent)
 		{
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
@@ -40,7 +40,7 @@ namespace DcsBriefop.Forms
 			CbPartGroupType.SelectedValue = (int)briefingPart.PartGroupType;
 			DisplayCurrentPartGroupTypeGrid();
 
-			m_selectedGroupOrUnits = briefingPart.GetBopGroupOrUnits(m_bopMission);
+			m_selectedGroupOrUnits = briefingPart.GetBopGroupOrUnits(m_bopManager.BopMission);
 			m_gmMultiSelected.ColumnsDisplayed = new List<string>() { GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Group, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.ObjectClass };
 			RefreshSelectedGrid();
 
@@ -69,7 +69,7 @@ namespace DcsBriefop.Forms
 			ElementBriefingPartGroupType partGroupType = (ElementBriefingPartGroupType)CbPartGroupType.SelectedValue;
 
 			IEnumerable<string> gridColumns;
-			IEnumerable<BopGroupOrUnit> availableElements = m_bopMission.GetGroupOrUnits();
+			IEnumerable<BopGroupOrUnit> availableElements = m_bopManager.BopMission.GetGroupOrUnits();
 
 			if (partGroupType == ElementBriefingPartGroupType.GroupsOnly)
 			{

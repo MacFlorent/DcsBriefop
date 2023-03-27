@@ -169,6 +169,7 @@
 			TbApplicationRecentMiz.ReadOnly = true;
 			TbApplicationRecentMiz.Size = new Size(310, 23);
 			TbApplicationRecentMiz.TabIndex = 19;
+			TbApplicationRecentMiz.TextChanged += TbApplicationRecentMiz_TextChanged;
 			// 
 			// LbApplicationRecentMiz
 			// 
@@ -213,6 +214,7 @@
 			TbApplicationWorkingDirectory.ReadOnly = true;
 			TbApplicationWorkingDirectory.Size = new Size(310, 23);
 			TbApplicationWorkingDirectory.TabIndex = 15;
+			TbApplicationWorkingDirectory.TextChanged += TbApplicationWorkingDirectory_TextChanged;
 			// 
 			// LbApplicationWorkingDirectory
 			// 
@@ -223,6 +225,7 @@
 			LbApplicationWorkingDirectory.Size = new Size(102, 15);
 			LbApplicationWorkingDirectory.TabIndex = 14;
 			LbApplicationWorkingDirectory.Text = "Working directory";
+			LbApplicationWorkingDirectory.Click += LbApplicationWorkingDirectory_Click;
 			// 
 			// PnMission
 			// 

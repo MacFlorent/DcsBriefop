@@ -60,7 +60,7 @@ namespace DcsBriefop.DataBopBriefing
 			return sb.ToString();
 		}
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
 
@@ -77,7 +77,7 @@ namespace DcsBriefop.DataBopBriefing
 				tagThead.Add("td").AddClass("header").AppendText(sColumn);
 			}
 
-			foreach (BopGroupOrUnit element in GetBopGroupOrUnits(bopMission))
+			foreach (BopGroupOrUnit element in GetBopGroupOrUnits(bopManager.BopMission))
 			{
 				if (element is object)
 				{
@@ -110,10 +110,10 @@ namespace DcsBriefop.DataBopBriefing
 			return tags;
 		}
 
-		public override IEnumerable<GMapOverlay> BuildMapOverlays(BopMission bopMission, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<GMapOverlay> BuildMapOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<GMapOverlay> partOverlays = new List<GMapOverlay>();
-			foreach (BopGroupOrUnit element in GetBopGroupOrUnits(bopMission))
+			foreach (BopGroupOrUnit element in GetBopGroupOrUnits(bopManager.BopMission))
 			{
 				element.FinalizeFromMiz();
 				partOverlays.Add(element.GetMapOverlay());
