@@ -28,8 +28,11 @@ namespace DcsBriefop.DataBopBriefing
 			if (bopManager.BopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
 			{
 				string sHeader = "Bullseye";
-				if (bopCoalition.BullseyeWaypoint)
+				if (bopCoalition.BullseyeWaypoint == ElementBullseyeWaypoint.One)
 					sHeader += " [WP1]";
+				else if (bopCoalition.BullseyeWaypoint == ElementBullseyeWaypoint.Last)
+					sHeader += " [Last WP]";
+
 
 				HtmlTag tagTable = new HtmlTag("table").Attr("width", "100%");
 				HtmlTag tagTr = tagTable.Add("tr");

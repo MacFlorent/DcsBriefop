@@ -29,6 +29,7 @@ namespace DcsBriefop.Forms
 			MapProviders.FillCombo(CbMapProvider, null);
 			MasterDataRepository.FillCombo(MasterDataType.WeatherDisplay, CbBriefingWeatherDisplay, null);
 			MasterDataRepository.FillCombo(MasterDataType.MeasurementSystem, CbBriefingMeasurementSystem, null);
+			MasterDataRepository.FillCombo(MasterDataType.BullseyeWaypoint, CbMissionBullseyeWaypoint, null);
 			MasterDataRepository.FillCheckedListBox(MasterDataType.CoordinateDisplay, LstBriefingCoordinateDisplay);
 		}
 		#endregion
@@ -41,7 +42,7 @@ namespace DcsBriefop.Forms
 			CkApplicationMizBackup.Checked = m_preferences.Application.BackupBeforeOverwrite;
 			CkApplicationGenerateBatch.Checked = m_preferences.Application.GenerateBatchCommandOnSave;
 
-			CkMissionBullseyeWaypoint.Checked = m_preferences.Mission.BullseyeWaypoint;
+			CbMissionBullseyeWaypoint.SelectedValue = (int)m_preferences.Mission.BullseyeWaypoint;
 			CkMissionNoCallsignForPlayable.Checked = m_preferences.Mission.NoCallsignForPlayableFlights;
 
 			CbMapProvider.SelectedItem = GMapProviders.TryGetProvider(m_preferences.Map.ProviderName);
@@ -65,7 +66,7 @@ namespace DcsBriefop.Forms
 			m_preferences.Application.BackupBeforeOverwrite = CkApplicationMizBackup.Checked;
 			m_preferences.Application.GenerateBatchCommandOnSave = CkApplicationGenerateBatch.Checked;
 
-			m_preferences.Mission.BullseyeWaypoint = CkMissionBullseyeWaypoint.Checked;
+			m_preferences.Mission.BullseyeWaypoint = (ElementBullseyeWaypoint)CbMissionBullseyeWaypoint.SelectedValue;
 			m_preferences.Mission.NoCallsignForPlayableFlights = CkMissionNoCallsignForPlayable.Checked;
 
 			m_preferences.Map.ProviderName = (CbMapProvider.SelectedItem as GMapProvider)?.Name;

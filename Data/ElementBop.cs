@@ -8,6 +8,13 @@
 	//	FullRoute = 3
 	//}
 
+	internal enum ElementBullseyeWaypoint
+	{
+		None,
+		One,
+		Last
+	}
+
 	internal enum ElementGroupClass
 	{
 		None,

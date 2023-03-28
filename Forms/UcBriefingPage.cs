@@ -162,7 +162,6 @@ namespace DcsBriefop.Forms
 			using (new WaitDialog(ParentForm))
 			{
 				PbHtmlPreview.Image = await m_bopBriefingPage.BuildHtmlImage(m_bopManager, m_bopBriefingFolder);
-				TbHtmlPreviewSource.Text = m_bopBriefingPage.BuildHtmlString(m_bopManager, m_bopBriefingFolder);
 			}
 		}
 
@@ -282,13 +281,20 @@ namespace DcsBriefop.Forms
 			RefreshHtmlPreview();
 		}
 
+		private void BtHtmlPreviewRefresh_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Right)
+			{
+				string sHtml = m_bopBriefingPage.BuildHtmlString(m_bopManager, m_bopBriefingFolder);
+				Clipboard.SetText(sHtml);
+			}
+		}
+
 		private void BtMapPreviewRefresh_Click(object sender, EventArgs e)
 		{
 			ScreenToDataFromParent();
 			RefreshMapPreview();
 		}
-
 		#endregion
-
 	}
 }

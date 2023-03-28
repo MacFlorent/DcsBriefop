@@ -140,7 +140,7 @@ namespace DcsBriefop.DataBopMission
 		{
 			foreach (BopGroupFlight bopGroupFlight in Groups.OfType<BopGroupFlight>())
 			{
-				bopGroupFlight.SetBullseyeRoutePoint(Coalitions[bopGroupFlight.CoalitionName]);
+				bopGroupFlight.SetBullseyeWaypoint(Coalitions[bopGroupFlight.CoalitionName]);
 			}
 		}
 

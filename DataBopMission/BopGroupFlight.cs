@@ -148,15 +148,17 @@ namespace DcsBriefop.DataBopMission
 		//	return Coalition.OwnAssets.OfType<AssetShip>().Where(_a => grouped.Contains(_a.MainUnit.Id)).ToList();
 		//}
 
-		public void SetBullseyeRoutePoint(BopCoalition bopCoalition)
+		public void SetBullseyeWaypoint(BopCoalition bopCoalition)
 		{
-			if (bopCoalition.BullseyeWaypoint && Playable)
-				AddBullseyeRoutePoint(bopCoalition);
+			if (Playable && bopCoalition.BullseyeWaypoint == ElementBullseyeWaypoint.One)
+				AddBullseyeWaypointOne(bopCoalition);
+			else if (Playable && bopCoalition.BullseyeWaypoint == ElementBullseyeWaypoint.Last)
+				AddBullseyeWaypointLast(bopCoalition);
 			else
 				RemoveBullseyeRoutePoint();
 		}
 
-		private void AddBullseyeRoutePoint(BopCoalition bopCoalition)
+		private void AddBullseyeWaypointOne(BopCoalition bopCoalition)
 		{
 			BopRoutePoint bullseyeRoutePoint = GetBullseyeRoutePoint();
 			if (bullseyeRoutePoint is null)
@@ -167,6 +169,33 @@ namespace DcsBriefop.DataBopMission
 				RoutePoints.Insert(1, bullseyeRoutePoint);
 				NumberRoutePoints();
 			}
+			else if (RoutePoints.IndexOf (bullseyeRoutePoint) != 1)
+			{
+				RoutePoints.Remove(bullseyeRoutePoint);
+				RoutePoints.Insert(1, bullseyeRoutePoint);
+				NumberRoutePoints();
+			}
+
+			bopCoalition.UpdateBullseyeRoutePoint(bullseyeRoutePoint);
+		}
+
+		private void AddBullseyeWaypointLast(BopCoalition bopCoalition)
+		{
+			BopRoutePoint bullseyeRoutePoint = GetBullseyeRoutePoint();
+			if (bullseyeRoutePoint is null)
+			{
+				MizRoutePoint mizRoutePoint = MizRoutePoint.NewFromLuaTemplate();
+				bullseyeRoutePoint = new BopRoutePoint(Miz, Theatre, Id, -1, mizRoutePoint);
+				bullseyeRoutePoint.Name = ElementGlobalData.BullseyeRoutePointName;
+				RoutePoints.Add(bullseyeRoutePoint);
+				NumberRoutePoints();
+			}
+			else if (RoutePoints.IndexOf(bullseyeRoutePoint) != RoutePoints.Count - 1)
+			{
+				RoutePoints.Remove(bullseyeRoutePoint);
+				RoutePoints.Add(bullseyeRoutePoint);
+				NumberRoutePoints();
+			}
 
 			bopCoalition.UpdateBullseyeRoutePoint(bullseyeRoutePoint);
 		}
@@ -174,7 +203,7 @@ namespace DcsBriefop.DataBopMission
 		private void RemoveBullseyeRoutePoint()
 		{
 			BopRoutePoint bullseyeRoutePoint = GetBullseyeRoutePoint();
-			if (bullseyeRoutePoint is object)
+			if (bullseyeRoutePoint is not null)
 			{
 				RoutePoints.Remove(bullseyeRoutePoint);
 			}

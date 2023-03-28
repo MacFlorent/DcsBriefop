@@ -129,7 +129,7 @@ namespace DcsBriefop.DataBopBriefing
 			List<HtmlTag> tags = new List<HtmlTag>();
 			BopGroup bopGroup = bopManager.BopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
 
-			string sCanvasName = "myCanvas";
+			string sCanvasName = $"graphCanvas{Guid}";
 			HtmlTag tagCanvas = new HtmlTag("canvas")
 				.Attr("width", $"{bopBriefingFolder.ImageSize.Width}")
 				.Attr("height", $"{bopBriefingFolder.ImageSize.Height / 5}")

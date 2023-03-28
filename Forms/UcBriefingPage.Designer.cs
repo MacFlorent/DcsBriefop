@@ -36,7 +36,6 @@
 			TpHtmlPreview = new TabPage();
 			PnImage = new Panel();
 			PbHtmlPreview = new PictureBox();
-			TbHtmlPreviewSource = new TextBox();
 			BtHtmlPreviewRefresh = new Button();
 			TpMapPreview = new TabPage();
 			BtMapPreviewRefresh = new Button();
@@ -82,14 +81,14 @@
 			TcDetail.Margin = new Padding(4, 3, 4, 3);
 			TcDetail.Name = "TcDetail";
 			TcDetail.SelectedIndex = 0;
-			TcDetail.Size = new Size(692, 500);
+			TcDetail.Size = new Size(693, 500);
 			TcDetail.TabIndex = 0;
 			// 
 			// TpPartDetail
 			// 
 			TpPartDetail.Location = new Point(4, 24);
 			TpPartDetail.Name = "TpPartDetail";
-			TpPartDetail.Size = new Size(684, 472);
+			TpPartDetail.Size = new Size(685, 472);
 			TpPartDetail.TabIndex = 2;
 			TpPartDetail.Text = "Part configuration";
 			TpPartDetail.UseVisualStyleBackColor = true;
@@ -102,7 +101,7 @@
 			TpMapDetail.Margin = new Padding(4, 3, 4, 3);
 			TpMapDetail.Name = "TpMapDetail";
 			TpMapDetail.Padding = new Padding(4, 3, 4, 3);
-			TpMapDetail.Size = new Size(657, 472);
+			TpMapDetail.Size = new Size(685, 472);
 			TpMapDetail.TabIndex = 1;
 			TpMapDetail.Text = "Map configuration";
 			TpMapDetail.UseVisualStyleBackColor = true;
@@ -123,19 +122,18 @@
 			PnMap.Dock = DockStyle.Fill;
 			PnMap.Location = new Point(4, 3);
 			PnMap.Name = "PnMap";
-			PnMap.Size = new Size(649, 466);
+			PnMap.Size = new Size(677, 466);
 			PnMap.TabIndex = 5;
 			// 
 			// TpHtmlPreview
 			// 
 			TpHtmlPreview.Controls.Add(PnImage);
-			TpHtmlPreview.Controls.Add(TbHtmlPreviewSource);
 			TpHtmlPreview.Controls.Add(BtHtmlPreviewRefresh);
 			TpHtmlPreview.Location = new Point(4, 24);
 			TpHtmlPreview.Margin = new Padding(4, 3, 4, 3);
 			TpHtmlPreview.Name = "TpHtmlPreview";
 			TpHtmlPreview.Padding = new Padding(4, 3, 4, 3);
-			TpHtmlPreview.Size = new Size(657, 472);
+			TpHtmlPreview.Size = new Size(685, 472);
 			TpHtmlPreview.TabIndex = 0;
 			TpHtmlPreview.Text = "Html preview";
 			TpHtmlPreview.UseVisualStyleBackColor = true;
@@ -147,7 +145,7 @@
 			PnImage.Controls.Add(PbHtmlPreview);
 			PnImage.Location = new Point(0, 3);
 			PnImage.Name = "PnImage";
-			PnImage.Size = new Size(657, 440);
+			PnImage.Size = new Size(658, 445);
 			PnImage.TabIndex = 5;
 			// 
 			// PbHtmlPreview
@@ -160,15 +158,6 @@
 			PbHtmlPreview.TabIndex = 1;
 			PbHtmlPreview.TabStop = false;
 			// 
-			// TbHtmlPreviewSource
-			// 
-			TbHtmlPreviewSource.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			TbHtmlPreviewSource.Location = new Point(78, 449);
-			TbHtmlPreviewSource.Multiline = true;
-			TbHtmlPreviewSource.Name = "TbHtmlPreviewSource";
-			TbHtmlPreviewSource.Size = new Size(579, 23);
-			TbHtmlPreviewSource.TabIndex = 4;
-			// 
 			// BtHtmlPreviewRefresh
 			// 
 			BtHtmlPreviewRefresh.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
@@ -179,6 +168,7 @@
 			BtHtmlPreviewRefresh.Text = "Refresh";
 			BtHtmlPreviewRefresh.UseVisualStyleBackColor = true;
 			BtHtmlPreviewRefresh.Click += BtHtmlPreviewRefresh_Click;
+			BtHtmlPreviewRefresh.MouseDown += BtHtmlPreviewRefresh_MouseDown;
 			// 
 			// TpMapPreview
 			// 
@@ -186,7 +176,7 @@
 			TpMapPreview.Controls.Add(PnMapPreview);
 			TpMapPreview.Location = new Point(4, 24);
 			TpMapPreview.Name = "TpMapPreview";
-			TpMapPreview.Size = new Size(657, 472);
+			TpMapPreview.Size = new Size(685, 472);
 			TpMapPreview.TabIndex = 3;
 			TpMapPreview.Text = "Map preview";
 			TpMapPreview.UseVisualStyleBackColor = true;
@@ -250,7 +240,7 @@
 			ScMain.Panel2.AutoScroll = true;
 			ScMain.Panel2.Controls.Add(TcDetail);
 			ScMain.Size = new Size(921, 500);
-			ScMain.SplitterDistance = 224;
+			ScMain.SplitterDistance = 223;
 			ScMain.SplitterWidth = 5;
 			ScMain.TabIndex = 2;
 			// 
@@ -279,7 +269,7 @@
 			// BtPartRemove
 			// 
 			BtPartRemove.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtPartRemove.Location = new Point(145, 474);
+			BtPartRemove.Location = new Point(144, 474);
 			BtPartRemove.Name = "BtPartRemove";
 			BtPartRemove.Size = new Size(75, 23);
 			BtPartRemove.TabIndex = 43;
@@ -290,7 +280,7 @@
 			// BtPartAdd
 			// 
 			BtPartAdd.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtPartAdd.Location = new Point(64, 474);
+			BtPartAdd.Location = new Point(63, 474);
 			BtPartAdd.Name = "BtPartAdd";
 			BtPartAdd.Size = new Size(75, 23);
 			BtPartAdd.TabIndex = 42;
@@ -345,7 +335,7 @@
 			LbHeader.Dock = DockStyle.Top;
 			LbHeader.Location = new Point(0, 0);
 			LbHeader.Name = "LbHeader";
-			LbHeader.Size = new Size(224, 33);
+			LbHeader.Size = new Size(223, 33);
 			LbHeader.TabIndex = 4;
 			LbHeader.Text = "Page";
 			LbHeader.TextAlign = ContentAlignment.MiddleCenter;
@@ -366,7 +356,7 @@
 			TbTitle.Location = new Point(62, 36);
 			TbTitle.Margin = new Padding(4, 3, 4, 3);
 			TbTitle.Name = "TbTitle";
-			TbTitle.Size = new Size(158, 23);
+			TbTitle.Size = new Size(157, 23);
 			TbTitle.TabIndex = 2;
 			// 
 			// LbTitle
@@ -389,7 +379,7 @@
 			DgvParts.Margin = new Padding(4, 3, 4, 3);
 			DgvParts.Name = "DgvParts";
 			DgvParts.RightToLeft = RightToLeft.No;
-			DgvParts.Size = new Size(216, 338);
+			DgvParts.Size = new Size(215, 338);
 			DgvParts.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvParts.TabIndex = 0;
 			// 
@@ -404,7 +394,6 @@
 			TpMapDetail.ResumeLayout(false);
 			TpMapDetail.PerformLayout();
 			TpHtmlPreview.ResumeLayout(false);
-			TpHtmlPreview.PerformLayout();
 			PnImage.ResumeLayout(false);
 			PnImage.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)PbHtmlPreview).EndInit();
@@ -432,7 +421,6 @@
 		private Label LbTitle;
 		private Zuby.ADGV.AdvancedDataGridView DgvParts;
 		private CheckBox CkDisplayTitle;
-		private TextBox TbHtmlPreviewSource;
 		private Panel PnImage;
 		private Label LbHeader;
 		private TabPage TpPartDetail;

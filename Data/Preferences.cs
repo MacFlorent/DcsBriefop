@@ -50,7 +50,7 @@ namespace DcsBriefop.Data
 	internal class PreferencesMission
 	{
 		public bool NoCallsignForPlayableFlights { get; set; } = true;
-		public bool BullseyeWaypoint { get; set; } = true;
+		public ElementBullseyeWaypoint BullseyeWaypoint { get; set; } = ElementBullseyeWaypoint.One;
 		public void InitializeDefault() { }
 	}
 

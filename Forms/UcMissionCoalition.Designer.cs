@@ -28,101 +28,114 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.TbBullseye = new System.Windows.Forms.TextBox();
-			this.LbBullseye = new System.Windows.Forms.Label();
-			this.TbBullseyeDescription = new System.Windows.Forms.TextBox();
-			this.LbBullseyeDescription = new System.Windows.Forms.Label();
-			this.LbTask = new System.Windows.Forms.Label();
-			this.TbTask = new System.Windows.Forms.TextBox();
-			this.CkBullseyeWaypoint = new System.Windows.Forms.CheckBox();
-			this.SuspendLayout();
+			TbBullseye = new TextBox();
+			LbBullseye = new Label();
+			TbBullseyeDescription = new TextBox();
+			LbBullseyeDescription = new Label();
+			LbTask = new Label();
+			TbTask = new TextBox();
+			LbBullseyeWaypoint = new Label();
+			CbBullseyeWaypoint = new ComboBox();
+			SuspendLayout();
 			// 
 			// TbBullseye
 			// 
-			this.TbBullseye.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbBullseye.Location = new System.Drawing.Point(109, 3);
-			this.TbBullseye.Multiline = true;
-			this.TbBullseye.Name = "TbBullseye";
-			this.TbBullseye.ReadOnly = true;
-			this.TbBullseye.Size = new System.Drawing.Size(960, 50);
-			this.TbBullseye.TabIndex = 6;
+			TbBullseye.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbBullseye.Location = new Point(127, 3);
+			TbBullseye.Margin = new Padding(4, 3, 4, 3);
+			TbBullseye.Multiline = true;
+			TbBullseye.Name = "TbBullseye";
+			TbBullseye.ReadOnly = true;
+			TbBullseye.Size = new Size(995, 57);
+			TbBullseye.TabIndex = 6;
 			// 
 			// LbBullseye
 			// 
-			this.LbBullseye.AutoSize = true;
-			this.LbBullseye.Location = new System.Drawing.Point(3, 6);
-			this.LbBullseye.Name = "LbBullseye";
-			this.LbBullseye.Size = new System.Drawing.Size(46, 13);
-			this.LbBullseye.TabIndex = 5;
-			this.LbBullseye.Text = "Bullseye";
+			LbBullseye.AutoSize = true;
+			LbBullseye.Location = new Point(4, 7);
+			LbBullseye.Margin = new Padding(4, 0, 4, 0);
+			LbBullseye.Name = "LbBullseye";
+			LbBullseye.Size = new Size(50, 15);
+			LbBullseye.TabIndex = 5;
+			LbBullseye.Text = "Bullseye";
 			// 
 			// TbBullseyeDescription
 			// 
-			this.TbBullseyeDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbBullseyeDescription.Location = new System.Drawing.Point(109, 59);
-			this.TbBullseyeDescription.Multiline = true;
-			this.TbBullseyeDescription.Name = "TbBullseyeDescription";
-			this.TbBullseyeDescription.Size = new System.Drawing.Size(960, 38);
-			this.TbBullseyeDescription.TabIndex = 8;
+			TbBullseyeDescription.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbBullseyeDescription.Location = new Point(127, 68);
+			TbBullseyeDescription.Margin = new Padding(4, 3, 4, 3);
+			TbBullseyeDescription.Multiline = true;
+			TbBullseyeDescription.Name = "TbBullseyeDescription";
+			TbBullseyeDescription.Size = new Size(995, 43);
+			TbBullseyeDescription.TabIndex = 8;
 			// 
 			// LbBullseyeDescription
 			// 
-			this.LbBullseyeDescription.AutoSize = true;
-			this.LbBullseyeDescription.Location = new System.Drawing.Point(3, 59);
-			this.LbBullseyeDescription.Name = "LbBullseyeDescription";
-			this.LbBullseyeDescription.Size = new System.Drawing.Size(100, 13);
-			this.LbBullseyeDescription.TabIndex = 7;
-			this.LbBullseyeDescription.Text = "Bullseye description";
+			LbBullseyeDescription.AutoSize = true;
+			LbBullseyeDescription.Location = new Point(4, 68);
+			LbBullseyeDescription.Margin = new Padding(4, 0, 4, 0);
+			LbBullseyeDescription.Name = "LbBullseyeDescription";
+			LbBullseyeDescription.Size = new Size(112, 15);
+			LbBullseyeDescription.TabIndex = 7;
+			LbBullseyeDescription.Text = "Bullseye description";
 			// 
 			// LbTask
 			// 
-			this.LbTask.AutoSize = true;
-			this.LbTask.Location = new System.Drawing.Point(3, 129);
-			this.LbTask.Name = "LbTask";
-			this.LbTask.Size = new System.Drawing.Size(31, 13);
-			this.LbTask.TabIndex = 9;
-			this.LbTask.Text = "Task";
+			LbTask.AutoSize = true;
+			LbTask.Location = new Point(4, 149);
+			LbTask.Margin = new Padding(4, 0, 4, 0);
+			LbTask.Name = "LbTask";
+			LbTask.Size = new Size(29, 15);
+			LbTask.TabIndex = 9;
+			LbTask.Text = "Task";
 			// 
 			// TbTask
 			// 
-			this.TbTask.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbTask.Location = new System.Drawing.Point(109, 126);
-			this.TbTask.Multiline = true;
-			this.TbTask.Name = "TbTask";
-			this.TbTask.Size = new System.Drawing.Size(960, 355);
-			this.TbTask.TabIndex = 10;
+			TbTask.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			TbTask.Location = new Point(127, 145);
+			TbTask.Margin = new Padding(4, 3, 4, 3);
+			TbTask.Multiline = true;
+			TbTask.Name = "TbTask";
+			TbTask.Size = new Size(995, 382);
+			TbTask.TabIndex = 10;
 			// 
-			// CkBullseyeWaypoint
+			// LbBullseyeWaypoint
 			// 
-			this.CkBullseyeWaypoint.AutoSize = true;
-			this.CkBullseyeWaypoint.Location = new System.Drawing.Point(109, 103);
-			this.CkBullseyeWaypoint.Name = "CkBullseyeWaypoint";
-			this.CkBullseyeWaypoint.Size = new System.Drawing.Size(248, 17);
-			this.CkBullseyeWaypoint.TabIndex = 11;
-			this.CkBullseyeWaypoint.Text = "Add Bulls as first waypoint for all playable flights";
-			this.CkBullseyeWaypoint.UseVisualStyleBackColor = true;
-			this.CkBullseyeWaypoint.CheckedChanged += new System.EventHandler(this.CkBullseyeWaypoint_CheckedChanged);
+			LbBullseyeWaypoint.AutoSize = true;
+			LbBullseyeWaypoint.Location = new Point(1, 120);
+			LbBullseyeWaypoint.Margin = new Padding(4, 0, 4, 0);
+			LbBullseyeWaypoint.Name = "LbBullseyeWaypoint";
+			LbBullseyeWaypoint.Size = new Size(102, 15);
+			LbBullseyeWaypoint.TabIndex = 30;
+			LbBullseyeWaypoint.Text = "Bullseye waypoint";
+			// 
+			// CbBullseyeWaypoint
+			// 
+			CbBullseyeWaypoint.FormattingEnabled = true;
+			CbBullseyeWaypoint.Location = new Point(127, 117);
+			CbBullseyeWaypoint.Margin = new Padding(4, 3, 4, 3);
+			CbBullseyeWaypoint.Name = "CbBullseyeWaypoint";
+			CbBullseyeWaypoint.Size = new Size(310, 23);
+			CbBullseyeWaypoint.TabIndex = 29;
+			CbBullseyeWaypoint.SelectedValueChanged += CbBullseyeWaypoint_SelectedValueChanged;
 			// 
 			// UcMissionCoalition
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.CkBullseyeWaypoint);
-			this.Controls.Add(this.TbTask);
-			this.Controls.Add(this.LbTask);
-			this.Controls.Add(this.TbBullseyeDescription);
-			this.Controls.Add(this.LbBullseyeDescription);
-			this.Controls.Add(this.TbBullseye);
-			this.Controls.Add(this.LbBullseye);
-			this.Name = "UcMissionCoalition";
-			this.Size = new System.Drawing.Size(1072, 484);
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(LbBullseyeWaypoint);
+			Controls.Add(CbBullseyeWaypoint);
+			Controls.Add(TbTask);
+			Controls.Add(LbTask);
+			Controls.Add(TbBullseyeDescription);
+			Controls.Add(LbBullseyeDescription);
+			Controls.Add(TbBullseye);
+			Controls.Add(LbBullseye);
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "UcMissionCoalition";
+			Size = new Size(1127, 531);
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion
@@ -133,6 +146,7 @@
 		private System.Windows.Forms.Label LbBullseyeDescription;
 		private System.Windows.Forms.Label LbTask;
 		private System.Windows.Forms.TextBox TbTask;
-		private System.Windows.Forms.CheckBox CkBullseyeWaypoint;
+		private Label LbBullseyeWaypoint;
+		private ComboBox CbBullseyeWaypoint;
 	}
 }

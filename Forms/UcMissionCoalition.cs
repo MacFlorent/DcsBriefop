@@ -20,32 +20,34 @@ namespace DcsBriefop.Forms
 
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
+
+			MasterDataRepository.FillCombo(MasterDataType.BullseyeWaypoint, CbBullseyeWaypoint, CbBullseyeWaypoint_SelectedValueChanged);
 		}
 		#endregion
 
 		#region Methods
 		public void DataToScreen()
 		{
-			CkBullseyeWaypoint.CheckedChanged -= CkBullseyeWaypoint_CheckedChanged;
+			CbBullseyeWaypoint.SelectedValueChanged -= CbBullseyeWaypoint_SelectedValueChanged;
 
 			TbBullseye.Text = m_bopCoalition.Bullseye.ToString(ElementCoordinateDisplay.All);
 			TbBullseyeDescription.Text = m_bopCoalition.BullseyeDescription;
-			CkBullseyeWaypoint.Checked = m_bopCoalition.BullseyeWaypoint;
+			CbBullseyeWaypoint.SelectedValue = (int)m_bopCoalition.BullseyeWaypoint;
 			TbTask.Text = m_bopCoalition.Task;
-			
-			CkBullseyeWaypoint.CheckedChanged += CkBullseyeWaypoint_CheckedChanged;
+
+			CbBullseyeWaypoint.SelectedValueChanged += CbBullseyeWaypoint_SelectedValueChanged;
 		}
 
 		public void ScreenToData()
 		{
 			m_bopCoalition.BullseyeDescription = TbBullseyeDescription.Text;
-			m_bopCoalition.BullseyeWaypoint = CkBullseyeWaypoint.Checked;
+			m_bopCoalition.BullseyeWaypoint = (ElementBullseyeWaypoint)CbBullseyeWaypoint.SelectedValue;
 			m_bopCoalition.Task = TbTask.Text;
 		}
 		#endregion
 
 		#region Events
-		private void CkBullseyeWaypoint_CheckedChanged(object sender, System.EventArgs e)
+		private void CbBullseyeWaypoint_SelectedValueChanged(object sender, EventArgs e)
 		{
 			ScreenToData();
 			m_briefopManager.BopMission.SetBullseyeRoutePoint();

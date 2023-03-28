@@ -19,7 +19,7 @@ namespace DcsBriefop.DataBopMission
 		public string CoalitionName { get; set; }
 		public string Task { get; set; }
 		public string BullseyeDescription { get; set; }
-		public bool BullseyeWaypoint { get; set; }
+		public ElementBullseyeWaypoint BullseyeWaypoint { get; set; }
 		public Coordinate Bullseye { get; set; }
 		public bool NoCallsignForPlayableFlights { get; set; }
 		//public ListComPreset ComPresets { get; set; }

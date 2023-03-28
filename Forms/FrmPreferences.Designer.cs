@@ -42,7 +42,8 @@
 			TbApplicationWorkingDirectory = new TextBox();
 			LbApplicationWorkingDirectory = new Label();
 			PnMission = new Panel();
-			CkMissionBullseyeWaypoint = new CheckBox();
+			LbMissionBullseyeWaypoint = new Label();
+			CbMissionBullseyeWaypoint = new ComboBox();
 			CkMissionNoCallsignForPlayable = new CheckBox();
 			LbTitleMission = new Label();
 			PnMap = new Panel();
@@ -74,7 +75,7 @@
 			// BtCancel
 			// 
 			BtCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtCancel.Location = new Point(472, 586);
+			BtCancel.Location = new Point(472, 605);
 			BtCancel.Margin = new Padding(4, 3, 4, 3);
 			BtCancel.Name = "BtCancel";
 			BtCancel.Size = new Size(88, 27);
@@ -86,7 +87,7 @@
 			// BtOk
 			// 
 			BtOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtOk.Location = new Point(378, 586);
+			BtOk.Location = new Point(378, 605);
 			BtOk.Margin = new Padding(4, 3, 4, 3);
 			BtOk.Name = "BtOk";
 			BtOk.Size = new Size(88, 27);
@@ -231,30 +232,39 @@
 			// 
 			PnMission.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			PnMission.BorderStyle = BorderStyle.FixedSingle;
-			PnMission.Controls.Add(CkMissionBullseyeWaypoint);
+			PnMission.Controls.Add(LbMissionBullseyeWaypoint);
+			PnMission.Controls.Add(CbMissionBullseyeWaypoint);
 			PnMission.Controls.Add(CkMissionNoCallsignForPlayable);
 			PnMission.Controls.Add(LbTitleMission);
 			PnMission.Location = new Point(14, 156);
 			PnMission.Margin = new Padding(4, 3, 4, 3);
 			PnMission.Name = "PnMission";
-			PnMission.Size = new Size(546, 65);
+			PnMission.Size = new Size(546, 86);
 			PnMission.TabIndex = 15;
 			// 
-			// CkMissionBullseyeWaypoint
+			// LbMissionBullseyeWaypoint
 			// 
-			CkMissionBullseyeWaypoint.AutoSize = true;
-			CkMissionBullseyeWaypoint.Location = new Point(259, 35);
-			CkMissionBullseyeWaypoint.Margin = new Padding(4, 3, 4, 3);
-			CkMissionBullseyeWaypoint.Name = "CkMissionBullseyeWaypoint";
-			CkMissionBullseyeWaypoint.Size = new Size(281, 19);
-			CkMissionBullseyeWaypoint.TabIndex = 26;
-			CkMissionBullseyeWaypoint.Text = "Add Bulls as first waypoint for all playable flights";
-			CkMissionBullseyeWaypoint.UseVisualStyleBackColor = true;
+			LbMissionBullseyeWaypoint.AutoSize = true;
+			LbMissionBullseyeWaypoint.Location = new Point(5, 58);
+			LbMissionBullseyeWaypoint.Margin = new Padding(4, 0, 4, 0);
+			LbMissionBullseyeWaypoint.Name = "LbMissionBullseyeWaypoint";
+			LbMissionBullseyeWaypoint.Size = new Size(102, 15);
+			LbMissionBullseyeWaypoint.TabIndex = 28;
+			LbMissionBullseyeWaypoint.Text = "Bullseye waypoint";
+			// 
+			// CbMissionBullseyeWaypoint
+			// 
+			CbMissionBullseyeWaypoint.FormattingEnabled = true;
+			CbMissionBullseyeWaypoint.Location = new Point(131, 55);
+			CbMissionBullseyeWaypoint.Margin = new Padding(4, 3, 4, 3);
+			CbMissionBullseyeWaypoint.Name = "CbMissionBullseyeWaypoint";
+			CbMissionBullseyeWaypoint.Size = new Size(310, 23);
+			CbMissionBullseyeWaypoint.TabIndex = 27;
 			// 
 			// CkMissionNoCallsignForPlayable
 			// 
 			CkMissionNoCallsignForPlayable.AutoSize = true;
-			CkMissionNoCallsignForPlayable.Location = new Point(42, 35);
+			CkMissionNoCallsignForPlayable.Location = new Point(42, 30);
 			CkMissionNoCallsignForPlayable.Margin = new Padding(4, 3, 4, 3);
 			CkMissionNoCallsignForPlayable.Name = "CkMissionNoCallsignForPlayable";
 			CkMissionNoCallsignForPlayable.Size = new Size(186, 19);
@@ -282,7 +292,7 @@
 			PnMap.Controls.Add(LbMapZoom);
 			PnMap.Controls.Add(LbMapProvider);
 			PnMap.Controls.Add(LbTitleMap);
-			PnMap.Location = new Point(14, 227);
+			PnMap.Location = new Point(14, 249);
 			PnMap.Margin = new Padding(4, 3, 4, 3);
 			PnMap.Name = "PnMap";
 			PnMap.Size = new Size(546, 99);
@@ -342,7 +352,7 @@
 			// BtDefaults
 			// 
 			BtDefaults.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtDefaults.Location = new Point(14, 586);
+			BtDefaults.Location = new Point(14, 605);
 			BtDefaults.Margin = new Padding(4, 3, 4, 3);
 			BtDefaults.Name = "BtDefaults";
 			BtDefaults.Size = new Size(124, 27);
@@ -366,7 +376,7 @@
 			PnBriefing.Controls.Add(LbBriefingCoordinateDisplay);
 			PnBriefing.Controls.Add(LbBriefingWeatherDisplay);
 			PnBriefing.Controls.Add(LbTitleBriefing);
-			PnBriefing.Location = new Point(14, 332);
+			PnBriefing.Location = new Point(14, 354);
 			PnBriefing.Margin = new Padding(4, 3, 4, 3);
 			PnBriefing.Name = "PnBriefing";
 			PnBriefing.Size = new Size(546, 246);
@@ -485,7 +495,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(574, 621);
+			ClientSize = new Size(574, 640);
 			Controls.Add(PnBriefing);
 			Controls.Add(BtDefaults);
 			Controls.Add(PnMap);
@@ -543,12 +553,13 @@
 		private Label LbBriefingCoordinateDisplay;
 		private Label LbBriefingWeatherDisplay;
 		private Label LbTitleBriefing;
-		private CheckBox CkMissionBullseyeWaypoint;
 		private ComboBox CbBriefingMeasurementSystem;
 		private Label LbBriefingMeasurementSystem;
 		private CheckBox CkBriefingGenerateOnSave;
 		private Label LbBriefingImageSize;
 		private UcImageSize UcBriefingImageSize;
 		private CheckBox CkBriefingGenerateDirectoryHtml;
+		private Label LbMissionBullseyeWaypoint;
+		private ComboBox CbMissionBullseyeWaypoint;
 	}
 }

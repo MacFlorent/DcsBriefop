@@ -10,6 +10,7 @@ namespace DcsBriefop.Data
 		WeatherDisplay,
 		MeasurementSystem,
 		CoordinateDisplay,
+		BullseyeWaypoint,
 		Coalition,
 		BriefingPartType,
 		BriefingPartGroupType
@@ -43,11 +44,13 @@ namespace DcsBriefop.Data
 			m_repository.Add(MasterDataType.RadioModulation, BuildListRadioModulation());
 			m_repository.Add(MasterDataType.ComPresetMode, BuildListComPresetMode());
 			m_repository.Add(MasterDataType.WeatherDisplay, BuildListWeatherDisplay());
-			m_repository.Add(MasterDataType.CoordinateDisplay, BuildListCoordinateDisplay());
 			m_repository.Add(MasterDataType.MeasurementSystem, BuildListMeasurementSystem());
+			m_repository.Add(MasterDataType.CoordinateDisplay, BuildListCoordinateDisplay());
+			m_repository.Add(MasterDataType.BullseyeWaypoint, BuildListBullseyeWaypoint());
 			m_repository.Add(MasterDataType.Coalition, BuildListCoalition());
 			m_repository.Add(MasterDataType.BriefingPartType, BuildListBriefingPartType());
 			m_repository.Add(MasterDataType.BriefingPartGroupType, BuildListBriefingPartGroupType());
+			
 		}
 		#endregion
 
@@ -109,6 +112,17 @@ namespace DcsBriefop.Data
 				new MasterData() { Id = (int)ElementMeasurementSystem.Metric, Label = "Metric" },
 			};
 		}
+
+		private static List<MasterData> BuildListBullseyeWaypoint()
+		{
+			return new List<MasterData>()
+			{
+				new MasterData() { Id = (int)ElementBullseyeWaypoint.None, Label = "None" },
+				new MasterData() { Id = (int)ElementBullseyeWaypoint.One, Label = "Waypoint 1" },
+				new MasterData() { Id = (int)ElementBullseyeWaypoint.Last, Label = "Last waypoint" },
+			};
+		}
+
 
 		private static List<MasterData> BuildListCoalition()
 		{
@@ -186,7 +200,7 @@ namespace DcsBriefop.Data
 			int iFlag = 0;
 			foreach (MasterData masterData in lst.CheckedItems)
 			{
-				iFlag = (iFlag | masterData.Id);
+				iFlag |= masterData.Id;
 			}
 			return iFlag;
 		}
