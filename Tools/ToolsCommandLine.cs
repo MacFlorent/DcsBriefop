@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using DcsBriefop.Data;
 using System.Collections;
 using System.Text;
 
@@ -18,9 +19,10 @@ namespace DcsBriefop.Tools
 	[Verb("batch", HelpText = "Process a file without opening the application windows")]
 	class OptionsBatch : OptionsCommon
 	{
-		[Option('m', "mizFile", Required = true, HelpText = "The path of the miz file to be batch processed")]
-		public string MizFile { get; set; }
-
+		[Option('m', "miz", Required = true, HelpText = "The path of the miz file to be batch processed, or the directory where to find it")]
+		public string Miz { get; set; }
+		[Option('b', "briefing-output", Required = false, Default = ElementBriefingOutput.Miz, HelpText = "Combinable briefing files generation options (None,Miz,Directory")]
+		public ElementBriefingOutput BriefingOutput { get; set; }
 	}
 
 	internal static class ToolsCommandLine

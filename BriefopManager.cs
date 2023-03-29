@@ -103,7 +103,7 @@ namespace DcsBriefop
 			PreferencesManager.Save();
 		}
 
-		public async void MizSave(string sFilePath)
+		public void MizSave(string sFilePath)
 		{
 			if (!File.Exists(MizFilePath))
 				throw new ExceptionBop($"Original mission miz file not found : {MizFilePath}");
@@ -145,9 +145,6 @@ namespace DcsBriefop
 			File.WriteAllText(sDebugFilePath, ToolsLua.LsonRootToDcs(BopMission.Miz.RootMission.RootLua));
 			//			
 
-			if (PreferencesManager.Preferences.Briefing.GenerateOnSave)
-				await GenerateBriefing(ElementBriefingOutput.Miz);
-
 			ToolsBriefop.MizCheck(MizFilePath);
 		}
 
@@ -162,7 +159,11 @@ namespace DcsBriefop
 			string sCommandFilePath = MizBatchCommandFileName();
 			string sCommandFileContent = ToolsResources.GetTextResourceContent("DcsBriefopBatch", "cmd");
 			sCommandFileContent = sCommandFileContent.Replace("%1", MizFileName);
-			sCommandFileContent = sCommandFileContent.Replace("%2", System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+			string sExeFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+			sExeFilePath = Path.Combine(Path.GetDirectoryName(sExeFilePath), Path.GetFileNameWithoutExtension(sExeFilePath));
+
+			sCommandFileContent = sCommandFileContent.Replace("%2", sExeFilePath);
 			StreamWriter sw = File.CreateText(sCommandFilePath);
 			sw.Write(sCommandFileContent);
 			sw.Close();
@@ -170,15 +171,16 @@ namespace DcsBriefop
 		#endregion
 
 		#region Briefing generation
-		public async Task GenerateBriefing(ElementBriefingOutput briefingOutput)
+		public void GenerateBriefing(ElementBriefingOutput briefingOutput)
 		{
-			using (ListBopBriefingGeneratedFile files = await BopMission.GenerateBriefingFiles(this))
-			{
-				if (briefingOutput.HasFlag(ElementBriefingOutput.Miz))
-					GenerateBriefingMiz(files);
-				if (briefingOutput.HasFlag(ElementBriefingOutput.Directory))
-					GenerateBriefingDirectory(files);
-			}
+			Task<ListBopBriefingGeneratedFile> t = Task.Run(() => BopMission.GenerateBriefingFiles(this));
+			t.Wait();
+
+			using ListBopBriefingGeneratedFile files = t.Result;
+			if (briefingOutput.HasFlag(ElementBriefingOutput.Miz))
+				GenerateBriefingMiz(files);
+			if (briefingOutput.HasFlag(ElementBriefingOutput.Directory))
+				GenerateBriefingDirectory(files);
 		}
 
 		public void GenerateBriefingMiz(ListBopBriefingGeneratedFile files)

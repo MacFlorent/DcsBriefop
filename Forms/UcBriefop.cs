@@ -178,11 +178,11 @@ namespace DcsBriefop.Forms
 			BriefingFolderDetail();
 		}
 
-		private async void GenerateBriefing(ElementBriefingOutput briefingOutput)
+		private void GenerateBriefing(ElementBriefingOutput briefingOutput)
 		{
 			using (new WaitDialog(ParentForm))
 			{
-				await m_briefopManager.GenerateBriefing(briefingOutput);
+				m_briefopManager.GenerateBriefing(briefingOutput);
 			}
 		}
 

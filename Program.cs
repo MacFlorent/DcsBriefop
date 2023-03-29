@@ -51,18 +51,32 @@ namespace DcsBriefop
 		private static int MainBatch(OptionsBatch optionsBatch)
 		{
 			Log.ApplicationStart();
-			Log.Info($"Starting batch verb for {optionsBatch.MizFile}");
+			Log.Info($"Starting batch verb for {optionsBatch.Miz}");
 
 			try
 			{
-				//Log.Info($"Reading miz file content");
-				//BriefingManager missionManager = new BriefingManager(optionsBatch.MizFile);
-				//Log.Info($"Building DcsBriefop data for miz file");
-				//BriefingContainer briefingContainer = new BriefingContainer(missionManager.Miz);
+				string sMizFilePath = optionsBatch.Miz;
+				if (!File.Exists(sMizFilePath) && Directory.Exists(sMizFilePath))
+					sMizFilePath = Directory.GetFiles(sMizFilePath, "*.miz").FirstOrDefault();
 
-				//Log.Info($"Generating kneeboard briefing files");
-				//using (BriefingFilesBuilder builder = new BriefingFilesBuilder(briefingContainer, missionManager))
-				//	builder.Generate();
+				if (!File.Exists(sMizFilePath))
+					throw new ExceptionBop($"Miz file not found for batch verb [ {optionsBatch.Miz} ]");
+
+				Log.Info($"Reading miz file content {sMizFilePath}");
+				BriefopManager bopManager = new BriefopManager(sMizFilePath);
+				Log.Info("Saving updated data");
+				bopManager.MizSave(null);
+
+				if (optionsBatch.BriefingOutput.HasFlag(Data.ElementBriefingOutput.Miz))
+				{
+					Log.Info($"Generating kneeboard in Miz file");
+					bopManager.GenerateBriefing(Data.ElementBriefingOutput.Miz);
+				}
+				if (optionsBatch.BriefingOutput.HasFlag(Data.ElementBriefingOutput.Miz))
+				{
+					Log.Info($"Generating kneeboard in directory");
+					bopManager.GenerateBriefing(Data.ElementBriefingOutput.Directory);
+				}
 
 				Log.ApplicationEnd();
 				return 1;

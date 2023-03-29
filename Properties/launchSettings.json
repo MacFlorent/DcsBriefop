@@ -1,6 +1,10 @@
 {
   "profiles": {
-    "DcsBriefop": {
+    "DcsBriefop Batch": {
+      "commandName": "Project",
+      "commandLineArgs": "batch -m D:\\Projects\\RotaAirshow_bop.miz -l INFO"
+    },
+    "DcsBriefop App": {
       "commandName": "Project",
       "commandLineArgs": "-l INFO"
     }

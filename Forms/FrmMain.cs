@@ -76,6 +76,11 @@ namespace DcsBriefop.Forms
 			using (new WaitDialog(this))
 			{
 				m_briefopManager.MizSave(sMizFilePath);
+
+				if (PreferencesManager.Preferences.Briefing.GenerateOnSave)
+					m_briefopManager.GenerateBriefing(ElementBriefingOutput.Miz);
+				if (PreferencesManager.Preferences.Application.GenerateBatchCommandOnSave)
+					m_briefopManager.MizBatchCommand();
 			}
 
 			MizReload();
@@ -115,20 +120,26 @@ namespace DcsBriefop.Forms
 			f.ShowDialog();
 		}
 
-		//private void GenerateBatchCommand()
-		//{
-		//	if (m_missionManager is null)
-		//		throw new ExceptionDcsBriefop("No mission is currently loaded");
+		private void GenerateBatchCommand()
+		{
+			if (m_briefopManager is null)
+				throw new ExceptionBop("No mission is currently loaded");
 
-		//	string sCommandFilePath = m_missionManager.MizBatchCommandFileName();
-		//	if (ToolsControls.ShowMessageBoxQuestion($"The following command file will be generated in the mission directory :{Environment.NewLine}  {sCommandFilePath}{Environment.NewLine}{Environment.NewLine}You can execute this command file to generate the kneeboard contents for the mission. This file will also be generated each time the mission is saved in DcsBriefop if the relevant preference is active."))
-		//	{
-		//		using (new WaitDialog(this))
-		//		{
-		//			m_missionManager.MizBatchCommand();
-		//		}
-		//	}
-		//}
+			string sCommandFilePath = m_briefopManager.MizBatchCommandFileName();
+			if (ToolsControls.ShowMessageBoxQuestion(
+				$"""
+				The following command file will be generated in the mission directory :
+				    {sCommandFilePath}
+				
+				You can execute this command file to generate the kneeboard contents for the mission. This file will also be generated each time the mission is saved in DcsBriefop if the relevant preference is active.
+				"""))
+			{
+				using (new WaitDialog(this))
+				{
+					m_briefopManager.MizBatchCommand();
+				}
+			}
+		}
 
 		private void DataToScreen()
 		{
@@ -178,6 +189,7 @@ namespace DcsBriefop.Forms
 				tsmiMiz.DropDownItems.AddMenuItem("Reload", (object _sender, EventArgs _e) => { MizReload(); });
 				tsmiMiz.DropDownItems.AddMenuItem("Save", (object _sender, EventArgs _e) => { MizSave(null); });
 				tsmiMiz.DropDownItems.AddMenuItem("Save as", (object _sender, EventArgs _e) => { MizSaveAs(); });
+				tsmiMiz.DropDownItems.AddMenuItem("Generate batch command", (object _sender, EventArgs _e) => { GenerateBatchCommand(); });
 			}
 
 			if (PreferencesManager.Preferences.Application.RecentMiz.Count > 0)
@@ -188,8 +200,6 @@ namespace DcsBriefop.Forms
 			}
 			tsmiMiz.DropDownItems.AddMenuSeparator();
 			tsmiMiz.DropDownItems.AddMenuItem("Exit", (object _sender, EventArgs _e) => { Application.Exit(); });
-
-			//tsmiBriefing.DropDownItems.AddMenuItem("Generate batch command", (object _sender, EventArgs _e) => { GenerateBatchCommand(); });
 
 			ToolStripMenuItem tsmiTools = MainMenu.Items.AddMenuItem("Tools", null);
 			MainMenu.Items.Add(tsmiTools);

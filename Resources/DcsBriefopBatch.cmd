@@ -14,7 +14,7 @@ set dcsBriefopExe=%%~ni
 pushd %dcsBriefopPath%
 
 @echo on
-start "" %dcsBriefopExe% batch --mizFile %mizPath%%mizFile% --loglevel info
+start "" %dcsBriefopExe% batch --miz %mizPath%%mizFile% --loglevel info
 @echo off
 
 ::reset execution directory
