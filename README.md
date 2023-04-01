@@ -10,7 +10,7 @@ The program allows the user to combine and organise the mission data in kneeboar
 
 In addition to the data available in the mission, DcsBriefop manages additional custom informations such as comments, map markers, custom radio or tacans, etc.
 
-DcsBriefop works with the static data of a DCS miz file, and as such cannot intepret and use dynam
+DcsBriefop works with the static data of a DCS miz file, and as such cannot intepret and use dynamically scripted informations.
 
 ## Usage
 ![image](https://user-images.githubusercontent.com/5670081/229312737-814e4882-48ea-42df-90c6-d0e22d1b48ff.png)
