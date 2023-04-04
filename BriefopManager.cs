@@ -11,8 +11,7 @@ namespace DcsBriefop
 	internal class BriefopManager
 	{
 		#region Fields
-		private static readonly string m_sBriefingMizPrefix = "bop_";
-		private static readonly string m_sBriefingDirectory = "BriefopGenerated";
+		private static readonly string m_sBriefingFilePrefix = "bop_";
 		#endregion
 
 		#region Properties
@@ -200,7 +199,7 @@ namespace DcsBriefop
 						if (!string.IsNullOrEmpty(sUnitDirectoryWithSeparator))
 							sUnitDirectoryWithSeparator = $"{sUnitDirectoryWithSeparator}/";
 
-						string sZipEntry = $@"KNEEBOARD/{sUnitDirectoryWithSeparator}IMAGES/{m_sBriefingMizPrefix}{file.FileName}.jpg"; ;
+						string sZipEntry = $@"KNEEBOARD/{sUnitDirectoryWithSeparator}IMAGES/{m_sBriefingFilePrefix}{file.FileName}.jpg"; ;
 						string sTempPath = Path.GetTempFileName();
 						file.Image.Save(sTempPath, ImageFormat.Jpeg);
 
@@ -214,7 +213,7 @@ namespace DcsBriefop
 		private void CleanBriefingFilesMiz(ZipArchive za)
 		{
 			List<string> listToDelete = new List<string>();
-			foreach (ZipArchiveEntry entry in za.Entries.Where(_ze => _ze.Name.StartsWith(m_sBriefingMizPrefix)))
+			foreach (ZipArchiveEntry entry in za.Entries.Where(_ze => _ze.Name.StartsWith(m_sBriefingFilePrefix)))
 			{
 				listToDelete.Add(entry.FullName);
 			}
@@ -227,29 +226,45 @@ namespace DcsBriefop
 
 		private void GenerateBriefingDirectory(ListBopBriefingGeneratedFile files)
 		{
-			string sDirectoryRoot = Path.Combine(MizFileDirectory, m_sBriefingDirectory);
-
-			if (!Path.Exists(sDirectoryRoot))
-				Directory.CreateDirectory(sDirectoryRoot);
+			string sDirectoryRoot;
+			if (Path.IsPathFullyQualified(PreferencesManager.Preferences.Briefing.GenerateDirectoryName))
+			{
+				sDirectoryRoot = PreferencesManager.Preferences.Briefing.GenerateDirectoryName;
+				if (!Path.Exists(sDirectoryRoot))
+					throw new ExceptionBop($"Absolute generation directory {sDirectoryRoot} does not exist.");
+				else
+					CleanBriefingDirectory(sDirectoryRoot);
+			}
 			else
-				CleanBriefingDirectory(sDirectoryRoot);
+			{
+				string sCleanedGenerateDirectoryName = PreferencesManager.Preferences.Briefing.GenerateDirectoryName;
+				if (Path.IsPathRooted(sCleanedGenerateDirectoryName))
+					sCleanedGenerateDirectoryName = sCleanedGenerateDirectoryName.Substring(Path.GetPathRoot(sCleanedGenerateDirectoryName).Length);
+				
+				sDirectoryRoot = Path.Combine(MizFileDirectory, sCleanedGenerateDirectoryName);
+				if (!Path.Exists(sDirectoryRoot))
+					Directory.CreateDirectory(sDirectoryRoot);
+				else
+					CleanBriefingDirectory(sDirectoryRoot);
+
+			}
 
 			foreach (BopBriefingGeneratedFile file in files.Where(_f => _f.Kneeboards is not null))
 			{
 				foreach (string sUnitDirectory in file.Kneeboards)
 				{
-					string sDirectory = Path.Combine(sDirectoryRoot, sUnitDirectory);
+					string sDirectory = Path.Combine(sDirectoryRoot, sUnitDirectory, "IMAGES");
 					if (!Path.Exists(sDirectory))
 						Directory.CreateDirectory(sDirectory);
 
-					string sFilePath = Path.Combine(sDirectory, $"{file.FileName}.jpg");
+					string sFilePath = Path.Combine(sDirectory, $"{m_sBriefingFilePrefix}{file.FileName}.jpg");
 					if (File.Exists(sFilePath))
 						File.Delete(sFilePath);
 					file.Image.Save(sFilePath, ImageFormat.Jpeg);
 
 					if (!string.IsNullOrEmpty(file.Html) && PreferencesManager.Preferences.Briefing.GenerateDirectoryHtml)
 					{
-						sFilePath = Path.Combine(sDirectory, $"{file.FileName}.html");
+						sFilePath = Path.Combine(sDirectory, $"{m_sBriefingFilePrefix}{file.FileName}.html");
 						if (File.Exists(sFilePath))
 							File.Delete(sFilePath);
 						File.WriteAllText(sFilePath, file.Html);
@@ -260,14 +275,19 @@ namespace DcsBriefop
 
 		private void CleanBriefingDirectory(string sDirectoryRoot)
 		{
-			DirectoryInfo di = new DirectoryInfo(sDirectoryRoot);
-			foreach (FileInfo file in di.GetFiles())
+			DirectoryInfo dir = new DirectoryInfo(sDirectoryRoot);
+			CleanBriefingDirectory(dir);
+		}
+
+		private void CleanBriefingDirectory(DirectoryInfo dir)
+		{
+			foreach (FileInfo file in dir.GetFiles().Where(_f => _f.Name.StartsWith(m_sBriefingFilePrefix)))
 			{
 				file.Delete();
 			}
-			foreach (DirectoryInfo dir in di.GetDirectories())
+			foreach (DirectoryInfo subDir in dir.GetDirectories())
 			{
-				dir.Delete(true);
+				CleanBriefingDirectory(subDir);
 			}
 		}
 		#endregion

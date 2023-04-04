@@ -187,7 +187,7 @@ namespace DcsBriefop.DataBopMission
 			if (AltitudeMeters is null)
 				return null;
 
-			if (measurementSystem == ElementMeasurementSystem.Imperial)
+			if (measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid)
 				return Convert.ToDecimal(UnitConverter.Convert(AltitudeMeters.Value, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
 			else
 				return AltitudeMeters;

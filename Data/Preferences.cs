@@ -70,14 +70,12 @@ namespace DcsBriefop.Data
 	internal class PreferencesBriefing
 	{
 		public ElementWeatherDisplay WeatherDisplay { get; set; } = ElementWeatherDisplay.Plain;
-		public ElementMeasurementSystem MeasurementSystem { get; set; } = ElementMeasurementSystem.Imperial;
+		public ElementMeasurementSystem MeasurementSystem { get; set; } = ElementMeasurementSystem.Hybrid;
 		public ElementCoordinateDisplay CoordinateDisplay { get; set; } = ElementCoordinateDisplay.Mgrs;
 		public Size ImageSize { get; set; } = new Size(720, 1085);
 		public bool GenerateOnSave { get; set; } = true;
-		//public bool GenerateMiz { get; set; } = true;
-		//public bool GenerateDirectory { get; set; } = false;
 		public bool GenerateDirectoryHtml { get; set; } = false;
-		//public string GenerateDirectoryName { get; set; } = "BriefopGenerated";
+		public string GenerateDirectoryName { get; set; } = ElementGlobalData.GenerateDirectoryNameDefault;
 
 		public void InitializeDefault() { }
 	}

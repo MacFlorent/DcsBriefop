@@ -1,20 +1,19 @@
-﻿using System;
-using System.IO;
+﻿using Newtonsoft.Json;
 using System.Reflection;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
 using System.Text;
-using Newtonsoft.Json;
 
 namespace DcsBriefop.Tools
 {
 	internal static class ToolsMisc
 	{
-		public static void AppendWithSeparator(this StringBuilder sb, string value, string sSeparator)
+		public static void AppendWithSeparator(this StringBuilder sb, string sValue, string sSeparator)
 		{
+			if (string.IsNullOrEmpty(sValue))
+				return;
+
 			if (sb.Length > 0)
 				sb.Append(sSeparator);
-			sb.Append(value);
+			sb.Append(sValue);
 		}
 
 		public static string GetDirectoryFullPath(string sDirectoryString)

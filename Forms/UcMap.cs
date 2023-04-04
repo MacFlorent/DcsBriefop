@@ -7,7 +7,7 @@ using GMap.NET.WindowsForms;
 
 //https://stackoverflow.com/questions/9308673/how-to-draw-circle-on-the-map-using-gmap-net-in-c-sharp
 //http://www.independent-software.com/gmap-net-beginners-tutorial-maps-markers-polygons-routes-updated-for-vs2015-and-gmap1-7.html
-//https://icon-icons.com/fr/icone/bullseye/73647https://icon-icons.com/fr/icone/bullseye/73647
+//https://icon-icons.com/fr/icone/bullseye/73647
 
 namespace DcsBriefop.Forms
 {
@@ -23,7 +23,7 @@ namespace DcsBriefop.Forms
 		public string MapProviderName
 		{
 			get { return m_mapProvider.Name; }
-			set { m_mapProvider = GMapProviders.TryGetProvider(value); }
+			set { m_mapProvider = MapProviders.TryGetProvider(value); }
 		}
 		#endregion
 

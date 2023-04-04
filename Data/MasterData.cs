@@ -110,6 +110,7 @@ namespace DcsBriefop.Data
 			{
 				new MasterData() { Id = (int)ElementMeasurementSystem.Imperial, Label = "Imperial" },
 				new MasterData() { Id = (int)ElementMeasurementSystem.Metric, Label = "Metric" },
+				new MasterData() { Id = (int)ElementMeasurementSystem.Hybrid, Label = "Hybrid" },
 			};
 		}
 

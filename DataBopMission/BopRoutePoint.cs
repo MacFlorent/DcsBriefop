@@ -144,7 +144,7 @@ namespace DcsBriefop.DataBopMission
 
 		public decimal? GetAltitude(ElementMeasurementSystem measurementSystem)
 		{
-			if (measurementSystem == ElementMeasurementSystem.Imperial)
+			if (measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid)
 				return Convert.ToDecimal(UnitConverter.Convert(AltitudeMeters, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
 			else
 				return AltitudeMeters;

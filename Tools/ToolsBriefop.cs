@@ -73,7 +73,7 @@ namespace DcsBriefop.Tools
 
 		public static string GetUnitAltitude(ElementMeasurementSystem measurementSystem)
 		{
-			return measurementSystem == ElementMeasurementSystem.Imperial ? "ft" : "m";
+			return measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid ? "ft" : "m";
 		}
 
 		public static string GetUnitVisibility(ElementMeasurementSystem measurementSystem)
@@ -83,7 +83,7 @@ namespace DcsBriefop.Tools
 
 		public static string GetUnitSpeed(ElementMeasurementSystem measurementSystem)
 		{
-			return measurementSystem == ElementMeasurementSystem.Imperial ? "kts" : "km/h";
+			return measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid ? "kts" : "km/h";
 		}
 
 		public static string GetUnitTemperature(ElementMeasurementSystem measurementSystem)

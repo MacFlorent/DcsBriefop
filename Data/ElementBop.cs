@@ -39,7 +39,8 @@
 	internal enum ElementMeasurementSystem
 	{
 		Metric,
-		Imperial
+		Imperial,
+		Hybrid
 	}
 
 	[Flags]
@@ -119,6 +120,9 @@
 		public static readonly string DcsFileFilter = "DCS mission files (*.miz)|*.miz|All files (*.*)|*.*";
 		public static readonly string ImageFileFilter = "Image files |*.bmp;*.jpg;*.png";
 		public static readonly string BullseyeRoutePointName = "BULLS";
+		public static readonly string GenerateDirectoryNameDefault = "BriefopGenerated";
+		public static readonly string GenerateDirectoryNameVeaf = @"src\mission\KNEEBOARD";
+
 	}
 
 	internal static class ElementCoalitionColor

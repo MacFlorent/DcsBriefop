@@ -43,7 +43,7 @@ namespace DcsBriefop.Forms
 		{
 			CbMapProvider.SelectedValueChanged -= CbMapProvider_SelectedValueChanged;
 
-			CbMapProvider.SelectedItem = GMapProviders.TryGetProvider(m_briefopManager.BopMission.PreferencesMap.ProviderName);
+			CbMapProvider.SelectedItem = MapProviders.TryGetProvider(m_briefopManager.BopMission.PreferencesMap.ProviderName);
 
 			m_ucMap = new UcMap();
 			m_ucMap.Dock = DockStyle.Fill;

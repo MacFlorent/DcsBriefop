@@ -1,11 +1,6 @@
 ﻿using DcsBriefop.Tools;
 using GMap.NET.MapProviders;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Map
 {
@@ -13,11 +8,14 @@ namespace DcsBriefop.Map
 	{
 		#region Fields
 		private static List<GMapProvider> m_providers;
+		public static readonly WMSProvider WMSProvider;
 		#endregion
 
 		#region CTOR
 		static MapProviders()
 		{
+			WMSProvider = WMSProvider.Instance;
+
 			m_providers = new List<GMapProvider>()
 			{
 				GMapProviders.OpenCycleMap,
@@ -37,7 +35,8 @@ namespace DcsBriefop.Map
 				GMapProviders.GoogleTerrainMap,
 				GMapProviders.ArcGIS_World_Shaded_Relief_Map,
 				GMapProviders.ArcGIS_World_Street_Map,
-				GMapProviders.ArcGIS_World_Topo_Map
+				GMapProviders.ArcGIS_World_Topo_Map,
+				WMSProvider
 			};
 		}
 		#endregion
@@ -46,6 +45,15 @@ namespace DcsBriefop.Map
 		public static void FillCombo(ComboBox cb, EventHandler selectedValueChanged)
 		{
 			ToolsControls.FillCombo(cb, m_providers, "Name", null, selectedValueChanged);
+		}
+
+		public static GMapProvider TryGetProvider(string providerName)
+		{
+			if (m_providers.Exists((GMapProvider x) => x.Name == providerName))
+			{
+				return m_providers.Find((GMapProvider x) => x.Name == providerName);
+			}
+			return null;
 		}
 		#endregion
 	}

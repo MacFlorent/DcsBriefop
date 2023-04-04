@@ -91,7 +91,7 @@ namespace DcsBriefop.DataBopMission
 			if (AltitudeMeters is object)
 			{
 				int iAltitude;
-				if (measurementSystem == ElementMeasurementSystem.Imperial)
+				if (measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid)
 					iAltitude = Convert.ToInt32(UnitConverter.Convert(AltitudeMeters.Value, LengthUnit.Meter, LengthUnit.Foot));
 				else
 					iAltitude = Convert.ToInt32(AltitudeMeters.Value);
@@ -101,7 +101,7 @@ namespace DcsBriefop.DataBopMission
 			if (SpeedMs is object)
 			{
 				int iSpeed;
-				if (measurementSystem == ElementMeasurementSystem.Imperial)
+				if (measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid)
 					iSpeed = Convert.ToInt32(UnitConverter.Convert(SpeedMs.Value, SpeedUnit.MeterPerSecond, SpeedUnit.Knot));
 				else
 					iSpeed = Convert.ToInt32(SpeedMs.Value);

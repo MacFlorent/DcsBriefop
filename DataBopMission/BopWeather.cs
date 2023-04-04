@@ -159,7 +159,7 @@ namespace DcsBriefop.DataBopMission
 					sDensity = "Overcast";
 
 				int iCloudBaseRounded;
-				if (measurementSystem == ElementMeasurementSystem.Imperial)
+				if (measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid)
 					iCloudBaseRounded = Convert.ToInt32(UnitConverter.Convert(CloudBaseMeter, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
 				else
 					iCloudBaseRounded = CloudBaseMeter;
@@ -185,7 +185,7 @@ namespace DcsBriefop.DataBopMission
 			int iAltitude;
 			string sAltitude;
 			double dSpeed;
-			if (measurementSystem == ElementMeasurementSystem.Imperial)
+			if (measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid)
 			{
 				iAltitude = Convert.ToInt32(UnitConverter.Convert(ww.Altitude, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
 				iAltitude = iAltitude / 1000 * 1000;
@@ -208,7 +208,7 @@ namespace DcsBriefop.DataBopMission
 			return $"{sAltitude}: {ww.DirectionTrue:000}° @ {dSpeed:00} {ToolsBriefop.GetUnitSpeed(measurementSystem)}";
 		}
 
-		public string ToStringMetar(ElementMeasurementSystem measurementsystem)
+		public string ToStringMetar(ElementMeasurementSystem measurementSystem)
 		{
 			StringBuilder sb = new StringBuilder();
 
@@ -257,7 +257,12 @@ namespace DcsBriefop.DataBopMission
 				}
 			}
 
-			sb.Append($" {TemperatureCelcius:0} Q{QnhHpa:0}/{QnhInHg:00.00}");
+			int iTemperature;
+			if (measurementSystem == ElementMeasurementSystem.Imperial)
+				iTemperature = Convert.ToInt32(UnitConverter.Convert(TemperatureCelcius, UnitsNet.Units.TemperatureUnit.DegreeCelsius, UnitsNet.Units.TemperatureUnit.DegreeFahrenheit));
+			else
+				iTemperature = Convert.ToInt32(TemperatureCelcius);
+			sb.Append($" {iTemperature:0} Q{QnhHpa:0}/{QnhInHg:00.00}");
 			
 			return sb.ToString();
 		}

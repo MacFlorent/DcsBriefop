@@ -19,9 +19,7 @@ namespace DcsBriefop.Forms
 
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
-			ToolsStyle.LabelHeader(LbTitleApplication);
-			ToolsStyle.LabelHeader(LbTitleMission);
-			ToolsStyle.LabelHeader(LbTitleBriefing);
+			ToolsStyle.LabelHeader(LbApplicationProxy);
 			ToolsStyle.LabelHeader(LbTitleMap);
 			ToolsStyle.ButtonOk(BtOk);
 			ToolsStyle.ButtonCancel(BtCancel);
@@ -59,6 +57,7 @@ namespace DcsBriefop.Forms
 			UcBriefingImageSize.SelectedSize = m_preferences.Briefing.ImageSize;
 			CkBriefingGenerateOnSave.Checked = m_preferences.Briefing.GenerateOnSave;
 			CkBriefingGenerateDirectoryHtml.Checked = m_preferences.Briefing.GenerateDirectoryHtml;
+			TbBriefingGenerationDirectory.Text = m_preferences.Briefing.GenerateDirectoryName;
 		}
 
 		private void ScreenToData()
@@ -90,6 +89,7 @@ namespace DcsBriefop.Forms
 			m_preferences.Briefing.ImageSize = UcBriefingImageSize.SelectedSize;
 			m_preferences.Briefing.GenerateOnSave = CkBriefingGenerateOnSave.Checked;
 			m_preferences.Briefing.GenerateDirectoryHtml = CkBriefingGenerateDirectoryHtml.Checked;
+			m_preferences.Briefing.GenerateDirectoryName = TbBriefingGenerationDirectory.Text;
 		}
 		#endregion
 
@@ -151,8 +151,33 @@ namespace DcsBriefop.Forms
 			if (!int.TryParse(TbApplicationProxyPort.Text, out int iPort))
 				TbApplicationProxyPort.Text = null;
 		}
+
+		private void BtBriefingGenerationDirectory_Click(object sender, EventArgs e)
+		{
+			using (FolderBrowserDialog fbd = new FolderBrowserDialog())
+			{
+				fbd.SelectedPath = TbBriefingGenerationDirectory.Text;
+
+				if (fbd.ShowDialog() == DialogResult.OK)
+				{
+					TbBriefingGenerationDirectory.Text = fbd.SelectedPath;
+				}
+			}
+		}
+
+		private void BtBriefingGenerationDirectoryReset_MouseDown(object sender, MouseEventArgs e)
+		{
+			ContextMenuStrip menu = new ContextMenuStrip();
+			menu.Items.Clear();
+
+			menu.Items.AddMenuItem("Default", (object _sender, EventArgs _e) => { TbBriefingGenerationDirectory.Text = ElementGlobalData.GenerateDirectoryNameDefault; });
+			menu.Items.AddMenuItem("VEAF", (object _sender, EventArgs _e) => { TbBriefingGenerationDirectory.Text = ElementGlobalData.GenerateDirectoryNameVeaf; });
+
+			if (menu.Items.Count > 0)
+			{
+				menu.Show(BtBriefingGenerationDirectoryReset, new Point(0, BtBriefingGenerationDirectoryReset.Height));
+			}
+		}
 		#endregion
-
-
 	}
 }

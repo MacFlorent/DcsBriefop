@@ -30,13 +30,14 @@
 		{
 			BtCancel = new Button();
 			BtOk = new Button();
-			LbTitleApplication = new Label();
+			LbApplicationProxy = new Label();
 			PnApplication = new Panel();
 			TbApplicationProxyPassword = new TextBox();
-			TbApplicationProxyUser = new TextBox();
-			LbApplicationProxyUser = new Label();
 			TbApplicationProxyHost = new TextBox();
+			TbApplicationProxyUser = new TextBox();
 			LbApplicationProxyHost = new Label();
+			TbApplicationProxyPort = new TextBox();
+			LbApplicationProxyUser = new Label();
 			CkApplicationGenerateBatch = new CheckBox();
 			CkApplicationMizBackup = new CheckBox();
 			BtApplicationRecentMiz = new Button();
@@ -46,11 +47,9 @@
 			BtApplicationWorkingDirectorySelect = new Button();
 			TbApplicationWorkingDirectory = new TextBox();
 			LbApplicationWorkingDirectory = new Label();
-			PnMission = new Panel();
 			LbMissionBullseyeWaypoint = new Label();
 			CbMissionBullseyeWaypoint = new ComboBox();
 			CkMissionNoCallsignForPlayable = new CheckBox();
-			LbTitleMission = new Label();
 			PnMap = new Panel();
 			NudMapZoom = new NumericUpDown();
 			CbMapProvider = new ComboBox();
@@ -58,7 +57,6 @@
 			LbMapProvider = new Label();
 			LbTitleMap = new Label();
 			BtDefaults = new Button();
-			PnBriefing = new Panel();
 			CkBriefingGenerateDirectoryHtml = new CheckBox();
 			LbBriefingImageSize = new Label();
 			UcBriefingImageSize = new UcImageSize();
@@ -69,19 +67,27 @@
 			CbBriefingWeatherDisplay = new ComboBox();
 			LbBriefingCoordinateDisplay = new Label();
 			LbBriefingWeatherDisplay = new Label();
-			LbTitleBriefing = new Label();
-			TbApplicationProxyPort = new TextBox();
+			TcMain = new TabControl();
+			TpApplication = new TabPage();
+			TpMission = new TabPage();
+			TpBriefing = new TabPage();
+			BtBriefingGenerationDirectoryReset = new Button();
+			BtBriefingGenerationDirectory = new Button();
+			LbBriefingGenerationDirectory = new Label();
+			TbBriefingGenerationDirectory = new TextBox();
 			PnApplication.SuspendLayout();
-			PnMission.SuspendLayout();
 			PnMap.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)NudMapZoom).BeginInit();
-			PnBriefing.SuspendLayout();
+			TcMain.SuspendLayout();
+			TpApplication.SuspendLayout();
+			TpMission.SuspendLayout();
+			TpBriefing.SuspendLayout();
 			SuspendLayout();
 			// 
 			// BtCancel
 			// 
 			BtCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtCancel.Location = new Point(472, 649);
+			BtCancel.Location = new Point(466, 285);
 			BtCancel.Margin = new Padding(4, 3, 4, 3);
 			BtCancel.Name = "BtCancel";
 			BtCancel.Size = new Size(88, 27);
@@ -93,7 +99,7 @@
 			// BtOk
 			// 
 			BtOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtOk.Location = new Point(378, 649);
+			BtOk.Location = new Point(372, 285);
 			BtOk.Margin = new Padding(4, 3, 4, 3);
 			BtOk.Name = "BtOk";
 			BtOk.Size = new Size(88, 27);
@@ -102,94 +108,95 @@
 			BtOk.UseVisualStyleBackColor = true;
 			BtOk.Click += BtOk_Click;
 			// 
-			// LbTitleApplication
+			// LbApplicationProxy
 			// 
-			LbTitleApplication.Dock = DockStyle.Top;
-			LbTitleApplication.Location = new Point(0, 0);
-			LbTitleApplication.Margin = new Padding(4, 0, 4, 0);
-			LbTitleApplication.Name = "LbTitleApplication";
-			LbTitleApplication.Size = new Size(544, 32);
-			LbTitleApplication.TabIndex = 13;
-			LbTitleApplication.Text = "Application";
-			LbTitleApplication.TextAlign = ContentAlignment.MiddleLeft;
+			LbApplicationProxy.Dock = DockStyle.Top;
+			LbApplicationProxy.Location = new Point(0, 0);
+			LbApplicationProxy.Margin = new Padding(4, 0, 4, 0);
+			LbApplicationProxy.Name = "LbApplicationProxy";
+			LbApplicationProxy.Size = new Size(544, 23);
+			LbApplicationProxy.TabIndex = 13;
+			LbApplicationProxy.Text = "Internet proxy";
+			LbApplicationProxy.TextAlign = ContentAlignment.MiddleLeft;
 			// 
 			// PnApplication
 			// 
 			PnApplication.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			PnApplication.BorderStyle = BorderStyle.FixedSingle;
 			PnApplication.Controls.Add(TbApplicationProxyPassword);
-			PnApplication.Controls.Add(TbApplicationProxyUser);
-			PnApplication.Controls.Add(LbApplicationProxyUser);
-			PnApplication.Controls.Add(TbApplicationProxyPort);
+			PnApplication.Controls.Add(LbApplicationProxy);
 			PnApplication.Controls.Add(TbApplicationProxyHost);
+			PnApplication.Controls.Add(TbApplicationProxyUser);
 			PnApplication.Controls.Add(LbApplicationProxyHost);
-			PnApplication.Controls.Add(CkApplicationGenerateBatch);
-			PnApplication.Controls.Add(CkApplicationMizBackup);
-			PnApplication.Controls.Add(BtApplicationRecentMiz);
-			PnApplication.Controls.Add(TbApplicationRecentMiz);
-			PnApplication.Controls.Add(LbApplicationRecentMiz);
-			PnApplication.Controls.Add(BtApplicationWorkingDirectoryReset);
-			PnApplication.Controls.Add(BtApplicationWorkingDirectorySelect);
-			PnApplication.Controls.Add(TbApplicationWorkingDirectory);
-			PnApplication.Controls.Add(LbApplicationWorkingDirectory);
-			PnApplication.Controls.Add(LbTitleApplication);
-			PnApplication.Location = new Point(14, 14);
+			PnApplication.Controls.Add(TbApplicationProxyPort);
+			PnApplication.Controls.Add(LbApplicationProxyUser);
+			PnApplication.Location = new Point(7, 95);
 			PnApplication.Margin = new Padding(4, 3, 4, 3);
 			PnApplication.Name = "PnApplication";
-			PnApplication.Size = new Size(546, 177);
+			PnApplication.Size = new Size(546, 87);
 			PnApplication.TabIndex = 14;
 			// 
 			// TbApplicationProxyPassword
 			// 
 			TbApplicationProxyPassword.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbApplicationProxyPassword.Location = new Point(297, 147);
+			TbApplicationProxyPassword.Location = new Point(384, 52);
 			TbApplicationProxyPassword.Margin = new Padding(4, 3, 4, 3);
 			TbApplicationProxyPassword.Name = "TbApplicationProxyPassword";
-			TbApplicationProxyPassword.Size = new Size(144, 23);
+			TbApplicationProxyPassword.Size = new Size(156, 23);
 			TbApplicationProxyPassword.TabIndex = 28;
-			// 
-			// TbApplicationProxyUser
-			// 
-			TbApplicationProxyUser.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbApplicationProxyUser.Location = new Point(135, 147);
-			TbApplicationProxyUser.Margin = new Padding(4, 3, 4, 3);
-			TbApplicationProxyUser.Name = "TbApplicationProxyUser";
-			TbApplicationProxyUser.Size = new Size(154, 23);
-			TbApplicationProxyUser.TabIndex = 27;
-			// 
-			// LbApplicationProxyUser
-			// 
-			LbApplicationProxyUser.AutoSize = true;
-			LbApplicationProxyUser.Location = new Point(9, 151);
-			LbApplicationProxyUser.Margin = new Padding(4, 0, 4, 0);
-			LbApplicationProxyUser.Name = "LbApplicationProxyUser";
-			LbApplicationProxyUser.Size = new Size(117, 15);
-			LbApplicationProxyUser.TabIndex = 26;
-			LbApplicationProxyUser.Text = "Proxy user/password";
 			// 
 			// TbApplicationProxyHost
 			// 
 			TbApplicationProxyHost.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbApplicationProxyHost.Location = new Point(135, 118);
+			TbApplicationProxyHost.Location = new Point(126, 26);
 			TbApplicationProxyHost.Margin = new Padding(4, 3, 4, 3);
 			TbApplicationProxyHost.Name = "TbApplicationProxyHost";
-			TbApplicationProxyHost.Size = new Size(220, 23);
+			TbApplicationProxyHost.Size = new Size(305, 23);
 			TbApplicationProxyHost.TabIndex = 24;
+			// 
+			// TbApplicationProxyUser
+			// 
+			TbApplicationProxyUser.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbApplicationProxyUser.Location = new Point(126, 52);
+			TbApplicationProxyUser.Margin = new Padding(4, 3, 4, 3);
+			TbApplicationProxyUser.Name = "TbApplicationProxyUser";
+			TbApplicationProxyUser.Size = new Size(151, 23);
+			TbApplicationProxyUser.TabIndex = 27;
 			// 
 			// LbApplicationProxyHost
 			// 
 			LbApplicationProxyHost.AutoSize = true;
-			LbApplicationProxyHost.Location = new Point(9, 122);
+			LbApplicationProxyHost.Location = new Point(22, 26);
 			LbApplicationProxyHost.Margin = new Padding(4, 0, 4, 0);
 			LbApplicationProxyHost.Name = "LbApplicationProxyHost";
-			LbApplicationProxyHost.Size = new Size(81, 15);
+			LbApplicationProxyHost.Size = new Size(59, 15);
 			LbApplicationProxyHost.TabIndex = 23;
-			LbApplicationProxyHost.Text = "Internet proxy";
+			LbApplicationProxyHost.Text = "Host/port";
+			// 
+			// TbApplicationProxyPort
+			// 
+			TbApplicationProxyPort.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			TbApplicationProxyPort.Location = new Point(439, 26);
+			TbApplicationProxyPort.Margin = new Padding(4, 3, 4, 3);
+			TbApplicationProxyPort.Name = "TbApplicationProxyPort";
+			TbApplicationProxyPort.Size = new Size(101, 23);
+			TbApplicationProxyPort.TabIndex = 25;
+			TbApplicationProxyPort.Validated += TbApplicationProxyPort_Validated;
+			// 
+			// LbApplicationProxyUser
+			// 
+			LbApplicationProxyUser.AutoSize = true;
+			LbApplicationProxyUser.Location = new Point(22, 55);
+			LbApplicationProxyUser.Margin = new Padding(4, 0, 4, 0);
+			LbApplicationProxyUser.Name = "LbApplicationProxyUser";
+			LbApplicationProxyUser.Size = new Size(85, 15);
+			LbApplicationProxyUser.TabIndex = 26;
+			LbApplicationProxyUser.Text = "User/password";
 			// 
 			// CkApplicationGenerateBatch
 			// 
 			CkApplicationGenerateBatch.AutoSize = true;
-			CkApplicationGenerateBatch.Location = new Point(259, 94);
+			CkApplicationGenerateBatch.Location = new Point(329, 68);
 			CkApplicationGenerateBatch.Margin = new Padding(4, 3, 4, 3);
 			CkApplicationGenerateBatch.Name = "CkApplicationGenerateBatch";
 			CkApplicationGenerateBatch.Size = new Size(207, 19);
@@ -200,7 +207,7 @@
 			// CkApplicationMizBackup
 			// 
 			CkApplicationMizBackup.AutoSize = true;
-			CkApplicationMizBackup.Location = new Point(42, 94);
+			CkApplicationMizBackup.Location = new Point(134, 68);
 			CkApplicationMizBackup.Margin = new Padding(4, 3, 4, 3);
 			CkApplicationMizBackup.Name = "CkApplicationMizBackup";
 			CkApplicationMizBackup.Size = new Size(187, 19);
@@ -211,10 +218,10 @@
 			// BtApplicationRecentMiz
 			// 
 			BtApplicationRecentMiz.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			BtApplicationRecentMiz.Location = new Point(448, 61);
+			BtApplicationRecentMiz.Location = new Point(469, 37);
 			BtApplicationRecentMiz.Margin = new Padding(4, 3, 4, 3);
 			BtApplicationRecentMiz.Name = "BtApplicationRecentMiz";
-			BtApplicationRecentMiz.Size = new Size(86, 27);
+			BtApplicationRecentMiz.Size = new Size(84, 27);
 			BtApplicationRecentMiz.TabIndex = 20;
 			BtApplicationRecentMiz.Text = "Clear";
 			BtApplicationRecentMiz.UseVisualStyleBackColor = true;
@@ -223,17 +230,17 @@
 			// TbApplicationRecentMiz
 			// 
 			TbApplicationRecentMiz.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbApplicationRecentMiz.Location = new Point(131, 63);
+			TbApplicationRecentMiz.Location = new Point(134, 39);
 			TbApplicationRecentMiz.Margin = new Padding(4, 3, 4, 3);
 			TbApplicationRecentMiz.Name = "TbApplicationRecentMiz";
 			TbApplicationRecentMiz.ReadOnly = true;
-			TbApplicationRecentMiz.Size = new Size(310, 23);
+			TbApplicationRecentMiz.Size = new Size(328, 23);
 			TbApplicationRecentMiz.TabIndex = 19;
 			// 
 			// LbApplicationRecentMiz
 			// 
 			LbApplicationRecentMiz.AutoSize = true;
-			LbApplicationRecentMiz.Location = new Point(5, 67);
+			LbApplicationRecentMiz.Location = new Point(8, 43);
 			LbApplicationRecentMiz.Margin = new Padding(4, 0, 4, 0);
 			LbApplicationRecentMiz.Name = "LbApplicationRecentMiz";
 			LbApplicationRecentMiz.Size = new Size(65, 15);
@@ -243,7 +250,7 @@
 			// BtApplicationWorkingDirectoryReset
 			// 
 			BtApplicationWorkingDirectoryReset.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			BtApplicationWorkingDirectoryReset.Location = new Point(495, 31);
+			BtApplicationWorkingDirectoryReset.Location = new Point(513, 6);
 			BtApplicationWorkingDirectoryReset.Margin = new Padding(4, 3, 4, 3);
 			BtApplicationWorkingDirectoryReset.Name = "BtApplicationWorkingDirectoryReset";
 			BtApplicationWorkingDirectoryReset.Size = new Size(40, 27);
@@ -255,7 +262,7 @@
 			// BtApplicationWorkingDirectorySelect
 			// 
 			BtApplicationWorkingDirectorySelect.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			BtApplicationWorkingDirectorySelect.Location = new Point(448, 31);
+			BtApplicationWorkingDirectorySelect.Location = new Point(469, 6);
 			BtApplicationWorkingDirectorySelect.Margin = new Padding(4, 3, 4, 3);
 			BtApplicationWorkingDirectorySelect.Name = "BtApplicationWorkingDirectorySelect";
 			BtApplicationWorkingDirectorySelect.Size = new Size(40, 27);
@@ -267,41 +274,27 @@
 			// TbApplicationWorkingDirectory
 			// 
 			TbApplicationWorkingDirectory.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbApplicationWorkingDirectory.Location = new Point(131, 33);
+			TbApplicationWorkingDirectory.Location = new Point(134, 9);
 			TbApplicationWorkingDirectory.Margin = new Padding(4, 3, 4, 3);
 			TbApplicationWorkingDirectory.Name = "TbApplicationWorkingDirectory";
 			TbApplicationWorkingDirectory.ReadOnly = true;
-			TbApplicationWorkingDirectory.Size = new Size(310, 23);
+			TbApplicationWorkingDirectory.Size = new Size(328, 23);
 			TbApplicationWorkingDirectory.TabIndex = 15;
 			// 
 			// LbApplicationWorkingDirectory
 			// 
 			LbApplicationWorkingDirectory.AutoSize = true;
-			LbApplicationWorkingDirectory.Location = new Point(5, 37);
+			LbApplicationWorkingDirectory.Location = new Point(8, 13);
 			LbApplicationWorkingDirectory.Margin = new Padding(4, 0, 4, 0);
 			LbApplicationWorkingDirectory.Name = "LbApplicationWorkingDirectory";
 			LbApplicationWorkingDirectory.Size = new Size(102, 15);
 			LbApplicationWorkingDirectory.TabIndex = 14;
 			LbApplicationWorkingDirectory.Text = "Working directory";
 			// 
-			// PnMission
-			// 
-			PnMission.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			PnMission.BorderStyle = BorderStyle.FixedSingle;
-			PnMission.Controls.Add(LbMissionBullseyeWaypoint);
-			PnMission.Controls.Add(CbMissionBullseyeWaypoint);
-			PnMission.Controls.Add(CkMissionNoCallsignForPlayable);
-			PnMission.Controls.Add(LbTitleMission);
-			PnMission.Location = new Point(14, 197);
-			PnMission.Margin = new Padding(4, 3, 4, 3);
-			PnMission.Name = "PnMission";
-			PnMission.Size = new Size(546, 86);
-			PnMission.TabIndex = 15;
-			// 
 			// LbMissionBullseyeWaypoint
 			// 
 			LbMissionBullseyeWaypoint.AutoSize = true;
-			LbMissionBullseyeWaypoint.Location = new Point(5, 58);
+			LbMissionBullseyeWaypoint.Location = new Point(9, 12);
 			LbMissionBullseyeWaypoint.Margin = new Padding(4, 0, 4, 0);
 			LbMissionBullseyeWaypoint.Name = "LbMissionBullseyeWaypoint";
 			LbMissionBullseyeWaypoint.Size = new Size(102, 15);
@@ -311,7 +304,7 @@
 			// CbMissionBullseyeWaypoint
 			// 
 			CbMissionBullseyeWaypoint.FormattingEnabled = true;
-			CbMissionBullseyeWaypoint.Location = new Point(131, 55);
+			CbMissionBullseyeWaypoint.Location = new Point(119, 9);
 			CbMissionBullseyeWaypoint.Margin = new Padding(4, 3, 4, 3);
 			CbMissionBullseyeWaypoint.Name = "CbMissionBullseyeWaypoint";
 			CbMissionBullseyeWaypoint.Size = new Size(310, 23);
@@ -320,24 +313,13 @@
 			// CkMissionNoCallsignForPlayable
 			// 
 			CkMissionNoCallsignForPlayable.AutoSize = true;
-			CkMissionNoCallsignForPlayable.Location = new Point(42, 30);
+			CkMissionNoCallsignForPlayable.Location = new Point(119, 37);
 			CkMissionNoCallsignForPlayable.Margin = new Padding(4, 3, 4, 3);
 			CkMissionNoCallsignForPlayable.Name = "CkMissionNoCallsignForPlayable";
 			CkMissionNoCallsignForPlayable.Size = new Size(186, 19);
 			CkMissionNoCallsignForPlayable.TabIndex = 25;
 			CkMissionNoCallsignForPlayable.Text = "No callsign for playable flights";
 			CkMissionNoCallsignForPlayable.UseVisualStyleBackColor = true;
-			// 
-			// LbTitleMission
-			// 
-			LbTitleMission.Dock = DockStyle.Top;
-			LbTitleMission.Location = new Point(0, 0);
-			LbTitleMission.Margin = new Padding(4, 0, 4, 0);
-			LbTitleMission.Name = "LbTitleMission";
-			LbTitleMission.Size = new Size(544, 32);
-			LbTitleMission.TabIndex = 13;
-			LbTitleMission.Text = "Mission";
-			LbTitleMission.TextAlign = ContentAlignment.MiddleLeft;
 			// 
 			// PnMap
 			// 
@@ -348,7 +330,7 @@
 			PnMap.Controls.Add(LbMapZoom);
 			PnMap.Controls.Add(LbMapProvider);
 			PnMap.Controls.Add(LbTitleMap);
-			PnMap.Location = new Point(14, 290);
+			PnMap.Location = new Point(4, 62);
 			PnMap.Margin = new Padding(4, 3, 4, 3);
 			PnMap.Name = "PnMap";
 			PnMap.Size = new Size(546, 99);
@@ -356,7 +338,7 @@
 			// 
 			// NudMapZoom
 			// 
-			NudMapZoom.Location = new Point(131, 65);
+			NudMapZoom.Location = new Point(114, 57);
 			NudMapZoom.Margin = new Padding(4, 3, 4, 3);
 			NudMapZoom.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
 			NudMapZoom.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -368,7 +350,7 @@
 			// CbMapProvider
 			// 
 			CbMapProvider.FormattingEnabled = true;
-			CbMapProvider.Location = new Point(131, 32);
+			CbMapProvider.Location = new Point(114, 28);
 			CbMapProvider.Margin = new Padding(4, 3, 4, 3);
 			CbMapProvider.Name = "CbMapProvider";
 			CbMapProvider.Size = new Size(310, 23);
@@ -377,7 +359,7 @@
 			// LbMapZoom
 			// 
 			LbMapZoom.AutoSize = true;
-			LbMapZoom.Location = new Point(5, 67);
+			LbMapZoom.Location = new Point(14, 59);
 			LbMapZoom.Margin = new Padding(4, 0, 4, 0);
 			LbMapZoom.Name = "LbMapZoom";
 			LbMapZoom.Size = new Size(78, 15);
@@ -387,7 +369,7 @@
 			// LbMapProvider
 			// 
 			LbMapProvider.AutoSize = true;
-			LbMapProvider.Location = new Point(5, 36);
+			LbMapProvider.Location = new Point(14, 36);
 			LbMapProvider.Margin = new Padding(4, 0, 4, 0);
 			LbMapProvider.Name = "LbMapProvider";
 			LbMapProvider.Size = new Size(92, 15);
@@ -400,15 +382,15 @@
 			LbTitleMap.Location = new Point(0, 0);
 			LbTitleMap.Margin = new Padding(4, 0, 4, 0);
 			LbTitleMap.Name = "LbTitleMap";
-			LbTitleMap.Size = new Size(544, 32);
+			LbTitleMap.Size = new Size(544, 23);
 			LbTitleMap.TabIndex = 13;
 			LbTitleMap.Text = "Map";
 			LbTitleMap.TextAlign = ContentAlignment.MiddleLeft;
 			// 
 			// BtDefaults
 			// 
-			BtDefaults.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtDefaults.Location = new Point(14, 649);
+			BtDefaults.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			BtDefaults.Location = new Point(4, 285);
 			BtDefaults.Margin = new Padding(4, 3, 4, 3);
 			BtDefaults.Name = "BtDefaults";
 			BtDefaults.Size = new Size(124, 27);
@@ -417,31 +399,10 @@
 			BtDefaults.UseVisualStyleBackColor = true;
 			BtDefaults.Click += BtDefaults_Click;
 			// 
-			// PnBriefing
-			// 
-			PnBriefing.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			PnBriefing.BorderStyle = BorderStyle.FixedSingle;
-			PnBriefing.Controls.Add(CkBriefingGenerateDirectoryHtml);
-			PnBriefing.Controls.Add(LbBriefingImageSize);
-			PnBriefing.Controls.Add(UcBriefingImageSize);
-			PnBriefing.Controls.Add(CkBriefingGenerateOnSave);
-			PnBriefing.Controls.Add(CbBriefingMeasurementSystem);
-			PnBriefing.Controls.Add(LbBriefingMeasurementSystem);
-			PnBriefing.Controls.Add(LstBriefingCoordinateDisplay);
-			PnBriefing.Controls.Add(CbBriefingWeatherDisplay);
-			PnBriefing.Controls.Add(LbBriefingCoordinateDisplay);
-			PnBriefing.Controls.Add(LbBriefingWeatherDisplay);
-			PnBriefing.Controls.Add(LbTitleBriefing);
-			PnBriefing.Location = new Point(14, 395);
-			PnBriefing.Margin = new Padding(4, 3, 4, 3);
-			PnBriefing.Name = "PnBriefing";
-			PnBriefing.Size = new Size(546, 246);
-			PnBriefing.TabIndex = 18;
-			// 
 			// CkBriefingGenerateDirectoryHtml
 			// 
 			CkBriefingGenerateDirectoryHtml.AutoSize = true;
-			CkBriefingGenerateDirectoryHtml.Location = new Point(131, 212);
+			CkBriefingGenerateDirectoryHtml.Location = new Point(140, 223);
 			CkBriefingGenerateDirectoryHtml.Margin = new Padding(4, 3, 4, 3);
 			CkBriefingGenerateDirectoryHtml.Name = "CkBriefingGenerateDirectoryHtml";
 			CkBriefingGenerateDirectoryHtml.Size = new Size(164, 19);
@@ -452,7 +413,7 @@
 			// LbBriefingImageSize
 			// 
 			LbBriefingImageSize.AutoSize = true;
-			LbBriefingImageSize.Location = new Point(5, 159);
+			LbBriefingImageSize.Location = new Point(9, 136);
 			LbBriefingImageSize.Margin = new Padding(4, 0, 4, 0);
 			LbBriefingImageSize.Name = "LbBriefingImageSize";
 			LbBriefingImageSize.Size = new Size(62, 15);
@@ -461,7 +422,7 @@
 			// 
 			// UcBriefingImageSize
 			// 
-			UcBriefingImageSize.Location = new Point(131, 154);
+			UcBriefingImageSize.Location = new Point(140, 136);
 			UcBriefingImageSize.Margin = new Padding(4, 3, 4, 3);
 			UcBriefingImageSize.Name = "UcBriefingImageSize";
 			UcBriefingImageSize.SelectedSize = new Size(1, 1);
@@ -471,7 +432,7 @@
 			// CkBriefingGenerateOnSave
 			// 
 			CkBriefingGenerateOnSave.AutoSize = true;
-			CkBriefingGenerateOnSave.Location = new Point(131, 187);
+			CkBriefingGenerateOnSave.Location = new Point(140, 198);
 			CkBriefingGenerateOnSave.Margin = new Padding(4, 3, 4, 3);
 			CkBriefingGenerateOnSave.Name = "CkBriefingGenerateOnSave";
 			CkBriefingGenerateOnSave.Size = new Size(250, 19);
@@ -482,16 +443,16 @@
 			// CbBriefingMeasurementSystem
 			// 
 			CbBriefingMeasurementSystem.FormattingEnabled = true;
-			CbBriefingMeasurementSystem.Location = new Point(131, 61);
+			CbBriefingMeasurementSystem.Location = new Point(140, 43);
 			CbBriefingMeasurementSystem.Margin = new Padding(4, 3, 4, 3);
 			CbBriefingMeasurementSystem.Name = "CbBriefingMeasurementSystem";
-			CbBriefingMeasurementSystem.Size = new Size(312, 23);
+			CbBriefingMeasurementSystem.Size = new Size(411, 23);
 			CbBriefingMeasurementSystem.TabIndex = 26;
 			// 
 			// LbBriefingMeasurementSystem
 			// 
 			LbBriefingMeasurementSystem.AutoSize = true;
-			LbBriefingMeasurementSystem.Location = new Point(5, 65);
+			LbBriefingMeasurementSystem.Location = new Point(9, 46);
 			LbBriefingMeasurementSystem.Margin = new Padding(4, 0, 4, 0);
 			LbBriefingMeasurementSystem.Name = "LbBriefingMeasurementSystem";
 			LbBriefingMeasurementSystem.Size = new Size(120, 15);
@@ -501,25 +462,25 @@
 			// LstBriefingCoordinateDisplay
 			// 
 			LstBriefingCoordinateDisplay.FormattingEnabled = true;
-			LstBriefingCoordinateDisplay.Location = new Point(131, 90);
+			LstBriefingCoordinateDisplay.Location = new Point(140, 72);
 			LstBriefingCoordinateDisplay.Margin = new Padding(4, 3, 4, 3);
 			LstBriefingCoordinateDisplay.Name = "LstBriefingCoordinateDisplay";
-			LstBriefingCoordinateDisplay.Size = new Size(312, 58);
+			LstBriefingCoordinateDisplay.Size = new Size(411, 58);
 			LstBriefingCoordinateDisplay.TabIndex = 24;
 			// 
 			// CbBriefingWeatherDisplay
 			// 
 			CbBriefingWeatherDisplay.FormattingEnabled = true;
-			CbBriefingWeatherDisplay.Location = new Point(131, 32);
+			CbBriefingWeatherDisplay.Location = new Point(140, 14);
 			CbBriefingWeatherDisplay.Margin = new Padding(4, 3, 4, 3);
 			CbBriefingWeatherDisplay.Name = "CbBriefingWeatherDisplay";
-			CbBriefingWeatherDisplay.Size = new Size(312, 23);
+			CbBriefingWeatherDisplay.Size = new Size(410, 23);
 			CbBriefingWeatherDisplay.TabIndex = 23;
 			// 
 			// LbBriefingCoordinateDisplay
 			// 
 			LbBriefingCoordinateDisplay.AutoSize = true;
-			LbBriefingCoordinateDisplay.Location = new Point(5, 90);
+			LbBriefingCoordinateDisplay.Location = new Point(9, 72);
 			LbBriefingCoordinateDisplay.Margin = new Padding(4, 0, 4, 0);
 			LbBriefingCoordinateDisplay.Name = "LbBriefingCoordinateDisplay";
 			LbBriefingCoordinateDisplay.Size = new Size(106, 15);
@@ -529,44 +490,132 @@
 			// LbBriefingWeatherDisplay
 			// 
 			LbBriefingWeatherDisplay.AutoSize = true;
-			LbBriefingWeatherDisplay.Location = new Point(5, 36);
+			LbBriefingWeatherDisplay.Location = new Point(9, 17);
 			LbBriefingWeatherDisplay.Margin = new Padding(4, 0, 4, 0);
 			LbBriefingWeatherDisplay.Name = "LbBriefingWeatherDisplay";
 			LbBriefingWeatherDisplay.Size = new Size(91, 15);
 			LbBriefingWeatherDisplay.TabIndex = 14;
 			LbBriefingWeatherDisplay.Text = "Weather display";
 			// 
-			// LbTitleBriefing
+			// TcMain
 			// 
-			LbTitleBriefing.Dock = DockStyle.Top;
-			LbTitleBriefing.Location = new Point(0, 0);
-			LbTitleBriefing.Margin = new Padding(4, 0, 4, 0);
-			LbTitleBriefing.Name = "LbTitleBriefing";
-			LbTitleBriefing.Size = new Size(544, 32);
-			LbTitleBriefing.TabIndex = 13;
-			LbTitleBriefing.Text = "Briefing";
-			LbTitleBriefing.TextAlign = ContentAlignment.MiddleLeft;
+			TcMain.Controls.Add(TpApplication);
+			TcMain.Controls.Add(TpMission);
+			TcMain.Controls.Add(TpBriefing);
+			TcMain.Dock = DockStyle.Top;
+			TcMain.Location = new Point(0, 0);
+			TcMain.Name = "TcMain";
+			TcMain.SelectedIndex = 0;
+			TcMain.Size = new Size(568, 279);
+			TcMain.TabIndex = 19;
 			// 
-			// TbApplicationProxyPort
+			// TpApplication
 			// 
-			TbApplicationProxyPort.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbApplicationProxyPort.Location = new Point(363, 118);
-			TbApplicationProxyPort.Margin = new Padding(4, 3, 4, 3);
-			TbApplicationProxyPort.Name = "TbApplicationProxyPort";
-			TbApplicationProxyPort.Size = new Size(78, 23);
-			TbApplicationProxyPort.TabIndex = 25;
-			TbApplicationProxyPort.Validated += TbApplicationProxyPort_Validated;
+			TpApplication.Controls.Add(LbApplicationWorkingDirectory);
+			TpApplication.Controls.Add(TbApplicationWorkingDirectory);
+			TpApplication.Controls.Add(BtApplicationWorkingDirectorySelect);
+			TpApplication.Controls.Add(BtApplicationWorkingDirectoryReset);
+			TpApplication.Controls.Add(LbApplicationRecentMiz);
+			TpApplication.Controls.Add(PnApplication);
+			TpApplication.Controls.Add(TbApplicationRecentMiz);
+			TpApplication.Controls.Add(CkApplicationGenerateBatch);
+			TpApplication.Controls.Add(BtApplicationRecentMiz);
+			TpApplication.Controls.Add(CkApplicationMizBackup);
+			TpApplication.Location = new Point(4, 24);
+			TpApplication.Name = "TpApplication";
+			TpApplication.Padding = new Padding(3);
+			TpApplication.Size = new Size(560, 251);
+			TpApplication.TabIndex = 0;
+			TpApplication.Text = "Application";
+			TpApplication.UseVisualStyleBackColor = true;
+			// 
+			// TpMission
+			// 
+			TpMission.Controls.Add(LbMissionBullseyeWaypoint);
+			TpMission.Controls.Add(CkMissionNoCallsignForPlayable);
+			TpMission.Controls.Add(CbMissionBullseyeWaypoint);
+			TpMission.Controls.Add(PnMap);
+			TpMission.Location = new Point(4, 24);
+			TpMission.Name = "TpMission";
+			TpMission.Padding = new Padding(3);
+			TpMission.Size = new Size(560, 251);
+			TpMission.TabIndex = 1;
+			TpMission.Text = "Mission";
+			TpMission.UseVisualStyleBackColor = true;
+			// 
+			// TpBriefing
+			// 
+			TpBriefing.Controls.Add(BtBriefingGenerationDirectoryReset);
+			TpBriefing.Controls.Add(BtBriefingGenerationDirectory);
+			TpBriefing.Controls.Add(LbBriefingGenerationDirectory);
+			TpBriefing.Controls.Add(TbBriefingGenerationDirectory);
+			TpBriefing.Controls.Add(LbBriefingMeasurementSystem);
+			TpBriefing.Controls.Add(CkBriefingGenerateDirectoryHtml);
+			TpBriefing.Controls.Add(LbBriefingWeatherDisplay);
+			TpBriefing.Controls.Add(LbBriefingImageSize);
+			TpBriefing.Controls.Add(LbBriefingCoordinateDisplay);
+			TpBriefing.Controls.Add(UcBriefingImageSize);
+			TpBriefing.Controls.Add(CbBriefingWeatherDisplay);
+			TpBriefing.Controls.Add(CkBriefingGenerateOnSave);
+			TpBriefing.Controls.Add(LstBriefingCoordinateDisplay);
+			TpBriefing.Controls.Add(CbBriefingMeasurementSystem);
+			TpBriefing.Location = new Point(4, 24);
+			TpBriefing.Name = "TpBriefing";
+			TpBriefing.Size = new Size(560, 251);
+			TpBriefing.TabIndex = 3;
+			TpBriefing.Text = "Briefing";
+			TpBriefing.UseVisualStyleBackColor = true;
+			// 
+			// BtBriefingGenerationDirectoryReset
+			// 
+			BtBriefingGenerationDirectoryReset.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			BtBriefingGenerationDirectoryReset.Location = new Point(511, 167);
+			BtBriefingGenerationDirectoryReset.Margin = new Padding(4, 3, 4, 3);
+			BtBriefingGenerationDirectoryReset.Name = "BtBriefingGenerationDirectoryReset";
+			BtBriefingGenerationDirectoryReset.Size = new Size(40, 27);
+			BtBriefingGenerationDirectoryReset.TabIndex = 39;
+			BtBriefingGenerationDirectoryReset.Text = "R";
+			BtBriefingGenerationDirectoryReset.UseVisualStyleBackColor = true;
+			BtBriefingGenerationDirectoryReset.MouseDown += BtBriefingGenerationDirectoryReset_MouseDown;
+			// 
+			// BtBriefingGenerationDirectory
+			// 
+			BtBriefingGenerationDirectory.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			BtBriefingGenerationDirectory.Location = new Point(463, 167);
+			BtBriefingGenerationDirectory.Margin = new Padding(4, 3, 4, 3);
+			BtBriefingGenerationDirectory.Name = "BtBriefingGenerationDirectory";
+			BtBriefingGenerationDirectory.Size = new Size(40, 27);
+			BtBriefingGenerationDirectory.TabIndex = 38;
+			BtBriefingGenerationDirectory.Text = "...";
+			BtBriefingGenerationDirectory.UseVisualStyleBackColor = true;
+			BtBriefingGenerationDirectory.Click += BtBriefingGenerationDirectory_Click;
+			// 
+			// LbBriefingGenerationDirectory
+			// 
+			LbBriefingGenerationDirectory.AutoSize = true;
+			LbBriefingGenerationDirectory.Location = new Point(14, 173);
+			LbBriefingGenerationDirectory.Margin = new Padding(4, 0, 4, 0);
+			LbBriefingGenerationDirectory.Name = "LbBriefingGenerationDirectory";
+			LbBriefingGenerationDirectory.Size = new Size(115, 15);
+			LbBriefingGenerationDirectory.TabIndex = 36;
+			LbBriefingGenerationDirectory.Text = "Generation directory";
+			// 
+			// TbBriefingGenerationDirectory
+			// 
+			TbBriefingGenerationDirectory.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbBriefingGenerationDirectory.Location = new Point(140, 169);
+			TbBriefingGenerationDirectory.Margin = new Padding(4, 3, 4, 3);
+			TbBriefingGenerationDirectory.Name = "TbBriefingGenerationDirectory";
+			TbBriefingGenerationDirectory.Size = new Size(316, 23);
+			TbBriefingGenerationDirectory.TabIndex = 37;
 			// 
 			// FrmPreferences
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(574, 684);
-			Controls.Add(PnBriefing);
+			ClientSize = new Size(568, 320);
+			Controls.Add(TcMain);
 			Controls.Add(BtDefaults);
-			Controls.Add(PnMap);
-			Controls.Add(PnMission);
-			Controls.Add(PnApplication);
 			Controls.Add(BtCancel);
 			Controls.Add(BtOk);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
@@ -578,13 +627,16 @@
 			Shown += FrmPreferences_Shown;
 			PnApplication.ResumeLayout(false);
 			PnApplication.PerformLayout();
-			PnMission.ResumeLayout(false);
-			PnMission.PerformLayout();
 			PnMap.ResumeLayout(false);
 			PnMap.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)NudMapZoom).EndInit();
-			PnBriefing.ResumeLayout(false);
-			PnBriefing.PerformLayout();
+			TcMain.ResumeLayout(false);
+			TpApplication.ResumeLayout(false);
+			TpApplication.PerformLayout();
+			TpMission.ResumeLayout(false);
+			TpMission.PerformLayout();
+			TpBriefing.ResumeLayout(false);
+			TpBriefing.PerformLayout();
 			ResumeLayout(false);
 		}
 
@@ -592,7 +644,7 @@
 
 		private System.Windows.Forms.Button BtCancel;
 		private System.Windows.Forms.Button BtOk;
-		private System.Windows.Forms.Label LbTitleApplication;
+		private System.Windows.Forms.Label LbApplicationProxy;
 		private System.Windows.Forms.Panel PnApplication;
 		private System.Windows.Forms.Button BtApplicationWorkingDirectorySelect;
 		private System.Windows.Forms.TextBox TbApplicationWorkingDirectory;
@@ -602,8 +654,6 @@
 		private System.Windows.Forms.Label LbApplicationRecentMiz;
 		private System.Windows.Forms.CheckBox CkApplicationGenerateBatch;
 		private System.Windows.Forms.CheckBox CkApplicationMizBackup;
-		private System.Windows.Forms.Panel PnMission;
-		private System.Windows.Forms.Label LbTitleMission;
 		private System.Windows.Forms.Panel PnMap;
 		private System.Windows.Forms.ComboBox CbMapProvider;
 		private System.Windows.Forms.Label LbMapZoom;
@@ -613,12 +663,10 @@
 		private System.Windows.Forms.Button BtApplicationWorkingDirectoryReset;
 		private System.Windows.Forms.NumericUpDown NudMapZoom;
 		private CheckBox CkMissionNoCallsignForPlayable;
-		private Panel PnBriefing;
 		private CheckedListBox LstBriefingCoordinateDisplay;
 		private ComboBox CbBriefingWeatherDisplay;
 		private Label LbBriefingCoordinateDisplay;
 		private Label LbBriefingWeatherDisplay;
-		private Label LbTitleBriefing;
 		private ComboBox CbBriefingMeasurementSystem;
 		private Label LbBriefingMeasurementSystem;
 		private CheckBox CkBriefingGenerateOnSave;
@@ -633,5 +681,13 @@
 		private TextBox TbApplicationProxyUser;
 		private Label LbApplicationProxyUser;
 		private TextBox TbApplicationProxyPort;
+		private TabControl TcMain;
+		private TabPage TpApplication;
+		private TabPage TpMission;
+		private TabPage TpBriefing;
+		private Button BtBriefingGenerationDirectory;
+		private Label LbBriefingGenerationDirectory;
+		private TextBox TbBriefingGenerationDirectory;
+		private Button BtBriefingGenerationDirectoryReset;
 	}
 }
