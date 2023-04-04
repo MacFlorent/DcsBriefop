@@ -28,46 +28,45 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.PnRoutePointDetail = new System.Windows.Forms.Panel();
-			this.DgvRoutePoints = new Zuby.ADGV.AdvancedDataGridView();
-			((System.ComponentModel.ISupportInitialize)(this.DgvRoutePoints)).BeginInit();
-			this.SuspendLayout();
+			PnRoutePointDetail = new Panel();
+			DgvRoutePoints = new Zuby.ADGV.AdvancedDataGridView();
+			((System.ComponentModel.ISupportInitialize)DgvRoutePoints).BeginInit();
+			SuspendLayout();
 			// 
 			// PnRoutePointDetail
 			// 
-			this.PnRoutePointDetail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.PnRoutePointDetail.Location = new System.Drawing.Point(0, 250);
-			this.PnRoutePointDetail.Name = "PnRoutePointDetail";
-			this.PnRoutePointDetail.Size = new System.Drawing.Size(505, 274);
-			this.PnRoutePointDetail.TabIndex = 39;
+			PnRoutePointDetail.Dock = DockStyle.Bottom;
+			PnRoutePointDetail.Location = new Point(0, 317);
+			PnRoutePointDetail.Margin = new Padding(4, 3, 4, 3);
+			PnRoutePointDetail.Name = "PnRoutePointDetail";
+			PnRoutePointDetail.Size = new Size(589, 289);
+			PnRoutePointDetail.TabIndex = 39;
 			// 
 			// DgvRoutePoints
 			// 
-			this.DgvRoutePoints.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.DgvRoutePoints.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DgvRoutePoints.FilterAndSortEnabled = true;
-			this.DgvRoutePoints.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.DgvRoutePoints.Location = new System.Drawing.Point(0, 0);
-			this.DgvRoutePoints.Name = "DgvRoutePoints";
-			this.DgvRoutePoints.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.DgvRoutePoints.Size = new System.Drawing.Size(505, 249);
-			this.DgvRoutePoints.SortStringChangedInvokeBeforeDatasourceUpdate = true;
-			this.DgvRoutePoints.TabIndex = 38;
+			DgvRoutePoints.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			DgvRoutePoints.Dock = DockStyle.Fill;
+			DgvRoutePoints.FilterAndSortEnabled = true;
+			DgvRoutePoints.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
+			DgvRoutePoints.Location = new Point(0, 0);
+			DgvRoutePoints.Margin = new Padding(4, 3, 4, 3);
+			DgvRoutePoints.Name = "DgvRoutePoints";
+			DgvRoutePoints.RightToLeft = RightToLeft.No;
+			DgvRoutePoints.Size = new Size(589, 317);
+			DgvRoutePoints.SortStringChangedInvokeBeforeDatasourceUpdate = true;
+			DgvRoutePoints.TabIndex = 38;
 			// 
 			// UcGroupRoutePoints
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.PnRoutePointDetail);
-			this.Controls.Add(this.DgvRoutePoints);
-			this.Name = "UcGroupRoutePoints";
-			this.Size = new System.Drawing.Size(505, 525);
-			((System.ComponentModel.ISupportInitialize)(this.DgvRoutePoints)).EndInit();
-			this.ResumeLayout(false);
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(DgvRoutePoints);
+			Controls.Add(PnRoutePointDetail);
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "UcGroupRoutePoints";
+			Size = new Size(589, 606);
+			((System.ComponentModel.ISupportInitialize)DgvRoutePoints).EndInit();
+			ResumeLayout(false);
 		}
 
 		#endregion

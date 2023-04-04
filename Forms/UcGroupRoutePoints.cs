@@ -13,7 +13,7 @@ namespace DcsBriefop.Forms
 		private GridManagerRoutePoints m_gridManagerRoutePoints;
 		private UcRoutePoint m_ucRoutePoint;
 		#endregion
-		
+
 		#region Properties
 		#endregion
 
@@ -31,11 +31,11 @@ namespace DcsBriefop.Forms
 		public override void DataToScreen()
 		{
 			m_gridManagerRoutePoints.SelectionChanged -= SelectionChangedEvent;
-			
+
 			m_gridManagerRoutePoints.Elements = m_bopGroup.RoutePoints;
 			m_gridManagerRoutePoints.Refresh();
 			DataToScreenDetail();
-			
+
 			m_gridManagerRoutePoints.SelectionChanged += SelectionChangedEvent;
 		}
 

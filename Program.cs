@@ -15,7 +15,7 @@ namespace DcsBriefop
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			InitializeCulture();
-			InitializeGMaps();
+			ToolsMap.InitializeGMaps();
 
 			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
@@ -94,14 +94,6 @@ namespace DcsBriefop
 			//CultureInfo cultureInfo = new CultureInfo("fr-FR"); ;
 			CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 			Thread.CurrentThread.CurrentCulture = cultureInfo;
-		}
-
-		private static void InitializeGMaps()
-		{
-			GMaps.Instance.Mode = AccessMode.ServerOnly; // the program has trouble terminating all its threads in cached mode, don't know why, better stick to server only for now
-			GMapImageProxy.Enable();
-			//System.Net.WebProxy myProxy = new System.Net.WebProxy(“XXXXXXX.com”, 3128);
-			//GMap.NET.MapProviders.GMapProvider.WebProxy = myProxy;
 		}
 
 		private static void ManageException(Exception ex, [CallerMemberName] string sMemberName = "", [CallerLineNumber] int iLineNumber = 0)

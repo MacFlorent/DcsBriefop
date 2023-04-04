@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopBriefing;
-using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms

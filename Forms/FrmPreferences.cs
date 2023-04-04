@@ -42,6 +42,11 @@ namespace DcsBriefop.Forms
 			CkApplicationMizBackup.Checked = m_preferences.Application.BackupBeforeOverwrite;
 			CkApplicationGenerateBatch.Checked = m_preferences.Application.GenerateBatchCommandOnSave;
 
+			TbApplicationProxyHost.Text = m_preferences.Application.InternetProxyHost;
+			TbApplicationProxyPort.Text = m_preferences.Application.InternetProxyPort.ToString();
+			TbApplicationProxyUser.Text = m_preferences.Application.InternetProxyUser;
+			TbApplicationProxyPassword.Text = m_preferences.Application.InternetProxyPassword;
+
 			CbMissionBullseyeWaypoint.SelectedValue = (int)m_preferences.Mission.BullseyeWaypoint;
 			CkMissionNoCallsignForPlayable.Checked = m_preferences.Mission.NoCallsignForPlayableFlights;
 
@@ -65,6 +70,13 @@ namespace DcsBriefop.Forms
 
 			m_preferences.Application.BackupBeforeOverwrite = CkApplicationMizBackup.Checked;
 			m_preferences.Application.GenerateBatchCommandOnSave = CkApplicationGenerateBatch.Checked;
+
+			m_preferences.Application.InternetProxyHost = TbApplicationProxyHost.Text;
+			m_preferences.Application.InternetProxyPort = null;
+			if (int.TryParse(TbApplicationProxyPort.Text, out int iPort))
+				m_preferences.Application.InternetProxyPort = iPort;
+			m_preferences.Application.InternetProxyUser = TbApplicationProxyUser.Text;
+			m_preferences.Application.InternetProxyPassword = TbApplicationProxyPassword.Text;
 
 			m_preferences.Mission.BullseyeWaypoint = (ElementBullseyeWaypoint)CbMissionBullseyeWaypoint.SelectedValue;
 			m_preferences.Mission.NoCallsignForPlayableFlights = CkMissionNoCallsignForPlayable.Checked;
@@ -133,19 +145,14 @@ namespace DcsBriefop.Forms
 		{
 			TbApplicationRecentMiz.Text = null;
 		}
+
+		private void TbApplicationProxyPort_Validated(object sender, EventArgs e)
+		{
+			if (!int.TryParse(TbApplicationProxyPort.Text, out int iPort))
+				TbApplicationProxyPort.Text = null;
+		}
 		#endregion
 
-		private void TbApplicationWorkingDirectory_TextChanged(object sender, EventArgs e)
-		{
 
-		}
-
-		private void LbApplicationWorkingDirectory_Click(object sender, EventArgs e)
-		{
-		}
-
-		private void TbApplicationRecentMiz_TextChanged(object sender, EventArgs e)
-		{
-		}
 	}
 }

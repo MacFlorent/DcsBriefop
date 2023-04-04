@@ -6,12 +6,28 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using System.Drawing.Drawing2D;
+using System.Net;
 
 namespace DcsBriefop.Tools
 {
 	internal static class ToolsMap
 	{
 		#region MapControl
+		public static void InitializeGMaps()
+		{
+			if (!string.IsNullOrEmpty(PreferencesManager.Preferences.Application.InternetProxyHost))
+			{
+				WebProxy proxy = new WebProxy(PreferencesManager.Preferences.Application.InternetProxyHost, PreferencesManager.Preferences.Application.InternetProxyPort.GetValueOrDefault(80));
+				if (!string.IsNullOrEmpty(PreferencesManager.Preferences.Application.InternetProxyUser))
+					proxy.Credentials = new NetworkCredential(PreferencesManager.Preferences.Application.InternetProxyUser, PreferencesManager.Preferences.Application.InternetProxyPassword);
+
+				GMapProvider.WebProxy = proxy;
+			}
+
+			GMaps.Instance.Mode = AccessMode.ServerOnly; // the program has trouble terminating all its threads in cached mode, don't know why, better stick to server only for now
+			GMapImageProxy.Enable();
+		}
+
 		public static void InitializeMapControl(this GMapControl mapControl, string sProvider)
 		{
 			if (string.IsNullOrEmpty(sProvider))

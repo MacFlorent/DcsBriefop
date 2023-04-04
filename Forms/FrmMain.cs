@@ -109,6 +109,7 @@ namespace DcsBriefop.Forms
 			FrmPreferences f = new FrmPreferences();
 			if (f.ShowDialog() == DialogResult.OK)
 			{
+				ToolsMap.InitializeGMaps();
 				BuildMenu();
 				DataToScreen();
 			}
@@ -182,7 +183,7 @@ namespace DcsBriefop.Forms
 			ToolStripMenuItem tsmiMiz = MainMenu.Items.AddMenuItem("Miz", null);
 			MainMenu.Items.Add(tsmiMiz);
 			tsmiMiz.DropDownItems.AddMenuItem("Open", (object _sender, EventArgs _e) => { MizOpen(); });
-			
+
 			if (m_briefopManager is object)
 			{
 				tsmiMiz.DropDownItems.AddMenuSeparator();
@@ -195,7 +196,7 @@ namespace DcsBriefop.Forms
 			if (PreferencesManager.Preferences.Application.RecentMiz.Count > 0)
 			{
 				tsmiMiz.DropDownItems.AddMenuSeparator();
-				foreach(string sRecentMizFilePath in PreferencesManager.Preferences.Application.RecentMiz)
+				foreach (string sRecentMizFilePath in PreferencesManager.Preferences.Application.RecentMiz)
 					tsmiMiz.DropDownItems.AddMenuItem(sRecentMizFilePath, (object _sender, EventArgs _e) => { MizOpen(sRecentMizFilePath); });
 			}
 			tsmiMiz.DropDownItems.AddMenuSeparator();

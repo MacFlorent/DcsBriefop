@@ -27,7 +27,7 @@ namespace DcsBriefop.Data
 		public override string ToString()
 		{
 			string sModulation = MasterDataRepository.GetById(MasterDataType.RadioModulation, Modulation)?.Label;
-			return $"{Frequency:###.00}{sModulation}";
+			return $"{Frequency:###.000}{sModulation}";
 		}
 
 		public static Radio NewFromString(string sRadio)

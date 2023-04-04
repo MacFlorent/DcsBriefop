@@ -181,10 +181,12 @@ $$"""
 		{
 			List<GMapOverlay> partOverlays = new List<GMapOverlay>();
 			BopGroup bopGroup = bopManager.BopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
+			if (bopGroup is not null)
+			{
 			bopGroup.FinalizeFromMiz();
-
 			partOverlays.Add(bopGroup.GetMapOverlayRoute(null, ElementMapOverlayRouteDisplay.PointLabelLight));
-			
+			}
+
 			return partOverlays;
 		}
 

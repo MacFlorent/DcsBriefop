@@ -25,6 +25,11 @@ namespace DcsBriefop.Data
 		public bool BackupBeforeOverwrite { get; set; } = true;
 		public bool GenerateBatchCommandOnSave { get; set; } = true;
 
+		public string InternetProxyHost { get; set; }
+		public int? InternetProxyPort { get; set; }
+		public string InternetProxyUser { get; set; }
+		public string InternetProxyPassword { get; set; }
+
 		public void InitializeDefault()
 		{
 			WorkingDirectory = Path.Combine(ToolsMisc.GetDirectoryDcsBetaSave(), "Missions");

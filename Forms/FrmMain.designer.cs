@@ -29,49 +29,52 @@ namespace DcsBriefop.Forms
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.StatusStrip = new System.Windows.Forms.StatusStrip();
-			this.MainMenu = new System.Windows.Forms.MenuStrip();
-			this.PnMain = new System.Windows.Forms.Panel();
-			this.SuspendLayout();
+			StatusStrip = new StatusStrip();
+			MainMenu = new MenuStrip();
+			PnMain = new Panel();
+			SuspendLayout();
 			// 
 			// StatusStrip
 			// 
-			this.StatusStrip.Location = new System.Drawing.Point(0, 801);
-			this.StatusStrip.Name = "StatusStrip";
-			this.StatusStrip.Size = new System.Drawing.Size(1691, 22);
-			this.StatusStrip.TabIndex = 0;
-			this.StatusStrip.Text = "statusStrip1";
+			StatusStrip.Location = new Point(0, 650);
+			StatusStrip.Name = "StatusStrip";
+			StatusStrip.Padding = new Padding(1, 0, 16, 0);
+			StatusStrip.Size = new Size(1416, 22);
+			StatusStrip.TabIndex = 0;
+			StatusStrip.Text = "statusStrip1";
 			// 
 			// MainMenu
 			// 
-			this.MainMenu.Location = new System.Drawing.Point(0, 0);
-			this.MainMenu.Name = "MainMenu";
-			this.MainMenu.Size = new System.Drawing.Size(1691, 24);
-			this.MainMenu.TabIndex = 1;
-			this.MainMenu.Text = "menuStrip1";
+			MainMenu.Location = new Point(0, 0);
+			MainMenu.Name = "MainMenu";
+			MainMenu.Padding = new Padding(7, 2, 0, 2);
+			MainMenu.Size = new Size(1416, 24);
+			MainMenu.TabIndex = 1;
+			MainMenu.Text = "menuStrip1";
 			// 
 			// PnMain
 			// 
-			this.PnMain.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.PnMain.Location = new System.Drawing.Point(0, 24);
-			this.PnMain.Name = "PnMain";
-			this.PnMain.Size = new System.Drawing.Size(1691, 777);
-			this.PnMain.TabIndex = 2;
+			PnMain.Dock = DockStyle.Fill;
+			PnMain.Location = new Point(0, 24);
+			PnMain.Margin = new Padding(4, 3, 4, 3);
+			PnMain.Name = "PnMain";
+			PnMain.Size = new Size(1416, 626);
+			PnMain.TabIndex = 2;
 			// 
 			// FrmMain
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1691, 823);
-			this.Controls.Add(this.PnMain);
-			this.Controls.Add(this.StatusStrip);
-			this.Controls.Add(this.MainMenu);
-			this.MainMenuStrip = this.MainMenu;
-			this.Name = "FrmMain";
-			this.Text = "Dcs:BriefOp";
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			ClientSize = new Size(1416, 672);
+			Controls.Add(PnMain);
+			Controls.Add(StatusStrip);
+			Controls.Add(MainMenu);
+			MainMenuStrip = MainMenu;
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "FrmMain";
+			Text = "Dcs:BriefOp";
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion
