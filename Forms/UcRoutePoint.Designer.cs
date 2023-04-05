@@ -44,12 +44,14 @@
 			TbAltitude = new TextBox();
 			LbNotes = new Label();
 			TbNotes = new TextBox();
+			LbAltitudeCustom = new Label();
+			TbAltitudeCustom = new TextBox();
 			SuspendLayout();
 			// 
 			// LbCoordinates
 			// 
 			LbCoordinates.AutoSize = true;
-			LbCoordinates.Location = new Point(6, 157);
+			LbCoordinates.Location = new Point(6, 188);
 			LbCoordinates.Margin = new Padding(4, 0, 4, 0);
 			LbCoordinates.Name = "LbCoordinates";
 			LbCoordinates.Size = new Size(71, 15);
@@ -59,19 +61,19 @@
 			// TbCoordinates
 			// 
 			TbCoordinates.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbCoordinates.Location = new Point(94, 153);
+			TbCoordinates.Location = new Point(128, 185);
 			TbCoordinates.Margin = new Padding(4, 3, 4, 3);
 			TbCoordinates.Multiline = true;
 			TbCoordinates.Name = "TbCoordinates";
 			TbCoordinates.ReadOnly = true;
 			TbCoordinates.ScrollBars = ScrollBars.Vertical;
-			TbCoordinates.Size = new Size(339, 54);
+			TbCoordinates.Size = new Size(305, 54);
 			TbCoordinates.TabIndex = 99;
 			// 
 			// LbAdditional
 			// 
 			LbAdditional.AutoSize = true;
-			LbAdditional.Location = new Point(6, 245);
+			LbAdditional.Location = new Point(7, 274);
 			LbAdditional.Margin = new Padding(4, 0, 4, 0);
 			LbAdditional.Name = "LbAdditional";
 			LbAdditional.Size = new Size(37, 15);
@@ -81,19 +83,19 @@
 			// TbAdditional
 			// 
 			TbAdditional.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			TbAdditional.Location = new Point(94, 242);
+			TbAdditional.Location = new Point(128, 274);
 			TbAdditional.Margin = new Padding(4, 3, 4, 3);
 			TbAdditional.Multiline = true;
 			TbAdditional.Name = "TbAdditional";
 			TbAdditional.ReadOnly = true;
 			TbAdditional.ScrollBars = ScrollBars.Vertical;
-			TbAdditional.Size = new Size(339, 111);
+			TbAdditional.Size = new Size(305, 83);
 			TbAdditional.TabIndex = 95;
 			// 
 			// LbAction
 			// 
 			LbAction.AutoSize = true;
-			LbAction.Location = new Point(7, 93);
+			LbAction.Location = new Point(7, 100);
 			LbAction.Margin = new Padding(4, 0, 4, 0);
 			LbAction.Name = "LbAction";
 			LbAction.Size = new Size(42, 15);
@@ -103,17 +105,17 @@
 			// TbAction
 			// 
 			TbAction.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbAction.Location = new Point(94, 93);
+			TbAction.Location = new Point(128, 97);
 			TbAction.Margin = new Padding(4, 3, 4, 3);
 			TbAction.Name = "TbAction";
 			TbAction.ReadOnly = true;
-			TbAction.Size = new Size(339, 23);
+			TbAction.Size = new Size(305, 23);
 			TbAction.TabIndex = 93;
 			// 
 			// LbType
 			// 
 			LbType.AutoSize = true;
-			LbType.Location = new Point(7, 67);
+			LbType.Location = new Point(7, 70);
 			LbType.Margin = new Padding(4, 0, 4, 0);
 			LbType.Name = "LbType";
 			LbType.Size = new Size(31, 15);
@@ -123,17 +125,17 @@
 			// TbType
 			// 
 			TbType.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbType.Location = new Point(94, 63);
+			TbType.Location = new Point(128, 67);
 			TbType.Margin = new Padding(4, 3, 4, 3);
 			TbType.Name = "TbType";
 			TbType.ReadOnly = true;
-			TbType.Size = new Size(339, 23);
+			TbType.Size = new Size(305, 23);
 			TbType.TabIndex = 90;
 			// 
 			// LbName
 			// 
 			LbName.AutoSize = true;
-			LbName.Location = new Point(7, 40);
+			LbName.Location = new Point(6, 40);
 			LbName.Margin = new Padding(4, 0, 4, 0);
 			LbName.Name = "LbName";
 			LbName.Size = new Size(39, 15);
@@ -143,17 +145,17 @@
 			// TbName
 			// 
 			TbName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbName.Location = new Point(94, 33);
+			TbName.Location = new Point(128, 37);
 			TbName.Margin = new Padding(4, 3, 4, 3);
 			TbName.Name = "TbName";
 			TbName.ReadOnly = true;
-			TbName.Size = new Size(339, 23);
+			TbName.Size = new Size(305, 23);
 			TbName.TabIndex = 88;
 			// 
 			// LbNumber
 			// 
 			LbNumber.AutoSize = true;
-			LbNumber.Location = new Point(7, 7);
+			LbNumber.Location = new Point(5, 7);
 			LbNumber.Margin = new Padding(4, 0, 4, 0);
 			LbNumber.Name = "LbNumber";
 			LbNumber.Size = new Size(51, 15);
@@ -162,17 +164,18 @@
 			// 
 			// TbNumber
 			// 
-			TbNumber.Location = new Point(94, 3);
+			TbNumber.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbNumber.Location = new Point(128, 4);
 			TbNumber.Margin = new Padding(4, 3, 4, 3);
 			TbNumber.Name = "TbNumber";
 			TbNumber.ReadOnly = true;
-			TbNumber.Size = new Size(356, 23);
+			TbNumber.Size = new Size(305, 23);
 			TbNumber.TabIndex = 86;
 			// 
 			// LbAltitude
 			// 
 			LbAltitude.AutoSize = true;
-			LbAltitude.Location = new Point(7, 127);
+			LbAltitude.Location = new Point(7, 130);
 			LbAltitude.Margin = new Padding(4, 0, 4, 0);
 			LbAltitude.Name = "LbAltitude";
 			LbAltitude.Size = new Size(49, 15);
@@ -182,17 +185,17 @@
 			// TbAltitude
 			// 
 			TbAltitude.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbAltitude.Location = new Point(94, 123);
+			TbAltitude.Location = new Point(128, 127);
 			TbAltitude.Margin = new Padding(4, 3, 4, 3);
 			TbAltitude.Name = "TbAltitude";
 			TbAltitude.ReadOnly = true;
-			TbAltitude.Size = new Size(339, 23);
+			TbAltitude.Size = new Size(305, 23);
 			TbAltitude.TabIndex = 101;
 			// 
 			// LbNotes
 			// 
 			LbNotes.AutoSize = true;
-			LbNotes.Location = new Point(7, 217);
+			LbNotes.Location = new Point(4, 248);
 			LbNotes.Margin = new Padding(4, 0, 4, 0);
 			LbNotes.Name = "LbNotes";
 			LbNotes.Size = new Size(38, 15);
@@ -202,16 +205,38 @@
 			// TbNotes
 			// 
 			TbNotes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbNotes.Location = new Point(94, 213);
+			TbNotes.Location = new Point(128, 245);
 			TbNotes.Margin = new Padding(4, 3, 4, 3);
 			TbNotes.Name = "TbNotes";
-			TbNotes.Size = new Size(339, 23);
+			TbNotes.Size = new Size(305, 23);
 			TbNotes.TabIndex = 103;
+			// 
+			// LbAltitudeCustom
+			// 
+			LbAltitudeCustom.AutoSize = true;
+			LbAltitudeCustom.Location = new Point(7, 159);
+			LbAltitudeCustom.Margin = new Padding(4, 0, 4, 0);
+			LbAltitudeCustom.Name = "LbAltitudeCustom";
+			LbAltitudeCustom.Size = new Size(95, 15);
+			LbAltitudeCustom.TabIndex = 106;
+			LbAltitudeCustom.Text = "Custom altitude ";
+			// 
+			// TbAltitudeCustom
+			// 
+			TbAltitudeCustom.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbAltitudeCustom.Location = new Point(128, 156);
+			TbAltitudeCustom.Margin = new Padding(4, 3, 4, 3);
+			TbAltitudeCustom.Name = "TbAltitudeCustom";
+			TbAltitudeCustom.Size = new Size(305, 23);
+			TbAltitudeCustom.TabIndex = 105;
+			TbAltitudeCustom.Validated += TbAltitudeCustom_Validated;
 			// 
 			// UcRoutePoint
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(LbAltitudeCustom);
+			Controls.Add(TbAltitudeCustom);
 			Controls.Add(LbNotes);
 			Controls.Add(TbNotes);
 			Controls.Add(LbAltitude);
@@ -252,5 +277,7 @@
 		private System.Windows.Forms.TextBox TbAltitude;
 		private Label LbNotes;
 		private TextBox TbNotes;
+		private Label LbAltitudeCustom;
+		private TextBox TbAltitudeCustom;
 	}
 }

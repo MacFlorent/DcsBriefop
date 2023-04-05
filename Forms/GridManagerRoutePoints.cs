@@ -56,7 +56,7 @@ namespace DcsBriefop.Forms
 		{
 			base.PostInitializeColumns();
 
-			m_dgv.Columns[GridColumn.Altitude].HeaderText = $"Altitude ({ToolsBriefop.GetUnitAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
+			m_dgv.Columns[GridColumn.Altitude].HeaderText = $"Altitude ({ToolsMeasurement.AltitudeUnit(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
 		}
 		#endregion
 

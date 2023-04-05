@@ -5,7 +5,6 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using System.Text;
-using UnitsNet;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -23,6 +22,7 @@ namespace DcsBriefop.DataBopMission
 		public string Notes { get; set; }
 		public string Action { get; set; }
 		public decimal AltitudeMeters { get; set; }
+		public decimal? AltitudeCustomMeters { get; set; }
 		public Coordinate Coordinate { get; set; }
 		public int? AirdromeId { get; set; }
 		public int? HelipadId { get; set; }
@@ -39,13 +39,13 @@ namespace DcsBriefop.DataBopMission
 
 			Name = m_mizRoutePoint.Name;
 			Action = m_mizRoutePoint.Action;
+			AltitudeMeters = m_mizRoutePoint.Altitude;
 			Type = m_mizRoutePoint.Type;
 			AirdromeId = m_mizRoutePoint.AirdromeId;
 			HelipadId = m_mizRoutePoint.HelipadId;
-			AltitudeMeters = m_mizRoutePoint.Altitude;
 
 			Tasks = new List<BopRouteTask>();
-			if (m_mizRoutePoint.RouteTaskHolder is object)
+			if (m_mizRoutePoint.RouteTaskHolder is not null)
 			{
 				foreach (MizRouteTask mizRouteTask in m_mizRoutePoint.RouteTaskHolder.Tasks)
 				{
@@ -69,6 +69,7 @@ namespace DcsBriefop.DataBopMission
 			}
 
 			MizBopRoutePoint mizBopRoutePoint = Miz.MizBopCustom.MizBopRoutePoints.Where(_rp => _rp.GroupId == GroupId && _rp.Number == Number).FirstOrDefault();
+			AltitudeCustomMeters = mizBopRoutePoint?.AltitudeMeters;
 			Notes = mizBopRoutePoint?.Notes;
 		}
 		#endregion
@@ -95,11 +96,17 @@ namespace DcsBriefop.DataBopMission
 			}
 
 			mizBopRoutePoint.Notes = null;
+			mizBopRoutePoint.AltitudeMeters = null;
 			bool bMizBopCustomModified = false;
 
 			if (!string.IsNullOrEmpty(Notes))
 			{
 				mizBopRoutePoint.Notes = Notes;
+				bMizBopCustomModified = true;
+			}
+			if (AltitudeCustomMeters is not null && AltitudeCustomMeters.Value != AltitudeMeters)
+			{
+				mizBopRoutePoint.AltitudeMeters = AltitudeCustomMeters;
 				bMizBopCustomModified = true;
 			}
 
@@ -128,10 +135,15 @@ namespace DcsBriefop.DataBopMission
 		{
 			StringBuilder sb = new StringBuilder();
 
+			//if (AltitudeCustomMeters is not null)
+			//{
+			//	sb.Append($"Ground alt:{ToolsMeasurement.AltitudeDisplay(AltitudeMeters, measurementSystem):0} {ToolsMeasurement.AltitudeUnit(measurementSystem)}");
+			//}
+
 			Airdrome airdrome = Theatre.GetAirdrome(AirdromeId.GetValueOrDefault(0));
-			if (airdrome is object)
+			if (airdrome is not null)
 				sb.AppendWithSeparator($"Airdrome:{airdrome.Name}", " ");
-			if (HelipadId is object)
+			if (HelipadId is not null)
 				sb.AppendWithSeparator($"Helipad:{HelipadId}", " ");
 
 			foreach (BopRouteTask task in Tasks)
@@ -144,10 +156,8 @@ namespace DcsBriefop.DataBopMission
 
 		public decimal? GetAltitude(ElementMeasurementSystem measurementSystem)
 		{
-			if (measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid)
-				return Convert.ToDecimal(UnitConverter.Convert(AltitudeMeters, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
-			else
-				return AltitudeMeters;
+			decimal altitudeMeters = AltitudeCustomMeters ?? AltitudeMeters;
+			return ToolsMeasurement.AltitudeDisplay(altitudeMeters, measurementSystem);
 		}
 
 		public IEnumerable<BopRouteTask> GetTasks(IEnumerable<string> sTaskIds, int? iUnitId)

@@ -41,8 +41,10 @@ namespace DcsBriefop.Forms
 			TbName.Text = m_bopRoutePoint.Name;
 			TbType.Text = m_bopRoutePoint.Type;
 			TbAction.Text = m_bopRoutePoint.Action;
-			LbAltitude.Text = $"Altitude ({ToolsBriefop.GetUnitAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
-			TbAltitude.Text = $"{m_bopRoutePoint.GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}";
+			LbAltitude.Text = $"Altitude ({ToolsMeasurement.AltitudeUnit(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
+			TbAltitude.Text = $"{ToolsMeasurement.AltitudeDisplay(m_bopRoutePoint.AltitudeMeters, PreferencesManager.Preferences.Briefing.MeasurementSystem):0}";
+			LbAltitudeCustom.Text = $"Custom altitude ({ToolsMeasurement.AltitudeUnit(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
+			TbAltitudeCustom.Text = m_bopRoutePoint.AltitudeCustomMeters is null ? null : ToolsMeasurement.AltitudeDisplay(m_bopRoutePoint.AltitudeCustomMeters.Value, PreferencesManager.Preferences.Briefing.MeasurementSystem).ToString();
 			TbCoordinates.Text = m_bopRoutePoint.Coordinate.ToString(ElementCoordinateDisplay.All);
 			TbNotes.Text = m_bopRoutePoint.Notes;
 			TbAdditional.Text = m_bopRoutePoint.ToStringAdditional(PreferencesManager.Preferences.Briefing.MeasurementSystem);
@@ -50,8 +52,20 @@ namespace DcsBriefop.Forms
 
 		public void ScreenToData()
 		{
+			if (int.TryParse(TbAltitudeCustom.Text, out int iAltitude))
+			{
+				m_bopRoutePoint.AltitudeCustomMeters = ToolsMeasurement.AltitudeData(iAltitude, PreferencesManager.Preferences.Briefing.MeasurementSystem);
+			}
 			m_bopRoutePoint.Notes = TbNotes.Text;
 		}
 		#endregion
+
+		private void TbAltitudeCustom_Validated(object sender, EventArgs e)
+		{
+			if (!int.TryParse(TbAltitudeCustom.Text, out int iAltitude))
+			{
+				TbAltitudeCustom.Text = null;
+			}
+		}
 	}
 }

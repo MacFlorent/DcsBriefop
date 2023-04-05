@@ -70,25 +70,5 @@ namespace DcsBriefop.Tools
 				throw new ExceptionBop($"Briefop data detected and incorrect{Environment.NewLine}{sb}");
 			}
 		}
-
-		public static string GetUnitAltitude(ElementMeasurementSystem measurementSystem)
-		{
-			return measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid ? "ft" : "m";
-		}
-
-		public static string GetUnitVisibility(ElementMeasurementSystem measurementSystem)
-		{
-			return measurementSystem == ElementMeasurementSystem.Imperial ? "SM" : "km";
-		}
-
-		public static string GetUnitSpeed(ElementMeasurementSystem measurementSystem)
-		{
-			return measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid ? "kts" : "km/h";
-		}
-
-		public static string GetUnitTemperature(ElementMeasurementSystem measurementSystem)
-		{
-			return measurementSystem == ElementMeasurementSystem.Imperial ? "°F" : "°C";
-		}
 	}
 }

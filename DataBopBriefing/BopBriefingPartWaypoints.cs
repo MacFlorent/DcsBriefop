@@ -88,7 +88,7 @@ namespace DcsBriefop.DataBopBriefing
 			{
 				string sTableHeader = sColumn;
 				if (sTableHeader == TableColumns.Altitude)
-					sTableHeader = $"{sColumn} {ToolsBriefop.GetUnitAltitude(bopBriefingFolder.MeasurementSystem)}";
+					sTableHeader = $"{sColumn} {ToolsMeasurement.AltitudeUnit(bopBriefingFolder.MeasurementSystem)}";
 
 				tagThead.Add("td").AddClass("header").AppendText(sTableHeader);
 			}

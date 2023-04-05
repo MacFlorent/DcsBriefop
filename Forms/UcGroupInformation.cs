@@ -40,7 +40,7 @@ namespace DcsBriefop.Forms
 			TbAttributes.Text = m_bopGroup.Attributes.ToString();
 			TbRadio.Text = m_bopGroup.Radio?.ToString();
 			TbOther.Text = m_bopGroup.ToStringAdditional();
-			LbAltitude.Text = $"Altitude ({ToolsBriefop.GetUnitAltitude (PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
+			LbAltitude.Text = $"Altitude ({ToolsMeasurement.AltitudeUnit (PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
 			TbAltitude.Text = $"{m_bopGroup.GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}";
 			TbCoordinates.Text = m_bopGroup.Coordinate.ToString(ElementCoordinateDisplay.All);
 			CbMapMarker.Text = m_bopGroup.MapMarker;

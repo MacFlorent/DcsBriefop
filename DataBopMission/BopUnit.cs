@@ -138,7 +138,7 @@ namespace DcsBriefop.DataBopMission
 			StringBuilder sb = new StringBuilder(Coordinate.ToString(coordinateDisplay));
 			if (measurementSystem is not null && GroupClass == ElementGroupClass.Ground)
 			{
-				sb.AppendWithSeparator($"{GetAltitude(measurementSystem.Value):0}{ToolsBriefop.GetUnitAltitude(measurementSystem.Value)}", Environment.NewLine);
+				sb.AppendWithSeparator($"{GetAltitude(measurementSystem.Value):0}{ToolsMeasurement.AltitudeUnit(measurementSystem.Value)}", Environment.NewLine);
 			}
 
 			return sb.ToString();
@@ -148,11 +148,8 @@ namespace DcsBriefop.DataBopMission
 		{
 			if (AltitudeMeters is null)
 				return null;
-
-			if (measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid)
-				return Convert.ToDecimal(UnitConverter.Convert(AltitudeMeters.Value, LengthUnit.Meter, LengthUnit.Foot));
 			else
-				return AltitudeMeters;
+				return ToolsMeasurement.AltitudeDisplay(AltitudeMeters.Value, measurementSystem);
 		}
 
 		public GMarkerBriefop GetMarkerBriefop(Color? color)

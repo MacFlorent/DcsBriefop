@@ -88,15 +88,10 @@ namespace DcsBriefop.DataBopMission
 
 			if (!string.IsNullOrEmpty(Pattern))
 				sb.AppendWithSeparator($"Pattern:{Pattern}", " ");
-			if (AltitudeMeters is object)
+			if (AltitudeMeters is not null)
 			{
-				int iAltitude;
-				if (measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid)
-					iAltitude = Convert.ToInt32(UnitConverter.Convert(AltitudeMeters.Value, LengthUnit.Meter, LengthUnit.Foot));
-				else
-					iAltitude = Convert.ToInt32(AltitudeMeters.Value);
-
-				sb.AppendWithSeparator($"Altitude:{iAltitude:0} {ToolsBriefop.GetUnitAltitude(measurementSystem)}", " ");
+				int iAltitude = Convert.ToInt32(ToolsMeasurement.AltitudeDisplay(AltitudeMeters.Value, measurementSystem));
+				sb.AppendWithSeparator($"Altitude:{iAltitude:0} {ToolsMeasurement.AltitudeUnit(measurementSystem)}", " ");
 			}
 			if (SpeedMs is object)
 			{
@@ -106,7 +101,7 @@ namespace DcsBriefop.DataBopMission
 				else
 					iSpeed = Convert.ToInt32(SpeedMs.Value);
 
-				sb.AppendWithSeparator($"Speed:{iSpeed:0} {ToolsBriefop.GetUnitSpeed(measurementSystem)}", " ");
+				sb.AppendWithSeparator($"Speed:{iSpeed:0} {ToolsMeasurement.SpeedUnit(measurementSystem)}", " ");
 			}
 
 			return sb.ToString();
