@@ -53,6 +53,7 @@
 			BtPageOrderDown = new Button();
 			BtPageOrderUp = new Button();
 			LbHeader = new Label();
+			CkInactive = new CheckBox();
 			((System.ComponentModel.ISupportInitialize)DgvPages).BeginInit();
 			((System.ComponentModel.ISupportInitialize)ScMain).BeginInit();
 			ScMain.Panel1.SuspendLayout();
@@ -243,6 +244,7 @@
 			// 
 			// ScMain.Panel1
 			// 
+			ScMain.Panel1.Controls.Add(CkInactive);
 			ScMain.Panel1.Controls.Add(TlGrids);
 			ScMain.Panel1.Controls.Add(LbHeader);
 			ScMain.Panel1.Controls.Add(LbBriefingImageSize);
@@ -347,6 +349,16 @@
 			LbHeader.Text = "Folder";
 			LbHeader.TextAlign = ContentAlignment.MiddleCenter;
 			// 
+			// CkInactive
+			// 
+			CkInactive.AutoSize = true;
+			CkInactive.Location = new Point(138, 62);
+			CkInactive.Name = "CkInactive";
+			CkInactive.Size = new Size(67, 19);
+			CkInactive.TabIndex = 50;
+			CkInactive.Text = "Inactive";
+			CkInactive.UseVisualStyleBackColor = true;
+			// 
 			// FrmBriefingFolder
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
@@ -399,5 +411,6 @@
 		private Panel PnGridUnitTypes;
 		private Panel PnGridsPages;
 		private CheckedListBox LstKneeboards;
+		private CheckBox CkInactive;
 	}
 }

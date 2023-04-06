@@ -40,6 +40,8 @@
 					UserControlDefault(uc);
 				else if (control is TabControl tc)
 					TabControlDefault(tc);
+				else if (control is TabPage tp)
+					TabPageDefault(tp);
 
 				ApplyStyleToChildren(control);
 				(control as ICustomStylable)?.ApplyCustomStyle();
@@ -69,6 +71,10 @@
 			tc.Font = TextFont;
 		}
 
+		public static void TabPageDefault(TabPage tp)
+		{
+			tp.BackColor = ColorLightLight;
+		}
 		#endregion
 
 		#region Labels

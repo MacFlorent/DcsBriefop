@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
+using DcsBriefop.Tools;
 
 namespace DcsBriefop.DataBopBriefing
 {
@@ -17,7 +18,7 @@ namespace DcsBriefop.DataBopBriefing
 		public ElementMeasurementSystem MeasurementSystem { get; set; }
 		public ElementCoordinateDisplay CoordinateDisplay { get; set; }
 		public Size ImageSize { get; set; }
-
+		public bool Inactive { get; set; }
 		public List<BopBriefingPage> Pages { get; set; } = new List<BopBriefingPage>();
 		#endregion
 
@@ -102,6 +103,7 @@ namespace DcsBriefop.DataBopBriefing
 			foreach(BopBriefingPage page in Pages)
 			{
 				string sPageFileName = $"{sFolderName}_{iPage:000}{page.Title}";
+				sPageFileName = ToolsMisc.SanitizeFileName(sPageFileName);
 
 				if (page.Render.HasFlag(ElementBriefingPageRender.Html))
 				{

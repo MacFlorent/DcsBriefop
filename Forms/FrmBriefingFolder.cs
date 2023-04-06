@@ -49,6 +49,7 @@ namespace DcsBriefop.Forms
 			CbCoalition.SelectedValueChanged -= CbCoalition_SelectedValueChanged;
 
 			TbName.Text = m_bopBriefingFolder.Name;
+			CkInactive.Checked = m_bopBriefingFolder.Inactive;
 			CbCoalition.Text = m_bopBriefingFolder.CoalitionName;
 			CbWeatherDisplay.SelectedValue = (int)m_bopBriefingFolder.WeatherDisplay;
 			CbMeasurementSystem.SelectedValue = (int)m_bopBriefingFolder.MeasurementSystem;
@@ -112,6 +113,7 @@ namespace DcsBriefop.Forms
 		public void ScreenToData()
 		{
 			m_bopBriefingFolder.Name = TbName.Text;
+			m_bopBriefingFolder.Inactive = CkInactive.Checked;
 			m_bopBriefingFolder.CoalitionName = CbCoalition.Text;
 			m_bopBriefingFolder.WeatherDisplay = (ElementWeatherDisplay)CbWeatherDisplay.SelectedValue;
 			m_bopBriefingFolder.MeasurementSystem = (ElementMeasurementSystem)CbMeasurementSystem.SelectedValue;

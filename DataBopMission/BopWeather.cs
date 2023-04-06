@@ -37,9 +37,19 @@ namespace DcsBriefop.DataBopMission
 		}
 
 		public decimal TemperatureCelcius { get; private set; }
-		public int TemperatureFarenheit
+		public decimal? DewPointCelcius
 		{
-			get { return Convert.ToInt32(UnitConverter.Convert(TemperatureCelcius, UnitsNet.Units.TemperatureUnit.DegreeCelsius, UnitsNet.Units.TemperatureUnit.DegreeFahrenheit)); }
+			get
+			{
+				if (Fog)
+					return TemperatureCelcius;
+				else if (CloudDensityOkta <= 0)
+					return null;
+
+
+				//Found by Jed https://www.omnicalculator.com/physics/cloud-base
+				return TemperatureCelcius - (((decimal)CloudBaseMeter - 0) * (10m / 1247m));
+			}
 		}
 		#endregion
 
@@ -58,18 +68,18 @@ namespace DcsBriefop.DataBopMission
 			Wind8000 = new BopWeatherWind(mizWeather.WindAt8000);
 
 			VisibilityMeter = mizWeather.VisibilityDistance;
-			if (mizWeather.Fog is object && mizWeather.Fog.Thickness > 100)
+			if (mizWeather.Fog is not null && mizWeather.Fog.Thickness > 100)
 			{
 				Fog = true;
 				if (mizWeather.Fog.Visibility < VisibilityMeter)
 					VisibilityMeter = (int)mizWeather.Fog.Visibility;
 			}
 
-			if (Preset is object)
+			if (Preset is not null)
 			{
 				CloudDensityOkta = Preset.Density;
 				CloudBaseMeter = (int)mizWeather.Cloud.Base;
-				if (Preset.Visibility is object && Preset.Visibility < VisibilityMeter)
+				if (Preset.Visibility is not null && Preset.Visibility < VisibilityMeter)
 					VisibilityMeter = Preset.Visibility.Value;
 
 				Precipitation = Preset.Precipitation;
@@ -163,7 +173,13 @@ namespace DcsBriefop.DataBopMission
 
 			//T° and QNH
 			int iTemperature = Convert.ToInt32(ToolsMeasurement.TemperatureDisplay(TemperatureCelcius, measurementSystem));
-			sb.AppendWithSeparator($"{iTemperature:0}{ToolsMeasurement.TemperatureUnit(measurementSystem)} - QNH {QnhHpa:0} hPa - {QnhInHg:00.00} inHg", sNewLine);
+			string sDewPoint = "";
+			if (DewPointCelcius is not null)
+			{
+				int iDewPoint = Convert.ToInt32(ToolsMeasurement.TemperatureDisplay(DewPointCelcius.Value, measurementSystem));
+				sDewPoint = $" / Dew point:{iDewPoint:0}{ToolsMeasurement.TemperatureUnit(measurementSystem)}";
+			}
+			sb.AppendWithSeparator($"Temperature:{iTemperature:0}{ToolsMeasurement.TemperatureUnit(measurementSystem)}{sDewPoint} - QNH {QnhHpa:0} hPa - {QnhInHg:00.00} inHg", sNewLine);
 
 			return sb.ToString();
 		}
@@ -202,7 +218,7 @@ namespace DcsBriefop.DataBopMission
 			if (dSpeedKnot < 1)
 				sb.AppendWithSeparator("00000KT", " ");
 			else
-				sb.AppendWithSeparator($"{WindGround.DirectionTrue:000}{dSpeedKnot:0}KT", " ");
+				sb.AppendWithSeparator($"{WindGround.DirectionTrue:000}{dSpeedKnot:00}KT", " ");
 
 			int iCloudBaseFoot = Convert.ToInt32(UnitConverter.Convert(CloudBaseMeter, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
 			if (VisibilityMeter >= 10000 && iCloudBaseFoot >= 5000 && !Precipitation && !Fog && !Dust)
@@ -221,9 +237,9 @@ namespace DcsBriefop.DataBopMission
 				if (Dust)
 					sb.Append(" DU");
 
-				if (CloudDensityOkta <= 0)
+				if (CloudDensityOkta <= 0 && !Fog)
 					sb.Append(" SKC");
-				else
+				else if (CloudDensityOkta > 0)
 				{
 					int iCloudBaseRounded = iCloudBaseFoot / 100;
 
@@ -241,10 +257,24 @@ namespace DcsBriefop.DataBopMission
 				}
 			}
 
-			int iTemperature = Convert.ToInt32(TemperatureCelcius);
-			sb.Append($" {iTemperature:0} Q{QnhHpa:0}/{QnhInHg:00.00}");
-			
+			sb.Append($" {ToStringMetarTemperature(TemperatureCelcius)}/{ToStringMetarTemperature(DewPointCelcius)} Q{QnhHpa:0}/{QnhInHg:00.00}");
+
 			return sb.ToString();
+		}
+
+		private string ToStringMetarTemperature(decimal? dTemperature)
+		{
+			string sTemperature = "//";
+			if (dTemperature is not null)
+			{
+				int iTemperature = Convert.ToInt32(dTemperature);
+				if (dTemperature.Value < 0)
+					sTemperature = $"M{-iTemperature:00}";
+				else
+					sTemperature = $"{iTemperature:00}";
+			}
+
+			return sTemperature;
 		}
 		#endregion
 	}

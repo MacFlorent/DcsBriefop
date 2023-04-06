@@ -224,12 +224,32 @@ namespace DcsBriefop
 			}
 		}
 
-		private void GenerateBriefingDirectory(ListBopBriefingGeneratedFile files)
+		public string GetBriefingGenerationDirectory(out bool bAbsolute)
 		{
 			string sDirectoryRoot;
 			if (Path.IsPathFullyQualified(PreferencesManager.Preferences.Briefing.GenerateDirectoryName))
 			{
+				bAbsolute = true;
 				sDirectoryRoot = PreferencesManager.Preferences.Briefing.GenerateDirectoryName;
+			}
+			else
+			{
+				bAbsolute = false;
+				string sCleanedGenerateDirectoryName = PreferencesManager.Preferences.Briefing.GenerateDirectoryName;
+				if (Path.IsPathRooted(sCleanedGenerateDirectoryName))
+					sCleanedGenerateDirectoryName = sCleanedGenerateDirectoryName.Substring(Path.GetPathRoot(sCleanedGenerateDirectoryName).Length);
+
+				sDirectoryRoot = Path.Combine(MizFileDirectory, sCleanedGenerateDirectoryName);
+			}
+
+			return sDirectoryRoot;
+		}
+
+		private void GenerateBriefingDirectory(ListBopBriefingGeneratedFile files)
+		{
+			string sDirectoryRoot = GetBriefingGenerationDirectory(out bool bAbsolute);
+			if (bAbsolute)
+			{
 				if (!Path.Exists(sDirectoryRoot))
 					throw new ExceptionBop($"Absolute generation directory {sDirectoryRoot} does not exist.");
 				else
@@ -237,16 +257,10 @@ namespace DcsBriefop
 			}
 			else
 			{
-				string sCleanedGenerateDirectoryName = PreferencesManager.Preferences.Briefing.GenerateDirectoryName;
-				if (Path.IsPathRooted(sCleanedGenerateDirectoryName))
-					sCleanedGenerateDirectoryName = sCleanedGenerateDirectoryName.Substring(Path.GetPathRoot(sCleanedGenerateDirectoryName).Length);
-				
-				sDirectoryRoot = Path.Combine(MizFileDirectory, sCleanedGenerateDirectoryName);
 				if (!Path.Exists(sDirectoryRoot))
 					Directory.CreateDirectory(sDirectoryRoot);
 				else
 					CleanBriefingDirectory(sDirectoryRoot);
-
 			}
 
 			foreach (BopBriefingGeneratedFile file in files.Where(_f => _f.Kneeboards is not null))

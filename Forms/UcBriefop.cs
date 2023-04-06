@@ -64,6 +64,7 @@ namespace DcsBriefop.Forms
 
 			PnBriefingActions.CenterInParentHorizontal();
 			LbBriefingFolders.CenterInParentHorizontal();
+			LbBriefingDirectory.CenterInParentHorizontal();
 			ToolsStyle.ButtonOk(BtBriefingFolderAdd);
 			ToolsStyle.ButtonCancel(BtBriefingFolderDelete);
 			DgvBriefingFolders.MultiSelect = false;
@@ -100,6 +101,7 @@ namespace DcsBriefop.Forms
 				PnMissionTheatre.BackgroundImage = null;
 			}
 
+			LbBriefingDirectory.Text = m_briefopManager.GetBriefingGenerationDirectory(out _);
 			DataToScreenFolders();
 		}
 
@@ -131,7 +133,12 @@ namespace DcsBriefop.Forms
 		#region Events
 		private void LbMissionDirectory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			Process.Start(m_briefopManager.MizFileDirectory);
+			ToolsMisc.OpenDirectory(m_briefopManager.MizFileDirectory);
+		}
+
+		private void LbBriefingDirectory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			ToolsMisc.OpenDirectory(m_briefopManager.GetBriefingGenerationDirectory(out _));
 		}
 
 		private void BtMissionInformations_Click(object sender, System.EventArgs e)

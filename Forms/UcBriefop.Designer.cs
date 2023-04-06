@@ -43,6 +43,7 @@
 			LbMissionTitle = new Label();
 			BtBriefingPackages = new Button();
 			PnBriefing = new Panel();
+			LbBriefingDirectory = new LinkLabel();
 			BtBriefingFolderAdd = new Button();
 			BtBriefingFolderDelete = new Button();
 			BtBriefingFolderDetail = new Button();
@@ -229,6 +230,7 @@
 			// 
 			PnBriefing.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			PnBriefing.BorderStyle = BorderStyle.FixedSingle;
+			PnBriefing.Controls.Add(LbBriefingDirectory);
 			PnBriefing.Controls.Add(BtBriefingFolderAdd);
 			PnBriefing.Controls.Add(BtBriefingFolderDelete);
 			PnBriefing.Controls.Add(BtBriefingFolderDetail);
@@ -241,6 +243,18 @@
 			PnBriefing.Name = "PnBriefing";
 			PnBriefing.Size = new Size(1034, 341);
 			PnBriefing.TabIndex = 1;
+			// 
+			// LbBriefingDirectory
+			// 
+			LbBriefingDirectory.Location = new Point(1, 112);
+			LbBriefingDirectory.Margin = new Padding(4, 0, 4, 0);
+			LbBriefingDirectory.Name = "LbBriefingDirectory";
+			LbBriefingDirectory.Size = new Size(1032, 23);
+			LbBriefingDirectory.TabIndex = 19;
+			LbBriefingDirectory.TabStop = true;
+			LbBriefingDirectory.Text = "linkLabel1";
+			LbBriefingDirectory.TextAlign = ContentAlignment.MiddleCenter;
+			LbBriefingDirectory.LinkClicked += LbBriefingDirectory_LinkClicked;
 			// 
 			// BtBriefingFolderAdd
 			// 
@@ -300,7 +314,7 @@
 			// 
 			// LbBriefingFolders
 			// 
-			LbBriefingFolders.Location = new Point(298, 128);
+			LbBriefingFolders.Location = new Point(298, 141);
 			LbBriefingFolders.Margin = new Padding(4, 0, 4, 0);
 			LbBriefingFolders.Name = "LbBriefingFolders";
 			LbBriefingFolders.Size = new Size(425, 24);
@@ -347,11 +361,11 @@
 			DgvBriefingFolders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			DgvBriefingFolders.FilterAndSortEnabled = true;
 			DgvBriefingFolders.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			DgvBriefingFolders.Location = new Point(3, 155);
+			DgvBriefingFolders.Location = new Point(3, 167);
 			DgvBriefingFolders.Name = "DgvBriefingFolders";
 			DgvBriefingFolders.RightToLeft = RightToLeft.No;
 			DgvBriefingFolders.RowTemplate.Height = 25;
-			DgvBriefingFolders.Size = new Size(1026, 154);
+			DgvBriefingFolders.Size = new Size(1026, 142);
 			DgvBriefingFolders.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvBriefingFolders.TabIndex = 12;
 			DgvBriefingFolders.CellDoubleClick += DgvBriefingFolders_CellDoubleClick;
@@ -420,5 +434,6 @@
 		private Button BtBriefingFolderAdd;
 		private Button BtBriefingFolderDelete;
 		private Button BtBriefingFolderDetail;
+		private LinkLabel LbBriefingDirectory;
 	}
 }

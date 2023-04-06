@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Diagnostics;
 using System.Reflection;
 using System.Text;
 
@@ -25,6 +26,22 @@ namespace DcsBriefop.Tools
 				sDirectoryString = sDirectoryString.Replace(@".\", $@"{sExecutionPath}\");
 
 			return sDirectoryString;
+		}
+
+		public static void OpenDirectory(string sDirectoryPath)
+		{
+			//Process.Start(Environment.GetEnvironmentVariable("WINDIR") + @"\explorer.exe", m_briefopManager.MizFileDirectory);
+			if (Path.Exists(sDirectoryPath))
+				Process.Start("explorer.exe", sDirectoryPath);
+		}
+
+		public static string SanitizeFileName(string sFileName)
+		{
+			if (string.IsNullOrEmpty(sFileName))
+				return sFileName;
+
+			char[] invalids = Path.GetInvalidFileNameChars();
+			return String.Join("_", sFileName.Split(invalids, StringSplitOptions.RemoveEmptyEntries)).Replace(" ", "_").TrimEnd('.');
 		}
 
 		public static string Truncate(this string sValue, int iMaxChars)

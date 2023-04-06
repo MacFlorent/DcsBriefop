@@ -1,4 +1,7 @@
-﻿using DcsBriefop.DataBopBriefing;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataBopBriefing;
+using DcsBriefop.DataBopMission;
+using DcsBriefop.Tools;
 using System.Data;
 using Zuby.ADGV;
 
@@ -13,6 +16,7 @@ namespace DcsBriefop.Forms
 			public static readonly string Name = "Name";
 			public static readonly string Coalition = "Coalition";
 			public static readonly string UnitTypes = "UnitTypes";
+			public static readonly string Inactive = "Inactive";
 		}
 		#endregion
 
@@ -35,6 +39,7 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Name, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Coalition, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.UnitTypes, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.Inactive, typeof(bool));
 		}
 
 		protected override void RefreshDataSourceRowContent(DataRow dr, BopBriefingFolder element)
@@ -45,6 +50,7 @@ namespace DcsBriefop.Forms
 			dr.SetField(GridColumn.Name, element.Name);
 			dr.SetField(GridColumn.Coalition, element.CoalitionName);
 			dr.SetField(GridColumn.UnitTypes, string.Join(",", element.Kneeboards));
+			dr.SetField(GridColumn.Inactive, element.Inactive);
 		}
 
 		protected override void PostInitializeColumns()
@@ -55,6 +61,19 @@ namespace DcsBriefop.Forms
 
 			m_dgv.Columns[GridColumn.Id].Width = GridWidth.Small;
 			m_dgv.Columns[GridColumn.UnitTypes].Width = GridWidth.Large;
+		}
+
+		protected override DataGridViewCellStyle CellFormattingInternal(DataGridViewCell dgvc)
+		{
+			DataGridViewCellStyle cellStyle = base.CellFormattingInternal(dgvc);
+
+			DataGridViewColumn column = dgvc.OwningColumn;
+			BopBriefingFolder element = GetBoundElement(dgvc.OwningRow);
+
+			if (element.Inactive)
+				cellStyle.ForeColor = Color.Gray;
+
+			return cellStyle;
 		}
 		#endregion
 
