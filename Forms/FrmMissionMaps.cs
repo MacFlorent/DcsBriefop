@@ -33,7 +33,7 @@ namespace DcsBriefop.Forms
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
 		{
-			FrmMissionMaps f = new FrmMissionMaps(briefopManager);
+			using FrmMissionMaps f = new(briefopManager);
 			f.ShowDialog(parentForm);
 		}
 		#endregion

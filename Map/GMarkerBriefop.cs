@@ -2,8 +2,6 @@
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using System;
-using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.Serialization;
 
@@ -33,7 +31,7 @@ namespace DcsBriefop.Map
 		#endregion
 
 		#region CTOR
-		public GMarkerBriefop(PointLatLng point, MapTemplateMarker template, Color? tintColor, string sLabel, int iScale, int iAngle) : base(point)
+		private GMarkerBriefop(PointLatLng point, MapTemplateMarker template, Color? tintColor, string sLabel, int iScale, int iAngle) : base(point)
 		{
 			m_template = template;
 			TintColor = tintColor;
@@ -66,33 +64,22 @@ namespace DcsBriefop.Map
 
 		private void LoadTemplateContent()
 		{
-			Size = new Size (m_template.SizeDisplay.Width * Scale, m_template.SizeDisplay.Height * Scale);
+			Size = new Size (m_template.SizeWidth * Scale, m_template.SizeHeight * Scale);
 			Offset = new Point((int)(Size.Width * m_template.OffsetWidth), (int)(Size.Height * m_template.OffsetHeight));
 		}
 
 		public void LoadBitmap()
 		{
-			if (m_bitmap != null && m_bitmap != m_template.Bitmap)
+			if (m_bitmap is not null)
 			{
 				m_bitmap.Dispose();
 				m_bitmap = null;
 			}
 
-			if (TintColor is object)
-				m_bitmap = m_template.Bitmap.ColorTint(TintColor.Value);
-			else
-				m_bitmap = m_template.Bitmap;
-		}
+			m_bitmap = m_template.GetBitmap();
+			if (TintColor is not null)
+				ToolsImage.ColorTint(ref m_bitmap, TintColor.Value);
 
-		public override void Dispose()
-		{
-			if (m_bitmap != null && m_bitmap != m_template.Bitmap)
-			{
-				m_bitmap.Dispose();
-				m_bitmap = null;
-			}
-
-			base.Dispose();
 		}
 		#endregion
 
@@ -222,6 +209,35 @@ namespace DcsBriefop.Map
 		public void OnDeserialization(object sender)
 		{
 			LoadBitmap();
+		}
+		#endregion
+
+		#region IDisposable
+		protected bool m_disposedValue;
+
+		protected virtual void DisposeManaged()
+		{
+			m_bitmap?.Dispose();
+			m_bitmap = null;
+		}
+
+		private void Dispose(bool disposing)
+		{
+			if (!m_disposedValue)
+			{
+				if (disposing)
+				{
+					DisposeManaged();
+				}
+				m_disposedValue = true;
+			}
+		}
+
+		public override void Dispose()
+		{
+			base.Dispose();
+			Dispose(disposing: true);
+			GC.SuppressFinalize(this);
 		}
 		#endregion
 	}

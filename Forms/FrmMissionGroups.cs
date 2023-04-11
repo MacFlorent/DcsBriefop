@@ -26,7 +26,7 @@ namespace DcsBriefop.Forms
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
 		{
-			FrmMissionGroups f = new FrmMissionGroups(briefopManager);
+			using FrmMissionGroups f = new(briefopManager);
 			f.ShowDialog(parentForm);
 		}
 		#endregion
@@ -45,28 +45,17 @@ namespace DcsBriefop.Forms
 		private void DataToScreenDetail()
 		{
 			IEnumerable<BopGroup> selectedBopGroups = m_gridManagerGroups.GetSelectedElements();
+
+			m_ucGroup?.Dispose();
+			m_ucGroup = null;
+			ScMain.Panel2.Controls.Clear();
+
 			if (selectedBopGroups.Count() == 1)
 			{
 				BopGroup selectedBopGroup = selectedBopGroups.First();
-				if (ScMain.Panel2.Controls.Count > 0 && ScMain.Panel2.Controls[0] is not UcGroup)
-				{
-					ScMain.Panel2.Controls.Clear();
-				}
-				if (m_ucGroup is null)
-				{
-					m_ucGroup = new UcGroup(m_briefopManager);
-				}
-				if (ScMain.Panel2.Controls.Count == 0)
-				{
-					ScMain.Panel2.Controls.Add(m_ucGroup);
-					m_ucGroup.Dock = DockStyle.Fill;
-				}
-
-				m_ucGroup.BopGroup = selectedBopGroup;
-			}
-			else
-			{
-				ScMain.Panel2.Controls.Clear();
+				m_ucGroup = new UcGroup(m_briefopManager) { BopGroup = selectedBopGroup };
+				ScMain.Panel2.Controls.Add(m_ucGroup);
+				m_ucGroup.Dock = DockStyle.Fill;
 			}
 		}
 

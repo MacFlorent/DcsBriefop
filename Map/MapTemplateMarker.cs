@@ -1,11 +1,5 @@
 ﻿using DcsBriefop.Tools;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Map
 {
@@ -26,18 +20,19 @@ namespace DcsBriefop.Map
 	public class MapTemplateMarker
 	{
 		#region Fields
-		private static string m_directory = @".\markers";
-		private static double m_dDefaultOffsetWidth = -0.5;
-		private static double m_dDefaultOffsetHeight = -0.5;
-		private static int m_iDefaultWidth = 24;
-		private static int m_iDefaultHeight = 24;
+		private static readonly string m_directory = @".\markers";
+		private static readonly double m_dDefaultOffsetWidth = -0.5;
+		private static readonly double m_dDefaultOffsetHeight = -0.5;
+		private static readonly int m_iDefaultWidth = 24;
+		private static readonly int m_iDefaultHeight = 24;
 		#endregion
 
 		#region Properties
 		public string Name { get; set; }
+		public string ImageName { get; set; }
 		public string DcsMizFileName { get; set; }
-		public Bitmap Bitmap { get; set; }
-		public Size SizeDisplay { get; set; }
+		public int SizeWidth { get; set; }
+		public int SizeHeight { get; set; }
 		public double OffsetWidth { get; set; }
 		public double OffsetHeight { get; set; }
 		#endregion
@@ -47,33 +42,37 @@ namespace DcsBriefop.Map
 		{
 			return Name;
 		}
+
+		public Bitmap GetBitmap()
+		{
+			return new Bitmap(ToolsImage.GetCachedBitmap(ImageName));
+		}
 		#endregion
 
 		#region Static
-		private static readonly MapTemplateMarker m_default; 
+		private static readonly MapTemplateMarker m_default;
 		private static Dictionary<string, MapTemplateMarker> m_templatesList = new Dictionary<string, MapTemplateMarker>();
 
 		static MapTemplateMarker()
 		{
-			ConfigMapTemplateMarkers config = null;
-
+			ConfigMapTemplateMarkers config;
 			try
 			{
 				string sJsonStream = ToolsResources.GetJsonResourceContent("Markers");
 				config = JsonConvert.DeserializeObject<ConfigMapTemplateMarkers>(sJsonStream);
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				Log.Error("Marker template config file cannot be loaded");
 				Log.Exception(ex);
 				config = null;
 			}
 
-			if (config is object)
+			if (config is not null)
 			{
 				m_directory = config.Directory ?? m_directory;
 				m_iDefaultWidth = config.DefaultWidth.GetValueOrDefault(m_iDefaultWidth);
-				m_iDefaultHeight = config.DefaultHeight.GetValueOrDefault(m_iDefaultHeight); 
+				m_iDefaultHeight = config.DefaultHeight.GetValueOrDefault(m_iDefaultHeight);
 
 				ElementMapTemplateMarker.Airdrome = config.DefaultAirdrome ?? ElementMapTemplateMarker.Airdrome;
 				ElementMapTemplateMarker.Aircraft = config.DefaultAircraft ?? ElementMapTemplateMarker.Aircraft;
@@ -104,19 +103,21 @@ namespace DcsBriefop.Map
 			{
 				MapTemplateMarker template = new MapTemplateMarker();
 				template.Name = Path.GetFileNameWithoutExtension(sTemplateString);
-				template.Bitmap = ToolsImage.GetCachedBitmap(sTemplateString);
+				template.ImageName = sTemplateString;
 
-				if (config is object && config.Templates.Where(_c => string.Equals(_c.FileName, template.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault() is ConfigMapTemplateMarker configTemplate)
+				if (config is not null && config.Templates.Where(_c => string.Equals(_c.FileName, template.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault() is ConfigMapTemplateMarker configTemplate)
 				{
 					template.DcsMizFileName = configTemplate.DcsMizFileName ?? Path.GetFileName(sTemplateString);
-					template.SizeDisplay = new Size(configTemplate.Width.GetValueOrDefault(config.DefaultWidth.Value), configTemplate.Height.GetValueOrDefault(config.DefaultHeight.Value));
+					template.SizeWidth = configTemplate.Width.GetValueOrDefault(config.DefaultWidth.Value);
+					template.SizeHeight = configTemplate.Height.GetValueOrDefault(config.DefaultHeight.Value);
 					template.OffsetWidth = configTemplate.OffsetWidth.GetValueOrDefault(m_dDefaultOffsetWidth);
 					template.OffsetHeight = configTemplate.OffsetWidth.GetValueOrDefault(m_dDefaultOffsetHeight);
 				}
 				else
 				{
 					template.DcsMizFileName = Path.GetFileName(sTemplateString);
-					template.SizeDisplay = new Size(m_iDefaultWidth, m_iDefaultHeight);
+					template.SizeWidth = m_iDefaultWidth;
+					template.SizeHeight = m_iDefaultHeight;
 					template.OffsetWidth = m_dDefaultOffsetWidth;
 					template.OffsetHeight = m_dDefaultOffsetHeight;
 				}
@@ -152,12 +153,10 @@ namespace DcsBriefop.Map
 		public static MapTemplateMarker GetTemplateFromDcsMizFile(string sDcsMizFile)
 		{
 			MapTemplateMarker template = m_templatesList.Values.Where(_t => string.Equals(_t.DcsMizFileName, sDcsMizFile, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
-			if (template is null)
-				template = m_default;
+			template ??= m_default;
 
 			return template;
 		}
-
 
 		public static void FillCombo(ComboBox cb, EventHandler selectedValueChanged)
 		{

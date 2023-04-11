@@ -74,7 +74,7 @@ namespace DcsBriefop.Forms
 		private void DataToScreenMap()
 		{
 			UcGroupBase activeTabControl = null;
-			if (TcDetails.SelectedTab is object && TcDetails.SelectedTab.Controls.Count > 0)
+			if (TcDetails.SelectedTab is not null && TcDetails.SelectedTab.Controls.Count > 0)
 				activeTabControl = TcDetails.SelectedTab.Controls[0] as UcGroupBase;
 
 			activeTabControl?.DataToScreenMap();

@@ -3,6 +3,7 @@ using DcsBriefop.DataBopMission;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
+using GMap.NET.WindowsForms;
 
 namespace DcsBriefop.Forms
 {

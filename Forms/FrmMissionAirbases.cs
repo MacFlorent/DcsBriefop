@@ -26,7 +26,7 @@ namespace DcsBriefop.Forms
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
 		{
-			FrmMissionAirbases f = new FrmMissionAirbases(briefopManager);
+			using FrmMissionAirbases f = new(briefopManager);
 			f.ShowDialog(parentForm);
 		}
 		#endregion
@@ -45,31 +45,17 @@ namespace DcsBriefop.Forms
 		private void DataToScreenDetail()
 		{
 			IEnumerable<BopAirbase> selectedBopAirbases = m_gridManagerAirbases.GetSelectedElements();
+
+			m_ucAirbase?.Dispose();
+			m_ucAirbase = null;
+			ScMain.Panel2.Controls.Clear();
+
 			if (selectedBopAirbases.Count() == 1)
 			{
 				BopAirbase selectedBopAirbase = selectedBopAirbases.First();
-				if (ScMain.Panel2.Controls.Count > 0 && !(ScMain.Panel2.Controls[0] is UcAirbase))
-				{
-					ScMain.Panel2.Controls.Clear();
-				}
-				if (m_ucAirbase is null)
-				{
-					m_ucAirbase = new UcAirbase(m_briefopManager, selectedBopAirbase);
-				}
-				else
-				{
-					m_ucAirbase.BopAirbase = selectedBopAirbase;
-				}
-
-				if (ScMain.Panel2.Controls.Count == 0)
-				{
-					ScMain.Panel2.Controls.Add(m_ucAirbase);
-					m_ucAirbase.Dock = DockStyle.Fill;
-				}
-			}
-			else
-			{
-				ScMain.Panel2.Controls.Clear();
+				m_ucAirbase = new UcAirbase(m_briefopManager, selectedBopAirbase);
+				ScMain.Panel2.Controls.Add(m_ucAirbase);
+				m_ucAirbase.Dock = DockStyle.Fill;
 			}
 		}
 

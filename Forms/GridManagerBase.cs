@@ -27,8 +27,6 @@ namespace DcsBriefop.Forms
 		#region Fields
 		protected AdvancedDataGridView m_dgv;
 		protected DataTable m_dtSource;
-		protected bool m_disposedValue;
-
 		#endregion
 
 		#region Properties
@@ -386,6 +384,8 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region IDisposable
+		protected bool m_disposedValue;
+
 		protected virtual void DisposeManaged()
 		{
 			m_dgv.ContextMenuStrip?.Dispose();
