@@ -72,11 +72,11 @@ namespace DcsBriefop.Forms
 
 		private void SetImagePanel(Panel pn, string sImageName, string sImageExtension)
 		{
-			Image backgroundImage = ToolsResources.GetImageResource(sImageName, sImageExtension);
-			if (backgroundImage is object)
+			using Image backgroundImage = ToolsResources.GetImageResource(sImageName, sImageExtension);
+			if (backgroundImage is not null)
 			{
-				backgroundImage = ToolsImage.SetImageOpacity(backgroundImage, 0.25f);
-				pn.BackgroundImage = backgroundImage;
+				Bitmap backgroundBitmap = ToolsImage.SetImageOpacity(backgroundImage, 0.25f);
+				pn.BackgroundImage = backgroundBitmap;
 				pn.BackgroundImageLayout = ImageLayout.Stretch;
 			}
 		}

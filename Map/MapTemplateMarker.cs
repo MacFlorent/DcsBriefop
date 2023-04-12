@@ -51,7 +51,7 @@ namespace DcsBriefop.Map
 
 		#region Static
 		private static readonly MapTemplateMarker m_default;
-		private static Dictionary<string, MapTemplateMarker> m_templatesList = new Dictionary<string, MapTemplateMarker>();
+		private static Dictionary<string, MapTemplateMarker> m_templatesList = new();
 
 		static MapTemplateMarker()
 		{

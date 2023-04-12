@@ -67,30 +67,15 @@ namespace DcsBriefop.Map
 
 		public void LoadBitmap()
 		{
-			if (m_template.Bitmap is null)
-				return;
-
-			if (m_bitmap != null && m_bitmap != m_template.Bitmap)
+			if (m_bitmap is not null)
 			{
 				m_bitmap.Dispose();
 				m_bitmap = null;
 			}
 
-			if (TintColor is object)
-				m_bitmap = m_template.Bitmap.ColorTint(TintColor.Value);
-			else
-				m_bitmap = m_template.Bitmap;
-		}
-
-		public override void Dispose()
-		{
-			if (m_bitmap != null && m_bitmap != m_template.Bitmap)
-			{
-				m_bitmap.Dispose();
-				m_bitmap = null;
-			}
-
-			base.Dispose();
+			m_bitmap = m_template.GetBitmap();
+			if (m_bitmap is not null && TintColor is not null)
+				ToolsImage.ColorTint(ref m_bitmap, TintColor.Value);
 		}
 		#endregion
 
@@ -257,6 +242,14 @@ namespace DcsBriefop.Map
 		{
 			base.OnDeserialization(sender);
 			LoadBitmap();
+		}
+		#endregion
+
+		#region IDisposable
+		public override void Dispose()
+		{
+			base.Dispose();
+			m_bitmap?.Dispose();
 		}
 		#endregion
 	}

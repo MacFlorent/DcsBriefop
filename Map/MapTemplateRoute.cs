@@ -1,12 +1,6 @@
 ﻿using DcsBriefop.Tools;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 
 namespace DcsBriefop.Map
 {
@@ -26,7 +20,7 @@ namespace DcsBriefop.Map
 		#region Properties
 		public string Name { get; set; }
 		public string DcsMizStyle { get; set; }
-		public Bitmap Bitmap { get; set; }
+		public string ImageName { get; set; }
 		public DashStyle? DashOverride { get; set; }
 		public double? ThicknessCorrection { get; set; }
 		#endregion
@@ -36,15 +30,23 @@ namespace DcsBriefop.Map
 		{
 			return Name;
 		}
+
+		public Bitmap GetBitmap()
+		{
+			if (DashOverride is null)
+				return new Bitmap(ToolsImage.GetCachedBitmap(ImageName));
+			else
+				return null;
+		}
 		#endregion
 
 		#region Static
 		private static readonly MapTemplateRoute m_default;
-		private static Dictionary<string, MapTemplateRoute> m_templatesList = new Dictionary<string, MapTemplateRoute>();
+		private static Dictionary<string, MapTemplateRoute> m_templatesList = new();
 
 		static MapTemplateRoute()
 		{
-			ConfigMapTemplateRoutes config = null;
+			ConfigMapTemplateRoutes config;
 
 			try
 			{
@@ -86,6 +88,7 @@ namespace DcsBriefop.Map
 			{
 				MapTemplateRoute template = new MapTemplateRoute();
 				template.Name = Path.GetFileNameWithoutExtension(sTemplateString);
+				template.ImageName = sTemplateString;
 
 				if (config.Templates.Where(_c => string.Equals(_c.FileName, template.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault() is ConfigMapTemplateRoute configTemplate)
 				{
@@ -93,9 +96,6 @@ namespace DcsBriefop.Map
 					template.ThicknessCorrection = configTemplate.ThicknessCorrection;
 					template.DashOverride = configTemplate.DashOverride;
 				}
-
-				if (template.DashOverride is null)
-					template.Bitmap = ToolsImage.GetCachedBitmap(sTemplateString);
 
 				return template;
 			}

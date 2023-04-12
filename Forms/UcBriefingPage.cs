@@ -18,15 +18,6 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Properties
-		public BopBriefingPage BopBriefingPage
-		{
-			private get { return m_bopBriefingPage; }
-			set
-			{
-				m_bopBriefingPage = value;
-				DataToScreen();
-			}
-		}
 		#endregion
 
 		#region CTOR
@@ -103,7 +94,7 @@ namespace DcsBriefop.Forms
 				else if (selected is BopBriefingPartWaypoints)
 					m_ucBriefingPart = new UcBriefingPartWaypoints(selected, m_bopManager, this);
 
-				if (m_ucBriefingPart is object)
+				if (m_ucBriefingPart is not null)
 				{
 					m_ucBriefingPart.Dock = DockStyle.Fill;
 					TpPartDetail.Controls.Add(m_ucBriefingPart);

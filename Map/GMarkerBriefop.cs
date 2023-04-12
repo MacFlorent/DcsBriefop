@@ -79,7 +79,6 @@ namespace DcsBriefop.Map
 			m_bitmap = m_template.GetBitmap();
 			if (TintColor is not null)
 				ToolsImage.ColorTint(ref m_bitmap, TintColor.Value);
-
 		}
 		#endregion
 

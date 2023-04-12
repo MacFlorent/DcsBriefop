@@ -38,7 +38,7 @@ namespace DcsBriefop.Forms
 
 		public static void CreateModal(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder, Form parentForm)
 		{
-			FrmBriefingFolder f = new FrmBriefingFolder(bopManager, bopBriefingFolder);
+			using FrmBriefingFolder f = new(bopManager, bopBriefingFolder);
 			f.ShowDialog(parentForm);
 		}
 		#endregion
@@ -82,31 +82,17 @@ namespace DcsBriefop.Forms
 		private void DataToScreenDetail()
 		{
 			IEnumerable<BopBriefingPage> selectedPages = m_gridManagerBriefingPages.GetSelectedElements();
+
+			m_ucBriefingPage?.Dispose();
+			m_ucBriefingPage = null;
+			ScMain.Panel2.Controls.Clear();
+
 			if (selectedPages.Count() == 1)
 			{
 				BopBriefingPage selectedPage = selectedPages.First();
-				if (ScMain.Panel2.Controls.Count > 0 && !(ScMain.Panel2.Controls[0] is UcBriefingPage))
-				{
-					ScMain.Panel2.Controls.Clear();
-				}
-				if (m_ucBriefingPage is null)
-				{
-					m_ucBriefingPage = new UcBriefingPage(m_bopManager, m_bopBriefingFolder, selectedPage, this);
-				}
-				else
-				{
-					m_ucBriefingPage.BopBriefingPage = selectedPage;
-				}
-
-				if (ScMain.Panel2.Controls.Count == 0)
-				{
-					ScMain.Panel2.Controls.Add(m_ucBriefingPage);
-					m_ucBriefingPage.Dock = DockStyle.Fill;
-				}
-			}
-			else
-			{
-				ScMain.Panel2.Controls.Clear();
+				m_ucBriefingPage = new UcBriefingPage(m_bopManager, m_bopBriefingFolder, selectedPage, this);
+				ScMain.Panel2.Controls.Add(m_ucBriefingPage);
+				m_ucBriefingPage.Dock = DockStyle.Fill;
 			}
 		}
 
@@ -135,7 +121,7 @@ namespace DcsBriefop.Forms
 		{
 			BopBriefingPage bopBriefingPage = m_bopBriefingFolder.AddPage(m_bopManager.BopMission);
 			DataToScreenGridPages();
-			if (m_bopBriefingFolder.Pages.Count() == 1)
+			if (m_bopBriefingFolder.Pages.Count == 1)
 				DataToScreenDetail();
 			else
 				m_gridManagerBriefingPages.SelectRow(bopBriefingPage);
@@ -181,9 +167,12 @@ namespace DcsBriefop.Forms
 
 		private void SelectionChangedEvent(object sender, EventArgs e)
 		{
-			ScreenToDataDetail();
-			m_gridManagerBriefingPages.RefreshDataSourceRows();
-			DataToScreenDetail();
+			using (new WaitDialog(this))
+			{
+				ScreenToDataDetail();
+				m_gridManagerBriefingPages.RefreshDataSourceRows();
+				DataToScreenDetail();
+			}
 		}
 
 		private void BtPageAdd_Click(object sender, EventArgs e)
@@ -206,8 +195,6 @@ namespace DcsBriefop.Forms
 			OrderPage(1);
 		}
 		#endregion
-
-
 	}
 
 

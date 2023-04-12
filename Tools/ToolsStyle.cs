@@ -166,7 +166,8 @@
 		#region Forms
 		public static void SetBackgroundImage(Control c)
 		{
-			c.BackgroundImage = ToolsImage.SetImageOpacity(ToolsResources.GetImageResource("icon256", null), 0.15f);
+			using Image image =ToolsResources.GetImageResource("icon256", null);
+			c.BackgroundImage = ToolsImage.SetImageOpacity(image, 0.05f);
 			c.BackgroundImageLayout = ImageLayout.Tile;
 		}
 		#endregion

@@ -1,7 +1,6 @@
 ﻿using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.Serialization;
 
