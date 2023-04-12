@@ -79,8 +79,11 @@ namespace DcsBriefop.Forms
 
 		private void SelectionChangedEvent(object sender, EventArgs e)
 		{
-			ScreenToDataDetail();
-			DataToScreenDetail();
+			using (new WaitDialog(this))
+			{
+				ScreenToDataDetail();
+				DataToScreenDetail();
+			}
 		}
 		#endregion
 	}

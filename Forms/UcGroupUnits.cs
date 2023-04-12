@@ -17,7 +17,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcGroupUnits(BriefopManager briefopManager, GMapControl mapControl) : base(briefopManager, mapControl)
+		public UcGroupUnits(BriefopManager briefopManager, BopGroup bopGroup, GMapControl mapControl) : base(briefopManager, bopGroup, mapControl)
 		{
 			InitializeComponent();
 

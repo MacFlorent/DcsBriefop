@@ -15,24 +15,13 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Properties
-		public BopGroup BopGroup
-		{
-			private get { return m_bopGroup; }
-			set
-			{
-				m_bopGroup = value;
-				m_ucGroupInformation.BopGroup = m_bopGroup;
-				m_ucGroupUnits.BopGroup = m_bopGroup;
-				m_ucGroupRoutePoints.BopGroup = m_bopGroup;
-				DataToScreen();
-			}
-		}
 		#endregion
 
 		#region CTOR
-		public UcGroup(BriefopManager briefopManager)
+		public UcGroup(BriefopManager briefopManager, BopGroup bopGroup, int? iSelectedTabIndex)
 		{
 			m_briefopManager = briefopManager;
+			m_bopGroup = bopGroup;
 
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
@@ -41,13 +30,18 @@ namespace DcsBriefop.Forms
 			ToolsStyle.LabelHeader(LbDisplayName);
 
 			TcDetails.SelectedIndexChanged -= TcDetails_SelectedIndexChanged;
-			m_ucGroupInformation = new UcGroupInformation(m_briefopManager, MapControl);
-			m_ucGroupUnits = new UcGroupUnits(m_briefopManager, MapControl);
-			m_ucGroupRoutePoints = new UcGroupRoutePoints(m_briefopManager, MapControl);
+
+			m_ucGroupInformation = new UcGroupInformation(m_briefopManager, m_bopGroup, MapControl);
+			m_ucGroupUnits = new UcGroupUnits(m_briefopManager, m_bopGroup, MapControl);
+			m_ucGroupRoutePoints = new UcGroupRoutePoints(m_briefopManager, m_bopGroup, MapControl);
 			TcDetails.TabPages.Clear();
 			TcDetails.AddTab("Information", m_ucGroupInformation);
 			TcDetails.AddTab("Units", m_ucGroupUnits);
 			TcDetails.AddTab("Route", m_ucGroupRoutePoints);
+
+			if (iSelectedTabIndex is not null)
+				TcDetails.SelectedIndex = iSelectedTabIndex.Value;
+
 			TcDetails.SelectedIndexChanged += TcDetails_SelectedIndexChanged;
 
 			MapControl.InitializeMapControl(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.ProviderName);
@@ -55,7 +49,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Methods
-		private void DataToScreen()
+		public void DataToScreen()
 		{
 			m_bopGroup.FinalizeFromMiz();
 
@@ -85,6 +79,11 @@ namespace DcsBriefop.Forms
 			m_ucGroupInformation.ScreenToData();
 			m_ucGroupUnits.ScreenToData();
 			m_ucGroupRoutePoints.ScreenToData();
+		}
+
+		public int GetSelectedTabIndex()
+		{
+			return TcDetails.SelectedIndex;
 		}
 		#endregion
 

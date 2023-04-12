@@ -213,31 +213,10 @@ namespace DcsBriefop.Map
 		#endregion
 
 		#region IDisposable
-		protected bool m_disposedValue;
-
-		protected virtual void DisposeManaged()
-		{
-			m_bitmap?.Dispose();
-			m_bitmap = null;
-		}
-
-		private void Dispose(bool disposing)
-		{
-			if (!m_disposedValue)
-			{
-				if (disposing)
-				{
-					DisposeManaged();
-				}
-				m_disposedValue = true;
-			}
-		}
-
 		public override void Dispose()
 		{
 			base.Dispose();
-			Dispose(disposing: true);
-			GC.SuppressFinalize(this);
+			m_bitmap?.Dispose();
 		}
 		#endregion
 	}

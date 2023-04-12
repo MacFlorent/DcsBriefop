@@ -16,7 +16,7 @@ namespace DcsBriefop.Forms
 		#endregion
 		
 		#region CTOR
-		public UcGroupInformation(BriefopManager briefopManager, GMapControl mapControl) : base (briefopManager, mapControl)
+		public UcGroupInformation(BriefopManager briefopManager, BopGroup bopGroup, GMapControl mapControl) : base (briefopManager, bopGroup, mapControl)
 		{
 			InitializeComponent();
 
@@ -44,8 +44,6 @@ namespace DcsBriefop.Forms
 			TbAltitude.Text = $"{m_bopGroup.GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}";
 			TbCoordinates.Text = m_bopGroup.Coordinate.ToString(ElementCoordinateDisplay.All);
 			CbMapMarker.Text = m_bopGroup.MapMarker;
-
-			DataToScreenMap();
 
 			CbMapMarker.SelectedValueChanged += CbMapMarker_SelectedValueChanged;
 		}

@@ -1,7 +1,6 @@
 ﻿using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.Serialization;
@@ -45,10 +44,6 @@ namespace DcsBriefop.Map
 		#endregion
 
 		#region Methods
-		public override void Dispose()
-		{
-			base.Dispose();
-		}
 		#endregion
 
 		#region Render
@@ -106,6 +101,15 @@ namespace DcsBriefop.Map
 		#region IDeserializationCallback Members
 		public void OnDeserialization(object sender)
 		{
+		}
+		#endregion
+
+		#region IDisposable
+		public override void Dispose()
+		{
+			base.Dispose();
+			m_penBorder?.Dispose();
+			m_brushFill?.Dispose();
 		}
 		#endregion
 	}

@@ -106,7 +106,7 @@ namespace DcsBriefop.Forms
 
 		private void OpenPreferences()
 		{
-			FrmPreferences f = new FrmPreferences();
+			using FrmPreferences f = new FrmPreferences();
 			if (f.ShowDialog() == DialogResult.OK)
 			{
 				ToolsMap.InitializeGMaps();
@@ -117,7 +117,7 @@ namespace DcsBriefop.Forms
 
 		private void OpenDcsObjects()
 		{
-			FrmDcsObjects f = new FrmDcsObjects();
+			using FrmDcsObjects f = new FrmDcsObjects();
 			f.ShowDialog();
 		}
 

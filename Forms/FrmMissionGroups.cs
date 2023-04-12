@@ -46,14 +46,20 @@ namespace DcsBriefop.Forms
 		{
 			IEnumerable<BopGroup> selectedBopGroups = m_gridManagerGroups.GetSelectedElements();
 
-			m_ucGroup?.Dispose();
-			m_ucGroup = null;
+			int? iSelectedTabIndex = null;
+			if (m_ucGroup is not null)
+			{
+				iSelectedTabIndex = m_ucGroup.GetSelectedTabIndex();
+				m_ucGroup?.Dispose();
+				m_ucGroup = null;
+			}
 			ScMain.Panel2.Controls.Clear();
 
 			if (selectedBopGroups.Count() == 1)
 			{
 				BopGroup selectedBopGroup = selectedBopGroups.First();
-				m_ucGroup = new UcGroup(m_briefopManager) { BopGroup = selectedBopGroup };
+				m_ucGroup = new UcGroup(m_briefopManager, selectedBopGroup, iSelectedTabIndex);
+				m_ucGroup.DataToScreen();
 				ScMain.Panel2.Controls.Add(m_ucGroup);
 				m_ucGroup.Dock = DockStyle.Fill;
 			}
@@ -79,8 +85,11 @@ namespace DcsBriefop.Forms
 
 		private void SelectionChangedEvent(object sender, EventArgs e)
 		{
-			ScreenToDataDetail();
-			DataToScreenDetail();
+			using (new WaitDialog(this))
+			{
+				ScreenToDataDetail();
+				DataToScreenDetail();
+			}
 		}
 		#endregion
 	}

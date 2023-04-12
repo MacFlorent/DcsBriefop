@@ -8,27 +8,18 @@ namespace DcsBriefop.Forms
 		#region Fields
 		protected BriefopManager m_briefopManager;
 		protected BopGroup m_bopGroup;
-
 		protected GMapControl m_mapControl;
 		#endregion
 
 		#region Properties
-		public BopGroup BopGroup
-		{
-			protected get { return m_bopGroup; }
-			set
-			{
-				m_bopGroup = value;
-				DataToScreen();
-			}
-		}
 		#endregion
 
 		#region CTOR
 		public UcGroupBase() { InitializeComponent(); }
-		public UcGroupBase(BriefopManager briefopManager, GMapControl mapControl)
+		public UcGroupBase(BriefopManager briefopManager, BopGroup bopGroup, GMapControl mapControl)
 		{
 			m_briefopManager = briefopManager;
+			m_bopGroup = bopGroup;
 			m_mapControl = mapControl;
 		}
 		#endregion
