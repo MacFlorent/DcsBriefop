@@ -11,7 +11,7 @@ namespace DcsBriefop.Map
 	public class GRouteBriefop : GMapRoute, ISerializable, IDeserializationCallback
 	{
 		#region Fields
-		private MapTemplateRoute m_template;
+		private BopBriefingTemplate m_template;
 		private Bitmap m_bitmap;
 		#endregion
 
@@ -30,7 +30,7 @@ namespace DcsBriefop.Map
 		#endregion
 
 		#region CTOR
-		public GRouteBriefop(List<PointLatLng> points, string sName, MapTemplateRoute template, Color? tintColor, int iThickness) : base(points, sName)
+		public GRouteBriefop(List<PointLatLng> points, string sName, BopBriefingTemplate template, Color? tintColor, int iThickness) : base(points, sName)
 		{
 			m_template = template;
 			TintColor = tintColor;
@@ -48,13 +48,13 @@ namespace DcsBriefop.Map
 
 		public static GRouteBriefop NewFromTemplateName(List<PointLatLng> points, string sName, string sTemplateName, Color? tintColor, int iThickness)
 		{
-			MapTemplateRoute template = MapTemplateRoute.GetTemplate(sTemplateName);
+			BopBriefingTemplate template = BopBriefingTemplate.GetTemplate(sTemplateName);
 			return new GRouteBriefop(points, sName, template, tintColor, iThickness);
 		}
 
 		public static GRouteBriefop NewFromMizStyleName(List<PointLatLng> points, string sName, string sMizStyleName, Color? tintColor, int iThickness)
 		{
-			MapTemplateRoute template = MapTemplateRoute.GetTemplateFromDcsMizStyle(sMizStyleName);
+			BopBriefingTemplate template = BopBriefingTemplate.GetTemplateFromDcsMizStyle(sMizStyleName);
 			return new GRouteBriefop(points, sName, template, tintColor, iThickness);
 		}
 		#endregion
@@ -62,7 +62,7 @@ namespace DcsBriefop.Map
 		#region Methods
 		public void LoadTemplate(string sTemplate)
 		{
-			m_template = MapTemplateRoute.GetTemplate(sTemplate);
+			m_template = BopBriefingTemplate.GetTemplate(sTemplate);
 		}
 
 		public void LoadBitmap()

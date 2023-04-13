@@ -42,6 +42,8 @@
 			PnMapPreview = new Panel();
 			PbMapPreview = new PictureBox();
 			ScMain = new SplitContainer();
+			LbHtmlFontSize = new Label();
+			NudHtmlFontSize = new NumericUpDown();
 			BtPartOrderDown = new Button();
 			BtPartOrderUp = new Button();
 			BtPartRemove = new Button();
@@ -67,6 +69,7 @@
 			ScMain.Panel1.SuspendLayout();
 			ScMain.Panel2.SuspendLayout();
 			ScMain.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)NudHtmlFontSize).BeginInit();
 			((System.ComponentModel.ISupportInitialize)DgvParts).BeginInit();
 			SuspendLayout();
 			// 
@@ -221,6 +224,8 @@
 			// 
 			// ScMain.Panel1
 			// 
+			ScMain.Panel1.Controls.Add(LbHtmlFontSize);
+			ScMain.Panel1.Controls.Add(NudHtmlFontSize);
 			ScMain.Panel1.Controls.Add(BtPartOrderDown);
 			ScMain.Panel1.Controls.Add(BtPartOrderUp);
 			ScMain.Panel1.Controls.Add(BtPartRemove);
@@ -243,6 +248,26 @@
 			ScMain.SplitterDistance = 223;
 			ScMain.SplitterWidth = 5;
 			ScMain.TabIndex = 2;
+			// 
+			// LbHtmlFontSize
+			// 
+			LbHtmlFontSize.AutoSize = true;
+			LbHtmlFontSize.Location = new Point(4, 116);
+			LbHtmlFontSize.Margin = new Padding(4, 0, 4, 0);
+			LbHtmlFontSize.Name = "LbHtmlFontSize";
+			LbHtmlFontSize.Size = new Size(53, 15);
+			LbHtmlFontSize.TabIndex = 48;
+			LbHtmlFontSize.Text = "Font size";
+			// 
+			// NudHtmlFontSize
+			// 
+			NudHtmlFontSize.Location = new Point(61, 114);
+			NudHtmlFontSize.Maximum = new decimal(new int[] { 60, 0, 0, 0 });
+			NudHtmlFontSize.Minimum = new decimal(new int[] { 6, 0, 0, 0 });
+			NudHtmlFontSize.Name = "NudHtmlFontSize";
+			NudHtmlFontSize.Size = new Size(158, 23);
+			NudHtmlFontSize.TabIndex = 46;
+			NudHtmlFontSize.Value = new decimal(new int[] { 6, 0, 0, 0 });
 			// 
 			// BtPartOrderDown
 			// 
@@ -291,7 +316,7 @@
 			// LbParts
 			// 
 			LbParts.AutoSize = true;
-			LbParts.Location = new Point(11, 116);
+			LbParts.Location = new Point(4, 150);
 			LbParts.Margin = new Padding(4, 0, 4, 0);
 			LbParts.Name = "LbParts";
 			LbParts.Size = new Size(33, 15);
@@ -323,7 +348,7 @@
 			// LbRender
 			// 
 			LbRender.AutoSize = true;
-			LbRender.Location = new Point(11, 90);
+			LbRender.Location = new Point(4, 90);
 			LbRender.Margin = new Padding(4, 0, 4, 0);
 			LbRender.Name = "LbRender";
 			LbRender.Size = new Size(44, 15);
@@ -362,7 +387,7 @@
 			// LbTitle
 			// 
 			LbTitle.AutoSize = true;
-			LbTitle.Location = new Point(11, 39);
+			LbTitle.Location = new Point(3, 39);
 			LbTitle.Margin = new Padding(4, 0, 4, 0);
 			LbTitle.Name = "LbTitle";
 			LbTitle.Size = new Size(29, 15);
@@ -375,11 +400,11 @@
 			DgvParts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			DgvParts.FilterAndSortEnabled = false;
 			DgvParts.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			DgvParts.Location = new Point(4, 134);
+			DgvParts.Location = new Point(4, 168);
 			DgvParts.Margin = new Padding(4, 3, 4, 3);
 			DgvParts.Name = "DgvParts";
 			DgvParts.RightToLeft = RightToLeft.No;
-			DgvParts.Size = new Size(215, 338);
+			DgvParts.Size = new Size(215, 304);
 			DgvParts.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvParts.TabIndex = 0;
 			// 
@@ -406,6 +431,7 @@
 			ScMain.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)ScMain).EndInit();
 			ScMain.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)NudHtmlFontSize).EndInit();
 			((System.ComponentModel.ISupportInitialize)DgvParts).EndInit();
 			ResumeLayout(false);
 		}
@@ -439,5 +465,7 @@
 		private Panel PnMap;
 		private Button BtPartOrderDown;
 		private Button BtPartOrderUp;
+		private NumericUpDown NudHtmlFontSize;
+		private Label LbHtmlFontSize;
 	}
 }

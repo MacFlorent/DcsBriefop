@@ -150,7 +150,7 @@ namespace DcsBriefop.Data
 				m_coordinatesLutValuesX = new List<decimal>();
 
 				string sLutResource = LutResourceName;
-				string sResourceContent = ToolsResources.GetTextResourceContent(sLutResource, "txt");
+				string sResourceContent = ToolsResources.GetTextResourceContent(sLutResource, "txt", null);
 				if (string.IsNullOrEmpty(sResourceContent))
 					throw new ExceptionBop($"Empty or absent LUT data resource: {sLutResource}.");
 
@@ -211,7 +211,7 @@ namespace DcsBriefop.Data
 			try
 			{
 				string sResource = $"Airdromes{Name}";
-				string sJsonStream = ToolsResources.GetJsonResourceContent(sResource);
+				string sJsonStream = ToolsResources.GetJsonResourceContent(sResource, null);
 				if (string.IsNullOrEmpty(sJsonStream))
 					throw new ExceptionBop($"Empty or absent airdrome resource: {sResource}.");
 

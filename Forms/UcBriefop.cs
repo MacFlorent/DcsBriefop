@@ -72,7 +72,7 @@ namespace DcsBriefop.Forms
 
 		private void SetImagePanel(Panel pn, string sImageName, string sImageExtension)
 		{
-			using Image backgroundImage = ToolsResources.GetImageResource(sImageName, sImageExtension);
+			using Image backgroundImage = ToolsResources.GetImageResource(sImageName, sImageExtension, null);
 			if (backgroundImage is not null)
 			{
 				Bitmap backgroundBitmap = ToolsImage.SetImageOpacity(backgroundImage, 0.25f);
@@ -90,7 +90,7 @@ namespace DcsBriefop.Forms
 			LbMissionTheatre.Text = m_briefopManager.BopMission.Theatre.Name;
 			LbMissionTheatre.CenterInParent();
 
-			Image theatreImage = ToolsResources.GetImageResource($"theatre{m_briefopManager.BopMission.Theatre.Name}", "jpg");
+			Image theatreImage = ToolsResources.GetImageResource($"theatre{m_briefopManager.BopMission.Theatre.Name}", "jpg", null);
 			if (theatreImage is object)
 			{
 				PnMissionTheatre.BackgroundImage = theatreImage;

@@ -17,6 +17,7 @@ namespace DcsBriefop.DataBopBriefing
 		public ElementWeatherDisplay WeatherDisplay { get; set; }
 		public ElementMeasurementSystem MeasurementSystem { get; set; }
 		public ElementCoordinateDisplay CoordinateDisplay { get; set; }
+		public string HtmlCssStyle { get; set; }
 		public Size ImageSize { get; set; }
 		public bool Inactive { get; set; }
 		public List<BopBriefingPage> Pages { get; set; } = new List<BopBriefingPage>();
@@ -29,6 +30,7 @@ namespace DcsBriefop.DataBopBriefing
 			WeatherDisplay = PreferencesManager.Preferences.Briefing.WeatherDisplay;
 			MeasurementSystem = PreferencesManager.Preferences.Briefing.MeasurementSystem;
 			CoordinateDisplay = PreferencesManager.Preferences.Briefing.CoordinateDisplay;
+			HtmlCssStyle = PreferencesManager.Preferences.Briefing.HtmlStyleCss;
 			ImageSize = PreferencesManager.Preferences.Briefing.ImageSize;
 		}
 		#endregion
@@ -47,7 +49,7 @@ namespace DcsBriefop.DataBopBriefing
 			else
 			{
 				Airdrome firstAirdrome = bopMission.Theatre.Airdromes.FirstOrDefault();
-				if (firstAirdrome is object)
+				if (firstAirdrome is not null)
 				{
 					bopBriefingPage.MapData.CenterLatitude = firstAirdrome.Latitude;
 					bopBriefingPage.MapData.CenterLongitude = firstAirdrome.Longitude;

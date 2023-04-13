@@ -21,7 +21,7 @@ namespace DcsBriefop.Forms
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			PbWait.Image = ToolsResources.GetImageResource("wait2", null);
+			PbWait.Image = ToolsResources.GetImageResource("wait2", null, null);
 
 			m_parent = parent;
 			m_areIsReady = areIsReady;

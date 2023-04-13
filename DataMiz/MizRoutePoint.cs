@@ -69,7 +69,7 @@ namespace DcsBriefop.DataMiz
 
 		public static string GetLuaTemplate()
 		{
-			return ToolsResources.GetTextResourceContent("MizRoutePoint", "lua");
+			return ToolsResources.GetTextResourceContent("MizRoutePoint", "lua", null);
 		}
 
 		public static MizRoutePoint NewFromLuaTemplate()

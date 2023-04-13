@@ -46,6 +46,7 @@
 			TbName = new TextBox();
 			LbName = new Label();
 			ScMain = new SplitContainer();
+			CkInactive = new CheckBox();
 			TlGrids = new TableLayoutPanel();
 			PnGridUnitTypes = new Panel();
 			LstKneeboards = new CheckedListBox();
@@ -53,7 +54,8 @@
 			BtPageOrderDown = new Button();
 			BtPageOrderUp = new Button();
 			LbHeader = new Label();
-			CkInactive = new CheckBox();
+			LbHtmlCss = new Label();
+			CbHtmlCss = new ComboBox();
 			((System.ComponentModel.ISupportInitialize)DgvPages).BeginInit();
 			((System.ComponentModel.ISupportInitialize)ScMain).BeginInit();
 			ScMain.Panel1.SuspendLayout();
@@ -66,7 +68,7 @@
 			// BtPageRemove
 			// 
 			BtPageRemove.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtPageRemove.Location = new Point(234, 264);
+			BtPageRemove.Location = new Point(234, 241);
 			BtPageRemove.Name = "BtPageRemove";
 			BtPageRemove.Size = new Size(75, 23);
 			BtPageRemove.TabIndex = 41;
@@ -77,7 +79,7 @@
 			// BtPageAdd
 			// 
 			BtPageAdd.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtPageAdd.Location = new Point(153, 264);
+			BtPageAdd.Location = new Point(153, 241);
 			BtPageAdd.Name = "BtPageAdd";
 			BtPageAdd.Size = new Size(75, 23);
 			BtPageAdd.TabIndex = 40;
@@ -95,7 +97,7 @@
 			DgvPages.Name = "DgvPages";
 			DgvPages.RightToLeft = RightToLeft.No;
 			DgvPages.RowTemplate.Height = 25;
-			DgvPages.Size = new Size(310, 243);
+			DgvPages.Size = new Size(310, 220);
 			DgvPages.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvPages.TabIndex = 39;
 			// 
@@ -112,7 +114,7 @@
 			// LbBriefingImageSize
 			// 
 			LbBriefingImageSize.AutoSize = true;
-			LbBriefingImageSize.Location = new Point(13, 231);
+			LbBriefingImageSize.Location = new Point(13, 262);
 			LbBriefingImageSize.Margin = new Padding(4, 0, 4, 0);
 			LbBriefingImageSize.Name = "LbBriefingImageSize";
 			LbBriefingImageSize.Size = new Size(62, 15);
@@ -122,7 +124,7 @@
 			// UcImageSize
 			// 
 			UcImageSize.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			UcImageSize.Location = new Point(12, 249);
+			UcImageSize.Location = new Point(12, 280);
 			UcImageSize.Margin = new Padding(4, 3, 4, 3);
 			UcImageSize.Name = "UcImageSize";
 			UcImageSize.SelectedSize = new Size(1, 1);
@@ -244,6 +246,8 @@
 			// 
 			// ScMain.Panel1
 			// 
+			ScMain.Panel1.Controls.Add(LbHtmlCss);
+			ScMain.Panel1.Controls.Add(CbHtmlCss);
 			ScMain.Panel1.Controls.Add(CkInactive);
 			ScMain.Panel1.Controls.Add(TlGrids);
 			ScMain.Panel1.Controls.Add(LbHeader);
@@ -268,6 +272,16 @@
 			ScMain.SplitterWidth = 5;
 			ScMain.TabIndex = 2;
 			// 
+			// CkInactive
+			// 
+			CkInactive.AutoSize = true;
+			CkInactive.Location = new Point(138, 62);
+			CkInactive.Name = "CkInactive";
+			CkInactive.Size = new Size(67, 19);
+			CkInactive.TabIndex = 50;
+			CkInactive.Text = "Inactive";
+			CkInactive.UseVisualStyleBackColor = true;
+			// 
 			// TlGrids
 			// 
 			TlGrids.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -275,12 +289,12 @@
 			TlGrids.ColumnStyles.Add(new ColumnStyle());
 			TlGrids.Controls.Add(PnGridUnitTypes, 0, 0);
 			TlGrids.Controls.Add(PnGridsPages, 0, 1);
-			TlGrids.Location = new Point(0, 276);
+			TlGrids.Location = new Point(0, 313);
 			TlGrids.Name = "TlGrids";
 			TlGrids.RowCount = 2;
 			TlGrids.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
 			TlGrids.RowStyles.Add(new RowStyle(SizeType.Percent, 60F));
-			TlGrids.Size = new Size(316, 487);
+			TlGrids.Size = new Size(316, 450);
 			TlGrids.TabIndex = 49;
 			// 
 			// PnGridUnitTypes
@@ -290,7 +304,7 @@
 			PnGridUnitTypes.Dock = DockStyle.Fill;
 			PnGridUnitTypes.Location = new Point(3, 3);
 			PnGridUnitTypes.Name = "PnGridUnitTypes";
-			PnGridUnitTypes.Size = new Size(310, 188);
+			PnGridUnitTypes.Size = new Size(310, 174);
 			PnGridUnitTypes.TabIndex = 0;
 			// 
 			// LstKneeboards
@@ -312,15 +326,15 @@
 			PnGridsPages.Controls.Add(BtPageAdd);
 			PnGridsPages.Controls.Add(DgvPages);
 			PnGridsPages.Dock = DockStyle.Fill;
-			PnGridsPages.Location = new Point(3, 197);
+			PnGridsPages.Location = new Point(3, 183);
 			PnGridsPages.Name = "PnGridsPages";
-			PnGridsPages.Size = new Size(310, 287);
+			PnGridsPages.Size = new Size(310, 264);
 			PnGridsPages.TabIndex = 1;
 			// 
 			// BtPageOrderDown
 			// 
 			BtPageOrderDown.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			BtPageOrderDown.Location = new Point(34, 264);
+			BtPageOrderDown.Location = new Point(34, 241);
 			BtPageOrderDown.Name = "BtPageOrderDown";
 			BtPageOrderDown.Size = new Size(26, 23);
 			BtPageOrderDown.TabIndex = 47;
@@ -331,7 +345,7 @@
 			// BtPageOrderUp
 			// 
 			BtPageOrderUp.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			BtPageOrderUp.Location = new Point(2, 264);
+			BtPageOrderUp.Location = new Point(2, 241);
 			BtPageOrderUp.Name = "BtPageOrderUp";
 			BtPageOrderUp.Size = new Size(26, 23);
 			BtPageOrderUp.TabIndex = 46;
@@ -349,15 +363,23 @@
 			LbHeader.Text = "Folder";
 			LbHeader.TextAlign = ContentAlignment.MiddleCenter;
 			// 
-			// CkInactive
+			// LbHtmlCss
 			// 
-			CkInactive.AutoSize = true;
-			CkInactive.Location = new Point(138, 62);
-			CkInactive.Name = "CkInactive";
-			CkInactive.Size = new Size(67, 19);
-			CkInactive.TabIndex = 50;
-			CkInactive.Text = "Inactive";
-			CkInactive.UseVisualStyleBackColor = true;
+			LbHtmlCss.AutoSize = true;
+			LbHtmlCss.Location = new Point(13, 236);
+			LbHtmlCss.Margin = new Padding(4, 0, 4, 0);
+			LbHtmlCss.Name = "LbHtmlCss";
+			LbHtmlCss.Size = new Size(50, 15);
+			LbHtmlCss.TabIndex = 52;
+			LbHtmlCss.Text = "css style";
+			// 
+			// CbHtmlCss
+			// 
+			CbHtmlCss.FormattingEnabled = true;
+			CbHtmlCss.Location = new Point(139, 233);
+			CbHtmlCss.Name = "CbHtmlCss";
+			CbHtmlCss.Size = new Size(174, 23);
+			CbHtmlCss.TabIndex = 51;
 			// 
 			// FrmBriefingFolder
 			// 
@@ -412,5 +434,7 @@
 		private Panel PnGridsPages;
 		private CheckedListBox LstKneeboards;
 		private CheckBox CkInactive;
+		private Label LbHtmlCss;
+		private ComboBox CbHtmlCss;
 	}
 }

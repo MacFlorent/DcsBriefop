@@ -44,7 +44,7 @@ namespace DcsBriefop.DataBopBriefing
 			List<HtmlTag> tags = new List<HtmlTag>();
 			if (!string.IsNullOrEmpty(bopManager.BopMission.Sortie))
 			{
-				tags.Add(new HtmlTag("h2").Append(bopManager.BopMission.Sortie.HtmlLineBreaks()));
+				tags.Add(new HtmlTag("h2").AppendText(bopManager.BopMission.Sortie));
 			}
 
 			return tags;

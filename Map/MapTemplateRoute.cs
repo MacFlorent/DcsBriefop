@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Tools;
+﻿using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using Newtonsoft.Json;
 using System.Drawing.Drawing2D;
 
@@ -11,7 +12,7 @@ namespace DcsBriefop.Map
 		public static string DashDash { get; set; } = "DashDash";
 	}
 
-	public class MapTemplateRoute
+	public class BopBriefingTemplate
 	{
 		#region Fields
 		private static string m_directory = @".\routes";
@@ -41,16 +42,16 @@ namespace DcsBriefop.Map
 		#endregion
 
 		#region Static
-		private static readonly MapTemplateRoute m_default;
-		private static Dictionary<string, MapTemplateRoute> m_templatesList = new();
+		private static readonly BopBriefingTemplate m_default;
+		private static Dictionary<string, BopBriefingTemplate> m_templatesList = new();
 
-		static MapTemplateRoute()
+		static BopBriefingTemplate()
 		{
 			ConfigMapTemplateRoutes config;
 
 			try
 			{
-				string sJsonStream = ToolsResources.GetJsonResourceContent("Routes");
+				string sJsonStream = ToolsResources.GetJsonResourceContent("Routes", ElementGlobalData.ResourcesDirectoryRoutes);
 				config = JsonConvert.DeserializeObject<ConfigMapTemplateRoutes>(sJsonStream);
 			}
 			catch (Exception ex)
@@ -60,12 +61,7 @@ namespace DcsBriefop.Map
 				config = null;
 			}
 
-			if (config is object)
-			{
-				m_directory = config.Directory ?? m_directory;
-			}
-
-			string sBaseDirectory = ToolsMisc.GetDirectoryFullPath(m_directory);
+			string sBaseDirectory = ToolsResources.GetResourceDirectoryPath(ElementGlobalData.ResourcesDirectoryRoutes);
 
 			if (Directory.Exists(sBaseDirectory))
 			{
@@ -82,15 +78,15 @@ namespace DcsBriefop.Map
 			m_default = GetTemplate(ElementMapTemplateRoute.DashLine);
 		}
 
-		private static MapTemplateRoute NewTemplateFromFile(string sTemplateString, ConfigMapTemplateRoutes config)
+		private static BopBriefingTemplate NewTemplateFromFile(string sTemplateString, ConfigMapTemplateRoutes config)
 		{
 			try
 			{
-				MapTemplateRoute template = new MapTemplateRoute();
+				BopBriefingTemplate template = new BopBriefingTemplate();
 				template.Name = Path.GetFileNameWithoutExtension(sTemplateString);
 				template.ImageName = sTemplateString;
 
-				if (config.Templates.Where(_c => string.Equals(_c.FileName, template.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault() is ConfigMapTemplateRoute configTemplate)
+				if (config is not null && config.Templates.Where(_c => string.Equals(_c.FileName, template.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault() is ConfigMapTemplateRoute configTemplate)
 				{
 					template.DcsMizStyle = configTemplate.DcsMizStyle;
 					template.ThicknessCorrection = configTemplate.ThicknessCorrection;
@@ -107,16 +103,16 @@ namespace DcsBriefop.Map
 			}
 		}
 
-		private static MapTemplateRoute NewTemplate(string sTemplateString, DashStyle dashStyle)
+		private static BopBriefingTemplate NewTemplate(string sTemplateString, DashStyle dashStyle)
 		{
-			MapTemplateRoute template = new MapTemplateRoute();
+			BopBriefingTemplate template = new BopBriefingTemplate();
 			template.Name = sTemplateString;
 			template.DashOverride = dashStyle;
 
 			return template;
 		}
 
-		private static void AddTemplate(MapTemplateRoute template)
+		private static void AddTemplate(BopBriefingTemplate template)
 		{
 			if (string.IsNullOrEmpty(template.Name) || m_templatesList.ContainsKey(template.Name))
 				return;
@@ -124,9 +120,9 @@ namespace DcsBriefop.Map
 			m_templatesList.Add(template.Name, template);
 		}
 
-		public static MapTemplateRoute GetTemplate(string sTemplate)
+		public static BopBriefingTemplate GetTemplate(string sTemplate)
 		{
-			if (!m_templatesList.TryGetValue(sTemplate, out MapTemplateRoute template))
+			if (!m_templatesList.TryGetValue(sTemplate, out BopBriefingTemplate template))
 			{
 				template = m_default;
 			}
@@ -134,9 +130,9 @@ namespace DcsBriefop.Map
 			return template;
 		}
 
-		public static MapTemplateRoute GetTemplateFromDcsMizStyle(string sDcsMizStyle)
+		public static BopBriefingTemplate GetTemplateFromDcsMizStyle(string sDcsMizStyle)
 		{
-			MapTemplateRoute template = m_templatesList.Values.Where(_t => string.Equals(_t.DcsMizStyle, sDcsMizStyle, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+			BopBriefingTemplate template = m_templatesList.Values.Where(_t => string.Equals(_t.DcsMizStyle, sDcsMizStyle, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 			if (template is null)
 				template = m_templatesList.Values.Where(_t => string.Equals(_t.Name, $"polyline_{sDcsMizStyle}", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 			if (template is null)

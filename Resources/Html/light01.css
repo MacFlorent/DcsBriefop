@@ -2,15 +2,15 @@
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 16px;
+    /*::font-size*/
     font-family: 'Arial';
     font-weight: normal;
-    color: lightgrey;
-    border-color: beige;
+    color: darkblue;
+    border-color: darkblue;
+    background-color: lightgrey;
 }
 
 #wrapper {
-    background-color: black;
     width: 100%;
 }
 
@@ -32,12 +32,12 @@ div.table {
 
 h1 {
     margin: 0;
-    font-size: 120%;
+    font-size: 160%;
 }
 
 h2 {
     margin: 0;
-    font-size: 110%;
+    font-size: 130%;
     font-style: italic;
 }
 
@@ -49,18 +49,18 @@ p {
 
 table {
     border-collapse: collapse;
-    border: 2px solid burlywood;
+    border: 2px solid maroon;
 }
 
 td.header,
 th {
-    color: burlywood;
+    color: maroon;
     font-weight: bold;
 }
 th,
 td {
     padding: 8px;
-    border:1px solid burlywood;
+    border:1px solid maroon;
 }
 
 td.fixed-height > div {

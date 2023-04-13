@@ -6,7 +6,6 @@ using DcsBriefop.Tools;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using HtmlTags;
-using log4net;
 using PuppeteerSharp;
 
 namespace DcsBriefop.DataBopBriefing
@@ -22,6 +21,7 @@ namespace DcsBriefop.DataBopBriefing
 		public bool DisplayTitle { get; set; }
 		public ElementBriefingPageRender Render { get; set; } = (ElementBriefingPageRender.Map | ElementBriefingPageRender.Html);
 		public bool MapIncludeBaseOverlays { get; set; } = true;
+		public int HtmlFontSize { get; set; } = 16;
 
 		public List<BaseBopBriefingPart> Parts { get; set; } = new List<BaseBopBriefingPart>();
 		public MizBopMap MapData { get; set; } = new MizBopMap();
@@ -113,24 +113,32 @@ namespace DcsBriefop.DataBopBriefing
 		public HtmlTags.HtmlDocument BuildHtml(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			HtmlTags.HtmlDocument html = new();
-			html.Head.Append(BuildHtmlStyle());
+			html.Head.Append(BuildHtmlStyle(bopBriefingFolder));
 			html.Head.Append(BuildHtmlScript());
 			html.Body.Append(BuildHtmlWrapper(bopManager, bopBriefingFolder));
 
 			return html;
 		}
 
-		private HtmlTag BuildHtmlStyle()
+		private HtmlTag BuildHtmlStyle(BopBriefingFolder bopBriefingFolder)
 		{
 			HtmlTag tag = new("style");
-			string sStyle = ToolsResources.GetTextResourceContent("briefingTemplate", "css");
-			return tag.AppendHtml(sStyle);
+
+			BopBriefingStyle style = BopBriefingStyle.GetElement(bopBriefingFolder.HtmlCssStyle);
+			if (style is not null)
+			{
+				string sStyle = style.GetCss();
+				sStyle = sStyle.Replace("/*::font-size*/", $"font-size:{HtmlFontSize}px;");
+				tag.AppendHtml(sStyle);
+			}
+
+			return tag;
 		}
 
 		private HtmlTag BuildHtmlScript()
 		{
 			HtmlTag tag = new("script");
-			string sStyle = ToolsResources.GetTextResourceContent("briefingTemplate", "js");
+			string sStyle = ToolsResources.GetTextResourceContent("briefingTemplate", "js", ElementGlobalData.ResourcesDirectoryHtml);
 			return tag.AppendHtml(sStyle);
 		}
 
@@ -145,7 +153,7 @@ namespace DcsBriefop.DataBopBriefing
 			foreach (BaseBopBriefingPart part in Parts)
 			{
 				HtmlTag tagPart = part.BuildHtml(bopManager, bopBriefingFolder);
-				if (tagPart is object)
+				if (tagPart is not null)
 				{
 					tag.Append(tagPart);
 				}

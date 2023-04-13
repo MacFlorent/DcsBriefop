@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Tools;
+﻿using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using Newtonsoft.Json;
 
 namespace DcsBriefop.Map
@@ -20,7 +21,6 @@ namespace DcsBriefop.Map
 	public class MapTemplateMarker
 	{
 		#region Fields
-		private static readonly string m_directory = @".\markers";
 		private static readonly double m_dDefaultOffsetWidth = -0.5;
 		private static readonly double m_dDefaultOffsetHeight = -0.5;
 		private static readonly int m_iDefaultWidth = 24;
@@ -56,9 +56,10 @@ namespace DcsBriefop.Map
 		static MapTemplateMarker()
 		{
 			ConfigMapTemplateMarkers config;
+
 			try
 			{
-				string sJsonStream = ToolsResources.GetJsonResourceContent("Markers");
+				string sJsonStream = ToolsResources.GetJsonResourceContent("Markers", ElementGlobalData.ResourcesDirectoryMarkers);
 				config = JsonConvert.DeserializeObject<ConfigMapTemplateMarkers>(sJsonStream);
 			}
 			catch (Exception ex)
@@ -70,7 +71,6 @@ namespace DcsBriefop.Map
 
 			if (config is not null)
 			{
-				m_directory = config.Directory ?? m_directory;
 				m_iDefaultWidth = config.DefaultWidth.GetValueOrDefault(m_iDefaultWidth);
 				m_iDefaultHeight = config.DefaultHeight.GetValueOrDefault(m_iDefaultHeight);
 
@@ -83,7 +83,7 @@ namespace DcsBriefop.Map
 				ElementMapTemplateMarker.Bullseye = config.DefaultBullseye ?? ElementMapTemplateMarker.Bullseye;
 			}
 
-			string sBaseDirectory = ToolsMisc.GetDirectoryFullPath(m_directory);
+			string sBaseDirectory = ToolsResources.GetResourceDirectoryPath(ElementGlobalData.ResourcesDirectoryMarkers);
 
 			if (Directory.Exists(sBaseDirectory))
 			{

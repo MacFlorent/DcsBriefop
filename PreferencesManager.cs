@@ -23,7 +23,7 @@ namespace DcsBriefop
 
 		public static void Load()
 		{
-			string sJsonStream = ToolsResources.GetJsonResourceContent(m_sPreferencesResourceName);
+			string sJsonStream = ToolsResources.GetJsonResourceContent(m_sPreferencesResourceName, null);
 			if (string.IsNullOrEmpty(sJsonStream))
 			{
 				m_preferences = new Preferences();
@@ -37,7 +37,7 @@ namespace DcsBriefop
 
 		public static void Save()
 		{
-			string sResourceFilePath = ToolsResources.GetResourceFileFullPath(m_sPreferencesResourceName, "json");
+			string sResourceFilePath = ToolsResources.GetResourceFilePath(m_sPreferencesResourceName, "json", null);
 			File.WriteAllText(sResourceFilePath, JsonConvert.SerializeObject(Preferences, Formatting.Indented));
 		}
 	}

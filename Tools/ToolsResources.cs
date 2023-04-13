@@ -6,21 +6,30 @@ namespace DcsBriefop.Tools
 {
 	internal static class ToolsResources
 	{
-		public static string GetResourceFileFullPath(string sResourceName, string sExtension)
+		public static string GetResourceDirectoryPath(string sResourceDirectory)
 		{
+			if (string.IsNullOrEmpty(sResourceDirectory))
+				sResourceDirectory = ElementGlobalData.ResourcesDirectoryDefault;
+
 			string sBaseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-			string sResourceFilePath = Path.Combine(sBaseDirectory, ElementGlobalData.ResourcesDirectory, $"{sResourceName}.{sExtension}");
+			return Path.Combine(sBaseDirectory, sResourceDirectory);
+		}
+
+		public static string GetResourceFilePath(string sResourceName, string sExtension, string sResourceDirectory)
+		{
+			string sResourceDirectoryPath = GetResourceDirectoryPath(sResourceDirectory);
+			string sResourceFilePath = Path.Combine(sResourceDirectoryPath, $"{sResourceName}.{sExtension}");
 			return sResourceFilePath;
 		}
 
-		public static string GetJsonResourceContent(string sResourceName)
+		public static string GetJsonResourceContent(string sResourceName, string sResourceDirectory)
 		{
-			return GetTextResourceContent(sResourceName, "json");
+			return GetTextResourceContent(sResourceName, "json", sResourceDirectory);
 		}
 
-		public static string GetTextResourceContent(string sResourceName, string sExtension)
+		public static string GetTextResourceContent(string sResourceName, string sExtension, string sResourceDirectory)
 		{
-			string sResourceFilePath = GetResourceFileFullPath(sResourceName, sExtension);
+			string sResourceFilePath = GetResourceFilePath(sResourceName, sExtension, sResourceDirectory);
 			string sContent;
 
 			if (File.Exists(sResourceFilePath))
@@ -36,26 +45,35 @@ namespace DcsBriefop.Tools
 			return sContent;
 		}
 
-		public static Icon GetIconResource(string sResourceName, string sExtension)
+		public static Icon GetIconResource(string sResourceName, string sResourceDirectory)
 		{
 			Icon iconFinal = null;
-			object oResource = Resources.ResourceManager.GetObject(sResourceName);
-			if (oResource is Icon icon)
-				iconFinal = icon;
-			else if (oResource is Bitmap bitmap)
+			string sResourceFilePath = GetResourceFilePath(sResourceName, "ico", sResourceDirectory);
+
+			if (File.Exists(sResourceFilePath))
 			{
-				IntPtr icH = bitmap.GetHicon();
-				iconFinal = Icon.FromHandle(icH);
-				//DestroyIcon(icH);
+				iconFinal = Icon.ExtractAssociatedIcon(sResourceFilePath);
+			}
+			else
+			{
+				object oResource = Resources.ResourceManager.GetObject(sResourceName);
+				if (oResource is Icon icon)
+					iconFinal = icon;
+				else if (oResource is Bitmap bitmap)
+				{
+					IntPtr icH = bitmap.GetHicon();
+					iconFinal = Icon.FromHandle(icH);
+					//DestroyIcon(icH);
+				}
 			}
 
 			return iconFinal;
 		}
 
-		public static Image GetImageResource(string sResourceName, string sExtension)
+		public static Image GetImageResource(string sResourceName, string sExtension, string sResourceDirectory)
 		{
 			Image imageFinal = null;
-			string sResourceFilePath = GetResourceFileFullPath(sResourceName, sExtension);
+			string sResourceFilePath = GetResourceFilePath(sResourceName, sExtension, sResourceDirectory);
 
 			if (!string.IsNullOrEmpty(sExtension) && File.Exists(sResourceFilePath))
 			{

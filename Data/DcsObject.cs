@@ -248,11 +248,11 @@ namespace DcsBriefop.Data
 
 		public static void Initialize()
 		{
-			string sJsonStream = ToolsResources.GetJsonResourceContent(m_sCustomResourceName);
+			string sJsonStream = ToolsResources.GetJsonResourceContent(m_sCustomResourceName, null);
 			if (!string.IsNullOrEmpty(sJsonStream))
 				m_objectsJsonCustom = JsonConvert.DeserializeObject<List<DcsObjectJsonCustom>>(sJsonStream);
 
-			string sLson = ToolsResources.GetTextResourceContent("everyObject", "lua");   //https://github.com/mrSkortch/DCS-miscScripts/tree/master/ObjectDB
+			string sLson = ToolsResources.GetTextResourceContent("everyObject", "lua", null);   //https://github.com/mrSkortch/DCS-miscScripts/tree/master/ObjectDB
 			Dictionary<string, LsonValue> rootLua = LsonVars.Parse(sLson);
 			LsonDict lsd = rootLua["everyObject"].GetDict();
 
@@ -268,7 +268,7 @@ namespace DcsBriefop.Data
 			{
 				dcsObject.CleanJsonCustom();
 			}
-			string sResourceFilePath = ToolsResources.GetResourceFileFullPath(m_sCustomResourceName, "json");
+			string sResourceFilePath = ToolsResources.GetResourceFilePath(m_sCustomResourceName, "json", null);
 			File.WriteAllText(sResourceFilePath, JsonConvert.SerializeObject(m_objectsJsonCustom, Formatting.Indented));
 		}
 

@@ -156,7 +156,7 @@ namespace DcsBriefop
 		public void MizBatchCommand()
 		{
 			string sCommandFilePath = MizBatchCommandFileName();
-			string sCommandFileContent = ToolsResources.GetTextResourceContent("DcsBriefopBatch", "cmd");
+			string sCommandFileContent = ToolsResources.GetTextResourceContent("DcsBriefopBatch", "cmd", null);
 			sCommandFileContent = sCommandFileContent.Replace("%1", MizFileName);
 
 			string sExeFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location;

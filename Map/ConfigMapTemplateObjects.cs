@@ -4,7 +4,6 @@ namespace DcsBriefop.Map
 {
 	internal class ConfigMapTemplateRoutes
 	{
-		public string Directory { get; set; }
 		public List<ConfigMapTemplateRoute> Templates { get; set; } = new List<ConfigMapTemplateRoute>();
 	}
 
@@ -18,7 +17,6 @@ namespace DcsBriefop.Map
 
 	internal class ConfigMapTemplateMarkers
 	{
-		public string Directory { get; set; }
 		public int? DefaultWidth { get; set; }
 		public int? DefaultHeight { get; set; }
 		public string DefaultMark { get; set; }

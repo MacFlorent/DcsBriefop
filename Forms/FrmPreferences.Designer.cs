@@ -75,6 +75,8 @@
 			BtBriefingGenerationDirectory = new Button();
 			LbBriefingGenerationDirectory = new Label();
 			TbBriefingGenerationDirectory = new TextBox();
+			LbBriefingHtmlCss = new Label();
+			CbBriefingHtmlCss = new ComboBox();
 			PnApplication.SuspendLayout();
 			PnMap.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)NudMapZoom).BeginInit();
@@ -87,7 +89,7 @@
 			// BtCancel
 			// 
 			BtCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtCancel.Location = new Point(466, 285);
+			BtCancel.Location = new Point(466, 307);
 			BtCancel.Margin = new Padding(4, 3, 4, 3);
 			BtCancel.Name = "BtCancel";
 			BtCancel.Size = new Size(88, 27);
@@ -99,7 +101,7 @@
 			// BtOk
 			// 
 			BtOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtOk.Location = new Point(372, 285);
+			BtOk.Location = new Point(372, 307);
 			BtOk.Margin = new Padding(4, 3, 4, 3);
 			BtOk.Name = "BtOk";
 			BtOk.Size = new Size(88, 27);
@@ -390,7 +392,7 @@
 			// BtDefaults
 			// 
 			BtDefaults.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			BtDefaults.Location = new Point(4, 285);
+			BtDefaults.Location = new Point(4, 307);
 			BtDefaults.Margin = new Padding(4, 3, 4, 3);
 			BtDefaults.Name = "BtDefaults";
 			BtDefaults.Size = new Size(124, 27);
@@ -402,7 +404,7 @@
 			// CkBriefingGenerateDirectoryHtml
 			// 
 			CkBriefingGenerateDirectoryHtml.AutoSize = true;
-			CkBriefingGenerateDirectoryHtml.Location = new Point(140, 223);
+			CkBriefingGenerateDirectoryHtml.Location = new Point(140, 250);
 			CkBriefingGenerateDirectoryHtml.Margin = new Padding(4, 3, 4, 3);
 			CkBriefingGenerateDirectoryHtml.Name = "CkBriefingGenerateDirectoryHtml";
 			CkBriefingGenerateDirectoryHtml.Size = new Size(164, 19);
@@ -413,7 +415,7 @@
 			// LbBriefingImageSize
 			// 
 			LbBriefingImageSize.AutoSize = true;
-			LbBriefingImageSize.Location = new Point(9, 136);
+			LbBriefingImageSize.Location = new Point(9, 163);
 			LbBriefingImageSize.Margin = new Padding(4, 0, 4, 0);
 			LbBriefingImageSize.Name = "LbBriefingImageSize";
 			LbBriefingImageSize.Size = new Size(62, 15);
@@ -422,7 +424,7 @@
 			// 
 			// UcBriefingImageSize
 			// 
-			UcBriefingImageSize.Location = new Point(140, 136);
+			UcBriefingImageSize.Location = new Point(140, 163);
 			UcBriefingImageSize.Margin = new Padding(4, 3, 4, 3);
 			UcBriefingImageSize.Name = "UcBriefingImageSize";
 			UcBriefingImageSize.SelectedSize = new Size(1, 1);
@@ -432,7 +434,7 @@
 			// CkBriefingGenerateOnSave
 			// 
 			CkBriefingGenerateOnSave.AutoSize = true;
-			CkBriefingGenerateOnSave.Location = new Point(140, 198);
+			CkBriefingGenerateOnSave.Location = new Point(140, 225);
 			CkBriefingGenerateOnSave.Margin = new Padding(4, 3, 4, 3);
 			CkBriefingGenerateOnSave.Name = "CkBriefingGenerateOnSave";
 			CkBriefingGenerateOnSave.Size = new Size(250, 19);
@@ -506,7 +508,7 @@
 			TcMain.Location = new Point(0, 0);
 			TcMain.Name = "TcMain";
 			TcMain.SelectedIndex = 0;
-			TcMain.Size = new Size(568, 279);
+			TcMain.Size = new Size(568, 301);
 			TcMain.TabIndex = 19;
 			// 
 			// TpApplication
@@ -545,6 +547,8 @@
 			// 
 			// TpBriefing
 			// 
+			TpBriefing.Controls.Add(LbBriefingHtmlCss);
+			TpBriefing.Controls.Add(CbBriefingHtmlCss);
 			TpBriefing.Controls.Add(BtBriefingGenerationDirectoryReset);
 			TpBriefing.Controls.Add(BtBriefingGenerationDirectory);
 			TpBriefing.Controls.Add(LbBriefingGenerationDirectory);
@@ -561,7 +565,7 @@
 			TpBriefing.Controls.Add(CbBriefingMeasurementSystem);
 			TpBriefing.Location = new Point(4, 24);
 			TpBriefing.Name = "TpBriefing";
-			TpBriefing.Size = new Size(560, 251);
+			TpBriefing.Size = new Size(560, 273);
 			TpBriefing.TabIndex = 3;
 			TpBriefing.Text = "Briefing";
 			TpBriefing.UseVisualStyleBackColor = true;
@@ -569,7 +573,7 @@
 			// BtBriefingGenerationDirectoryReset
 			// 
 			BtBriefingGenerationDirectoryReset.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			BtBriefingGenerationDirectoryReset.Location = new Point(511, 167);
+			BtBriefingGenerationDirectoryReset.Location = new Point(511, 194);
 			BtBriefingGenerationDirectoryReset.Margin = new Padding(4, 3, 4, 3);
 			BtBriefingGenerationDirectoryReset.Name = "BtBriefingGenerationDirectoryReset";
 			BtBriefingGenerationDirectoryReset.Size = new Size(40, 27);
@@ -581,7 +585,7 @@
 			// BtBriefingGenerationDirectory
 			// 
 			BtBriefingGenerationDirectory.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			BtBriefingGenerationDirectory.Location = new Point(463, 167);
+			BtBriefingGenerationDirectory.Location = new Point(463, 194);
 			BtBriefingGenerationDirectory.Margin = new Padding(4, 3, 4, 3);
 			BtBriefingGenerationDirectory.Name = "BtBriefingGenerationDirectory";
 			BtBriefingGenerationDirectory.Size = new Size(40, 27);
@@ -593,7 +597,7 @@
 			// LbBriefingGenerationDirectory
 			// 
 			LbBriefingGenerationDirectory.AutoSize = true;
-			LbBriefingGenerationDirectory.Location = new Point(14, 173);
+			LbBriefingGenerationDirectory.Location = new Point(14, 200);
 			LbBriefingGenerationDirectory.Margin = new Padding(4, 0, 4, 0);
 			LbBriefingGenerationDirectory.Name = "LbBriefingGenerationDirectory";
 			LbBriefingGenerationDirectory.Size = new Size(115, 15);
@@ -603,17 +607,36 @@
 			// TbBriefingGenerationDirectory
 			// 
 			TbBriefingGenerationDirectory.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbBriefingGenerationDirectory.Location = new Point(140, 169);
+			TbBriefingGenerationDirectory.Location = new Point(140, 196);
 			TbBriefingGenerationDirectory.Margin = new Padding(4, 3, 4, 3);
 			TbBriefingGenerationDirectory.Name = "TbBriefingGenerationDirectory";
 			TbBriefingGenerationDirectory.Size = new Size(316, 23);
 			TbBriefingGenerationDirectory.TabIndex = 37;
 			// 
+			// LbBriefingHtmlCss
+			// 
+			LbBriefingHtmlCss.AutoSize = true;
+			LbBriefingHtmlCss.Location = new Point(9, 139);
+			LbBriefingHtmlCss.Margin = new Padding(4, 0, 4, 0);
+			LbBriefingHtmlCss.Name = "LbBriefingHtmlCss";
+			LbBriefingHtmlCss.Size = new Size(52, 15);
+			LbBriefingHtmlCss.TabIndex = 54;
+			LbBriefingHtmlCss.Text = "Css style";
+			// 
+			// CbBriefingHtmlCss
+			// 
+			CbBriefingHtmlCss.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			CbBriefingHtmlCss.FormattingEnabled = true;
+			CbBriefingHtmlCss.Location = new Point(140, 136);
+			CbBriefingHtmlCss.Name = "CbBriefingHtmlCss";
+			CbBriefingHtmlCss.Size = new Size(410, 23);
+			CbBriefingHtmlCss.TabIndex = 53;
+			// 
 			// FrmPreferences
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(568, 320);
+			ClientSize = new Size(568, 342);
 			Controls.Add(TcMain);
 			Controls.Add(BtDefaults);
 			Controls.Add(BtCancel);
@@ -689,5 +712,7 @@
 		private Label LbBriefingGenerationDirectory;
 		private TextBox TbBriefingGenerationDirectory;
 		private Button BtBriefingGenerationDirectoryReset;
+		private Label LbBriefingHtmlCss;
+		private ComboBox CbBriefingHtmlCss;
 	}
 }

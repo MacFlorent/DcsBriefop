@@ -1,4 +1,5 @@
 ﻿using DcsBriefop.Data;
+using DcsBriefop.DataBopBriefing;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET.MapProviders;
@@ -29,6 +30,7 @@ namespace DcsBriefop.Forms
 			MasterDataRepository.FillCombo(MasterDataType.MeasurementSystem, CbBriefingMeasurementSystem, null);
 			MasterDataRepository.FillCombo(MasterDataType.BullseyeWaypoint, CbMissionBullseyeWaypoint, null);
 			MasterDataRepository.FillCheckedListBox(MasterDataType.CoordinateDisplay, LstBriefingCoordinateDisplay);
+			BopBriefingStyle.FillCombo(CbBriefingHtmlCss, null);
 		}
 		#endregion
 
@@ -54,6 +56,7 @@ namespace DcsBriefop.Forms
 			CbBriefingWeatherDisplay.SelectedValue = (int)m_preferences.Briefing.WeatherDisplay;
 			CbBriefingMeasurementSystem.SelectedValue = (int)m_preferences.Briefing.MeasurementSystem;
 			MasterDataRepository.SetFlagCheckedListbox((int)m_preferences.Briefing.CoordinateDisplay, LstBriefingCoordinateDisplay);
+			CbBriefingHtmlCss.Text = m_preferences.Briefing.HtmlStyleCss;
 			UcBriefingImageSize.SelectedSize = m_preferences.Briefing.ImageSize;
 			CkBriefingGenerateOnSave.Checked = m_preferences.Briefing.GenerateOnSave;
 			CkBriefingGenerateDirectoryHtml.Checked = m_preferences.Briefing.GenerateDirectoryHtml;
@@ -87,6 +90,7 @@ namespace DcsBriefop.Forms
 			m_preferences.Briefing.MeasurementSystem = (ElementMeasurementSystem)CbBriefingMeasurementSystem.SelectedValue;
 			m_preferences.Briefing.CoordinateDisplay = (ElementCoordinateDisplay)MasterDataRepository.GetFlagCheckedListbox(LstBriefingCoordinateDisplay);
 			m_preferences.Briefing.ImageSize = UcBriefingImageSize.SelectedSize;
+			m_preferences.Briefing.HtmlStyleCss = CbBriefingHtmlCss.Text;
 			m_preferences.Briefing.GenerateOnSave = CkBriefingGenerateOnSave.Checked;
 			m_preferences.Briefing.GenerateDirectoryHtml = CkBriefingGenerateDirectoryHtml.Checked;
 			m_preferences.Briefing.GenerateDirectoryName = TbBriefingGenerationDirectory.Text;

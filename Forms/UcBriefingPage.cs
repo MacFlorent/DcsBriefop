@@ -60,6 +60,7 @@ namespace DcsBriefop.Forms
 			CkDisplayTitle.Checked = m_bopBriefingPage.DisplayTitle;
 			CkRenderHtml.Checked = (m_bopBriefingPage.Render & ElementBriefingPageRender.Html) != 0;
 			CkRenderMap.Checked = (m_bopBriefingPage.Render & ElementBriefingPageRender.Map) != 0;
+			NudHtmlFontSize.Value = m_bopBriefingPage.HtmlFontSize;
 
 			m_gridManagerBriefingParts.Elements = m_bopBriefingPage.Parts;
 			m_gridManagerBriefingParts.Refresh();
@@ -126,6 +127,8 @@ namespace DcsBriefop.Forms
 			if (CkRenderMap.Checked)
 				m_bopBriefingPage.Render |= ElementBriefingPageRender.Map;
 
+			m_bopBriefingPage.HtmlFontSize = (int)NudHtmlFontSize.Value;
+
 			ScreenToDataPart();
 			ScreenToDataMap();
 		}
@@ -172,7 +175,6 @@ namespace DcsBriefop.Forms
 				TcDetail.TabPages.Add(TpHtmlPreview);
 			if (CkRenderMap.Checked)
 				TcDetail.TabPages.Add(TpMapPreview);
-
 
 			if (TcDetail.TabPages.Contains(tpSelected))
 				TcDetail.SelectedTab = tpSelected;

@@ -116,7 +116,10 @@
 
 	internal static class ElementGlobalData
 	{
-		public static readonly string ResourcesDirectory = "Resources";
+		public static readonly string ResourcesDirectoryDefault = "Resources";
+		public static readonly string ResourcesDirectoryMarkers = "Markers";
+		public static readonly string ResourcesDirectoryRoutes = "Routes";
+		public static readonly string ResourcesDirectoryHtml = "Html";
 		public static readonly string DcsFileFilter = "DCS mission files (*.miz)|*.miz|All files (*.*)|*.*";
 		public static readonly string ImageFileFilter = "Image files |*.bmp;*.jpg;*.png";
 		public static readonly string BullseyeRoutePointName = "BULLS";

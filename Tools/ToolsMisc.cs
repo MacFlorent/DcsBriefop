@@ -17,16 +17,16 @@ namespace DcsBriefop.Tools
 			sb.Append(sValue);
 		}
 
-		public static string GetDirectoryFullPath(string sDirectoryString)
-		{
-			string sExecutionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-			if (sDirectoryString == ".")
-				sDirectoryString = sExecutionPath;
-			else if (sDirectoryString.StartsWith(@".\"))
-				sDirectoryString = sDirectoryString.Replace(@".\", $@"{sExecutionPath}\");
+		//public static string GetDirectoryFullPath(string sDirectoryString)
+		//{
+		//	string sExecutionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+		//	if (sDirectoryString == ".")
+		//		sDirectoryString = sExecutionPath;
+		//	else if (sDirectoryString.StartsWith(@".\"))
+		//		sDirectoryString = sDirectoryString.Replace(@".\", $@"{sExecutionPath}\");
 
-			return sDirectoryString;
-		}
+		//	return sDirectoryString;
+		//}
 
 		public static void OpenDirectory(string sDirectoryPath)
 		{

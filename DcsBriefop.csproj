@@ -5,7 +5,7 @@
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <TargetFramework>net7.0-windows</TargetFramework>
-		<Version>23.4.6.0</Version>
+		<Version>23.4.13.0</Version>
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -69,7 +69,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /I /Y $(SolutionDir)Resources\Markers $(TargetDir)\Markers&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Routes $(TargetDir)\Routes&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Resources $(TargetDir)\Resources" />
+    <Exec Command="xcopy /I /Y $(SolutionDir)Resources\Markers $(TargetDir)\Markers&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Routes $(TargetDir)\Routes&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Resources $(TargetDir)\Resources&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Html $(TargetDir)\Html" />
   </Target>
 
 </Project>

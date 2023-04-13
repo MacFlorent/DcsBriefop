@@ -32,6 +32,7 @@ namespace DcsBriefop.Forms
 			MasterDataRepository.FillCombo(MasterDataType.MeasurementSystem, CbMeasurementSystem, null);
 			MasterDataRepository.FillCheckedListBox(MasterDataType.CoordinateDisplay, LstCoordinateDisplay);
 
+			BopBriefingStyle.FillCombo(CbHtmlCss, null);
 			m_gridManagerBriefingPages = new GridManagerBriefingPages(DgvPages, m_bopBriefingFolder.Pages);
 			m_gridManagerBriefingPages.SelectionChanged += SelectionChangedEvent;
 		}
@@ -54,6 +55,7 @@ namespace DcsBriefop.Forms
 			CbWeatherDisplay.SelectedValue = (int)m_bopBriefingFolder.WeatherDisplay;
 			CbMeasurementSystem.SelectedValue = (int)m_bopBriefingFolder.MeasurementSystem;
 			MasterDataRepository.SetFlagCheckedListbox((int)m_bopBriefingFolder.CoordinateDisplay, LstCoordinateDisplay);
+			CbHtmlCss.Text = m_bopBriefingFolder.HtmlCssStyle;
 			UcImageSize.SelectedSize = m_bopBriefingFolder.ImageSize;
 
 			DataToScreenUnitTypes();
@@ -104,6 +106,7 @@ namespace DcsBriefop.Forms
 			m_bopBriefingFolder.WeatherDisplay = (ElementWeatherDisplay)CbWeatherDisplay.SelectedValue;
 			m_bopBriefingFolder.MeasurementSystem = (ElementMeasurementSystem)CbMeasurementSystem.SelectedValue;
 			m_bopBriefingFolder.CoordinateDisplay = (ElementCoordinateDisplay)MasterDataRepository.GetFlagCheckedListbox(LstCoordinateDisplay);
+			m_bopBriefingFolder.HtmlCssStyle = CbHtmlCss.Text;
 			m_bopBriefingFolder.ImageSize = UcImageSize.SelectedSize;
 
 			m_bopBriefingFolder.Kneeboards.Clear();
