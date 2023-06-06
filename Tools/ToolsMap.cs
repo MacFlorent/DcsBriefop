@@ -189,7 +189,6 @@ namespace DcsBriefop.Tools
 		{
 			//http://www.independent-software.com/gmap-net-tutorial-maps-markers-and-polygons.html/
 			//https://stackoverflow.com/questions/9308673/how-to-draw-circle-on-the-map-using-gmap-net-in-c-sharp
-			// circles or ovals are one point drawings to draw with a marker ?
 
 			if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Rectangle)
 				AddMizDrawingObjectRectangle(theatre, overlay, drawingObject);
