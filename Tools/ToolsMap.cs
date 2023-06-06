@@ -34,7 +34,7 @@ namespace DcsBriefop.Tools
 				sProvider = PreferencesManager.Preferences.Map.ProviderName;
 
 			GMapProvider mapProvider = GMapProviders.TryGetProvider(sProvider);
-			mapControl.InitializeMapControl (mapProvider);
+			mapControl.InitializeMapControl(mapProvider);
 		}
 
 		public static void InitializeMapControl(this GMapControl mapControl, GMapProvider mapProvider)
@@ -132,15 +132,17 @@ namespace DcsBriefop.Tools
 			foreach (MizDrawingObject drawingObject in drawingLayer.Objects)
 			{
 				if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Line)
-					AddMizDrawingObjectLine(theatre, overlay, drawingObject);
+					AddMizDrawingObjectLine(theatre, overlay, drawingObject, false);
 				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Icon)
 					AddMizDrawingObjectIcon(theatre, overlay, drawingObject);
 				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.TextBox)
 					AddMizDrawingObjectText(theatre, overlay, drawingObject);
+				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Polygon)
+					AddMizDrawingObjectPolygon(theatre, overlay, drawingObject);
 			}
 		}
 
-		private static void AddMizDrawingObjectLine(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		private static void AddMizDrawingObjectLine(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject, bool bClosed)
 		{
 			List<PointLatLng> points = new List<PointLatLng>();
 			foreach (MizDrawingPoint point in drawingObject.Points)
@@ -152,8 +154,7 @@ namespace DcsBriefop.Tools
 				points.Add(p);
 			}
 
-
-			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5));
+			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), drawingObject.Thickness.GetValueOrDefault(5), bClosed);
 			overlay.Routes.Add(route);
 		}
 
@@ -184,12 +185,86 @@ namespace DcsBriefop.Tools
 			overlay.Markers.Add(text);
 		}
 
+		private static void AddMizDrawingObjectPolygon(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		{
+			//http://www.independent-software.com/gmap-net-tutorial-maps-markers-and-polygons.html/
+			//https://stackoverflow.com/questions/9308673/how-to-draw-circle-on-the-map-using-gmap-net-in-c-sharp
+			// circles or ovals are one point drawings to draw with a marker ?
+
+			if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Rectangle)
+				AddMizDrawingObjectRectangle(theatre, overlay, drawingObject);
+			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Free)
+				AddMizDrawingObjectLine(theatre, overlay, drawingObject, true);
+		}
+
+		private static void AddMizDrawingObjectRectangle(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		{
+			decimal dHalfWidth = drawingObject.Width.GetValueOrDefault() / 2;
+			decimal dHalfHeight = drawingObject.Height.GetValueOrDefault() / 2;
+
+			List<PointLatLng> points = new List<PointLatLng>();
+
+			decimal dY = drawingObject.MapY - dHalfWidth;
+			decimal dX = drawingObject.MapX - dHalfHeight;
+			RotateDcsYX(out dY, out dX, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
+			Coordinate coordinate = theatre.GetCoordinate(dY, dX);
+			PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+			points.Add(p);
+
+			dY = drawingObject.MapY + dHalfWidth;
+			dX = drawingObject.MapX - dHalfHeight;
+			RotateDcsYX(out dY, out dX, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
+			coordinate = theatre.GetCoordinate(dY, dX);
+			p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+			points.Add(p);
+
+			dY = drawingObject.MapY + dHalfWidth;
+			dX = drawingObject.MapX + dHalfHeight;
+			RotateDcsYX(out dY, out dX, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
+			coordinate = theatre.GetCoordinate(dY, dX);
+			p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+			points.Add(p);
+
+			dY = drawingObject.MapY - dHalfWidth;
+			dX = drawingObject.MapX + dHalfHeight;
+			RotateDcsYX(out dY, out dX, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
+			coordinate = theatre.GetCoordinate(dY, dX);
+			p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+			points.Add(p);
+
+			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), drawingObject.Thickness.GetValueOrDefault(5), true);
+			overlay.Routes.Add(route);
+		}
+
+		private static void RotateDcsYX(out decimal dRotatedY, out decimal dRotatedX, decimal dY, decimal dX, decimal dCenterY, decimal dCenterX, decimal? dAngleDegrees)
+		{
+			//https://stackoverflow.com/questions/13695317/rotate-a-point-around-another-point
+			double dAngleRadians = -(double)dAngleDegrees.GetValueOrDefault() * (Math.PI / 180);
+			if (dAngleRadians == 0)
+			{
+				dRotatedY = dY;
+				dRotatedX = dX;
+			}
+			else
+			{
+				decimal dCosTheta = (decimal)Math.Cos(dAngleRadians);
+				decimal dSinTheta = (decimal)Math.Sin(dAngleRadians);
+
+				dRotatedY = (dCosTheta * (dY - dCenterY) - dSinTheta * (dX - dCenterX) + dCenterY);
+				dRotatedX = (dSinTheta * (dY - dCenterY) + dCosTheta * (dX - dCenterX) + dCenterX);
+			}
+		}
+
 		private static Color ColorFromDcsString(string sDcsString)
 		{
-			string sHtmlColor = $"#{sDcsString.Substring(2, 6)}";
-			string sAlpha = sDcsString.Substring(8, 2);
-			Color color = ColorTranslator.FromHtml(sHtmlColor);
-			Color colorAlpha = Color.FromArgb(Convert.ToInt32(sAlpha, 16), color);
+			Color colorAlpha = Color.Empty;
+			if (!string.IsNullOrEmpty(sDcsString) && sDcsString.Length >= 8)
+			{
+				string sHtmlColor = $"#{sDcsString.Substring(2, 6)}";
+				string sAlpha = sDcsString.Substring(8, 2);
+				Color color = ColorTranslator.FromHtml(sHtmlColor);
+				colorAlpha = Color.FromArgb(Convert.ToInt32(sAlpha, 16), color);
+			}
 			return colorAlpha;
 		}
 		#endregion
@@ -198,7 +273,7 @@ namespace DcsBriefop.Tools
 		public static Bitmap GenerateMapImage(MizBopMap mapData, GMapProvider mapProvider, IEnumerable<GMapOverlay> additionalOverlays, Size outputSize)
 		{
 			List<GMapOverlay> overlays = new List<GMapOverlay> { mapData.MapOverlay };
-			if (additionalOverlays is object && additionalOverlays.Any())
+			if (additionalOverlays is not null && additionalOverlays.Any())
 				overlays.AddRange(additionalOverlays);
 
 			PointLatLng centerLatLng = new PointLatLng(mapData.CenterLatitude, mapData.CenterLongitude);

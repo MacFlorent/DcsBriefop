@@ -1,7 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
 using System.Text;
-using System;
 
 namespace DcsBriefop.Tools
 {

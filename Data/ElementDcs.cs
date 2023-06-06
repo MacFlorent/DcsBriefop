@@ -89,5 +89,14 @@ namespace DcsBriefop.Data
 		public static readonly string Line = "Line";
 		public static readonly string Icon = "Icon";
 		public static readonly string TextBox = "TextBox";
+		public static readonly string Polygon = "Polygon";
 	}
+
+	internal static class ElementDrawingPolygonMode
+	{
+		public static readonly string Rectangle = "rect";
+		public static readonly string Oval = "oval";
+		public static readonly string Free = "free";
+	}
+
 }

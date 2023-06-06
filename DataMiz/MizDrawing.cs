@@ -1,7 +1,5 @@
 ﻿using DcsBriefop.Tools;
 using LsonLib;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DcsBriefop.DataMiz
 {
@@ -60,6 +58,11 @@ namespace DcsBriefop.DataMiz
 			public static readonly string Thickness = "thickness";
 			public static readonly string Style = "style";
 			public static readonly string LineMode = "lineMode";
+
+			public static readonly string PolygonMode = "polygonMode";
+			public static readonly string Height = "height";
+			public static readonly string Width = "width";
+
 		}
 
 		public bool Visible { get; set; }
@@ -82,6 +85,10 @@ namespace DcsBriefop.DataMiz
 		public int? Thickness { get; set; }
 		public string Style { get; set; }
 		public string LineMode { get; set; }
+
+		public string PolygonMode { get; set; }
+		public decimal? Height { get; set; }
+		public decimal? Width { get; set; }
 
 		public List<MizDrawingPoint> Points { get; private set; } = new List<MizDrawingPoint>();
 
@@ -109,6 +116,10 @@ namespace DcsBriefop.DataMiz
 			Thickness = ToolsLson.IfExistsInt(Lsd, LuaNode.Thickness);
 			Style = ToolsLson.IfExistsString(Lsd, LuaNode.Style);
 			LineMode = ToolsLson.IfExistsString(Lsd, LuaNode.LineMode);
+
+			PolygonMode = ToolsLson.IfExistsString(Lsd, LuaNode.PolygonMode);
+			Height = ToolsLson.IfExistsDecimal(Lsd, LuaNode.Height);
+			Width = ToolsLson.IfExistsDecimal(Lsd, LuaNode.Width);
 
 			if (Lsd.ContainsKey(LuaNode.Points))
 			{

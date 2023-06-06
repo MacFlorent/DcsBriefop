@@ -296,7 +296,7 @@ namespace DcsBriefop.DataBopMission
 
 			if (points.Count > 1)
 			{
-				GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, ToStringDisplayName(), ElementMapTemplateRoute.DashDot, ToolsBriefop.GetCoalitionColor(CoalitionName), 2);
+				GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, ToStringDisplayName(), ElementMapTemplateRoute.DashDot, ToolsBriefop.GetCoalitionColor(CoalitionName), Color.Empty, 2, false);
 				mapOverlay.Routes.Add(route);
 			}
 
@@ -333,50 +333,11 @@ namespace DcsBriefop.DataBopMission
 			if ((options & ElementMapOverlayRouteDisplay.RouteLabel) != 0)
 				sRouteLabel = ToStringDisplayName();
 
-			GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, sRouteLabel, ElementMapTemplateRoute.DashDot, ToolsBriefop.GetCoalitionColor(CoalitionName), 2);
+			GRouteBriefop route = GRouteBriefop.NewFromTemplateName(points, sRouteLabel, ElementMapTemplateRoute.DashDot, ToolsBriefop.GetCoalitionColor(CoalitionName), Color.Empty, 2, false);
 			mapOverlay.Routes.Add(route);
 
 			return mapOverlay;
 		}
-
-		//public override void Persist()
-		//{
-		//	base.Persist();
-
-		//	foreach (BopAssetUnit unit in Units)
-		//	{
-		//		unit.Persist();
-		//	}
-
-		//	m_mizGroup.RoutePoints.Clear();
-		//	foreach (BopRoutePoint routePoint in MapPoints.OfType<BopRoutePoint>())
-		//	{
-		//		routePoint.Persist();
-		//		m_mizGroup.RoutePoints.Add(routePoint.MizRoutePoint);
-		//	}
-		//}
-
-		//public string GetTacanString()
-		//{
-		//	foreach (BopRoutePoint routePoint in MapPoints.OfType<BopRoutePoint>())
-		//	{
-		//		MizRouteTask taskBeacon = routePoint.MizRoutePoint.RouteTaskHolder.Tasks.Where(_rt => _rt.Params.Action?.Id == ElementRouteTask.ActivateBeacon).FirstOrDefault();
-		//		if (taskBeacon?.Params.Action is MizRouteTaskAction rta)
-		//			return new Tacan() { Channel = rta.ParamChannel.GetValueOrDefault(), Mode = rta.ParamModeChannel, Identifier = rta.ParamCallsign }.ToString();
-		//	}
-
-		//	return null;
-		//}
-
-		//protected void NumberMapPoints()
-		//{
-		//	int iNumber = 0;
-		//	foreach (BopRoutePoint rp in MapPoints.OfType<BopRoutePoint>())
-		//	{
-		//		rp.Number = iNumber;
-		//		iNumber++;
-		//	}
-		//}
 		#endregion
 
 		#region IEquatable

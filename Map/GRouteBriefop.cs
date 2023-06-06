@@ -13,6 +13,7 @@ namespace DcsBriefop.Map
 		#region Fields
 		private BopBriefingTemplate m_template;
 		private Bitmap m_bitmap;
+		private Brush m_brushFill;
 		#endregion
 
 		#region Properties
@@ -21,41 +22,49 @@ namespace DcsBriefop.Map
 			get { return m_template?.Name; }
 		}
 
-		public Color? TintColor { get; set; }
+		public Color ForeColor { get; set; }
 		public string Label
 		{
 			get { return Name; }
 		}
 		public int Thickness { get; set; }
+		public bool Closed { get; set; }
 		#endregion
 
 		#region CTOR
-		public GRouteBriefop(List<PointLatLng> points, string sName, BopBriefingTemplate template, Color? tintColor, int iThickness) : base(points, sName)
+		public GRouteBriefop(List<PointLatLng> points, string sName, BopBriefingTemplate template, Color foreColor, Color backColor, int iThickness, bool bClosed) : base(points, sName)
 		{
 			m_template = template;
-			TintColor = tintColor;
+			ForeColor = foreColor;
 			Thickness = iThickness;
 			if (m_template.ThicknessCorrection is object)
 			{
 				Thickness = (int)(Thickness * m_template.ThicknessCorrection.Value);
 			}
 
+			Closed = bClosed;
+
+			if (backColor != Color.Empty)
+				m_brushFill = new SolidBrush(backColor);
+			else
+				m_brushFill = null;
+
 			LoadBitmap();
 
-			Stroke = new Pen(TintColor.GetValueOrDefault(Color.Black), Thickness);
+			Stroke = new Pen(ForeColor, Thickness);
 			Stroke.DashStyle = m_template.DashOverride.GetValueOrDefault(DashStyle.Solid);
 		}
 
-		public static GRouteBriefop NewFromTemplateName(List<PointLatLng> points, string sName, string sTemplateName, Color? tintColor, int iThickness)
+		public static GRouteBriefop NewFromTemplateName(List<PointLatLng> points, string sName, string sTemplateName, Color foreColor, Color backColor, int iThickness, bool bClosed)
 		{
 			BopBriefingTemplate template = BopBriefingTemplate.GetTemplate(sTemplateName);
-			return new GRouteBriefop(points, sName, template, tintColor, iThickness);
+			return new GRouteBriefop(points, sName, template, foreColor, backColor, iThickness, bClosed);
 		}
 
-		public static GRouteBriefop NewFromMizStyleName(List<PointLatLng> points, string sName, string sMizStyleName, Color? tintColor, int iThickness)
+		public static GRouteBriefop NewFromMizStyleName(List<PointLatLng> points, string sName, string sMizStyleName, Color foreColor, Color backColor, int iThickness, bool bClosed)
 		{
 			BopBriefingTemplate template = BopBriefingTemplate.GetTemplateFromDcsMizStyle(sMizStyleName);
-			return new GRouteBriefop(points, sName, template, tintColor, iThickness);
+			return new GRouteBriefop(points, sName, template, foreColor, backColor, iThickness, bClosed);
 		}
 		#endregion
 
@@ -74,8 +83,8 @@ namespace DcsBriefop.Map
 			}
 
 			m_bitmap = m_template.GetBitmap();
-			if (m_bitmap is not null && TintColor is not null)
-				ToolsImage.ColorTint(ref m_bitmap, TintColor.Value);
+			if (m_bitmap is not null && ForeColor != Color.Empty)
+				ToolsImage.ColorTint(ref m_bitmap, ForeColor);
 		}
 		#endregion
 
@@ -87,12 +96,32 @@ namespace DcsBriefop.Map
 
 		public void Render(Graphics g, List<GPoint> gPoints)
 		{
-			for (int i = 0; i < gPoints.Count - 1; i++)
+			Point? pointFirst = null, pointLast = null;
+			Point[] points = new Point[gPoints.Count];
+
+			for (int i = 0; i < gPoints.Count; i++)
 			{
 				Point pointStart = new Point((int)gPoints[i].X, (int)gPoints[i].Y);
-				Point pointEnd = new Point((int)gPoints[i + 1].X, (int)gPoints[i + 1].Y);
+				if (pointFirst is null)
+					pointFirst = pointStart;
 
-				DrawSegment(g, pointStart, pointEnd);
+				points[i] = pointStart;
+
+				if (i < gPoints.Count - 1)
+				{
+					Point pointEnd = new Point((int)gPoints[i + 1].X, (int)gPoints[i + 1].Y);
+					pointLast = pointEnd;
+					DrawSegment(g, pointStart, pointEnd);
+				}
+			}
+
+			if (Closed)
+			{
+				if (pointLast is not null && pointFirst is not null)
+					DrawSegment(g, pointLast.Value, pointFirst.Value);
+
+				if (m_brushFill is not null)
+					g.FillPolygon(m_brushFill, points);
 			}
 		}
 
@@ -124,7 +153,7 @@ namespace DcsBriefop.Map
 			float fAngle = (float)(dAngleRad * 180 / Math.PI);
 			Point pointCenter = new Point(pointStart.X + (pointEnd.X - pointStart.X) / 2, pointStart.Y + (pointEnd.Y - pointStart.Y) / 2);
 
-			ToolsImage.DrawStringAngledCentered(g, pointCenter, sLabel, ElementMapValue.DefaultFont, TintColor.GetValueOrDefault(Color.Black), true, fAngle, Thickness/2);
+			ToolsImage.DrawStringAngledCentered(g, pointCenter, sLabel, ElementMapValue.DefaultFont, ForeColor, true, fAngle, Thickness/2);
 		}
 
 
@@ -250,6 +279,7 @@ namespace DcsBriefop.Map
 		{
 			base.Dispose();
 			m_bitmap?.Dispose();
+			m_brushFill?.Dispose();
 		}
 		#endregion
 	}
