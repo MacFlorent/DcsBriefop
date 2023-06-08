@@ -194,6 +194,8 @@ namespace DcsBriefop.Tools
 				AddMizDrawingObjectRectangle(theatre, overlay, drawingObject);
 			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Free)
 				AddMizDrawingObjectLine(theatre, overlay, drawingObject, true);
+			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Oval)
+				AddMizDrawingObjectOval(theatre, overlay, drawingObject);
 		}
 
 		private static void AddMizDrawingObjectRectangle(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
@@ -230,6 +232,34 @@ namespace DcsBriefop.Tools
 			coordinate = theatre.GetCoordinate(dY, dX);
 			p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
 			points.Add(p);
+
+			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), drawingObject.Thickness.GetValueOrDefault(5), true);
+			overlay.Routes.Add(route);
+		}
+
+		private static void AddMizDrawingObjectOval(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		{
+			//https://www.mathopenref.com/coordcirclealgorithm.html
+			decimal dCenterY = drawingObject.MapY; // wx
+			decimal dCenterX = drawingObject.MapX; // hy
+
+			decimal dRadius1 = drawingObject.R1.Value; //dx
+			decimal dRadius2 = drawingObject.R2.Value; // dy
+
+			var step = 2 * Math.PI / 20;  // see note 1
+			var h = (double)dCenterY;
+			var k = (double)dCenterX;
+			var r = (double)dRadius1;
+
+			List<PointLatLng> points = new List<PointLatLng>();
+			for (var theta = 0d; theta < 2 * Math.PI; theta += step)
+			{
+				var x = h + r * Math.Cos(theta);
+				var y = k - r * Math.Sin(theta);    //note 2.
+				Coordinate coordinate = theatre.GetCoordinate((decimal)x, (decimal)y);
+				PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+				points.Add(p);
+			}
 
 			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), drawingObject.Thickness.GetValueOrDefault(5), true);
 			overlay.Routes.Add(route);

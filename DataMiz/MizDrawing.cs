@@ -62,6 +62,8 @@ namespace DcsBriefop.DataMiz
 			public static readonly string PolygonMode = "polygonMode";
 			public static readonly string Height = "height";
 			public static readonly string Width = "width";
+			public static readonly string R1 = "r1";
+			public static readonly string R2 = "r2";
 
 		}
 
@@ -89,6 +91,8 @@ namespace DcsBriefop.DataMiz
 		public string PolygonMode { get; set; }
 		public decimal? Height { get; set; }
 		public decimal? Width { get; set; }
+		public decimal? R1 { get; set; }
+		public decimal? R2 { get; set; }
 
 		public List<MizDrawingPoint> Points { get; private set; } = new List<MizDrawingPoint>();
 
@@ -120,6 +124,8 @@ namespace DcsBriefop.DataMiz
 			PolygonMode = ToolsLson.IfExistsString(Lsd, LuaNode.PolygonMode);
 			Height = ToolsLson.IfExistsDecimal(Lsd, LuaNode.Height);
 			Width = ToolsLson.IfExistsDecimal(Lsd, LuaNode.Width);
+			R1 = ToolsLson.IfExistsDecimal(Lsd, LuaNode.R1);
+			R2 = ToolsLson.IfExistsDecimal(Lsd, LuaNode.R2);
 
 			if (Lsd.ContainsKey(LuaNode.Points))
 			{
