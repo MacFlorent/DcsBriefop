@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace DcsBriefop.Data
+﻿namespace DcsBriefop.Data
 {
 	internal static class ElementCoalition
 	{
@@ -96,6 +94,7 @@ namespace DcsBriefop.Data
 	{
 		public static readonly string Rectangle = "rect";
 		public static readonly string Oval = "oval";
+		public static readonly string Circle = "circle";
 		public static readonly string Free = "free";
 	}
 
