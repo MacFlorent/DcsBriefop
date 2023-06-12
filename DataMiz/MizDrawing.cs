@@ -64,6 +64,7 @@ namespace DcsBriefop.DataMiz
 			public static readonly string Width = "width";
 			public static readonly string R1 = "r1";
 			public static readonly string R2 = "r2";
+			public static readonly string Radius = "radius";
 
 		}
 
@@ -93,6 +94,7 @@ namespace DcsBriefop.DataMiz
 		public decimal? Width { get; set; }
 		public decimal? R1 { get; set; }
 		public decimal? R2 { get; set; }
+		public decimal? Radius { get; set; }
 
 		public List<MizDrawingPoint> Points { get; private set; } = new List<MizDrawingPoint>();
 
@@ -126,6 +128,7 @@ namespace DcsBriefop.DataMiz
 			Width = ToolsLson.IfExistsDecimal(Lsd, LuaNode.Width);
 			R1 = ToolsLson.IfExistsDecimal(Lsd, LuaNode.R1);
 			R2 = ToolsLson.IfExistsDecimal(Lsd, LuaNode.R2);
+			Radius = ToolsLson.IfExistsDecimal(Lsd, LuaNode.Radius);
 
 			if (Lsd.ContainsKey(LuaNode.Points))
 			{

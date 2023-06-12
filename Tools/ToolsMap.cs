@@ -5,6 +5,7 @@ using DcsBriefop.Map;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
+using System;
 using System.Drawing.Drawing2D;
 using System.Net;
 
@@ -194,7 +195,7 @@ namespace DcsBriefop.Tools
 				AddMizDrawingObjectRectangle(theatre, overlay, drawingObject);
 			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Free)
 				AddMizDrawingObjectLine(theatre, overlay, drawingObject, true);
-			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Oval)
+			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Oval || drawingObject.PolygonMode == ElementDrawingPolygonMode.Circle)
 				AddMizDrawingObjectOval(theatre, overlay, drawingObject);
 		}
 
@@ -205,33 +206,32 @@ namespace DcsBriefop.Tools
 
 			List<PointLatLng> points = new List<PointLatLng>();
 
-			decimal dY = drawingObject.MapY - dHalfWidth;
-			decimal dX = drawingObject.MapX - dHalfHeight;
-			RotateDcsYX(out dY, out dX, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
-			Coordinate coordinate = theatre.GetCoordinate(dY, dX);
-			PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
-			points.Add(p);
+			decimal dY, dX, dYRotated, dXRotated;
+			Coordinate coordinate;
+
+			dY = drawingObject.MapY - dHalfWidth;
+			dX = drawingObject.MapX - dHalfHeight;
+			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
+			coordinate = theatre.GetCoordinate(dYRotated, dXRotated);
+			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			dY = drawingObject.MapY + dHalfWidth;
 			dX = drawingObject.MapX - dHalfHeight;
-			RotateDcsYX(out dY, out dX, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
-			coordinate = theatre.GetCoordinate(dY, dX);
-			p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
-			points.Add(p);
+			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
+			coordinate = theatre.GetCoordinate(dYRotated, dXRotated);
+			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			dY = drawingObject.MapY + dHalfWidth;
 			dX = drawingObject.MapX + dHalfHeight;
-			RotateDcsYX(out dY, out dX, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
-			coordinate = theatre.GetCoordinate(dY, dX);
-			p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
-			points.Add(p);
+			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
+			coordinate = theatre.GetCoordinate(dYRotated, dXRotated);
+			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			dY = drawingObject.MapY - dHalfWidth;
 			dX = drawingObject.MapX + dHalfHeight;
-			RotateDcsYX(out dY, out dX, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
-			coordinate = theatre.GetCoordinate(dY, dX);
-			p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
-			points.Add(p);
+			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
+			coordinate = theatre.GetCoordinate(dYRotated, dXRotated);
+			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), drawingObject.Thickness.GetValueOrDefault(5), true);
 			overlay.Routes.Add(route);
@@ -240,25 +240,30 @@ namespace DcsBriefop.Tools
 		private static void AddMizDrawingObjectOval(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
 		{
 			//https://www.mathopenref.com/coordcirclealgorithm.html
-			decimal dCenterY = drawingObject.MapY; // wx
-			decimal dCenterX = drawingObject.MapX; // hy
+			double dCenterY = (double)drawingObject.MapY;
+			double dCenterX = (double)drawingObject.MapX;
 
-			decimal dRadius1 = drawingObject.R1.Value; //dx
-			decimal dRadius2 = drawingObject.R2.Value; // dy
-
-			var step = 2 * Math.PI / 20;  // see note 1
-			var h = (double)dCenterY;
-			var k = (double)dCenterX;
-			var r = (double)dRadius1;
+			double dRadius, dSquashRatio;
+			if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Oval)
+			{
+				dRadius = (double)drawingObject.R1.Value;
+				dSquashRatio = (double)drawingObject.R2.Value / dRadius;
+			}
+			else
+			{
+				dRadius = (double)drawingObject.Radius.Value;
+				dSquashRatio = 1;
+			}
 
 			List<PointLatLng> points = new List<PointLatLng>();
-			for (var theta = 0d; theta < 2 * Math.PI; theta += step)
+			double dStep = 2 * Math.PI / 30;
+			for (double dAngle = 0d; dAngle < 2 * Math.PI; dAngle += dStep)
 			{
-				var x = h + r * Math.Cos(theta);
-				var y = k - r * Math.Sin(theta);    //note 2.
-				Coordinate coordinate = theatre.GetCoordinate((decimal)x, (decimal)y);
-				PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
-				points.Add(p);
+				double dY = dCenterY + dSquashRatio * dRadius * Math.Cos(dAngle);
+				double dX = dCenterX - dRadius * Math.Sin(dAngle);    //note 2.
+				RotateDcsYX(out decimal dYRotated, out decimal dXRotated, (decimal)dY, (decimal)dX, (decimal)dCenterY, (decimal)dCenterX, drawingObject.Angle);
+				Coordinate coordinate = theatre.GetCoordinate(dYRotated, dXRotated);
+				points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 			}
 
 			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), drawingObject.Thickness.GetValueOrDefault(5), true);
