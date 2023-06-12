@@ -11,7 +11,7 @@ namespace DcsBriefop.Forms
 	internal partial class FrmMissionMaps : Form
 	{
 		#region Fields
-		private BriefopManager m_briefopManager;
+		public BriefopManager m_briefopManager;
 
 		private UcMap m_ucMap;
 		#endregion
@@ -35,6 +35,7 @@ namespace DcsBriefop.Forms
 		{
 			using FrmMissionMaps f = new(briefopManager);
 			f.ShowDialog(parentForm);
+			string s = "";
 		}
 		#endregion
 
@@ -61,7 +62,7 @@ namespace DcsBriefop.Forms
 
 			MizBopMap mapData = null;
 			List<GMapOverlay> staticOverlays = new List<GMapOverlay>();
-			if (sCoalition is object && m_briefopManager.BopMission.Coalitions.ContainsKey(sCoalition))
+			if (sCoalition is not null && m_briefopManager.BopMission.Coalitions.ContainsKey(sCoalition))
 			{
 				BopCoalition bopCoalition = m_briefopManager.BopMission.Coalitions[sCoalition];
 				mapData = bopCoalition.MapData;
@@ -81,7 +82,7 @@ namespace DcsBriefop.Forms
 
 		private void ScreenToData()
 		{
-			m_briefopManager.BopMission.PreferencesMap.ProviderName = (CbMapProvider.SelectedItem as GMapProvider)?.Name; ;
+			m_briefopManager.BopMission.PreferencesMap.ProviderName = (CbMapProvider.SelectedItem as GMapProvider)?.Name;
 		}
 		#endregion
 
