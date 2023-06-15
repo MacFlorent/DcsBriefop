@@ -7,8 +7,8 @@ namespace DcsBriefop.DataMiz
 		public double CenterLatitude { get; set; }
 		public double CenterLongitude { get; set; }
 		public double Zoom { get; set; }
-		//public GMapOverlay MapOverlay { get; set; } = new GMapOverlay();
-		List<GMapMarker> CustomMarkers = new();
+		public List<GMapMarker> CustomMarkers { get; set; } = new();
+
 		public GMapOverlay BuildCustomMapOverlay()
 		{
 			GMapOverlay customMapOverlay = new GMapOverlay();
@@ -18,6 +18,20 @@ namespace DcsBriefop.DataMiz
 			}
 
 			return customMapOverlay;
+		}
+
+		public void FromCustomMapOverlay (GMapOverlay customMapOverlay)
+		{
+			CustomMarkers.Clear();
+
+			if (customMapOverlay is not null)
+			{
+				foreach (GMapMarker marker in customMapOverlay.Markers)
+				{
+					GMapMarker 
+					CustomMarkers.Add(marker);
+				}
+			}
 		}
 	}
 }

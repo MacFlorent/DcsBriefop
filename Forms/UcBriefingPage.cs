@@ -183,7 +183,7 @@ namespace DcsBriefop.Forms
 		public void DisplayCurrentMap()
 		{
 			m_ucMap.StaticOverlays = m_bopBriefingPage.GetMapAdditionalOverlays(m_bopManager, m_bopBriefingFolder);
-			m_ucMap.RefreshMapData();
+			m_ucMap.DataToScreen();
 		}
 
 		private void AddPart(ElementBriefingPartType partType)

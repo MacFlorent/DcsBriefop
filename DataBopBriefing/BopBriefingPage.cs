@@ -179,7 +179,7 @@ namespace DcsBriefop.DataBopBriefing
 				additionalOverlays.Add(bopManager.BopMission.BuildStaticMapOverlay());
 				if (bopManager.BopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName ?? "", out BopCoalition bopCoalition))
 				{
-					additionalOverlays.Add(bopCoalition.StaticMapOverlay);
+					additionalOverlays.Add(bopCoalition.BuildStaticMapOverlay());
 				}
 			}
 

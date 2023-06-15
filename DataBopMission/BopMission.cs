@@ -22,7 +22,6 @@ namespace DcsBriefop.DataBopMission
 		public List<BopGroup> Groups { get; private set; }
 		public PreferencesMap PreferencesMap { get { return Miz.MizBopCustom.PreferencesMap; } }
 		public List<BopBriefingFolder> BopBriefingFolders { get { return Miz.MizBopCustom.BopBriefingFolders; } }
-		//public GMapOverlay StaticMapOverlay { get; private set; }
 		#endregion
 
 		#region CTOR

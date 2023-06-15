@@ -46,18 +46,23 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Methods
-		public void RefreshMapData()
+		public void DataToScreen()
 		{
-			RefreshOverlays();
 			MapControl.MapProvider = m_mapProvider;
-			MapControl.Position = new PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
-			MapControl.Zoom = MapData.Zoom;
+			if (MapData is not null)
+			{
+				MapControl.Position = new PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
+				MapControl.Zoom = MapData.Zoom;
+			}
+			
+			DataToOverlay();
 		}
 
-		public void RefreshOverlays()
+		public void DataToOverlay()
 		{
-			ClearOverlays();
-			//UnselectAll();
+			MapControl.Overlays.Clear();
+			m_mapOverlay = null;
+
 			if (StaticOverlays is not null)
 			{
 				foreach (GMapOverlay staticOverlay in StaticOverlays)
@@ -65,18 +70,24 @@ namespace DcsBriefop.Forms
 					MapControl.Overlays.Add(staticOverlay);
 				}
 			}
+
 			if (MapData is not null)
 			{
 				m_mapOverlay = MapData.BuildCustomMapOverlay();
 				MapControl.Overlays.Add(m_mapOverlay);
-
+				MapControl.Position = new PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
+				MapControl.Zoom = MapData.Zoom;
 			}
 		}
 
-		public void ClearOverlays()
+		public void ScreenToData()
 		{
-			MapControl.Overlays.Clear();
-			m_mapOverlay = null;
+			OverlayToData();
+		}
+
+		public void OverlayToData()
+		{
+			MapData?.FromCustomMapOverlay(m_mapOverlay);
 		}
 
 		private void AddMarker(double dLat, double dLng)
@@ -84,12 +95,16 @@ namespace DcsBriefop.Forms
 			PointLatLng p = new(dLat, dLng);
 			m_mapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.DefaultMark, Color.Orange, null, 1, 0));
 			CkAddMarker.Checked = false;
+
+			OverlayToData();
 		}
 
 		private void DeleteMarker(GMarkerBriefop gmb)
 		{
 			if (gmb.Overlay == m_mapOverlay)
 				m_mapOverlay.Markers.Remove(gmb);
+
+			OverlayToData();
 		}
 
 		private void SelectMarker(GMarkerBriefop gmb)

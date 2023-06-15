@@ -25,7 +25,6 @@ namespace DcsBriefop.DataBopMission
 		//public ListComPreset ComPresets { get; set; }
 
 		public MizBopMap MapData { get { return m_mizBopCoalition.MapData; } }
-		public GMapOverlay StaticMapOverlay { get; private set; }
 		#endregion
 
 		#region CTOR
@@ -45,11 +44,6 @@ namespace DcsBriefop.DataBopMission
 			Bullseye = Theatre.GetCoordinate(m_mizCoalition.BullseyeY, m_mizCoalition.BullseyeX);
 			BullseyeDescription = m_mizBopCoalition.BullseyeDescription;
 			BullseyeWaypoint = m_mizBopCoalition.BullseyeWaypoint;
-
-			StaticMapOverlay = new GMapOverlay();
-			StaticMapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree), ElementMapTemplateMarker.Bullseye, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0));
-			//ToolsMap.AddMizDrawingLayers(Theatre, MapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
-			ToolsMap.AddMizDrawingLayers(Theatre, StaticMapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, CoalitionName, true) == 0).ToList());
 		}
 		#endregion
 
@@ -88,6 +82,17 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
+		public GMapOverlay BuildStaticMapOverlay()
+		{
+			GMapOverlay staticMapOverlay = new GMapOverlay();
+			staticMapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree), ElementMapTemplateMarker.Bullseye, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0));
+			//ToolsMap.AddMizDrawingLayers(Theatre, MapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
+			ToolsMap.AddMizDrawingLayers(Theatre, staticMapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, CoalitionName, true) == 0).ToList());
+
+			return staticMapOverlay;
+		}
+
+
 		public void UpdateBullseyeRoutePoint(BopRoutePoint bullseyeRoutePoint)
 		{
 			bullseyeRoutePoint.SetYX(m_mizCoalition.BullseyeY, m_mizCoalition.BullseyeX);

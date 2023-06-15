@@ -65,7 +65,7 @@ namespace DcsBriefop.Forms
 			{
 				BopCoalition bopCoalition = m_briefopManager.BopMission.Coalitions[sCoalition];
 				mapData = bopCoalition.MapData;
-				staticOverlays.Add(bopCoalition.StaticMapOverlay);
+				staticOverlays.Add(bopCoalition.BuildStaticMapOverlay());
 			}
 			else
 			{
@@ -76,7 +76,7 @@ namespace DcsBriefop.Forms
 			m_ucMap.MapData = mapData;
 			m_ucMap.StaticOverlays = staticOverlays;
 			m_ucMap.MapProviderName = m_briefopManager.BopMission.PreferencesMap.ProviderName;
-			m_ucMap.RefreshMapData();
+			m_ucMap.DataToScreen();
 		}
 
 		private void ScreenToData()
