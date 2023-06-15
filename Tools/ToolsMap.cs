@@ -306,7 +306,7 @@ namespace DcsBriefop.Tools
 		#region Image Generation
 		public static Bitmap GenerateMapImage(MizBopMap mapData, GMapProvider mapProvider, IEnumerable<GMapOverlay> additionalOverlays, Size outputSize)
 		{
-			List<GMapOverlay> overlays = new List<GMapOverlay> { mapData.MapOverlay };
+			List<GMapOverlay> overlays = new List<GMapOverlay> { mapData.BuildCustomMapOverlay() };
 			if (additionalOverlays is not null && additionalOverlays.Any())
 				overlays.AddRange(additionalOverlays);
 

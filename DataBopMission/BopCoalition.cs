@@ -25,7 +25,7 @@ namespace DcsBriefop.DataBopMission
 		//public ListComPreset ComPresets { get; set; }
 
 		public MizBopMap MapData { get { return m_mizBopCoalition.MapData; } }
-		public GMapOverlay MapOverlay { get; private set; }
+		public GMapOverlay StaticMapOverlay { get; private set; }
 		#endregion
 
 		#region CTOR
@@ -46,10 +46,10 @@ namespace DcsBriefop.DataBopMission
 			BullseyeDescription = m_mizBopCoalition.BullseyeDescription;
 			BullseyeWaypoint = m_mizBopCoalition.BullseyeWaypoint;
 
-			MapOverlay = new GMapOverlay();
-			MapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree), ElementMapTemplateMarker.Bullseye, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0));
-			ToolsMap.AddMizDrawingLayers(Theatre, MapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
-			ToolsMap.AddMizDrawingLayers(Theatre, MapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, CoalitionName, true) == 0).ToList());
+			StaticMapOverlay = new GMapOverlay();
+			StaticMapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree), ElementMapTemplateMarker.Bullseye, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0));
+			//ToolsMap.AddMizDrawingLayers(Theatre, MapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
+			ToolsMap.AddMizDrawingLayers(Theatre, StaticMapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, CoalitionName, true) == 0).ToList());
 		}
 		#endregion
 

@@ -1,14 +1,12 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.Tools;
-using System;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
-	public partial class FrmMain : Form
+	internal partial class FrmMain : Form
 	{
 		#region Fields
-		private BriefopManager m_briefopManager;
+		public  BriefopManager m_briefopManager; // TODO
 		private UcNoFile m_ucNoFile;
 		private UcBriefop m_ucBriefop;
 		#endregion

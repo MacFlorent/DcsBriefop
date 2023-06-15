@@ -11,7 +11,7 @@ namespace DcsBriefop.Forms
 	internal partial class FrmMissionMaps : Form
 	{
 		#region Fields
-		public BriefopManager m_briefopManager;
+		private BriefopManager m_briefopManager;
 
 		private UcMap m_ucMap;
 		#endregion
@@ -35,7 +35,6 @@ namespace DcsBriefop.Forms
 		{
 			using FrmMissionMaps f = new(briefopManager);
 			f.ShowDialog(parentForm);
-			string s = "";
 		}
 		#endregion
 
@@ -66,12 +65,12 @@ namespace DcsBriefop.Forms
 			{
 				BopCoalition bopCoalition = m_briefopManager.BopMission.Coalitions[sCoalition];
 				mapData = bopCoalition.MapData;
-				staticOverlays.Add(bopCoalition.MapOverlay);
+				staticOverlays.Add(bopCoalition.StaticMapOverlay);
 			}
 			else
 			{
 				mapData = m_briefopManager.BopMission.MapData;
-				staticOverlays.Add(m_briefopManager.BopMission.MapOverlay);
+				staticOverlays.Add(m_briefopManager.BopMission.BuildStaticMapOverlay());
 			}
 
 			m_ucMap.MapData = mapData;
