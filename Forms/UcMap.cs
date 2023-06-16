@@ -130,6 +130,8 @@ namespace DcsBriefop.Forms
 			// hide detail
 			PnSelectionDetail.Controls.Clear();
 			PnSelectionDetail.Visible = false;
+
+			OverlayToData();
 		}
 
 		private GMarkerBriefop GetMarkerHovered()
@@ -245,6 +247,7 @@ namespace DcsBriefop.Forms
 				{
 					var pnew = MapControl.FromLocalToLatLng(e.X, e.Y);
 					gmb.Position = pnew;
+					OverlayToData();
 				}
 
 				MapControl.Refresh();

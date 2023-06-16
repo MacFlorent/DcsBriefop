@@ -53,6 +53,11 @@ namespace DcsBriefop.Map
 			MapTemplateMarker template = MapTemplateMarker.GetTemplateFromDcsMizFile(sMizStyleName);
 			return new GMarkerBriefop(point, template, tintColor, sLabel, iScale, iAngle);
 		}
+
+		public GMarkerBriefop NewCleanCopy()
+		{
+			return new GMarkerBriefop(Position, m_template, TintColor, Label, Scale, Angle);
+		}
 		#endregion
 
 		#region Methods
