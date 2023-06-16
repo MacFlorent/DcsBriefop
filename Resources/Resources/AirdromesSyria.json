@@ -29,7 +29,7 @@
   {"Id": 45, "Name": "Kingsfield", "Latitude": 35.015, "Longitude": 33.717, "Radios": [ { "Frequency": 251.8, "Modulation": 0 }, { "Frequency": 121, "Modulation": 0 } ]},
   {"Id": 20, "Name": "Kiryat Shmona", "Latitude": 33.212, "Longitude": 35.592, "Radios": [ { "Frequency": 250.5, "Modulation": 0 }, { "Frequency": 118.4, "Modulation": 0 } ]},
   {"Id": 31, "Name": "Kuweires", "Latitude": 36.189, "Longitude": 37.57, "Radios": [ { "Frequency": 251.1, "Modulation": 0 }, { "Frequency": 120.5, "Modulation": 0 } ]},
-  {"Id": 47, "Name": "Lanarca", "Latitude": 34.873, "Longitude": 33.623, "Radios": [ { "Frequency": 251.9, "Modulation": 0 }, { "Frequency": 121.2, "Modulation": 0 } ]},
+  {"Id": 47, "Name": "Larnaca", "Latitude": 34.873, "Longitude": 33.623, "Radios": [ { "Frequency": 251.9, "Modulation": 0 }, { "Frequency": 121.2, "Modulation": 0 } ]},
   {"Id": 23, "Name": "Marj Ruhayyil", "Latitude": 36.279, "Longitude": 36.447, "Radios": [ { "Frequency": 250.65, "Modulation": 0 }, { "Frequency": 120.8, "Modulation": 0 } ]},
   {"Id": 24, "Name": "Megiddo", "Latitude": 32.598, "Longitude": 35.22, "Radios": [ { "Frequency": 250.7, "Modulation": 0 }, { "Frequency": 119.9, "Modulation": 0 } ]},
   {"Id": 25, "Name": "Mezzeh", "Latitude": 33.483, "Longitude": 36.235, "Radios": [ { "Frequency": 250.75, "Modulation": 0 }, { "Frequency": 120.7, "Modulation": 0 } ]},

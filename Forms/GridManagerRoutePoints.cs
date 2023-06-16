@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Data;
+﻿using CoordinateSharp;
+using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 using System.Data;
@@ -16,6 +17,8 @@ namespace DcsBriefop.Forms
 			public static readonly string Type = "Type";
 			public static readonly string Action = "Action";
 			public static readonly string Altitude = "Altitude";
+			public static readonly string FromPrevious = "FromPrevious";
+			public static readonly string ToNext = "ToNext";
 		}
 		#endregion
 
@@ -39,6 +42,8 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Type, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Action, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Altitude, typeof(decimal));
+			m_dtSource.Columns.Add(GridColumn.FromPrevious, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.ToNext, typeof(string));
 		}
 
 		protected override void RefreshDataSourceRowContent(DataRow dr, BopRoutePoint element)
@@ -50,6 +55,15 @@ namespace DcsBriefop.Forms
 			dr.SetField(GridColumn.Type, element.Type);
 			dr.SetField(GridColumn.Action, element.Action);
 			dr.SetField(GridColumn.Altitude, $"{element.GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}");
+
+			Distance d = element.GetRouteSegmentFromPrevious();
+			if (d is not null)
+			{
+				dr.SetField(GridColumn.FromPrevious, d.Bearing);
+			}
+
+
+			//dr.SetField(GridColumn.ToNext, element.Action);
 		}
 
 		protected override void PostInitializeColumns()
@@ -57,6 +71,8 @@ namespace DcsBriefop.Forms
 			base.PostInitializeColumns();
 
 			m_dgv.Columns[GridColumn.Altitude].HeaderText = $"Altitude ({ToolsMeasurement.AltitudeUnit(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
+			m_dgv.Columns[GridColumn.FromPrevious].HeaderText = "From prev.";
+			m_dgv.Columns[GridColumn.ToNext].HeaderText = "To next";
 		}
 		#endregion
 

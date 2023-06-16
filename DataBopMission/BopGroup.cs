@@ -59,7 +59,7 @@ namespace DcsBriefop.DataBopMission
 				int iNumber = 0;
 				foreach (MizRoutePoint mizRoutePoint in m_mizGroup.RoutePoints)
 				{
-					RoutePoints.Add(new BopRoutePoint(Miz, Theatre, Id, iNumber, mizRoutePoint));
+					RoutePoints.Add(new BopRoutePoint(Miz, Theatre, Id, iNumber, mizRoutePoint, this));
 					iNumber++;
 				}
 			}

@@ -1,4 +1,5 @@
 ﻿using CoordinateSharp;
+using CoordinateSharp.Magnetic;
 using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
@@ -12,6 +13,7 @@ namespace DcsBriefop.DataBopMission
 	{
 		#region Fields
 		private MizRoutePoint m_mizRoutePoint;
+		private BopGroup m_bopGroup;
 		#endregion
 
 		#region Properties
@@ -31,11 +33,12 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region CTOR
-		public BopRoutePoint(Miz miz, Theatre theatre, int iGroupId, int iNumber, MizRoutePoint mizRoutePoint) : base(miz, theatre)
+		public BopRoutePoint(Miz miz, Theatre theatre, int iGroupId, int iNumber, MizRoutePoint mizRoutePoint, BopGroup bopGroup) : base(miz, theatre)
 		{
 			GroupId = iGroupId;
 			Number = iNumber;
 			m_mizRoutePoint = mizRoutePoint;
+			m_bopGroup = bopGroup;
 
 			Name = m_mizRoutePoint.Name;
 			Action = m_mizRoutePoint.Action;
@@ -71,6 +74,7 @@ namespace DcsBriefop.DataBopMission
 			MizBopRoutePoint mizBopRoutePoint = Miz.MizBopCustom.MizBopRoutePoints.Where(_rp => _rp.GroupId == GroupId && _rp.Number == Number).FirstOrDefault();
 			AltitudeCustomMeters = mizBopRoutePoint?.AltitudeMeters;
 			Notes = mizBopRoutePoint?.Notes;
+			m_bopGroup = bopGroup;
 		}
 		#endregion
 
@@ -187,6 +191,46 @@ namespace DcsBriefop.DataBopMission
 			m_mizRoutePoint.X = dX;
 			Coordinate = Theatre.GetCoordinate(m_mizRoutePoint.Y, m_mizRoutePoint.X);
 		}
+
+		public Distance GetRouteSegmentFromPrevious()
+		{
+			BopRoutePoint rpPrevious = null;
+			bool bFound = false;
+			foreach (BopRoutePoint rp in m_bopGroup.RoutePoints.Where(_rp => _rp.Name != ElementGlobalData.BullseyeRoutePointName))
+			{
+				if (rp == this)
+				{
+					bFound = true;
+					break;
+				}
+				else
+				{
+					rpPrevious = rp;
+				}
+			}
+
+			if (bFound && rpPrevious is not null)
+			{
+				return GetRouteSegment(rpPrevious, this);
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		public static Distance GetRouteSegment(BopRoutePoint rpFrom, BopRoutePoint rpTo)
+		{
+			//GlobalSettings.Default_EagerLoad = new EagerLoad(EagerLoadType.UTM_MGRS);
+
+			Coordinate cFrom = rpFrom.Coordinate;
+			Coordinate cTo = rpTo.Coordinate;
+
+			Magnetic m = new Magnetic(cFrom, DataModel.WMM2020);
+
+			return cTo.Get_Distance_From_Coordinate(cFrom);
+		}
+
 		#endregion
 	}
 }
