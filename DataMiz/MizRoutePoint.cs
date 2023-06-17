@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Tools;
 using LsonLib;
-using System.Collections.Generic;
 
 namespace DcsBriefop.DataMiz
 {
@@ -13,6 +12,7 @@ namespace DcsBriefop.DataMiz
 			public static readonly string Action = "action";
 			public static readonly string Altitude = "alt";
 			public static readonly string AltitudeType = "alt_type";
+			public static readonly string Speed = "speed";
 			public static readonly string Y = "y";
 			public static readonly string X = "x";
 			public static readonly string AirdromeId = "airdromeId";
@@ -26,6 +26,7 @@ namespace DcsBriefop.DataMiz
 		public string Action { get; set; }
 		public decimal Altitude { get; set; }
 		public string AltitudeType { get; set; }
+		public decimal Speed { get; set; }
 		public decimal Y { get; set; }
 		public decimal X { get; set; }
 		public int? AirdromeId { get; set; }
@@ -42,6 +43,7 @@ namespace DcsBriefop.DataMiz
 			Action = Lsd[LuaNode.Action].GetString();
 			Altitude = Lsd[LuaNode.Altitude].GetDecimal();
 			AltitudeType = Lsd.IfExistsString(LuaNode.AltitudeType);
+			Speed = Lsd[LuaNode.Speed].GetDecimal();
 			Y = Lsd[LuaNode.Y].GetDecimal();
 			X = Lsd[LuaNode.X].GetDecimal();
 			AirdromeId = Lsd.IfExistsInt(LuaNode.AirdromeId);
@@ -59,6 +61,7 @@ namespace DcsBriefop.DataMiz
 			Lsd[LuaNode.Action] = Action;
 			Lsd[LuaNode.Altitude] = Altitude;
 			Lsd[LuaNode.AltitudeType] = AltitudeType;
+			Lsd[LuaNode.Speed] = Speed;
 			Lsd[LuaNode.Y] = Y;
 			Lsd[LuaNode.X] = X;
 			Lsd.SetOrAddInt(LuaNode.AirdromeId, AirdromeId);

@@ -41,5 +41,17 @@ namespace DcsBriefop.Tools
 
 			return sb.ToString();
 		}
+
+		public static decimal NormalizeBearing(decimal dBearing)
+		{
+			decimal dNormalizedBearing = dBearing % 360;
+
+			if (dNormalizedBearing < 0)
+				dNormalizedBearing += 360;
+			else if (dNormalizedBearing == 0)
+				dNormalizedBearing = 360;
+
+			return dNormalizedBearing;
+		}
 	}
 }

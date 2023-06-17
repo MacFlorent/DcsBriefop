@@ -24,10 +24,26 @@ namespace DcsBriefop.Tools
 
 		public static string AltitudeUnit(ElementMeasurementSystem measurementSystem)
 		{
-			return measurementSystem == ElementMeasurementSystem.Metric ? "m" : "ft" ;
+			return measurementSystem == ElementMeasurementSystem.Metric ? "m" : "ft";
 		}
 		#endregion
 
+		#region Distance
+		public static int DistanceDisplay(int iDistanceMeters, ElementMeasurementSystem measurementSystem)
+		{
+			if (measurementSystem == ElementMeasurementSystem.Metric)
+				return Convert.ToInt32(UnitConverter.Convert(iDistanceMeters, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Kilometer));
+			else
+				return Convert.ToInt32(UnitConverter.Convert(iDistanceMeters, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.NauticalMile));
+		}
+
+		public static string DistanceUnit(ElementMeasurementSystem measurementSystem)
+		{
+			return measurementSystem == ElementMeasurementSystem.Metric ? "km" : "nm";
+		}
+		#endregion
+
+		#region Visiblity
 		public static int VisibilityDisplay(int iVisibilityMeters, ElementMeasurementSystem measurementSystem)
 		{
 			if (measurementSystem == ElementMeasurementSystem.Imperial)
@@ -40,7 +56,9 @@ namespace DcsBriefop.Tools
 		{
 			return measurementSystem == ElementMeasurementSystem.Imperial ? "SM" : "km";
 		}
+		#endregion
 
+		#region Speed
 		public static decimal SpeedDisplay(decimal dSpeedMs, ElementMeasurementSystem measurementSystem)
 		{
 			if (measurementSystem == ElementMeasurementSystem.Metric)
@@ -53,7 +71,9 @@ namespace DcsBriefop.Tools
 		{
 			return measurementSystem == ElementMeasurementSystem.Metric ? "km/h" : "kts";
 		}
+		#endregion
 
+		#region Temperature
 		public static decimal TemperatureDisplay(decimal dTemperatureCelcius, ElementMeasurementSystem measurementSystem)
 		{
 			if (measurementSystem == ElementMeasurementSystem.Imperial)
@@ -66,5 +86,6 @@ namespace DcsBriefop.Tools
 		{
 			return measurementSystem == ElementMeasurementSystem.Imperial ? "°F" : "°C";
 		}
+		#endregion
 	}
 }

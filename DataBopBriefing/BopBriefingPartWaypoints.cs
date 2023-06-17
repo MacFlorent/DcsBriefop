@@ -15,7 +15,10 @@ namespace DcsBriefop.DataBopBriefing
 			public static readonly string Number = "Number";
 			public static readonly string Name = "Name";
 			public static readonly string Type = "Type";
+			public static readonly string Track = "Track°M";
+			public static readonly string Distance = "Distance";
 			public static readonly string Altitude = "Altitude";
+			public static readonly string Speed = "Speed";
 			public static readonly string Task = "Task";
 			public static readonly string Notes = "Notes";
 		}
@@ -24,7 +27,10 @@ namespace DcsBriefop.DataBopBriefing
 			TableColumns.Number,
 			TableColumns.Name,
 			TableColumns.Type,
+			TableColumns.Track,
+			TableColumns.Distance,
 			TableColumns.Altitude,
+			TableColumns.Speed,
 			TableColumns.Task,
 			TableColumns.Notes
 		};
@@ -89,6 +95,10 @@ namespace DcsBriefop.DataBopBriefing
 				string sTableHeader = sColumn;
 				if (sTableHeader == TableColumns.Altitude)
 					sTableHeader = $"{sColumn} {ToolsMeasurement.AltitudeUnit(bopBriefingFolder.MeasurementSystem)}";
+				else if (sTableHeader == TableColumns.Distance)
+					sTableHeader = $"{sColumn} {ToolsMeasurement.DistanceUnit(bopBriefingFolder.MeasurementSystem)}";
+				else if (sTableHeader == TableColumns.Speed)
+					sTableHeader = $"{sColumn} {ToolsMeasurement.SpeedUnit(bopBriefingFolder.MeasurementSystem)}";
 
 				tagThead.Add("td").AddClass("header").AppendText(sTableHeader);
 			}
@@ -106,8 +116,14 @@ namespace DcsBriefop.DataBopBriefing
 							tagTr.Add("td").AppendText(bopRoutePoint.Name);
 						else if (sColumn == TableColumns.Type)
 							tagTr.Add("td").AppendText(bopRoutePoint.Type);
+						else if (sColumn == TableColumns.Track)
+							tagTr.Add("td").AppendText($"{bopRoutePoint.GetTrack(true):000}");
+						else if (sColumn == TableColumns.Distance)
+							tagTr.Add("td").AppendText($"{bopRoutePoint.GetDistance(bopBriefingFolder.MeasurementSystem):0}");
 						else if (sColumn == TableColumns.Altitude)
 							tagTr.Add("td").AppendText($"{bopRoutePoint.GetAltitude(bopBriefingFolder.MeasurementSystem):0}");
+						else if (sColumn == TableColumns.Speed)
+							tagTr.Add("td").AppendText($"{bopRoutePoint.GetSpeed(bopBriefingFolder.MeasurementSystem):0}");
 						else if (sColumn == TableColumns.Task)
 							tagTr.Add("td").AppendText(bopRoutePoint.Tasks.FirstOrDefault()?.ToStringDisplayName());
 						else if (sColumn == TableColumns.Notes)

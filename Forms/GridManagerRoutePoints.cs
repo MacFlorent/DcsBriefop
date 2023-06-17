@@ -1,6 +1,4 @@
-﻿using CoordinateSharp;
-using DcsBriefop.Data;
-using DcsBriefop.DataBopMission;
+﻿using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 using System.Data;
 using Zuby.ADGV;
@@ -17,8 +15,11 @@ namespace DcsBriefop.Forms
 			public static readonly string Type = "Type";
 			public static readonly string Action = "Action";
 			public static readonly string Altitude = "Altitude";
-			public static readonly string FromPrevious = "FromPrevious";
-			public static readonly string ToNext = "ToNext";
+			public static readonly string Distance = "Distance";
+			public static readonly string TrackM = "Track°M";
+			public static readonly string TrackT = "Track°T";
+			public static readonly string Speed = "Speed";
+
 		}
 		#endregion
 
@@ -41,9 +42,11 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Name, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Type, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Action, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Altitude, typeof(decimal));
-			m_dtSource.Columns.Add(GridColumn.FromPrevious, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.ToNext, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.Altitude, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.Distance, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.TrackM, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.TrackT, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.Speed, typeof(string));
 		}
 
 		protected override void RefreshDataSourceRowContent(DataRow dr, BopRoutePoint element)
@@ -55,15 +58,10 @@ namespace DcsBriefop.Forms
 			dr.SetField(GridColumn.Type, element.Type);
 			dr.SetField(GridColumn.Action, element.Action);
 			dr.SetField(GridColumn.Altitude, $"{element.GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}");
-
-			Distance d = element.GetRouteSegmentFromPrevious();
-			if (d is not null)
-			{
-				dr.SetField(GridColumn.FromPrevious, d.Bearing);
-			}
-
-
-			//dr.SetField(GridColumn.ToNext, element.Action);
+			dr.SetField(GridColumn.Distance, $"{element.GetDistance(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}");
+			dr.SetField(GridColumn.TrackM, $"{element.GetTrack(true):000}");
+			dr.SetField(GridColumn.TrackT, $"{element.GetTrack(false):000}");
+			dr.SetField(GridColumn.Speed, $"{element.GetSpeed(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}");
 		}
 
 		protected override void PostInitializeColumns()
@@ -71,8 +69,9 @@ namespace DcsBriefop.Forms
 			base.PostInitializeColumns();
 
 			m_dgv.Columns[GridColumn.Altitude].HeaderText = $"Altitude ({ToolsMeasurement.AltitudeUnit(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
-			m_dgv.Columns[GridColumn.FromPrevious].HeaderText = "From prev.";
-			m_dgv.Columns[GridColumn.ToNext].HeaderText = "To next";
+			m_dgv.Columns[GridColumn.Distance].HeaderText = $"Distance ({ToolsMeasurement.DistanceUnit(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
+			m_dgv.Columns[GridColumn.Distance].HeaderText = $"Distance ({ToolsMeasurement.DistanceUnit(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
+			m_dgv.Columns[GridColumn.Speed].HeaderText = $"Speed ({ToolsMeasurement.SpeedUnit(PreferencesManager.Preferences.Briefing.MeasurementSystem)})";
 		}
 		#endregion
 

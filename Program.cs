@@ -1,7 +1,5 @@
 ﻿using DcsBriefop.Forms;
 using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.WindowsForms;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
@@ -16,6 +14,7 @@ namespace DcsBriefop
 			Application.SetCompatibleTextRenderingDefault(false);
 			InitializeCulture();
 			ToolsMap.InitializeGMaps();
+			//GlobalSettings.Default_EagerLoad = new EagerLoad(EagerLoadType.UTM_MGRS);
 
 			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);

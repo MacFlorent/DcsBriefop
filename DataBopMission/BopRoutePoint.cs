@@ -1,5 +1,4 @@
 ﻿using CoordinateSharp;
-using CoordinateSharp.Magnetic;
 using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
@@ -14,6 +13,8 @@ namespace DcsBriefop.DataBopMission
 		#region Fields
 		private MizRoutePoint m_mizRoutePoint;
 		private BopGroup m_bopGroup;
+		private Distance m_distance;
+		private CoordinateSharp.Magnetic.Magnetic m_magnetic;
 		#endregion
 
 		#region Properties
@@ -25,6 +26,8 @@ namespace DcsBriefop.DataBopMission
 		public string Action { get; set; }
 		public decimal AltitudeMeters { get; set; }
 		public decimal? AltitudeCustomMeters { get; set; }
+		public decimal SpeedMs { get; set; }
+		public int DistanceMeters { get { return (int)m_distance.Meters; } }
 		public Coordinate Coordinate { get; set; }
 		public int? AirdromeId { get; set; }
 		public int? HelipadId { get; set; }
@@ -43,6 +46,7 @@ namespace DcsBriefop.DataBopMission
 			Name = m_mizRoutePoint.Name;
 			Action = m_mizRoutePoint.Action;
 			AltitudeMeters = m_mizRoutePoint.Altitude;
+			SpeedMs = m_mizRoutePoint.Speed;
 			Type = m_mizRoutePoint.Type;
 			AirdromeId = m_mizRoutePoint.AirdromeId;
 			HelipadId = m_mizRoutePoint.HelipadId;
@@ -123,6 +127,31 @@ namespace DcsBriefop.DataBopMission
 			base.FinalizeFromMizInternal();
 
 			Coordinate = Theatre.GetCoordinate(m_mizRoutePoint.Y, m_mizRoutePoint.X);
+			m_magnetic = new CoordinateSharp.Magnetic.Magnetic(Coordinate, CoordinateSharp.Magnetic.DataModel.WMM2020);
+
+			if (Number > 0 && Name != ElementGlobalData.BullseyeRoutePointName)
+			{
+				BopRoutePoint rpPrevious = null;
+				bool bFound = false;
+				foreach (BopRoutePoint rp in m_bopGroup.RoutePoints.Where(_rp => _rp.Name != ElementGlobalData.BullseyeRoutePointName))
+				{
+					if (rp == this)
+					{
+						bFound = true;
+						break;
+					}
+					else
+					{
+						rpPrevious = rp;
+					}
+				}
+
+				if (bFound && rpPrevious is not null)
+				{
+					rpPrevious.FinalizeFromMiz();
+					m_distance = rpPrevious.Coordinate.Get_Distance_From_Coordinate(Coordinate);
+				}
+			}
 
 			foreach (BopRouteTask task in Tasks)
 				task.FinalizeFromMiz();
@@ -164,6 +193,33 @@ namespace DcsBriefop.DataBopMission
 			return ToolsMeasurement.AltitudeDisplay(altitudeMeters, measurementSystem);
 		}
 
+		public decimal? GetSpeed(ElementMeasurementSystem measurementSystem)
+		{
+			return ToolsMeasurement.SpeedDisplay(SpeedMs, measurementSystem);
+		}
+
+		public int? GetDistance(ElementMeasurementSystem measurementSystem)
+		{
+			FinalizeFromMiz();
+			if (m_distance is null)
+				return null;
+
+			return ToolsMeasurement.DistanceDisplay((int)m_distance.Meters, measurementSystem);
+		}
+
+		public decimal? GetTrack(bool bMagnetic)
+		{
+			FinalizeFromMiz();
+			if (m_distance is null)
+				return null;
+
+			decimal dTrack = (decimal)m_distance.Bearing;
+			if (bMagnetic)
+				dTrack += (decimal)m_magnetic.MagneticFieldElements.Declination;
+			
+			return ToolsCoordinate.NormalizeBearing(dTrack);
+		}
+
 		public IEnumerable<BopRouteTask> GetTasks(IEnumerable<string> sTaskIds, int? iUnitId)
 		{
 			return Tasks.Where(_t => _t.Enabled && sTaskIds.Contains(_t.Id) && _t.UnitId.GetValueOrDefault(0) == iUnitId.GetValueOrDefault(0));
@@ -186,51 +242,65 @@ namespace DcsBriefop.DataBopMission
 		}
 
 		public void SetYX(decimal dY, decimal dX)
-		{
+		{ // only used for Bullseye for now, so no need to recompute distances
 			m_mizRoutePoint.Y = dY;
 			m_mizRoutePoint.X = dX;
 			Coordinate = Theatre.GetCoordinate(m_mizRoutePoint.Y, m_mizRoutePoint.X);
 		}
-
-		public Distance GetRouteSegmentFromPrevious()
-		{
-			BopRoutePoint rpPrevious = null;
-			bool bFound = false;
-			foreach (BopRoutePoint rp in m_bopGroup.RoutePoints.Where(_rp => _rp.Name != ElementGlobalData.BullseyeRoutePointName))
-			{
-				if (rp == this)
-				{
-					bFound = true;
-					break;
-				}
-				else
-				{
-					rpPrevious = rp;
-				}
-			}
-
-			if (bFound && rpPrevious is not null)
-			{
-				return GetRouteSegment(rpPrevious, this);
-			}
-			else
-			{
-				return null;
-			}
-		}
-
-		public static Distance GetRouteSegment(BopRoutePoint rpFrom, BopRoutePoint rpTo)
-		{
-			//GlobalSettings.Default_EagerLoad = new EagerLoad(EagerLoadType.UTM_MGRS);
-
-			Coordinate cFrom = rpFrom.Coordinate;
-			Coordinate cTo = rpTo.Coordinate;
-
-			Magnetic m = new Magnetic(cFrom, DataModel.WMM2020);
-
-			return cTo.Get_Distance_From_Coordinate(cFrom);
-		}
-
 		#endregion
 	}
+
+	//internal class BopRouteSegment
+	//{
+	//	#region Fields
+	//	private Coordinate m_coordinateFrom;
+	//	private Coordinate m_coordinateTo;
+	//	private Distance m_distance;
+	//	private Magnetic m_magnetic;
+	//	#endregion
+
+	//	#region Properties
+	//	public decimal TrackTrue { get { return ToolsCoordinate.NormalizeBearing((decimal)m_distance.Bearing); }	}
+	//	public decimal TrackMagnetic { get { return ToolsCoordinate.NormalizeBearing((decimal)(m_distance.Bearing + m_magnetic.MagneticFieldElements.Declination)); }	}
+	//	public decimal SpeedMs { get; set; }
+	//	public decimal AltitudeMeters { get; set; }
+	//	public int DistanceMeters { get { return (int)m_distance.Meters; } }
+	//	#endregion
+
+	//	#region CTOR
+	//	public BopRouteSegment(BopRoutePoint rpFrom, BopRoutePoint rpTo)
+	//	{
+	//		m_coordinateFrom = rpFrom.Coordinate;
+	//		m_coordinateTo = rpTo.Coordinate;
+	//		m_distance = m_coordinateFrom.Get_Distance_From_Coordinate(m_coordinateTo);
+	//		m_magnetic = new Magnetic(m_coordinateFrom, DataModel.WMM2020);
+	//		AltitudeMeters = rpTo.AltitudeCustomMeters ?? rpTo.AltitudeMeters;
+	//		SpeedMs = rpTo.SpeedMs;
+	//	}
+	//	#endregion
+
+	//	#region Methods
+	//	public override string ToString()
+	//	{
+	//		StringBuilder sb = new();
+	//		sb.AppendWithSeparator($"{TrackTrue:000}°T {TrackMagnetic:000}°M", " - ");
+	//		sb.AppendWithSeparator($"{ToolsMeasurement.DistanceDisplay(DistanceMeters, PreferencesManager.Preferences.Briefing.MeasurementSystem):0}{ ToolsMeasurement.DistanceUnit(PreferencesManager.Preferences.Briefing.MeasurementSystem)}", " - ");
+	//		sb.AppendWithSeparator($"{GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}{ToolsMeasurement.AltitudeUnit(PreferencesManager.Preferences.Briefing.MeasurementSystem)}", " - ");
+	//		sb.AppendWithSeparator($"{GetSpeed(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}{ToolsMeasurement.SpeedUnit(PreferencesManager.Preferences.Briefing.MeasurementSystem)}", " - ");
+
+	//		return sb.ToString();
+	//	}
+
+	//	public decimal? GetAltitude(ElementMeasurementSystem measurementSystem)
+	//	{
+	//		return ToolsMeasurement.AltitudeDisplay(AltitudeMeters, measurementSystem);
+	//	}
+
+	//	public decimal? GetSpeed(ElementMeasurementSystem measurementSystem)
+	//	{
+	//		return ToolsMeasurement.SpeedDisplay(SpeedMs, measurementSystem);
+	//	}
+	//	#endregion
+
+	//}
 }
