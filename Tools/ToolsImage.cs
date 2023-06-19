@@ -211,8 +211,16 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region Draw
-		public static void DrawString(Graphics g, PointF position, string sString, Font font, Color color, bool bDrawShadow)
+		public static void DrawString(Graphics g, PointF position, string sString, Font font, SizeF textSize, Color color, bool bDrawShadow, Color backColor)
 		{
+			if (backColor != Color.Empty)
+			{
+				using (Brush brushFill = new SolidBrush(backColor))
+				{
+					g.FillRectangle(brushFill, position.X, position.Y, textSize.Width, textSize.Height);
+				}
+			}
+
 			if (bDrawShadow)
 			{
 				using (Brush shadowBrush = new SolidBrush(Color.FromArgb(120, Color.Black)))
@@ -227,15 +235,14 @@ namespace DcsBriefop.Tools
 			}
 		}
 
-		public static void DrawStringAngledCentered(Graphics g, Point centerPosition, string sString, Font font, Color color, bool bDrawShadow, float fAngle, int iVerticalOffset)
+		public static void DrawStringAngledCentered(Graphics g, Point centerPosition, string sString, Font font, SizeF textSize, Color color, bool bDrawShadow, Color backColor, float fAngle, int iVerticalOffset)
 		{
 			GraphicsState state = g.Save();
 			g.TranslateTransform(centerPosition.X, centerPosition.Y);
 			if (fAngle != 0)
 				g.RotateTransform(fAngle);
 
-			SizeF textSize = g.MeasureString(sString, font);
-			DrawString(g, new PointF(-(textSize.Width / 2), iVerticalOffset), sString, font, color, bDrawShadow);
+			DrawString(g, new PointF(-(textSize.Width / 2), iVerticalOffset), sString, font, textSize, color, bDrawShadow, backColor);
 
 			g.Restore(state);
 		}

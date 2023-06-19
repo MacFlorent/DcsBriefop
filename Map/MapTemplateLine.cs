@@ -5,14 +5,14 @@ using System.Drawing.Drawing2D;
 
 namespace DcsBriefop.Map
 {
-	internal static class ElementMapTemplateRoute
+	internal static class ElementMapTemplateLine
 	{
 		public static string DashLine { get; set; } = "DashLine";
 		public static string DashDot { get; set; } = "DashDot";
 		public static string DashDash { get; set; } = "DashDash";
 	}
 
-	public class BopBriefingTemplate
+	public class MapTemplateLine
 	{
 		#region Fields
 		private static string m_directory = @".\routes";
@@ -42,10 +42,10 @@ namespace DcsBriefop.Map
 		#endregion
 
 		#region Static
-		private static readonly BopBriefingTemplate m_default;
-		private static Dictionary<string, BopBriefingTemplate> m_templatesList = new();
+		private static readonly MapTemplateLine m_default;
+		private static Dictionary<string, MapTemplateLine> m_templatesList = new();
 
-		static BopBriefingTemplate()
+		static MapTemplateLine()
 		{
 			ConfigMapTemplateRoutes config;
 
@@ -56,7 +56,7 @@ namespace DcsBriefop.Map
 			}
 			catch (Exception ex)
 			{
-				Log.Error("Route template config file cannot be loaded");
+				Log.Error("Line template config file cannot be loaded");
 				Log.Exception(ex);
 				config = null;
 			}
@@ -71,18 +71,18 @@ namespace DcsBriefop.Map
 				}
 			}
 
-			AddTemplate(NewTemplate(ElementMapTemplateRoute.DashLine, DashStyle.Solid));
-			AddTemplate(NewTemplate(ElementMapTemplateRoute.DashDot, DashStyle.Dot));
-			AddTemplate(NewTemplate(ElementMapTemplateRoute.DashDash, DashStyle.Dash));
+			AddTemplate(NewTemplate(ElementMapTemplateLine.DashLine, DashStyle.Solid));
+			AddTemplate(NewTemplate(ElementMapTemplateLine.DashDot, DashStyle.Dot));
+			AddTemplate(NewTemplate(ElementMapTemplateLine.DashDash, DashStyle.Dash));
 
-			m_default = GetTemplate(ElementMapTemplateRoute.DashLine);
+			m_default = GetTemplate(ElementMapTemplateLine.DashLine);
 		}
 
-		private static BopBriefingTemplate NewTemplateFromFile(string sTemplateString, ConfigMapTemplateRoutes config)
+		private static MapTemplateLine NewTemplateFromFile(string sTemplateString, ConfigMapTemplateRoutes config)
 		{
 			try
 			{
-				BopBriefingTemplate template = new BopBriefingTemplate();
+				MapTemplateLine template = new MapTemplateLine();
 				template.Name = Path.GetFileNameWithoutExtension(sTemplateString);
 				template.ImageName = sTemplateString;
 
@@ -97,22 +97,22 @@ namespace DcsBriefop.Map
 			}
 			catch (ExceptionBop ex)
 			{
-				Log.Error($"Route template {sTemplateString} was not added");
+				Log.Error($"Line template {sTemplateString} was not added");
 				Log.Exception(ex);
 				return null;
 			}
 		}
 
-		private static BopBriefingTemplate NewTemplate(string sTemplateString, DashStyle dashStyle)
+		private static MapTemplateLine NewTemplate(string sTemplateString, DashStyle dashStyle)
 		{
-			BopBriefingTemplate template = new BopBriefingTemplate();
+			MapTemplateLine template = new MapTemplateLine();
 			template.Name = sTemplateString;
 			template.DashOverride = dashStyle;
 
 			return template;
 		}
 
-		private static void AddTemplate(BopBriefingTemplate template)
+		private static void AddTemplate(MapTemplateLine template)
 		{
 			if (string.IsNullOrEmpty(template.Name) || m_templatesList.ContainsKey(template.Name))
 				return;
@@ -120,9 +120,9 @@ namespace DcsBriefop.Map
 			m_templatesList.Add(template.Name, template);
 		}
 
-		public static BopBriefingTemplate GetTemplate(string sTemplate)
+		public static MapTemplateLine GetTemplate(string sTemplate)
 		{
-			if (!m_templatesList.TryGetValue(sTemplate, out BopBriefingTemplate template))
+			if (!m_templatesList.TryGetValue(sTemplate, out MapTemplateLine template))
 			{
 				template = m_default;
 			}
@@ -130,9 +130,9 @@ namespace DcsBriefop.Map
 			return template;
 		}
 
-		public static BopBriefingTemplate GetTemplateFromDcsMizStyle(string sDcsMizStyle)
+		public static MapTemplateLine GetTemplateFromDcsMizStyle(string sDcsMizStyle)
 		{
-			BopBriefingTemplate template = m_templatesList.Values.Where(_t => string.Equals(_t.DcsMizStyle, sDcsMizStyle, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+			MapTemplateLine template = m_templatesList.Values.Where(_t => string.Equals(_t.DcsMizStyle, sDcsMizStyle, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 			if (template is null)
 				template = m_templatesList.Values.Where(_t => string.Equals(_t.Name, $"polyline_{sDcsMizStyle}", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 			if (template is null)

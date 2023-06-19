@@ -52,7 +52,7 @@ namespace DcsBriefop.Forms
 		{
 			m_mapControl.Overlays.Clear();
 			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayPosition());
-			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayRoute(null, ElementMapOverlayRouteDisplay.NoMarkerFirstPoint));
+			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayRoute(null, ElementMapOverlayRouteDisplay.NoMarkerFirstPoint, PreferencesManager.Preferences.Briefing.MeasurementSystem));
 
 			m_mapControl.Position = new PointLatLng(m_bopGroup.Coordinate.Latitude.DecimalDegree, m_bopGroup.Coordinate.Longitude.DecimalDegree);
 			m_mapControl.ForceRefresh();

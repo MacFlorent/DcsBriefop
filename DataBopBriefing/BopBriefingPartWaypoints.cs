@@ -16,7 +16,7 @@ namespace DcsBriefop.DataBopBriefing
 			public static readonly string Name = "Name";
 			public static readonly string Type = "Type";
 			public static readonly string Track = "Track°M";
-			public static readonly string Distance = "Distance";
+			public static readonly string Distance = "Dist.";
 			public static readonly string Altitude = "Altitude";
 			public static readonly string Speed = "Speed";
 			public static readonly string Task = "Task";
@@ -144,7 +144,7 @@ namespace DcsBriefop.DataBopBriefing
 		{
 			List<HtmlTag> tags = new List<HtmlTag>();
 			BopGroup bopGroup = bopManager.BopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
-
+			//https://www.html5canvastutorials.com/tutorials/html5-canvas-paths/
 			string sCanvasName = $"graphCanvas{Guid}";
 			HtmlTag tagCanvas = new HtmlTag("canvas")
 				.Attr("width", $"{bopBriefingFolder.ImageSize.Width}")
@@ -200,7 +200,7 @@ $$"""
 			if (bopGroup is not null)
 			{
 			bopGroup.FinalizeFromMiz();
-			partOverlays.Add(bopGroup.GetMapOverlayRoute(null, ElementMapOverlayRouteDisplay.PointLabelLight));
+			partOverlays.Add(bopGroup.GetMapOverlayRoute(null, ElementMapOverlayRouteDisplay.PointLabelLight, bopBriefingFolder.MeasurementSystem));
 			}
 
 			return partOverlays;

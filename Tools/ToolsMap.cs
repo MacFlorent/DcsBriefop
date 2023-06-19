@@ -155,8 +155,8 @@ namespace DcsBriefop.Tools
 				points.Add(p);
 			}
 
-			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), drawingObject.Thickness.GetValueOrDefault(5), bClosed);
-			overlay.Routes.Add(route);
+			GLineBriefop line = GLineBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), bClosed, ColorFromDcsString(drawingObject.FillColorString));
+			overlay.Routes.Add(line);
 		}
 
 		private static void AddMizDrawingObjectIcon(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
@@ -233,7 +233,7 @@ namespace DcsBriefop.Tools
 			coordinate = theatre.GetCoordinate(dYRotated, dXRotated);
 			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
-			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), drawingObject.Thickness.GetValueOrDefault(5), true);
+			GLineBriefop route = GLineBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), true, ColorFromDcsString(drawingObject.FillColorString));
 			overlay.Routes.Add(route);
 		}
 
@@ -266,7 +266,7 @@ namespace DcsBriefop.Tools
 				points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 			}
 
-			GRouteBriefop route = GRouteBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), drawingObject.Thickness.GetValueOrDefault(5), true);
+			GLineBriefop route = GLineBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), true, ColorFromDcsString(drawingObject.FillColorString));
 			overlay.Routes.Add(route);
 		}
 
@@ -382,7 +382,7 @@ namespace DcsBriefop.Tools
 					{
 						if (route.Points is object && route.Points.Count > 0)
 						{
-							if (route is GRouteBriefop routeBriefop)
+							if (route is GLineBriefop routeBriefop)
 							{
 								DrawRouteBriefop(gfx, mapProvider, iZoom, topLeft, routeBriefop);
 							}
@@ -453,7 +453,7 @@ namespace DcsBriefop.Tools
 			gfx.TranslateTransform(-topLeft.X, -topLeft.Y);
 		}
 
-		private static void DrawRouteBriefop(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GRouteBriefop routeBriefop)
+		private static void DrawRouteBriefop(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GLineBriefop routeBriefop)
 		{
 			List<GPoint> gPoints = new List<GPoint>();
 			foreach (PointLatLng routePoint in routeBriefop.Points)

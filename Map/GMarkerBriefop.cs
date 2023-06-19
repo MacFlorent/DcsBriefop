@@ -2,6 +2,7 @@
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.Serialization;
 
@@ -111,7 +112,8 @@ namespace DcsBriefop.Map
 			if (!string.IsNullOrEmpty(Label))
 			{
 				Point pointCenterString = new Point(0, Size.Height / 2);
-				ToolsImage.DrawStringAngledCentered(g, pointCenterString, Label, ElementMapValue.DefaultFont, TintColor.GetValueOrDefault(Color.Black), true, 0, 0);
+				SizeF textSize = g.MeasureString(Label, ElementMapValue.DefaultFont);
+				ToolsImage.DrawStringAngledCentered(g, pointCenterString, Label, ElementMapValue.DefaultFont, textSize, TintColor.GetValueOrDefault(Color.Black), true, Color.Empty, 0, 0);
 			}
 
 			if (IsSelected)
