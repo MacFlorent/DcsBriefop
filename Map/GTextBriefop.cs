@@ -66,7 +66,7 @@ namespace DcsBriefop.Map
 			Point pointBaseString = new Point((int)textSize.Width / 2, -(int)textSize.Height);
 			
 			g.FillRectangle(m_brushFill, targetRectangle);
-			ToolsImage.DrawStringAngledCentered(g, pointBaseString, Text, Font, textSize, ForeColor, false, Color.Empty, 0, 0);
+			ToolsImage.DrawStringAngledCentered(g, pointBaseString, Text, Font, textSize, ForeColor, false, 0, 0);
 			if (BorderThickness > 0)
 				g.DrawRectangle(m_penBorder, targetRectangle);
 

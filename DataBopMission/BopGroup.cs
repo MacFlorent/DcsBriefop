@@ -316,7 +316,7 @@ namespace DcsBriefop.DataBopMission
 				{
 					PointLatLng p = new PointLatLng(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
 					points.Add(p);
-					segmentLabels.Add($"{bopRoutePoint.GetTrack(true):000}° / {bopRoutePoint.GetDistance(measurementSystem):0}{ToolsMeasurement.DistanceUnit(measurementSystem)}");
+					segmentLabels.Add($"{bopRoutePoint.GetTrack(true):000}°/{bopRoutePoint.GetDistance(measurementSystem):0}{ToolsMeasurement.DistanceUnit(measurementSystem)}");
 				}
 
 				if (bopRoutePoint.Number > 0

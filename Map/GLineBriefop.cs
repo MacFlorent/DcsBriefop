@@ -13,16 +13,20 @@ namespace DcsBriefop.Map
 		#region Fields
 		private MapTemplateLine m_template;
 		private Bitmap m_bitmap;
-		
+
 		private Color m_lineColor;
 		private int m_iThickness;
+		private Brush m_brushLine;
 
-		private Color m_textColor;
+		private Brush m_brushText;
 		private string m_sText;
 		private List<string> m_segmentTexts;
+		private bool m_bPanelArrow;
 
 		private bool m_bClosed;
 		private Brush m_brushFill;
+
+		private Brush m_brushPanel;
 		#endregion
 
 		#region Properties
@@ -30,20 +34,21 @@ namespace DcsBriefop.Map
 
 		#region CTOR
 		private GLineBriefop(List<PointLatLng> points, string sName, MapTemplateLine template,
-			Color lineColor, int iThickness, 
-			Color textColor, string sText, List<string> segmentTexts,
+			Color lineColor, int iThickness,
+			Color textColor, string sText, List<string> segmentTexts, bool bPanelArrow,
 			bool bClosed, Color fillColor)
 			: base(points, sName)
 		{
 			m_template = template;
 			m_lineColor = lineColor;
+			m_brushLine = new SolidBrush(lineColor);
 			m_iThickness = iThickness;
 			if (m_template.ThicknessCorrection is not null)
 			{
 				m_iThickness = (int)(m_iThickness * m_template.ThicknessCorrection.Value);
 			}
 
-			m_textColor = textColor;
+			m_brushText = new SolidBrush(textColor);
 			m_sText = sText;
 			m_segmentTexts = segmentTexts;
 
@@ -52,6 +57,8 @@ namespace DcsBriefop.Map
 				m_brushFill = new SolidBrush(fillColor);
 			else
 				m_brushFill = null;
+
+			m_brushPanel = new SolidBrush(Color.White);
 
 			LoadBitmap();
 
@@ -62,19 +69,19 @@ namespace DcsBriefop.Map
 		public static GLineBriefop NewLineFromTemplateName(List<PointLatLng> points, string sName, string sTemplateName, Color lineColor, int iThickness, Color textColor, string sText)
 		{
 			MapTemplateLine template = MapTemplateLine.GetTemplate(sTemplateName);
-			return new GLineBriefop(points, sName, template, lineColor, iThickness, textColor, sText, null, false, Color.Empty);
+			return new GLineBriefop(points, sName, template, lineColor, iThickness, textColor, sText, null, false, false, Color.Empty);
 		}
 
 		public static GLineBriefop NewRouteFromTemplateName(List<PointLatLng> points, string sName, string sTemplateName, Color lineColor, int iThickness, Color textColor, List<string> m_segmentTexts)
 		{
 			MapTemplateLine template = MapTemplateLine.GetTemplate(sTemplateName);
-			return new GLineBriefop(points, sName, template, lineColor, iThickness, textColor, null, m_segmentTexts, false, Color.Empty);
+			return new GLineBriefop(points, sName, template, lineColor, iThickness, textColor, null, m_segmentTexts, true, false, Color.Empty);
 		}
 
 		public static GLineBriefop NewFromMizStyleName(List<PointLatLng> points, string sName, string sMizStyleName, Color lineColor, int iThickness, bool bClosed, Color fillColor)
 		{
 			MapTemplateLine template = MapTemplateLine.GetTemplateFromDcsMizStyle(sMizStyleName);
-			return new GLineBriefop(points, sName, template, lineColor, iThickness, Color.Empty, null, null, bClosed, fillColor);
+			return new GLineBriefop(points, sName, template, lineColor, iThickness, Color.Empty, null, null, false, bClosed, fillColor);
 		}
 
 		#endregion
@@ -138,6 +145,74 @@ namespace DcsBriefop.Map
 			}
 		}
 
+		private void DrawPanel(Graphics g, Point pointStart, Point pointEnd, string sText)
+		{
+			GraphicsState state;
+			Font font = ElementMapValue.DefaultFont;
+			int iMargin = 5;
+
+			int iSegmentLength = (int)ComputePointDistance(pointStart, pointEnd);
+			int iPanelHeight = (int)font.GetHeight();
+			int iArrowLength = m_bPanelArrow ? iPanelHeight : 0;
+			int iTextLength = 0;
+			if (!string.IsNullOrEmpty(sText))
+				iTextLength = (int)g.MeasureString(sText, font).Width;
+
+			int iFullLength = iTextLength + iArrowLength;
+			if (iFullLength + iMargin > iSegmentLength)
+			{
+				iTextLength = 0;
+				iFullLength = iArrowLength;
+			}
+
+			if (iTextLength <= 0 && iArrowLength <= 0)
+				return;
+
+			Point pointCenter = new(pointStart.X + (pointEnd.X - pointStart.X) / 2, pointStart.Y + (pointEnd.Y - pointStart.Y) / 2);
+			double dAngleRad = ComputeAngleRad(pointStart, pointEnd);
+			float fAngleSegment = (float)(dAngleRad * 180 / Math.PI);
+
+			// panel background
+			state = g.Save();
+
+			g.TranslateTransform(pointCenter.X, pointCenter.Y);
+			if (fAngleSegment != 0)
+				g.RotateTransform(fAngleSegment);
+
+			Point[] pointList = new Point[m_bPanelArrow ? 5 : 4];
+			int i = -1;
+			pointList[++i] = new Point(-iTextLength / 2, iPanelHeight / 2); // bottom left
+			pointList[++i] = new Point(-iTextLength / 2, -iPanelHeight / 2); // top left
+			pointList[++i] = new Point(iTextLength / 2, -iPanelHeight / 2); // top right
+			if (m_bPanelArrow)
+				pointList[++i] = new Point(iTextLength / 2 + iPanelHeight, 0); // arrow point
+			pointList[++i] = new Point(iTextLength / 2, iPanelHeight / 2); // bottom right
+
+			g.FillPolygon(m_brushPanel, pointList);
+			g.DrawPolygon(new Pen(m_brushText), pointList);
+
+			g.Restore(state);
+
+			// text
+			if (iTextLength > 0)
+			{
+				float fAngleText = fAngleSegment;
+				if (fAngleText < -90)
+					fAngleText += 180;
+				else if (fAngleText > 90)
+					fAngleText -= 180;
+
+				state = g.Save();
+				g.TranslateTransform(pointCenter.X, pointCenter.Y);
+				if (fAngleText != 0)
+					g.RotateTransform(fAngleText);
+
+				g.DrawString(sText, ElementMapValue.DefaultFont, m_brushText, -(iTextLength / 2), -(iPanelHeight / 2));
+
+				g.Restore(state);
+			}
+		}
+
 		private void DrawSegment(Graphics g, Point pointStart, Point pointEnd, string sText)
 		{
 			//g.DrawString("*", m_font, Brushes.Red, pointStart.X, pointStart.Y);
@@ -153,41 +228,33 @@ namespace DcsBriefop.Map
 			if (string.IsNullOrEmpty(sFinalText))
 				sFinalText = m_sText;
 
-			if (!string.IsNullOrEmpty(sFinalText))
-			{
-				DrawStringAngledCentered(g, pointStart, pointEnd, sFinalText);
-			}
+			DrawPanel(g, pointStart, pointEnd, sFinalText);
 		}
 
 		private void DrawSegmentDash(Graphics g, Point pointStart, Point pointEnd)
 		{
 			g.DrawLine(Stroke, pointStart, pointEnd);
+
 		}
+		//private void DrawStringAngledCentered(Graphics g, Point pointStart, Point pointEnd, Point pointCenter, string sText)
+		//{
+		//	double dAngleRad = ComputeAngleRad(pointStart, pointEnd);
+		//	float fAngle = (float)(dAngleRad * 180 / Math.PI);
+		//	if (fAngle < -90)
+		//		fAngle += 180;
+		//	else if (fAngle > 90)
+		//		fAngle -= 180;
+		//	double dLength = ComputePointDistance(pointStart, pointEnd);
 
-		private void DrawStringAngledCentered(Graphics g, Point pointStart, Point pointEnd, string sText)
-		{
-			double dAngleRad = ComputeAngleRad(pointStart, pointEnd);
-			float fAngle = (float)(dAngleRad * 180 / Math.PI);
+		//	SizeF textSize = g.MeasureString(sText, ElementMapValue.DefaultFont);
+		//	if (textSize.Width > dLength)
+		//	{
+		//		//string[] sSplit = sText.Split(" ");
+		//		return;
+		//	}
 
-			if (fAngle < -90)
-				fAngle += 180;
-			else if (fAngle > 90)
-				fAngle -= 180;
-
-			//sText = $"{fAngle}";
-
-			Point pointCenter = new Point(pointStart.X + (pointEnd.X - pointStart.X) / 2, pointStart.Y + (pointEnd.Y - pointStart.Y) / 2);
-			double dLength = ComputePointDistance(pointStart, pointEnd);
-			
-			SizeF textSize = g.MeasureString(sText, ElementMapValue.DefaultFont);
-			if (textSize.Width > dLength)
-			{
-				//string[] sSplit = sText.Split(" ");
-				return;
-			}
-
-			ToolsImage.DrawStringAngledCentered(g, pointCenter, sText, ElementMapValue.DefaultFont, textSize, m_textColor, false, Color.White, fAngle, -ElementMapValue.DefaultFont.Height / 2);
-		}
+		//	ToolsImage.DrawStringAngledCentered(g, pointCenter, sText, ElementMapValue.DefaultFont, textSize, m_textColor, false, Color.White, fAngle, -ElementMapValue.DefaultFont.Height / 2);
+		//}
 
 
 		private void DrawSegmentBitmap(Graphics g, Point pointStart, Point pointEnd)
@@ -315,6 +382,7 @@ namespace DcsBriefop.Map
 			base.Dispose();
 			m_bitmap?.Dispose();
 			m_brushFill?.Dispose();
+			m_brushLine?.Dispose();
 		}
 		#endregion
 	}
