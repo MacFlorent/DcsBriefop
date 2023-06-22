@@ -51,6 +51,7 @@ namespace DcsBriefop.Map
 			m_brushText = new SolidBrush(textColor);
 			m_sText = sText;
 			m_segmentTexts = segmentTexts;
+			m_bPanelArrow = bPanelArrow;
 
 			m_bClosed = bClosed;
 			if (fillColor != Color.Empty)
