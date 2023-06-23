@@ -4,6 +4,7 @@ using DcsBriefop.Tools;
 using GMap.NET.WindowsForms;
 using HtmlTags;
 using System.Text;
+using System.Xml.Linq;
 
 namespace DcsBriefop.DataBopBriefing
 {
@@ -123,7 +124,10 @@ namespace DcsBriefop.DataBopBriefing
 						else if (sColumn == TableColumns.Altitude)
 							tagTr.Add("td").AppendText($"{bopRoutePoint.GetAltitude(bopBriefingFolder.MeasurementSystem):0}");
 						else if (sColumn == TableColumns.Speed)
-							tagTr.Add("td").AppendText($"{bopRoutePoint.GetSpeed(bopBriefingFolder.MeasurementSystem):0}");
+						{
+							string sSpeeds = $"{bopRoutePoint.GetSpeedCalibrated(PreferencesManager.Preferences.Briefing.MeasurementSystem):0} CAS / {bopRoutePoint.GetSpeedMach():0.00} M";
+							tagTr.Add("td").AppendText(sSpeeds);
+						}
 						else if (sColumn == TableColumns.Task)
 							tagTr.Add("td").AppendText(bopRoutePoint.Tasks.FirstOrDefault()?.ToStringDisplayName());
 						else if (sColumn == TableColumns.Notes)
@@ -131,7 +135,6 @@ namespace DcsBriefop.DataBopBriefing
 					}
 				}
 			}
-
 			tags.Add(tagTable);
 
 			if (DisplayGraph && bopRoutePoints is not null)

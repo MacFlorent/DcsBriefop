@@ -6,7 +6,7 @@
     },
     "DcsBriefop App": {
       "commandName": "Project",
-      "commandLineArgs": "-l INFO"
+      "commandLineArgs": "-l INFO --debug"
     }
   }
 }

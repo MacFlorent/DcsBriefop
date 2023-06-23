@@ -9,6 +9,8 @@ namespace DcsBriefop.Tools
 	{
 		[Option('l', "loglevel", Required = false, HelpText = "Override logging level for log4net")]
 		public string LogLevel { get; set; }
+		[Option('d', "debug", Required = false, HelpText = "Debug mode")]
+		public bool Debug { get; set; }
 	}
 
 	[Verb("app", isDefault:true, HelpText = "Launch the windows application")]
@@ -47,6 +49,8 @@ namespace DcsBriefop.Tools
 		{
 			if (!string.IsNullOrEmpty(o.LogLevel))
 				Log.LogLevel = o.LogLevel;
+			
+			Globals.Debug = o.Debug;
 		}
 
 		private static void ApplyOptionsApp(OptionsApp o)

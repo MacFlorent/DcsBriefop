@@ -16,8 +16,7 @@ namespace DcsBriefop.Forms
 			public static readonly string Action = "Action";
 			public static readonly string Altitude = "Altitude";
 			public static readonly string Distance = "Distance";
-			public static readonly string TrackM = "Track°M";
-			public static readonly string TrackT = "Track°T";
+			public static readonly string Track = "Track";
 			public static readonly string Speed = "Speed";
 
 		}
@@ -44,8 +43,7 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Action, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Altitude, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Distance, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.TrackM, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.TrackT, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.Track, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Speed, typeof(string));
 		}
 
@@ -59,9 +57,16 @@ namespace DcsBriefop.Forms
 			dr.SetField(GridColumn.Action, element.Action);
 			dr.SetField(GridColumn.Altitude, $"{element.GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}");
 			dr.SetField(GridColumn.Distance, $"{element.GetDistance(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}");
-			dr.SetField(GridColumn.TrackM, $"{element.GetTrack(true):000}");
-			dr.SetField(GridColumn.TrackT, $"{element.GetTrack(false):000}");
-			dr.SetField(GridColumn.Speed, $"{element.GetSpeed(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}");
+
+			double? dTrackTrue = element.GetTrack(false);
+			double? dTrackMagnetic = element.GetTrack(true);
+			string sTracks = "";
+			if (dTrackTrue is not null && dTrackMagnetic is not null)
+				sTracks = $"{element.GetTrack(true):000}°M / {element.GetTrack(false):000}°T";
+			dr.SetField(GridColumn.Track, sTracks);
+
+			string sSpeeds = $"{element.GetSpeedTrue(PreferencesManager.Preferences.Briefing.MeasurementSystem):0} TAS / {element.GetSpeedCalibrated(PreferencesManager.Preferences.Briefing.MeasurementSystem):0} CAS / {element.GetSpeedMach():0.00} M";
+			dr.SetField(GridColumn.Speed, sSpeeds);
 		}
 
 		protected override void PostInitializeColumns()

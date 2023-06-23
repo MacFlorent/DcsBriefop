@@ -195,11 +195,29 @@ namespace DcsBriefop.DataBopMission
 			return ToolsMeasurement.AltitudeDisplay(altitudeMeters, measurementSystem);
 		}
 
-		public double? GetSpeed(ElementMeasurementSystem measurementSystem)
+		private ComputedSpeeds GetSpeeds()
 		{
-			double dSpeedKt = UnitConverter.Convert(SpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.Knot);
-			Speeds speeds = ToolsSpeeds.ConvertTrueAirSpeed(dSpeedKt, AltitudeMeters, 15);
+			double altitudeMeters = AltitudeCustomMeters ?? AltitudeMeters;
+			double dSpeedKnots = UnitConverter.Convert(SpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.Knot);
+			return ToolsSpeeds.ConvertTrueAirSpeed(dSpeedKnots, altitudeMeters);
+		}
+
+		public double? GetSpeedTrue(ElementMeasurementSystem measurementSystem)
+		{
 			return ToolsMeasurement.SpeedDisplay(SpeedMs, measurementSystem);
+		}
+
+		public double? GetSpeedCalibrated(ElementMeasurementSystem measurementSystem)
+		{
+			ComputedSpeeds computedSpeeds = GetSpeeds();
+			double dSpeedMs = computedSpeeds.IAS_ms;
+			return ToolsMeasurement.SpeedDisplay(dSpeedMs, measurementSystem);
+		}
+
+		public double? GetSpeedMach()
+		{
+			ComputedSpeeds computedSpeeds = GetSpeeds();
+			return computedSpeeds.Mach;
 		}
 
 		public int? GetDistance(ElementMeasurementSystem measurementSystem)
@@ -211,15 +229,15 @@ namespace DcsBriefop.DataBopMission
 			return ToolsMeasurement.DistanceDisplay((int)m_distance.Meters, measurementSystem);
 		}
 
-		public decimal? GetTrack(bool bMagnetic)
+		public double? GetTrack(bool bMagnetic)
 		{
 			FinalizeFromMiz();
 			if (m_distance is null)
 				return null;
 
-			decimal dTrack = (decimal)m_distance.Bearing;
+			double dTrack = m_distance.Bearing;
 			if (bMagnetic)
-				dTrack += (decimal)m_magnetic.MagneticFieldElements.Declination;
+				dTrack += m_magnetic.MagneticFieldElements.Declination;
 			
 			return ToolsCoordinate.NormalizeBearing(dTrack);
 		}

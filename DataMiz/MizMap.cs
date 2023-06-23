@@ -11,17 +11,17 @@ namespace DcsBriefop.DataMiz
 			public static readonly string Zoom = "zoom";
 		}
 
-		public decimal CenterY { get; set; }
-		public decimal CenterX { get; set; }
-		public decimal Zoom { get; set; }
+		public double CenterY { get; set; }
+		public double CenterX { get; set; }
+		public double Zoom { get; set; }
 
 		public MizMap(LsonDict lsd) : base(lsd) { }
 		
 		public override void FromLua()
 		{
-			CenterY = Lsd[LuaNode.CenterY].GetDecimal();
-			CenterX = Lsd[LuaNode.CenterX].GetDecimal();
-			Zoom = Lsd[LuaNode.Zoom].GetDecimal();
+			CenterY = Lsd[LuaNode.CenterY].GetDouble();
+			CenterX = Lsd[LuaNode.CenterX].GetDouble();
+			Zoom = Lsd[LuaNode.Zoom].GetDouble();
 		}
 
 		public override void ToLua()

@@ -15,8 +15,8 @@ namespace DcsBriefop.DataMiz
 
 		public int Id { get; set; }
 		public string Callsign { get; set; }
-		public decimal Y { get; set; }
-		public decimal X { get; set; }
+		public double Y { get; set; }
+		public double X { get; set; }
 		public string Comment { get; set; }
 
 		public MizInitialPoint(LsonDict lsd) : base(lsd) { }
@@ -25,8 +25,8 @@ namespace DcsBriefop.DataMiz
 		{
 			Id = Lsd[LuaNode.Id].GetInt();
 			Callsign = Lsd[LuaNode.Callsign].GetString();
-			Y = Lsd[LuaNode.Y].GetDecimal();
-			X = Lsd[LuaNode.X].GetDecimal();
+			Y = Lsd[LuaNode.Y].GetDouble();
+			X = Lsd[LuaNode.X].GetDouble();
 			Comment = Lsd[LuaNode.Comment].GetString();
 		}
 

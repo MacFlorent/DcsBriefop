@@ -15,7 +15,7 @@ namespace DcsBriefop.DataMiz
 		}
 
 		public int[] Modulations { get; set; }
-		public decimal[] Channels { get; set; }
+		public double[] Channels { get; set; }
 
 		public MizRadio(LsonDict lsd) : base(lsd) { }
 
@@ -31,7 +31,7 @@ namespace DcsBriefop.DataMiz
 				iLast = iLastModulation;
 
 			int iCount = iLast + 1; // add 1 to account for the lua 1 starting index. First slot in the arrays will remain empty.
-			Channels = new decimal[iCount];
+			Channels = new double[iCount];
 			Modulations = new int[iCount];
 
 			for (int i = 0; i < iCount; i++)
@@ -44,7 +44,7 @@ namespace DcsBriefop.DataMiz
 			{
 				foreach (KeyValuePair<LsonValue, LsonValue> kvp in lsdChannels)
 				{
-					Channels[kvp.Key.GetInt()] = kvp.Value.GetDecimal();
+					Channels[kvp.Key.GetInt()] = kvp.Value.GetDouble();
 				}
 			}
 

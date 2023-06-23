@@ -1,12 +1,11 @@
-﻿using Microsoft.VisualBasic.Devices;
-using System;
-using UnitsNet;
-
-namespace DcsBriefop.Tools
+﻿namespace DcsBriefop.Tools
 {
 	internal static class ToolsSpeeds
 	{
-		public class Speeds
+		// this is taken from Rex excellent code in the VEAF mission tools
+		// https://github.com/VEAF/VEAF-Mission-Creation-Tools/blob/master/src/scripts/veaf/veaf.lua
+		
+		public class ComputedSpeeds
 		{
 			public double KTAS;
 			public double TAS_ms;
@@ -15,24 +14,24 @@ namespace DcsBriefop.Tools
 			public double Mach;
 		}
 
-		public static Speeds ConvertMachSpeed(double dMach, double dAltitudeMeters, double dTemperatureCelsius)
+		public static ComputedSpeeds ConvertMachSpeed(double dMach, double dAltitudeMeters)
 		{
-			return ConvertSpeeds(dMach, null, null, dAltitudeMeters, dTemperatureCelsius, null);
+			return ConvertSpeeds(dMach, null, null, dAltitudeMeters, null, null);
 		}
 
-		public static Speeds ConvertTrueAirSpeed(double dKtas, double dAltitudeMeters, double dTemperatureCelsius)
+		public static ComputedSpeeds ConvertTrueAirSpeed(double dKtas, double dAltitudeMeters)
 		{
-			return ConvertSpeeds(null, null, dKtas, dAltitudeMeters, dTemperatureCelsius, null);
+			return ConvertSpeeds(null, null, dKtas, dAltitudeMeters, null, null);
 		}
 
-		public static Speeds ConvertIndicatedAirSpeed(double dKias, double dAltitudeMeters, double dTemperatureCelsius)
+		public static ComputedSpeeds ConvertIndicatedAirSpeed(double dKias, double dAltitudeMeters)
 		{
-			return ConvertSpeeds(null, dKias, null, dAltitudeMeters, dTemperatureCelsius, null);
+			return ConvertSpeeds(null, dKias, null, dAltitudeMeters, null, null);
 		}
 
-		public static Speeds ConvertSpeeds(double? dMach, double? dKias, double? dKtas, double dAltitudeMeters, double? dTemperatureCelsius, double? dPressurePa)
+		private static ComputedSpeeds ConvertSpeeds(double? dMach, double? dKias, double? dKtas, double dAltitudeMeters, double? dTemperatureCelsius, double? dPressurePa)
 		{
-			Speeds result = new Speeds();
+			ComputedSpeeds result = new ComputedSpeeds();
 
 			double h_tropopause = 11000; //m, tropopause start altitude <
 
@@ -64,7 +63,7 @@ namespace DcsBriefop.Tools
 
 			double P_troposphere(double dTemperatureKelvin)
 			{
-				return Math.Pow(P0 * (1 + (dTemperatureKelvin - T0) / T0), -g / (r * Tz));
+				return P0 * Math.Pow((1 + (dTemperatureKelvin - T0) / T0), -g / (r * Tz));
 			}
 
 			double dFinalPressurePa;
@@ -91,7 +90,7 @@ namespace DcsBriefop.Tools
 			//@return number returns the ratio deltaP / P(DPP)(what a pitot tube would measure for M < 1)
 			double isentropicDPP(double mach)
 			{
-				return Math.Pow(1 + (Gamma - 1) * Math.Pow(mach, 2) / 2, B - 1);
+				return Math.Pow(1 + (Gamma - 1) * Math.Pow(mach, 2) / 2, B) - 1;
 			}
 
 			// - @param mach number mach number to calculate(Pt-Ps)/ Ps after a normal shock(M> 1) (NOTE: (Pt - Ps) = deltaP)

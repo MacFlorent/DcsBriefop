@@ -6,7 +6,7 @@ namespace DcsBriefop.Forms
 	internal partial class FrmMain : Form
 	{
 		#region Fields
-		public  BriefopManager m_briefopManager; // TODO
+		private BriefopManager m_briefopManager;
 		private UcNoFile m_ucNoFile;
 		private UcBriefop m_ucBriefop;
 		#endregion
@@ -113,6 +113,12 @@ namespace DcsBriefop.Forms
 			}
 		}
 
+		private void OpenDebug()
+		{
+			using FrmDebug f = new FrmDebug();
+			f.ShowDialog();
+		}
+
 		private void OpenDcsObjects()
 		{
 			using FrmDcsObjects f = new FrmDcsObjects();
@@ -168,7 +174,16 @@ namespace DcsBriefop.Forms
 			StatusStrip.Items.Clear();
 			StatusStrip.Items.Add(fvi.FileDescription);
 			StatusStrip.Items.Add(fvi.FileVersion);
-			if (m_briefopManager is object)
+
+			if (Globals.Debug)
+			{
+				ToolStripStatusLabel label = new ToolStripStatusLabel();
+				label.Text = "DEBUG MODE";
+				label.ForeColor = System.Drawing.Color.Blue;
+				StatusStrip.Items.Add(label);
+			}
+
+			if (m_briefopManager is not null)
 				StatusStrip.Items.Add(m_briefopManager.MizFilePath);
 		}
 		#endregion
@@ -204,6 +219,13 @@ namespace DcsBriefop.Forms
 			MainMenu.Items.Add(tsmiTools);
 			tsmiTools.DropDownItems.AddMenuItem("Preferences", (object _sender, EventArgs _e) => { OpenPreferences(); });
 			tsmiTools.DropDownItems.AddMenuItem("DCS objects", (object _sender, EventArgs _e) => { OpenDcsObjects(); });
+
+			if (Globals.Debug)
+			{
+				ToolStripMenuItem tsmiDebug = MainMenu.Items.AddMenuItem("DEBUG", null);
+				MainMenu.Items.Add(tsmiDebug);
+				tsmiDebug.DropDownItems.AddMenuItem("Debug screen", (object _sender, EventArgs _e) => { OpenDebug(); });
+			}
 		}
 		#endregion
 
