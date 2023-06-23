@@ -148,8 +148,8 @@ namespace DcsBriefop.Tools
 			List<PointLatLng> points = new List<PointLatLng>();
 			foreach (MizDrawingPoint point in drawingObject.Points)
 			{
-				decimal dY = drawingObject.MapY + point.Y;
-				decimal dX = drawingObject.MapX + point.X;
+				double dY = drawingObject.MapY + point.Y;
+				double dX = drawingObject.MapX + point.X;
 				Coordinate coordinate = theatre.GetCoordinate(dY, dX);
 				PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
 				points.Add(p);
@@ -201,12 +201,12 @@ namespace DcsBriefop.Tools
 
 		private static void AddMizDrawingObjectRectangle(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
 		{
-			decimal dHalfWidth = drawingObject.Width.GetValueOrDefault() / 2;
-			decimal dHalfHeight = drawingObject.Height.GetValueOrDefault() / 2;
+			double dHalfWidth = drawingObject.Width.GetValueOrDefault() / 2;
+			double dHalfHeight = drawingObject.Height.GetValueOrDefault() / 2;
 
 			List<PointLatLng> points = new List<PointLatLng>();
 
-			decimal dY, dX, dYRotated, dXRotated;
+			double dY, dX, dYRotated, dXRotated;
 			Coordinate coordinate;
 
 			dY = drawingObject.MapY - dHalfWidth;
@@ -261,7 +261,7 @@ namespace DcsBriefop.Tools
 			{
 				double dY = dCenterY + dSquashRatio * dRadius * Math.Cos(dAngle);
 				double dX = dCenterX - dRadius * Math.Sin(dAngle);    //note 2.
-				RotateDcsYX(out decimal dYRotated, out decimal dXRotated, (decimal)dY, (decimal)dX, (decimal)dCenterY, (decimal)dCenterX, drawingObject.Angle);
+				RotateDcsYX(out double dYRotated, out double dXRotated, dY, dX, dCenterY, dCenterX, drawingObject.Angle);
 				Coordinate coordinate = theatre.GetCoordinate(dYRotated, dXRotated);
 				points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 			}
@@ -270,10 +270,10 @@ namespace DcsBriefop.Tools
 			overlay.Routes.Add(route);
 		}
 
-		private static void RotateDcsYX(out decimal dRotatedY, out decimal dRotatedX, decimal dY, decimal dX, decimal dCenterY, decimal dCenterX, decimal? dAngleDegrees)
+		private static void RotateDcsYX(out double dRotatedY, out double dRotatedX, double dY, double dX, double dCenterY, double dCenterX, double? dAngleDegrees)
 		{
 			//https://stackoverflow.com/questions/13695317/rotate-a-point-around-another-point
-			double dAngleRadians = -(double)dAngleDegrees.GetValueOrDefault() * (Math.PI / 180);
+			double dAngleRadians = -dAngleDegrees.GetValueOrDefault() * (Math.PI / 180);
 			if (dAngleRadians == 0)
 			{
 				dRotatedY = dY;
@@ -281,8 +281,8 @@ namespace DcsBriefop.Tools
 			}
 			else
 			{
-				decimal dCosTheta = (decimal)Math.Cos(dAngleRadians);
-				decimal dSinTheta = (decimal)Math.Sin(dAngleRadians);
+				double dCosTheta = Math.Cos(dAngleRadians);
+				double dSinTheta = Math.Sin(dAngleRadians);
 
 				dRotatedY = (dCosTheta * (dY - dCenterY) - dSinTheta * (dX - dCenterX) + dCenterY);
 				dRotatedX = (dSinTheta * (dY - dCenterY) + dCosTheta * (dX - dCenterX) + dCenterX);

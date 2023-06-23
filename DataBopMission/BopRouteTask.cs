@@ -57,8 +57,8 @@ namespace DcsBriefop.DataBopMission
 	{
 		#region Properties
 		public string Pattern { get; set; }
-		public decimal? AltitudeMeters { get; set; }
-		public decimal? SpeedMs { get; set; }
+		public double? AltitudeMeters { get; set; }
+		public double? SpeedMs { get; set; }
 		#endregion
 
 		#region CTOR
@@ -90,8 +90,8 @@ namespace DcsBriefop.DataBopMission
 				sb.AppendWithSeparator($"Pattern:{Pattern}", " ");
 			if (AltitudeMeters is not null)
 			{
-				int iAltitude = Convert.ToInt32(ToolsMeasurement.AltitudeDisplay(AltitudeMeters.Value, measurementSystem));
-				sb.AppendWithSeparator($"Altitude:{iAltitude:0} {ToolsMeasurement.AltitudeUnit(measurementSystem)}", " ");
+				double dAltitude = ToolsMeasurement.AltitudeDisplay(AltitudeMeters.Value, measurementSystem);
+				sb.AppendWithSeparator($"Altitude:{dAltitude:0} {ToolsMeasurement.AltitudeUnit(measurementSystem)}", " ");
 			}
 			if (SpeedMs is object)
 			{
@@ -287,7 +287,7 @@ namespace DcsBriefop.DataBopMission
 	internal class BopRouteTaskLink4 : BopRouteTask
 	{
 		#region Properties
-		public decimal? Link4 { get; set; }
+		public double? Link4 { get; set; }
 		#endregion
 
 		#region CTOR
@@ -299,7 +299,7 @@ namespace DcsBriefop.DataBopMission
 			{
 				UnitId = taskAction.ParamUnitId;
 				Id = taskAction.Id;
-				Link4 = (decimal)taskAction.ParamFrequency / ElementRadio.UnitFrequencyRatio;
+				Link4 = taskAction.ParamFrequency / ElementRadio.UnitFrequencyRatio;
 			}
 		}
 

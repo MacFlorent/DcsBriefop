@@ -14,7 +14,7 @@ namespace DcsBriefop.DataBopMission
 		public Radio Radio { get; set; }
 		public Tacan Tacan { get; set; }
 		public int? Icls { get; set; }
-		public decimal? Link4 { get; set; }
+		public double? Link4 { get; set; }
 		#endregion
 
 		#region CTOR

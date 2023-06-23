@@ -24,11 +24,11 @@ namespace DcsBriefop.DataMiz
 		public string Name { get; set; }
 		public string Type { get; set; }
 		public string Action { get; set; }
-		public decimal Altitude { get; set; }
+		public double Altitude { get; set; }
 		public string AltitudeType { get; set; }
-		public decimal Speed { get; set; }
-		public decimal Y { get; set; }
-		public decimal X { get; set; }
+		public double Speed { get; set; }
+		public double Y { get; set; }
+		public double X { get; set; }
 		public int? AirdromeId { get; set; }
 		public int? HelipadId { get; set; }
 		public int? LinkUnitId { get; set; }
@@ -41,11 +41,11 @@ namespace DcsBriefop.DataMiz
 			Name = Lsd.IfExistsString(LuaNode.Name);
 			Type = Lsd[LuaNode.Type].GetString();
 			Action = Lsd[LuaNode.Action].GetString();
-			Altitude = Lsd[LuaNode.Altitude].GetDecimal();
+			Altitude = Lsd[LuaNode.Altitude].GetDouble();
 			AltitudeType = Lsd.IfExistsString(LuaNode.AltitudeType);
-			Speed = Lsd[LuaNode.Speed].GetDecimal();
-			Y = Lsd[LuaNode.Y].GetDecimal();
-			X = Lsd[LuaNode.X].GetDecimal();
+			Speed = Lsd[LuaNode.Speed].GetDouble();
+			Y = Lsd[LuaNode.Y].GetDouble();
+			X = Lsd[LuaNode.X].GetDouble();
 			AirdromeId = Lsd.IfExistsInt(LuaNode.AirdromeId);
 			HelipadId = Lsd.IfExistsInt(LuaNode.HelipadId);
 			LinkUnitId = Lsd.IfExistsInt(LuaNode.LinkUnit);

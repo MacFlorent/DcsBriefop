@@ -15,7 +15,6 @@ namespace DcsBriefop.Map
 	public class MapTemplateLine
 	{
 		#region Fields
-		private static string m_directory = @".\routes";
 		#endregion
 
 		#region Properties

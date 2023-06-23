@@ -29,7 +29,7 @@ namespace DcsBriefop.DataBopMission
 		public string Type { get; set; }
 		public bool Playable { get; set; }
 		public bool MainInGroup { get; set; }
-		public decimal? AltitudeMeters{ get; set; }
+		public double? AltitudeMeters{ get; set; }
 		public Coordinate Coordinate { get; set; }
 		public string MapMarker { get; set; }
 		public Radio HeliportRadio { get; set; }
@@ -144,7 +144,7 @@ namespace DcsBriefop.DataBopMission
 			return sb.ToString();
 		}
 
-		public decimal? GetAltitude(ElementMeasurementSystem measurementSystem)
+		public double? GetAltitude(ElementMeasurementSystem measurementSystem)
 		{
 			if (AltitudeMeters is null)
 				return null;

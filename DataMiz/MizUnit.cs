@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Tools;
 using LsonLib;
-using System.Collections.Generic;
 
 namespace DcsBriefop.DataMiz
 {
@@ -31,16 +30,16 @@ namespace DcsBriefop.DataMiz
 		public string Name { get; set; }
 		public string Type { get; set; }
 		public string Skill { get; set; }
-		public decimal Y { get; set; }
-		public decimal X { get; set; }
-		public decimal? Altitude { get; set; }
-		public decimal? RadioFrequency { get; set; }
+		public double Y { get; set; }
+		public double X { get; set; }
+		public double? Altitude { get; set; }
+		public double? RadioFrequency { get; set; }
 		public int? RadioModulation { get; set; }
 		public MizRadio[] Radios { get; set; }
 		public int? CallsignNumber { get; set; }
 		public MizCallsign Callsign { get; set; }
 		public string OnboardNum { get; set; }
-		public decimal? HeliportFrequency { get; set; }
+		public double? HeliportFrequency { get; set; }
 		public int? HeliportModulation { get; set; }
 		public int? HeliportCallsignId { get; set; }
 
@@ -53,9 +52,9 @@ namespace DcsBriefop.DataMiz
 			Category = Lsd.IfExistsString(LuaNode.Category);
 			Type = Lsd[LuaNode.Type].GetString();
 			Skill = Lsd.IfExistsString(LuaNode.Skill);
-			Y = Lsd[LuaNode.Y].GetDecimal();
-			X = Lsd[LuaNode.X].GetDecimal();
-			Altitude = Lsd.IfExistsDecimal(LuaNode.Alt);
+			Y = Lsd[LuaNode.Y].GetDouble();
+			X = Lsd[LuaNode.X].GetDouble();
+			Altitude = Lsd.IfExistsDouble(LuaNode.Alt);
 
 			if (Lsd.ContainsKey(LuaNode.Callsign))
 			{
@@ -68,7 +67,7 @@ namespace DcsBriefop.DataMiz
 
 			OnboardNum = Lsd.IfExistsString(LuaNode.OnboardNum);
 
-			RadioFrequency = Lsd.IfExistsDecimal(LuaNode.RadioFrequency);
+			RadioFrequency = Lsd.IfExistsDouble(LuaNode.RadioFrequency);
 			RadioModulation = Lsd.IfExistsInt(LuaNode.RadioModulation);
 			if (Lsd.ContainsKey(LuaNode.Radio))
 			{
@@ -80,7 +79,7 @@ namespace DcsBriefop.DataMiz
 				}
 			}
 
-			HeliportFrequency = Lsd.IfExistsDecimal(LuaNode.HeliportFrequency);
+			HeliportFrequency = Lsd.IfExistsDouble(LuaNode.HeliportFrequency);
 			HeliportModulation = Lsd.IfExistsInt(LuaNode.HeliportModulation);
 			HeliportCallsignId = Lsd.IfExistsInt(LuaNode.HeliportCallsignId);
 		}

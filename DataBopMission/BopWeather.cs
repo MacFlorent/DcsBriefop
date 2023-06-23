@@ -26,18 +26,18 @@ namespace DcsBriefop.DataBopMission
 		public bool Dust { get; private set; }
 		public bool Precipitation { get; private set; }
 
-		public decimal QnhMmHg { get; private set; }
-		public decimal QnhInHg
+		public double QnhMmHg { get; private set; }
+		public double QnhInHg
 		{
-			get { return Convert.ToDecimal(UnitConverter.Convert(QnhMmHg, UnitsNet.Units.PressureUnit.MillimeterOfMercury, UnitsNet.Units.PressureUnit.InchOfMercury)); }
+			get { return UnitConverter.Convert(QnhMmHg, UnitsNet.Units.PressureUnit.MillimeterOfMercury, UnitsNet.Units.PressureUnit.InchOfMercury); }
 		}
-		public decimal QnhHpa
+		public double QnhHpa
 		{
-			get { return Convert.ToDecimal(UnitConverter.Convert(QnhMmHg, UnitsNet.Units.PressureUnit.MillimeterOfMercury, UnitsNet.Units.PressureUnit.Hectopascal)); }
+			get { return UnitConverter.Convert(QnhMmHg, UnitsNet.Units.PressureUnit.MillimeterOfMercury, UnitsNet.Units.PressureUnit.Hectopascal); }
 		}
 
-		public decimal TemperatureCelcius { get; private set; }
-		public decimal? DewPointCelcius
+		public double TemperatureCelcius { get; private set; }
+		public double? DewPointCelcius
 		{
 			get
 			{
@@ -46,9 +46,8 @@ namespace DcsBriefop.DataBopMission
 				else if (CloudDensityOkta <= 0)
 					return null;
 
-
 				//Found by Jed https://www.omnicalculator.com/physics/cloud-base
-				return TemperatureCelcius - (((decimal)CloudBaseMeter - 0) * (10m / 1247m));
+				return TemperatureCelcius - ((CloudBaseMeter - 0) * (10 / 1247));
 			}
 		}
 		#endregion
@@ -188,7 +187,7 @@ namespace DcsBriefop.DataBopMission
 		{
 			int iAltitude;
 			string sAltitude;
-			decimal dSpeed = ToolsMeasurement.SpeedDisplay(ww.SpeedMs, measurementSystem);
+			double dSpeed = ToolsMeasurement.SpeedDisplay(ww.SpeedMs, measurementSystem);
 			if (measurementSystem == ElementMeasurementSystem.Imperial || measurementSystem == ElementMeasurementSystem.Hybrid)
 			{
 				iAltitude = Convert.ToInt32(UnitConverter.Convert(ww.Altitude, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
@@ -262,7 +261,7 @@ namespace DcsBriefop.DataBopMission
 			return sb.ToString();
 		}
 
-		private string ToStringMetarTemperature(decimal? dTemperature)
+		private string ToStringMetarTemperature(double? dTemperature)
 		{
 			string sTemperature = "//";
 			if (dTemperature is not null)
@@ -281,7 +280,7 @@ namespace DcsBriefop.DataBopMission
 
 	internal class BopWeatherWind
 	{
-		public decimal SpeedMs { get; private set; }
+		public double SpeedMs { get; private set; }
 		public int Altitude { get; private set; }
 		public int DirectionTrue { get; private set; } // Direction the wind is coming from
 

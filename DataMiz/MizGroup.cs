@@ -25,10 +25,10 @@ namespace DcsBriefop.DataMiz
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public bool LateActivation { get; set; }
-		public decimal Y { get; set; }
-		public decimal X { get; set; }
+		public double Y { get; set; }
+		public double X { get; set; }
 		public string Task { get; set; }
-		public decimal? RadioFrequency { get; set; }
+		public double? RadioFrequency { get; set; }
 		public int? RadioModulation { get; set; }
 		public virtual List<MizUnit> Units { get; set; } = new List<MizUnit>();
 		public List<MizRoutePoint> RoutePoints { get; set; } = new List<MizRoutePoint>();
@@ -40,10 +40,10 @@ namespace DcsBriefop.DataMiz
 			Id = Lsd[LuaNode.Id].GetInt();
 			Name = Lsd[LuaNode.Name].GetString();
 			LateActivation = Lsd.IfExistsBool(LuaNode.LateActivation).GetValueOrDefault();
-			Y = Lsd[LuaNode.Y].GetDecimal();
-			X = Lsd[LuaNode.X].GetDecimal();
+			Y = Lsd[LuaNode.Y].GetDouble();
+			X = Lsd[LuaNode.X].GetDouble();
 			Task = Lsd.IfExistsString(LuaNode.Task);
-			RadioFrequency = Lsd.IfExistsDecimal(LuaNode.RadioFrequency);
+			RadioFrequency = Lsd.IfExistsDouble(LuaNode.RadioFrequency);
 			RadioModulation = Lsd.IfExistsInt(LuaNode.RadioModulation);
 
 			if (Lsd.ContainsKey(LuaNode.Units))

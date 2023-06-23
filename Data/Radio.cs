@@ -5,7 +5,7 @@ namespace DcsBriefop.Data
 	internal class Radio : IEquatable<Radio>
 	{
 		#region Properties
-		public decimal Frequency { get; set; }
+		public double Frequency { get; set; }
 		public int Modulation { get; set; }
 		#endregion
 
@@ -16,7 +16,7 @@ namespace DcsBriefop.Data
 			Modulation = ElementRadioModulation.AM;
 		}
 
-		public Radio(decimal dFrequency, int iModulation)
+		public Radio(double dFrequency, int iModulation)
 		{
 			Frequency = dFrequency;
 			Modulation = iModulation;
@@ -41,8 +41,8 @@ namespace DcsBriefop.Data
 				string sFrequency = match.Groups["freq"].Value;
 				string sModulation = match.Groups["mod"].Value;
 
-				decimal? dFrequency = null;
-				if (decimal.TryParse(sFrequency, out decimal d))
+				double? dFrequency = null;
+				if (double.TryParse(sFrequency, out double d))
 					dFrequency = d;
 				
 				int iModulation = ElementRadioModulation.AM;
@@ -77,24 +77,24 @@ namespace DcsBriefop.Data
 			* Increments are 0.025 Mhz
 			*/
 
-			Frequency = decimal.Round(Frequency * 1000m / 25m) * (25m / 1000m);
+			Frequency = double.Round(Frequency * 1000 / 25) * (25 / 1000);
 
-			if (Frequency < 30m)
-				Frequency = 30m;
-			else if (Frequency > 87.975m && Frequency < 118m)
-				Frequency = 118m;
-			else if (Frequency > 173.975m && Frequency < 225m)
-				Frequency = 225m;
-			else if (Frequency > 399.975m)
-				Frequency = 399.975m;
+			if (Frequency < 30)
+				Frequency = 30;
+			else if (Frequency > 87.975 && Frequency < 118)
+				Frequency = 118;
+			else if (Frequency > 173.975 && Frequency < 225)
+				Frequency = 225;
+			else if (Frequency > 399.975)
+				Frequency = 399.975;
 
-			if (Frequency <= 87.975m)
+			if (Frequency <= 87.975)
 				Modulation = ElementRadioModulation.FM;
-			else if (Frequency >= 118m && Frequency <= 135.975m)
+			else if (Frequency >= 118 && Frequency <= 135.975)
 				Modulation = ElementRadioModulation.AM;
-			else if (Frequency >= 156 && Frequency <= 173.975m)
+			else if (Frequency >= 156 && Frequency <= 173.975)
 				Modulation = ElementRadioModulation.FM;
-			else if (Frequency >= 225m)
+			else if (Frequency >= 225)
 				Modulation = ElementRadioModulation.AM;
 		}
 		#endregion

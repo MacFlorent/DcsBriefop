@@ -92,7 +92,6 @@ namespace DcsBriefop.DataBopMission
 			return staticMapOverlay;
 		}
 
-
 		public void UpdateBullseyeRoutePoint(BopRoutePoint bullseyeRoutePoint)
 		{
 			bullseyeRoutePoint.SetYX(m_mizCoalition.BullseyeY, m_mizCoalition.BullseyeX);

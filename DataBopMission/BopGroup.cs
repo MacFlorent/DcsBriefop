@@ -31,7 +31,7 @@ namespace DcsBriefop.DataBopMission
 		public List<BopUnit> Units { get; set; }
 		public BopUnit MainUnit { get; set; }
 		public List<BopRoutePoint> RoutePoints { get; set; }
-		public decimal? AltitudeMeters { get; set; }
+		public double? AltitudeMeters { get; set; }
 		public Coordinate Coordinate { get; set; }
 		public string MapMarker { get; set; }
 		#endregion
@@ -52,7 +52,7 @@ namespace DcsBriefop.DataBopMission
 			LateActivation = m_mizGroup.LateActivation;
 
 			RoutePoints = new List<BopRoutePoint>();
-			if (m_mizGroup.RoutePoints is object && m_mizGroup.RoutePoints.Count > 0)
+			if (m_mizGroup.RoutePoints is not null && m_mizGroup.RoutePoints.Count > 0)
 			{
 				int iNumber = 0;
 				foreach (MizRoutePoint mizRoutePoint in m_mizGroup.RoutePoints)
@@ -180,7 +180,7 @@ namespace DcsBriefop.DataBopMission
 			return sb.ToString();
 		}
 
-		public decimal? GetAltitude(ElementMeasurementSystem measurementSystem)
+		public double? GetAltitude(ElementMeasurementSystem measurementSystem)
 		{
 			if (AltitudeMeters is null)
 				return null;

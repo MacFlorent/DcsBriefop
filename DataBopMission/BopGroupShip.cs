@@ -1,10 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -16,7 +13,7 @@ namespace DcsBriefop.DataBopMission
 		#region Properties
 		public Tacan Tacan { get; set; }
 		public int? Icls { get; set; }
-		public decimal? Link4 { get; set; }
+		public double? Link4 { get; set; }
 		#endregion
 
 		#region CTOR
@@ -26,19 +23,19 @@ namespace DcsBriefop.DataBopMission
 
 			Tacan = (MainUnit as BopUnitShip)?.Tacan;
 			if (Tacan is null)
-				Tacan = Units.OfType<BopUnitShip>().Where(_u => _u.Tacan is object).Select(_u => _u.Tacan).FirstOrDefault();
+				Tacan = Units.OfType<BopUnitShip>().Where(_u => _u.Tacan is not null).Select(_u => _u.Tacan).FirstOrDefault();
 			if (Tacan is null)
 				Tacan = GetTacanFromRouteTask(null);
 
 			Icls = (MainUnit as BopUnitShip)?.Icls;
 			if (Icls is null)
-				Icls = Units.OfType<BopUnitShip>().Where(_u => _u.Icls is object).Select(_u => _u.Icls).FirstOrDefault();
+				Icls = Units.OfType<BopUnitShip>().Where(_u => _u.Icls is not null).Select(_u => _u.Icls).FirstOrDefault();
 			if (Icls is null)
 				Icls = GetIclsFromRouteTaskAction(null);
 
 			Link4 = (MainUnit as BopUnitShip)?.Link4;
 			if (Link4 is null)
-				Link4 = Units.OfType<BopUnitShip>().Where(_u => _u.Link4 is object).Select(_u => _u.Link4).FirstOrDefault();
+				Link4 = Units.OfType<BopUnitShip>().Where(_u => _u.Link4 is not null).Select(_u => _u.Link4).FirstOrDefault();
 			if (Link4 is null)
 				Link4 = GetLink4FromRouteTaskAction(null);
 		}
@@ -86,7 +83,7 @@ namespace DcsBriefop.DataBopMission
 			return (routeTask as BopRouteTaskIcls)?.Icls;
 		}
 
-		public decimal? GetLink4FromRouteTaskAction(int? iUnitId)
+		public double? GetLink4FromRouteTaskAction(int? iUnitId)
 		{
 			BopRouteTask routeTask = GetRouteTask(new List<string> { ElementRouteTaskAction.ActivateLink4 }, iUnitId);
 			return (routeTask as BopRouteTaskLink4)?.Link4;

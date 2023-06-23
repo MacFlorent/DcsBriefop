@@ -26,10 +26,10 @@ namespace DcsBriefop.DataMiz
 
 		public int AtmosphereType { get; set; } // To check - seems to be 0=static, 1=dynamic
 		public int TypeWeather { get; set; } // To check
-		public decimal GroundTurbulence { get; set; }
+		public double GroundTurbulence { get; set; }
 		public int VisibilityDistance { get; set; } // Visibility distance in meters
-		public decimal Temperature { get; set; } // Temperature in degrees celcius
-		public decimal Qnh { get; set; } // Qnh in mmHg
+		public double Temperature { get; set; } // Temperature in degrees celcius
+		public double Qnh { get; set; } // Qnh in mmHg
 		public bool Dust { get; set; }
 
 		public MizWeatherWind WindAtGround { get; set; }
@@ -45,10 +45,10 @@ namespace DcsBriefop.DataMiz
 		{
 			AtmosphereType = Lsd[LuaNode.AtmosphereType].GetInt();
 			TypeWeather = Lsd[LuaNode.TypeWeather].GetInt();
-			GroundTurbulence = Lsd[LuaNode.GroundTurbulence].GetDecimal();
+			GroundTurbulence = Lsd[LuaNode.GroundTurbulence].GetDouble();
 			VisibilityDistance = Lsd[LuaNode.Visibility][LuaNode.VisibilityDistance].GetInt();
-			Temperature = Lsd[LuaNode.Season][LuaNode.Temperature].GetDecimal();
-			Qnh = Lsd[LuaNode.Qnh].GetDecimal();
+			Temperature = Lsd[LuaNode.Season][LuaNode.Temperature].GetDouble();
+			Qnh = Lsd[LuaNode.Qnh].GetDouble();
 			Dust = Lsd[LuaNode.DustEnable].GetBool();
 
 			LsonDict lsdWinds = Lsd[LuaNode.Wind].GetDict();
@@ -101,8 +101,8 @@ namespace DcsBriefop.DataMiz
 		}
 
 		public int Altitude { get; set; } // Speed in m/s
-		public decimal Speed { get; set; } // Speed in m/s
-		public decimal Direction { get; set; } // Direction the wind is goind towards, in degrees true
+		public double Speed { get; set; } // Speed in m/s
+		public double Direction { get; set; } // Direction the wind is goind towards, in degrees true
 
 		public MizWeatherWind(LsonDict lsd, int iAltitude) : base(lsd)
 		{
@@ -111,8 +111,8 @@ namespace DcsBriefop.DataMiz
 
 		public override void FromLua()
 		{
-			Speed = Lsd[LuaNode.Speed].GetDecimal();
-			Direction = Lsd[LuaNode.Direction].GetDecimal();
+			Speed = Lsd[LuaNode.Speed].GetDouble();
+			Direction = Lsd[LuaNode.Direction].GetDouble();
 		}
 
 		public override void ToLua()

@@ -102,9 +102,9 @@ namespace DcsBriefop.DataMiz
 		public MizRouteTaskAction Action { get; set; }
 		public MizRouteTask Task { get; set; }
 
-		public decimal? Altitude { get; set; }
+		public double? Altitude { get; set; }
 		public string Pattern { get; set; }
-		public decimal? Speed { get; set; }
+		public double? Speed { get; set; }
 		public bool? SpeedEdited { get; set; }
 		public int? Frequency { get; set; }
 		public int? Modulation { get; set; }
@@ -123,9 +123,9 @@ namespace DcsBriefop.DataMiz
 			if (lsdAction is object)
 				Action = new MizRouteTaskAction(lsdAction);
 
-			Altitude = Lsd.IfExistsDecimal(LuaNode.Altitude);
+			Altitude = Lsd.IfExistsDouble(LuaNode.Altitude);
 			Pattern = Lsd.IfExistsString(LuaNode.Pattern);
-			Speed = Lsd.IfExistsDecimal(LuaNode.Speed);
+			Speed = Lsd.IfExistsDouble(LuaNode.Speed);
 			SpeedEdited = Lsd.IfExistsBool(LuaNode.SpeedEdited);
 			Frequency = Lsd.IfExistsInt(LuaNode.Frequency);
 			Modulation = Lsd.IfExistsInt(LuaNode.Modulation);

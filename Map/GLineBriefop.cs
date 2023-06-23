@@ -150,7 +150,7 @@ namespace DcsBriefop.Map
 		{
 			GraphicsState state;
 			Font font = ElementMapValue.DefaultFont;
-			int iMargin = 5;
+			int iMargin = 15;
 
 			int iSegmentLength = (int)ComputePointDistance(pointStart, pointEnd);
 			int iPanelHeight = (int)font.GetHeight();
@@ -166,8 +166,10 @@ namespace DcsBriefop.Map
 				iFullLength = iArrowLength;
 			}
 
-			if (iTextLength <= 0 && iArrowLength <= 0)
+			if ((iTextLength <= 0 && iArrowLength <= 0) || iFullLength + iMargin > iSegmentLength)
 				return;
+
+			int iOffsetX = -iArrowLength / 2;
 
 			Point pointCenter = new(pointStart.X + (pointEnd.X - pointStart.X) / 2, pointStart.Y + (pointEnd.Y - pointStart.Y) / 2);
 			double dAngleRad = ComputeAngleRad(pointStart, pointEnd);
@@ -182,12 +184,12 @@ namespace DcsBriefop.Map
 
 			Point[] pointList = new Point[m_bPanelArrow ? 5 : 4];
 			int i = -1;
-			pointList[++i] = new Point(-iTextLength / 2, iPanelHeight / 2); // bottom left
-			pointList[++i] = new Point(-iTextLength / 2, -iPanelHeight / 2); // top left
-			pointList[++i] = new Point(iTextLength / 2, -iPanelHeight / 2); // top right
+			pointList[++i] = new Point(-iTextLength / 2 + iOffsetX, iPanelHeight / 2); // bottom left
+			pointList[++i] = new Point(-iTextLength / 2 + iOffsetX, -iPanelHeight / 2); // top left
+			pointList[++i] = new Point(iTextLength / 2 + iOffsetX, -iPanelHeight / 2); // top right
 			if (m_bPanelArrow)
-				pointList[++i] = new Point(iTextLength / 2 + iPanelHeight, 0); // arrow point
-			pointList[++i] = new Point(iTextLength / 2, iPanelHeight / 2); // bottom right
+				pointList[++i] = new Point(iTextLength / 2 + iPanelHeight + iOffsetX, 0); // arrow point
+			pointList[++i] = new Point(iTextLength / 2 + iOffsetX, iPanelHeight / 2); // bottom right
 
 			g.FillPolygon(m_brushPanel, pointList);
 			g.DrawPolygon(new Pen(m_brushText), pointList);
@@ -208,7 +210,7 @@ namespace DcsBriefop.Map
 				if (fAngleText != 0)
 					g.RotateTransform(fAngleText);
 
-				g.DrawString(sText, ElementMapValue.DefaultFont, m_brushText, -(iTextLength / 2), -(iPanelHeight / 2));
+				g.DrawString(sText, ElementMapValue.DefaultFont, m_brushText, -(iTextLength / 2) - iOffsetX, -(iPanelHeight / 2));
 
 				g.Restore(state);
 			}
@@ -220,7 +222,7 @@ namespace DcsBriefop.Map
 			//g.DrawString("+", m_font, Brushes.Red, pointEnd.X, pointEnd.Y);
 			//g.DrawLine(new Pen(Color.Red, 1), pointStart, pointEnd);
 
-			if (m_bitmap is object && m_template.DashOverride is null)
+			if (m_bitmap is not null && m_template.DashOverride is null)
 				DrawSegmentBitmap(g, pointStart, pointEnd);
 			else
 				DrawSegmentDash(g, pointStart, pointEnd);
@@ -237,26 +239,6 @@ namespace DcsBriefop.Map
 			g.DrawLine(Stroke, pointStart, pointEnd);
 
 		}
-		//private void DrawStringAngledCentered(Graphics g, Point pointStart, Point pointEnd, Point pointCenter, string sText)
-		//{
-		//	double dAngleRad = ComputeAngleRad(pointStart, pointEnd);
-		//	float fAngle = (float)(dAngleRad * 180 / Math.PI);
-		//	if (fAngle < -90)
-		//		fAngle += 180;
-		//	else if (fAngle > 90)
-		//		fAngle -= 180;
-		//	double dLength = ComputePointDistance(pointStart, pointEnd);
-
-		//	SizeF textSize = g.MeasureString(sText, ElementMapValue.DefaultFont);
-		//	if (textSize.Width > dLength)
-		//	{
-		//		//string[] sSplit = sText.Split(" ");
-		//		return;
-		//	}
-
-		//	ToolsImage.DrawStringAngledCentered(g, pointCenter, sText, ElementMapValue.DefaultFont, textSize, m_textColor, false, Color.White, fAngle, -ElementMapValue.DefaultFont.Height / 2);
-		//}
-
 
 		private void DrawSegmentBitmap(Graphics g, Point pointStart, Point pointEnd)
 		{

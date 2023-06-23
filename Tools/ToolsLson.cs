@@ -21,9 +21,9 @@ namespace DcsBriefop.Tools
 			return lsd.IfExists(sKey)?.GetIntSafe();
 		}
 
-		public static decimal? IfExistsDecimal(this LsonDict lsd, string sKey)
+		public static double? IfExistsDouble(this LsonDict lsd, string sKey)
 		{
-			return lsd.IfExists(sKey)?.GetDecimalSafe();
+			return lsd.IfExists(sKey)?.GetDoubleSafe();
 		}
 
 

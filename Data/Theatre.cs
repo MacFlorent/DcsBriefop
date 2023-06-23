@@ -7,18 +7,18 @@ namespace DcsBriefop.Data
 	{
 		private class PointCoordinate
 		{
-			public decimal Y { get; set; }
-			public decimal X { get; set; }
-			public decimal Latitude { get; set; }
-			public decimal Longitude { get; set; }
+			public double Y { get; set; }
+			public double X { get; set; }
+			public double Latitude { get; set; }
+			public double Longitude { get; set; }
 		}
 
 		public string Name { get; private set; }
 		private string LutResourceName { get { return $"Points{Name}"; } }
 
 		private List<PointCoordinate> m_coordinatesLut;
-		private List<decimal> m_coordinatesLutValuesY;
-		private List<decimal> m_coordinatesLutValuesX;
+		private List<double> m_coordinatesLutValuesY;
+		private List<double> m_coordinatesLutValuesX;
 		//private List<decimal> m_coordinatesLutValuesLat;
 		//private List<decimal> m_coordinatesLutValuesLong;
 
@@ -31,7 +31,7 @@ namespace DcsBriefop.Data
 			InitializeAirdromes();
 		}
 
-		public CoordinateSharp.Coordinate GetCoordinate(decimal dY, decimal dX)
+		public CoordinateSharp.Coordinate GetCoordinate(double dY, double dX)
 		{
 			PointCoordinate pc = null;
 			try
@@ -46,7 +46,7 @@ namespace DcsBriefop.Data
 			if (pc is null)
 				pc = GetPointInterpolatedYX(0, 0);
 
-			return new CoordinateSharp.Coordinate(decimal.ToDouble(pc.Latitude), decimal.ToDouble(pc.Longitude));
+			return new CoordinateSharp.Coordinate(pc.Latitude, pc.Longitude);
 		}
 
 		//public void GetYX(out decimal dY, out decimal dX, CoordinateSharp.Coordinate coordinate)
@@ -57,15 +57,15 @@ namespace DcsBriefop.Data
 		//}
 
 
-		private PointCoordinate GetPointInterpolatedYX(decimal dY, decimal dX)
+		private PointCoordinate GetPointInterpolatedYX(double dY, double dX)
 		{
 			if (m_coordinatesLut is null || m_coordinatesLut.Count < 0)
 				return null;
 
-			decimal? dLeftY = null, dRightY = null;
-			decimal? dLowerX = null, dUpperX = null;
+			double? dLeftY = null, dRightY = null;
+			double? dLowerX = null, dUpperX = null;
 
-			foreach (decimal d in m_coordinatesLutValuesY)
+			foreach (double d in m_coordinatesLutValuesY)
 			{
 				if (dLeftY is object && dRightY is object)
 					break;
@@ -78,7 +78,7 @@ namespace DcsBriefop.Data
 					dRightY = d;
 				}
 			}
-			foreach (decimal d in m_coordinatesLutValuesX)
+			foreach (double d in m_coordinatesLutValuesX)
 			{
 				if (dLowerX is object && dUpperX is object)
 					break;
@@ -113,8 +113,8 @@ namespace DcsBriefop.Data
 			if (lowerLeft is null || lowerRight is null || upperLeft is null || upperRight is null)
 				throw new ExceptionBop($"Requested map position cannot be converted to coordinates because it is outside of the lookup table {LutResourceName}{Environment.NewLine}Y(Z)={dY} X={dX}");
 
-			decimal dRatioY = (dY - lowerLeft.Y) / (lowerRight.Y - lowerLeft.Y);
-			decimal dRatioX = (dX - lowerLeft.X) / (upperLeft.X - lowerLeft.X);
+			double dRatioY = (dY - lowerLeft.Y) / (lowerRight.Y - lowerLeft.Y);
+			double dRatioX = (dX - lowerLeft.X) / (upperLeft.X - lowerLeft.X);
 
 			PointCoordinate lowerInterpolation = new PointCoordinate
 			{
@@ -143,8 +143,8 @@ namespace DcsBriefop.Data
 			try
 			{
 				m_coordinatesLut = new List<PointCoordinate>();
-				m_coordinatesLutValuesY = new List<decimal>();
-				m_coordinatesLutValuesX = new List<decimal>();
+				m_coordinatesLutValuesY = new List<double>();
+				m_coordinatesLutValuesX = new List<double>();
 
 				string sLutResource = LutResourceName;
 				string sResourceContent = ToolsResources.GetTextResourceContent(sLutResource, "txt", null);
@@ -186,7 +186,7 @@ namespace DcsBriefop.Data
 				m_coordinatesLutValuesX.Add(pc.X);
 		}
 
-		private decimal InitializeCoordinatesLut_GetLineItem(string sLine, string sItem)
+		private double InitializeCoordinatesLut_GetLineItem(string sLine, string sItem)
 		{
 			int iIndexStart = sLine.IndexOf(sItem) + sItem.Length;
 			int iIndexEnd = sLine.IndexOf(',', iIndexStart);
@@ -195,7 +195,7 @@ namespace DcsBriefop.Data
 
 			int iLength = iIndexEnd - iIndexStart;
 
-			if (!decimal.TryParse(sLine.Substring(iIndexStart, iLength), out decimal dItemValue))
+			if (!double.TryParse(sLine.Substring(iIndexStart, iLength), out double dItemValue))
 			{
 				throw new ExceptionBop($"Item {sItem} was not decoded from line {sLine} in point LUT resource.");
 			}

@@ -5,6 +5,8 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using System.Text;
+using static DcsBriefop.Tools.ToolsSpeeds;
+using UnitsNet;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -24,9 +26,9 @@ namespace DcsBriefop.DataBopMission
 		public string Type { get; set; }
 		public string Notes { get; set; }
 		public string Action { get; set; }
-		public decimal AltitudeMeters { get; set; }
-		public decimal? AltitudeCustomMeters { get; set; }
-		public decimal SpeedMs { get; set; }
+		public double AltitudeMeters { get; set; }
+		public double? AltitudeCustomMeters { get; set; }
+		public double SpeedMs { get; set; }
 		public int DistanceMeters { get { return (int)m_distance.Meters; } }
 		public Coordinate Coordinate { get; set; }
 		public int? AirdromeId { get; set; }
@@ -187,14 +189,16 @@ namespace DcsBriefop.DataBopMission
 			return sb.ToString();
 		}
 
-		public decimal? GetAltitude(ElementMeasurementSystem measurementSystem)
+		public double? GetAltitude(ElementMeasurementSystem measurementSystem)
 		{
-			decimal altitudeMeters = AltitudeCustomMeters ?? AltitudeMeters;
+			double altitudeMeters = AltitudeCustomMeters ?? AltitudeMeters;
 			return ToolsMeasurement.AltitudeDisplay(altitudeMeters, measurementSystem);
 		}
 
-		public decimal? GetSpeed(ElementMeasurementSystem measurementSystem)
+		public double? GetSpeed(ElementMeasurementSystem measurementSystem)
 		{
+			double dSpeedKt = UnitConverter.Convert(SpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.Knot);
+			Speeds speeds = ToolsSpeeds.ConvertTrueAirSpeed(dSpeedKt, AltitudeMeters, 15);
 			return ToolsMeasurement.SpeedDisplay(SpeedMs, measurementSystem);
 		}
 
@@ -241,7 +245,7 @@ namespace DcsBriefop.DataBopMission
 			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree), ElementMapTemplateMarker.Waypoint, color, sLabel, 1, 0);
 		}
 
-		public void SetYX(decimal dY, decimal dX)
+		public void SetYX(double dY, double dX)
 		{ // only used for Bullseye for now, so no need to recompute distances
 			m_mizRoutePoint.Y = dY;
 			m_mizRoutePoint.X = dX;

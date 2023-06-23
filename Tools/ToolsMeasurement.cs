@@ -6,20 +6,20 @@ namespace DcsBriefop.Tools
 	internal static class ToolsMeasurement
 	{
 		#region Altitude
-		public static decimal AltitudeDisplay(decimal dAltitudeMeters, ElementMeasurementSystem measurementSystem)
+		public static double AltitudeDisplay(double dAltitudeMeters, ElementMeasurementSystem measurementSystem)
 		{
 			if (measurementSystem == ElementMeasurementSystem.Metric)
 				return dAltitudeMeters;
 			else
-				return Convert.ToDecimal(UnitConverter.Convert(dAltitudeMeters, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot));
+				return UnitConverter.Convert(dAltitudeMeters, UnitsNet.Units.LengthUnit.Meter, UnitsNet.Units.LengthUnit.Foot);
 		}
 
-		public static decimal AltitudeData(decimal dAltitude, ElementMeasurementSystem measurementSystem)
+		public static double AltitudeData(double dAltitude, ElementMeasurementSystem measurementSystem)
 		{
 			if (measurementSystem == ElementMeasurementSystem.Metric)
 				return dAltitude;
 			else
-				return Convert.ToDecimal(UnitConverter.Convert(dAltitude, UnitsNet.Units.LengthUnit.Foot, UnitsNet.Units.LengthUnit.Meter));
+				return UnitConverter.Convert(dAltitude, UnitsNet.Units.LengthUnit.Foot, UnitsNet.Units.LengthUnit.Meter);
 		}
 
 		public static string AltitudeUnit(ElementMeasurementSystem measurementSystem)
@@ -59,12 +59,12 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region Speed
-		public static decimal SpeedDisplay(decimal dSpeedMs, ElementMeasurementSystem measurementSystem)
+		public static double SpeedDisplay(double dSpeedMs, ElementMeasurementSystem measurementSystem)
 		{
 			if (measurementSystem == ElementMeasurementSystem.Metric)
-				return Convert.ToDecimal(UnitConverter.Convert(dSpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.KilometerPerHour));
+				return UnitConverter.Convert(dSpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.KilometerPerHour);
 			else
-				return Convert.ToDecimal(UnitConverter.Convert(dSpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.Knot));
+				return UnitConverter.Convert(dSpeedMs, UnitsNet.Units.SpeedUnit.MeterPerSecond, UnitsNet.Units.SpeedUnit.Knot);
 		}
 
 		public static string SpeedUnit(ElementMeasurementSystem measurementSystem)
@@ -74,10 +74,10 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region Temperature
-		public static decimal TemperatureDisplay(decimal dTemperatureCelcius, ElementMeasurementSystem measurementSystem)
+		public static double TemperatureDisplay(double dTemperatureCelcius, ElementMeasurementSystem measurementSystem)
 		{
 			if (measurementSystem == ElementMeasurementSystem.Imperial)
-				return Convert.ToDecimal(UnitConverter.Convert(dTemperatureCelcius, UnitsNet.Units.TemperatureUnit.DegreeCelsius, UnitsNet.Units.TemperatureUnit.DegreeFahrenheit));
+				return UnitConverter.Convert(dTemperatureCelcius, UnitsNet.Units.TemperatureUnit.DegreeCelsius, UnitsNet.Units.TemperatureUnit.DegreeFahrenheit);
 			else
 				return dTemperatureCelcius;
 		}

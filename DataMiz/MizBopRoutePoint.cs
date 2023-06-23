@@ -6,7 +6,7 @@
 		public int GroupId { get; set; }
 		public int Number { get; set; }
 		public string Notes { get; set; }
-		public decimal? AltitudeMeters { get; set; }
+		public double? AltitudeMeters { get; set; }
 		#endregion
 
 		#region Methods

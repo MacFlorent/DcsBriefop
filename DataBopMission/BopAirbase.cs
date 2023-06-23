@@ -233,7 +233,7 @@ namespace DcsBriefop.DataBopMission
 
 		#region Properties
 		public int? Icls { get; set; }
-		public decimal? Link4 { get; set; }
+		public double? Link4 { get; set; }
 		#endregion
 
 		#region CTOR
@@ -267,9 +267,9 @@ namespace DcsBriefop.DataBopMission
 		public override string ToStringAdditional()
 		{
 			StringBuilder sb = new StringBuilder(base.ToStringAdditional());
-			if (Icls is object)
+			if (Icls is not null)
 				sb.AppendWithSeparator($"ICLS:{Icls}", " ");
-			if (Link4 is object)
+			if (Link4 is not null)
 				sb.AppendWithSeparator($"LNK4:{Link4:###.000}", " ");
 
 			return sb.ToString();

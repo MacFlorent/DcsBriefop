@@ -1,5 +1,4 @@
 ﻿using LsonLib;
-using System.Collections.Generic;
 
 namespace DcsBriefop.DataMiz
 {
@@ -16,8 +15,8 @@ namespace DcsBriefop.DataMiz
 		}
 
 		public string Name { get; private set; }
-		public decimal BullseyeY { get; set; }
-		public decimal BullseyeX { get; set; }
+		public double BullseyeY { get; set; }
+		public double BullseyeX { get; set; }
 
 		public List<MizInitialPoint> InitialPoints { get; private set; } = new List<MizInitialPoint>();
 		public List<MizCountry> Countries { get; private set; } = new List<MizCountry>();
@@ -28,8 +27,8 @@ namespace DcsBriefop.DataMiz
 		{
 			Name = Lsd[LuaNode.Name].GetString();
 
-			BullseyeY = Lsd[LuaNode.Bullseye][LuaNode.BullseyeY].GetDecimal();
-			BullseyeX = Lsd[LuaNode.Bullseye][LuaNode.BullseyeX].GetDecimal();
+			BullseyeY = Lsd[LuaNode.Bullseye][LuaNode.BullseyeY].GetDouble();
+			BullseyeX = Lsd[LuaNode.Bullseye][LuaNode.BullseyeX].GetDouble();
 
 			LsonDict lsdInitialPoints = Lsd[LuaNode.NavPoints].GetDict();
 			foreach (LsonValue lsv in lsdInitialPoints.Values)

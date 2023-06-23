@@ -66,7 +66,7 @@
 
 	internal static class ElementRadio
 	{
-		public static readonly decimal UnitFrequencyRatio = 1000000;
+		public static readonly double UnitFrequencyRatio = 1000000;
 	}
 
 	internal static class ElementUnitCategory

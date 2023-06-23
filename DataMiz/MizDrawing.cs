@@ -71,8 +71,8 @@ namespace DcsBriefop.DataMiz
 		public bool Visible { get; set; }
 		public string Name { get; set; }
 		public string PrimitiveType { get; set; }
-		public decimal MapY { get; set; }
-		public decimal MapX { get; set; }
+		public double MapY { get; set; }
+		public double MapX { get; set; }
 		public string ColorString { get; set; }
 
 		public int? Angle { get; set; }
@@ -90,11 +90,11 @@ namespace DcsBriefop.DataMiz
 		public string LineMode { get; set; }
 
 		public string PolygonMode { get; set; }
-		public decimal? Height { get; set; }
-		public decimal? Width { get; set; }
-		public decimal? R1 { get; set; }
-		public decimal? R2 { get; set; }
-		public decimal? Radius { get; set; }
+		public double? Height { get; set; }
+		public double? Width { get; set; }
+		public double? R1 { get; set; }
+		public double? R2 { get; set; }
+		public double? Radius { get; set; }
 
 		public List<MizDrawingPoint> Points { get; private set; } = new List<MizDrawingPoint>();
 
@@ -105,8 +105,8 @@ namespace DcsBriefop.DataMiz
 			Visible = Lsd[LuaNode.Visible].GetBool();
 			Name = Lsd[LuaNode.Name].GetString();
 			PrimitiveType = Lsd[LuaNode.PrimitiveType].GetString();
-			MapY = Lsd[LuaNode.MapY].GetDecimal();
-			MapX = Lsd[LuaNode.MapX].GetDecimal();
+			MapY = Lsd[LuaNode.MapY].GetDouble();
+			MapX = Lsd[LuaNode.MapX].GetDouble();
 			ColorString = Lsd[LuaNode.ColorString].GetString();
 
 			Angle = ToolsLson.IfExistsInt(Lsd, LuaNode.Angle);
@@ -124,11 +124,11 @@ namespace DcsBriefop.DataMiz
 			LineMode = ToolsLson.IfExistsString(Lsd, LuaNode.LineMode);
 
 			PolygonMode = ToolsLson.IfExistsString(Lsd, LuaNode.PolygonMode);
-			Height = ToolsLson.IfExistsDecimal(Lsd, LuaNode.Height);
-			Width = ToolsLson.IfExistsDecimal(Lsd, LuaNode.Width);
-			R1 = ToolsLson.IfExistsDecimal(Lsd, LuaNode.R1);
-			R2 = ToolsLson.IfExistsDecimal(Lsd, LuaNode.R2);
-			Radius = ToolsLson.IfExistsDecimal(Lsd, LuaNode.Radius);
+			Height = ToolsLson.IfExistsDouble(Lsd, LuaNode.Height);
+			Width = ToolsLson.IfExistsDouble(Lsd, LuaNode.Width);
+			R1 = ToolsLson.IfExistsDouble(Lsd, LuaNode.R1);
+			R2 = ToolsLson.IfExistsDouble(Lsd, LuaNode.R2);
+			Radius = ToolsLson.IfExistsDouble(Lsd, LuaNode.Radius);
 
 			if (Lsd.ContainsKey(LuaNode.Points))
 			{
@@ -151,15 +151,15 @@ namespace DcsBriefop.DataMiz
 			public static readonly string X = "x";
 		}
 
-		public decimal Y { get; set; }
-		public decimal X { get; set; }
+		public double Y { get; set; }
+		public double X { get; set; }
 
 		public MizDrawingPoint(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{
-			Y = Lsd[LuaNode.Y].GetDecimal();
-			X = Lsd[LuaNode.X].GetDecimal();
+			Y = Lsd[LuaNode.Y].GetDouble();
+			X = Lsd[LuaNode.X].GetDouble();
 		}
 
 		public override void ToLua() { }
