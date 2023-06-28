@@ -1,164 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title></title>
 	<link rel="stylesheet" href="simple-custom.css">
-	<script>function LineChart(con) {
-			// user defined properties  
-			this.canvas = document.getElementById(con.canvasId);
-			this.minX = con.minX;
-			this.minY = con.minY;
-			this.maxX = con.maxX;
-			this.maxY = con.maxY;
-			this.unitsPerTickX = con.unitsPerTickX;
-			this.unitsPerTickY = con.unitsPerTickY;
-
-			// constants  
-			this.padding = 10;
-			this.tickSize = 10;
-			this.axisColor = "#555";
-			this.pointRadius = 5;
-			this.font = "12pt Calibri";
-
-			this.fontHeight = 12;
-
-			// relationships       
-			this.context = this.canvas.getContext("2d");
-			this.rangeX = this.maxX - this.minY;
-			this.rangeY = this.maxY - this.minY;
-			this.numXTicks = Math.round(this.rangeX / this.unitsPerTickX);
-			this.numYTicks = Math.round(this.rangeY / this.unitsPerTickY);
-			this.x = this.getLongestValueWidth() + this.padding * 2;
-			this.y = this.padding * 2;
-			this.width = this.canvas.width - this.x - this.padding * 2;
-			this.height = this.canvas.height - this.y - this.padding - this.fontHeight;
-			this.scaleX = this.width / this.rangeX;
-			this.scaleY = this.height / this.rangeY;
-
-			// draw x y axis and tick marks  
-			this.drawXAxis();
-			this.drawYAxis();
-		}
-
-		LineChart.prototype.getLongestValueWidth = function () {
-			this.context.font = this.font;
-			var longestValueWidth = 0;
-			for (var n = 0; n <= this.numYTicks; n++) {
-				var value = this.maxY - (n * this.unitsPerTickY);
-				longestValueWidth = Math.max(longestValueWidth, this.context.measureText(value).width);
-			}
-			return longestValueWidth;
-		};
-
-		LineChart.prototype.drawXAxis = function () {
-			var context = this.context;
-			context.save();
-			context.beginPath();
-			context.moveTo(this.x, this.y + this.height);
-			context.lineTo(this.x + this.width, this.y + this.height);
-			context.strokeStyle = this.axisColor;
-			context.lineWidth = 2;
-			context.stroke();
-
-			// draw tick marks  
-			for (var n = 0; n < this.numXTicks; n++) {
-				context.beginPath();
-				context.moveTo((n + 1) * this.width / this.numXTicks + this.x, this.y + this.height);
-				context.lineTo((n + 1) * this.width / this.numXTicks + this.x, this.y + this.height - this.tickSize);
-				context.stroke();
-			}
-
-			// draw labels  
-			context.font = this.font;
-			context.fillStyle = "black";
-			context.textAlign = "center";
-			context.textBaseline = "middle";
-
-			for (var n = 0; n < this.numXTicks; n++) {
-				var label = Math.round((n + 1) * this.maxX / this.numXTicks);
-				context.save();
-				context.translate((n + 1) * this.width / this.numXTicks + this.x, this.y + this.height + this.padding);
-				context.fillText(label, 0, 0);
-				context.restore();
-			}
-			context.restore();
-		};
-
-		LineChart.prototype.drawYAxis = function () {
-			var context = this.context;
-			context.save();
-			context.save();
-			context.beginPath();
-			context.moveTo(this.x, this.y);
-			context.lineTo(this.x, this.y + this.height);
-			context.strokeStyle = this.axisColor;
-			context.lineWidth = 2;
-			context.stroke();
-			context.restore();
-
-			// draw tick marks  
-			for (var n = 0; n < this.numYTicks; n++) {
-				context.beginPath();
-				context.moveTo(this.x, n * this.height / this.numYTicks + this.y);
-				context.lineTo(this.x + this.tickSize, n * this.height / this.numYTicks + this.y);
-				context.stroke();
-			}
-
-			// draw values  
-			context.font = this.font;
-			context.fillStyle = "black";
-			context.textAlign = "right";
-			context.textBaseline = "middle";
-
-			for (var n = 0; n < this.numYTicks; n++) {
-				var value = Math.round(this.maxY - n * this.maxY / this.numYTicks);
-				context.save();
-				context.translate(this.x - this.padding, n * this.height / this.numYTicks + this.y);
-				context.fillText(value, 0, 0);
-				context.restore();
-			}
-			context.restore();
-		};
-
-		LineChart.prototype.drawLine = function (data, color, width) {
-			var context = this.context;
-			context.save();
-			this.transformContext();
-			context.lineWidth = width;
-			context.strokeStyle = color;
-			context.fillStyle = color;
-			context.beginPath();
-			context.moveTo(data[0].x * this.scaleX, data[0].y * this.scaleY);
-
-			for (var n = 0; n < data.length; n++) {
-				var point = data[n];
-
-				// draw segment  
-				context.lineTo(point.x * this.scaleX, point.y * this.scaleY);
-				context.stroke();
-				context.closePath();
-				context.beginPath();
-				context.arc(point.x * this.scaleX, point.y * this.scaleY, this.pointRadius, 0, 2 * Math.PI, false);
-				context.fill();
-				context.closePath();
-
-				// position for next segment  
-				context.beginPath();
-				context.moveTo(point.x * this.scaleX, point.y * this.scaleY);
-			}
-			context.restore();
-		};
-
-		LineChart.prototype.transformContext = function () {
-			var context = this.context;
-
-			// move context to center of canvas  
-			this.context.translate(this.x, this.y + this.height);
-
-			// invert the y scale so that that increments  
-			// as you move upwards  
-			context.scale(1, -1);
-		};</script>
+	<script src="apexcharts.js"></script>
+	<script src="apexcharts-waypointbuilder.js"></script>
 </head>
 
 <body>
@@ -175,9 +22,8 @@
 				</td>
 			</tr>
 		</table>
-<hr>
-		<h2>
-			<div>Route</div>
+		<hr>
+		<h2>Route
 		</h2>
 		<table width="100%">
 			<tr>
@@ -230,8 +76,34 @@
 			</tr>
 		</table>
 
-		<h2>
-			<div>Task</div>
+		<hr>
+		<h2>Profile
+		</h2>
+		<div id="chart">
+		</div>
+		<script>
+			var chartDataPoints = [
+				[0, 0],
+				[1, 25000],
+				[2, 5000],
+				[3, 10000],
+				[4, 5000],
+				[5, 5000],
+				[6, 5000],
+				[7, 0]
+			];
+			var chartWaypointNames = ["T/O", "RAMAT DAVID", "DMZ South", "UNDOF HH", "KYRIAT", "ROSH PINA", "NAQOURA", "LDG"];
+			var chartWaypointTracks = [0, "136°", "080°", "007°", "226°", "183°", "288°", "173°"];
+			var chartWaypointSpeeds = [0, "490", "350", "350", "350", "350", "350", "350"];
+
+			ApexChartCreate(
+				"Altitude feet - Speeds KIAS - Tracks magnetic",
+				chartDataPoints, chartWaypointNames, chartWaypointTracks, chartWaypointSpeeds, "12px", "#0000FF", "chart"
+			);
+		</script>
+
+		<hr>
+		<h2>Task
 		</h2>
 		<p>
 		<div>Briefings are the most efficient and common means to present information to commanders, staffers,
@@ -242,70 +114,6 @@
 			decisions, most decision makers prefer the immediate physical setting of the military briefing.</div>
 		</p>
 	</main>
-	<div id="wrapper">
-
-			
-			<canvas width="720" height="217" style="border:1px solid #000000;"
-				id="graphCanvas452feba1-c95c-4484-a41f-da5a8b36ce2e"></canvas>
-			<script>	var canvas = document.getElementById("graphCanvas452feba1-c95c-4484-a41f-da5a8b36ce2e");
-				var ctx = canvas.getContext("2d");
-				ctx.fillStyle = "white";
-				ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-				var myLineChart = new LineChart({
-					canvasId: "graphCanvas452feba1-c95c-4484-a41f-da5a8b36ce2e",
-					minX: 0,
-					minY: 0,
-					maxX: 6,
-					maxY: 30100,
-					unitsPerTickX: 1,
-					unitsPerTickY: 10000
-				});
-				var data = [
-					{ x: 0, y: 6561.67979002625 }, { x: 1, y: 30000 }, { x: 2, y: 30000 }, { x: 3, y: 30000 }, { x: 4, y: 30000 }, { x: 5, y: 28000 }, { x: 6, y: 101.706036745407 }
-				];
-				myLineChart.drawLine(data, "red", 3);</script>
-		</div>
-		<div class="content">
-			<h2>
-				<div>Task</div>
-			</h2>
-			<p>
-			<div>Briefings are the most efficient and common means to present information to commanders, staffers,
-				Soldiers, or other specified audiences. You conduct briefings when your listeners need information
-				quickly, when they can get together conveniently, and when they need to decide how to act on that
-				information. Briefings are often preferred to written or even electronic communication because they are
-				direct, immediate, and interpersonal. When lives may be at stake and units must carry out the right
-				decisions, most decision makers prefer the immediate physical setting of the military briefing.</div>
-			</p>
-		</div>
-		<div class="table">
-			<h2>
-				<div>Assets</div>
-			</h2>
-			<table width="100%">
-				<thead>
-					<td class="header">Name</td>
-					<td class="header">Radio</td>
-					<td class="header">Notes</td>
-				</thead>
-				<tr>
-					<td>Texaco-1 | 22nd ARW Texaco</td>
-					<td>267.000AM</td>
-					<td>Task:Refueling TACAN:67Y [TXC]</td>
-				</tr>
-				<tr>
-					<td>Shell-1 | 22nd ARW Shell</td>
-					<td>268.000AM</td>
-					<td>Task:Refueling TACAN:68Y [SHL]</td>
-				</tr>
-				<tr>
-					<td>Darkstar-1 | USAF AWACS</td>
-					<td>266.000AM</td>
-					<td>Task:AWACS</td>
-				</tr>
-			</table>
-		</div>
-	</div>
 </body>
+
 </html>
