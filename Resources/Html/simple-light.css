@@ -263,6 +263,6 @@ sub {
 }
 
 #chart {
-  max-width: 650px;
+  /*max-width: 650px;*/
   margin: var(--part-spacing) auto;
 }

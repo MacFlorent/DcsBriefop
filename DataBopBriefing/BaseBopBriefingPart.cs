@@ -33,12 +33,12 @@ namespace DcsBriefop.DataBopBriefing
 		public virtual void InitializeDefault() { }
 		public virtual string ToStringAdditional() { return null; }
 
-		public HtmlTag BuildHtml(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
-		{
-			return new HtmlTag("div").AddClass(m_sCssClass).Append(BuildHtmlContent(bopManager, bopBriefingFolder));
-		}
+		//public HtmlTag BuildHtml(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		//{
+		//	return new HtmlTag("div").AddClass(m_sCssClass).Append(BuildHtmlContent(bopManager, bopBriefingFolder));
+		//}
 
-		protected abstract IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder);
+		public abstract IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder);
 
 		public virtual IEnumerable<GMapOverlay> BuildMapOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder) { return null; }
 		#endregion

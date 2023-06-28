@@ -21,9 +21,9 @@ namespace DcsBriefop.DataBopBriefing
 			return WithDescription ? "With description" : "";
 		}
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<HtmlTag> tags = new List<HtmlTag>();
+			List<HtmlTag> tags = new();
 
 			if (bopManager.BopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
 			{
@@ -33,16 +33,15 @@ namespace DcsBriefop.DataBopBriefing
 				else if (bopCoalition.BullseyeWaypoint == ElementBullseyeWaypoint.Last)
 					sHeader += " [Last WP]";
 
-
 				HtmlTag tagTable = new HtmlTag("table").Attr("width", "100%");
 				HtmlTag tagTr = tagTable.Add("tr");
-				tagTr.Add("td").AddClass("header").AppendText(sHeader);
+				tagTr.Add("th").AppendText(sHeader);
 				tagTr.Add("td").Append(bopCoalition.Bullseye.ToString(bopBriefingFolder.CoordinateDisplay).HtmlLineBreaks());
 
 				if (WithDescription && !string.IsNullOrEmpty(bopCoalition.BullseyeDescription))
 				{
 					tagTr = tagTable.Add("tr");
-					tagTr.Add("td").AddClass("header").AppendText("Notes");
+					tagTr.Add("th").AppendText("Notes");
 					tagTr.Add("td").Append(bopCoalition.BullseyeDescription.HtmlLineBreaks());
 				}
 				tags.Add(tagTable);

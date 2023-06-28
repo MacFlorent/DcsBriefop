@@ -19,9 +19,9 @@ namespace DcsBriefop.DataBopBriefing
 			return Header ?? "";
 		}
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<HtmlTag> tags = new List<HtmlTag>();
+			List<HtmlTag> tags = new();
 			if (!string.IsNullOrEmpty(Header))
 			{
 				tags.Add(new HtmlTag("h2").Append(Header.HtmlLineBreaks()));
@@ -39,9 +39,9 @@ namespace DcsBriefop.DataBopBriefing
 	{
 		public BopBriefingPartSortie() : base(ElementBriefingPartType.Sortie, "content") { }
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<HtmlTag> tags = new List<HtmlTag>();
+			List<HtmlTag> tags = new();
 			if (!string.IsNullOrEmpty(bopManager.BopMission.Sortie))
 			{
 				tags.Add(new HtmlTag("h2").AppendText(bopManager.BopMission.Sortie));
@@ -55,9 +55,9 @@ namespace DcsBriefop.DataBopBriefing
 	{
 		public BopBriefingPartDescription() : base(ElementBriefingPartType.Description, "content") { }
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<HtmlTag> tags = new List<HtmlTag>();
+			List<HtmlTag> tags = new();
 
 			if (!string.IsNullOrEmpty(bopManager.BopMission.Description))
 			{
@@ -73,9 +73,9 @@ namespace DcsBriefop.DataBopBriefing
 	{
 		public BopBriefingPartTask() : base(ElementBriefingPartType.Task, "content") { }
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<HtmlTag> tags = new List<HtmlTag>();
+			List<HtmlTag> tags = new();
 
 			if (bopManager.BopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName, out BopCoalition bopCoalition))
 			{

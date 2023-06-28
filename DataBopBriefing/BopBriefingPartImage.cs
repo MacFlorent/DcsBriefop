@@ -19,9 +19,9 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Methods
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<HtmlTag> tags = new List<HtmlTag>();
+			List<HtmlTag> tags = new();
 			if (!string.IsNullOrEmpty(Header))
 			{
 				tags.Add(new HtmlTag("h2").Append(Header.HtmlLineBreaks()));
@@ -30,7 +30,7 @@ namespace DcsBriefop.DataBopBriefing
 			string sImageFullPath = GetImageFullPath(bopManager);
 			if (Path.Exists(sImageFullPath))
 			{
-				Bitmap bitmap = new Bitmap(sImageFullPath);
+				Bitmap bitmap = new(sImageFullPath);
 				MemoryStream stream = new MemoryStream();
 				bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
 				byte[] imageBytes = stream.ToArray();

@@ -52,9 +52,9 @@ namespace DcsBriefop.DataBopBriefing
 			return sb.ToString();
 		}
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<HtmlTag> tags = new List<HtmlTag>();
+			List<HtmlTag> tags = new();
 
 			if (!string.IsNullOrEmpty(Header))
 			{
@@ -71,7 +71,7 @@ namespace DcsBriefop.DataBopBriefing
 
 			foreach (BopAirbase bopAirbase in GetBopAirbases(bopManager.BopMission))
 			{
-				if (bopAirbase is object)
+				if (bopAirbase is not null)
 				{
 					bopAirbase.FinalizeFromMiz();
 

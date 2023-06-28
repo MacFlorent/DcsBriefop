@@ -7,6 +7,7 @@ using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using HtmlTags;
 using PuppeteerSharp;
+using System.Text.RegularExpressions;
 
 namespace DcsBriefop.DataBopBriefing
 {
@@ -114,8 +115,13 @@ namespace DcsBriefop.DataBopBriefing
 		{
 			HtmlTags.HtmlDocument html = new();
 			html.Head.Append(BuildHtmlStyle(bopBriefingFolder));
-			html.Head.Append(BuildHtmlScript());
-			html.Body.Append(BuildHtmlWrapper(bopManager, bopBriefingFolder));
+			html.Head.Append(BuildHtmlScript("apexcharts"));
+			html.Head.Append(BuildHtmlScript("apexcharts-waypointbuilder"));
+
+			if (DisplayTitle)
+				html.Body.Append(BuildHtmlBodyHeader(bopManager, bopBriefingFolder));
+
+			html.Body.Append(BuildHtmlBodyMain(bopManager, bopBriefingFolder));
 
 			return html;
 		}
@@ -128,34 +134,44 @@ namespace DcsBriefop.DataBopBriefing
 			if (style is not null)
 			{
 				string sStyle = style.GetCss();
-				sStyle = sStyle.Replace("/*::font-size*/", $"font-size:{HtmlFontSize}px;");
+				sStyle = Regex.Replace(sStyle, @"--base-font-size *: *12 *;", $"--base-font-size:{HtmlFontSize}px;");
 				tag.AppendHtml(sStyle);
 			}
 
 			return tag;
 		}
 
-		private HtmlTag BuildHtmlScript()
+		private HtmlTag BuildHtmlScript(string sResourceJs)
 		{
 			HtmlTag tag = new("script");
-			string sStyle = ToolsResources.GetTextResourceContent("briefingTemplate", "js", ElementGlobalData.ResourcesDirectoryHtml);
+			string sStyle = ToolsResources.GetTextResourceContent(sResourceJs, "js", ElementGlobalData.ResourcesDirectoryHtml);
 			return tag.AppendHtml(sStyle);
 		}
 
-		private HtmlTag BuildHtmlWrapper(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		private HtmlTag BuildHtmlBodyHeader(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			HtmlTag tag = new HtmlTag("div").Id("wrapper");
-			if (DisplayTitle)
-			{
-				tag.Add("div").AddClass("header").Add("h1").AppendText(Title);
-			}
+			HtmlTag tag = new HtmlTag("header");
+			tag.Add("h1").AppendText(Title);
+			return tag;
+		}
 
+			private HtmlTag BuildHtmlBodyMain(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		{
+			HtmlTag tag = new("main");
+
+			bool bHr = false;
 			foreach (BaseBopBriefingPart part in Parts)
 			{
-				HtmlTag tagPart = part.BuildHtml(bopManager, bopBriefingFolder);
-				if (tagPart is not null)
+				IEnumerable<HtmlTag> partTags = part.BuildHtmlContent(bopManager, bopBriefingFolder);
+				if (partTags is not null && partTags.Any())
 				{
-					tag.Append(tagPart);
+					if (bHr)
+						tag.Add("hr");
+					else
+						bHr = true;
+
+					tag.Append(partTags);
+
 				}
 			}
 

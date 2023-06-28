@@ -1,6 +1,4 @@
-﻿using DcsBriefop.Map;
-using DcsBriefop.Tools;
-using System.IO;
+﻿using DcsBriefop.Tools;
 
 namespace DcsBriefop.DataBopBriefing
 {

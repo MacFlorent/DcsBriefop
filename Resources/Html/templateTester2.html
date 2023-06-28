@@ -3,7 +3,7 @@
 
 <head>
 	<title></title>
-	<link rel="stylesheet" href="simple-custom.css">
+	<link rel="stylesheet" href="simple-light.css">
 	<script src="apexcharts.js"></script>
 	<script src="apexcharts-waypointbuilder.js"></script>
 </head>
@@ -27,10 +27,10 @@
 		</h2>
 		<table width="100%">
 			<tr>
-				<th class="header">Number</td>
-				<th class="header">Name</td>
-				<th class="header">Altitude ft</td>
-				<th class="header">Notes</td>
+				<th>Number</td>
+				<th>Name</td>
+				<th>Altitude ft</td>
+				<th>Notes</td>
 			</tr>
 			<tr>
 				<td>0</td>
@@ -92,13 +92,13 @@
 				[6, 5000],
 				[7, 0]
 			];
-			var chartWaypointNames = ["T/O", "RAMAT DAVID", "DMZ South", "UNDOF HH", "KYRIAT", "ROSH PINA", "NAQOURA", "LDG"];
+			var chartWaypointNames = ["sdq", "RAMAT DAVID", "DMZ South", "UNDOF HH", 1, "ROSH PINA", "NAQOURA", 0];
 			var chartWaypointTracks = [0, "136°", "080°", "007°", "226°", "183°", "288°", "173°"];
 			var chartWaypointSpeeds = [0, "490", "350", "350", "350", "350", "350", "350"];
 
 			ApexChartCreate(
 				"Altitude feet - Speeds KIAS - Tracks magnetic",
-				chartDataPoints, chartWaypointNames, chartWaypointTracks, chartWaypointSpeeds, "12px", "#0000FF", "chart"
+				chartDataPoints, chartWaypointNames, chartWaypointTracks, chartWaypointSpeeds, "blue", "600px", "400px", "chart"
 			);
 		</script>
 

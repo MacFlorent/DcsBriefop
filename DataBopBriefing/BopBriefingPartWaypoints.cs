@@ -4,7 +4,6 @@ using DcsBriefop.Tools;
 using GMap.NET.WindowsForms;
 using HtmlTags;
 using System.Text;
-using System.Xml.Linq;
 
 namespace DcsBriefop.DataBopBriefing
 {
@@ -68,9 +67,9 @@ namespace DcsBriefop.DataBopBriefing
 			return sb.ToString();
 		}
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<HtmlTag> tags = new List<HtmlTag>();
+			List<HtmlTag> tags = new();
 
 			BopGroup bopGroup = bopManager.BopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
 			if (bopGroup is null)
@@ -90,7 +89,7 @@ namespace DcsBriefop.DataBopBriefing
 
 			IEnumerable<string> columns = GetColumns();
 			HtmlTag tagTable = new HtmlTag("table").Attr("width", "100%");
-			HtmlTag tagThead = tagTable.Add("thead");
+			HtmlTag tagThead = tagTable.Add("tr");
 			foreach (string sColumn in columns)
 			{
 				string sTableHeader = sColumn;
@@ -101,7 +100,7 @@ namespace DcsBriefop.DataBopBriefing
 				else if (sTableHeader == TableColumns.Speed)
 					sTableHeader = $"{sColumn} {ToolsMeasurement.SpeedUnit(bopBriefingFolder.MeasurementSystem)}";
 
-				tagThead.Add("td").AddClass("header").AppendText(sTableHeader);
+				tagThead.Add("th").AppendText(sTableHeader);
 			}
 
 			if (bopRoutePoints is not null)
@@ -138,67 +137,80 @@ namespace DcsBriefop.DataBopBriefing
 			tags.Add(tagTable);
 
 			if (DisplayGraph && bopRoutePoints is not null)
-				tags.AddRange(BuildHtmlContentGraph(bopManager, bopBriefingFolder, bopRoutePoints));
+				tags.AddRange(BuildHtmlContentChart(bopManager, bopBriefingFolder, bopRoutePoints));
 			
 			return tags;
 		}
 
-		private List<HtmlTag> BuildHtmlContentGraph(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder, IEnumerable<BopRoutePoint> bopRoutePoints)
+		private List<HtmlTag> BuildHtmlContentChart(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder, IEnumerable<BopRoutePoint> bopRoutePoints)
 		{
-			List<HtmlTag> tags = new List<HtmlTag>();
+			List<HtmlTag> tags = new();
 			BopGroup bopGroup = bopManager.BopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
-			//https://www.html5canvastutorials.com/tutorials/html5-canvas-paths/
-			string sCanvasName = $"graphCanvas{Guid}";
-			HtmlTag tagCanvas = new HtmlTag("canvas")
-				.Attr("width", $"{bopBriefingFolder.ImageSize.Width}")
-				.Attr("height", $"{bopBriefingFolder.ImageSize.Height / 5}")
-				.Attr("style", $"border:1px solid #000000;")
-				.Id(sCanvasName);
-			HtmlTag tagScript = new HtmlTag("script");
+			string sChartName = $"chartWaypoints{Guid}";
+			HtmlTag tagChart = new HtmlTag("div").Id(sChartName);
+
+			int iWidth = bopBriefingFolder.ImageSize.Width - 10;
+			int iHeight = bopBriefingFolder.ImageSize.Height / 4;
+
+			string sLegend = $"Altitude {ToolsMeasurement.AltitudeUnit(bopBriefingFolder.MeasurementSystem)} - Speeds KIAS - Tracks mag°";
+			string sColor = "null";
+			if (!string.IsNullOrEmpty(bopBriefingFolder.CoalitionName))
+			{
+				Color color = ToolsBriefop.GetCoalitionColor(bopBriefingFolder.CoalitionName);
+				sColor = $"\"#{color.R:X2}{color.G:X2}{color.B:X2}\"";
+			}
+
+			StringBuilder sbDataPoints = new();
+			StringBuilder sbNames = new();
+			StringBuilder sbTracks = new();
+			StringBuilder sbSpeeds = new();
+
+			foreach (BopRoutePoint brp in bopRoutePoints)
+			{
+				sbDataPoints.AppendWithSeparator($"[{brp.Number:0}, {brp.GetAltitude(bopBriefingFolder.MeasurementSystem):0}]", ",");
+				
+				if (string.IsNullOrEmpty(brp.Name))
+					sbNames.AppendWithSeparator($"0", ",");
+				else
+					sbNames.AppendWithSeparator($"\"{brp.Name}\"", ",");
+
+				double? dTrack = brp.GetTrack(true);
+				if (dTrack is null || brp.Number == 0)
+					sbTracks.AppendWithSeparator($"0", ",");
+				else
+					sbTracks.AppendWithSeparator($"\"{dTrack:000}°\"", ",");
+
+				double? dSpeed = brp.GetSpeedCalibrated(bopBriefingFolder.MeasurementSystem);
+				if (dSpeed is null || brp.Number == 0)
+					sbSpeeds.AppendWithSeparator($"0", ",");
+				else
+					sbSpeeds.AppendWithSeparator($"\"{dSpeed:0}\"", ",");
+			}
+
+
+			HtmlTag tagScript = new("script");
 			string sScript =
 $$"""
-	var canvas = document.getElementById("{{sCanvasName}}");
-	var ctx = canvas.getContext("2d");
-	ctx.fillStyle = "white";
-	ctx.fillRect(0, 0, canvas.width, canvas.height);
+	let chartDataPoints = [{{sbDataPoints}}];
+	let chartWaypointNames = [{{sbNames}}];
+	let chartWaypointTracks = [{{sbTracks}}];
+	let chartWaypointSpeeds = [{{sbSpeeds}}];
 
-	var myLineChart = new LineChart({
-	canvasId: "{{sCanvasName}}",
-	minX: 0,
-	minY: 0,
-	maxX: {{bopRoutePoints.Max(_brp => _brp.Number)}},
-	maxY: {{bopRoutePoints.Max(_brp => _brp.GetAltitude(bopBriefingFolder.MeasurementSystem)) + 100}},
-	unitsPerTickX: 1,
-	unitsPerTickY: 10000
-	});
-	var data = [
-	{{BuildHtmlContentGraphPoints(bopManager, bopBriefingFolder, bopRoutePoints)}}
-	];
-	myLineChart.drawLine(data, "red", 3);
+	ApexChartCreate(
+		"{{sLegend}}",
+		chartDataPoints, chartWaypointNames, chartWaypointTracks, chartWaypointSpeeds, {{sColor}}, "{{iWidth}}px", "{{iHeight}}px", "{{sChartName}}"
+	);
 """;
 
 			tagScript.AppendHtml(sScript);
-			tags.Add(tagCanvas);
+			tags.Add(tagChart);
 			tags.Add(tagScript);
 			return tags;
 		}
 
-		private string BuildHtmlContentGraphPoints(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder, IEnumerable<BopRoutePoint> bopRoutePoints)
-		{
-			StringBuilder sb = new StringBuilder();
-			BopGroup bopGroup = bopManager.BopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
-			
-			foreach (BopRoutePoint brp in bopRoutePoints)
-			{
-				sb.AppendWithSeparator($$"""{ x: {{brp.Number}}, y: {{brp.GetAltitude(bopBriefingFolder.MeasurementSystem)}} }""", ",");
-			}
-
-			return sb.ToString();
-		}
-
 		public override IEnumerable<GMapOverlay> BuildMapOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<GMapOverlay> partOverlays = new List<GMapOverlay>();
+			List<GMapOverlay> partOverlays = new();
 			BopGroup bopGroup = bopManager.BopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
 			if (bopGroup is not null)
 			{

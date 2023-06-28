@@ -16,29 +16,49 @@
 	return labelOut;
 }
 
-function ApexChartCreate(title, dataPoints, waypointNames, waypointTracks, waypointSpeeds, fontSize, color, selector) {
-	var options = {
+function ApexChartFormatAxisX(value, label) {
+	let labelOut = [value];
+	if (label)
+		labelOut[1] = label;
+
+	return labelOut;
+}
+
+function ApexChartCreate(title, dataPoints, waypointNames, waypointTracks, waypointSpeeds, lineColor, width, height, selector) {
+	const htmlElement = document.querySelector("#" + selector)
+	const style = getComputedStyle(htmlElement)
+
+	if(lineColor == null) {
+		lineColor = style.accentColor;
+	}
+
+	const options = {
+		chart: {
+			type: "line",
+			toolbar: {
+				show: false
+			},
+			animations: {
+				enabled: false
+			},
+			fontFamily: style.fontFamily,
+			foreColor: style.color,
+			width: width,
+			height: height
+		},
 		title: {
 			text: title,
 			align: "right",
 			margin: 0,
 			offsetX: 0,
-			offsetY: 50,
+			offsetY: 0,
 			floating: false,
 			style: {
-				fontSize: fontSize,
-				fontWeight: "bold",
-				fontFamily: undefined,
-				color: color
+				fontSize: style.fontSize,
+				fontWeight: 400,
 			},
 		},
-		chart: {
-			type: "line",
-			toolbar: {
-				show: false
-			}
-		},
-		colors: [color],
+		colors: [lineColor],
 		tooltip: {
 			enabled: false,
 		},
@@ -46,7 +66,8 @@ function ApexChartCreate(title, dataPoints, waypointNames, waypointTracks, waypo
 			enabled: true,
 			textAnchor: "middle",
 			style: {
-				fontSize: fontSize,
+				//fontSize: style.fontSize,
+				fontFamily: style.fontFamily,
 				fontWeight: 400
 			},
 			formatter: function (val, opt) {
@@ -58,7 +79,7 @@ function ApexChartCreate(title, dataPoints, waypointNames, waypointTracks, waypo
 			curve: "smooth",
 		},
 		grid: {
-			borderColor: '#e7e7e7',
+			borderColor: style.borderColor,
 		},
 		markers: {
 			enabled: true,
@@ -72,8 +93,13 @@ function ApexChartCreate(title, dataPoints, waypointNames, waypointTracks, waypo
 		xaxis: {
 			labels: {
 				formatter: function (value) {
-					return [value, waypointNames[value]]
-				}
+					return ApexChartFormatAxisX(value, waypointNames[value])
+				},
+				style: {
+					//fontSize: style.fontSize,
+					fontFamily: style.fontFamily,
+					//fontWeight: 400
+				},
 			}
 		},
 		yaxis: {

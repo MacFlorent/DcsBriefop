@@ -1,5 +1,4 @@
 ﻿using DcsBriefop.Data;
-using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 using HtmlTags;
 
@@ -15,12 +14,12 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Methods
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<HtmlTag> tags = new List<HtmlTag>();
+			List<HtmlTag> tags = new();
 			HtmlTag tagTable = new HtmlTag("table").Attr("width", "100%");
 			HtmlTag tagTr = tagTable.Add("tr");
-			tagTr.Add("td").AddClass("header").AppendText("Weather");
+			tagTr.Add("th").AppendText("Weather");
 			tagTr.Add("td").Append(bopManager.BopMission.Weather.ToString(bopBriefingFolder.WeatherDisplay, bopBriefingFolder.MeasurementSystem).HtmlLineBreaks());
 			tags.Add(tagTable);
 			return tags;

@@ -60,9 +60,9 @@ namespace DcsBriefop.DataBopBriefing
 			return sb.ToString();
 		}
 
-		protected override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<HtmlTag> tags = new List<HtmlTag>();
+			List<HtmlTag> tags = new();
 
 			if (!string.IsNullOrEmpty(Header))
 			{
@@ -71,15 +71,15 @@ namespace DcsBriefop.DataBopBriefing
 
 			IEnumerable<string> columns = GetColumns();
 			HtmlTag tagTable = new HtmlTag("table").Attr("width", "100%");
-			HtmlTag tagThead = tagTable.Add("thead");
+			HtmlTag tagThead = tagTable.Add("tr");
 			foreach (string sColumn in columns)
 			{
-				tagThead.Add("td").AddClass("header").AppendText(sColumn);
+				tagThead.Add("th").AppendText(sColumn);
 			}
 
 			foreach (BopGroupOrUnit element in GetBopGroupOrUnits(bopManager.BopMission))
 			{
-				if (element is object)
+				if (element is not null)
 				{
 					HtmlTag tagTr = tagTable.Add("tr");
 					foreach (string sColumn in columns)
