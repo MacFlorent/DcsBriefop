@@ -94,6 +94,8 @@ namespace DcsBriefop.Forms
 					m_ucBriefingPart = new UcBriefingPartImage(selected, m_bopManager, this);
 				else if (selected is BopBriefingPartWaypoints)
 					m_ucBriefingPart = new UcBriefingPartWaypoints(selected, m_bopManager, this);
+				else if (selected is BopBriefingPartTableText)
+					m_ucBriefingPart = new UcBriefingPartTableText(selected, m_bopManager, this);
 
 				if (m_ucBriefingPart is not null)
 				{
@@ -233,7 +235,7 @@ namespace DcsBriefop.Forms
 
 		private void BtPartAdd_MouseDown(object sender, MouseEventArgs e)
 		{
-			ContextMenuStrip menu = new ContextMenuStrip();
+			ContextMenuStrip menu = new();
 			menu.Items.Clear();
 
 			foreach (MasterData partType in MasterDataRepository.GetMasterDataList(MasterDataType.BriefingPartType))

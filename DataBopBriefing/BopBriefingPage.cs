@@ -40,9 +40,7 @@ namespace DcsBriefop.DataBopBriefing
 		{
 			BaseBopBriefingPart bopBriefingPart = null;
 
-			if (briefingPartType == ElementBriefingPartType.Bullseye)
-				bopBriefingPart = new BopBriefingPartBullseye();
-			else if (briefingPartType == ElementBriefingPartType.Paragraph)
+			if (briefingPartType == ElementBriefingPartType.Paragraph)
 				bopBriefingPart = new BopBriefingPartParagraph();
 			else if (briefingPartType == ElementBriefingPartType.Sortie)
 				bopBriefingPart = new BopBriefingPartSortie();
@@ -58,10 +56,10 @@ namespace DcsBriefop.DataBopBriefing
 				bopBriefingPart = new BopBriefingPartWaypoints();
 			else if (briefingPartType == ElementBriefingPartType.Image)
 				bopBriefingPart = new BopBriefingPartImage();
-			else if (briefingPartType == ElementBriefingPartType.Weather)
-				bopBriefingPart = new BopBriefingPartWeather();
+			else if (briefingPartType == ElementBriefingPartType.TableText)
+				bopBriefingPart = new BopBriefingPartTableText();
 
-			if (bopBriefingPart is object)
+			if (bopBriefingPart is not null)
 			{
 				bopBriefingPart.InitializeDefault();
 				Parts.Add(bopBriefingPart);
@@ -130,10 +128,9 @@ namespace DcsBriefop.DataBopBriefing
 		{
 			HtmlTag tag = new("style");
 
-			BopBriefingStyle style = BopBriefingStyle.GetElement(bopBriefingFolder.HtmlCssStyle);
-			if (style is not null)
+			string sStyle = BopBriefingStyle.GetElement(bopBriefingFolder.HtmlCssStyle)?.GetCss() ?? BopBriefingStyle.GetCssDefault();
+			if (!string.IsNullOrEmpty(sStyle))
 			{
-				string sStyle = style.GetCss();
 				sStyle = Regex.Replace(sStyle, @"--base-font-size *: *12 *;", $"--base-font-size:{HtmlFontSize}px;");
 				tag.AppendHtml(sStyle);
 			}

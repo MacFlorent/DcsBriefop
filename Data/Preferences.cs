@@ -72,7 +72,7 @@ namespace DcsBriefop.Data
 		public ElementWeatherDisplay WeatherDisplay { get; set; } = ElementWeatherDisplay.Plain;
 		public ElementMeasurementSystem MeasurementSystem { get; set; } = ElementMeasurementSystem.Hybrid;
 		public ElementCoordinateDisplay CoordinateDisplay { get; set; } = ElementCoordinateDisplay.Mgrs;
-		public string HtmlStyleCss { get; set; } = "simple-dark";
+		public string HtmlStyleCss { get; set; }
 		public Size ImageSize { get; set; } = new Size(720, 1085);
 		public bool GenerateOnSave { get; set; } = true;
 		public bool GenerateDirectoryHtml { get; set; } = false;

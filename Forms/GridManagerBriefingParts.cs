@@ -1,4 +1,5 @@
-﻿using DcsBriefop.DataBopBriefing;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataBopBriefing;
 using System.Data;
 using Zuby.ADGV;
 
@@ -39,8 +40,11 @@ namespace DcsBriefop.Forms
 		{
 			base.RefreshDataSourceRowContent(dr, element);
 
+			MasterData partType = MasterDataRepository.GetById(MasterDataType.BriefingPartType, (int)element.PartType);
+			string sPartName = partType?.Label ?? element.PartType.ToString();
+
 			dr.SetField(GridColumn.Id, element.Guid);
-			dr.SetField(GridColumn.PartName, element.PartType);
+			dr.SetField(GridColumn.PartName, sPartName);
 			dr.SetField(GridColumn.Information, element.ToStringAdditional());
 		}
 

@@ -20,7 +20,7 @@ namespace DcsBriefop.DataBopBriefing
 		}
 		#endregion
 
-			#region Methods
+		#region Methods
 		public override string ToString()
 		{
 			return Name;
@@ -40,10 +40,12 @@ namespace DcsBriefop.DataBopBriefing
 
 		#region Static
 		private static List<BopBriefingStyle> m_templatesList = new();
+		private static string m_sCssFilePathDefault;
 
 		static BopBriefingStyle()
 		{
 			string sBaseDirectory = ToolsResources.GetResourceDirectoryPath("Html");
+			m_sCssFilePathDefault = Path.Combine(sBaseDirectory, "simple-dark.css");
 
 			if (Directory.Exists(sBaseDirectory))
 			{
@@ -57,6 +59,17 @@ namespace DcsBriefop.DataBopBriefing
 		public static BopBriefingStyle GetElement(string sName)
 		{
 			return m_templatesList.Where(_e => _e.Name == sName).FirstOrDefault();
+		}
+
+		public static string GetCssDefault()
+		{
+			string sCss = null;
+			if (File.Exists(m_sCssFilePathDefault))
+			{
+				sCss = File.ReadAllText(m_sCssFilePathDefault);
+			}
+
+			return sCss;
 		}
 
 		public static void FillCombo(ComboBox cb, EventHandler selectedValueChanged)

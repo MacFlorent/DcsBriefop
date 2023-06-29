@@ -77,7 +77,7 @@ namespace DcsBriefop.Properties {
         ///pushd %dcsBriefopPath%
         ///
         ///@echo on
-        ///start &quot;&quot; %dcsBriefopExe% batch --mizFile %mizPath%%mizFile% --loglevel info
+        ///start &quot;&quot; %dcsBriefopExe% batch --miz %mizPath%%mizFile% --loglevel info
         ///@echo off
         ///
         ///::reset execution directory

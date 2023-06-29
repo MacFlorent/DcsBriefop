@@ -1,5 +1,4 @@
 ﻿using DcsBriefop.Data;
-using DcsBriefop.DataBopMission;
 using GMap.NET.WindowsForms;
 using HtmlTags;
 using Newtonsoft.Json;
@@ -32,12 +31,6 @@ namespace DcsBriefop.DataBopBriefing
 		#region Methods
 		public virtual void InitializeDefault() { }
 		public virtual string ToStringAdditional() { return null; }
-
-		//public HtmlTag BuildHtml(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
-		//{
-		//	return new HtmlTag("div").AddClass(m_sCssClass).Append(BuildHtmlContent(bopManager, bopBriefingFolder));
-		//}
-
 		public abstract IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder);
 
 		public virtual IEnumerable<GMapOverlay> BuildMapOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder) { return null; }
@@ -106,6 +99,8 @@ namespace DcsBriefop.DataBopBriefing
 				return DeserializeConcreteBriefingPart<BopBriefingPartImage>(jo);
 			else if (partType == ElementBriefingPartType.Weather)
 				return DeserializeConcreteBriefingPart<BopBriefingPartWeather>(jo);
+			else if (partType == ElementBriefingPartType.TableText)
+				return DeserializeConcreteBriefingPart<BopBriefingPartTableText>(jo);
 
 			else
 				throw new ExceptionBop("Cannot deserialize Unknown part type");

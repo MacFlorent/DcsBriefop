@@ -61,7 +61,10 @@ namespace DcsBriefop.DataBopBriefing
 
 			if (!string.IsNullOrEmpty(bopManager.BopMission.Description))
 			{
-				tags.Add(new HtmlTag("h2").AppendText("Description"));
+				if (!string.IsNullOrEmpty(bopManager.BopMission.Sortie))
+				{
+					tags.Add(new HtmlTag("h2").AppendText(bopManager.BopMission.Sortie));
+				}
 				tags.Add(new HtmlTag("p").Append(bopManager.BopMission.Description.HtmlLineBreaks()));
 			}
 

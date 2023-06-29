@@ -91,6 +91,7 @@
 		Waypoints,
 		Image,
 		Weather,
+		TableText
 	}
 
 	internal enum ElementBriefingPartGroupType
