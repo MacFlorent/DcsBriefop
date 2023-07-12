@@ -33,7 +33,7 @@ namespace DcsBriefop.Data
 		public static Radio NewFromString(string sRadio)
 		{
 			Radio radio = null;
-			Regex regex = new Regex(@"^(?<freq>[0-9]+\.?[0-9]*)\s*(?<mod>[AaFf][Mm]).*");
+			Regex regex = new Regex(@"^(?<freq>[0-9]+\.?[0-9]*)\s*(?<mod>[AaFf][Mm])?.*");
 			Match match = regex.Match(sRadio);
 
 			if (match.Success)
@@ -49,7 +49,7 @@ namespace DcsBriefop.Data
 				if (string.Compare(sModulation, MasterDataRepository.GetById(MasterDataType.RadioModulation, ElementRadioModulation.FM)?.Label, true) == 0)
 					iModulation = ElementRadioModulation.FM;
 
-				if (dFrequency is object)
+				if (dFrequency is not null)
 				{
 					radio = new Radio(dFrequency.Value, iModulation);
 					radio.Normalize();
@@ -77,7 +77,7 @@ namespace DcsBriefop.Data
 			* Increments are 0.025 Mhz
 			*/
 
-			Frequency = double.Round(Frequency * 1000 / 25) * (25 / 1000);
+			Frequency = double.Round(Frequency * 1000 / 25) * (25d / 1000);
 
 			if (Frequency < 30)
 				Frequency = 30;
