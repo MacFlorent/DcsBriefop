@@ -79,7 +79,14 @@ namespace DcsBriefop.DataMiz
 				}
 			}
 
-			HeliportFrequency = Lsd.IfExistsDouble(LuaNode.HeliportFrequency);
+			LsonValue lsvFrequency = Lsd.IfExists(LuaNode.HeliportFrequency);
+			if (lsvFrequency is LsonNumber)
+				HeliportFrequency = lsvFrequency.GetDouble();
+			else if (lsvFrequency is LsonString)
+			{// sometimes the frequency is stored as string
+				HeliportFrequency = Convert.ToDouble(lsvFrequency.GetString());
+			}
+
 			HeliportModulation = Lsd.IfExistsInt(LuaNode.HeliportModulation);
 			HeliportCallsignId = Lsd.IfExistsInt(LuaNode.HeliportCallsignId);
 		}
@@ -90,13 +97,13 @@ namespace DcsBriefop.DataMiz
 			Lsd[LuaNode.Name] = Name;
 			Lsd[LuaNode.Type] = Type;
 			Lsd[LuaNode.Skill] = Skill;
-			
+
 			if (Callsign is object)
 				Callsign.ToLua();
 			if (CallsignNumber is object)
 				Lsd.SetIfExists(LuaNode.Callsign, CallsignNumber);
 
-			Lsd.SetIfExists (LuaNode.OnboardNum, OnboardNum);
+			Lsd.SetIfExists(LuaNode.OnboardNum, OnboardNum);
 
 			Lsd.SetIfExists(LuaNode.RadioFrequency, RadioFrequency);
 			Lsd.SetIfExists(LuaNode.RadioModulation, RadioModulation);

@@ -1,6 +1,4 @@
 ﻿using LsonLib;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DcsBriefop.Tools
 {
