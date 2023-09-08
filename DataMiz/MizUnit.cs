@@ -98,16 +98,16 @@ namespace DcsBriefop.DataMiz
 			Lsd[LuaNode.Type] = Type;
 			Lsd[LuaNode.Skill] = Skill;
 
-			if (Callsign is object)
+			if (Callsign is not null)
 				Callsign.ToLua();
-			if (CallsignNumber is object)
+			if (CallsignNumber is not null)
 				Lsd.SetIfExists(LuaNode.Callsign, CallsignNumber);
 
 			Lsd.SetIfExists(LuaNode.OnboardNum, OnboardNum);
 
 			Lsd.SetIfExists(LuaNode.RadioFrequency, RadioFrequency);
 			Lsd.SetIfExists(LuaNode.RadioModulation, RadioModulation);
-			if (Radios is object)
+			if (Radios is not null)
 			{
 				foreach (MizRadio radio in Radios)
 				{

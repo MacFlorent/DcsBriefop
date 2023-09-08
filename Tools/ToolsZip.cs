@@ -1,6 +1,5 @@
-﻿using System.IO;
+﻿using DcsBriefop.DataMiz;
 using System.IO.Compression;
-using System.Linq;
 
 namespace DcsBriefop.Tools
 {
@@ -27,7 +26,7 @@ namespace DcsBriefop.Tools
 
 		public static void RemoveZipEntries(ZipArchive za, string sEntryName)
 		{
-			foreach(ZipArchiveEntry ze in za.Entries.Where(_ze => _ze.FullName == sEntryName).ToList())
+			foreach (ZipArchiveEntry ze in za.Entries.Where(_ze => _ze.FullName.Equals(sEntryName, StringComparison.OrdinalIgnoreCase)).ToList())
 				ze.Delete();
 		}
 	}
