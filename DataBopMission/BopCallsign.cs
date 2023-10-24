@@ -81,7 +81,7 @@ namespace DcsBriefop.DataBopMission
 		public static BopCallsign NewFromNumber( int? iCallsignNumber)
 		{
 			BopCallsign bopCallsign = null;
-			if (iCallsignNumber is object)
+			if (iCallsignNumber is not null)
 			{
 				bopCallsign = new BopCallsign() { Number = iCallsignNumber };
 			}

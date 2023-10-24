@@ -19,8 +19,9 @@ namespace DcsBriefop.Forms
 			public static readonly string Type = "Type";
 			public static readonly string Attributes = "Attributes";
 			public static readonly string Playable = "Playable";
+			public static readonly string StnL16 = "StnL16";
 		}
-		public static List<string> ColumnsDisplayedGroup { get; private set; } = new List<string>() { GridColumn.Id, GridColumn.DisplayName, GridColumn.ObjectClass, GridColumn.Type, GridColumn.Attributes, GridColumn.Playable };
+		public static List<string> ColumnsDisplayedGroup { get; private set; } = new List<string>() { GridColumn.Id, GridColumn.DisplayName, GridColumn.ObjectClass, GridColumn.Type, GridColumn.Attributes, GridColumn.Playable, GridColumn.StnL16 };
 		#endregion
 
 		#region Fields
@@ -47,6 +48,7 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Type, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.Attributes, typeof(ElementDcsObjectAttribute));
 			m_dtSource.Columns.Add(GridColumn.Playable, typeof(bool));
+			m_dtSource.Columns.Add(GridColumn.StnL16, typeof(string));
 		}
 
 		protected override void RefreshDataSourceRowContent(DataRow dr, BopUnit element)
@@ -61,6 +63,7 @@ namespace DcsBriefop.Forms
 			dr.SetField(GridColumn.Type, element.Type);
 			dr.SetField(GridColumn.Attributes, element.Attributes);
 			dr.SetField(GridColumn.Playable, element.Playable);
+			dr.SetField(GridColumn.StnL16, element?.Link16);
 		}
 		#endregion
 

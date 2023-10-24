@@ -28,262 +28,326 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.CbMapMarker = new System.Windows.Forms.ComboBox();
-			this.LbMapMarker = new System.Windows.Forms.Label();
-			this.LbCoordinates = new System.Windows.Forms.Label();
-			this.TbCoordinates = new System.Windows.Forms.TextBox();
-			this.LbOther = new System.Windows.Forms.Label();
-			this.LbDisplayName = new System.Windows.Forms.Label();
-			this.TbDisplayName = new System.Windows.Forms.TextBox();
-			this.TbOther = new System.Windows.Forms.TextBox();
-			this.LbAttributes = new System.Windows.Forms.Label();
-			this.TbAttributes = new System.Windows.Forms.TextBox();
-			this.CkPlayable = new System.Windows.Forms.CheckBox();
-			this.LbType = new System.Windows.Forms.Label();
-			this.TbType = new System.Windows.Forms.TextBox();
-			this.LbName = new System.Windows.Forms.Label();
-			this.TbName = new System.Windows.Forms.TextBox();
-			this.LbId = new System.Windows.Forms.Label();
-			this.TbId = new System.Windows.Forms.TextBox();
-			this.LbAltitude = new System.Windows.Forms.Label();
-			this.TbAltitude = new System.Windows.Forms.TextBox();
-			this.SuspendLayout();
+			CbMapMarker = new ComboBox();
+			LbMapMarker = new Label();
+			LbCoordinates = new Label();
+			TbCoordinates = new TextBox();
+			LbOther = new Label();
+			LbDisplayName = new Label();
+			TbDisplayName = new TextBox();
+			TbOther = new TextBox();
+			LbAttributes = new Label();
+			TbAttributes = new TextBox();
+			CkPlayable = new CheckBox();
+			LbType = new Label();
+			TbType = new TextBox();
+			LbName = new Label();
+			TbName = new TextBox();
+			LbId = new Label();
+			TbId = new TextBox();
+			LbAltitude = new Label();
+			TbAltitude = new TextBox();
+			LbLink16Stn = new Label();
+			TbLink16Stn = new TextBox();
+			LbLink16Callsign = new Label();
+			TbLink16Callsign = new TextBox();
+			SuspendLayout();
 			// 
 			// CbMapMarker
 			// 
-			this.CbMapMarker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.CbMapMarker.FormattingEnabled = true;
-			this.CbMapMarker.Location = new System.Drawing.Point(82, 247);
-			this.CbMapMarker.Name = "CbMapMarker";
-			this.CbMapMarker.Size = new System.Drawing.Size(200, 21);
-			this.CbMapMarker.TabIndex = 85;
-			this.CbMapMarker.SelectedValueChanged += new System.EventHandler(this.CbMapMarker_SelectedValueChanged);
+			CbMapMarker.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			CbMapMarker.FormattingEnabled = true;
+			CbMapMarker.Location = new Point(100, 285);
+			CbMapMarker.Margin = new Padding(4, 3, 4, 3);
+			CbMapMarker.Name = "CbMapMarker";
+			CbMapMarker.Size = new Size(229, 23);
+			CbMapMarker.TabIndex = 85;
+			CbMapMarker.SelectedValueChanged += CbMapMarker_SelectedValueChanged;
 			// 
 			// LbMapMarker
 			// 
-			this.LbMapMarker.AutoSize = true;
-			this.LbMapMarker.Location = new System.Drawing.Point(6, 250);
-			this.LbMapMarker.Name = "LbMapMarker";
-			this.LbMapMarker.Size = new System.Drawing.Size(63, 13);
-			this.LbMapMarker.TabIndex = 84;
-			this.LbMapMarker.Text = "Map marker";
+			LbMapMarker.AutoSize = true;
+			LbMapMarker.Location = new Point(7, 288);
+			LbMapMarker.Margin = new Padding(4, 0, 4, 0);
+			LbMapMarker.Name = "LbMapMarker";
+			LbMapMarker.Size = new Size(71, 15);
+			LbMapMarker.TabIndex = 84;
+			LbMapMarker.Text = "Map marker";
 			// 
 			// LbCoordinates
 			// 
-			this.LbCoordinates.AutoSize = true;
-			this.LbCoordinates.Location = new System.Drawing.Point(6, 191);
-			this.LbCoordinates.Name = "LbCoordinates";
-			this.LbCoordinates.Size = new System.Drawing.Size(63, 13);
-			this.LbCoordinates.TabIndex = 83;
-			this.LbCoordinates.Text = "Coordinates";
+			LbCoordinates.AutoSize = true;
+			LbCoordinates.Location = new Point(7, 220);
+			LbCoordinates.Margin = new Padding(4, 0, 4, 0);
+			LbCoordinates.Name = "LbCoordinates";
+			LbCoordinates.Size = new Size(71, 15);
+			LbCoordinates.TabIndex = 83;
+			LbCoordinates.Text = "Coordinates";
 			// 
 			// TbCoordinates
 			// 
-			this.TbCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbCoordinates.Location = new System.Drawing.Point(82, 194);
-			this.TbCoordinates.Multiline = true;
-			this.TbCoordinates.Name = "TbCoordinates";
-			this.TbCoordinates.ReadOnly = true;
-			this.TbCoordinates.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbCoordinates.Size = new System.Drawing.Size(200, 47);
-			this.TbCoordinates.TabIndex = 82;
+			TbCoordinates.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbCoordinates.Location = new Point(100, 224);
+			TbCoordinates.Margin = new Padding(4, 3, 4, 3);
+			TbCoordinates.Multiline = true;
+			TbCoordinates.Name = "TbCoordinates";
+			TbCoordinates.ReadOnly = true;
+			TbCoordinates.ScrollBars = ScrollBars.Vertical;
+			TbCoordinates.Size = new Size(229, 54);
+			TbCoordinates.TabIndex = 82;
 			// 
 			// LbOther
 			// 
-			this.LbOther.AutoSize = true;
-			this.LbOther.Location = new System.Drawing.Point(6, 145);
-			this.LbOther.Name = "LbOther";
-			this.LbOther.Size = new System.Drawing.Size(33, 13);
-			this.LbOther.TabIndex = 81;
-			this.LbOther.Text = "Other";
+			LbOther.AutoSize = true;
+			LbOther.Location = new Point(7, 167);
+			LbOther.Margin = new Padding(4, 0, 4, 0);
+			LbOther.Name = "LbOther";
+			LbOther.Size = new Size(37, 15);
+			LbOther.TabIndex = 81;
+			LbOther.Text = "Other";
 			// 
 			// LbDisplayName
 			// 
-			this.LbDisplayName.AutoSize = true;
-			this.LbDisplayName.Location = new System.Drawing.Point(6, 67);
-			this.LbDisplayName.Name = "LbDisplayName";
-			this.LbDisplayName.Size = new System.Drawing.Size(69, 13);
-			this.LbDisplayName.TabIndex = 78;
-			this.LbDisplayName.Text = "DisplayName";
+			LbDisplayName.AutoSize = true;
+			LbDisplayName.Location = new Point(7, 77);
+			LbDisplayName.Margin = new Padding(4, 0, 4, 0);
+			LbDisplayName.Name = "LbDisplayName";
+			LbDisplayName.Size = new Size(77, 15);
+			LbDisplayName.TabIndex = 78;
+			LbDisplayName.Text = "DisplayName";
 			// 
 			// TbDisplayName
 			// 
-			this.TbDisplayName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbDisplayName.Location = new System.Drawing.Point(82, 64);
-			this.TbDisplayName.Name = "TbDisplayName";
-			this.TbDisplayName.ReadOnly = true;
-			this.TbDisplayName.Size = new System.Drawing.Size(200, 20);
-			this.TbDisplayName.TabIndex = 77;
+			TbDisplayName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbDisplayName.Location = new Point(100, 74);
+			TbDisplayName.Margin = new Padding(4, 3, 4, 3);
+			TbDisplayName.Name = "TbDisplayName";
+			TbDisplayName.ReadOnly = true;
+			TbDisplayName.Size = new Size(229, 23);
+			TbDisplayName.TabIndex = 77;
 			// 
 			// TbOther
 			// 
-			this.TbOther.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbOther.Location = new System.Drawing.Point(82, 142);
-			this.TbOther.Name = "TbOther";
-			this.TbOther.ReadOnly = true;
-			this.TbOther.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbOther.Size = new System.Drawing.Size(200, 20);
-			this.TbOther.TabIndex = 76;
+			TbOther.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbOther.Location = new Point(100, 164);
+			TbOther.Margin = new Padding(4, 3, 4, 3);
+			TbOther.Name = "TbOther";
+			TbOther.ReadOnly = true;
+			TbOther.ScrollBars = ScrollBars.Vertical;
+			TbOther.Size = new Size(229, 23);
+			TbOther.TabIndex = 76;
 			// 
 			// LbAttributes
 			// 
-			this.LbAttributes.AutoSize = true;
-			this.LbAttributes.Location = new System.Drawing.Point(7, 116);
-			this.LbAttributes.Name = "LbAttributes";
-			this.LbAttributes.Size = new System.Drawing.Size(51, 13);
-			this.LbAttributes.TabIndex = 75;
-			this.LbAttributes.Text = "Attributes";
+			LbAttributes.AutoSize = true;
+			LbAttributes.Location = new Point(8, 134);
+			LbAttributes.Margin = new Padding(4, 0, 4, 0);
+			LbAttributes.Name = "LbAttributes";
+			LbAttributes.Size = new Size(59, 15);
+			LbAttributes.TabIndex = 75;
+			LbAttributes.Text = "Attributes";
 			// 
 			// TbAttributes
 			// 
-			this.TbAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbAttributes.Location = new System.Drawing.Point(82, 116);
-			this.TbAttributes.Name = "TbAttributes";
-			this.TbAttributes.ReadOnly = true;
-			this.TbAttributes.Size = new System.Drawing.Size(200, 20);
-			this.TbAttributes.TabIndex = 74;
+			TbAttributes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbAttributes.Location = new Point(100, 134);
+			TbAttributes.Margin = new Padding(4, 3, 4, 3);
+			TbAttributes.Name = "TbAttributes";
+			TbAttributes.ReadOnly = true;
+			TbAttributes.Size = new Size(229, 23);
+			TbAttributes.TabIndex = 74;
 			// 
 			// CkPlayable
 			// 
-			this.CkPlayable.AutoSize = true;
-			this.CkPlayable.Enabled = false;
-			this.CkPlayable.Location = new System.Drawing.Point(188, 15);
-			this.CkPlayable.Name = "CkPlayable";
-			this.CkPlayable.Size = new System.Drawing.Size(66, 17);
-			this.CkPlayable.TabIndex = 72;
-			this.CkPlayable.Text = "Playable";
-			this.CkPlayable.UseVisualStyleBackColor = true;
+			CkPlayable.AutoSize = true;
+			CkPlayable.Enabled = false;
+			CkPlayable.Location = new Point(219, 17);
+			CkPlayable.Margin = new Padding(4, 3, 4, 3);
+			CkPlayable.Name = "CkPlayable";
+			CkPlayable.Size = new Size(70, 19);
+			CkPlayable.TabIndex = 72;
+			CkPlayable.Text = "Playable";
+			CkPlayable.UseVisualStyleBackColor = true;
 			// 
 			// LbType
 			// 
-			this.LbType.AutoSize = true;
-			this.LbType.Location = new System.Drawing.Point(7, 93);
-			this.LbType.Name = "LbType";
-			this.LbType.Size = new System.Drawing.Size(31, 13);
-			this.LbType.TabIndex = 71;
-			this.LbType.Text = "Type";
+			LbType.AutoSize = true;
+			LbType.Location = new Point(8, 107);
+			LbType.Margin = new Padding(4, 0, 4, 0);
+			LbType.Name = "LbType";
+			LbType.Size = new Size(31, 15);
+			LbType.TabIndex = 71;
+			LbType.Text = "Type";
 			// 
 			// TbType
 			// 
-			this.TbType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbType.Location = new System.Drawing.Point(82, 90);
-			this.TbType.Name = "TbType";
-			this.TbType.ReadOnly = true;
-			this.TbType.Size = new System.Drawing.Size(200, 20);
-			this.TbType.TabIndex = 70;
+			TbType.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbType.Location = new Point(100, 104);
+			TbType.Margin = new Padding(4, 3, 4, 3);
+			TbType.Name = "TbType";
+			TbType.ReadOnly = true;
+			TbType.Size = new Size(229, 23);
+			TbType.TabIndex = 70;
 			// 
 			// LbName
 			// 
-			this.LbName.AutoSize = true;
-			this.LbName.Location = new System.Drawing.Point(7, 44);
-			this.LbName.Name = "LbName";
-			this.LbName.Size = new System.Drawing.Size(35, 13);
-			this.LbName.TabIndex = 69;
-			this.LbName.Text = "Name";
+			LbName.AutoSize = true;
+			LbName.Location = new Point(8, 51);
+			LbName.Margin = new Padding(4, 0, 4, 0);
+			LbName.Name = "LbName";
+			LbName.Size = new Size(39, 15);
+			LbName.TabIndex = 69;
+			LbName.Text = "Name";
 			// 
 			// TbName
 			// 
-			this.TbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbName.Location = new System.Drawing.Point(82, 38);
-			this.TbName.Name = "TbName";
-			this.TbName.ReadOnly = true;
-			this.TbName.Size = new System.Drawing.Size(200, 20);
-			this.TbName.TabIndex = 68;
+			TbName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbName.Location = new Point(100, 44);
+			TbName.Margin = new Padding(4, 3, 4, 3);
+			TbName.Name = "TbName";
+			TbName.ReadOnly = true;
+			TbName.Size = new Size(229, 23);
+			TbName.TabIndex = 68;
 			// 
 			// LbId
 			// 
-			this.LbId.AutoSize = true;
-			this.LbId.Location = new System.Drawing.Point(7, 15);
-			this.LbId.Name = "LbId";
-			this.LbId.Size = new System.Drawing.Size(18, 13);
-			this.LbId.TabIndex = 67;
-			this.LbId.Text = "ID";
+			LbId.AutoSize = true;
+			LbId.Location = new Point(8, 17);
+			LbId.Margin = new Padding(4, 0, 4, 0);
+			LbId.Name = "LbId";
+			LbId.Size = new Size(18, 15);
+			LbId.TabIndex = 67;
+			LbId.Text = "ID";
 			// 
 			// TbId
 			// 
-			this.TbId.Location = new System.Drawing.Point(82, 12);
-			this.TbId.Name = "TbId";
-			this.TbId.ReadOnly = true;
-			this.TbId.Size = new System.Drawing.Size(100, 20);
-			this.TbId.TabIndex = 66;
+			TbId.Location = new Point(100, 14);
+			TbId.Margin = new Padding(4, 3, 4, 3);
+			TbId.Name = "TbId";
+			TbId.ReadOnly = true;
+			TbId.Size = new Size(112, 23);
+			TbId.TabIndex = 66;
 			// 
 			// LbAltitude
 			// 
-			this.LbAltitude.AutoSize = true;
-			this.LbAltitude.Location = new System.Drawing.Point(6, 171);
-			this.LbAltitude.Name = "LbAltitude";
-			this.LbAltitude.Size = new System.Drawing.Size(57, 13);
-			this.LbAltitude.TabIndex = 87;
-			this.LbAltitude.Text = "Altitude (ft)";
+			LbAltitude.AutoSize = true;
+			LbAltitude.Location = new Point(7, 197);
+			LbAltitude.Margin = new Padding(4, 0, 4, 0);
+			LbAltitude.Name = "LbAltitude";
+			LbAltitude.Size = new Size(68, 15);
+			LbAltitude.TabIndex = 87;
+			LbAltitude.Text = "Altitude (ft)";
 			// 
 			// TbAltitude
 			// 
-			this.TbAltitude.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.TbAltitude.Location = new System.Drawing.Point(82, 168);
-			this.TbAltitude.Name = "TbAltitude";
-			this.TbAltitude.ReadOnly = true;
-			this.TbAltitude.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.TbAltitude.Size = new System.Drawing.Size(200, 20);
-			this.TbAltitude.TabIndex = 86;
+			TbAltitude.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbAltitude.Location = new Point(100, 194);
+			TbAltitude.Margin = new Padding(4, 3, 4, 3);
+			TbAltitude.Name = "TbAltitude";
+			TbAltitude.ReadOnly = true;
+			TbAltitude.ScrollBars = ScrollBars.Vertical;
+			TbAltitude.Size = new Size(229, 23);
+			TbAltitude.TabIndex = 86;
+			// 
+			// LbLink16Stn
+			// 
+			LbLink16Stn.AutoSize = true;
+			LbLink16Stn.Location = new Point(8, 344);
+			LbLink16Stn.Margin = new Padding(4, 0, 4, 0);
+			LbLink16Stn.Name = "LbLink16Stn";
+			LbLink16Stn.Size = new Size(65, 15);
+			LbLink16Stn.TabIndex = 89;
+			LbLink16Stn.Text = "Link16 STN";
+			// 
+			// TbLink16Stn
+			// 
+			TbLink16Stn.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbLink16Stn.Location = new Point(100, 341);
+			TbLink16Stn.Margin = new Padding(4, 3, 4, 3);
+			TbLink16Stn.Name = "TbLink16Stn";
+			TbLink16Stn.ScrollBars = ScrollBars.Vertical;
+			TbLink16Stn.Size = new Size(229, 23);
+			TbLink16Stn.TabIndex = 88;
+			// 
+			// LbLink16Callsign
+			// 
+			LbLink16Callsign.AutoSize = true;
+			LbLink16Callsign.Location = new Point(8, 315);
+			LbLink16Callsign.Margin = new Padding(4, 0, 4, 0);
+			LbLink16Callsign.Name = "LbLink16Callsign";
+			LbLink16Callsign.Size = new Size(84, 15);
+			LbLink16Callsign.TabIndex = 91;
+			LbLink16Callsign.Text = "Link16 callsign";
+			// 
+			// TbLink16Callsign
+			// 
+			TbLink16Callsign.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbLink16Callsign.Location = new Point(100, 312);
+			TbLink16Callsign.Margin = new Padding(4, 3, 4, 3);
+			TbLink16Callsign.Name = "TbLink16Callsign";
+			TbLink16Callsign.ReadOnly = true;
+			TbLink16Callsign.ScrollBars = ScrollBars.Vertical;
+			TbLink16Callsign.Size = new Size(229, 23);
+			TbLink16Callsign.TabIndex = 90;
 			// 
 			// UcUnit
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.LbAltitude);
-			this.Controls.Add(this.TbAltitude);
-			this.Controls.Add(this.CbMapMarker);
-			this.Controls.Add(this.LbMapMarker);
-			this.Controls.Add(this.LbCoordinates);
-			this.Controls.Add(this.TbCoordinates);
-			this.Controls.Add(this.LbOther);
-			this.Controls.Add(this.LbDisplayName);
-			this.Controls.Add(this.TbDisplayName);
-			this.Controls.Add(this.TbOther);
-			this.Controls.Add(this.LbAttributes);
-			this.Controls.Add(this.TbAttributes);
-			this.Controls.Add(this.CkPlayable);
-			this.Controls.Add(this.LbType);
-			this.Controls.Add(this.TbType);
-			this.Controls.Add(this.LbName);
-			this.Controls.Add(this.TbName);
-			this.Controls.Add(this.LbId);
-			this.Controls.Add(this.TbId);
-			this.Name = "UcUnit";
-			this.Size = new System.Drawing.Size(285, 270);
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(LbLink16Callsign);
+			Controls.Add(TbLink16Callsign);
+			Controls.Add(LbLink16Stn);
+			Controls.Add(TbLink16Stn);
+			Controls.Add(LbAltitude);
+			Controls.Add(TbAltitude);
+			Controls.Add(CbMapMarker);
+			Controls.Add(LbMapMarker);
+			Controls.Add(LbCoordinates);
+			Controls.Add(TbCoordinates);
+			Controls.Add(LbOther);
+			Controls.Add(LbDisplayName);
+			Controls.Add(TbDisplayName);
+			Controls.Add(TbOther);
+			Controls.Add(LbAttributes);
+			Controls.Add(TbAttributes);
+			Controls.Add(CkPlayable);
+			Controls.Add(LbType);
+			Controls.Add(TbType);
+			Controls.Add(LbName);
+			Controls.Add(TbName);
+			Controls.Add(LbId);
+			Controls.Add(TbId);
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "UcUnit";
+			Size = new Size(332, 367);
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion
 
-		private System.Windows.Forms.ComboBox CbMapMarker;
-		private System.Windows.Forms.Label LbMapMarker;
-		private System.Windows.Forms.Label LbCoordinates;
-		private System.Windows.Forms.TextBox TbCoordinates;
-		private System.Windows.Forms.Label LbOther;
-		private System.Windows.Forms.Label LbDisplayName;
-		private System.Windows.Forms.TextBox TbDisplayName;
-		private System.Windows.Forms.TextBox TbOther;
-		private System.Windows.Forms.Label LbAttributes;
-		private System.Windows.Forms.TextBox TbAttributes;
-		private System.Windows.Forms.CheckBox CkPlayable;
-		private System.Windows.Forms.Label LbType;
-		private System.Windows.Forms.TextBox TbType;
-		private System.Windows.Forms.Label LbName;
-		private System.Windows.Forms.TextBox TbName;
-		private System.Windows.Forms.Label LbId;
-		private System.Windows.Forms.TextBox TbId;
-		private System.Windows.Forms.Label LbAltitude;
-		private System.Windows.Forms.TextBox TbAltitude;
+		private ComboBox CbMapMarker;
+		private Label LbMapMarker;
+		private Label LbCoordinates;
+		private TextBox TbCoordinates;
+		private Label LbOther;
+		private Label LbDisplayName;
+		private TextBox TbDisplayName;
+		private TextBox TbOther;
+		private Label LbAttributes;
+		private TextBox TbAttributes;
+		private CheckBox CkPlayable;
+		private Label LbType;
+		private TextBox TbType;
+		private Label LbName;
+		private TextBox TbName;
+		private Label LbId;
+		private TextBox TbId;
+		private Label LbAltitude;
+		private TextBox TbAltitude;
+		private Label LbLink16Stn;
+		private TextBox TbLink16Stn;
+		private Label LbLink16Callsign;
+		private TextBox TbLink16Callsign;
 	}
 }

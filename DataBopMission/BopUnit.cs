@@ -6,8 +6,6 @@ using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Text;
-using UnitsNet;
-using UnitsNet.Units;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -34,6 +32,7 @@ namespace DcsBriefop.DataBopMission
 		public string MapMarker { get; set; }
 		public Radio HeliportRadio { get; set; }
 		public BopCallsign HeliportCallsign { get; set; }
+		public BopLink16 Link16 { get; set; }
 		#endregion
 
 		#region CTOR
@@ -61,6 +60,9 @@ namespace DcsBriefop.DataBopMission
 				HeliportRadio = new Radio(m_mizUnit.HeliportFrequency.Value, m_mizUnit.HeliportModulation ?? ElementRadioModulation.AM);
 			HeliportCallsign = BopCallsign.NewFromHeliportId(m_mizUnit.HeliportCallsignId);
 
+			if (m_mizUnit.AdditionalPropertiesAircraft is not null && m_mizUnit.AdditionalPropertiesAircraft.StnL16 is not null)
+				Link16 = new BopLink16(Miz, Theatre, m_mizUnit.AdditionalPropertiesAircraft);
+
 			MizBopUnit mizBopUnit = Miz.MizBopCustom.MizBopUnits.Where(_u => _u.Id == m_mizUnit.Id).FirstOrDefault();
 			MapMarker = mizBopUnit?.MapMarker ?? ToolsBriefop.GetDefaultMapMarker(GroupClass);
 		}
@@ -75,6 +77,8 @@ namespace DcsBriefop.DataBopMission
 			m_mizUnit.Category = Category;
 			m_mizUnit.Name = Name;
 			m_mizUnit.Type = Type;
+
+			Link16?.ToMiz();
 
 			ToMizBopCustom();
 		}

@@ -43,17 +43,17 @@
 			DgvUnits.Margin = new Padding(4, 3, 4, 3);
 			DgvUnits.Name = "DgvUnits";
 			DgvUnits.RightToLeft = RightToLeft.No;
-			DgvUnits.Size = new Size(801, 330);
+			DgvUnits.Size = new Size(801, 276);
 			DgvUnits.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvUnits.TabIndex = 36;
 			// 
 			// PnUnitDetail
 			// 
 			PnUnitDetail.Dock = DockStyle.Bottom;
-			PnUnitDetail.Location = new Point(0, 330);
+			PnUnitDetail.Location = new Point(0, 276);
 			PnUnitDetail.Margin = new Padding(4, 3, 4, 3);
 			PnUnitDetail.Name = "PnUnitDetail";
-			PnUnitDetail.Size = new Size(801, 280);
+			PnUnitDetail.Size = new Size(801, 334);
 			PnUnitDetail.TabIndex = 37;
 			// 
 			// UcGroupUnits
@@ -72,6 +72,6 @@
 		#endregion
 
 		private Zuby.ADGV.AdvancedDataGridView DgvUnits;
-		private System.Windows.Forms.Panel PnUnitDetail;
+		private Panel PnUnitDetail;
 	}
 }

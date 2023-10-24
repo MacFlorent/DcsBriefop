@@ -57,12 +57,25 @@ namespace DcsBriefop.Forms
 			TbCoordinates.Text = m_bopUnit.Coordinate.ToString(ElementCoordinateDisplay.All);
 			CbMapMarker.Text = m_bopUnit.MapMarker;
 
+			if (m_bopUnit.Link16 is null)
+			{
+				TbLink16Callsign.Visible = TbLink16Stn.Visible = false;
+			}
+			else
+			{
+				TbLink16Callsign.Visible = TbLink16Stn.Visible = true;
+				TbLink16Callsign.Text = m_bopUnit.Link16?.ToStringCallsign();
+				TbLink16Stn.Text = m_bopUnit.Link16?.StnL16;
+			}
+
 			CbMapMarker.SelectedValueChanged += CbMapMarker_SelectedValueChanged;
 		}
 
 		public void ScreenToData()
 		{
 			m_bopUnit.MapMarker = CbMapMarker.Text;
+			if (m_bopUnit.Link16 is not null)
+				m_bopUnit.Link16.StnL16 = TbLink16Stn.Text;
 		}
 		#endregion
 

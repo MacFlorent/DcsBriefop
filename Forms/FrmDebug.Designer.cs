@@ -36,10 +36,14 @@
 			LbKias = new Label();
 			NudKtas = new NumericUpDown();
 			LbKtas = new Label();
+			advancedDataGridView1 = new Zuby.ADGV.AdvancedDataGridView();
+			groupBox1 = new GroupBox();
 			GbSpeeds.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)NudAltitude).BeginInit();
 			((System.ComponentModel.ISupportInitialize)NudKias).BeginInit();
 			((System.ComponentModel.ISupportInitialize)NudKtas).BeginInit();
+			((System.ComponentModel.ISupportInitialize)advancedDataGridView1).BeginInit();
+			groupBox1.SuspendLayout();
 			SuspendLayout();
 			// 
 			// GbSpeeds
@@ -120,11 +124,35 @@
 			LbKtas.TabIndex = 0;
 			LbKtas.Text = "KTAS";
 			// 
+			// advancedDataGridView1
+			// 
+			advancedDataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			advancedDataGridView1.FilterAndSortEnabled = true;
+			advancedDataGridView1.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
+			advancedDataGridView1.Location = new Point(6, 22);
+			advancedDataGridView1.Name = "advancedDataGridView1";
+			advancedDataGridView1.RightToLeft = RightToLeft.No;
+			advancedDataGridView1.RowTemplate.Height = 25;
+			advancedDataGridView1.Size = new Size(764, 650);
+			advancedDataGridView1.SortStringChangedInvokeBeforeDatasourceUpdate = true;
+			advancedDataGridView1.TabIndex = 1;
+			// 
+			// groupBox1
+			// 
+			groupBox1.Controls.Add(advancedDataGridView1);
+			groupBox1.Location = new Point(12, 157);
+			groupBox1.Name = "groupBox1";
+			groupBox1.Size = new Size(776, 678);
+			groupBox1.TabIndex = 2;
+			groupBox1.TabStop = false;
+			groupBox1.Text = "groupBox1";
+			// 
 			// FrmDebug
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(800, 450);
+			ClientSize = new Size(800, 847);
+			Controls.Add(groupBox1);
 			Controls.Add(GbSpeeds);
 			Name = "FrmDebug";
 			ShowIcon = false;
@@ -135,6 +163,8 @@
 			((System.ComponentModel.ISupportInitialize)NudAltitude).EndInit();
 			((System.ComponentModel.ISupportInitialize)NudKias).EndInit();
 			((System.ComponentModel.ISupportInitialize)NudKtas).EndInit();
+			((System.ComponentModel.ISupportInitialize)advancedDataGridView1).EndInit();
+			groupBox1.ResumeLayout(false);
 			ResumeLayout(false);
 		}
 
@@ -148,5 +178,7 @@
 		private Label LbKtas;
 		private NumericUpDown NudAltitude;
 		private Label LbAltitude;
+		private Zuby.ADGV.AdvancedDataGridView advancedDataGridView1;
+		private GroupBox groupBox1;
 	}
 }

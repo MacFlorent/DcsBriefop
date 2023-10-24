@@ -23,6 +23,7 @@ namespace DcsBriefop.DataMiz
 			public static readonly string HeliportFrequency = "heliport_frequency";
 			public static readonly string HeliportModulation = "heliport_modulation";
 			public static readonly string HeliportCallsignId = "heliport_callsign_id";
+			public static readonly string AdditionalPropertiesAircraft = "AddPropAircraft";
 		}
 
 		public int Id { get; set; }
@@ -42,6 +43,7 @@ namespace DcsBriefop.DataMiz
 		public double? HeliportFrequency { get; set; }
 		public int? HeliportModulation { get; set; }
 		public int? HeliportCallsignId { get; set; }
+		public MizAdditionalPropertiesAircraft AdditionalPropertiesAircraft { get; set; }
 
 		public MizUnit(LsonDict lsd) : base(lsd) { }
 
@@ -89,6 +91,9 @@ namespace DcsBriefop.DataMiz
 
 			HeliportModulation = Lsd.IfExistsInt(LuaNode.HeliportModulation);
 			HeliportCallsignId = Lsd.IfExistsInt(LuaNode.HeliportCallsignId);
+
+			if (Lsd.ContainsKey(LuaNode.AdditionalPropertiesAircraft))
+				AdditionalPropertiesAircraft = new MizAdditionalPropertiesAircraft(Lsd[LuaNode.AdditionalPropertiesAircraft].GetDict());
 		}
 
 		public override void ToLua()
@@ -118,6 +123,8 @@ namespace DcsBriefop.DataMiz
 			Lsd.SetIfExists(LuaNode.HeliportFrequency, HeliportFrequency);
 			Lsd.SetIfExists(LuaNode.HeliportModulation, HeliportModulation);
 			Lsd.SetIfExists(LuaNode.HeliportCallsignId, HeliportCallsignId);
+
+			AdditionalPropertiesAircraft?.ToLua();
 		}
 	}
 }
