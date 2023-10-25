@@ -87,7 +87,8 @@ namespace DcsBriefop.Forms
 				return;
 
 			iId++;
-			unit.DatalinkId.Id = $"{iId:00000}";
+			string sBase8 = Convert.ToString(iId, 8);
+			unit.DatalinkId.Id = sBase8.PadLeft(5, '0');
 		}
 
 		private void NormalizeUnitIfSadl(ref int iId, BopUnit unit)
@@ -96,7 +97,8 @@ namespace DcsBriefop.Forms
 				return;
 
 			iId++;
-			unit.DatalinkId.Id = $"{iId:000000}";
+			string sBase8 = Convert.ToString(iId, 8);
+			unit.DatalinkId.Id = sBase8.PadLeft(4, '0');
 		}
 
 		private void NormalizeUnitIfIdm(ref int iId, BopUnit unit)
