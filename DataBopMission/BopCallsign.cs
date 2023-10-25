@@ -65,7 +65,7 @@ namespace DcsBriefop.DataBopMission
 		public static BopCallsign NewFromMizCallsign(MizCallsign mizCallsign)
 		{
 			BopCallsign bopCallsign = null;
-			if (mizCallsign is object)
+			if (mizCallsign is not null)
 			{
 				bopCallsign = new BopCallsign()
 				{
@@ -92,7 +92,7 @@ namespace DcsBriefop.DataBopMission
 		public static BopCallsign NewFromJtacId(int? iCallsignId, int? iCallsignGroup)
 		{
 			BopCallsign bopCallsign = null;
-			if (iCallsignId is object && iCallsignGroup is object)
+			if (iCallsignId is not null && iCallsignGroup is not null)
 			{
 				bopCallsign = new BopCallsign()
 				{
@@ -107,7 +107,7 @@ namespace DcsBriefop.DataBopMission
 		public static BopCallsign NewFromHeliportId(int? iCallsignId)
 		{
 			BopCallsign bopCallsign = null;
-			if (iCallsignId is object)
+			if (iCallsignId is not null)
 			{
 				bopCallsign = new BopCallsign()
 				{
@@ -123,14 +123,14 @@ namespace DcsBriefop.DataBopMission
 		public override string ToString()
 		{
 			string sCallsign = null;
-			if (Number is object)
+			if (Number is not null)
 				sCallsign = Number.ToString();
 			else
 			{
 				StringBuilder sb = new StringBuilder(Name);
-				if (Group is object)
+				if (Group is not null)
 					sb.AppendWithSeparator(Group.ToString(), "-");
-				if (Element is object)
+				if (Element is not null)
 					sb.AppendWithSeparator(Element.ToString(), "-");
 
 				sCallsign = sb.ToString();
@@ -143,7 +143,7 @@ namespace DcsBriefop.DataBopMission
 		{
 			string sCallsign = null;
 
-			if (iCallsignId is object)
+			if (iCallsignId is not null)
 			{
 				if (m_callsignsJtac.ContainsKey(iCallsignId.Value))
 					sCallsign = m_callsignsJtac[iCallsignId.Value];
@@ -158,7 +158,7 @@ namespace DcsBriefop.DataBopMission
 		{
 			string sCallsign = null;
 
-			if (iCallsignId is object)
+			if (iCallsignId is not null)
 			{
 				if (m_callsignsHeliport.ContainsKey(iCallsignId.Value))
 					sCallsign = m_callsignsHeliport[iCallsignId.Value];

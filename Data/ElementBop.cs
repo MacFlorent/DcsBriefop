@@ -71,6 +71,14 @@
 		Farp = 3
 	}
 
+	internal enum ElementDatalinkType
+	{
+		None,
+		Link16,
+		Sadl,
+		Idm
+	}
+
 	[Flags]
 	internal enum ElementBriefingPageRender
 	{

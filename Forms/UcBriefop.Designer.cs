@@ -408,21 +408,21 @@
 
 		#endregion
 
-		private System.Windows.Forms.Panel PnMission;
-		private System.Windows.Forms.Label LbMissionTheatre;
-		private System.Windows.Forms.Label LbMissionSortie;
-		private System.Windows.Forms.Panel PnBriefing;
-		private System.Windows.Forms.Panel PnBackground;
-		private System.Windows.Forms.Button BtMissionGroups;
-		private System.Windows.Forms.Button BtMissionMaps;
-		private System.Windows.Forms.Button BtMissionInformations;
-		private System.Windows.Forms.Label LbBriefingTitle;
-		private System.Windows.Forms.Button BtMissionAirbases;
-		private System.Windows.Forms.Button BtMissionComs;
-		private System.Windows.Forms.LinkLabel LbMissionDirectory;
-		private System.Windows.Forms.Panel PnMissionActions;
-		private System.Windows.Forms.Button BtBriefingPackages;
-		private System.Windows.Forms.Panel PnMissionTheatre;
+		private Panel PnMission;
+		private Label LbMissionTheatre;
+		private Label LbMissionSortie;
+		private Panel PnBriefing;
+		private Panel PnBackground;
+		private Button BtMissionGroups;
+		private Button BtMissionMaps;
+		private Button BtMissionInformations;
+		private Label LbBriefingTitle;
+		private Button BtMissionAirbases;
+		private Button BtMissionComs;
+		private LinkLabel LbMissionDirectory;
+		private Panel PnMissionActions;
+		private Button BtBriefingPackages;
+		private Panel PnMissionTheatre;
 		private Button BtBriefingAto;
 		private Zuby.ADGV.AdvancedDataGridView DgvBriefingFolders;
 		private Label LbBriefingFolders;

@@ -37,7 +37,5 @@ namespace DcsBriefop.Forms
 				DataToScreen();
 		}
 		#endregion
-
-
 	}
 }

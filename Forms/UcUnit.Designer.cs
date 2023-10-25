@@ -47,10 +47,10 @@
 			TbId = new TextBox();
 			LbAltitude = new Label();
 			TbAltitude = new TextBox();
-			LbLink16Stn = new Label();
-			TbLink16Stn = new TextBox();
-			LbLink16Callsign = new Label();
-			TbLink16Callsign = new TextBox();
+			LbDatalinkId = new Label();
+			TbDatalinkId = new TextBox();
+			LbDatalinkCallsign = new Label();
+			TbDatalinkCallsign = new TextBox();
 			SuspendLayout();
 			// 
 			// CbMapMarker
@@ -249,55 +249,55 @@
 			TbAltitude.Size = new Size(229, 23);
 			TbAltitude.TabIndex = 86;
 			// 
-			// LbLink16Stn
+			// LbDatalinkId
 			// 
-			LbLink16Stn.AutoSize = true;
-			LbLink16Stn.Location = new Point(8, 344);
-			LbLink16Stn.Margin = new Padding(4, 0, 4, 0);
-			LbLink16Stn.Name = "LbLink16Stn";
-			LbLink16Stn.Size = new Size(65, 15);
-			LbLink16Stn.TabIndex = 89;
-			LbLink16Stn.Text = "Link16 STN";
+			LbDatalinkId.AutoSize = true;
+			LbDatalinkId.Location = new Point(8, 344);
+			LbDatalinkId.Margin = new Padding(4, 0, 4, 0);
+			LbDatalinkId.Name = "LbDatalinkId";
+			LbDatalinkId.Size = new Size(35, 15);
+			LbDatalinkId.TabIndex = 89;
+			LbDatalinkId.Text = "DL ID";
 			// 
-			// TbLink16Stn
+			// TbDatalinkId
 			// 
-			TbLink16Stn.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbLink16Stn.Location = new Point(100, 341);
-			TbLink16Stn.Margin = new Padding(4, 3, 4, 3);
-			TbLink16Stn.Name = "TbLink16Stn";
-			TbLink16Stn.ScrollBars = ScrollBars.Vertical;
-			TbLink16Stn.Size = new Size(229, 23);
-			TbLink16Stn.TabIndex = 88;
+			TbDatalinkId.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbDatalinkId.Location = new Point(100, 341);
+			TbDatalinkId.Margin = new Padding(4, 3, 4, 3);
+			TbDatalinkId.Name = "TbDatalinkId";
+			TbDatalinkId.ScrollBars = ScrollBars.Vertical;
+			TbDatalinkId.Size = new Size(229, 23);
+			TbDatalinkId.TabIndex = 88;
 			// 
-			// LbLink16Callsign
+			// LbDatalinkCallsign
 			// 
-			LbLink16Callsign.AutoSize = true;
-			LbLink16Callsign.Location = new Point(8, 315);
-			LbLink16Callsign.Margin = new Padding(4, 0, 4, 0);
-			LbLink16Callsign.Name = "LbLink16Callsign";
-			LbLink16Callsign.Size = new Size(84, 15);
-			LbLink16Callsign.TabIndex = 91;
-			LbLink16Callsign.Text = "Link16 callsign";
+			LbDatalinkCallsign.AutoSize = true;
+			LbDatalinkCallsign.Location = new Point(8, 315);
+			LbDatalinkCallsign.Margin = new Padding(4, 0, 4, 0);
+			LbDatalinkCallsign.Name = "LbDatalinkCallsign";
+			LbDatalinkCallsign.Size = new Size(64, 15);
+			LbDatalinkCallsign.TabIndex = 91;
+			LbDatalinkCallsign.Text = "DL callsign";
 			// 
-			// TbLink16Callsign
+			// TbDatalinkCallsign
 			// 
-			TbLink16Callsign.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbLink16Callsign.Location = new Point(100, 312);
-			TbLink16Callsign.Margin = new Padding(4, 3, 4, 3);
-			TbLink16Callsign.Name = "TbLink16Callsign";
-			TbLink16Callsign.ReadOnly = true;
-			TbLink16Callsign.ScrollBars = ScrollBars.Vertical;
-			TbLink16Callsign.Size = new Size(229, 23);
-			TbLink16Callsign.TabIndex = 90;
+			TbDatalinkCallsign.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbDatalinkCallsign.Location = new Point(100, 312);
+			TbDatalinkCallsign.Margin = new Padding(4, 3, 4, 3);
+			TbDatalinkCallsign.Name = "TbDatalinkCallsign";
+			TbDatalinkCallsign.ReadOnly = true;
+			TbDatalinkCallsign.ScrollBars = ScrollBars.Vertical;
+			TbDatalinkCallsign.Size = new Size(229, 23);
+			TbDatalinkCallsign.TabIndex = 90;
 			// 
 			// UcUnit
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			Controls.Add(LbLink16Callsign);
-			Controls.Add(TbLink16Callsign);
-			Controls.Add(LbLink16Stn);
-			Controls.Add(TbLink16Stn);
+			Controls.Add(LbDatalinkCallsign);
+			Controls.Add(TbDatalinkCallsign);
+			Controls.Add(LbDatalinkId);
+			Controls.Add(TbDatalinkId);
 			Controls.Add(LbAltitude);
 			Controls.Add(TbAltitude);
 			Controls.Add(CbMapMarker);
@@ -345,9 +345,9 @@
 		private TextBox TbId;
 		private Label LbAltitude;
 		private TextBox TbAltitude;
-		private Label LbLink16Stn;
-		private TextBox TbLink16Stn;
-		private Label LbLink16Callsign;
-		private TextBox TbLink16Callsign;
+		private Label LbDatalinkId;
+		private TextBox TbDatalinkId;
+		private Label LbDatalinkCallsign;
+		private TextBox TbDatalinkCallsign;
 	}
 }

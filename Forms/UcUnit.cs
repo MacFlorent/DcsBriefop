@@ -57,15 +57,17 @@ namespace DcsBriefop.Forms
 			TbCoordinates.Text = m_bopUnit.Coordinate.ToString(ElementCoordinateDisplay.All);
 			CbMapMarker.Text = m_bopUnit.MapMarker;
 
-			if (m_bopUnit.Link16 is null)
+			if (m_bopUnit.DatalinkId is null)
 			{
-				TbLink16Callsign.Visible = TbLink16Stn.Visible = false;
+				LbDatalinkCallsign.Visible = LbDatalinkId.Visible = false;
+				TbDatalinkCallsign.Visible = TbDatalinkId.Visible = false;
 			}
 			else
 			{
-				TbLink16Callsign.Visible = TbLink16Stn.Visible = true;
-				TbLink16Callsign.Text = m_bopUnit.Link16?.ToStringCallsign();
-				TbLink16Stn.Text = m_bopUnit.Link16?.StnL16;
+				LbDatalinkCallsign.Visible = LbDatalinkId.Visible = true;
+				TbDatalinkCallsign.Visible = TbDatalinkId.Visible = true;
+				TbDatalinkCallsign.Text = m_bopUnit.DatalinkId?.ToStringCallsign();
+				TbDatalinkId.Text = m_bopUnit.DatalinkId?.Id;
 			}
 
 			CbMapMarker.SelectedValueChanged += CbMapMarker_SelectedValueChanged;
@@ -74,8 +76,8 @@ namespace DcsBriefop.Forms
 		public void ScreenToData()
 		{
 			m_bopUnit.MapMarker = CbMapMarker.Text;
-			if (m_bopUnit.Link16 is not null)
-				m_bopUnit.Link16.StnL16 = TbLink16Stn.Text;
+			if (m_bopUnit.DatalinkId is not null)
+				m_bopUnit.DatalinkId.Id = TbDatalinkId.Text;
 		}
 		#endregion
 

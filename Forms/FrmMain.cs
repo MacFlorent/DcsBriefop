@@ -102,6 +102,14 @@ namespace DcsBriefop.Forms
 			}
 		}
 
+		private void OpenDatalink()
+		{
+			using FrmDatalink f = new FrmDatalink(m_briefopManager);
+			if (f.ShowDialog() == DialogResult.OK)
+			{
+			}
+		}
+
 		private void OpenPreferences()
 		{
 			using FrmPreferences f = new FrmPreferences();
@@ -193,17 +201,18 @@ namespace DcsBriefop.Forms
 		{
 			MainMenu.Items.Clear();
 
-			ToolStripMenuItem tsmiMiz = MainMenu.Items.AddMenuItem("Miz", null);
+			ToolStripMenuItem tsmiMiz = MainMenu.Items.AddMenuItem("Mission", null);
 			MainMenu.Items.Add(tsmiMiz);
 			tsmiMiz.DropDownItems.AddMenuItem("Open", (object _sender, EventArgs _e) => { MizOpen(); });
 
-			if (m_briefopManager is object)
+			if (m_briefopManager is not null)
 			{
 				tsmiMiz.DropDownItems.AddMenuSeparator();
 				tsmiMiz.DropDownItems.AddMenuItem("Reload", (object _sender, EventArgs _e) => { MizReload(); });
 				tsmiMiz.DropDownItems.AddMenuItem("Save", (object _sender, EventArgs _e) => { MizSave(null); });
 				tsmiMiz.DropDownItems.AddMenuItem("Save as", (object _sender, EventArgs _e) => { MizSaveAs(); });
 				tsmiMiz.DropDownItems.AddMenuItem("Generate batch command", (object _sender, EventArgs _e) => { GenerateBatchCommand(); });
+				tsmiMiz.DropDownItems.AddMenuItem("Datalink data", (object _sender, EventArgs _e) => { OpenDatalink(); });
 			}
 
 			if (PreferencesManager.Preferences.Application.RecentMiz.Count > 0)
