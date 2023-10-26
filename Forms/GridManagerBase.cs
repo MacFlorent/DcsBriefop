@@ -131,10 +131,17 @@ namespace DcsBriefop.Forms
 			{
 				foreach (DataGridViewColumn column in m_dgv.Columns)
 				{
-					if (!ColumnsDisplayed.Contains(column.DataPropertyName))
-						column.Visible = false;
-					else
-						column.DisplayIndex = ColumnsDisplayed.IndexOf(column.DataPropertyName);
+					column.Visible = false;
+				}
+
+				int iDisplayIndex = 0;
+				foreach(string sColumnName in ColumnsDisplayed)
+				{
+					if (m_dgv.Columns.Contains(sColumnName))
+					{
+						m_dgv.Columns[sColumnName].Visible = true;
+						m_dgv.Columns[sColumnName].DisplayIndex = iDisplayIndex++;
+					}
 				}
 			}
 
