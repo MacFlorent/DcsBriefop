@@ -18,7 +18,7 @@
   {"Id": 53, "Name": "H3", "Latitude": 32.936, "Longitude": 39.746, "Radios": [ { "Frequency": 252.25, "Modulation": 0 }, { "Frequency": 122, "Modulation": 0 } ]},
   {"Id": 54, "Name": "H3 Northwest", "Latitude": 33.076, "Longitude": 39.596},
   {"Id": 55, "Name": "H3 Southwest", "Latitude": 32.743, "Longitude": 39.602},
-  {"Id": 12, "Name": "H4", "Latitude": 35.537, "Longitude": 38.206, "Radios": [ { "Frequency": 250.1, "Modulation": 0 }, { "Frequency": 122.6, "Modulation": 0 } ]},
+  {"Id": 12, "Name": "H4", "Latitude": 32.539, "Longitude": 38.195, "Radios": [ { "Frequency": 250.1, "Modulation": 0 }, { "Frequency": 122.6, "Modulation": 0 } ]},
   {"Id": 13, "Name": "Haifa Airport", "Latitude": 32.815, "Longitude": 35.042, "Radios": [ { "Frequency": 250.15, "Modulation": 0 }, { "Frequency": 127.8, "Modulation": 0 } ]},
   {"Id": 14, "Name": "Hama", "Latitude": 35.116, "Longitude": 36.725, "Radios": [ { "Frequency": 250.2, "Modulation": 0 }, { "Frequency": 118.05, "Modulation": 0 } ]},
   {"Id": 15, "Name": "Hatay", "Latitude": 36.371, "Longitude": 36.298, "Radios": [ { "Frequency": 250.25, "Modulation": 0 }, { "Frequency": 128.5, "Modulation": 0 } ]},
