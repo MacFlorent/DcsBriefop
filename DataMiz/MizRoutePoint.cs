@@ -81,6 +81,5 @@ namespace DcsBriefop.DataMiz
 			Dictionary<string, LsonValue> l = LsonVars.Parse(sLuaTemplate);
 			return new MizRoutePoint(l["template"].GetDict());
 		}
-
 	}
 }

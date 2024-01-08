@@ -38,12 +38,14 @@
 			RbMapSelectionRed = new RadioButton();
 			RbMapSelectionBlue = new RadioButton();
 			PnMap = new Panel();
+			button1 = new Button();
 			PnTop.SuspendLayout();
 			PnMapSelection.SuspendLayout();
 			SuspendLayout();
 			// 
 			// PnTop
 			// 
+			PnTop.Controls.Add(button1);
 			PnTop.Controls.Add(LbMapProvider);
 			PnTop.Controls.Add(CbMapProvider);
 			PnTop.Controls.Add(PnMapSelection);
@@ -162,6 +164,16 @@
 			PnMap.Size = new Size(1637, 689);
 			PnMap.TabIndex = 1;
 			// 
+			// button1
+			// 
+			button1.Location = new Point(1055, 16);
+			button1.Name = "button1";
+			button1.Size = new Size(75, 23);
+			button1.TabIndex = 7;
+			button1.Text = "button1";
+			button1.UseVisualStyleBackColor = true;
+			button1.Click += button1_Click;
+			// 
 			// FrmMissionMaps
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
@@ -195,5 +207,6 @@
 		private System.Windows.Forms.Label LbMapProvider;
 		private System.Windows.Forms.ComboBox CbMapProvider;
 		private System.Windows.Forms.Label LbMaps;
+		private Button button1;
 	}
 }

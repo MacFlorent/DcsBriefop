@@ -5,204 +5,69 @@ namespace DcsBriefop.Data
 {
 	internal class Theatre
 	{
-		private class PointCoordinate
-		{
-			public double Y { get; set; }
-			public double X { get; set; }
-			public double Latitude { get; set; }
-			public double Longitude { get; set; }
-		}
-
+		#region Properties
 		public string Name { get; private set; }
 		private string LutResourceName { get { return $"Points{Name}"; } }
 
-		private List<PointCoordinate> m_coordinatesLut;
-		private List<double> m_coordinatesLutValuesY;
-		private List<double> m_coordinatesLutValuesX;
-		//private List<decimal> m_coordinatesLutValuesLat;
-		//private List<decimal> m_coordinatesLutValuesLong;
-
+		private TheatreCoordinateLut m_coordinatesLutDcsToLl;
+		private TheatreCoordinateLut m_coordinatesLutLlToDcs;
 		public List<Airdrome> Airdromes;
 
+		#endregion
+
+		#region CTOR
 		public Theatre(string sName)
 		{
 			Name = sName;
-			InitializeCoordinatesLut();
+			m_coordinatesLutDcsToLl = new TheatreCoordinateLut(sName, TheatreCoordinateLut.ElementLutWay.DcsToLl);
+			m_coordinatesLutLlToDcs = new TheatreCoordinateLut(sName, TheatreCoordinateLut.ElementLutWay.LlToDcs);
 			InitializeAirdromes();
 		}
+		#endregion
 
-		public CoordinateSharp.Coordinate GetCoordinate(double dY, double dX)
+		#region Methods
+		public Airdrome GetAirdrome(int iId)
 		{
-			PointCoordinate pc = null;
+			return Airdromes.Where(_ad => _ad.Id == iId).FirstOrDefault();
+		}
+
+		public CoordinateSharp.Coordinate GetCoordinate(double dZ, double dX)
+		{
+			double? dOutputLongitude = null, dOutputLatitude = null;
+
 			try
 			{
-				pc = GetPointInterpolatedYX(dY, dX);
+				m_coordinatesLutDcsToLl.GetCoordinates(out dOutputLongitude, out dOutputLatitude, dZ, dX);
 			}
 			catch (Exception ex)
 			{
 				Log.Exception(ex);
 			}
 
-			if (pc is null)
-				pc = GetPointInterpolatedYX(0, 0);
+			if (dOutputLongitude is null || dOutputLatitude is null)
+				m_coordinatesLutDcsToLl.GetCoordinates(out dOutputLongitude, out dOutputLatitude, 0, 0);
 
-			return new CoordinateSharp.Coordinate(pc.Latitude, pc.Longitude);
+			return new CoordinateSharp.Coordinate(dOutputLatitude.Value, dOutputLongitude.Value);
 		}
 
-		//public void GetYX(out decimal dY, out decimal dX, CoordinateSharp.Coordinate coordinate)
-		//{
-		//	PointCoordinate pc = GetPointInterpolatedLatLong((decimal)coordinate.Latitude.ToDouble(), (decimal)coordinate.Longitude.ToDouble());
-		//	dY = pc.Y;
-		//	dX = pc.X;
-		//}
-
-
-		private PointCoordinate GetPointInterpolatedYX(double dY, double dX)
+		public void GetDcsZX(out double dZ, out double dX, CoordinateSharp.Coordinate coordinate)
 		{
-			if (m_coordinatesLut is null || m_coordinatesLut.Count < 0)
-				return null;
-
-			double? dLeftY = null, dRightY = null;
-			double? dLowerX = null, dUpperX = null;
-
-			foreach (double d in m_coordinatesLutValuesY)
-			{
-				if (dLeftY is object && dRightY is object)
-					break;
-				else if (d < dY)
-				{
-					dLeftY = d;
-				}
-				else
-				{
-					dRightY = d;
-				}
-			}
-			foreach (double d in m_coordinatesLutValuesX)
-			{
-				if (dLowerX is object && dUpperX is object)
-					break;
-				else if (d < dX)
-				{
-					dLowerX = d;
-				}
-				else
-				{
-					dUpperX = d;
-				}
-			}
-
-			// In mission files y(z) is west-east and x is south-north
-			PointCoordinate lowerLeft = null, lowerRight = null;
-			PointCoordinate upperLeft = null, upperRight = null;
-
-			foreach (PointCoordinate c in m_coordinatesLut)
-			{
-				if (lowerLeft is object && lowerRight is object && upperLeft is object && upperRight is object)
-					break;
-				else if (lowerLeft is null && c.Y == dLeftY && c.X == dLowerX)
-					lowerLeft = c;
-				else if (lowerRight is null && c.Y == dRightY && c.X == dLowerX)
-					lowerRight = c;
-				if (upperLeft is null && c.Y == dLeftY && c.X == dUpperX)
-					upperLeft = c;
-				if (upperRight is null && c.Y == dRightY && c.X == dUpperX)
-					upperRight = c;
-			}
-
-			if (lowerLeft is null || lowerRight is null || upperLeft is null || upperRight is null)
-				throw new ExceptionBop($"Requested map position cannot be converted to coordinates because it is outside of the lookup table {LutResourceName}{Environment.NewLine}Y(Z)={dY} X={dX}");
-
-			double dRatioY = (dY - lowerLeft.Y) / (lowerRight.Y - lowerLeft.Y);
-			double dRatioX = (dX - lowerLeft.X) / (upperLeft.X - lowerLeft.X);
-
-			PointCoordinate lowerInterpolation = new PointCoordinate
-			{
-				Latitude = lowerRight.Latitude * dRatioY + lowerLeft.Latitude * (1 - dRatioY),
-				Longitude = lowerRight.Longitude * dRatioY + lowerLeft.Longitude * (1 - dRatioY)
-			};
-			PointCoordinate upperInterpolation = new PointCoordinate
-			{
-				Latitude = upperRight.Latitude * dRatioY + upperLeft.Latitude * (1 - dRatioY),
-				Longitude = upperRight.Longitude * dRatioY + upperLeft.Longitude * (1 - dRatioY)
-			};
-
-			PointCoordinate interpolation = new PointCoordinate
-			{
-				Y = dY,
-				X = dX,
-				Latitude = upperInterpolation.Latitude * dRatioX + lowerInterpolation.Latitude * (1 - dRatioX),
-				Longitude = upperInterpolation.Longitude * dRatioX + lowerInterpolation.Longitude * (1 - dRatioX)
-			};
-
-			return interpolation;
-		}
-
-		private void InitializeCoordinatesLut()
-		{
+			double? dOutputZ = null, dOutputX = null;
 			try
 			{
-				m_coordinatesLut = new List<PointCoordinate>();
-				m_coordinatesLutValuesY = new List<double>();
-				m_coordinatesLutValuesX = new List<double>();
-
-				string sLutResource = LutResourceName;
-				string sResourceContent = ToolsResources.GetTextResourceContent(sLutResource, "txt", null);
-				if (string.IsNullOrEmpty(sResourceContent))
-					throw new ExceptionBop($"Empty or absent LUT data resource: {sLutResource}.");
-
-				string[] resourceContentLines = sResourceContent.Split('\n');
-				foreach (string sLine in resourceContentLines)
-				{
-					InitializeCoordinatesLut_Line(sLine);
-				}
-
-				m_coordinatesLutValuesY.Sort();
-				m_coordinatesLutValuesX.Sort();
+				m_coordinatesLutLlToDcs.GetCoordinates(out dOutputZ, out dOutputX, coordinate.Longitude.DecimalDegree, coordinate.Latitude.DecimalDegree);
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				ToolsControls.ShowMessageBoxAndLogException("Failed to build points LUT. Coordinates will not be managed.", e);
-				m_coordinatesLut = null;
-				m_coordinatesLutValuesY = m_coordinatesLutValuesX = null;
-			}
-		}
-
-		private void InitializeCoordinatesLut_Line(string sLine)
-		{
-			PointCoordinate pc = new PointCoordinate
-			{
-				Y = InitializeCoordinatesLut_GetLineItem(sLine, "Y="),
-				X = InitializeCoordinatesLut_GetLineItem(sLine, "X="),
-				Latitude = InitializeCoordinatesLut_GetLineItem(sLine, "Latitude="),
-				Longitude = InitializeCoordinatesLut_GetLineItem(sLine, "Longitude="),
-			};
-
-			m_coordinatesLut.Add(pc);
-
-			if (!m_coordinatesLutValuesY.Contains(pc.Y))
-				m_coordinatesLutValuesY.Add(pc.Y);
-			if (!m_coordinatesLutValuesX.Contains(pc.X))
-				m_coordinatesLutValuesX.Add(pc.X);
-		}
-
-		private double InitializeCoordinatesLut_GetLineItem(string sLine, string sItem)
-		{
-			int iIndexStart = sLine.IndexOf(sItem) + sItem.Length;
-			int iIndexEnd = sLine.IndexOf(',', iIndexStart);
-			if (iIndexEnd < 0)
-				iIndexEnd = sLine.Length;
-
-			int iLength = iIndexEnd - iIndexStart;
-
-			if (!double.TryParse(sLine.Substring(iIndexStart, iLength), out double dItemValue))
-			{
-				throw new ExceptionBop($"Item {sItem} was not decoded from line {sLine} in point LUT resource.");
+				Log.Exception(ex);
 			}
 
-			return dItemValue;
+			dZ = dOutputZ.GetValueOrDefault(0);
+			dX = dOutputX.GetValueOrDefault(0);
 		}
+		#endregion
 
+		#region Initialization
 		private void InitializeAirdromes()
 		{
 			try
@@ -222,11 +87,7 @@ namespace DcsBriefop.Data
 			if (Airdromes is null)
 				Airdromes = new List<Airdrome>();
 		}
-
-		public Airdrome GetAirdrome(int iId)
-		{
-			return Airdromes.Where(_ad => _ad.Id == iId).FirstOrDefault();
-		}
+		#endregion
 	}
 }
 

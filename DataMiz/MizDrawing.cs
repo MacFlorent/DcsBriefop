@@ -1,4 +1,6 @@
-﻿using DcsBriefop.Tools;
+﻿using DcsBriefop.Data;
+using DcsBriefop.DataMiz;
+using DcsBriefop.Tools;
 using LsonLib;
 
 namespace DcsBriefop.DataMiz
@@ -17,7 +19,7 @@ namespace DcsBriefop.DataMiz
 		public List<MizDrawingObject> Objects { get; private set; } = new List<MizDrawingObject>();
 
 		public MizDrawingLayer(LsonDict lsd) : base(lsd) { }
-		
+
 		public override void FromLua()
 		{
 			Visible = Lsd[LuaNode.Visible].GetBool();
@@ -30,7 +32,7 @@ namespace DcsBriefop.DataMiz
 			}
 		}
 
-		public override void ToLua() {}
+		public override void ToLua() { }
 	}
 
 	internal class MizDrawingObject : BaseMiz
@@ -39,6 +41,7 @@ namespace DcsBriefop.DataMiz
 		{
 			public static readonly string Visible = "visible";
 			public static readonly string Name = "name";
+			public static readonly string LayerName = "layerName";
 			public static readonly string PrimitiveType = "primitiveType";
 			public static readonly string MapY = "mapY";
 			public static readonly string MapX = "mapX";
@@ -70,6 +73,7 @@ namespace DcsBriefop.DataMiz
 
 		public bool Visible { get; set; }
 		public string Name { get; set; }
+		public string LayerName { get; set; }
 		public string PrimitiveType { get; set; }
 		public double MapY { get; set; }
 		public double MapX { get; set; }
@@ -104,6 +108,7 @@ namespace DcsBriefop.DataMiz
 		{
 			Visible = Lsd[LuaNode.Visible].GetBool();
 			Name = Lsd[LuaNode.Name].GetString();
+			LayerName = Lsd[LuaNode.LayerName].GetString();
 			PrimitiveType = Lsd[LuaNode.PrimitiveType].GetString();
 			MapY = Lsd[LuaNode.MapY].GetDouble();
 			MapX = Lsd[LuaNode.MapX].GetDouble();
@@ -118,7 +123,7 @@ namespace DcsBriefop.DataMiz
 			FontSize = ToolsLson.IfExistsInt(Lsd, LuaNode.FontSize);
 			BorderThickness = ToolsLson.IfExistsInt(Lsd, LuaNode.BorderThickness);
 
-			Closed = ToolsLson.IfExistsBool (Lsd, LuaNode.Closed);
+			Closed = ToolsLson.IfExistsBool(Lsd, LuaNode.Closed);
 			Thickness = ToolsLson.IfExistsInt(Lsd, LuaNode.Thickness);
 			Style = ToolsLson.IfExistsString(Lsd, LuaNode.Style);
 			LineMode = ToolsLson.IfExistsString(Lsd, LuaNode.LineMode);
@@ -141,6 +146,46 @@ namespace DcsBriefop.DataMiz
 		}
 
 		public override void ToLua() { }
+
+		public static string GetLuaTemplate()
+		{
+			return ToolsResources.GetTextResourceContent("MizDrawing", "lua", null);
+		}
+
+		public static MizDrawingObject NewFromLuaTemplate()
+		{
+			string sLuaTemplate = GetLuaTemplate();
+			Dictionary<string, LsonValue> l = LsonVars.Parse(sLuaTemplate);
+			MizDrawingObject mizDrawingObject = new MizDrawingObject(l["template"].GetDict());
+
+			mizDrawingObject.Visible = true;
+			mizDrawingObject.Name = null;
+			mizDrawingObject.PrimitiveType = null;
+			mizDrawingObject.MapY = 0;
+			mizDrawingObject.ColorString = null;
+			mizDrawingObject.Angle = 0;
+			mizDrawingObject.File = null;
+			mizDrawingObject.Scale = 0;
+			mizDrawingObject.Text = null;
+			mizDrawingObject.FillColorString = null;
+			mizDrawingObject.Font = null;
+			mizDrawingObject.FontSize = null;
+			mizDrawingObject.BorderThickness = null;
+			mizDrawingObject.Closed = null;
+			mizDrawingObject.Thickness = null;
+			mizDrawingObject.Style = null;
+			mizDrawingObject.LineMode = null;
+			mizDrawingObject.PolygonMode = null;
+			mizDrawingObject.Height = null;
+			mizDrawingObject.Width = null;
+			mizDrawingObject.R1 = null;
+			mizDrawingObject.R2 = null;
+			mizDrawingObject.Radius = null;
+
+			mizDrawingObject.Points.Clear();
+
+			return mizDrawingObject;
+		}
 	}
 
 	internal class MizDrawingPoint : BaseMiz
@@ -163,5 +208,17 @@ namespace DcsBriefop.DataMiz
 		}
 
 		public override void ToLua() { }
+
+		public static string GetLuaTemplate()
+		{
+			return ToolsResources.GetTextResourceContent("MizDrawing", "lua", null);
+		}
+
+		public static MizDrawingPoint NewFromLuaTemplate()
+		{
+			string sLuaTemplate = GetLuaTemplate();
+			Dictionary<string, LsonValue> l = LsonVars.Parse(sLuaTemplate);
+			return new MizDrawingPoint(l["template"].GetDict()["points"].GetDict()[1].GetDict());
+		}
 	}
 }

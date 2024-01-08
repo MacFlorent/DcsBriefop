@@ -5,7 +5,6 @@ using DcsBriefop.Map;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
-using System;
 using System.Drawing.Drawing2D;
 using System.Net;
 
