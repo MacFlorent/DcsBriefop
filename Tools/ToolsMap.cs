@@ -132,7 +132,7 @@ namespace DcsBriefop.Tools
 			foreach (MizDrawingObject drawingObject in drawingLayer.Objects)
 			{
 				if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Line)
-					AddMizDrawingObjectLine(theatre, overlay, drawingObject, false);
+					AddMizDrawingObjectLine(theatre, overlay, drawingObject, drawingObject.Closed.GetValueOrDefault(false));
 				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Icon)
 					AddMizDrawingObjectIcon(theatre, overlay, drawingObject);
 				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.TextBox)

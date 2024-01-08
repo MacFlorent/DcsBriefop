@@ -129,7 +129,7 @@ namespace DcsBriefop.Forms
 
 		private string HtmlToDcsColor(string sHtmlColor)
 		{
-			return "0x8000ffff";// $"0x{sHtmlColor.Substring(1, 6)}ff";
+			return "0xff0000ff";// $"0x{sHtmlColor.Substring(1, 6)}ff";
 		}
 
 		private void LoadJsonDrawings(string sJson)
@@ -153,10 +153,10 @@ namespace DcsBriefop.Forms
 				if (jsd.type == "polygon")
 				{
 					mizDrawing.PrimitiveType = ElementDrawingPrimitive.Line;
+					mizDrawing.Closed = true;
 					mizDrawing.Style = "solid";
 					mizDrawing.LineMode = "segment";
 					mizDrawing.ColorString = HtmlToDcsColor(jsd.color);
-					mizDrawing.FillColorString = HtmlToDcsColor(jsd.colorBg);
 					mizDrawing.Thickness = jsd.lineWidth;
 
 					bool bFirst = true;
@@ -178,8 +178,6 @@ namespace DcsBriefop.Forms
 						mizDrawingPoint.Y = dZ - mizDrawing.MapY;
 						mizDrawingPoint.X = dX - mizDrawing.MapX;
 					}
-
-					break;
 				}
 			}
 
