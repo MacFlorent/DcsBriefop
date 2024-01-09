@@ -39,6 +39,10 @@ namespace DcsBriefop.Data
 			PointCoordinate pc = GetPointInterpolated(dInputHorizontal, dInputVertical);
 			dOutputHorizontal = pc?.OutputHorizontal;
 			dOutputVertical = pc?.OutputVertical;
+
+			//PointCoordinateOld pcOld = GetPointInterpolatedOld(dInputHorizontal, dInputVertical);
+			//dOutputHorizontal = pcOld?.Longitude;
+			//dOutputVertical = pcOld?.Latitude;
 		}
 
 		private PointCoordinate GetPointInterpolated(double dHorizontal, double dVertical)
@@ -103,7 +107,7 @@ namespace DcsBriefop.Data
 			upperInterpolation.OutputVertical = upperRight.OutputVertical * dRatioHorizontal + upperLeft.OutputVertical * (1 - dRatioHorizontal);
 
 			PointCoordinate interpolation = new();
-			interpolation.OutputHorizontal = upperInterpolation.OutputHorizontal * dRatioVertical + upperInterpolation.OutputHorizontal * (1 - dRatioVertical);
+			interpolation.OutputHorizontal = upperInterpolation.OutputHorizontal * dRatioVertical + lowerInterpolation.OutputHorizontal * (1 - dRatioVertical);
 			interpolation.OutputVertical = upperInterpolation.OutputVertical * dRatioVertical + lowerInterpolation.OutputVertical * (1 - dRatioVertical);
 			interpolation.InputHorizontal =  dHorizontal;
 			interpolation.InputVertical = dVertical;
@@ -200,6 +204,108 @@ namespace DcsBriefop.Data
 			}
 
 			return dItemValue;
+		}
+		#endregion
+
+		#region TEST
+		private class PointCoordinateOld
+		{
+			public double Y { get; set; }
+			public double X { get; set; }
+			public double Latitude { get; set; }
+			public double Longitude { get; set; }
+		}
+
+		private PointCoordinateOld GetPointInterpolatedOld(double dY, double dX)
+		{
+			if (m_coordinatesLut is null || m_coordinatesLut.Count < 0)
+				return null;
+
+			List<double> coordinatesLutValuesY = m_coordinatesLutValuesHorizontal;
+			List<double> coordinatesLutValuesX = m_coordinatesLutValuesVertical;
+
+			double? dLeftY = null, dRightY = null;
+			double? dLowerX = null, dUpperX = null;
+
+			foreach (double d in coordinatesLutValuesY)
+			{
+				if (dLeftY is object && dRightY is object)
+					break;
+				else if (d < dY)
+				{
+					dLeftY = d;
+				}
+				else
+				{
+					dRightY = d;
+				}
+			}
+			foreach (double d in coordinatesLutValuesX)
+			{
+				if (dLowerX is object && dUpperX is object)
+					break;
+				else if (d < dX)
+				{
+					dLowerX = d;
+				}
+				else
+				{
+					dUpperX = d;
+				}
+			}
+
+			// In mission files y(z) is west-east and x is south-north
+			PointCoordinateOld lowerLeft = null, lowerRight = null;
+			PointCoordinateOld upperLeft = null, upperRight = null;
+
+			foreach (PointCoordinate cNew in m_coordinatesLut)
+			{
+				PointCoordinateOld c = new PointCoordinateOld()
+				{
+					Y = cNew.InputHorizontal,
+					X = cNew.InputVertical,
+					Longitude = cNew.OutputHorizontal,
+					Latitude = cNew.OutputVertical,
+				};
+
+				if (lowerLeft is object && lowerRight is object && upperLeft is object && upperRight is object)
+					break;
+				else if (lowerLeft is null && c.Y == dLeftY && c.X == dLowerX)
+					lowerLeft = c;
+				else if (lowerRight is null && c.Y == dRightY && c.X == dLowerX)
+					lowerRight = c;
+				if (upperLeft is null && c.Y == dLeftY && c.X == dUpperX)
+					upperLeft = c;
+				if (upperRight is null && c.Y == dRightY && c.X == dUpperX)
+					upperRight = c;
+			}
+
+			if (lowerLeft is null || lowerRight is null || upperLeft is null || upperRight is null)
+				throw new ExceptionBop($"Requested map position cannot be converted to coordinates because it is outside of the lookup table {LutResourceName}{Environment.NewLine}Y(Z)={dY} X={dX}");
+
+			double dRatioY = (dY - lowerLeft.Y) / (lowerRight.Y - lowerLeft.Y);
+			double dRatioX = (dX - lowerLeft.X) / (upperLeft.X - lowerLeft.X);
+
+			PointCoordinateOld lowerInterpolation = new PointCoordinateOld
+			{
+				Latitude = lowerRight.Latitude * dRatioY + lowerLeft.Latitude * (1 - dRatioY),
+				Longitude = lowerRight.Longitude * dRatioY + lowerLeft.Longitude * (1 - dRatioY)
+			};
+			PointCoordinateOld upperInterpolation = new PointCoordinateOld
+			{
+				Latitude = upperRight.Latitude * dRatioY + upperLeft.Latitude * (1 - dRatioY),
+				Longitude = upperRight.Longitude * dRatioY + upperLeft.Longitude * (1 - dRatioY)
+			};
+
+			PointCoordinateOld interpolation = new PointCoordinateOld
+			{
+				Y = dY,
+				X = dX,
+				Latitude = upperInterpolation.Latitude * dRatioX + lowerInterpolation.Latitude * (1 - dRatioX),
+				Longitude = upperInterpolation.Longitude * dRatioX + lowerInterpolation.Longitude * (1 - dRatioX)
+			};
+
+			return interpolation;
 		}
 		#endregion
 	}

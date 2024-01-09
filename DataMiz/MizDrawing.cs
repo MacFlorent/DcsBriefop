@@ -32,7 +32,25 @@ namespace DcsBriefop.DataMiz
 			}
 		}
 
-		public override void ToLua() { }
+		public override void ToLua()
+		{
+			Lsd[LuaNode.Visible] = Visible;
+			Lsd[LuaNode.Name] = Name;
+
+			if (Lsd.ContainsKey(LuaNode.Objects))
+			{
+				LsonDict lsdObjects = Lsd[LuaNode.Objects].GetDict();
+				lsdObjects.Clear();
+
+				int i = 1;
+				foreach (MizDrawingObject o in Objects)
+				{
+					o.ToLua();
+					lsdObjects.Add(i, o.Lsd);
+					i++;
+				}
+			}
+		}
 	}
 
 	internal class MizDrawingObject : BaseMiz
@@ -145,7 +163,52 @@ namespace DcsBriefop.DataMiz
 			}
 		}
 
-		public override void ToLua() { }
+		public override void ToLua()
+		{
+			Lsd[LuaNode.Visible] = Visible;
+			Lsd[LuaNode.Name] = Name;
+			Lsd[LuaNode.LayerName] = LayerName;
+			Lsd[LuaNode.PrimitiveType] = PrimitiveType;
+			Lsd[LuaNode.MapY] = MapY;
+			Lsd[LuaNode.MapX] = MapX;
+			Lsd[LuaNode.ColorString] = ColorString;
+
+			Lsd.SetIfExists(LuaNode.Angle, Angle);
+			Lsd.SetIfExists(LuaNode.File, File);
+			Lsd.SetIfExists(LuaNode.Scale, Scale);
+			Lsd.SetIfExists(LuaNode.Text, Text);
+			Lsd.SetIfExists(LuaNode.FillColorString, FillColorString);
+			Lsd.SetIfExists(LuaNode.Font, Font);
+			Lsd.SetIfExists(LuaNode.FontSize, FontSize);
+			Lsd.SetIfExists(LuaNode.BorderThickness, BorderThickness);
+
+			Lsd.SetIfExists(LuaNode.Closed, Closed);
+			Lsd.SetIfExists(LuaNode.Thickness, Thickness);
+			Lsd.SetIfExists(LuaNode.Style, Style);
+			Lsd.SetIfExists(LuaNode.LineMode, LineMode);
+
+			Lsd.SetIfExists(LuaNode.PolygonMode, PolygonMode);
+			Lsd.SetIfExists(LuaNode.Height, Height);
+			Lsd.SetIfExists(LuaNode.Width, Width);
+			Lsd.SetIfExists(LuaNode.R1, R1);
+			Lsd.SetIfExists(LuaNode.R2, R2);
+			Lsd.SetIfExists(LuaNode.Radius, Radius);
+
+			if (Lsd.ContainsKey(LuaNode.Points))
+			{
+				LsonDict lsdPoints = Lsd[LuaNode.Points].GetDict();
+				lsdPoints.Clear();
+
+				int i = 1;
+				foreach (MizDrawingPoint dp in Points)
+				{
+					dp.ToLua();
+					lsdPoints.Add(i, dp.Lsd);
+					i++;
+				}
+			}
+
+		}
 
 		public static string GetLuaTemplate()
 		{
@@ -207,7 +270,11 @@ namespace DcsBriefop.DataMiz
 			X = Lsd[LuaNode.X].GetDouble();
 		}
 
-		public override void ToLua() { }
+		public override void ToLua()
+		{
+			Lsd[LuaNode.Y] = Y;
+			Lsd[LuaNode.X] = X;
+		}
 
 		public static string GetLuaTemplate()
 		{

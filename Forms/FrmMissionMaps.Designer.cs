@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
 			PnTop = new Panel();
+			button1 = new Button();
 			LbMapProvider = new Label();
 			CbMapProvider = new ComboBox();
 			PnMapSelection = new Panel();
@@ -38,7 +39,6 @@
 			RbMapSelectionRed = new RadioButton();
 			RbMapSelectionBlue = new RadioButton();
 			PnMap = new Panel();
-			button1 = new Button();
 			PnTop.SuspendLayout();
 			PnMapSelection.SuspendLayout();
 			SuspendLayout();
@@ -55,6 +55,16 @@
 			PnTop.Name = "PnTop";
 			PnTop.Size = new Size(1637, 46);
 			PnTop.TabIndex = 0;
+			// 
+			// button1
+			// 
+			button1.Location = new Point(1055, 16);
+			button1.Name = "button1";
+			button1.Size = new Size(137, 23);
+			button1.TabIndex = 7;
+			button1.Text = "lotatc drawings";
+			button1.UseVisualStyleBackColor = true;
+			button1.Click += button1_Click;
 			// 
 			// LbMapProvider
 			// 
@@ -163,16 +173,6 @@
 			PnMap.Name = "PnMap";
 			PnMap.Size = new Size(1637, 689);
 			PnMap.TabIndex = 1;
-			// 
-			// button1
-			// 
-			button1.Location = new Point(1055, 16);
-			button1.Name = "button1";
-			button1.Size = new Size(75, 23);
-			button1.TabIndex = 7;
-			button1.Text = "button1";
-			button1.UseVisualStyleBackColor = true;
-			button1.Click += button1_Click;
 			// 
 			// FrmMissionMaps
 			// 

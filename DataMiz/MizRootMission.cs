@@ -76,6 +76,11 @@ namespace DcsBriefop.DataMiz
 			{
 				c.ToLua();
 			}
+			foreach (MizDrawingLayer l in DrawingLayers)
+			{
+				l.ToLua();
+			}
+
 		}
 	}
 }
