@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			PnTop = new Panel();
-			button1 = new Button();
+			BtImportDrawingsFile = new Button();
 			LbMapProvider = new Label();
 			CbMapProvider = new ComboBox();
 			PnMapSelection = new Panel();
@@ -45,7 +45,7 @@
 			// 
 			// PnTop
 			// 
-			PnTop.Controls.Add(button1);
+			PnTop.Controls.Add(BtImportDrawingsFile);
 			PnTop.Controls.Add(LbMapProvider);
 			PnTop.Controls.Add(CbMapProvider);
 			PnTop.Controls.Add(PnMapSelection);
@@ -56,15 +56,15 @@
 			PnTop.Size = new Size(1637, 46);
 			PnTop.TabIndex = 0;
 			// 
-			// button1
+			// BtImportDrawingsFile
 			// 
-			button1.Location = new Point(1055, 16);
-			button1.Name = "button1";
-			button1.Size = new Size(137, 23);
-			button1.TabIndex = 7;
-			button1.Text = "lotatc drawings";
-			button1.UseVisualStyleBackColor = true;
-			button1.Click += button1_Click;
+			BtImportDrawingsFile.Location = new Point(867, 15);
+			BtImportDrawingsFile.Name = "BtImportDrawingsFile";
+			BtImportDrawingsFile.Size = new Size(164, 27);
+			BtImportDrawingsFile.TabIndex = 7;
+			BtImportDrawingsFile.Text = "Import lotatc drawings";
+			BtImportDrawingsFile.UseVisualStyleBackColor = true;
+			BtImportDrawingsFile.Click += BtImportDrawingsFile_Click;
 			// 
 			// LbMapProvider
 			// 
@@ -207,6 +207,6 @@
 		private System.Windows.Forms.Label LbMapProvider;
 		private System.Windows.Forms.ComboBox CbMapProvider;
 		private System.Windows.Forms.Label LbMaps;
-		private Button button1;
+		private Button BtImportDrawingsFile;
 	}
 }

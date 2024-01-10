@@ -111,7 +111,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region POC LOTATC drawings
-		private void button1_Click(object sender, EventArgs e)
+		private void BtImportDrawingsFile_Click(object sender, EventArgs e)
 		{
 			using (OpenFileDialog ofd = new OpenFileDialog())
 			{

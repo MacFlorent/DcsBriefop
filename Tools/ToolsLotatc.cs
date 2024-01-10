@@ -4,7 +4,14 @@ using Newtonsoft.Json;
 
 namespace DcsBriefop.Tools
 {
-	internal class LotatcDrawings
+	internal class LotatcDrawingsFile
+	{
+		public bool enable;
+		public string version;
+		public List<LotatcDrawingsAuthor> drawings;
+	}
+
+		internal class LotatcDrawingsAuthor
 	{
 		public string author;
 		public List<LotatcDrawing> drawings;
@@ -52,7 +59,7 @@ namespace DcsBriefop.Tools
 
 		public static void DrawingsJsonToMiz(string sJson, BriefopManager briefopManager)
 		{
-			LotatcDrawings lotatcDrawings = JsonConvert.DeserializeObject<LotatcDrawings>(sJson);
+			LotatcDrawingsFile lotatcDrawingsFile = JsonConvert.DeserializeObject<LotatcDrawingsFile>(sJson);
 
 			MizDrawingLayer mizDrawingLayerCommon = briefopManager.BopMission.Miz.RootMission.DrawingLayers.Where(_l => _l.Name == ElementDrawingLayer.Common).FirstOrDefault();
 			if (mizDrawingLayerCommon is null)
@@ -60,25 +67,28 @@ namespace DcsBriefop.Tools
 
 			mizDrawingLayerCommon.Objects.RemoveAll(_o => _o.Name.StartsWith("lotatc_"));
 
-			foreach (LotatcDrawing lotatcDrawing in lotatcDrawings.drawings)
+			foreach (LotatcDrawingsAuthor lotatcDrawingsAuthor in lotatcDrawingsFile.drawings)
 			{
-				MizDrawingObject mizDrawing = MizDrawingObject.NewFromLuaTemplate();
-				mizDrawingLayerCommon.Objects.Add(mizDrawing);
-				mizDrawing.Name = $"lotatc_{lotatcDrawing.name}";
-				mizDrawing.LayerName = ElementDrawingLayer.Common;
-				mizDrawing.Visible = lotatcDrawing.visible;
+				foreach (LotatcDrawing lotatcDrawing in lotatcDrawingsAuthor.drawings)
+				{
+					MizDrawingObject mizDrawing = MizDrawingObject.NewFromLuaTemplate();
+					mizDrawingLayerCommon.Objects.Add(mizDrawing);
+					mizDrawing.Name = $"lotatc_{lotatcDrawing.name}";
+					mizDrawing.LayerName = ElementDrawingLayer.Common;
+					mizDrawing.Visible = lotatcDrawing.visible;
 
-				if (lotatcDrawing.type == "polygon")
-				{
-					FillMizDrawingPolygon(lotatcDrawing, mizDrawing, briefopManager.BopMission.Theatre);
-				}
-				else if (lotatcDrawing.type == "circle")
-				{
-					FillMizDrawingCircle(lotatcDrawing, mizDrawing, briefopManager.BopMission.Theatre);
-				}
-				else if (lotatcDrawing.type == "text")
-				{
-					FillMizDrawingText(lotatcDrawing, mizDrawing, briefopManager.BopMission.Theatre);
+					if (lotatcDrawing.type == "polygon")
+					{
+						FillMizDrawingPolygon(lotatcDrawing, mizDrawing, briefopManager.BopMission.Theatre);
+					}
+					else if (lotatcDrawing.type == "circle")
+					{
+						FillMizDrawingCircle(lotatcDrawing, mizDrawing, briefopManager.BopMission.Theatre);
+					}
+					else if (lotatcDrawing.type == "text")
+					{
+						FillMizDrawingText(lotatcDrawing, mizDrawing, briefopManager.BopMission.Theatre);
+					}
 				}
 			}
 		}
@@ -144,7 +154,8 @@ namespace DcsBriefop.Tools
 
 			mizDrawing.ColorString = HtmlToDcsColor(lotatcDrawing.font.color);
 			mizDrawing.FillColorString = HtmlToDcsColor(lotatcDrawing.colorBg);
-			mizDrawing.Font = lotatcDrawing.font.font;
+			mizDrawing.Font = "DejaVuLGCSansCondensed.ttf";//lotatcDrawing.font.font;
+			mizDrawing.FontSize = 16;
 
 			CoordinateSharp.Coordinate c = new CoordinateSharp.Coordinate(lotatcDrawing.latitude, lotatcDrawing.longitude);
 			theatre.GetDcsZX(out double dZ, out double dX, c);
