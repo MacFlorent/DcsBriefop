@@ -4,16 +4,22 @@ using Newtonsoft.Json;
 
 namespace DcsBriefop.Tools
 {
-	internal class LotatcDrawingsFile
+	internal class LotatcDrawingFile
 	{
 		public bool enable;
 		public string version;
-		public List<LotatcDrawingsAuthor> drawings;
+		public List<LotatcDrawingLayer> drawings;
 	}
 
-		internal class LotatcDrawingsAuthor
+	internal class LotatcDrawingLayer
 	{
 		public string author;
+		public bool enable;
+		public string name;
+		public bool shared;
+		public string version;
+		public string type;
+		public bool visible;
 		public List<LotatcDrawing> drawings;
 	}
 
@@ -57,40 +63,56 @@ namespace DcsBriefop.Tools
 			return $"0x{sHtmlColor.Substring(3, 6)}{sHtmlColor.Substring(1, 2)}";
 		}
 
-		public static void DrawingsJsonToMiz(string sJson, BriefopManager briefopManager)
+		public static void DrawingsFileJsonToMiz(string sJson, BriefopManager briefopManager)
 		{
-			LotatcDrawingsFile lotatcDrawingsFile = JsonConvert.DeserializeObject<LotatcDrawingsFile>(sJson);
-
 			MizDrawingLayer mizDrawingLayerCommon = briefopManager.BopMission.Miz.RootMission.DrawingLayers.Where(_l => _l.Name == ElementDrawingLayer.Common).FirstOrDefault();
 			if (mizDrawingLayerCommon is null)
 				throw new ExceptionBop("No common drawing layer in mission. The layer must exist in the mission to allow for external drawings import.");
-
+			
 			mizDrawingLayerCommon.Objects.RemoveAll(_o => _o.Name.StartsWith("lotatc_"));
 
-			foreach (LotatcDrawingsAuthor lotatcDrawingsAuthor in lotatcDrawingsFile.drawings)
+			LotatcDrawingLayer lotatcDrawingLayer = JsonConvert.DeserializeObject<LotatcDrawingLayer>(sJson);
+			if ("layer".Equals(lotatcDrawingLayer.type))
 			{
-				foreach (LotatcDrawing lotatcDrawing in lotatcDrawingsAuthor.drawings)
-				{
-					MizDrawingObject mizDrawing = MizDrawingObject.NewFromLuaTemplate();
-					mizDrawingLayerCommon.Objects.Add(mizDrawing);
-					mizDrawing.Name = $"lotatc_{lotatcDrawing.name}";
-					mizDrawing.LayerName = ElementDrawingLayer.Common;
-					mizDrawing.Visible = lotatcDrawing.visible;
+				DrawingsLayerToMiz(lotatcDrawingLayer, briefopManager, mizDrawingLayerCommon);
+			}
+			else
+			{ 
+				LotatcDrawingFile lotatcDrawingFile = JsonConvert.DeserializeObject<LotatcDrawingFile>(sJson);
+				if (lotatcDrawingFile.drawings is null)
+					throw new ExceptionBop("Cannot parse input file, please check that it is a correctly formatted lotac drawings file.");
 
-					if (lotatcDrawing.type == "polygon")
-					{
-						FillMizDrawingPolygon(lotatcDrawing, mizDrawing, briefopManager.BopMission.Theatre);
-					}
-					else if (lotatcDrawing.type == "circle")
-					{
-						FillMizDrawingCircle(lotatcDrawing, mizDrawing, briefopManager.BopMission.Theatre);
-					}
-					else if (lotatcDrawing.type == "text")
-					{
-						FillMizDrawingText(lotatcDrawing, mizDrawing, briefopManager.BopMission.Theatre);
-					}
+				foreach (LotatcDrawingLayer layer in lotatcDrawingFile.drawings)
+				{
+					DrawingsLayerToMiz(layer, briefopManager, mizDrawingLayerCommon);
 				}
 			}
+		}
+
+		public static void DrawingsLayerToMiz(LotatcDrawingLayer lotatcDrawingsAuthor, BriefopManager briefopManager, MizDrawingLayer mizDrawingLayer)
+		{
+			foreach (LotatcDrawing lotatcDrawing in lotatcDrawingsAuthor.drawings)
+			{
+				MizDrawingObject mizDrawing = MizDrawingObject.NewFromLuaTemplate();
+				mizDrawingLayer.Objects.Add(mizDrawing);
+				mizDrawing.Name = $"lotatc_{lotatcDrawing.name}";
+				mizDrawing.LayerName = ElementDrawingLayer.Common;
+				mizDrawing.Visible = lotatcDrawing.visible;
+
+				if (lotatcDrawing.type == "polygon")
+				{
+					FillMizDrawingPolygon(lotatcDrawing, mizDrawing, briefopManager.BopMission.Theatre);
+				}
+				else if (lotatcDrawing.type == "circle")
+				{
+					FillMizDrawingCircle(lotatcDrawing, mizDrawing, briefopManager.BopMission.Theatre);
+				}
+				else if (lotatcDrawing.type == "text")
+				{
+					FillMizDrawingText(lotatcDrawing, mizDrawing, briefopManager.BopMission.Theatre);
+				}
+			}
+
 		}
 
 		private static void FillMizDrawingPolygon(LotatcDrawing lotatcDrawing, MizDrawingObject mizDrawing, Theatre theatre)

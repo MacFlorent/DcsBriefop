@@ -5,7 +5,6 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
-using Newtonsoft.Json;
 
 namespace DcsBriefop.Forms
 {
@@ -121,9 +120,19 @@ namespace DcsBriefop.Forms
 
 				if (ofd.ShowDialog() == DialogResult.OK)
 				{
-					string sJson = File.ReadAllText(ofd.FileName);
-					ToolsLotatc.DrawingsJsonToMiz(sJson, m_briefopManager);
-					DataToScreenDetail();
+					try
+					{
+						using (new WaitDialog(this))
+						{
+							string sJson = File.ReadAllText(ofd.FileName);
+							ToolsLotatc.DrawingsFileJsonToMiz(sJson, m_briefopManager);
+							DataToScreenDetail();
+						}
+					}
+					catch (Exception ex)
+					{
+						ToolsControls.ShowMessageBoxAndLogException("Failed to import lotatc drawings file.", ex);
+					}
 				}
 			}
 		}
