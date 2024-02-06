@@ -33,7 +33,7 @@ namespace DcsBriefop.Forms
 			PnBackground.CenterInParent();
 
 			PnMission.BackColor = ToolsStyle.ColorLightLight;
-			SetImagePanel(PnMissionPicture, "backgroundMission", "jpg");
+			SetImagePanel(PnMissionPicture, ElementBopResource.ImageMission, "jpg");
 			ToolsStyle.LabelTitle(LbMissionTitle);
 			LbMissionTitle.BackColor = Color.Transparent;
 			LbMissionTitle.CenterInParent();
@@ -49,7 +49,7 @@ namespace DcsBriefop.Forms
 			PnMissionActions.CenterInParentHorizontal();
 
 			PnBriefing.BackColor = ToolsStyle.ColorLightLight;
-			SetImagePanel(PnBriefingPicture, "backgroundBriefing", "jpg");
+			SetImagePanel(PnBriefingPicture, ElementBopResource.ImageBriefing, "jpg");
 			ToolsStyle.LabelTitle(LbBriefingTitle);
 			LbBriefingTitle.BackColor = Color.Transparent;
 			LbBriefingTitle.CenterInParent();
@@ -88,7 +88,7 @@ namespace DcsBriefop.Forms
 			LbMissionTheatre.Text = m_briefopManager.BopMission.Theatre.Name;
 			LbMissionTheatre.CenterInParent();
 
-			Image theatreImage = ToolsResources.GetImageResource($"theatre{m_briefopManager.BopMission.Theatre.Name}", "jpg", null);
+			Image theatreImage = ToolsResources.GetImageResource($"{ElementBopResource.ImageTheatre}{m_briefopManager.BopMission.Theatre.Name}", "jpg", null);
 			if (theatreImage is object)
 			{
 				PnMissionTheatre.BackgroundImage = theatreImage;

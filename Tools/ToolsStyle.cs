@@ -1,4 +1,6 @@
-﻿namespace DcsBriefop.Tools
+﻿using DcsBriefop.Data;
+
+namespace DcsBriefop.Tools
 {
 	public interface ICustomStylable
 	{
@@ -166,7 +168,7 @@
 		#region Forms
 		public static void SetBackgroundImage(Control c)
 		{
-			using Image image =ToolsResources.GetImageResource("icon256", null, null);
+			using Image image =ToolsResources.GetImageResource(ElementBopResource.IconMain, null, null);
 			c.BackgroundImage = ToolsImage.SetImageOpacity(image, 0.05f);
 			c.BackgroundImageLayout = ImageLayout.Tile;
 		}

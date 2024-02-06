@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Tools;
+﻿using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using LsonLib;
 
 namespace DcsBriefop.DataMiz
@@ -72,7 +73,7 @@ namespace DcsBriefop.DataMiz
 
 		public static string GetLuaTemplate()
 		{
-			return ToolsResources.GetTextResourceContent("MizRoutePoint", "lua", null);
+			return ToolsResources.GetTextResourceContent(ElementBopResource.MizRoutePoint, "lua", null);
 		}
 
 		public static MizRoutePoint NewFromLuaTemplate()

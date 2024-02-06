@@ -1,5 +1,7 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
+using DcsBriefop.Forms;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace DcsBriefop.Tools
@@ -52,6 +54,16 @@ namespace DcsBriefop.Tools
 				dNormalizedBearing = 360;
 
 			return dNormalizedBearing;
+		}
+
+		public static Tuple<double, double> ReprojectPoint(DotSpatial.Projections.ProjectionInfo piSource, DotSpatial.Projections.ProjectionInfo piDestination, Tuple<double, double> pointInput)
+		{
+			double[] xy = { pointInput.Item1, pointInput.Item2 };
+			double[] z = { 0 };
+
+			DotSpatial.Projections.Reproject.ReprojectPoints(xy, z, piSource, piDestination, 0, 1);
+
+			return new Tuple<double, double>(xy[0], xy[1]);
 		}
 	}
 }

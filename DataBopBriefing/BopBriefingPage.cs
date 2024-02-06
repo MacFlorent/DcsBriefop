@@ -113,8 +113,8 @@ namespace DcsBriefop.DataBopBriefing
 		{
 			HtmlTags.HtmlDocument html = new();
 			html.Head.Append(BuildHtmlStyle(bopBriefingFolder));
-			html.Head.Append(BuildHtmlScript("apexcharts"));
-			html.Head.Append(BuildHtmlScript("apexcharts-waypointbuilder"));
+			html.Head.Append(BuildHtmlScript(ElementBopResource.JsCharts));
+			html.Head.Append(BuildHtmlScript(ElementBopResource.JsChartsWaypointBuilder));
 
 			if (DisplayTitle)
 				html.Body.Append(BuildHtmlBodyHeader(bopManager, bopBriefingFolder));
@@ -141,7 +141,7 @@ namespace DcsBriefop.DataBopBriefing
 		private HtmlTag BuildHtmlScript(string sResourceJs)
 		{
 			HtmlTag tag = new("script");
-			string sStyle = ToolsResources.GetTextResourceContent(sResourceJs, "js", ElementGlobalData.ResourcesDirectoryHtml);
+			string sStyle = ToolsResources.GetTextResourceContent(sResourceJs, "js", ElementBopResource.DirectoryHtml);
 			return tag.AppendHtml(sStyle);
 		}
 

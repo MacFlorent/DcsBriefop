@@ -212,7 +212,7 @@ namespace DcsBriefop.DataMiz
 
 		public static string GetLuaTemplate()
 		{
-			return ToolsResources.GetTextResourceContent("MizDrawing", "lua", null);
+			return ToolsResources.GetTextResourceContent(ElementBopResource.MizDrawing, "lua", null);
 		}
 
 		public static MizDrawingObject NewFromLuaTemplate()
@@ -278,7 +278,7 @@ namespace DcsBriefop.DataMiz
 
 		public static string GetLuaTemplate()
 		{
-			return ToolsResources.GetTextResourceContent("MizDrawing", "lua", null);
+			return ToolsResources.GetTextResourceContent(ElementBopResource.MizDrawing, "lua", null);
 		}
 
 		public static MizDrawingPoint NewFromLuaTemplate()

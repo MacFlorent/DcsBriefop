@@ -50,7 +50,7 @@ namespace DcsBriefop.Map
 
 			try
 			{
-				string sJsonStream = ToolsResources.GetJsonResourceContent("Routes", ElementGlobalData.ResourcesDirectoryRoutes);
+				string sJsonStream = ToolsResources.GetJsonResourceContent(ElementBopResource.Routes, ElementBopResource.DirectoryRoutes);
 				config = JsonConvert.DeserializeObject<ConfigMapTemplateRoutes>(sJsonStream);
 			}
 			catch (Exception ex)
@@ -60,7 +60,7 @@ namespace DcsBriefop.Map
 				config = null;
 			}
 
-			string sBaseDirectory = ToolsResources.GetResourceDirectoryPath(ElementGlobalData.ResourcesDirectoryRoutes);
+			string sBaseDirectory = ToolsResources.GetResourceDirectoryPath(ElementBopResource.DirectoryRoutes);
 
 			if (Directory.Exists(sBaseDirectory))
 			{

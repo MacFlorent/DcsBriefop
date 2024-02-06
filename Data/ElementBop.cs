@@ -1,13 +1,5 @@
 ﻿namespace DcsBriefop.Data
 {
-	//internal enum ElementAssetMapDisplay
-	//{
-	//	None = 0,
-	//	Point = 1,
-	//	Orbit = 2,
-	//	FullRoute = 3
-	//}
-
 	internal enum ElementBullseyeWaypoint
 	{
 		None,
@@ -125,16 +117,11 @@
 
 	internal static class ElementGlobalData
 	{
-		public static readonly string ResourcesDirectoryDefault = "Resources";
-		public static readonly string ResourcesDirectoryMarkers = "Markers";
-		public static readonly string ResourcesDirectoryRoutes = "Routes";
-		public static readonly string ResourcesDirectoryHtml = "Html";
 		public static readonly string DcsFileFilter = "DCS mission files (*.miz)|*.miz|All files (*.*)|*.*";
 		public static readonly string ImageFileFilter = "Image files |*.bmp;*.jpg;*.png";
 		public static readonly string BullseyeRoutePointName = "BULLS";
 		public static readonly string GenerateDirectoryNameDefault = "BriefopGenerated";
 		public static readonly string GenerateDirectoryNameVeaf = @"src\mission\KNEEBOARD";
-
 	}
 
 	internal static class ElementCoalitionColor

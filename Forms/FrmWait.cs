@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Tools;
+﻿using DcsBriefop.Data;
+using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms
 {
@@ -21,7 +22,7 @@ namespace DcsBriefop.Forms
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			PbWait.Image = ToolsResources.GetImageResource("wait2", null, null);
+			PbWait.Image = ToolsResources.GetImageResource(ElementBopResource.ImageWait, null, null);
 
 			m_parent = parent;
 			m_areIsReady = areIsReady;

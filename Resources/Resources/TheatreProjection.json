@@ -1,0 +1,31 @@
+﻿[
+	{
+		"Theatre": "Briefop",
+		"Projection": "+proj=latlong +datum=WGS84 +no_defs"
+	},
+	{
+		"Theatre": "Caucasus",
+		"Projection": "+proj=tmerc +lat_0=0 +lon_0=33 +k_0=0.9996 +x_0=-99517 +y_0=-4998115"
+	},
+	{
+		"Theatre": "MarianaIslands",
+		"Projection": "+proj=tmerc +lat_0=35.21917 +lon_0=35.9055 +k_0=0.9996 +x_0=0 +y_0=0"
+	},
+	{
+		"Theatre": "Nevada",
+		"Projection": ""
+	},
+	{
+		"Theatre": "PersianGulf",
+		"Projection": "+proj=tmerc +lat_0=26.1718 +lon_0=56.2419 +k_0=0.9996 +x_0=0 +y_0=0"
+	},
+	{
+		"Theatre": "SinaiMap",
+		"Projection": ""
+	},
+	{
+		"Theatre": "Syria",
+		"Projection": "+proj=tmerc +lat_0=35.21917 +lon_0=35.9055 +k_0=0.9996 +x_0=0 +y_0=0"
+	}
+]
+

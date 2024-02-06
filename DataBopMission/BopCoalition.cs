@@ -42,11 +42,6 @@ namespace DcsBriefop.DataBopMission
 				Task = ToolsLua.DcsTextToDisplay(Miz.RootDictionary.NeutralTask);
 
 			Bullseye = Theatre.GetCoordinate(m_mizCoalition.BullseyeY, m_mizCoalition.BullseyeX);
-			Theatre.GetDcsZX(out double dZ, out double dX, Bullseye);
-			if (dZ != m_mizCoalition.BullseyeY || dX != m_mizCoalition.BullseyeX)
-			{
-
-			}
 
 			BullseyeDescription = m_mizBopCoalition.BullseyeDescription;
 			BullseyeWaypoint = m_mizBopCoalition.BullseyeWaypoint;

@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Tools;
+﻿using DcsBriefop.Data;
+using DcsBriefop.Tools;
 
 namespace DcsBriefop.DataBopBriefing
 {
@@ -44,7 +45,7 @@ namespace DcsBriefop.DataBopBriefing
 
 		static BopBriefingStyle()
 		{
-			string sBaseDirectory = ToolsResources.GetResourceDirectoryPath("Html");
+			string sBaseDirectory = ToolsResources.GetResourceDirectoryPath(ElementBopResource.DirectoryHtml);
 			m_sCssFilePathDefault = Path.Combine(sBaseDirectory, "simple-dark.css");
 
 			if (Directory.Exists(sBaseDirectory))

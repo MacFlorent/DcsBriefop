@@ -59,7 +59,7 @@ namespace DcsBriefop.Map
 
 			try
 			{
-				string sJsonStream = ToolsResources.GetJsonResourceContent("Markers", ElementGlobalData.ResourcesDirectoryMarkers);
+				string sJsonStream = ToolsResources.GetJsonResourceContent(ElementBopResource.Markers, ElementBopResource.DirectoryMarkers);
 				config = JsonConvert.DeserializeObject<ConfigMapTemplateMarkers>(sJsonStream);
 			}
 			catch (Exception ex)
@@ -83,7 +83,7 @@ namespace DcsBriefop.Map
 				ElementMapTemplateMarker.Bullseye = config.DefaultBullseye ?? ElementMapTemplateMarker.Bullseye;
 			}
 
-			string sBaseDirectory = ToolsResources.GetResourceDirectoryPath(ElementGlobalData.ResourcesDirectoryMarkers);
+			string sBaseDirectory = ToolsResources.GetResourceDirectoryPath(ElementBopResource.DirectoryMarkers);
 
 			if (Directory.Exists(sBaseDirectory))
 			{

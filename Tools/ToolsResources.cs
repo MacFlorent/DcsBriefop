@@ -9,7 +9,7 @@ namespace DcsBriefop.Tools
 		public static string GetResourceDirectoryPath(string sResourceDirectory)
 		{
 			if (string.IsNullOrEmpty(sResourceDirectory))
-				sResourceDirectory = ElementGlobalData.ResourcesDirectoryDefault;
+				sResourceDirectory = ElementBopResource.DirectoryDefault;
 
 			string sBaseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 			return Path.Combine(sBaseDirectory, sResourceDirectory);
