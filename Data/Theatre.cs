@@ -1,5 +1,4 @@
-﻿using CoordinateSharp.Debuggers;
-using DcsBriefop.Tools;
+﻿using DcsBriefop.Tools;
 using Newtonsoft.Json;
 
 namespace DcsBriefop.Data
@@ -36,25 +35,29 @@ namespace DcsBriefop.Data
 			return Airdromes.Where(_ad => _ad.Id == iId).FirstOrDefault();
 		}
 
-		//public CoordinateSharp.Coordinate GetCoordinate(double dZ, double dX)
-		//{
-		//	Tuple<double, double> output = null;
-		//	try
-		//	{
-		//		Tuple<double, double> input = new(dX, dZ);
-		//		output = ToolsCoordinate.ReprojectPoint(m_projectionInfo, TheatreProjectionManager.BriefopProjection, input);
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		Log.Exception(ex);
-		//	}
+		public CoordinateSharp.Coordinate GetCoordinateNew(double dDcsX, double dDcsY)
+		{
+			// Coordinates in DCS: X vertical ; Y(Z) horizontal
+			// Coordinates in the DotSpatial reprojection: Item1(x) is horizontal ; Item2(y) vertical
 
-		//	double dOutputLatitude = output?.Item1 ?? 0;
-		//	double dOutputLongitude = output?.Item2 ?? 0;
-		//	return new CoordinateSharp.Coordinate(dOutputLatitude, dOutputLongitude);
-		//}
+			Tuple<double, double> output = null;
+			try
+			{
+				Tuple<double, double> input = new(dDcsY, dDcsX);
+				output = ToolsCoordinate.ReprojectPoint(m_projectionInfo, TheatreProjectionManager.BriefopProjection, input);
+			}
+			catch (Exception ex)
+			{
+				Log.Exception(ex);
+			}
 
-		public CoordinateSharp.Coordinate GetCoordinate(double dZ, double dX)
+			double dOutputLongitude = output?.Item1 ?? 0;
+			double dOutputLatitude = output?.Item2 ?? 0;
+			
+			return new CoordinateSharp.Coordinate(dOutputLatitude, dOutputLongitude);
+		}
+
+		public CoordinateSharp.Coordinate GetCoordinateOld(double dZ, double dX)
 		{
 			double? dOutputLongitude = null, dOutputLatitude = null;
 
@@ -73,7 +76,27 @@ namespace DcsBriefop.Data
 			return new CoordinateSharp.Coordinate(dOutputLatitude.Value, dOutputLongitude.Value);
 		}
 
-		public void GetDcsZX(out double dZ, out double dX, CoordinateSharp.Coordinate coordinate)
+		public void GetDcsXYNew(out double dX, out double dY, CoordinateSharp.Coordinate coordinate)
+		{
+			// Coordinates in DCS: X vertical ; Y(Z) horizontal
+			// Coordinates in the DotSpatial reprojection: Item1(x) is horizontal ; Item2(y) vertical
+
+			Tuple<double, double> output = null;
+			try
+			{
+				Tuple<double, double> input = new(coordinate.Longitude.DecimalDegree, coordinate.Latitude.DecimalDegree);
+				output = ToolsCoordinate.ReprojectPoint(TheatreProjectionManager.BriefopProjection, m_projectionInfo, input);
+			}
+			catch (Exception ex)
+			{
+				Log.Exception(ex);
+			}
+
+			dY = output?.Item1 ?? 0;
+			dX = output?.Item2 ?? 0;
+		}
+
+		public void GetDcsZXOld(out double dZ, out double dX, CoordinateSharp.Coordinate coordinate)
 		{
 			double? dOutputZ = null, dOutputX = null;
 			try

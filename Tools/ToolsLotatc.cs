@@ -132,16 +132,16 @@ namespace DcsBriefop.Tools
 				mizDrawing.Points.Add(mizDrawingPoint);
 
 				CoordinateSharp.Coordinate c = new CoordinateSharp.Coordinate(lotatcPoint.latitude, lotatcPoint.longitude);
-				theatre.GetDcsZX(out double dZ, out double dX, c);
+				theatre.GetDcsXYNew(out double dX, out double dY, c);
 
 				if (bFirst)
 				{
-					mizDrawing.MapY = dZ;
+					mizDrawing.MapY = dY;
 					mizDrawing.MapX = dX;
 					bFirst = false;
 				}
 
-				mizDrawingPoint.Y = dZ - mizDrawing.MapY;
+				mizDrawingPoint.Y = dY - mizDrawing.MapY;
 				mizDrawingPoint.X = dX - mizDrawing.MapX;
 			}
 
@@ -162,8 +162,8 @@ namespace DcsBriefop.Tools
 			mizDrawing.FillColorString = HtmlToDcsColor(lotatcDrawing.colorBg);
 
 			CoordinateSharp.Coordinate c = new CoordinateSharp.Coordinate(lotatcDrawing.latitude, lotatcDrawing.longitude);
-			theatre.GetDcsZX(out double dZ, out double dX, c);
-			mizDrawing.MapY = dZ;
+			theatre.GetDcsXYNew(out double dX, out double dY, c);
+			mizDrawing.MapY = dY;
 			mizDrawing.MapX = dX;
 		}
 
@@ -180,8 +180,8 @@ namespace DcsBriefop.Tools
 			mizDrawing.FontSize = 16;
 
 			CoordinateSharp.Coordinate c = new CoordinateSharp.Coordinate(lotatcDrawing.latitude, lotatcDrawing.longitude);
-			theatre.GetDcsZX(out double dZ, out double dX, c);
-			mizDrawing.MapY = dZ;
+			theatre.GetDcsXYNew(out double dX, out double dY, c);
+			mizDrawing.MapY = dY;
 			mizDrawing.MapX = dX;
 		}
 	}

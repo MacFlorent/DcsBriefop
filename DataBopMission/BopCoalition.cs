@@ -41,7 +41,7 @@ namespace DcsBriefop.DataBopMission
 			else if (CoalitionName == ElementCoalition.Neutral)
 				Task = ToolsLua.DcsTextToDisplay(Miz.RootDictionary.NeutralTask);
 
-			Bullseye = Theatre.GetCoordinate(m_mizCoalition.BullseyeY, m_mizCoalition.BullseyeX);
+			Bullseye = Theatre.GetCoordinateNew(m_mizCoalition.BullseyeX, m_mizCoalition.BullseyeY);
 
 			BullseyeDescription = m_mizBopCoalition.BullseyeDescription;
 			BullseyeWaypoint = m_mizBopCoalition.BullseyeWaypoint;
@@ -69,7 +69,7 @@ namespace DcsBriefop.DataBopMission
 			m_mizBopCoalition = Miz.MizBopCustom.MizBopCoalitions.Where(_c => _c.CoalitionName == CoalitionName).FirstOrDefault();
 			if (m_mizBopCoalition is null)
 			{
-				Coordinate centerCoordinate = Theatre.GetCoordinate(m_mizCoalition.BullseyeY, m_mizCoalition.BullseyeX);
+				Coordinate centerCoordinate = Theatre.GetCoordinateNew(m_mizCoalition.BullseyeX, m_mizCoalition.BullseyeY);
 				m_mizBopCoalition = new MizBopCoalition() { CoalitionName = CoalitionName };
 				m_mizBopCoalition.MapData = new MizBopMap();
 				m_mizBopCoalition.MapData.CenterLatitude = centerCoordinate.Latitude.DecimalDegree;

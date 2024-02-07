@@ -140,7 +140,7 @@ namespace DcsBriefop.DataBopMission
 		{
 			base.FinalizeFromMizInternal();
 
-			Coordinate = Theatre.GetCoordinate(m_mizGroup.Y, m_mizGroup.X);
+			Coordinate = Theatre.GetCoordinateNew(m_mizGroup.X, m_mizGroup.Y);
 
 			foreach (BopUnit bopUnit in Units)
 			{

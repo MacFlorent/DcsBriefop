@@ -113,7 +113,7 @@ namespace DcsBriefop.DataBopMission
 			else
 				AltitudeMeters = BopGroup.RoutePoints.FirstOrDefault()?.AltitudeMeters;
 
-			Coordinate = Theatre.GetCoordinate(m_mizUnit.Y, m_mizUnit.X);
+			Coordinate = Theatre.GetCoordinateNew(m_mizUnit.X, m_mizUnit.Y);
 		}
 		#endregion
 

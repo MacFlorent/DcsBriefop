@@ -1,7 +1,5 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
-using DcsBriefop.Forms;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace DcsBriefop.Tools
@@ -58,6 +56,7 @@ namespace DcsBriefop.Tools
 
 		public static Tuple<double, double> ReprojectPoint(DotSpatial.Projections.ProjectionInfo piSource, DotSpatial.Projections.ProjectionInfo piDestination, Tuple<double, double> pointInput)
 		{
+			// here as per DotSpatial, X is horizontal and Y vertical (which is the opposite of DCS)
 			double[] xy = { pointInput.Item1, pointInput.Item2 };
 			double[] z = { 0 };
 

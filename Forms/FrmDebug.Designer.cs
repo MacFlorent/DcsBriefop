@@ -39,6 +39,7 @@
 			advancedDataGridView1 = new Zuby.ADGV.AdvancedDataGridView();
 			groupBox1 = new GroupBox();
 			GbCoordinates = new GroupBox();
+			LbControlCoord = new Label();
 			CbMap = new ComboBox();
 			label2 = new Label();
 			BtConvetGeoToDcs = new Button();
@@ -167,6 +168,7 @@
 			// 
 			// GbCoordinates
 			// 
+			GbCoordinates.Controls.Add(LbControlCoord);
 			GbCoordinates.Controls.Add(CbMap);
 			GbCoordinates.Controls.Add(label2);
 			GbCoordinates.Controls.Add(BtConvetGeoToDcs);
@@ -185,6 +187,15 @@
 			GbCoordinates.TabIndex = 3;
 			GbCoordinates.TabStop = false;
 			GbCoordinates.Text = "Coordinates conversion";
+			// 
+			// LbControlCoord
+			// 
+			LbControlCoord.AutoSize = true;
+			LbControlCoord.Location = new Point(460, 98);
+			LbControlCoord.Name = "LbControlCoord";
+			LbControlCoord.Size = new Size(38, 15);
+			LbControlCoord.TabIndex = 18;
+			LbControlCoord.Text = "label5";
 			// 
 			// CbMap
 			// 
@@ -211,16 +222,17 @@
 			BtConvetGeoToDcs.TabIndex = 15;
 			BtConvetGeoToDcs.Text = "< Convert";
 			BtConvetGeoToDcs.UseVisualStyleBackColor = true;
+			BtConvetGeoToDcs.Click += BtConvetGeoToDcs_Click;
 			// 
 			// NudLong
 			// 
-			NudLong.DecimalPlaces = 8;
+			NudLong.DecimalPlaces = 10;
 			NudLong.Location = new Point(624, 68);
-			NudLong.Minimum = new decimal(new int[] { 100, 0, 0, int.MinValue });
+			NudLong.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
+			NudLong.Minimum = new decimal(new int[] { 999, 0, 0, int.MinValue });
 			NudLong.Name = "NudLong";
 			NudLong.Size = new Size(120, 23);
 			NudLong.TabIndex = 14;
-			NudLong.ThousandsSeparator = true;
 			// 
 			// label3
 			// 
@@ -233,13 +245,13 @@
 			// 
 			// NudLat
 			// 
-			NudLat.DecimalPlaces = 8;
+			NudLat.DecimalPlaces = 10;
 			NudLat.Location = new Point(624, 39);
-			NudLat.Minimum = new decimal(new int[] { 100, 0, 0, int.MinValue });
+			NudLat.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
+			NudLat.Minimum = new decimal(new int[] { 999, 0, 0, int.MinValue });
 			NudLat.Name = "NudLat";
 			NudLat.Size = new Size(120, 23);
 			NudLat.TabIndex = 12;
-			NudLat.ThousandsSeparator = true;
 			// 
 			// label4
 			// 
@@ -252,32 +264,32 @@
 			// 
 			// NudY
 			// 
+			NudY.DecimalPlaces = 10;
 			NudY.Location = new Point(297, 68);
 			NudY.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
 			NudY.Minimum = new decimal(new int[] { 1000000, 0, 0, int.MinValue });
 			NudY.Name = "NudY";
 			NudY.Size = new Size(120, 23);
 			NudY.TabIndex = 10;
-			NudY.ThousandsSeparator = true;
 			// 
 			// label1
 			// 
 			label1.AutoSize = true;
-			label1.Location = new Point(262, 76);
+			label1.Location = new Point(262, 70);
 			label1.Name = "label1";
-			label1.Size = new Size(14, 15);
+			label1.Size = new Size(29, 15);
 			label1.TabIndex = 9;
-			label1.Text = "Y";
+			label1.Text = "Y(Z)";
 			// 
 			// NudX
 			// 
+			NudX.DecimalPlaces = 10;
 			NudX.Location = new Point(297, 39);
 			NudX.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
 			NudX.Minimum = new decimal(new int[] { 1000000, 0, 0, int.MinValue });
 			NudX.Name = "NudX";
 			NudX.Size = new Size(120, 23);
 			NudX.TabIndex = 8;
-			NudX.ThousandsSeparator = true;
 			// 
 			// LbX
 			// 
@@ -351,5 +363,6 @@
 		private Button BtConvetGeoToDcs;
 		private ComboBox CbMap;
 		private Label label2;
+		private Label LbControlCoord;
 	}
 }

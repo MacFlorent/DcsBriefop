@@ -9,19 +9,19 @@
 	},
 	{
 		"Theatre": "MarianaIslands",
-		"Projection": "+proj=tmerc +lat_0=35.21917 +lon_0=35.9055 +k_0=0.9996 +x_0=0 +y_0=0"
+		"Projection": "+proj=tmerc +lat_0=13.485 +lon_0=144.797541 +k_0=0.9996 +x_0=0 +y_0=0"
 	},
 	{
 		"Theatre": "Nevada",
-		"Projection": ""
+		"Projection": "+proj=tmerc +lat_0=39.818116 +lon_0=-114.733412 +k_0=0.9996 +x_0=0 +y_0=0"
 	},
 	{
 		"Theatre": "PersianGulf",
-		"Projection": "+proj=tmerc +lat_0=26.1718 +lon_0=56.2419 +k_0=0.9996 +x_0=0 +y_0=0"
+		"Projection": "+proj=tmerc +lat_0=26.171819 +lon_0=56.241935 +k_0=0.9996 +x_0=0 +y_0=0"
 	},
 	{
 		"Theatre": "SinaiMap",
-		"Projection": ""
+		"Projection": "+proj=tmerc +lat_0=30.047194 +lon_0=31.24476 +k_0=0.9996 +x_0=0 +y_0=0"
 	},
 	{
 		"Theatre": "Syria",
