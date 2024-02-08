@@ -4,7 +4,6 @@ namespace DcsBriefop.Data
 {
 	internal enum MasterDataType
 	{
-		AssetMapDisplay,
 		RadioModulation,
 		ComPresetMode,
 		WeatherDisplay,
@@ -55,17 +54,6 @@ namespace DcsBriefop.Data
 		#endregion
 
 		#region Build lists
-		//private static List<MasterData> BuildListAssetMapDisplay()
-		//{
-		//	return new List<MasterData>()
-		//	{
-		//		new MasterData() { Id = (int)ElementAssetMapDisplay.None, Label = "None" },
-		//		new MasterData() { Id = (int)ElementAssetMapDisplay.Point, Label = "Point" },
-		//		new MasterData() { Id = (int)ElementAssetMapDisplay.Orbit, Label = "Orbit" },
-		//		new MasterData() { Id = (int)ElementAssetMapDisplay.FullRoute, Label = "Full route" }
-		//	};
-		//}
-
 		private static List<MasterData> BuildListRadioModulation()
 		{
 			return new List<MasterData>()
@@ -123,7 +111,6 @@ namespace DcsBriefop.Data
 				new MasterData() { Id = (int)ElementBullseyeWaypoint.Last, Label = "Last waypoint" },
 			};
 		}
-
 
 		private static List<MasterData> BuildListCoalition()
 		{

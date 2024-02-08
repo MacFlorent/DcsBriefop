@@ -7,12 +7,11 @@ namespace DcsBriefop.Data
 	{
 		#region Properties
 		public string Name { get; private set; }
+		public DotSpatial.Projections.ProjectionInfo ProjectionInfo { get; private set; }
 
-		private DotSpatial.Projections.ProjectionInfo m_projectionInfo;
 		private TheatreCoordinateLut m_coordinatesLutDcsToLl;
 		private TheatreCoordinateLut m_coordinatesLutLlToDcs;
 		public List<Airdrome> Airdromes;
-
 		#endregion
 
 		#region CTOR
@@ -20,7 +19,7 @@ namespace DcsBriefop.Data
 		{
 			Name = sName;
 
-			m_projectionInfo = DotSpatial.Projections.ProjectionInfo.FromProj4String(TheatreProjectionManager.GetProjection(Name));
+			ProjectionInfo = DotSpatial.Projections.ProjectionInfo.FromProj4String(TheatreProjectionManager.GetProjection(Name));
 
 			m_coordinatesLutDcsToLl = new TheatreCoordinateLut(sName, TheatreCoordinateLut.ElementLutWay.DcsToLl);
 			m_coordinatesLutLlToDcs = new TheatreCoordinateLut(sName, TheatreCoordinateLut.ElementLutWay.LlToDcs);
@@ -44,7 +43,7 @@ namespace DcsBriefop.Data
 			try
 			{
 				Tuple<double, double> input = new(dDcsY, dDcsX);
-				output = ToolsCoordinate.ReprojectPoint(m_projectionInfo, TheatreProjectionManager.BriefopProjection, input);
+				output = ToolsCoordinate.ReprojectPoint(ProjectionInfo, TheatreProjectionManager.BriefopProjection, input);
 			}
 			catch (Exception ex)
 			{
@@ -85,7 +84,7 @@ namespace DcsBriefop.Data
 			try
 			{
 				Tuple<double, double> input = new(coordinate.Longitude.DecimalDegree, coordinate.Latitude.DecimalDegree);
-				output = ToolsCoordinate.ReprojectPoint(TheatreProjectionManager.BriefopProjection, m_projectionInfo, input);
+				output = ToolsCoordinate.ReprojectPoint(TheatreProjectionManager.BriefopProjection, ProjectionInfo, input);
 			}
 			catch (Exception ex)
 			{

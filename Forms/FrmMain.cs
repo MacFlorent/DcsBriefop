@@ -133,6 +133,12 @@ namespace DcsBriefop.Forms
 			f.ShowDialog();
 		}
 
+		private void OpenTheatre()
+		{
+			using FrmTheatre f = new FrmTheatre(m_briefopManager);
+			f.ShowDialog();
+		}
+
 		private void GenerateBatchCommand()
 		{
 			if (m_briefopManager is null)
@@ -228,6 +234,7 @@ namespace DcsBriefop.Forms
 			MainMenu.Items.Add(tsmiTools);
 			tsmiTools.DropDownItems.AddMenuItem("Preferences", (object _sender, EventArgs _e) => { OpenPreferences(); });
 			tsmiTools.DropDownItems.AddMenuItem("DCS objects", (object _sender, EventArgs _e) => { OpenDcsObjects(); });
+			tsmiTools.DropDownItems.AddMenuItem("Theatre data", (object _sender, EventArgs _e) => { OpenTheatre(); });
 
 			if (Globals.Debug)
 			{

@@ -7,11 +7,6 @@
 		public static readonly string Neutral = "neutrals";
 	}
 
-	internal static class ElementTheater
-	{
-		public static readonly string PersianGulf = "PersianGulf";
-	}
-
 	internal static class ElementSkill
 	{
 		public static readonly string Player = "Player";
@@ -98,4 +93,13 @@
 		public static readonly string Free = "free";
 	}
 
+	internal static class ElementTheatreName
+	{
+		public static readonly string Caucasus = "Caucasus";
+		public static readonly string Marianas = "MarianaIslands";
+		public static readonly string Nevada = "Nevada";
+		public static readonly string PersianGulf = "PersianGulf";
+		public static readonly string Sinai = "SinaiMap";
+		public static readonly string Syria = "Syria";
+	}
 }
