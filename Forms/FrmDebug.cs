@@ -57,7 +57,7 @@ namespace DcsBriefop.Forms
 		private void BtConvertDcsToGeo_Click(object sender, EventArgs e)
 		{
 			Theatre theatre = new Theatre(CbMap.Text);
-			CoordinateSharp.Coordinate c = theatre.GetCoordinateNew((double)NudX.Value, (double)NudY.Value);
+			CoordinateSharp.Coordinate c = theatre.GetCoordinate((double)NudX.Value, (double)NudY.Value);
 			CoordinateSharp.Coordinate cCtrl = theatre.GetCoordinateOld((double)NudY.Value, (double)NudX.Value);
 
 			NudLat.Value = (decimal)c.Latitude.DecimalDegree;
@@ -75,7 +75,7 @@ namespace DcsBriefop.Forms
 		{
 			Theatre theatre = new Theatre(CbMap.Text);
 			CoordinateSharp.Coordinate c = new CoordinateSharp.Coordinate((double)NudLat.Value, (double)NudLong.Value);
-			theatre.GetDcsXYNew(out double dX, out double dY, c);
+			theatre.GetDcsXY(out double dX, out double dY, c);
 			theatre.GetDcsZXOld(out double dZCtrl, out double dXCtrl, c);
 
 			NudX.Value = (decimal)dX;

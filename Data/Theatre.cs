@@ -7,10 +7,10 @@ namespace DcsBriefop.Data
 	{
 		#region Properties
 		public string Name { get; private set; }
-		public DotSpatial.Projections.ProjectionInfo ProjectionInfo { get; private set; }
+		public DotSpatial.Projections.ProjectionInfo ProjectionInfo { get; set; }
 
-		private TheatreCoordinateLut m_coordinatesLutDcsToLl;
-		private TheatreCoordinateLut m_coordinatesLutLlToDcs;
+		private TheatrePointLut m_pointsLutDcsToLl;
+		private TheatrePointLut m_pointsLutLlToDcs;
 		public List<Airdrome> Airdromes;
 		#endregion
 
@@ -21,8 +21,8 @@ namespace DcsBriefop.Data
 
 			ProjectionInfo = DotSpatial.Projections.ProjectionInfo.FromProj4String(TheatreProjectionManager.GetProjection(Name));
 
-			m_coordinatesLutDcsToLl = new TheatreCoordinateLut(sName, TheatreCoordinateLut.ElementLutWay.DcsToLl);
-			m_coordinatesLutLlToDcs = new TheatreCoordinateLut(sName, TheatreCoordinateLut.ElementLutWay.LlToDcs);
+			m_pointsLutDcsToLl = new TheatrePointLut(sName, TheatrePointLut.ElementLutWay.DcsToLl);
+			m_pointsLutLlToDcs = new TheatrePointLut(sName, TheatrePointLut.ElementLutWay.LlToDcs);
 
 			InitializeAirdromes();
 		}
@@ -34,7 +34,13 @@ namespace DcsBriefop.Data
 			return Airdromes.Where(_ad => _ad.Id == iId).FirstOrDefault();
 		}
 
-		public CoordinateSharp.Coordinate GetCoordinateNew(double dDcsX, double dDcsY)
+		public CoordinateSharp.Coordinate GetCoordinate(double dDcsX, double dDcsY)
+		{
+			GetCoordinate(out double dOutputLatitude, out double dOutputLongitude, dDcsX, dDcsY);
+			return new CoordinateSharp.Coordinate(dOutputLatitude, dOutputLongitude);
+		}
+
+		public void GetCoordinate(out double dOutputLatitude, out double dOutputLongitude, double dDcsX, double dDcsY)
 		{
 			// Coordinates in DCS: X vertical ; Y(Z) horizontal
 			// Coordinates in the DotSpatial reprojection: Item1(x) is horizontal ; Item2(y) vertical
@@ -50,10 +56,8 @@ namespace DcsBriefop.Data
 				Log.Exception(ex);
 			}
 
-			double dOutputLongitude = output?.Item1 ?? 0;
-			double dOutputLatitude = output?.Item2 ?? 0;
-			
-			return new CoordinateSharp.Coordinate(dOutputLatitude, dOutputLongitude);
+			dOutputLongitude = output?.Item1 ?? 0;
+			dOutputLatitude = output?.Item2 ?? 0;
 		}
 
 		public CoordinateSharp.Coordinate GetCoordinateOld(double dZ, double dX)
@@ -62,7 +66,7 @@ namespace DcsBriefop.Data
 
 			try
 			{
-				m_coordinatesLutDcsToLl.GetCoordinates(out dOutputLongitude, out dOutputLatitude, dZ, dX);
+				m_pointsLutDcsToLl.GetPoint(out dOutputLongitude, out dOutputLatitude, dZ, dX);
 			}
 			catch (Exception ex)
 			{
@@ -70,12 +74,17 @@ namespace DcsBriefop.Data
 			}
 
 			if (dOutputLongitude is null || dOutputLatitude is null)
-				m_coordinatesLutDcsToLl.GetCoordinates(out dOutputLongitude, out dOutputLatitude, 0, 0);
+				m_pointsLutDcsToLl.GetPoint(out dOutputLongitude, out dOutputLatitude, 0, 0);
 
 			return new CoordinateSharp.Coordinate(dOutputLatitude.Value, dOutputLongitude.Value);
 		}
 
-		public void GetDcsXYNew(out double dX, out double dY, CoordinateSharp.Coordinate coordinate)
+		public void GetDcsXY(out double dX, out double dY, CoordinateSharp.Coordinate coordinate)
+		{
+			GetDcsXY(out dX, out dY, coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+		}
+
+		public void GetDcsXY(out double dX, out double dY, double dLatitude, double dLongitude)
 		{
 			// Coordinates in DCS: X vertical ; Y(Z) horizontal
 			// Coordinates in the DotSpatial reprojection: Item1(x) is horizontal ; Item2(y) vertical
@@ -83,7 +92,7 @@ namespace DcsBriefop.Data
 			Tuple<double, double> output = null;
 			try
 			{
-				Tuple<double, double> input = new(coordinate.Longitude.DecimalDegree, coordinate.Latitude.DecimalDegree);
+				Tuple<double, double> input = new(dLongitude, dLatitude);
 				output = ToolsCoordinate.ReprojectPoint(TheatreProjectionManager.BriefopProjection, ProjectionInfo, input);
 			}
 			catch (Exception ex)
@@ -100,7 +109,7 @@ namespace DcsBriefop.Data
 			double? dOutputZ = null, dOutputX = null;
 			try
 			{
-				m_coordinatesLutLlToDcs.GetCoordinates(out dOutputZ, out dOutputX, coordinate.Longitude.DecimalDegree, coordinate.Latitude.DecimalDegree);
+				m_pointsLutLlToDcs.GetPoint(out dOutputZ, out dOutputX, coordinate.Longitude.DecimalDegree, coordinate.Latitude.DecimalDegree);
 			}
 			catch (Exception ex)
 			{

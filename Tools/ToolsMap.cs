@@ -149,7 +149,7 @@ namespace DcsBriefop.Tools
 			{
 				double dY = drawingObject.MapY + point.Y;
 				double dX = drawingObject.MapX + point.X;
-				Coordinate coordinate = theatre.GetCoordinateNew(dX, dY);
+				Coordinate coordinate = theatre.GetCoordinate(dX, dY);
 				PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
 				points.Add(p);
 			}
@@ -160,7 +160,7 @@ namespace DcsBriefop.Tools
 
 		private static void AddMizDrawingObjectIcon(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
 		{
-			Coordinate coordinate = theatre.GetCoordinateNew(drawingObject.MapX, drawingObject.MapY);
+			Coordinate coordinate = theatre.GetCoordinate(drawingObject.MapX, drawingObject.MapY);
 			PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
 
 			GMarkerBriefop marker = GMarkerBriefop.NewFromMizStyleName(p, drawingObject.File, ColorFromDcsString(drawingObject.ColorString), drawingObject.Name, drawingObject.Scale.GetValueOrDefault(1), drawingObject.Angle.GetValueOrDefault(0));
@@ -169,7 +169,7 @@ namespace DcsBriefop.Tools
 
 		private static void AddMizDrawingObjectText(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
 		{
-			Coordinate coordinate = theatre.GetCoordinateNew(drawingObject.MapX, drawingObject.MapY);
+			Coordinate coordinate = theatre.GetCoordinate(drawingObject.MapX, drawingObject.MapY);
 			PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
 
 			float fFontSize = 11;
@@ -211,25 +211,25 @@ namespace DcsBriefop.Tools
 			dY = drawingObject.MapY - dHalfWidth;
 			dX = drawingObject.MapX - dHalfHeight;
 			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
-			coordinate = theatre.GetCoordinateNew(dXRotated, dYRotated);
+			coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
 			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			dY = drawingObject.MapY + dHalfWidth;
 			dX = drawingObject.MapX - dHalfHeight;
 			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
-			coordinate = theatre.GetCoordinateNew(dXRotated, dYRotated);
+			coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
 			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			dY = drawingObject.MapY + dHalfWidth;
 			dX = drawingObject.MapX + dHalfHeight;
 			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
-			coordinate = theatre.GetCoordinateNew(dXRotated, dYRotated);
+			coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
 			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			dY = drawingObject.MapY - dHalfWidth;
 			dX = drawingObject.MapX + dHalfHeight;
 			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
-			coordinate = theatre.GetCoordinateNew(dXRotated, dYRotated);
+			coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
 			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			GLineBriefop route = GLineBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), true, ColorFromDcsString(drawingObject.FillColorString));
@@ -261,7 +261,7 @@ namespace DcsBriefop.Tools
 				double dY = dCenterY + dSquashRatio * dRadius * Math.Cos(dAngle);
 				double dX = dCenterX - dRadius * Math.Sin(dAngle);    //note 2.
 				RotateDcsYX(out double dYRotated, out double dXRotated, dY, dX, dCenterY, dCenterX, drawingObject.Angle);
-				Coordinate coordinate = theatre.GetCoordinateNew(dXRotated, dYRotated);
+				Coordinate coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
 				points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 			}
 

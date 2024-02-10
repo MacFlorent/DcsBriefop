@@ -128,7 +128,7 @@ namespace DcsBriefop.DataBopMission
 		{
 			base.FinalizeFromMizInternal();
 
-			Coordinate = Theatre.GetCoordinateNew(m_mizRoutePoint.X, m_mizRoutePoint.Y);
+			Coordinate = Theatre.GetCoordinate(m_mizRoutePoint.X, m_mizRoutePoint.Y);
 			m_magnetic = new CoordinateSharp.Magnetic.Magnetic(Coordinate, CoordinateSharp.Magnetic.DataModel.WMM2020);
 
 			if (Number > 0 && Name != ElementGlobalData.BullseyeRoutePointName)
@@ -267,7 +267,7 @@ namespace DcsBriefop.DataBopMission
 		{ // only used for Bullseye for now, so no need to recompute distances
 			m_mizRoutePoint.Y = dY;
 			m_mizRoutePoint.X = dX;
-			Coordinate = Theatre.GetCoordinateNew(m_mizRoutePoint.X, m_mizRoutePoint.Y);
+			Coordinate = Theatre.GetCoordinate(m_mizRoutePoint.X, m_mizRoutePoint.Y);
 		}
 		#endregion
 	}

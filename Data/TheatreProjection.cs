@@ -33,7 +33,7 @@ namespace DcsBriefop.Data
 			if (!string.IsNullOrEmpty(sJsonStream))
 				TheatreProjections = JsonConvert.DeserializeObject<List<TheatreProjection>>(sJsonStream);
 
-			string sBriefopProjection = GetProjection("Briefop") ?? "+proj=latlong +datum=WGS84 +no_defs";
+			string sBriefopProjection = "+title=long/lat:WGS84 +proj=longlat +a=6378137.0 +b=6356752.31424518 +ellps=WGS84 +datum=WGS84 +units=degrees6"; // https://proj.org/en/9.3/operations/projections/tmerc.html
 			BriefopProjection = DotSpatial.Projections.ProjectionInfo.FromProj4String(sBriefopProjection);
 		}
 
