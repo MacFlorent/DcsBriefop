@@ -1,0 +1,33 @@
+Caucasus
+Metric: X-00240857 Z+00515429
+Lat Long Standard: N 42°43'15"   E 40°30'32"
+Lat Long Precise: N 42°43'15.74"   E 40°30'32.34"
+Lat Long Decimal Minutes: N 42°43.262'   E 40°30.539'
+MGRS GRID: 37 T FH 23551 30941
+Altitude: 0 m / 0 feet
+
+
+Metric: X-00248674 Z+00832125
+Lat Long Standard: N 42°20'11"   E 44°18' 9"
+Lat Long Precise: N 42°20'11.06"   E 44°18'9.10"
+Lat Long Decimal Minutes: N 42°20.184'   E 44°18.151'
+MGRS GRID: 38 T MM 42542 87363
+Altitude: 2010 m / 6594 feet
+
+
+Metric: X-00287092 Z+00216330
+Lat Long Standard: N 42°29'13"   E 36°50'34"
+Lat Long Precise: N 42°29'13.64"   E 36°50'34.65"
+Lat Long Decimal Minutes: N 42°29.227'   E 36°50.577'
+MGRS GRID: 37 T CH 22724 06117
+Altitude: 0 m / 0 feet
+
+Syria
+Metric: X+00188286 Z-00179143
+Lat Long Standard: N 36°38'48"   E 33°50' 2"
+Lat Long Precise: N 36°38'48.81"   E 33°50'2.57"
+Lat Long Decimal Minutes: N 36°38.813'   E 33°50.042'
+MGRS GRID: 36 S WF 74552 56026
+Altitude: 1545 m / 5071 feet
+
+

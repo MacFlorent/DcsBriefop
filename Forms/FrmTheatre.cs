@@ -4,7 +4,6 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using System.Text;
 
 namespace DcsBriefop.Forms
 {
@@ -137,6 +136,7 @@ namespace DcsBriefop.Forms
 			m_theatre = new Theatre(CbTheatre.SelectedValue as string);
 			DisplayCurrentTheatre();
 		}
+
 		private void BtCheck_Click(object sender, EventArgs e)
 		{
 			CheckProjection();
@@ -144,9 +144,9 @@ namespace DcsBriefop.Forms
 
 		private void MapControl_MouseMove(object sender, MouseEventArgs e)
 		{
-			//PointLatLng mapPoint = MapControl.FromLocalToLatLng(e.X, e.Y);
-			//m_theatre.GetDcsXY(out double dDcX, out double dDcsY, mapPoint.Lat, mapPoint.Lng);
-			//LbMapDataDynamic.Text = $"{mapPoint}  {{X={dDcX:0.00}, Z(Y)={dDcsY:0.00}}}";
+			PointLatLng mapPoint = MapControl.FromLocalToLatLng(e.X, e.Y);
+			m_theatre.GetDcsXY(out double dDcX, out double dDcsY, mapPoint.Lat, mapPoint.Lng);
+			LbMapDataDynamic.Text = $"{mapPoint}  {{X={dDcX:0.00}, Z(Y)={dDcsY:0.00}}}";
 		}
 
 		private void MapControl_MouseDoubleClick(object sender, MouseEventArgs e)

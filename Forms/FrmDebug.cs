@@ -40,49 +40,80 @@ namespace DcsBriefop.Forms
 
 		#region Coordinates
 		//https://www.codeproject.com/Tips/1072197/Coordinate-Transformation-Using-Proj-in-NET
-		private DotSpatial.Projections.ProjectionInfo projWgs84 = DotSpatial.Projections.ProjectionInfo.FromProj4String("+proj=latlong +datum=WGS84 +no_defs");
+		//https://proj.org/en/9.3/usage/ellipsoids.html
+		private Theatre m_theatreProjection;
 		private void CoordinatesInitialize()
 		{
-			CbMap.DataSource = new List<string>()
+			CbTheatre.ValueMember = "Value";
+			CbTheatre.DisplayMember = "Key";
+			CbTheatre.DataSource = new Dictionary<string, string>()
 			{
-				"Caucasus",
-				"MarianaIslands",
-				"Nevada",
-				"PersianGulf",
-				"SinaiMap",
-				"Syria"
-			};
+				{ "Caucasus", ElementTheatreName.Caucasus},
+				{ "Marianas", ElementTheatreName.Marianas},
+				{ "Nevada", ElementTheatreName.Nevada},
+				{ "Sinai", ElementTheatreName.Sinai},
+				{ "Syria", ElementTheatreName.Syria}
+			}.ToList();
+
+			m_theatreProjection = new Theatre(CbTheatre.SelectedValue as string);
+			TbProjectionDcs.Text = m_theatreProjection.ProjectionInfo.ToProj4String();
+			TbProjectionBriefop.Text = TheatreProjectionManager.BriefopProjection.ToProj4String();
+
+			NudX.Value = -240857m;
+			NudY.Value = 515429m;
 		}
 
 		private void BtConvertDcsToGeo_Click(object sender, EventArgs e)
 		{
-			Theatre theatre = new Theatre(CbMap.Text);
-			CoordinateSharp.Coordinate c = theatre.GetCoordinate((double)NudX.Value, (double)NudY.Value);
-			CoordinateSharp.Coordinate cCtrl = theatre.GetCoordinateOld((double)NudY.Value, (double)NudX.Value);
+			DotSpatial.Projections.ProjectionInfo piOri = DotSpatial.Projections.ProjectionInfo.FromProj4String(TbProjectionDcs.Text);
+			DotSpatial.Projections.ProjectionInfo piDest = DotSpatial.Projections.ProjectionInfo.FromProj4String(TbProjectionBriefop.Text);
 
-			NudLat.Value = (decimal)c.Latitude.DecimalDegree;
-			NudLong.Value = (decimal)c.Longitude.DecimalDegree;
+			TbProjectionDcs.Text = piOri.ToProj4String();
+			TbProjectionBriefop.Text = piDest.ToProj4String();
 
-			CoordinateFormatOptions cfo = new CoordinateFormatOptions();
-			cfo.Format = CoordinateFormatType.Decimal;
-			cfo.Round = 10;
-			cfo.Display_Leading_Zeros = true;
-			LbControlCoord.Text = cCtrl.ToString(cfo);
+			double[] xy = { (double)NudY.Value, (double)NudX.Value };
+			double[] z = { 0 };
+
+			DotSpatial.Projections.Reproject.ReprojectPoints(xy, z, piOri, piDest, 0, 1);
+			//Tuple<double, double> input = new((double)NudY.Value, (double)NudX.Value);
+			//Tuple<double, double> output = ToolsCoordinate.ReprojectPoint(piOri, piDest, input);
+
+			NudLat.Value = (decimal)xy[1];
+			NudLong.Value = (decimal)xy[0];
+
+			Coordinate c = new Coordinate(xy[1], xy[0]);
+			LbControlCoord.Text = c.ToStringDDM();
 		}
 		#endregion
 
 		private void BtConvetGeoToDcs_Click(object sender, EventArgs e)
 		{
-			Theatre theatre = new Theatre(CbMap.Text);
-			CoordinateSharp.Coordinate c = new CoordinateSharp.Coordinate((double)NudLat.Value, (double)NudLong.Value);
-			theatre.GetDcsXY(out double dX, out double dY, c);
-			theatre.GetDcsZXOld(out double dZCtrl, out double dXCtrl, c);
+			//Theatre theatre = new Theatre(CbTheatre.Text);
+			//CoordinateSharp.Coordinate c = new CoordinateSharp.Coordinate((double)NudLat.Value, (double)NudLong.Value);
+			//theatre.GetDcsXY(out double dX, out double dY, c);
+			//theatre.GetDcsZXOld(out double dZCtrl, out double dXCtrl, c);
 
-			NudX.Value = (decimal)dX;
-			NudY.Value = (decimal)dY;
+			//NudX.Value = (decimal)dX;
+			//NudY.Value = (decimal)dY;
 
-			LbControlCoord.Text = $"X={dXCtrl}  Y(Z)={dZCtrl}";
+			//LbControlCoord.Text = $"X={dXCtrl}  Y(Z)={dZCtrl}";
 
+		}
+
+		private void CbTheatre_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			m_theatreProjection = new Theatre(CbTheatre.SelectedValue as string);
+			TbProjectionDcs.Text = m_theatreProjection.ProjectionInfo.ToProj4String();
+		}
+
+		private void BtProjDcsReset_Click(object sender, EventArgs e)
+		{
+			TbProjectionDcs.Text = m_theatreProjection.ProjectionInfo.ToProj4String();
+		}
+
+		private void BtProjBriefopReset_Click(object sender, EventArgs e)
+		{
+			TbProjectionBriefop.Text = TheatreProjectionManager.BriefopProjection.ToProj4String();
 		}
 	}
 }

@@ -36,11 +36,17 @@
 			LbKias = new Label();
 			NudKtas = new NumericUpDown();
 			LbKtas = new Label();
-			advancedDataGridView1 = new Zuby.ADGV.AdvancedDataGridView();
-			groupBox1 = new GroupBox();
 			GbCoordinates = new GroupBox();
+			BtProjBriefopReset = new Button();
+			BtProjDcsReset = new Button();
+			TbProjectionBriefop = new TextBox();
+			label7 = new Label();
+			label6 = new Label();
+			label5 = new Label();
+			TbProjectionDcs = new TextBox();
+			LbProjection = new Label();
 			LbControlCoord = new Label();
-			CbMap = new ComboBox();
+			CbTheatre = new ComboBox();
 			label2 = new Label();
 			BtConvetGeoToDcs = new Button();
 			NudLong = new NumericUpDown();
@@ -56,8 +62,6 @@
 			((System.ComponentModel.ISupportInitialize)NudAltitude).BeginInit();
 			((System.ComponentModel.ISupportInitialize)NudKias).BeginInit();
 			((System.ComponentModel.ISupportInitialize)NudKtas).BeginInit();
-			((System.ComponentModel.ISupportInitialize)advancedDataGridView1).BeginInit();
-			groupBox1.SuspendLayout();
 			GbCoordinates.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)NudLong).BeginInit();
 			((System.ComponentModel.ISupportInitialize)NudLat).BeginInit();
@@ -143,33 +147,18 @@
 			LbKtas.TabIndex = 0;
 			LbKtas.Text = "KTAS";
 			// 
-			// advancedDataGridView1
-			// 
-			advancedDataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			advancedDataGridView1.FilterAndSortEnabled = true;
-			advancedDataGridView1.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			advancedDataGridView1.Location = new Point(6, 22);
-			advancedDataGridView1.Name = "advancedDataGridView1";
-			advancedDataGridView1.RightToLeft = RightToLeft.No;
-			advancedDataGridView1.RowTemplate.Height = 25;
-			advancedDataGridView1.Size = new Size(764, 650);
-			advancedDataGridView1.SortStringChangedInvokeBeforeDatasourceUpdate = true;
-			advancedDataGridView1.TabIndex = 1;
-			// 
-			// groupBox1
-			// 
-			groupBox1.Controls.Add(advancedDataGridView1);
-			groupBox1.Location = new Point(12, 254);
-			groupBox1.Name = "groupBox1";
-			groupBox1.Size = new Size(776, 581);
-			groupBox1.TabIndex = 2;
-			groupBox1.TabStop = false;
-			groupBox1.Text = "groupBox1";
-			// 
 			// GbCoordinates
 			// 
+			GbCoordinates.Controls.Add(BtProjBriefopReset);
+			GbCoordinates.Controls.Add(BtProjDcsReset);
+			GbCoordinates.Controls.Add(TbProjectionBriefop);
+			GbCoordinates.Controls.Add(label7);
+			GbCoordinates.Controls.Add(label6);
+			GbCoordinates.Controls.Add(label5);
+			GbCoordinates.Controls.Add(TbProjectionDcs);
+			GbCoordinates.Controls.Add(LbProjection);
 			GbCoordinates.Controls.Add(LbControlCoord);
-			GbCoordinates.Controls.Add(CbMap);
+			GbCoordinates.Controls.Add(CbTheatre);
 			GbCoordinates.Controls.Add(label2);
 			GbCoordinates.Controls.Add(BtConvetGeoToDcs);
 			GbCoordinates.Controls.Add(NudLong);
@@ -183,40 +172,116 @@
 			GbCoordinates.Controls.Add(BtConvertDcsToGeo);
 			GbCoordinates.Location = new Point(12, 106);
 			GbCoordinates.Name = "GbCoordinates";
-			GbCoordinates.Size = new Size(776, 122);
+			GbCoordinates.Size = new Size(776, 196);
 			GbCoordinates.TabIndex = 3;
 			GbCoordinates.TabStop = false;
 			GbCoordinates.Text = "Coordinates conversion";
 			// 
+			// BtProjBriefopReset
+			// 
+			BtProjBriefopReset.Location = new Point(750, 133);
+			BtProjBriefopReset.Name = "BtProjBriefopReset";
+			BtProjBriefopReset.Size = new Size(20, 23);
+			BtProjBriefopReset.TabIndex = 26;
+			BtProjBriefopReset.Text = "R";
+			BtProjBriefopReset.UseVisualStyleBackColor = true;
+			BtProjBriefopReset.Click += BtProjBriefopReset_Click;
+			// 
+			// BtProjDcsReset
+			// 
+			BtProjDcsReset.Location = new Point(750, 46);
+			BtProjDcsReset.Name = "BtProjDcsReset";
+			BtProjDcsReset.Size = new Size(20, 23);
+			BtProjDcsReset.TabIndex = 25;
+			BtProjDcsReset.Text = "R";
+			BtProjDcsReset.UseVisualStyleBackColor = true;
+			BtProjDcsReset.Click += BtProjDcsReset_Click;
+			// 
+			// TbProjectionBriefop
+			// 
+			TbProjectionBriefop.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbProjectionBriefop.Location = new Point(124, 133);
+			TbProjectionBriefop.Name = "TbProjectionBriefop";
+			TbProjectionBriefop.Size = new Size(620, 23);
+			TbProjectionBriefop.TabIndex = 24;
+			// 
+			// label7
+			// 
+			label7.AutoSize = true;
+			label7.Location = new Point(57, 136);
+			label7.Name = "label7";
+			label7.Size = new Size(61, 15);
+			label7.TabIndex = 23;
+			label7.Text = "Projection";
+			// 
+			// label6
+			// 
+			label6.AutoSize = true;
+			label6.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+			label6.Location = new Point(6, 107);
+			label6.Name = "label6";
+			label6.Size = new Size(61, 20);
+			label6.TabIndex = 22;
+			label6.Text = "Briefop";
+			// 
+			// label5
+			// 
+			label5.AutoSize = true;
+			label5.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+			label5.Location = new Point(6, 19);
+			label5.Name = "label5";
+			label5.Size = new Size(37, 20);
+			label5.TabIndex = 21;
+			label5.Text = "DCS";
+			// 
+			// TbProjectionDcs
+			// 
+			TbProjectionDcs.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbProjectionDcs.Location = new Point(124, 47);
+			TbProjectionDcs.Name = "TbProjectionDcs";
+			TbProjectionDcs.Size = new Size(620, 23);
+			TbProjectionDcs.TabIndex = 20;
+			// 
+			// LbProjection
+			// 
+			LbProjection.AutoSize = true;
+			LbProjection.Location = new Point(57, 50);
+			LbProjection.Name = "LbProjection";
+			LbProjection.Size = new Size(61, 15);
+			LbProjection.TabIndex = 19;
+			LbProjection.Text = "Projection";
+			// 
 			// LbControlCoord
 			// 
 			LbControlCoord.AutoSize = true;
-			LbControlCoord.Location = new Point(460, 98);
+			LbControlCoord.Location = new Point(529, 178);
 			LbControlCoord.Name = "LbControlCoord";
 			LbControlCoord.Size = new Size(38, 15);
 			LbControlCoord.TabIndex = 18;
 			LbControlCoord.Text = "label5";
 			// 
-			// CbMap
+			// CbTheatre
 			// 
-			CbMap.FormattingEnabled = true;
-			CbMap.Location = new Point(86, 38);
-			CbMap.Name = "CbMap";
-			CbMap.Size = new Size(121, 23);
-			CbMap.TabIndex = 17;
+			CbTheatre.DropDownStyle = ComboBoxStyle.DropDownList;
+			CbTheatre.FormattingEnabled = true;
+			CbTheatre.Location = new Point(124, 18);
+			CbTheatre.Name = "CbTheatre";
+			CbTheatre.Size = new Size(121, 23);
+			CbTheatre.TabIndex = 17;
+			CbTheatre.SelectedIndexChanged += CbTheatre_SelectedIndexChanged;
 			// 
 			// label2
 			// 
 			label2.AutoSize = true;
-			label2.Location = new Point(25, 39);
+			label2.Location = new Point(72, 21);
 			label2.Name = "label2";
-			label2.Size = new Size(31, 15);
+			label2.Size = new Size(46, 15);
 			label2.TabIndex = 16;
-			label2.Text = "Map";
+			label2.Text = "Theatre";
 			// 
 			// BtConvetGeoToDcs
 			// 
-			BtConvetGeoToDcs.Location = new Point(438, 72);
+			BtConvetGeoToDcs.Location = new Point(573, 104);
 			BtConvetGeoToDcs.Name = "BtConvetGeoToDcs";
 			BtConvetGeoToDcs.Size = new Size(75, 23);
 			BtConvetGeoToDcs.TabIndex = 15;
@@ -227,7 +292,7 @@
 			// NudLong
 			// 
 			NudLong.DecimalPlaces = 10;
-			NudLong.Location = new Point(624, 68);
+			NudLong.Location = new Point(447, 104);
 			NudLong.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
 			NudLong.Minimum = new decimal(new int[] { 999, 0, 0, int.MinValue });
 			NudLong.Name = "NudLong";
@@ -237,7 +302,7 @@
 			// label3
 			// 
 			label3.AutoSize = true;
-			label3.Location = new Point(580, 70);
+			label3.Location = new Point(403, 106);
 			label3.Name = "label3";
 			label3.Size = new Size(34, 15);
 			label3.TabIndex = 13;
@@ -246,7 +311,7 @@
 			// NudLat
 			// 
 			NudLat.DecimalPlaces = 10;
-			NudLat.Location = new Point(624, 39);
+			NudLat.Location = new Point(284, 104);
 			NudLat.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
 			NudLat.Minimum = new decimal(new int[] { 999, 0, 0, int.MinValue });
 			NudLat.Name = "NudLat";
@@ -256,7 +321,7 @@
 			// label4
 			// 
 			label4.AutoSize = true;
-			label4.Location = new Point(580, 43);
+			label4.Location = new Point(240, 108);
 			label4.Name = "label4";
 			label4.Size = new Size(23, 15);
 			label4.TabIndex = 11;
@@ -265,7 +330,7 @@
 			// NudY
 			// 
 			NudY.DecimalPlaces = 10;
-			NudY.Location = new Point(297, 68);
+			NudY.Location = new Point(447, 19);
 			NudY.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
 			NudY.Minimum = new decimal(new int[] { 1000000, 0, 0, int.MinValue });
 			NudY.Name = "NudY";
@@ -275,7 +340,7 @@
 			// label1
 			// 
 			label1.AutoSize = true;
-			label1.Location = new Point(262, 70);
+			label1.Location = new Point(412, 21);
 			label1.Name = "label1";
 			label1.Size = new Size(29, 15);
 			label1.TabIndex = 9;
@@ -284,7 +349,7 @@
 			// NudX
 			// 
 			NudX.DecimalPlaces = 10;
-			NudX.Location = new Point(297, 39);
+			NudX.Location = new Point(284, 19);
 			NudX.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
 			NudX.Minimum = new decimal(new int[] { 1000000, 0, 0, int.MinValue });
 			NudX.Name = "NudX";
@@ -294,7 +359,7 @@
 			// LbX
 			// 
 			LbX.AutoSize = true;
-			LbX.Location = new Point(262, 41);
+			LbX.Location = new Point(249, 21);
 			LbX.Name = "LbX";
 			LbX.Size = new Size(14, 15);
 			LbX.TabIndex = 7;
@@ -302,7 +367,7 @@
 			// 
 			// BtConvertDcsToGeo
 			// 
-			BtConvertDcsToGeo.Location = new Point(438, 43);
+			BtConvertDcsToGeo.Location = new Point(573, 19);
 			BtConvertDcsToGeo.Name = "BtConvertDcsToGeo";
 			BtConvertDcsToGeo.Size = new Size(75, 23);
 			BtConvertDcsToGeo.TabIndex = 4;
@@ -314,9 +379,8 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(800, 847);
+			ClientSize = new Size(800, 434);
 			Controls.Add(GbCoordinates);
-			Controls.Add(groupBox1);
 			Controls.Add(GbSpeeds);
 			Name = "FrmDebug";
 			ShowIcon = false;
@@ -327,8 +391,6 @@
 			((System.ComponentModel.ISupportInitialize)NudAltitude).EndInit();
 			((System.ComponentModel.ISupportInitialize)NudKias).EndInit();
 			((System.ComponentModel.ISupportInitialize)NudKtas).EndInit();
-			((System.ComponentModel.ISupportInitialize)advancedDataGridView1).EndInit();
-			groupBox1.ResumeLayout(false);
 			GbCoordinates.ResumeLayout(false);
 			GbCoordinates.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)NudLong).EndInit();
@@ -348,8 +410,6 @@
 		private Label LbKtas;
 		private NumericUpDown NudAltitude;
 		private Label LbAltitude;
-		private Zuby.ADGV.AdvancedDataGridView advancedDataGridView1;
-		private GroupBox groupBox1;
 		private GroupBox GbCoordinates;
 		private Button BtConvertDcsToGeo;
 		private NumericUpDown NudLong;
@@ -361,8 +421,16 @@
 		private NumericUpDown NudX;
 		private Label LbX;
 		private Button BtConvetGeoToDcs;
-		private ComboBox CbMap;
+		private ComboBox CbTheatre;
 		private Label label2;
 		private Label LbControlCoord;
+		private TextBox TbProjectionDcs;
+		private Label LbProjection;
+		private Label label5;
+		private TextBox TbProjectionBriefop;
+		private Label label7;
+		private Label label6;
+		private Button BtProjBriefopReset;
+		private Button BtProjDcsReset;
 	}
 }
