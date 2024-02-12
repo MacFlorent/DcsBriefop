@@ -27,9 +27,11 @@
     <PackageReference Include="CoordinateSharp.Magnetic" Version="1.1.11" />
     <PackageReference Include="DG.AdvancedDataGridView" Version="1.2.28405.11" />
     <PackageReference Include="DotSpatial.Projections" Version="4.0.656" />
+    <PackageReference Include="GDAL" Version="3.8.1" />
     <PackageReference Include="GMap.NET.WinForms" Version="2.1.7" />
     <PackageReference Include="HtmlTags" Version="9.0.0" />
     <PackageReference Include="log4net" Version="2.0.15" />
+    <PackageReference Include="MaxRev.Gdal.WindowsRuntime.Minimal" Version="3.8.3.259" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PuppeteerSharp" Version="14.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
