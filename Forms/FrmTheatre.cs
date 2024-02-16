@@ -4,6 +4,7 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
+using OSGeo.OSR;
 
 namespace DcsBriefop.Forms
 {
@@ -38,10 +39,13 @@ namespace DcsBriefop.Forms
 			CbTheatre.DataSource = new Dictionary<string, string>()
 			{
 				{ "Caucasus", ElementTheatreName.Caucasus},
+				{ "Falklands", ElementTheatreName.Falklands},
 				{ "Marianas", ElementTheatreName.Marianas},
 				{ "Nevada", ElementTheatreName.Nevada},
+				{ "Normandy", ElementTheatreName.Normandy},
 				{ "Sinai", ElementTheatreName.Sinai},
-				{ "Syria", ElementTheatreName.Syria}
+				{ "Syria", ElementTheatreName.Syria},
+				{ "The Channel", ElementTheatreName.TheChannel},
 			}.ToList();
 		}
 		#endregion
@@ -70,7 +74,7 @@ namespace DcsBriefop.Forms
 		{
 			m_pointsLutDcsToLl = new TheatrePointLut(m_theatre.Name, TheatrePointLut.ElementLutWay.DcsToLl);
 
-			TbProjection.Text = m_theatre.ProjectionInfo.ToProj4String();
+			TbProjection.Text = m_theatre.TheatreSpatialReference.ToStringProj4();
 
 			Coordinate centerCoordinate = m_theatre.GetCoordinate(0, 0);
 			MapControl.Position = new PointLatLng(centerCoordinate.Latitude.DecimalDegree, centerCoordinate.Longitude.DecimalDegree);
@@ -175,17 +179,16 @@ namespace DcsBriefop.Forms
 
 		private void BtProjectionApply_Click(object sender, EventArgs e)
 		{
-			string sCurrentProjString = m_theatre.ProjectionInfo.ToProj4String();
+			string sCurrentProjString = m_theatre.TheatreSpatialReference.ToStringProj4();
 			if (sCurrentProjString == TbProjection.Text)
 				return;
 
-			DotSpatial.Projections.ProjectionInfo pi = DotSpatial.Projections.ProjectionInfo.FromProj4String(TbProjection.Text);
-			if (pi.IsValid)
-			{
-				m_theatre.ProjectionInfo = pi;
-				DisplayCurrentTheatre();
-			}
-			TbProjection.Text = m_theatre.ProjectionInfo.ToProj4String();
+			SpatialReference sr = new SpatialReference("");
+			sr.ImportFromProj4(TbProjection.Text);
+			m_theatre.TheatreSpatialReference = sr;
+			DisplayCurrentTheatre();
+
+			TbProjection.Text = m_theatre.TheatreSpatialReference.ToStringProj4();
 		}
 
 		private void BtProjectionReset_Click(object sender, EventArgs e)

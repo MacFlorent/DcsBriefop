@@ -1,5 +1,6 @@
 ﻿using DcsBriefop.Tools;
 using Newtonsoft.Json;
+using OSGeo.OSR;
 
 namespace DcsBriefop.Data
 {
@@ -7,7 +8,7 @@ namespace DcsBriefop.Data
 	{
 		#region Properties
 		public string Name { get; private set; }
-		public DotSpatial.Projections.ProjectionInfo ProjectionInfo { get; set; }
+		public SpatialReference TheatreSpatialReference { get; set; }
 
 		private TheatrePointLut m_pointsLutDcsToLl;
 		private TheatrePointLut m_pointsLutLlToDcs;
@@ -19,7 +20,10 @@ namespace DcsBriefop.Data
 		{
 			Name = sName;
 
-			ProjectionInfo = DotSpatial.Projections.ProjectionInfo.FromProj4String(TheatreProjectionManager.GetProjection(Name));
+			TheatreSpatialReference = new SpatialReference("");
+			string sProj4 = TheatreProjectionManager.GetProjection(Name);
+			if (!string.IsNullOrEmpty(sProj4))
+				TheatreSpatialReference.ImportFromProj4(TheatreProjectionManager.GetProjection(Name));
 
 			m_pointsLutDcsToLl = new TheatrePointLut(sName, TheatrePointLut.ElementLutWay.DcsToLl);
 			m_pointsLutLlToDcs = new TheatrePointLut(sName, TheatrePointLut.ElementLutWay.LlToDcs);
@@ -43,13 +47,13 @@ namespace DcsBriefop.Data
 		public void GetCoordinate(out double dOutputLatitude, out double dOutputLongitude, double dDcsX, double dDcsY)
 		{
 			// Coordinates in DCS: X vertical ; Y(Z) horizontal
-			// Coordinates in the DotSpatial reprojection: Item1(x) is horizontal ; Item2(y) vertical
+			// Coordinates in the reprojection tool: Item1(x) is horizontal ; Item2(y) vertical
 
 			Tuple<double, double> output = null;
 			try
 			{
 				Tuple<double, double> input = new(dDcsY, dDcsX);
-				output = ToolsCoordinate.ReprojectPoint(ProjectionInfo, TheatreProjectionManager.BriefopProjection, input);
+				output = ToolsCoordinate.TransformPoint(TheatreSpatialReference, TheatreProjectionManager.BriefopSpatialReference, input);
 			}
 			catch (Exception ex)
 			{
@@ -93,7 +97,7 @@ namespace DcsBriefop.Data
 			try
 			{
 				Tuple<double, double> input = new(dLongitude, dLatitude);
-				output = ToolsCoordinate.ReprojectPoint(TheatreProjectionManager.BriefopProjection, ProjectionInfo, input);
+				output = ToolsCoordinate.TransformPoint(TheatreProjectionManager.BriefopSpatialReference, TheatreSpatialReference, input);
 			}
 			catch (Exception ex)
 			{

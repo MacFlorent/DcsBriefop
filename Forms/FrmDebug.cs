@@ -1,8 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.Tools;
-using Microsoft.VisualBasic.Logging;
-using OSGeo.GDAL;
 using OSGeo.OSR;
 using static DcsBriefop.Tools.ToolsSpeeds;
 
@@ -42,10 +40,8 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Coordinates
-		//https://www.codeproject.com/Tips/1072197/Coordinate-Transformation-Using-Proj-in-NET
-		//https://proj.org/en/9.3/usage/ellipsoids.html
-		//    "EPSG:4326" => "+title=long/lat:WGS84 +proj=longlat +a=6378137.0 +b=6356752.31424518 +ellps=WGS84 +datum=WGS84 +units=degrees",
-		private Theatre m_theatreProjection;
+		//https://github.com/pydcs/dcs/tree/master/dcs/terrain
+		private Theatre m_theatre;
 		private void CoordinatesInitialize()
 		{
 			CbTheatre.ValueMember = "Value";
@@ -59,112 +55,76 @@ namespace DcsBriefop.Forms
 				{ "Syria", ElementTheatreName.Syria}
 			}.ToList();
 
-			m_theatreProjection = new Theatre(CbTheatre.SelectedValue as string);
-			TbProjectionDcs.Text = m_theatreProjection.ProjectionInfo.ToProj4String();
-			TbProjectionBriefop.Text = TheatreProjectionManager.BriefopProjection.ToProj4String();
+			m_theatre = new Theatre(CbTheatre.SelectedValue as string);
 
-			NudX.Value = -240857m;
-			NudY.Value = 515429m;
+			
+			m_theatre.TheatreSpatialReference.ExportToProj4(out string sProj4);
+			TbProjectionDcs.Text = m_theatre.TheatreSpatialReference.ToStringProj4();
+			TbProjectionBriefop.Text = TheatreProjectionManager.BriefopSpatialReference.ToStringProj4();
+
+			//CbTheatre.Text = "Caucasus";
+			//NudX.Value = -240857m;
+			//NudY.Value = 515429m;
+
+			CbTheatre.Text = "Syria";
+			NudX.Value = 188286m;
+			NudY.Value = -179143m;
 		}
 
 		private void BtConvertDcsToGeo_Click(object sender, EventArgs e)
 		{
 			//https://gis.stackexchange.com/questions/427277/convert-local-coordinates-to-wgs84-in-c
 			SpatialReference projDcs = new SpatialReference("");
-			string proj = TbProjectionDcs.Text;//"+proj=omerc +lat_0=46.325454996 +lonc=7.99050231+alpha=60.4026421358 +gamma=90 +k=1 +x_0=350 +y_0=200 +datum=WGS84 +units=m +no_defs +type=crs";
-			projDcs.ImportFromProj4(proj);
+			string sProj4 = TbProjectionDcs.Text;
+			projDcs.ImportFromProj4(sProj4);
 
 			SpatialReference wgs84Reference = new SpatialReference("");
-			//wgs84Reference.ImportFromEPSG(4326);
-			wgs84Reference.ImportFromProj4("+proj=longlat +a=6378137.0 +b=6356752.31424518 +ellps=WGS84 +datum=WGS84");
-
+			wgs84Reference.ImportFromProj4(TbProjectionBriefop.Text);
+			
 			CoordinateTransformation coordinateTransform = new CoordinateTransformation(projDcs, wgs84Reference);
 			double[] xy = { (double)NudY.Value, (double)NudX.Value };
-			double[] z = { 0 };
 			coordinateTransform.TransformPoint(xy);
 			NudLat.Value = (decimal)xy[1];
 			NudLong.Value = (decimal)xy[0];
 
 			Coordinate c = new Coordinate(xy[1], xy[0]);
 			LbControlCoord.Text = c.ToStringDDM();
-			/*
-			Gdal.AllRegister();
-			Dataset dataset = Gdal.Open(@"D:\TifExample\raster.tif", Access.GA_ReadOnly);
-			String WKTFromTif = dataset.GetProjectionRef();
-
-			Double[] gt = new double[6];
-			dataset.GetGeoTransform(gt);
-			Int32 Rows = dataset.RasterYSize;
-			Int32 Cols = dataset.RasterXSize;
-			Double upperLeftX = gt[0];
-			Double upperLeftY = gt[3];
-			Double lowerRightX = gt[0] + Cols * gt[1] + Rows * gt[2];
-			Double lowerRightY = gt[3] + Cols * gt[4] + Rows * gt[5];
-
-			Double[] upperLeftPoint = { upperLeftX, upperLeftY };
-			Double[] lowerRightPoint = { lowerRightX, lowerRightY };
-
-			SpatialReference currentSpatialReference = new SpatialReference(WKTFromTif);
-
-			String EPSG4326WKT = "GEOGCS[\"WGS84 datum, Latitude-Longitude; Degrees\", DATUM[\"WGS_1984\", SPHEROID[\"World Geodetic System of 1984, GEM 10C\",6378137,298.257223563, AUTHORITY[\"EPSG\",\"7030\"]], AUTHORITY[\"EPSG\",\"6326\"]], PRIMEM[\"Greenwich\",0], UNIT[\"degree\",0.0174532925199433], AUTHORITY[\"EPSG\",\"4326\"]]";
-			SpatialReference newSpatialReference = new SpatialReference(EPSG4326WKT);
-
-			CoordinateTransformation coordinateTransform = new CoordinateTransformation(currentSpatialReference, newSpatialReference);
-
-			coordinateTransform.TransformPoint(upperLeftPoint);
-			coordinateTransform.TransformPoint(lowerRightPoint);
-			*/
-		/*
-	DotSpatial.Projections.ProjectionInfo piOri = DotSpatial.Projections.ProjectionInfo.FromProj4String(TbProjectionDcs.Text);
-	DotSpatial.Projections.ProjectionInfo piDest = DotSpatial.Projections.ProjectionInfo.FromProj4String(TbProjectionBriefop.Text);
-
-	TbProjectionDcs.Text = piOri.ToProj4String();
-	TbProjectionBriefop.Text = piDest.ToProj4String();
-
-	double[] xy = { (double)NudY.Value, (double)NudX.Value };
-	double[] z = { 0 };
-
-	DotSpatial.Projections.Reproject.ReprojectPoints(xy, z, piOri, piDest, 0, 1);
-	//Tuple<double, double> input = new((double)NudY.Value, (double)NudX.Value);
-	//Tuple<double, double> output = ToolsCoordinate.ReprojectPoint(piOri, piDest, input);
-
-	NudLat.Value = (decimal)xy[1];
-	NudLong.Value = (decimal)xy[0];
-
-	Coordinate c = new Coordinate(xy[1], xy[0]);
-	LbControlCoord.Text = c.ToStringDDM();
-		*/
 	}
 	#endregion
 
 	private void BtConvetGeoToDcs_Click(object sender, EventArgs e)
 		{
-			//Theatre theatre = new Theatre(CbTheatre.Text);
-			//CoordinateSharp.Coordinate c = new CoordinateSharp.Coordinate((double)NudLat.Value, (double)NudLong.Value);
-			//theatre.GetDcsXY(out double dX, out double dY, c);
-			//theatre.GetDcsZXOld(out double dZCtrl, out double dXCtrl, c);
+			SpatialReference projDcs = new SpatialReference("");
+			string sProj4 = TbProjectionDcs.Text;
+			projDcs.ImportFromProj4(sProj4);
 
-			//NudX.Value = (decimal)dX;
-			//NudY.Value = (decimal)dY;
+			SpatialReference wgs84Reference = new SpatialReference("");
+			wgs84Reference.ImportFromProj4(TbProjectionBriefop.Text);
 
-			//LbControlCoord.Text = $"X={dXCtrl}  Y(Z)={dZCtrl}";
+			CoordinateTransformation coordinateTransform = new CoordinateTransformation(wgs84Reference, projDcs);
+			double[] xy = { (double)NudLong.Value, (double)NudLat.Value };
+			coordinateTransform.TransformPoint(xy);
+			NudX.Value = (decimal)xy[1];
+			NudY.Value = (decimal)xy[0];
 
+			Coordinate c = new Coordinate((double)NudLat.Value, (double)NudLong.Value);
+			LbControlCoord.Text = c.ToStringDDM();
 		}
 
 		private void CbTheatre_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			m_theatreProjection = new Theatre(CbTheatre.SelectedValue as string);
-			TbProjectionDcs.Text = m_theatreProjection.ProjectionInfo.ToProj4String();
+			m_theatre = new Theatre(CbTheatre.SelectedValue as string);
+			TbProjectionDcs.Text = m_theatre.TheatreSpatialReference.ToStringProj4();
 		}
 
 		private void BtProjDcsReset_Click(object sender, EventArgs e)
 		{
-			TbProjectionDcs.Text = m_theatreProjection.ProjectionInfo.ToProj4String();
+			TbProjectionDcs.Text = m_theatre.TheatreSpatialReference.ToStringProj4();
 		}
 
 		private void BtProjBriefopReset_Click(object sender, EventArgs e)
 		{
-			TbProjectionBriefop.Text = TheatreProjectionManager.BriefopProjection.ToProj4String();
+			TbProjectionBriefop.Text = TheatreProjectionManager.BriefopSpatialReference.ToStringProj4();
 		}
 	}
 }

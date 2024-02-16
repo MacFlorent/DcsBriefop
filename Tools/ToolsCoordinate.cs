@@ -1,6 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
-using GMap.NET;
+using OSGeo.OSR;
 using System.Text;
 
 namespace DcsBriefop.Tools
@@ -55,15 +55,20 @@ namespace DcsBriefop.Tools
 			return dNormalizedBearing;
 		}
 
-		public static Tuple<double, double> ReprojectPoint(DotSpatial.Projections.ProjectionInfo piSource, DotSpatial.Projections.ProjectionInfo piDestination, Tuple<double, double> pointInput)
+		public static Tuple<double, double> TransformPoint(SpatialReference projSource, SpatialReference projDestination, Tuple<double, double> pointInput)
 		{
-			// here as per DotSpatial, X is horizontal and Y vertical (which is the opposite of DCS)
+			// here X is horizontal and Y vertical (so not the DCS way)
+			CoordinateTransformation t = new CoordinateTransformation(projSource, projDestination);
 			double[] xy = { pointInput.Item1, pointInput.Item2 };
-			double[] z = { 0 };
-
-			DotSpatial.Projections.Reproject.ReprojectPoints(xy, z, piSource, piDestination, 0, 1);
+			t.TransformPoint(xy);
 
 			return new Tuple<double, double>(xy[0], xy[1]);
+		}
+
+		public static string ToStringProj4(this SpatialReference spatialReference)
+		{
+			spatialReference.ExportToProj4(out string sProj4);
+			return sProj4;
 		}
 	}
 }

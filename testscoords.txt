@@ -23,6 +23,7 @@ MGRS GRID: 37 T CH 22724 06117
 Altitude: 0 m / 0 feet
 
 Syria
+//SYRIA 2024-01-10 20:38:03.709 INFO    SCRIPTING (Main): Z=0.000000,X=0.000000,Longitude=35.900560,Latitude=35.021918,Altitude=7.748697
 Metric: X+00188286 Z-00179143
 Lat Long Standard: N 36°38'48"   E 33°50' 2"
 Lat Long Precise: N 36°38'48.81"   E 33°50'2.57"
@@ -30,4 +31,11 @@ Lat Long Decimal Minutes: N 36°38.813'   E 33°50.042'
 MGRS GRID: 36 S WF 74552 56026
 Altitude: 1545 m / 5071 feet
 
-
+Marianas
+//2024-01-10 20:25:11.586 INFO    SCRIPTING (Main): Z=0.000000,X=0.000000,Longitude=144.797541,Latitude=13.485000,Altitude=77.792076
+Metric: X+00060714 Z+00160616
+Lat Long Standard: N 14° 2'33"   E 146°16'45"
+Lat Long Precise: N 14°02'33.29"   E 146°16'45.95"
+Lat Long Decimal Minutes: N 14° 2.554'   E 146°16.765'
+MGRS GRID: 55 P DR 22197 52554
+Altitude: 0 m / 0 feet

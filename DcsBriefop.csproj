@@ -26,7 +26,6 @@
     <PackageReference Include="CoordinateSharp" Version="2.21.1.1" />
     <PackageReference Include="CoordinateSharp.Magnetic" Version="1.1.11" />
     <PackageReference Include="DG.AdvancedDataGridView" Version="1.2.28405.11" />
-    <PackageReference Include="DotSpatial.Projections" Version="4.0.656" />
     <PackageReference Include="GDAL" Version="3.8.1" />
     <PackageReference Include="GMap.NET.WinForms" Version="2.1.7" />
     <PackageReference Include="HtmlTags" Version="9.0.0" />

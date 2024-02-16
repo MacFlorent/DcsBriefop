@@ -329,7 +329,7 @@
 			// 
 			// NudY
 			// 
-			NudY.DecimalPlaces = 10;
+			NudY.DecimalPlaces = 4;
 			NudY.Location = new Point(447, 19);
 			NudY.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
 			NudY.Minimum = new decimal(new int[] { 1000000, 0, 0, int.MinValue });
@@ -348,7 +348,7 @@
 			// 
 			// NudX
 			// 
-			NudX.DecimalPlaces = 10;
+			NudX.DecimalPlaces = 4;
 			NudX.Location = new Point(284, 19);
 			NudX.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
 			NudX.Minimum = new decimal(new int[] { 1000000, 0, 0, int.MinValue });

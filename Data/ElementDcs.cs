@@ -96,10 +96,13 @@
 	internal static class ElementTheatreName
 	{
 		public static readonly string Caucasus = "Caucasus";
+		public static readonly string Falklands = "Falklands";
 		public static readonly string Marianas = "MarianaIslands";
 		public static readonly string Nevada = "Nevada";
+		public static readonly string Normandy = "Normandy";
 		public static readonly string PersianGulf = "PersianGulf";
 		public static readonly string Sinai = "SinaiMap";
 		public static readonly string Syria = "Syria";
+		public static readonly string TheChannel = "TheChannel";
 	}
 }

@@ -1,8 +1,10 @@
 ﻿using DcsBriefop.Tools;
 using Newtonsoft.Json;
+using OSGeo.OSR;
 
 namespace DcsBriefop.Data
 {
+	//https://github.com/pydcs/dcs/tree/master/dcs/terrain
 	internal class TheatreProjection
 	{
 		public string Theatre { get; set; }
@@ -11,7 +13,7 @@ namespace DcsBriefop.Data
 
 	internal static class TheatreProjectionManager
 	{
-		public static DotSpatial.Projections.ProjectionInfo BriefopProjection { get; set; }
+		public static SpatialReference BriefopSpatialReference { get; set; }
 		public static List<TheatreProjection> TheatreProjections { get; set; }
 
 		static TheatreProjectionManager()
@@ -33,9 +35,10 @@ namespace DcsBriefop.Data
 			if (!string.IsNullOrEmpty(sJsonStream))
 				TheatreProjections = JsonConvert.DeserializeObject<List<TheatreProjection>>(sJsonStream);
 
-			string sBriefopProjection = GetProjection("Briefop") ?? "+title=long/lat:WGS84 +proj=longlat +a=6378137.0 +b=6356752.31424518 +ellps=WGS84 +datum=WGS84 +units=degrees6"; // https://proj.org/en/9.3/operations/projections/tmerc.html
-			BriefopProjection = DotSpatial.Projections.ProjectionInfo.FromEpsgCode(4326); //DotSpatial.Projections.ProjectionInfo.FromProj4String(sBriefopProjection);
-			string s = BriefopProjection.ToProj4String();
+			string sBriefopProj4 = GetProjection("Briefop") ?? "+proj=longlat +datum=WGS84 +no_defs +type=crs";
+			BriefopSpatialReference = new SpatialReference("");
+			BriefopSpatialReference.ImportFromProj4(sBriefopProj4);
+
 		}
 
 		public static string GetProjection(string sTheatre)
