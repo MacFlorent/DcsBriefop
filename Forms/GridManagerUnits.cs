@@ -20,6 +20,8 @@ namespace DcsBriefop.Forms
 			public static readonly string Attributes = "Attributes";
 			public static readonly string Playable = "Playable";
 			public static readonly string Callsign = "Callsign";
+			public static readonly string CallsignGroup = "Callsign group";
+			public static readonly string CallsignElement = "Callsign elem";
 			public static readonly string DatalinkType = "Datalink type";
 			public static readonly string DatalinkCallsign = "Datalink callsign";
 			public static readonly string DatalinkId = "Datalink ID";
@@ -52,6 +54,8 @@ namespace DcsBriefop.Forms
 			m_dtSource.Columns.Add(GridColumn.Attributes, typeof(ElementDcsObjectAttribute));
 			m_dtSource.Columns.Add(GridColumn.Playable, typeof(bool));
 			m_dtSource.Columns.Add(GridColumn.Callsign, typeof(string));
+			m_dtSource.Columns.Add(GridColumn.CallsignGroup, typeof(int));
+			m_dtSource.Columns.Add(GridColumn.CallsignElement, typeof(int));
 			m_dtSource.Columns.Add(GridColumn.DatalinkType, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.DatalinkCallsign, typeof(string));
 			m_dtSource.Columns.Add(GridColumn.DatalinkId, typeof(string));
@@ -73,6 +77,8 @@ namespace DcsBriefop.Forms
 			if (element is BopUnitFlight flight)
 			{
 				dr.SetField(GridColumn.Callsign, flight.Callsign);
+				dr.SetField(GridColumn.CallsignGroup, flight.Callsign.Group);
+				dr.SetField(GridColumn.CallsignElement, flight.Callsign.Element);
 				dr.SetField(GridColumn.DatalinkType, flight.DatalinkId?.DatalinkType);
 				dr.SetField(GridColumn.DatalinkCallsign, flight.DatalinkId?.ToStringCallsign());
 				dr.SetField(GridColumn.DatalinkId, flight.DatalinkId?.Id);

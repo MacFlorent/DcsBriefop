@@ -28,6 +28,13 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Miz
+		public override void ToMiz()
+		{
+			base.ToMiz();
+
+			Callsign?.ToMiz();
+
+		}
 		#endregion
 
 		#region Methods

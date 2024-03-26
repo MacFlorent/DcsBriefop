@@ -2,11 +2,10 @@
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
 using System.Data;
-using System.Text;
 
 namespace DcsBriefop.Forms
 {
-	internal partial class FrmDatalink : Form
+	internal partial class FrmNormalize : Form
 	{
 		#region Fields
 		private BriefopManager m_bopManager;
@@ -15,7 +14,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public FrmDatalink(BriefopManager bopManager)
+		public FrmNormalize(BriefopManager bopManager)
 		{
 			m_bopManager = bopManager;
 
@@ -23,9 +22,9 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 
 			Units = new List<BopUnit>();
-			foreach (BopGroup group in m_bopManager.BopMission.Groups)
+			foreach (BopGroupFlight group in m_bopManager.BopMission.Groups.OfType<BopGroupFlight>())
 			{
-				foreach (BopUnit unit in group.Units.Where(_u => _u.DatalinkId is not null))
+				foreach (BopUnitFlight unit in group.Units)
 				{
 					Units.Add(unit);
 				}
@@ -36,8 +35,10 @@ namespace DcsBriefop.Forms
 			{
 				GridManagerUnits.GridColumn.Id,
 				GridManagerUnits.GridColumn.DisplayName,
-				GridManagerUnits.GridColumn.Callsign,
 				GridManagerUnits.GridColumn.Type,
+				GridManagerUnits.GridColumn.Callsign,
+				GridManagerUnits.GridColumn.CallsignGroup,
+				GridManagerUnits.GridColumn.CallsignElement,
 				GridManagerUnits.GridColumn.DatalinkType,
 				GridManagerUnits.GridColumn.DatalinkCallsign,
 				GridManagerUnits.GridColumn.DatalinkId
@@ -55,13 +56,32 @@ namespace DcsBriefop.Forms
 		{
 		}
 
-		private void Normalize(ElementDatalinkType datalinkType)
+		private void NormalizeCallsigns(int iMaxGroupNumber)
+		{
+			using (new WaitDialog(this))
+			{
+				int i = 1;
+				foreach (BopUnitFlight flight in Units.OfType<BopUnitFlight>().Where(_f => _f.Callsign is not null))
+				{
+					if (flight.Callsign.Group is int iGroup && (iGroup <= 0 || iGroup > iMaxGroupNumber))
+					{
+						flight.Callsign.Group = i++;
+						if (i > iMaxGroupNumber)
+							i = 1;
+					}
+				}
+
+				DataToScreen();
+			}
+		}
+
+		private void NormalizeDatalink(ElementDatalinkType datalinkType)
 		{
 			using (new WaitDialog(this))
 			{
 				int iIdLink16 = 0, iIdSadl = 0, iIdIdm = 0;
 
-				foreach (BopUnit unit in Units)
+				foreach (BopUnit unit in Units.Where(_u => _u.DatalinkId is not null))
 				{
 					if (datalinkType == ElementDatalinkType.Link16 || datalinkType == ElementDatalinkType.None)
 					{
@@ -123,15 +143,29 @@ namespace DcsBriefop.Forms
 			ContextMenuStrip menu = new ContextMenuStrip();
 			menu.Items.Clear();
 
-			menu.Items.AddMenuItem("All", (object _sender, EventArgs _e) => { Normalize(ElementDatalinkType.None); });
+			menu.Items.AddMenuItem("All", (object _sender, EventArgs _e) => { NormalizeDatalink(ElementDatalinkType.None); });
 			menu.Items.AddMenuSeparator();
-			menu.Items.AddMenuItem(ElementDatalinkType.Link16.ToString(), (object _sender, EventArgs _e) => { Normalize(ElementDatalinkType.Link16); });
-			menu.Items.AddMenuItem(ElementDatalinkType.Sadl.ToString(), (object _sender, EventArgs _e) => { Normalize(ElementDatalinkType.Sadl); });
-			menu.Items.AddMenuItem(ElementDatalinkType.Idm.ToString(), (object _sender, EventArgs _e) => { Normalize(ElementDatalinkType.Idm); });
+			menu.Items.AddMenuItem(ElementDatalinkType.Link16.ToString(), (object _sender, EventArgs _e) => { NormalizeDatalink(ElementDatalinkType.Link16); });
+			menu.Items.AddMenuItem(ElementDatalinkType.Sadl.ToString(), (object _sender, EventArgs _e) => { NormalizeDatalink(ElementDatalinkType.Sadl); });
+			menu.Items.AddMenuItem(ElementDatalinkType.Idm.ToString(), (object _sender, EventArgs _e) => { NormalizeDatalink(ElementDatalinkType.Idm); });
 
 			if (menu.Items.Count > 0)
 			{
-				menu.Show(BtNormalize, new Point(0, BtNormalize.Height));
+				menu.Show(BtNormalizeDatalink, new Point(0, BtNormalizeDatalink.Height));
+			}
+		}
+
+		private void BtNormalizeCallsign_MouseDown(object sender, MouseEventArgs e)
+		{
+			ContextMenuStrip menu = new ContextMenuStrip();
+			menu.Items.Clear();
+
+			menu.Items.AddMenuItem("Over 9", (object _sender, EventArgs _e) => { NormalizeCallsigns(9); });
+			menu.Items.AddMenuItem("Over 79", (object _sender, EventArgs _e) => { NormalizeCallsigns(79); });
+
+			if (menu.Items.Count > 0)
+			{
+				menu.Show(BtNormalizeCallsign, new Point(0, BtNormalizeCallsign.Height));
 			}
 		}
 		#endregion

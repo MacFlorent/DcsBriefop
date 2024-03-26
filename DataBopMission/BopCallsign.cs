@@ -1,8 +1,5 @@
-﻿using DcsBriefop.Data;
-using DcsBriefop.DataMiz;
+﻿using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace DcsBriefop.DataBopMission
@@ -12,6 +9,8 @@ namespace DcsBriefop.DataBopMission
 		#region Fields
 		private static Dictionary<int, string> m_callsignsJtac;// TODO replace by a json resource
 		private static Dictionary<int, string> m_callsignsHeliport;// TODO replace by a json resource
+
+		protected MizCallsign m_mizCallsign;
 		#endregion
 
 		#region Properties
@@ -69,6 +68,7 @@ namespace DcsBriefop.DataBopMission
 			{
 				bopCallsign = new BopCallsign()
 				{
+					m_mizCallsign = mizCallsign,
 					Name = new string(mizCallsign.Name.TakeWhile(_c => !char.IsDigit(_c)).ToArray()),
 					Group = mizCallsign.Flight,
 					Element = mizCallsign.Element
@@ -78,7 +78,7 @@ namespace DcsBriefop.DataBopMission
 			return bopCallsign;
 		}
 
-		public static BopCallsign NewFromNumber( int? iCallsignNumber)
+		public static BopCallsign NewFromNumber(int? iCallsignNumber)
 		{
 			BopCallsign bopCallsign = null;
 			if (iCallsignNumber is not null)
@@ -116,6 +116,16 @@ namespace DcsBriefop.DataBopMission
 			}
 
 			return bopCallsign;
+		}
+		#endregion
+
+		#region Miz
+		public void ToMiz()
+		{
+			if (m_mizCallsign is not null && Group is not null)
+			{
+				m_mizCallsign.Flight = Group.Value;
+			}
 		}
 		#endregion
 

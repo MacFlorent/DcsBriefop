@@ -102,9 +102,9 @@ namespace DcsBriefop.Forms
 			}
 		}
 
-		private void OpenDatalink()
+		private void OpenNormalize()
 		{
-			using FrmDatalink f = new FrmDatalink(m_briefopManager);
+			using FrmNormalize f = new FrmNormalize(m_briefopManager);
 			if (f.ShowDialog() == DialogResult.OK)
 			{
 			}
@@ -218,7 +218,7 @@ namespace DcsBriefop.Forms
 				tsmiMiz.DropDownItems.AddMenuItem("Save", (object _sender, EventArgs _e) => { MizSave(null); });
 				tsmiMiz.DropDownItems.AddMenuItem("Save as", (object _sender, EventArgs _e) => { MizSaveAs(); });
 				tsmiMiz.DropDownItems.AddMenuItem("Generate batch command", (object _sender, EventArgs _e) => { GenerateBatchCommand(); });
-				tsmiMiz.DropDownItems.AddMenuItem("Datalink data", (object _sender, EventArgs _e) => { OpenDatalink(); });
+				tsmiMiz.DropDownItems.AddMenuItem("Normalize mission data", (object _sender, EventArgs _e) => { OpenNormalize(); });
 			}
 
 			if (PreferencesManager.Preferences.Application.RecentMiz.Count > 0)

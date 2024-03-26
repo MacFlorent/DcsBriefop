@@ -1,6 +1,6 @@
 ﻿namespace DcsBriefop.Forms
 {
-	partial class FrmDatalink
+	partial class FrmNormalize
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -29,7 +29,8 @@
 		private void InitializeComponent()
 		{
 			DgvUnits = new Zuby.ADGV.AdvancedDataGridView();
-			BtNormalize = new Button();
+			BtNormalizeDatalink = new Button();
+			BtNormalizeCallsign = new Button();
 			((System.ComponentModel.ISupportInitialize)DgvUnits).BeginInit();
 			SuspendLayout();
 			// 
@@ -47,27 +48,39 @@
 			DgvUnits.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvUnits.TabIndex = 1;
 			// 
-			// BtNormalize
+			// BtNormalizeDatalink
 			// 
-			BtNormalize.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			BtNormalize.Location = new Point(713, 422);
-			BtNormalize.Name = "BtNormalize";
-			BtNormalize.Size = new Size(75, 23);
-			BtNormalize.TabIndex = 43;
-			BtNormalize.Text = "Normalize";
-			BtNormalize.UseVisualStyleBackColor = true;
-			BtNormalize.MouseDown += BtNormalize_MouseDown;
+			BtNormalizeDatalink.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			BtNormalizeDatalink.Location = new Point(650, 422);
+			BtNormalizeDatalink.Name = "BtNormalizeDatalink";
+			BtNormalizeDatalink.Size = new Size(138, 23);
+			BtNormalizeDatalink.TabIndex = 43;
+			BtNormalizeDatalink.Text = "Normalize datalink";
+			BtNormalizeDatalink.UseVisualStyleBackColor = true;
+			BtNormalizeDatalink.MouseDown += BtNormalize_MouseDown;
 			// 
-			// FrmDatalink
+			// BtNormalizeCallsign
+			// 
+			BtNormalizeCallsign.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			BtNormalizeCallsign.Location = new Point(506, 422);
+			BtNormalizeCallsign.Name = "BtNormalizeCallsign";
+			BtNormalizeCallsign.Size = new Size(138, 23);
+			BtNormalizeCallsign.TabIndex = 44;
+			BtNormalizeCallsign.Text = "Normalize callsigns";
+			BtNormalizeCallsign.UseVisualStyleBackColor = true;
+			BtNormalizeCallsign.MouseDown += BtNormalizeCallsign_MouseDown;
+			// 
+			// FrmNormalize
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 450);
-			Controls.Add(BtNormalize);
+			Controls.Add(BtNormalizeCallsign);
+			Controls.Add(BtNormalizeDatalink);
 			Controls.Add(DgvUnits);
-			Name = "FrmDatalink";
+			Name = "FrmNormalize";
 			ShowIcon = false;
-			Text = "Datalink data";
+			Text = "Check and normalize mission data";
 			Shown += FrmDatalink_Shown;
 			((System.ComponentModel.ISupportInitialize)DgvUnits).EndInit();
 			ResumeLayout(false);
@@ -76,6 +89,7 @@
 		#endregion
 
 		private Zuby.ADGV.AdvancedDataGridView DgvUnits;
-		private Button BtNormalize;
+		private Button BtNormalizeDatalink;
+		private Button BtNormalizeCallsign;
 	}
 }
