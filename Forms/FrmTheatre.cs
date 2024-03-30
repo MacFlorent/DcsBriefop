@@ -13,7 +13,6 @@ namespace DcsBriefop.Forms
 		#region Fields
 		private BriefopManager m_briefopManager;
 		private Theatre m_theatre;
-		private TheatrePointLut m_pointsLutDcsToLl;
 		private GMapOverlay m_mapOverlay;
 		private GMapOverlay m_mapOverlayDynamic;
 		private Color m_OverlayColor = Color.OrangeRed;
@@ -72,8 +71,6 @@ namespace DcsBriefop.Forms
 
 		private void DisplayCurrentTheatre()
 		{
-			m_pointsLutDcsToLl = new TheatrePointLut(m_theatre.Name, TheatrePointLut.ElementLutWay.DcsToLl);
-
 			TbProjection.Text = m_theatre.TheatreSpatialReference.ToStringProj4();
 
 			Coordinate centerCoordinate = m_theatre.GetCoordinate(0, 0);
@@ -86,24 +83,6 @@ namespace DcsBriefop.Forms
 
 			m_mapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(new PointLatLng(centerCoordinate.Latitude.DecimalDegree, centerCoordinate.Longitude.DecimalDegree), ElementMapTemplateMarker.Mark, m_OverlayColor, "c", 1, 0));
 
-			List<Tuple<double, double>> tuples = m_pointsLutDcsToLl.GetCornerPointsClockwise();
-
-			List<PointLatLng> points = new List<PointLatLng>();
-			PointLatLng? pFirst = null;
-			foreach (Tuple<double, double> tuple in tuples)
-			{
-				Coordinate c = m_theatre.GetCoordinate(tuple.Item2, tuple.Item1);
-				PointLatLng p = new PointLatLng(c.Latitude.DecimalDegree, c.Longitude.DecimalDegree);
-				points.Add(p);
-
-				if (pFirst is null)
-					pFirst = p;
-
-			}
-			points.Add(pFirst.Value);
-			GLineBriefop border = GLineBriefop.NewLineFromTemplateName(points, "", ElementMapTemplateLine.DashLine, m_OverlayColor, 3, m_OverlayColor, "");
-			m_mapOverlay.Routes.Add(border);
-
 			foreach (Airdrome ad in m_theatre.Airdromes)
 			{
 				GMarkerBriefop airdromeMarker = GMarkerBriefop.NewFromTemplateName(new PointLatLng(ad.Latitude, ad.Longitude), ElementMapTemplateMarker.Airdrome, m_OverlayColor, ad.Name, 1, 0);
@@ -115,16 +94,6 @@ namespace DcsBriefop.Forms
 		{
 			m_theatre.GetDcsXY(out double dDcX, out double dDcsY, coordinate);
 			return $"{coordinate.ToStringDMS()} / {coordinate.ToStringDDM()} / {coordinate.ToStringMGRS()} / X={dDcX:0.00} Z(Y)={dDcsY:0.00}";
-		}
-
-		private void CheckProjection()
-		{
-			string sCheck;
-			using (new WaitDialog(this))
-			{
-				sCheck = m_pointsLutDcsToLl.CheckLut(m_theatre);
-			}
-			MessageBox.Show(sCheck);
 		}
 		#endregion
 
@@ -139,11 +108,6 @@ namespace DcsBriefop.Forms
 		{
 			m_theatre = new Theatre(CbTheatre.SelectedValue as string);
 			DisplayCurrentTheatre();
-		}
-
-		private void BtCheck_Click(object sender, EventArgs e)
-		{
-			CheckProjection();
 		}
 
 		private void MapControl_MouseMove(object sender, MouseEventArgs e)

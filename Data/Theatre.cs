@@ -9,9 +9,6 @@ namespace DcsBriefop.Data
 		#region Properties
 		public string Name { get; private set; }
 		public SpatialReference TheatreSpatialReference { get; set; }
-
-		private TheatrePointLut m_pointsLutDcsToLl;
-		private TheatrePointLut m_pointsLutLlToDcs;
 		public List<Airdrome> Airdromes;
 		#endregion
 
@@ -24,9 +21,6 @@ namespace DcsBriefop.Data
 			string sProj4 = TheatreProjectionManager.GetProjection(Name);
 			if (!string.IsNullOrEmpty(sProj4))
 				TheatreSpatialReference.ImportFromProj4(TheatreProjectionManager.GetProjection(Name));
-
-			m_pointsLutDcsToLl = new TheatrePointLut(sName, TheatrePointLut.ElementLutWay.DcsToLl);
-			m_pointsLutLlToDcs = new TheatrePointLut(sName, TheatrePointLut.ElementLutWay.LlToDcs);
 
 			InitializeAirdromes();
 		}
@@ -64,25 +58,6 @@ namespace DcsBriefop.Data
 			dOutputLatitude = output?.Item2 ?? 0;
 		}
 
-		public CoordinateSharp.Coordinate GetCoordinateOld(double dZ, double dX)
-		{
-			double? dOutputLongitude = null, dOutputLatitude = null;
-
-			try
-			{
-				m_pointsLutDcsToLl.GetPoint(out dOutputLongitude, out dOutputLatitude, dZ, dX);
-			}
-			catch (Exception ex)
-			{
-				Log.Exception(ex);
-			}
-
-			if (dOutputLongitude is null || dOutputLatitude is null)
-				m_pointsLutDcsToLl.GetPoint(out dOutputLongitude, out dOutputLatitude, 0, 0);
-
-			return new CoordinateSharp.Coordinate(dOutputLatitude.Value, dOutputLongitude.Value);
-		}
-
 		public void GetDcsXY(out double dX, out double dY, CoordinateSharp.Coordinate coordinate)
 		{
 			GetDcsXY(out dX, out dY, coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
@@ -106,22 +81,6 @@ namespace DcsBriefop.Data
 
 			dY = output?.Item1 ?? 0;
 			dX = output?.Item2 ?? 0;
-		}
-
-		public void GetDcsZXOld(out double dZ, out double dX, CoordinateSharp.Coordinate coordinate)
-		{
-			double? dOutputZ = null, dOutputX = null;
-			try
-			{
-				m_pointsLutLlToDcs.GetPoint(out dOutputZ, out dOutputX, coordinate.Longitude.DecimalDegree, coordinate.Latitude.DecimalDegree);
-			}
-			catch (Exception ex)
-			{
-				Log.Exception(ex);
-			}
-
-			dZ = dOutputZ.GetValueOrDefault(0);
-			dX = dOutputX.GetValueOrDefault(0);
 		}
 		#endregion
 

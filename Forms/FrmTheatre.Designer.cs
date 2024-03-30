@@ -33,7 +33,6 @@
 			LbProjection = new Label();
 			TbProjection = new TextBox();
 			MapControl = new GMap.NET.WindowsForms.GMapControl();
-			BtCheck = new Button();
 			LbMapDataDynamic = new Label();
 			TbMapDataStatic = new TextBox();
 			BtProjectionApply = new Button();
@@ -73,7 +72,7 @@
 			TbProjection.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			TbProjection.Location = new Point(71, 39);
 			TbProjection.Name = "TbProjection";
-			TbProjection.Size = new Size(753, 23);
+			TbProjection.Size = new Size(881, 23);
 			TbProjection.TabIndex = 3;
 			// 
 			// MapControl
@@ -106,17 +105,6 @@
 			MapControl.MouseDoubleClick += MapControl_MouseDoubleClick;
 			MapControl.MouseMove += MapControl_MouseMove;
 			// 
-			// BtCheck
-			// 
-			BtCheck.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			BtCheck.Location = new Point(944, 39);
-			BtCheck.Name = "BtCheck";
-			BtCheck.Size = new Size(122, 23);
-			BtCheck.TabIndex = 6;
-			BtCheck.Text = "Check projection";
-			BtCheck.UseVisualStyleBackColor = true;
-			BtCheck.Click += BtCheck_Click;
-			// 
 			// LbMapDataDynamic
 			// 
 			LbMapDataDynamic.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -140,7 +128,7 @@
 			// BtProjectionApply
 			// 
 			BtProjectionApply.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			BtProjectionApply.Location = new Point(830, 39);
+			BtProjectionApply.Location = new Point(958, 38);
 			BtProjectionApply.Name = "BtProjectionApply";
 			BtProjectionApply.Size = new Size(51, 23);
 			BtProjectionApply.TabIndex = 4;
@@ -151,7 +139,7 @@
 			// BtProjectionReset
 			// 
 			BtProjectionReset.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			BtProjectionReset.Location = new Point(887, 39);
+			BtProjectionReset.Location = new Point(1015, 38);
 			BtProjectionReset.Name = "BtProjectionReset";
 			BtProjectionReset.Size = new Size(51, 23);
 			BtProjectionReset.TabIndex = 5;
@@ -168,7 +156,6 @@
 			Controls.Add(BtProjectionApply);
 			Controls.Add(TbMapDataStatic);
 			Controls.Add(LbMapDataDynamic);
-			Controls.Add(BtCheck);
 			Controls.Add(MapControl);
 			Controls.Add(TbProjection);
 			Controls.Add(LbProjection);
@@ -189,7 +176,6 @@
 		private Label LbProjection;
 		private TextBox TbProjection;
 		private GMap.NET.WindowsForms.GMapControl MapControl;
-		private Button BtCheck;
 		private Label LbMapDataDynamic;
 		private TextBox TbMapDataStatic;
 		private Button BtProjectionApply;
