@@ -34,6 +34,7 @@ namespace DcsBriefop.Forms
 			m_gmUnits.ColumnsDisplayed = new List<string>()
 			{
 				GridManagerUnits.GridColumn.Id,
+				GridManagerUnits.GridColumn.Playable,
 				GridManagerUnits.GridColumn.DisplayName,
 				GridManagerUnits.GridColumn.Type,
 				GridManagerUnits.GridColumn.Callsign,
@@ -61,7 +62,7 @@ namespace DcsBriefop.Forms
 			using (new WaitDialog(this))
 			{
 				int i = 1;
-				foreach (BopUnitFlight flight in Units.OfType<BopUnitFlight>().Where(_f => _f.Callsign is not null))
+				foreach (BopUnitFlight flight in Units.OfType<BopUnitFlight>().Where(_f => _f.Callsign is not null && _f.Playable))
 				{
 					if (flight.Callsign.Group is int iGroup && (iGroup <= 0 || iGroup > iMaxGroupNumber))
 					{
