@@ -1,6 +1,6 @@
-﻿using CoordinateSharp;
+using CoordinateSharp;
 using DcsBriefop.Data;
-using OSGeo.OSR;
+using ProjNet.CoordinateSystems.Transformations;
 using System.Text;
 
 namespace DcsBriefop.Tools
@@ -32,7 +32,7 @@ namespace DcsBriefop.Tools
 
 		public static string ToString(this Coordinate coordinate, ElementCoordinateDisplay coordinateDisplay)
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 			if ((coordinateDisplay & ElementCoordinateDisplay.Mgrs) > 0)
 				sb.AppendWithSeparator(coordinate.ToStringMGRS(), Environment.NewLine);
 			if ((coordinateDisplay & ElementCoordinateDisplay.Dms) > 0)
@@ -58,17 +58,11 @@ namespace DcsBriefop.Tools
 		public static Tuple<double, double> TransformPoint(SpatialReference projSource, SpatialReference projDestination, Tuple<double, double> pointInput)
 		{
 			// here X is horizontal and Y vertical (so not the DCS way)
-			CoordinateTransformation t = new CoordinateTransformation(projSource, projDestination);
+			CoordinateTransformationFactory ctf = new();
+			ICoordinateTransformation t = ctf.CreateFromCoordinateSystems(projSource.CoordinateSystem, projDestination.CoordinateSystem);
 			double[] xy = { pointInput.Item1, pointInput.Item2 };
-			t.TransformPoint(xy);
-
-			return new Tuple<double, double>(xy[0], xy[1]);
-		}
-
-		public static string ToStringProj4(this SpatialReference spatialReference)
-		{
-			spatialReference.ExportToProj4(out string sProj4);
-			return sProj4;
+			double[] result = t.MathTransform.Transform(xy);
+			return new Tuple<double, double>(result[0], result[1]);
 		}
 	}
 }

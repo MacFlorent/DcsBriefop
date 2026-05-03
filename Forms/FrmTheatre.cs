@@ -4,7 +4,6 @@ using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using OSGeo.OSR;
 
 namespace DcsBriefop.Forms
 {
@@ -18,7 +17,6 @@ namespace DcsBriefop.Forms
 		private Color m_OverlayColor = Color.OrangeRed;
 		#endregion
 
-
 		#region CTOR
 		public FrmTheatre(BriefopManager briefopManager)
 		{
@@ -28,8 +26,8 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 
 			MapControl.InitializeMapControl(m_briefopManager?.BopMission.PreferencesMap.ProviderName ?? PreferencesManager.Preferences.Map.ProviderName);
-			m_mapOverlay = new GMapOverlay();
-			m_mapOverlayDynamic = new GMapOverlay();
+			m_mapOverlay = new();
+			m_mapOverlayDynamic = new();
 			MapControl.Overlays.Add(m_mapOverlay);
 			MapControl.Overlays.Add(m_mapOverlayDynamic);
 
@@ -63,7 +61,7 @@ namespace DcsBriefop.Forms
 				CbTheatre.Text = ElementTheatreName.Caucasus;
 			}
 
-			m_theatre = new Theatre(CbTheatre.SelectedValue as string);
+			m_theatre = new(CbTheatre.SelectedValue as string);
 			DisplayCurrentTheatre();
 
 			CbTheatre.SelectedIndexChanged += CbTheatre_SelectedIndexChanged;
@@ -74,18 +72,18 @@ namespace DcsBriefop.Forms
 			TbProjection.Text = m_theatre.TheatreSpatialReference.ToStringProj4();
 
 			Coordinate centerCoordinate = m_theatre.GetCoordinate(0, 0);
-			MapControl.Position = new PointLatLng(centerCoordinate.Latitude.DecimalDegree, centerCoordinate.Longitude.DecimalDegree);
+			MapControl.Position = new(centerCoordinate.Latitude.DecimalDegree, centerCoordinate.Longitude.DecimalDegree);
 			MapControl.Zoom = 6;
 			m_mapOverlay.Clear();
 			m_mapOverlayDynamic.Clear();
 			TbMapDataStatic.Clear();
 			LbMapDataDynamic.Text = null;
 
-			m_mapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(new PointLatLng(centerCoordinate.Latitude.DecimalDegree, centerCoordinate.Longitude.DecimalDegree), ElementMapTemplateMarker.Mark, m_OverlayColor, "c", 1, 0));
+			m_mapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(new(centerCoordinate.Latitude.DecimalDegree, centerCoordinate.Longitude.DecimalDegree), ElementMapTemplateMarker.Mark, m_OverlayColor, "c", 1, 0));
 
 			foreach (Airdrome ad in m_theatre.Airdromes)
 			{
-				GMarkerBriefop airdromeMarker = GMarkerBriefop.NewFromTemplateName(new PointLatLng(ad.Latitude, ad.Longitude), ElementMapTemplateMarker.Airdrome, m_OverlayColor, ad.Name, 1, 0);
+				GMarkerBriefop airdromeMarker = GMarkerBriefop.NewFromTemplateName(new(ad.Latitude, ad.Longitude), ElementMapTemplateMarker.Airdrome, m_OverlayColor, ad.Name, 1, 0);
 				m_mapOverlay.Markers.Add(airdromeMarker);
 			}
 		}
@@ -147,9 +145,7 @@ namespace DcsBriefop.Forms
 			if (sCurrentProjString == TbProjection.Text)
 				return;
 
-			SpatialReference sr = new SpatialReference("");
-			sr.ImportFromProj4(TbProjection.Text);
-			m_theatre.TheatreSpatialReference = sr;
+			m_theatre.TheatreSpatialReference = new SpatialReference(TbProjection.Text);
 			DisplayCurrentTheatre();
 
 			TbProjection.Text = m_theatre.TheatreSpatialReference.ToStringProj4();

@@ -1,7 +1,6 @@
-﻿using CoordinateSharp;
+using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.Tools;
-using OSGeo.OSR;
 using static DcsBriefop.Tools.ToolsSpeeds;
 
 namespace DcsBriefop.Forms
@@ -57,8 +56,6 @@ namespace DcsBriefop.Forms
 
 			m_theatre = new Theatre(CbTheatre.SelectedValue as string);
 
-			
-			m_theatre.TheatreSpatialReference.ExportToProj4(out string sProj4);
 			TbProjectionDcs.Text = m_theatre.TheatreSpatialReference.ToStringProj4();
 			TbProjectionBriefop.Text = TheatreProjectionManager.BriefopSpatialReference.ToStringProj4();
 
@@ -74,38 +71,25 @@ namespace DcsBriefop.Forms
 		private void BtConvertDcsToGeo_Click(object sender, EventArgs e)
 		{
 			//https://gis.stackexchange.com/questions/427277/convert-local-coordinates-to-wgs84-in-c
-			SpatialReference projDcs = new SpatialReference("");
-			string sProj4 = TbProjectionDcs.Text;
-			projDcs.ImportFromProj4(sProj4);
+			SpatialReference projDcs = new SpatialReference(TbProjectionDcs.Text);
+			SpatialReference wgs84Reference = new SpatialReference(TbProjectionBriefop.Text);
 
-			SpatialReference wgs84Reference = new SpatialReference("");
-			wgs84Reference.ImportFromProj4(TbProjectionBriefop.Text);
-			
-			CoordinateTransformation coordinateTransform = new CoordinateTransformation(projDcs, wgs84Reference);
-			double[] xy = { (double)NudY.Value, (double)NudX.Value };
-			coordinateTransform.TransformPoint(xy);
-			NudLat.Value = (decimal)xy[1];
-			NudLong.Value = (decimal)xy[0];
+			Tuple<double, double> result = ToolsCoordinate.TransformPoint(projDcs, wgs84Reference, new Tuple<double, double>((double)NudY.Value, (double)NudX.Value));
+			NudLat.Value = (decimal)result.Item2;
+			NudLong.Value = (decimal)result.Item1;
 
-			Coordinate c = new Coordinate(xy[1], xy[0]);
+			Coordinate c = new Coordinate(result.Item2, result.Item1);
 			LbControlCoord.Text = c.ToStringDDM();
-	}
-	#endregion
+		}
 
-	private void BtConvetGeoToDcs_Click(object sender, EventArgs e)
+		private void BtConvetGeoToDcs_Click(object sender, EventArgs e)
 		{
-			SpatialReference projDcs = new SpatialReference("");
-			string sProj4 = TbProjectionDcs.Text;
-			projDcs.ImportFromProj4(sProj4);
+			SpatialReference projDcs = new SpatialReference(TbProjectionDcs.Text);
+			SpatialReference wgs84Reference = new SpatialReference(TbProjectionBriefop.Text);
 
-			SpatialReference wgs84Reference = new SpatialReference("");
-			wgs84Reference.ImportFromProj4(TbProjectionBriefop.Text);
-
-			CoordinateTransformation coordinateTransform = new CoordinateTransformation(wgs84Reference, projDcs);
-			double[] xy = { (double)NudLong.Value, (double)NudLat.Value };
-			coordinateTransform.TransformPoint(xy);
-			NudX.Value = (decimal)xy[1];
-			NudY.Value = (decimal)xy[0];
+			Tuple<double, double> result = ToolsCoordinate.TransformPoint(wgs84Reference, projDcs, new Tuple<double, double>((double)NudLong.Value, (double)NudLat.Value));
+			NudX.Value = (decimal)result.Item2;
+			NudY.Value = (decimal)result.Item1;
 
 			Coordinate c = new Coordinate((double)NudLat.Value, (double)NudLong.Value);
 			LbControlCoord.Text = c.ToStringDDM();
@@ -126,5 +110,6 @@ namespace DcsBriefop.Forms
 		{
 			TbProjectionBriefop.Text = TheatreProjectionManager.BriefopSpatialReference.ToStringProj4();
 		}
+		#endregion
 	}
 }

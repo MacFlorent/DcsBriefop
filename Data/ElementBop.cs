@@ -122,7 +122,8 @@
 		public static readonly string BullseyeRoutePointName = "BULLS";
 		public static readonly string GenerateDirectoryNameDefault = "BriefopGenerated";
 		public static readonly string GenerateDirectoryNameVeaf = @"src\mission\KNEEBOARD";
-	}
+        public static readonly string DefaultProj4 = "+proj=longlat +datum=WGS84 +no_defs +type=crs";
+    }
 
 	internal static class ElementCoalitionColor
 	{

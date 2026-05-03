@@ -26,11 +26,10 @@
     <PackageReference Include="CoordinateSharp" Version="3.4.1.1" />
     <PackageReference Include="CoordinateSharp.Magnetic" Version="2.1.5" />
     <PackageReference Include="DG.AdvancedDataGridView" Version="1.2.30115.18" />
-    <PackageReference Include="GDAL" Version="3.12.1" />
     <PackageReference Include="GMap.NET.WinForms" Version="2.1.7" />
     <PackageReference Include="HtmlTags" Version="10.0.0" />
     <PackageReference Include="log4net" Version="3.3.1" />
-    <PackageReference Include="MaxRev.Gdal.WindowsRuntime.Minimal" Version="3.12.3.499" />
+    <PackageReference Include="ProjNet" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="PuppeteerSharp" Version="24.40.0" />
     <PackageReference Include="UnitsNet" Version="5.75.0" />
@@ -76,8 +75,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec
-      Command="xcopy /I /Y $(SolutionDir)Resources\Markers $(TargetDir)\Markers&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Routes $(TargetDir)\Routes&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Resources $(TargetDir)\Resources&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Html $(TargetDir)\Html" />
+    <Exec Command="xcopy /I /Y $(SolutionDir)Resources\Markers $(TargetDir)\Markers&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Routes $(TargetDir)\Routes&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Resources $(TargetDir)\Resources&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Html $(TargetDir)\Html" />
   </Target>
 
 </Project>
