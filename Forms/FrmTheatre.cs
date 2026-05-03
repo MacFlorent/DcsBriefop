@@ -1,9 +1,8 @@
-﻿using CoordinateSharp;
+using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.WindowsForms;
+using Mapsui;
 
 namespace DcsBriefop.Forms
 {
@@ -12,8 +11,6 @@ namespace DcsBriefop.Forms
 		#region Fields
 		private BriefopManager m_briefopManager;
 		private Theatre m_theatre;
-		private GMapOverlay m_mapOverlay;
-		private GMapOverlay m_mapOverlayDynamic;
 		private Color m_OverlayColor = Color.OrangeRed;
 		#endregion
 
@@ -25,11 +22,8 @@ namespace DcsBriefop.Forms
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			MapControl.InitializeMapControl(m_briefopManager?.BopMission.PreferencesMap.ProviderName ?? PreferencesManager.Preferences.Map.ProviderName);
-			m_mapOverlay = new();
-			m_mapOverlayDynamic = new();
-			MapControl.Overlays.Add(m_mapOverlay);
-			MapControl.Overlays.Add(m_mapOverlayDynamic);
+			string sProviderName = m_briefopManager?.BopMission.PreferencesMap.ProviderName ?? PreferencesManager.Preferences.Map.ProviderName;
+			MapControl.InitializeMapControl(sProviderName);
 
 			CbTheatre.ValueMember = "Value";
 			CbTheatre.DisplayMember = "Key";
@@ -72,20 +66,13 @@ namespace DcsBriefop.Forms
 			TbProjection.Text = m_theatre.TheatreSpatialReference.ToStringProj4();
 
 			Coordinate centerCoordinate = m_theatre.GetCoordinate(0, 0);
-			MapControl.Position = new(centerCoordinate.Latitude.DecimalDegree, centerCoordinate.Longitude.DecimalDegree);
-			MapControl.Zoom = 6;
-			m_mapOverlay.Clear();
-			m_mapOverlayDynamic.Clear();
+			MapControl.Map.Navigator.CenterOnAndZoomTo(
+				MapProjection.ToMPoint(centerCoordinate.Latitude.DecimalDegree, centerCoordinate.Longitude.DecimalDegree),
+				MapProjection.ZoomToResolution(6), 0, null);
 			TbMapDataStatic.Clear();
 			LbMapDataDynamic.Text = null;
 
-			m_mapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(new(centerCoordinate.Latitude.DecimalDegree, centerCoordinate.Longitude.DecimalDegree), ElementMapTemplateMarker.Mark, m_OverlayColor, "c", 1, 0));
-
-			foreach (Airdrome ad in m_theatre.Airdromes)
-			{
-				GMarkerBriefop airdromeMarker = GMarkerBriefop.NewFromTemplateName(new(ad.Latitude, ad.Longitude), ElementMapTemplateMarker.Airdrome, m_OverlayColor, ad.Name, 1, 0);
-				m_mapOverlay.Markers.Add(airdromeMarker);
-			}
+			// TODO Phase 2: add theatre centre marker and airdrome markers via Mapsui MemoryLayer
 		}
 
 		private string GetStringCoordinates(Coordinate coordinate)
@@ -110,33 +97,18 @@ namespace DcsBriefop.Forms
 
 		private void MapControl_MouseMove(object sender, MouseEventArgs e)
 		{
-			PointLatLng mapPoint = MapControl.FromLocalToLatLng(e.X, e.Y);
-			m_theatre.GetDcsXY(out double dDcX, out double dDcsY, mapPoint.Lat, mapPoint.Lng);
-			LbMapDataDynamic.Text = $"{mapPoint}  {{X={dDcX:0.00}, Z(Y)={dDcsY:0.00}}}";
+			GeoPoint geoPoint = MapProjection.ScreenToGeoPoint(MapControl.Map.Navigator.Viewport, e.X, e.Y);
+			m_theatre.GetDcsXY(out double dDcX, out double dDcsY, geoPoint.Latitude, geoPoint.Longitude);
+			LbMapDataDynamic.Text = $"Lat={geoPoint.Latitude:F6} Lng={geoPoint.Longitude:F6}  {{X={dDcX:0.00}, Z(Y)={dDcsY:0.00}}}";
 		}
 
 		private void MapControl_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
-			PointLatLng mapPoint = MapControl.FromLocalToLatLng(e.X, e.Y);
-			Coordinate mapCoordinate = new Coordinate(mapPoint.Lat, mapPoint.Lng);
-
-			m_mapOverlayDynamic.Markers.Clear();
-			m_mapOverlayDynamic.Markers.Add(GMarkerBriefop.NewFromTemplateName(new PointLatLng(mapCoordinate.Latitude.DecimalDegree, mapCoordinate.Longitude.DecimalDegree), ElementMapTemplateMarker.Waypoint, m_OverlayColor, "", 1, 0));
+			GeoPoint geoPoint = MapProjection.ScreenToGeoPoint(MapControl.Map.Navigator.Viewport, e.X, e.Y);
+			Coordinate mapCoordinate = new Coordinate(geoPoint.Latitude, geoPoint.Longitude);
 			TbMapDataStatic.Text = GetStringCoordinates(mapCoordinate);
-		}
 
-		private void MapControl_OnMarkerClick(GMapMarker item, MouseEventArgs e)
-		{
-			if (item is GMarkerBriefop markerBriefop && item.Overlay == m_mapOverlay)
-			{
-				Airdrome airdrome = m_theatre.Airdromes.Where(_a => _a.Name == markerBriefop.Label).FirstOrDefault();
-				if (airdrome is not null)
-				{
-					Coordinate adCoordinate = new Coordinate(airdrome.Latitude, airdrome.Longitude);
-					TbMapDataStatic.Text = $"{GetStringCoordinates(adCoordinate)} / {airdrome.Name}[{airdrome.Id}] {airdrome.Tacan}";
-				}
-
-			}
+			// TODO Phase 2: place a waypoint marker at this position via Mapsui MemoryLayer
 		}
 
 		private void BtProjectionApply_Click(object sender, EventArgs e)

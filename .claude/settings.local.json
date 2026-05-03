@@ -4,7 +4,10 @@
       "Bash(Get-ChildItem -Path \"d:\\\\Projects\\\\DotNet\\\\DcsBriefop\" -Directory)",
       "Bash(Select-Object Name)",
       "Bash(dir \"d:\\\\Projects\\\\DotNet\\\\DcsBriefop\\\\Resources\\\\Html\\\\\")",
-      "Bash(grep -r \"//.*private\\\\|//.*TODO\\\\|^[[:space:]]*//\\\\s*\\\\\\(http\\\\|note\\\\\\)\" \"d:\\\\Projects\\\\DotNet\\\\DcsBriefop\\\\Map\" --include=\"*.cs\")"
+      "Bash(grep -r \"//.*private\\\\|//.*TODO\\\\|^[[:space:]]*//\\\\s*\\\\\\(http\\\\|note\\\\\\)\" \"d:\\\\Projects\\\\DotNet\\\\DcsBriefop\\\\Map\" --include=\"*.cs\")",
+      "Bash(cat)",
+      "Read(//tmp/**)",
+      "Bash(dotnet run *)"
     ]
   }
 }

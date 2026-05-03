@@ -83,7 +83,35 @@ Current target: `net10.0-windows`, WinForms
 **Why GDAL is used:** Exclusively to transform DCS theatre-local coordinates (Proj4 strings per theatre) to/from WGS84 lat/lon. That's it — 3 types, 3 files.  
 **Affected files:** `Data/TheatreProjection.cs`, `Data/Theatre.cs`, `Tools/ToolsCoordinate.cs`  
 **Risk:** Low. The API is slightly different but the concept is identical. `CoordinateSharp` is unaffected (it handles display formatting, not projection math).  
-**Status:** ✅ Done — `GDAL` + `MaxRev.Gdal.WindowsRuntime.Minimal` removed, `ProjNet` 2.0.0 added. New `Data/BopSpatialReference.cs` wraps Proj4 parsing.
+**Status:** ✅ Done — `GDAL` + `MaxRev.Gdal.WindowsRuntime.Minimal` removed, `ProjNet` 2.1.0 added. New `Data/SpatialReference.cs` wraps Proj4 parsing.
+
+---
+
+### 5. Grid: DG.AdvancedDataGridView → FastObjectListView 📋 MEDIUM
+
+| | Current | Proposed |
+|---|---|---|
+| Package | `DG.AdvancedDataGridView` 1.2.30115.18 | `BrightIdeasSoftware.ObjectListView2` |
+| Renderer | `DataGridView` (GDI+, renders all rows) | `FastObjectListView` (virtual mode, renders only visible rows) |
+| Data binding | `DataTable` + `BindingSource` + `DataView` | Direct POCO object list — no intermediate data layer |
+| Filtering UI | Column-header filter dropdowns (ADGV feature) | `TextMatchFilter` + TextBox, or `FilterMenuBuilder` for header dropdowns |
+| Sorting | Click column header (ADGV feature) | Built-in, click column header |
+
+**Root cause of slowness:** `DataTable` + `BindingSource` + `DataView` pipeline — not ADGV itself. `FastObjectListView` virtual mode renders only visible rows regardless of dataset size.
+
+#### Migration scope (audited)
+
+| Area | Complexity | Notes |
+|---|---|---|
+| `GridManagerBase<T>` internals | Medium | Full rewrite of private layer — `DataTable`/`BindingSource`/`DataRow` gone; aspect getters replace row-population |
+| 12 concrete `GridManager` subclasses | Low | `InitializeDataSourceColumns()` + `RefreshDataSourceRowContent()` collapse into one `InitializeColumns()` override with `AspectGetter` lambdas |
+| 12 Designer files | Low | Swap `AdvancedDataGridView` for `FastObjectListView` control |
+| Public API of `GridManagerBase` | None | `Elements`, `CheckedElements`, `GetSelectedElements()`, `SelectRow()`, `Refresh()`, events — all unchanged |
+| External form code | None | Everything outside `GridManager*` files untouched |
+
+**Open question before starting:** Replace column-header filter dropdowns with a `TextBox` filter above the grid (simpler, common OLV pattern), or use OLV's `FilterMenuBuilder` to keep the header-dropdown UX?
+
+**Status:** TODO
 
 ---
 
@@ -96,7 +124,7 @@ Current target: `net10.0-windows`, WinForms
 | `Newtonsoft.Json` | Keep for now | `System.Text.Json` (built-in) is faster, but migration requires auditing serialization attributes. Not urgent. |
 | `log4net` | ✅ Keep | Just upgraded to 3.3.1. Not worth migrating to Serilog now. |
 | `CommandLineParser` | Keep | `System.CommandLine` is the Microsoft alternative, but no functional gap here. |
-| `DG.AdvancedDataGridView` | Keep | No obvious WinForms alternative with equivalent features. |
+| `DG.AdvancedDataGridView` | ❌ Replace — see item 5 below | |
 
 ---
 

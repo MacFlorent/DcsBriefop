@@ -5,6 +5,7 @@ using DcsBriefop.Map;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
+using Mapsui.UI.WindowsForms;
 using System.Drawing.Drawing2D;
 using System.Net;
 
@@ -13,6 +14,16 @@ namespace DcsBriefop.Tools
 	internal static class ToolsMap
 	{
 		#region MapControl
+		public static void InitializeMapControl(this MapControl mapControl, string sProviderName)
+		{
+			if (string.IsNullOrEmpty(sProviderName))
+				sProviderName = PreferencesManager.Preferences.Map.ProviderName;
+
+			mapControl.Map.Layers.Clear();
+			mapControl.Map.Layers.Add(MapProviders.CreateTileLayer(sProviderName));
+		}
+
+		// TODO Phase 5: remove once UcGroup and UcAirbase are migrated to Mapsui
 		public static void InitializeGMaps()
 		{
 			if (!string.IsNullOrEmpty(PreferencesManager.Preferences.Application.InternetProxyHost))
@@ -24,7 +35,7 @@ namespace DcsBriefop.Tools
 				GMapProvider.WebProxy = proxy;
 			}
 
-			GMaps.Instance.Mode = AccessMode.ServerOnly; // the program has trouble terminating all its threads in cached mode, don't know why, better stick to server only for now
+			GMaps.Instance.Mode = AccessMode.ServerOnly;
 			GMapImageProxy.Enable();
 		}
 
@@ -40,7 +51,6 @@ namespace DcsBriefop.Tools
 		public static void InitializeMapControl(this GMapControl mapControl, GMapProvider mapProvider)
 		{
 			mapControl.MapProvider = mapProvider;
-			//mapControl.MapProvider = GMapProviders.BingMap;
 			mapControl.ShowCenter = false;
 			mapControl.MinZoom = ElementMapValue.MinZoom;
 			mapControl.MaxZoom = ElementMapValue.MaxZoom;

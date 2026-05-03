@@ -1,59 +1,49 @@
-﻿using DcsBriefop.Tools;
-using GMap.NET.MapProviders;
-using System.Collections.Generic;
+using BruTile;
+using BruTile.Predefined;
+using DcsBriefop.Tools;
+using Mapsui.Tiling.Layers;
 
 namespace DcsBriefop.Map
 {
-	internal class MapProviders
+	internal static class MapProviders
 	{
+		#region Types
+		internal record MapProviderEntry(string Name, Func<ITileSource> Factory);
+		#endregion
+
 		#region Fields
-		private static List<GMapProvider> m_providers;
-		public static readonly WMSProvider WMSProvider;
+		private static readonly List<MapProviderEntry> s_providers;
 		#endregion
 
 		#region CTOR
 		static MapProviders()
 		{
-			WMSProvider = WMSProvider.Instance;
-
-			m_providers = new List<GMapProvider>()
-			{
-				GMapProviders.OpenCycleMap,
-				GMapProviders.OpenCycleLandscapeMap,
-				GMapProviders.OpenCycleTransportMap,
-				GMapProviders.OpenStreetMap,
-				GMapProviders.OpenStreetMapGraphHopper,
-				GMapProviders.OpenSeaMapHybrid,
-				GMapProviders.WikiMapiaMap,
-				GMapProviders.BingMap,
-				GMapProviders.BingSatelliteMap,
-				GMapProviders.BingHybridMap,
-				GMapProviders.BingOSMap,
-				GMapProviders.GoogleMap,
-				GMapProviders.GoogleSatelliteMap,
-				GMapProviders.GoogleHybridMap,
-				GMapProviders.GoogleTerrainMap,
-				GMapProviders.ArcGIS_World_Shaded_Relief_Map,
-				GMapProviders.ArcGIS_World_Street_Map,
-				GMapProviders.ArcGIS_World_Topo_Map,
-				WMSProvider
-			};
+			s_providers =
+			[
+				new("OpenStreetMap", () => KnownTileSources.Create(KnownTileSource.OpenStreetMap)),
+				new("ArcGIS Topo", () => KnownTileSources.Create(KnownTileSource.EsriWorldTopo)),
+				new("ArcGIS Physical", () => KnownTileSources.Create(KnownTileSource.EsriWorldPhysical)),
+				new("ArcGIS Shaded Relief", () => KnownTileSources.Create(KnownTileSource.EsriWorldShadedRelief)),
+				new("WMS DCS", WMSProvider.CreateTileSource),
+			];
 		}
 		#endregion
 
 		#region Methods
 		public static void FillCombo(ComboBox cb, EventHandler selectedValueChanged)
 		{
-			ToolsControls.FillCombo(cb, m_providers, "Name", null, selectedValueChanged);
+			ToolsControls.FillCombo(cb, s_providers, "Name", null, selectedValueChanged);
 		}
 
-		public static GMapProvider TryGetProvider(string providerName)
+		public static MapProviderEntry TryGetEntry(string sName)
 		{
-			if (m_providers.Exists((GMapProvider x) => x.Name == providerName))
-			{
-				return m_providers.Find((GMapProvider x) => x.Name == providerName);
-			}
-			return null;
+			return s_providers.Find(p => p.Name == sName);
+		}
+
+		public static TileLayer CreateTileLayer(string sName)
+		{
+			MapProviderEntry entry = TryGetEntry(sName) ?? s_providers[0];
+			return new TileLayer(entry.Factory()) { Name = entry.Name };
 		}
 		#endregion
 	}

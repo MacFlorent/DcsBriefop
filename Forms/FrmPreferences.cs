@@ -2,7 +2,6 @@
 using DcsBriefop.DataBopBriefing;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET.MapProviders;
 
 namespace DcsBriefop.Forms
 {
@@ -50,7 +49,7 @@ namespace DcsBriefop.Forms
 			CbMissionBullseyeWaypoint.SelectedValue = (int)m_preferences.Mission.BullseyeWaypoint;
 			CkMissionNoCallsignForPlayable.Checked = m_preferences.Mission.NoCallsignForPlayableFlights;
 
-			CbMapProvider.SelectedItem = GMapProviders.TryGetProvider(m_preferences.Map.ProviderName);
+			CbMapProvider.SelectedItem = MapProviders.TryGetEntry(m_preferences.Map.ProviderName);
 			NudMapZoom.Value = (decimal)m_preferences.Map.Zoom;
 
 			CbBriefingWeatherDisplay.SelectedValue = (int)m_preferences.Briefing.WeatherDisplay;
@@ -83,7 +82,7 @@ namespace DcsBriefop.Forms
 			m_preferences.Mission.BullseyeWaypoint = (ElementBullseyeWaypoint)CbMissionBullseyeWaypoint.SelectedValue;
 			m_preferences.Mission.NoCallsignForPlayableFlights = CkMissionNoCallsignForPlayable.Checked;
 
-			m_preferences.Map.ProviderName = (CbMapProvider.SelectedItem as GMapProvider)?.Name;
+			m_preferences.Map.ProviderName = (CbMapProvider.SelectedItem as MapProviders.MapProviderEntry)?.Name;
 			m_preferences.Map.Zoom = (double)NudMapZoom.Value;
 
 			m_preferences.Briefing.WeatherDisplay = (ElementWeatherDisplay)CbBriefingWeatherDisplay.SelectedValue;

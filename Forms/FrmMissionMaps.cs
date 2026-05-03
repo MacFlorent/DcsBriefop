@@ -3,7 +3,6 @@ using DcsBriefop.DataBopMission;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 
 namespace DcsBriefop.Forms
@@ -43,7 +42,7 @@ namespace DcsBriefop.Forms
 		{
 			CbMapProvider.SelectedValueChanged -= CbMapProvider_SelectedValueChanged;
 
-			CbMapProvider.SelectedItem = MapProviders.TryGetProvider(m_briefopManager.BopMission.PreferencesMap.ProviderName);
+			CbMapProvider.SelectedItem = MapProviders.TryGetEntry(m_briefopManager.BopMission.PreferencesMap.ProviderName);
 
 			m_ucMap = new UcMap();
 			m_ucMap.Dock = DockStyle.Fill;
@@ -81,7 +80,7 @@ namespace DcsBriefop.Forms
 
 		private void ScreenToData()
 		{
-			m_briefopManager.BopMission.PreferencesMap.ProviderName = (CbMapProvider.SelectedItem as GMapProvider)?.Name;
+			m_briefopManager.BopMission.PreferencesMap.ProviderName = (CbMapProvider.SelectedItem as MapProviders.MapProviderEntry)?.Name;
 		}
 		#endregion
 
