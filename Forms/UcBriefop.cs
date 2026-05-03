@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopBriefing;
 using DcsBriefop.Tools;
+using System.ComponentModel;
 
 namespace DcsBriefop.Forms
 {
@@ -10,10 +11,11 @@ namespace DcsBriefop.Forms
 		private BriefopManager m_briefopManager;
 
 		private GridManagerBriefingFolders m_gridManagerBriefingFolders;
-		#endregion
+        #endregion
 
-		#region Properties
-		public BriefopManager BriefopManager
+        #region Properties
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public BriefopManager BriefopManager
 		{
 			private get { return m_briefopManager; }
 			set

@@ -2,6 +2,7 @@
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
+using System.ComponentModel;
 
 namespace DcsBriefop.Forms
 {
@@ -12,10 +13,11 @@ namespace DcsBriefop.Forms
 		protected BopUnit m_bopUnit;
 
 		private UcGroupUnits m_ucParentGroupUnits;
-		#endregion
+        #endregion
 
-		#region Properties
-		public BopUnit BopUnit
+        #region Properties
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public BopUnit BopUnit
 		{
 			protected get { return m_bopUnit; }
 			set

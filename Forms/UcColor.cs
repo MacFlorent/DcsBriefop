@@ -1,8 +1,5 @@
 ﻿using DcsBriefop.Tools;
-using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
@@ -11,7 +8,8 @@ namespace DcsBriefop.Forms
 		#region Properties
 		private Color m_defaultColor = Color.Black;
 		private Color? m_color;
-		public Color? SelectedColor
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Color? SelectedColor
 		{
 			get { return m_color; }
 			set
@@ -28,7 +26,8 @@ namespace DcsBriefop.Forms
 			}
 		}
 
-		public string SelectedColorHtml
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string SelectedColorHtml
 		{
 			get
 			{

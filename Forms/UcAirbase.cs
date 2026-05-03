@@ -3,7 +3,7 @@ using DcsBriefop.DataBopMission;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using GMap.NET;
-using GMap.NET.WindowsForms;
+using System.ComponentModel;
 
 namespace DcsBriefop.Forms
 {
@@ -13,10 +13,11 @@ namespace DcsBriefop.Forms
 		private BriefopManager m_briefopManager;
 		private BopAirbase m_bopAirbase;
 		private GridManagerAirbaseRadios m_gridManagerAirbaseRadios;
-		#endregion
+        #endregion
 
-		#region Properties
-		public BopAirbase BopAirbase
+        #region Properties
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public BopAirbase BopAirbase
 		{
 			protected get { return m_bopAirbase; }
 			set

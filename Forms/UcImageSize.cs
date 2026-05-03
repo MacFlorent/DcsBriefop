@@ -1,8 +1,5 @@
 ﻿using DcsBriefop.Tools;
-using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace DcsBriefop.Forms
 {
@@ -10,7 +7,9 @@ namespace DcsBriefop.Forms
 	{
 		#region Properties
 		private Size m_size = new Size(1, 1);
-		public Size SelectedSize
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Size SelectedSize
 		{
 			get { return m_size; }
 			set

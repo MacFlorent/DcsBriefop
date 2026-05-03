@@ -1,6 +1,7 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
+using System.ComponentModel;
 
 namespace DcsBriefop.Forms
 {
@@ -9,10 +10,11 @@ namespace DcsBriefop.Forms
 		#region Fields
 		protected BriefopManager m_briefopManager;
 		protected BopRoutePoint m_bopRoutePoint;
-		#endregion
+        #endregion
 
-		#region Properties
-		public BopRoutePoint BopRoutePoint
+        #region Properties
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public BopRoutePoint BopRoutePoint
 		{
 			protected get { return m_bopRoutePoint; }
 			set

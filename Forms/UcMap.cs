@@ -4,6 +4,7 @@ using DcsBriefop.Tools;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
+using System.ComponentModel;
 
 //https://stackoverflow.com/questions/9308673/how-to-draw-circle-on-the-map-using-gmap-net-in-c-sharp
 //http://www.independent-software.com/gmap-net-beginners-tutorial-maps-markers-polygons-routes-updated-for-vs2015-and-gmap1-7.html
@@ -16,12 +17,15 @@ namespace DcsBriefop.Forms
 		#region Fields
 		private GMapProvider m_mapProvider;
 		private GMapOverlay m_mapOverlay;
-		#endregion
+        #endregion
 
-		#region Properties
-		public MizBopMap MapData { get; set; }
-		public IEnumerable<GMapOverlay> StaticOverlays { get; set; }
-		public string MapProviderName
+        #region Properties
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public MizBopMap MapData { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public IEnumerable<GMapOverlay> StaticOverlays { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string MapProviderName
 		{
 			get { return m_mapProvider.Name; }
 			set { m_mapProvider = MapProviders.TryGetProvider(value); }
