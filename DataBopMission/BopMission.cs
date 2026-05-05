@@ -2,7 +2,7 @@
 using DcsBriefop.DataBopBriefing;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
-using GMap.NET.WindowsForms;
+using Mapsui.Layers;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -135,11 +135,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public GMapOverlay BuildStaticMapOverlay()
+		public MemoryLayer BuildStaticLayer()
 		{
-			GMapOverlay staticMapOverlay = new GMapOverlay();
-			ToolsMap.AddMizDrawingLayers(Theatre, staticMapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
-			return staticMapOverlay;
+			return ToolsMap.BuildMizDrawingLayer(Theatre, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
 		}
 
 		public void SetBullseyeRoutePoint()

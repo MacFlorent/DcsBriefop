@@ -138,8 +138,8 @@
 		public static readonly int MaxZoom = 18;
 		public static readonly string OverlayStatic = "static";
 
-		public static readonly Font DefaultFont = new Font("Arial", 11);
-		public static readonly Pen PenSelected = new Pen(Color.Blue, 1);
-		public static readonly Pen PenMouseOver = new Pen(Color.CadetBlue, 1);
+		public static readonly Font DefaultFont = new("Arial", 11);
+		public static readonly Pen PenSelected = new(Color.Blue, 1);
+		public static readonly Pen PenMouseOver = new(Color.CadetBlue, 1);
 	}
 }

@@ -5,6 +5,9 @@ using DcsBriefop.Map;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
+using Mapsui;
+using Mapsui.Layers;
+using Mapsui.Rendering.Skia;
 using Mapsui.UI.WindowsForms;
 using System.Drawing.Drawing2D;
 using System.Net;
@@ -21,6 +24,10 @@ namespace DcsBriefop.Tools
 
 			mapControl.Map.Layers.Clear();
 			mapControl.Map.Layers.Add(MapProviders.CreateTileLayer(sProviderName));
+
+			MapRenderer.RegisterStyleRenderer(typeof(BriefopMarkerStyle), new BriefopMarkerStyleRenderer());
+			MapRenderer.RegisterStyleRenderer(typeof(BriefopLineStyle), new BriefopLineStyleRenderer());
+			MapRenderer.RegisterStyleRenderer(typeof(BriefopLabelStyle), new BriefopLabelStyleRenderer());
 		}
 
 		// TODO Phase 5: remove once UcGroup and UcAirbase are migrated to Mapsui
@@ -129,92 +136,89 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region MizDrawings
-		public static void AddMizDrawingLayers(Theatre theatre, GMapOverlay overlay, List<MizDrawingLayer> drawingLayers)
+		public static MemoryLayer BuildMizDrawingLayer(Theatre theatre, List<MizDrawingLayer> drawingLayers)
 		{
+			List<IFeature> features = [];
 			foreach (MizDrawingLayer drawingLayer in drawingLayers)
-			{
-				AddMizDrawingLayer(theatre, overlay, drawingLayer);
-			}
+				AddMizDrawingLayerFeatures(theatre, features, drawingLayer);
+			return new MemoryLayer { Features = features };
 		}
 
-		public static void AddMizDrawingLayer(Theatre theatre, GMapOverlay overlay, MizDrawingLayer drawingLayer)
+		private static void AddMizDrawingLayerFeatures(Theatre theatre, List<IFeature> features, MizDrawingLayer drawingLayer)
 		{
 			foreach (MizDrawingObject drawingObject in drawingLayer.Objects)
 			{
 				if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Line)
-					AddMizDrawingObjectLine(theatre, overlay, drawingObject, drawingObject.Closed.GetValueOrDefault(false));
+					AddMizDrawingObjectLine(theatre, features, drawingObject, drawingObject.Closed.GetValueOrDefault(false));
 				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Icon)
-					AddMizDrawingObjectIcon(theatre, overlay, drawingObject);
+					AddMizDrawingObjectIcon(theatre, features, drawingObject);
 				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.TextBox)
-					AddMizDrawingObjectText(theatre, overlay, drawingObject);
+					AddMizDrawingObjectText(theatre, features, drawingObject);
 				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Polygon)
-					AddMizDrawingObjectPolygon(theatre, overlay, drawingObject);
+					AddMizDrawingObjectPolygon(theatre, features, drawingObject);
 			}
 		}
 
-		private static void AddMizDrawingObjectLine(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject, bool bClosed)
+		private static void AddMizDrawingObjectLine(Theatre theatre, List<IFeature> features, MizDrawingObject drawingObject, bool bClosed)
 		{
-			List<PointLatLng> points = new List<PointLatLng>();
+			List<GeoPoint> points = [];
 			foreach (MizDrawingPoint point in drawingObject.Points)
 			{
 				double dY = drawingObject.MapY + point.Y;
 				double dX = drawingObject.MapX + point.X;
 				Coordinate coordinate = theatre.GetCoordinate(dX, dY);
-				PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
-				points.Add(p);
+				points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 			}
 
-			GLineBriefop line = GLineBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), bClosed, ColorFromDcsString(drawingObject.FillColorString));
-			overlay.Routes.Add(line);
+			BriefopLine line = BriefopLine.NewFromMizStyleName(points, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), bClosed, ColorFromDcsString(drawingObject.FillColorString));
+			Mapsui.Nts.GeometryFeature feature = line.ToGeometryFeature();
+			if (feature is not null)
+				features.Add(feature);
 		}
 
-		private static void AddMizDrawingObjectIcon(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		private static void AddMizDrawingObjectIcon(Theatre theatre, List<IFeature> features, MizDrawingObject drawingObject)
 		{
 			Coordinate coordinate = theatre.GetCoordinate(drawingObject.MapX, drawingObject.MapY);
-			PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
-
-			GMarkerBriefop marker = GMarkerBriefop.NewFromMizStyleName(p, drawingObject.File, ColorFromDcsString(drawingObject.ColorString), drawingObject.Name, drawingObject.Scale.GetValueOrDefault(1), drawingObject.Angle.GetValueOrDefault(0));
-			overlay.Markers.Add(marker);
+			GeoPoint p = new(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+			BriefopMarker marker = BriefopMarker.NewFromMizStyleName(p, drawingObject.File, ColorFromDcsString(drawingObject.ColorString), drawingObject.Name, drawingObject.Scale.GetValueOrDefault(1), (int)drawingObject.Angle.GetValueOrDefault(0));
+			PointFeature feature = new(MapProjection.ToMPoint(marker.Position));
+			feature.Styles.Add(new BriefopMarkerStyle(marker));
+			features.Add(feature);
 		}
 
-		private static void AddMizDrawingObjectText(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		private static void AddMizDrawingObjectText(Theatre theatre, List<IFeature> features, MizDrawingObject drawingObject)
 		{
 			Coordinate coordinate = theatre.GetCoordinate(drawingObject.MapX, drawingObject.MapY);
-			PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+			GeoPoint p = new(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
 
 			float fFontSize = 11;
-			if (drawingObject.FontSize is object)
+			if (drawingObject.FontSize is not null)
 			{
-				fFontSize = drawingObject.FontSize.Value - 3;
+				fFontSize = (float)(drawingObject.FontSize.Value - 3);
 				if (fFontSize < 1)
 					fFontSize = 1;
 			}
-			Font font = new Font(drawingObject.Font, fFontSize);
 
-			GTextBriefop text = new GTextBriefop(p, drawingObject.Text, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), font, drawingObject.Angle.GetValueOrDefault(0), drawingObject.BorderThickness.GetValueOrDefault(0));
-			overlay.Markers.Add(text);
+			BriefopLabel label = new(p, drawingObject.Text, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), drawingObject.Font, fFontSize, drawingObject.Angle.GetValueOrDefault(0), drawingObject.BorderThickness.GetValueOrDefault(0));
+			features.Add(label.ToPointFeature());
 		}
 
-		private static void AddMizDrawingObjectPolygon(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		private static void AddMizDrawingObjectPolygon(Theatre theatre, List<IFeature> features, MizDrawingObject drawingObject)
 		{
-			//http://www.independent-software.com/gmap-net-tutorial-maps-markers-and-polygons.html/
-			//https://stackoverflow.com/questions/9308673/how-to-draw-circle-on-the-map-using-gmap-net-in-c-sharp
-
 			if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Rectangle)
-				AddMizDrawingObjectRectangle(theatre, overlay, drawingObject);
+				AddMizDrawingObjectRectangle(theatre, features, drawingObject);
 			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Free)
-				AddMizDrawingObjectLine(theatre, overlay, drawingObject, true);
+				AddMizDrawingObjectLine(theatre, features, drawingObject, true);
 			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Oval || drawingObject.PolygonMode == ElementDrawingPolygonMode.Circle)
-				AddMizDrawingObjectOval(theatre, overlay, drawingObject);
+				AddMizDrawingObjectOval(theatre, features, drawingObject);
 		}
 
-		private static void AddMizDrawingObjectRectangle(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		private static void AddMizDrawingObjectRectangle(Theatre theatre, List<IFeature> features, MizDrawingObject drawingObject)
 		{
 			double dHalfWidth = drawingObject.Width.GetValueOrDefault() / 2;
 			double dHalfHeight = drawingObject.Height.GetValueOrDefault() / 2;
 
-			List<PointLatLng> points = new List<PointLatLng>();
-
+			List<GeoPoint> points = [];
 			double dY, dX, dYRotated, dXRotated;
 			Coordinate coordinate;
 
@@ -222,33 +226,34 @@ namespace DcsBriefop.Tools
 			dX = drawingObject.MapX - dHalfHeight;
 			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
 			coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
-			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
+			points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			dY = drawingObject.MapY + dHalfWidth;
 			dX = drawingObject.MapX - dHalfHeight;
 			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
 			coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
-			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
+			points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			dY = drawingObject.MapY + dHalfWidth;
 			dX = drawingObject.MapX + dHalfHeight;
 			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
 			coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
-			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
+			points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			dY = drawingObject.MapY - dHalfWidth;
 			dX = drawingObject.MapX + dHalfHeight;
 			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
 			coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
-			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
+			points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
-			GLineBriefop route = GLineBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), true, ColorFromDcsString(drawingObject.FillColorString));
-			overlay.Routes.Add(route);
+			BriefopLine route = BriefopLine.NewFromMizStyleName(points, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), true, ColorFromDcsString(drawingObject.FillColorString));
+			Mapsui.Nts.GeometryFeature feature = route.ToGeometryFeature();
+			if (feature is not null)
+				features.Add(feature);
 		}
 
-		private static void AddMizDrawingObjectOval(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		private static void AddMizDrawingObjectOval(Theatre theatre, List<IFeature> features, MizDrawingObject drawingObject)
 		{
-			//https://www.mathopenref.com/coordcirclealgorithm.html
 			double dCenterY = (double)drawingObject.MapY;
 			double dCenterX = (double)drawingObject.MapX;
 
@@ -264,19 +269,21 @@ namespace DcsBriefop.Tools
 				dSquashRatio = 1;
 			}
 
-			List<PointLatLng> points = new List<PointLatLng>();
+			List<GeoPoint> points = [];
 			double dStep = 2 * Math.PI / 30;
 			for (double dAngle = 0d; dAngle < 2 * Math.PI; dAngle += dStep)
 			{
 				double dY = dCenterY + dSquashRatio * dRadius * Math.Cos(dAngle);
-				double dX = dCenterX - dRadius * Math.Sin(dAngle);    //note 2.
+				double dX = dCenterX - dRadius * Math.Sin(dAngle);
 				RotateDcsYX(out double dYRotated, out double dXRotated, dY, dX, dCenterY, dCenterX, drawingObject.Angle);
 				Coordinate coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
-				points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
+				points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 			}
 
-			GLineBriefop route = GLineBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), true, ColorFromDcsString(drawingObject.FillColorString));
-			overlay.Routes.Add(route);
+			BriefopLine route = BriefopLine.NewFromMizStyleName(points, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), true, ColorFromDcsString(drawingObject.FillColorString));
+			Mapsui.Nts.GeometryFeature feature = route.ToGeometryFeature();
+			if (feature is not null)
+				features.Add(feature);
 		}
 
 		private static void RotateDcsYX(out double dRotatedY, out double dRotatedX, double dY, double dX, double dCenterY, double dCenterX, double? dAngleDegrees)

@@ -177,26 +177,17 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Map
+		// TODO Phase 4: rewrite using Mapsui/BruTile tile fetching; replace GMapProvider with ITileSource
 		public Image BuildMapImage(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			GMapProvider mapProvider = GMapProviders.TryGetProvider(bopManager.BopMission.PreferencesMap.ProviderName);
 			return ToolsMap.GenerateMapImage(MapData, mapProvider, GetMapAdditionalOverlays(bopManager, bopBriefingFolder), bopBriefingFolder.ImageSize);
 		}
 
+		// TODO Phase 4: remove once BuildMapImage is migrated to use GetMapAdditionalLayers
 		public IEnumerable<GMapOverlay> GetMapAdditionalOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<GMapOverlay> additionalOverlays = new List<GMapOverlay>();
-
-			if (MapIncludeBaseOverlays)
-			{
-				additionalOverlays.Add(bopManager.BopMission.BuildStaticMapOverlay());
-				additionalOverlays.Add(bopManager.BopMission.MapData.BuildCustomMapOverlay());
-				if (bopManager.BopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName ?? "", out BopCoalition bopCoalition))
-				{
-					additionalOverlays.Add(bopCoalition.BuildStaticMapOverlay());
-					additionalOverlays.Add(bopCoalition.MapData.BuildCustomMapOverlay());
-				}
-			}
 
 			foreach (BaseBopBriefingPart bopBriefingPart in Parts)
 			{
@@ -206,6 +197,26 @@ namespace DcsBriefop.DataBopBriefing
 			}
 
 			return additionalOverlays;
+		}
+
+		public IEnumerable<Mapsui.Layers.ILayer> GetMapAdditionalLayers(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		{
+			List<Mapsui.Layers.ILayer> layers = [];
+
+			if (MapIncludeBaseOverlays)
+			{
+				layers.Add(bopManager.BopMission.BuildStaticLayer());
+				layers.Add(bopManager.BopMission.MapData.BuildCustomLayer());
+				if (bopManager.BopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName ?? "", out BopCoalition bopCoalition))
+				{
+					layers.Add(bopCoalition.BuildStaticLayer());
+					layers.Add(bopCoalition.MapData.BuildCustomLayer());
+				}
+			}
+
+			// TODO Phase 5: add bopBriefingPart.BuildMapLayers when briefing parts are migrated from GMapOverlay
+
+			return layers;
 		}
 		#endregion
 

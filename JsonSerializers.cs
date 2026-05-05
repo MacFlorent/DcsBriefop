@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Map;
+using DcsBriefop.Data;
+using DcsBriefop.Map;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
@@ -6,6 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DcsBriefop
 {
+	// TODO Phase 3: remove GMapOverlayJsonConverter once static overlays are migrated to Mapsui layers
 	internal class GMapOverlayJsonConverter : JsonConverter<GMapOverlay>
 	{
 		private static class JsonNode
@@ -22,10 +24,8 @@ namespace DcsBriefop
 				JArray ja = new JArray();
 				foreach (var marker in value.Markers)
 				{
-					if (marker is GMarkerBriefop markerBriefop)
-						ja.Add(JToken.FromObject(markerBriefop, serializer));
+					ja.Add(JToken.FromObject(marker, serializer));
 				}
-
 				jo[JsonNode.Markers] = ja;
 			}
 
@@ -34,11 +34,10 @@ namespace DcsBriefop
 				JArray ja = new JArray();
 				foreach (GMapRoute gmr in value.Routes)
 					ja.Add(JToken.FromObject(gmr, serializer));
-
 				jo[JsonNode.Routes] = ja;
 			}
 
-			jo.WriteTo(writer, new GMarkerBriefopJsonConverter());
+			jo.WriteTo(writer);
 		}
 
 		public override GMapOverlay ReadJson(JsonReader reader, Type objectType, GMapOverlay existingValue, bool hasExistingValue, JsonSerializer serializer)
@@ -48,11 +47,6 @@ namespace DcsBriefop
 			JToken token = JToken.Load(reader);
 			if (token.HasValues)
 			{
-				if (token[JsonNode.Markers] is object)
-				{
-					foreach (GMarkerBriefop gmb in token[JsonNode.Markers].ToObject<List<GMarkerBriefop>>(serializer))
-						gmo.Markers.Add(gmb);
-				}
 				if (token[JsonNode.Routes] is object)
 				{
 					foreach (GMapRoute gmr in token[JsonNode.Routes].ToObject<List<GMapRoute>>(serializer))
@@ -63,7 +57,7 @@ namespace DcsBriefop
 		}
 	}
 
-	public class GMarkerBriefopJsonConverter : JsonConverter<GMarkerBriefop>
+	internal class BriefopMarkerJsonConverter : JsonConverter<BriefopMarker>
 	{
 		private static class JsonNode
 		{
@@ -76,12 +70,12 @@ namespace DcsBriefop
 			public static readonly string Color = "color";
 		}
 
-		public override void WriteJson(JsonWriter writer, GMarkerBriefop value, JsonSerializer serializer)
+		public override void WriteJson(JsonWriter writer, BriefopMarker value, JsonSerializer serializer)
 		{
 			JObject jo = new JObject();
-			jo.Add(new JProperty(JsonNode.Latitude, value.Position.Lat));
-			jo.Add(new JProperty(JsonNode.Longitude, value.Position.Lng));
-			jo.Add(new JProperty(JsonNode.Template, value.MarkerTemplate));
+			jo.Add(new JProperty(JsonNode.Latitude, value.Position.Latitude));
+			jo.Add(new JProperty(JsonNode.Longitude, value.Position.Longitude));
+			jo.Add(new JProperty(JsonNode.Template, value.TemplateName));
 			jo.Add(new JProperty(JsonNode.Scale, value.Scale));
 			jo.Add(new JProperty(JsonNode.Angle, value.Angle));
 
@@ -93,11 +87,11 @@ namespace DcsBriefop
 			jo.WriteTo(writer);
 		}
 
-		public override GMarkerBriefop ReadJson(JsonReader reader, Type objectType, GMarkerBriefop existingValue, bool hasExistingValue, JsonSerializer serializer)
+		public override BriefopMarker ReadJson(JsonReader reader, Type objectType, BriefopMarker existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
 			JToken token = JToken.Load(reader);
-			double lat = token[JsonNode.Latitude].Value<double>();
-			double lng = token[JsonNode.Longitude].Value<double>();
+			double dLat = token[JsonNode.Latitude].Value<double>();
+			double dLng = token[JsonNode.Longitude].Value<double>();
 			string sMarkerType = token[JsonNode.Template].Value<string>();
 			int iScale = token[JsonNode.Scale].Value<int>();
 			int iAngle = token[JsonNode.Angle].Value<int>();
@@ -108,7 +102,7 @@ namespace DcsBriefop
 
 			string sLabel = token[JsonNode.Label].Value<string>();
 
-			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(lat, lng), sMarkerType, tintColor, sLabel, iScale, iAngle);
+			return BriefopMarker.NewFromTemplateName(new GeoPoint(dLat, dLng), sMarkerType, tintColor, sLabel, iScale, iAngle);
 		}
 	}
 }

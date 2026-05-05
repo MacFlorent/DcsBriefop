@@ -12,7 +12,7 @@ namespace DcsBriefop.Map
 		public static string DashDash { get; set; } = "DashDash";
 	}
 
-	public class MapTemplateLine
+	internal class MapTemplateLine
 	{
 		#region Fields
 		#endregion

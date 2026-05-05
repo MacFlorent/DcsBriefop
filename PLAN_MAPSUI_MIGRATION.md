@@ -44,6 +44,13 @@ These differ from the 4.x docs and from what the plan originally said.
 | `KnownTileSource` values | `OpenStreetMap`, `EsriWorldTopo`, `EsriWorldPhysical`, `EsriWorldShadedRelief`, `BingAerial/Hybrid/Roads` (no `EsriWorldStreetMap`, `EsriWorldImagery`, `OpenStreetMapDE`) |
 | Custom tile URL | Implement `IUrlBuilder` with `Uri GetUrl(TileInfo)` — `TileInfo.Extent` gives EPSG:3857 bbox directly |
 | `HttpTileSource` ctor | `new HttpTileSource(ITileSchema, IUrlBuilder, string name, null, null, null)` — last 3 params required, pass null |
+| Register custom renderer | `MapRenderer.RegisterStyleRenderer(Type, IStyleRenderer)` — **static**, call once in `InitializeMapControl` |
+| `viewport.WorldToScreen(MPoint)` | Returns `Mapsui.Manipulations.ScreenPosition` (not `MPoint`) — access `.X` / `.Y` |
+| `IFeature` namespace | `Mapsui` (not `Mapsui.Layers`) |
+| `PointFeature`, `MemoryLayer` | `Mapsui.Layers` |
+| Set map renderer | `mapControl.SetMapRenderer(IMapRenderer)` — not needed when using static `RegisterStyleRenderer` |
+| `MemoryLayer` redraw | `layer.DataHasChanged()` — fires `DataChanged` event, triggers repaint |
+| Drag a feature | Mutate `feature.Point.X`/`.Y` then call `feature.Modified()` + `layer.DataHasChanged()` |
 
 ---
 
@@ -69,7 +76,7 @@ These differ from the 4.x docs and from what the plan originally said.
 
 ### `Data/GeoPoint.cs` ✅
 ```csharp
-internal readonly struct GeoPoint(double dLat, double dLng)
+public readonly struct GeoPoint(double dLat, double dLng)  // public: required by BriefopMarker public API
 {
     public double Latitude { get; } = dLat;
     public double Longitude { get; } = dLng;
@@ -114,78 +121,67 @@ double dWorldY = viewport.CenterY - (dScreenY - viewport.Height / 2.0) * viewpor
 
 ---
 
-## Phase 2 — Markers ⬜ Next
+## Phase 2 — Markers ✅ Done
 
-**Goal:** Port `GMarkerBriefop` and `GTextBriefop` to Mapsui point features with SkiaSharp rendering. Restore marker display in `FrmTheatre` and `UcMap`. Wire marker click/hover/drag.
+**Goal:** Port `GMarkerBriefop` to Mapsui point features with SkiaSharp rendering. Restore marker display in `UcMap`. Wire marker click/hover/drag.
 
-**Files to create:**
-- `Map/BriefopMarker.cs` — plain data class, replaces `GMarkerBriefop`
-- `Map/BriefopTextMarker.cs` — plain data class, replaces `GTextBriefop`
-- `Map/BriefopMarkerStyle.cs` — `class BriefopMarkerStyle : BaseStyle`
-- `Map/BriefopMarkerStyleRenderer.cs` — `ISkiaSharpStyleRenderer`, ports GDI+ `OnRender` to SkiaSharp
-- `Map/BriefopTextStyle.cs` + `Map/BriefopTextStyleRenderer.cs` — same for text markers
+**Files created:**
+- [Map/BriefopMarker.cs](Map/BriefopMarker.cs) ✅ — `public class BriefopMarker`; `GetSkBitmap()` converts GDI+ → SkiaSharp lazily; `GetSizeWidth/Height/OffsetX/OffsetY()` expose template geometry
+- [Map/BriefopMarkerStyle.cs](Map/BriefopMarkerStyle.cs) ✅ — `internal class BriefopMarkerStyle : BaseStyle`; holds ref to `BriefopMarker`
+- [Map/BriefopMarkerStyleRenderer.cs](Map/BriefopMarkerStyleRenderer.cs) ✅ — `ISkiaStyleRenderer`; ports GDI+ `OnRender` to SkiaSharp; draws rotated bitmap, label, selection/hover rect
 
-**Files to update:**
-- [DataMiz/MizBopMap.cs](DataMiz/MizBopMap.cs) — `CustomMarkers: List<GMarkerBriefop>` → `List<BriefopMarker>`; `BuildCustomMapOverlay()` → `BuildCustomLayer() -> MemoryLayer`
-- [JsonSerializers.cs](JsonSerializers.cs) — `GMarkerBriefopJsonConverter` → `BriefopMarkerJsonConverter`; `GMapOverlayJsonConverter` → `BriefopLayerJsonConverter`
-- [Forms/FrmTheatre.cs](Forms/FrmTheatre.cs) — restore theatre centre + airdrome markers via `MemoryLayer`; restore airdrome click via `MapControl.Info` event
-- [Forms/UcMap.cs](Forms/UcMap.cs) — restore `DataToOverlay`, `OverlayToData`, `AddMarker`, `DeleteMarker`, `SelectMarker`; wire `MapControl.Info` for click/hover
-- [Forms/UcMarkerDetail.cs](Forms/UcMarkerDetail.cs) — change constructor `(GMarkerBriefop, GMapControl)` → `(BriefopMarker, Action refreshMap)`
+**Files updated:**
+- [DataMiz/MizBopMap.cs](DataMiz/MizBopMap.cs) ✅ — `CustomMarkers: List<BriefopMarker>`; `BuildCustomLayer() -> MemoryLayer` (new, Mapsui); `BuildCustomMapOverlay()` kept as TODO Phase 4 stub for `GenerateMapImage`
+- [JsonSerializers.cs](JsonSerializers.cs) ✅ — added `BriefopMarkerJsonConverter`; removed `GMarkerBriefopJsonConverter`; `GMapOverlayJsonConverter` kept with TODO Phase 3 comment (no longer serializes markers)
+- [DataMiz/BaseMizBopSerializable.cs](DataMiz/BaseMizBopSerializable.cs) ✅ — `m_converterBriefopMarker` replaces `m_converterGMarkerBriefop`
+- [Tools/ToolsMap.cs](Tools/ToolsMap.cs) ✅ — added `MapRenderer.RegisterStyleRenderer(typeof(BriefopMarkerStyle), new BriefopMarkerStyleRenderer())` call in `InitializeMapControl`
+- [Forms/UcMap.cs](Forms/UcMap.cs) ✅ — full marker interaction: `DataToOverlay`, `HitTestMarker`, `SelectMarker`, mouse down/up/click/move/keyup; `m_markerFeatures` dict for fast feature lookup during drag
+- [Forms/UcMarkerDetail.cs](Forms/UcMarkerDetail.cs) ✅ — constructor changed to `(BriefopMarker, Action refreshMap)`
 
-**Key design notes:**
+**Verified API facts (Mapsui 5.0.2):**
+- `MapRenderer.RegisterStyleRenderer(Type, IStyleRenderer)` is **static** — no `mapControl.Renderer` needed
+- `viewport.WorldToScreen(MPoint)` returns `Mapsui.Manipulations.ScreenPosition` (not `MPoint`) — use `.X` and `.Y` properties
+- `IFeature` is in `Mapsui` namespace; `PointFeature`, `MemoryLayer` are in `Mapsui.Layers`
+- `mapControl.SetMapRenderer(IMapRenderer)` exists but not needed since `RegisterStyleRenderer` is static
 
-`BriefopMarker` is a plain data holder (no `GMapMarker` base):
-```csharp
-internal class BriefopMarker
-{
-    public GeoPoint Position { get; set; }
-    public string TemplateName { get; set; }
-    public Color? TintColor { get; set; }
-    public string Label { get; set; }
-    public int iScale { get; set; }
-    public int iAngle { get; set; }
-    public bool IsHovered { get; set; }
-    public bool IsSelected { get; set; }
-    public bool IsPressed { get; set; }
-
-    public PointFeature ToPointFeature() { ... }
-}
-```
-
-`BriefopMarkerStyleRenderer` ports `GMarkerBriefop.OnRender(Graphics g)` to SkiaSharp:
-- Load template bitmap as `SKBitmap` (from same `Resources/Markers/` path)
-- Rotation: `canvas.RotateDegrees(iAngle)`
-- Tint: `SKColorFilter.CreateBlendMode(color, SKBlendMode.SrcIn)`
-- Label: `canvas.DrawText(...)` with `SKPaint`
-
-Registration at startup: `SkiaStyleRendererRegistry.Instance.Register(typeof(BriefopMarkerStyle), new BriefopMarkerStyleRenderer())`.
-
-`UcMap` marker interaction replaces the three GMap events (`OnMarkerClick`, `OnMarkerEnter`, `OnMarkerLeave`) with a single `MapControl.Info` event handler that inspects `e.MapInfo.Feature["data"]`.
-
-**JSON compatibility:** Keep field names `lat`, `lng`, `template`, `scale`, `angle`, `color`, `label` — existing saved files stay valid. Drop `ISerializable`/`IDeserializationCallback` (binary serialization, unused).
+**Deferred to later phases:**
+- `GTextBriefop` → `BriefopTextMarker` (Phase 3, static overlays)
+- Theatre centre + airdrome markers in `FrmTheatre.cs` (still TODO Phase 2 comment in code)
+- Drag in Mapsui: `MPoint.X`/`.Y` are mutable, `feature.Point.X/Y = newVal` + `feature.Modified()` triggers redraw
 
 ---
 
-## Phase 3 — Lines ⬜
+## Phase 3 — Lines ✅ Done
 
-**Goal:** Port `GLineBriefop` to `GeometryFeature` (NTS LineString) with custom SkiaSharp renderer. Update `ToolsMap.AddMizDrawingObject*`. Change `UcMap.StaticOverlays` type.
+**Goal:** Port `GLineBriefop` to `GeometryFeature` (NTS LineString) with custom SkiaSharp renderer. Port `GTextBriefop` to `BriefopLabel`. Update `ToolsMap.BuildMizDrawingLayer`. Change `UcMap.StaticOverlays` type.
 
-**Files to create:**
-- `Map/BriefopLine.cs` — plain data class; `ToGeometryFeature() -> GeometryFeature`
-- `Map/BriefopLineStyle.cs` + `Map/BriefopLineStyleRenderer.cs`
+**Files created:**
+- [Map/BriefopLine.cs](Map/BriefopLine.cs) ✅ — data class; `ToGeometryFeature() -> GeometryFeature`; lazy SKBitmap from template; factory methods matching `GLineBriefop`
+- [Map/BriefopLineStyle.cs](Map/BriefopLineStyle.cs) ✅ — `class BriefopLineStyle : BaseStyle`; holds `BriefopLine`
+- [Map/BriefopLineStyleRenderer.cs](Map/BriefopLineStyleRenderer.cs) ✅ — `ISkiaStyleRenderer`; ports all 3 render paths: dash/solid stroke, bitmap texture tiling, text panel with optional arrow; fill drawn before outline
+- [Map/BriefopLabel.cs](Map/BriefopLabel.cs) ✅ — replaces `GTextBriefop`; anchored bottom-left; `ToPointFeature()` → `PointFeature` with `BriefopLabelStyle`
+- [Map/BriefopLabelStyle.cs](Map/BriefopLabelStyle.cs) ✅
+- [Map/BriefopLabelStyleRenderer.cs](Map/BriefopLabelStyleRenderer.cs) ✅ — `ISkiaStyleRenderer`; bottom-left anchor; background fill + border
 
-**Files to update:**
-- [Map/GLineBriefop.cs](Map/GLineBriefop.cs) — replace with `BriefopLine.cs`
-- [Tools/ToolsMap.cs](Tools/ToolsMap.cs) — rewrite `AddMizDrawingObject*` methods
-- [Forms/UcMap.cs](Forms/UcMap.cs) — change `StaticOverlays: IEnumerable<GMapOverlay>` → `IEnumerable<ILayer>`; restore `DataToOverlay` for static layers
-- All callers that pass `GMapOverlay` as `StaticOverlays` (BopCoalition, BopMission, BopBriefingPage)
+**Files updated:**
+- [Tools/ToolsMap.cs](Tools/ToolsMap.cs) ✅ — `BuildMizDrawingLayer(Theatre, List<MizDrawingLayer>) -> MemoryLayer`; all `AddMizDrawingObject*` fill `List<IFeature>`; icons → `BriefopMarker`+`PointFeature`; text → `BriefopLabel.ToPointFeature()`; lines/polys → `BriefopLine.ToGeometryFeature()`; registered `BriefopLineStyle` and `BriefopLabelStyle` renderers in `InitializeMapControl`
+- [DataBopMission/BopCoalition.cs](DataBopMission/BopCoalition.cs) ✅ — `BuildStaticMapOverlay` → `BuildStaticLayer() -> MemoryLayer`; bullseye uses `BriefopMarker`+`PointFeature`+`BriefopMarkerStyle`
+- [DataBopMission/BopMission.cs](DataBopMission/BopMission.cs) ✅ — `BuildStaticMapOverlay` → `BuildStaticLayer() -> MemoryLayer`
+- [DataBopBriefing/BopBriefingPage.cs](DataBopBriefing/BopBriefingPage.cs) ✅ — added `GetMapAdditionalLayers() -> IEnumerable<ILayer>`; `GetMapAdditionalOverlays` kept (stripped of base layers) for `BuildMapImage` (Phase 4); `BuildMapImage` marked TODO Phase 4
+- [Forms/UcMap.cs](Forms/UcMap.cs) ✅ — `StaticOverlays: IEnumerable<ILayer>`; `m_staticLayers` field tracks layers for cleanup; `DataToOverlay` removes+re-adds static layers under custom marker layer for correct z-order
+- [Forms/FrmMissionMaps.cs](Forms/FrmMissionMaps.cs) ✅ — calls `BuildStaticLayer()`
+- [Forms/UcBriefingPage.cs](Forms/UcBriefingPage.cs) ✅ — calls `GetMapAdditionalLayers()`
 
-**Renderer complexity note:** `GLineBriefop.Render` has three sub-paths to port:
-- `DrawSegment` — dashed/solid stroke → `SKPath` + `SKPaint` + `SKPathEffect.CreateDash()`
-- `DrawSegmentBitmap` — repeating bitmap texture along segment → `SKShader.CreateBitmap`
-- `DrawPanel` — text annotation box with optional arrow → `SKCanvas.DrawRect` + `DrawText` with rotation
+**Verified API facts (Mapsui 5.0.2):**
+- `WorldToScreen` is an extension method in `Mapsui.Extensions` — requires `using Mapsui.Extensions`
+- `Mapsui.Styles.Color` conflicts with `System.Drawing.Color` — resolve with `using Color = System.Drawing.Color` alias in renderer files
+- `GeometryFeature(Geometry)` ctor + `Geometry.Coordinates` returns `Coordinate[]` (NTS)
+- NTS `GeometryFactory.CreateLineString(Coordinate[])` requires ≥ 2 coordinates
 
-Polygon fill (currently commented out at `ToolsMap.cs:395-433`) restores via closed `Polygon` geometry + `IsFilled = true` on the style.
+**Deferred to Phase 5:**
+- `GLineBriefop.cs`, `GTextBriefop.cs`, `GMarkerBriefop.cs` — still compiled for Phase 4 image generation stubs
+- `BaseBopBriefingPart.BuildMapOverlays` (and subclass impls) — still returns `GMapOverlay`; not yet added to `GetMapAdditionalLayers` (TODO Phase 5 comment in `BopBriefingPage`)
+- `JsonSerializers.GMapOverlayJsonConverter` — kept for backward-compat read of old JSON
 
 ---
 
@@ -246,10 +242,11 @@ After all substitutions: remove `GMap.NET.Core` and `GMap.NET.WinForms` from `Dc
 Shared infra ──► Phase 1 (tiles) ✅
                      │
                      ▼
-                 Phase 2 (markers) ⬜  ← next
+                 Phase 2 (markers) ✅
                      │
                      ▼
-                 Phase 3 (lines)  ⬜      Phase 4 (offline gen) ⬜
+                 Phase 3 (lines)  ✅              Phase 4 (offline gen) ⬜  ← next
+                     │                           │
                      │                           │
                      └──────────┬────────────────┘
                                 ▼
@@ -267,4 +264,4 @@ Phases 3 and 4 are independent and can be worked in parallel.
 | SkiaSharp rendering differs visually from GDI+ | Side-by-side screenshot comparison after Phase 2 and Phase 3 |
 | BruTile tile fetch synchronous per call | Use `GetTileAsync` + `Task.WhenAll` in Phase 4 |
 | `MapControl.Info` hit-testing differs from GMap per-marker events | Test click, hover, drag in UcMap immediately after Phase 2 |
-| `SkiaSharp.Views.WindowsForms 3.119.1` NU1701 warning (not targeting net10.0-windows) | Known Mapsui 5 packaging issue; no action needed unless runtime errors appear |
+| `SkiaSharp.Views.WindowsForms` restored from net462 instead of net8.0-windows | **Fixed** — target changed to `net10.0-windows10.0.19041`; NuGet now picks `net8.0-windows10.0.19041` build |

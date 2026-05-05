@@ -3,8 +3,8 @@ using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.WindowsForms;
+using Mapsui;
+using Mapsui.Layers;
 
 namespace DcsBriefop.DataBopMission
 {
@@ -83,14 +83,20 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public GMapOverlay BuildStaticMapOverlay()
+		public MemoryLayer BuildStaticLayer()
 		{
-			GMapOverlay staticMapOverlay = new GMapOverlay();
-			staticMapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(new PointLatLng(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree), ElementMapTemplateMarker.Bullseye, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0));
-			//ToolsMap.AddMizDrawingLayers(Theatre, MapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
-			ToolsMap.AddMizDrawingLayers(Theatre, staticMapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, CoalitionName, true) == 0).ToList());
+			List<IFeature> features = [];
 
-			return staticMapOverlay;
+			GeoPoint bullseyePos = new(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree);
+			BriefopMarker bullseyeMarker = BriefopMarker.NewFromTemplateName(bullseyePos, ElementMapTemplateMarker.Bullseye, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0);
+			PointFeature bullseyeFeature = new(MapProjection.ToMPoint(bullseyeMarker.Position));
+			bullseyeFeature.Styles.Add(new BriefopMarkerStyle(bullseyeMarker));
+			features.Add(bullseyeFeature);
+
+			MemoryLayer drawingLayer = ToolsMap.BuildMizDrawingLayer(Theatre, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, CoalitionName, true) == 0).ToList());
+			features.AddRange(drawingLayer.Features);
+
+			return new MemoryLayer($"Static_{CoalitionName}") { Features = features };
 		}
 
 		public void UpdateBullseyeRoutePoint(BopRoutePoint bullseyeRoutePoint)

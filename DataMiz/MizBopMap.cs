@@ -1,5 +1,8 @@
-﻿using DcsBriefop.Map;
+using DcsBriefop.Map;
+using GMap.NET;
 using GMap.NET.WindowsForms;
+using Mapsui;
+using Mapsui.Layers;
 
 namespace DcsBriefop.DataMiz
 {
@@ -8,30 +11,32 @@ namespace DcsBriefop.DataMiz
 		public double CenterLatitude { get; set; }
 		public double CenterLongitude { get; set; }
 		public double Zoom { get; set; }
-		public List<GMarkerBriefop> CustomMarkers { get; set; } = new();
+		public List<BriefopMarker> CustomMarkers { get; set; } = new();
 
-		public GMapOverlay BuildCustomMapOverlay()
+		public MemoryLayer BuildCustomLayer()
 		{
-			GMapOverlay customMapOverlay = new GMapOverlay();
-			foreach(GMarkerBriefop marker in CustomMarkers)
+			MemoryLayer layer = new("CustomMarkers");
+			List<IFeature> features = new();
+			foreach (BriefopMarker marker in CustomMarkers)
 			{
-				customMapOverlay.Markers.Add(marker.NewCleanCopy());
+				PointFeature feature = new(MapProjection.ToMPoint(marker.Position));
+				feature.Styles.Add(new BriefopMarkerStyle(marker));
+				features.Add(feature);
 			}
-
-			return customMapOverlay;
+			layer.Features = features;
+			return layer;
 		}
 
-		public void FromCustomMapOverlay (GMapOverlay customMapOverlay)
+		// TODO Phase 4: replace with Mapsui-based image generation and remove GMapOverlay dependency
+		public GMapOverlay BuildCustomMapOverlay()
 		{
-			CustomMarkers.Clear();
-
-			if (customMapOverlay is not null)
+			GMapOverlay overlay = new();
+			foreach (BriefopMarker marker in CustomMarkers)
 			{
-				foreach (GMarkerBriefop marker in customMapOverlay.Markers.OfType<GMarkerBriefop>())
-				{
-					CustomMarkers.Add(marker.NewCleanCopy());
-				}
+				PointLatLng pos = new(marker.Position.Latitude, marker.Position.Longitude);
+				overlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(pos, marker.TemplateName, marker.TintColor, marker.Label, marker.Scale, marker.Angle));
 			}
+			return overlay;
 		}
 	}
 }
