@@ -19,10 +19,10 @@ namespace DcsBriefop.Data
             Dictionary<string, string> dict = new(StringComparer.OrdinalIgnoreCase);
 			foreach (string token in sInput.Split(' ', StringSplitOptions.RemoveEmptyEntries))
 			{
-				if (!token.StartsWith("+"))
+				if (!token.StartsWith('+'))
 					continue;
 
-				string[] kv = token.Substring(1).Split('=', 2);
+				string[] kv = token[1..].Split('=', 2);
 				dict[kv[0]] = kv.Length > 1 ? kv[1] : "true";
 			}
 

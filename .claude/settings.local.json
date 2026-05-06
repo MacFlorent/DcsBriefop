@@ -11,7 +11,8 @@
       "WebFetch(domain:github.com)",
       "WebFetch(domain:mapsui.com)",
       "WebSearch",
-      "Bash(dotnet build *)"
+      "Bash(dotnet build *)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }

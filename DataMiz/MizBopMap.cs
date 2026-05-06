@@ -11,11 +11,11 @@ namespace DcsBriefop.DataMiz
 		public double CenterLatitude { get; set; }
 		public double CenterLongitude { get; set; }
 		public double Zoom { get; set; }
-		public List<BriefopMarker> CustomMarkers { get; set; } = new();
+		public List<BriefopMarker> CustomMarkers { get; set; } = [];
 
 		public MemoryLayer BuildCustomLayer()
 		{
-			MemoryLayer layer = new("CustomMarkers");
+			MemoryLayer layer = new("CustomMarkers") { Style = null };
 			List<IFeature> features = new();
 			foreach (BriefopMarker marker in CustomMarkers)
 			{

@@ -36,9 +36,9 @@ namespace DcsBriefop.Forms
 			BtAreaRecall = new Button();
 			MapControl = new Mapsui.UI.WindowsForms.MapControl();
 			SuspendLayout();
-			//
+			// 
 			// BtRefresh
-			//
+			// 
 			BtRefresh.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			BtRefresh.Location = new Point(644, 469);
 			BtRefresh.Margin = new Padding(4, 3, 4, 3);
@@ -48,9 +48,9 @@ namespace DcsBriefop.Forms
 			BtRefresh.Text = "Refresh overlays";
 			BtRefresh.UseVisualStyleBackColor = true;
 			BtRefresh.Click += BtRefresh_Click;
-			//
+			// 
 			// PnSelectionDetail
-			//
+			// 
 			PnSelectionDetail.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			PnSelectionDetail.BackColor = SystemColors.ControlDark;
 			PnSelectionDetail.Location = new Point(570, 247);
@@ -58,9 +58,9 @@ namespace DcsBriefop.Forms
 			PnSelectionDetail.Name = "PnSelectionDetail";
 			PnSelectionDetail.Size = new Size(331, 220);
 			PnSelectionDetail.TabIndex = 5;
-			//
+			// 
 			// CkAddMarker
-			//
+			// 
 			CkAddMarker.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			CkAddMarker.AutoSize = true;
 			CkAddMarker.Location = new Point(790, 475);
@@ -70,9 +70,9 @@ namespace DcsBriefop.Forms
 			CkAddMarker.TabIndex = 2;
 			CkAddMarker.Text = "Add marker";
 			CkAddMarker.UseVisualStyleBackColor = true;
-			//
+			// 
 			// BtAreaSet
-			//
+			// 
 			BtAreaSet.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			BtAreaSet.Location = new Point(392, 469);
 			BtAreaSet.Margin = new Padding(4, 3, 4, 3);
@@ -82,9 +82,9 @@ namespace DcsBriefop.Forms
 			BtAreaSet.Text = "Set display area";
 			BtAreaSet.UseVisualStyleBackColor = true;
 			BtAreaSet.Click += BtAreaSet_Click;
-			//
+			// 
 			// BtAreaRecall
-			//
+			// 
 			BtAreaRecall.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			BtAreaRecall.Location = new Point(518, 469);
 			BtAreaRecall.Margin = new Padding(4, 3, 4, 3);
@@ -94,23 +94,24 @@ namespace DcsBriefop.Forms
 			BtAreaRecall.Text = "Recall display area";
 			BtAreaRecall.UseVisualStyleBackColor = true;
 			BtAreaRecall.Click += BtAreaRecall_Click;
-			//
+			// 
 			// MapControl
-			//
+			// 
+			MapControl.AutoSize = true;
+			MapControl.BackColor = Color.White;
 			MapControl.Dock = DockStyle.Fill;
 			MapControl.Location = new Point(0, 0);
 			MapControl.Margin = new Padding(4, 3, 4, 3);
 			MapControl.Name = "MapControl";
 			MapControl.Size = new Size(905, 497);
 			MapControl.TabIndex = 5;
-			MapControl.KeyUp += Map_KeyUp;
-			MapControl.MouseClick += Map_MouseClick;
-			MapControl.MouseDown += Map_MouseDown;
-			MapControl.MouseMove += Map_MouseMove;
-			MapControl.MouseUp += Map_MouseUp;
-			//
+			MapControl.MapPointerPressed += MapControl_MapPointerPressed;
+			MapControl.MapPointerMoved += MapControl_MapPointerMoved;
+			MapControl.MapPointerReleased += MapControl_MapPointerReleased;
+			MapControl.MapTapped += MapControl_MapTapped;
+			// 
 			// UcMap
-			//
+			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			Controls.Add(BtRefresh);

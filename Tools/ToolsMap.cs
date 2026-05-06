@@ -141,7 +141,7 @@ namespace DcsBriefop.Tools
 			List<IFeature> features = [];
 			foreach (MizDrawingLayer drawingLayer in drawingLayers)
 				AddMizDrawingLayerFeatures(theatre, features, drawingLayer);
-			return new MemoryLayer { Features = features };
+			return new MemoryLayer { Style = null, Features = features };
 		}
 
 		private static void AddMizDrawingLayerFeatures(Theatre theatre, List<IFeature> features, MizDrawingLayer drawingLayer)
