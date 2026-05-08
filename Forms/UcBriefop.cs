@@ -180,7 +180,7 @@ namespace DcsBriefop.Forms
 			DataToScreenFolders();
 		}
 
-		private void DgvBriefingFolders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		private void DgvBriefingFolders_CellDoubleClick(object sender, EventArgs e)
 		{
 			BriefingFolderDetail();
 		}

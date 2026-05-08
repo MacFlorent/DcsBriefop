@@ -131,5 +131,4 @@ Current target: `net10.0-windows`, WinForms
 ## Open Questions
 
 - [x] What is GDAL actually used for? → Only Proj4 coordinate projection transforms. Replace with ProjNet (see item 4).
-- [ ] What is the minimum supported Windows version? (WebView2 availability depends on this.)
 - [x] Is tile caching a real user-facing problem? → Currently disabled (`ServerOnly` mode) due to GMap.NET thread bug — users are already online-only. Mapsui's BruTile has proper async caching so this would be restored as part of the migration.

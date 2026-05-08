@@ -1,6 +1,5 @@
-﻿using DcsBriefop.DataBopBriefing;
-using System.Data;
-using Zuby.ADGV;
+using BrightIdeasSoftware;
+using DcsBriefop.DataBopBriefing;
 
 namespace DcsBriefop.Forms
 {
@@ -18,67 +17,31 @@ namespace DcsBriefop.Forms
 		}
 		#endregion
 
-		#region Fields
-		#endregion
-
-		#region Properties
-		#endregion
-
 		#region CTOR
-		public GridManagerBriefingFolders(AdvancedDataGridView dgv, IEnumerable<BopBriefingFolder> briefingFolders) : base(dgv, briefingFolders) { }
+		public GridManagerBriefingFolders(FastObjectListView dgv, IEnumerable<BopBriefingFolder> briefingFolders) : base(dgv, briefingFolders) { }
 		#endregion
 
 		#region Methods
-		protected override void InitializeDataSourceColumns()
+		protected override void InitializeColumns()
 		{
-			base.InitializeDataSourceColumns();
-
-			m_dtSource.Columns.Add(GridColumn.Id, typeof(Guid));
-			m_dtSource.Columns.Add(GridColumn.Name, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Coalition, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.UnitTypes, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.PageCount, typeof(int));
-			m_dtSource.Columns.Add(GridColumn.Inactive, typeof(bool));
+			m_dgv.AllColumns.AddRange(new OLVColumn[]
+			{
+				new OLVColumn { Text = "Id", Name = GridColumn.Id, Width = GridWidth.Small, AspectGetter = obj => ((BopBriefingFolder)obj).Guid },
+				new OLVColumn { Text = "Name", Name = GridColumn.Name, Width = GridWidth.Large, AspectGetter = obj => ((BopBriefingFolder)obj).Name },
+				new OLVColumn { Text = "Coalition", Name = GridColumn.Coalition, Width = GridWidth.Medium, AspectGetter = obj => ((BopBriefingFolder)obj).CoalitionName },
+				new OLVColumn { Text = "Unit types", Name = GridColumn.UnitTypes, Width = GridWidth.Large, AspectGetter = obj => string.Join(",", ((BopBriefingFolder)obj).Kneeboards) },
+				new OLVColumn { Text = "Pages count", Name = GridColumn.PageCount, Width = GridWidth.Medium, AspectGetter = obj => ((BopBriefingFolder)obj).Pages.Count },
+				new OLVColumn { Text = "Inactive", Name = GridColumn.Inactive, Width = GridWidth.Small, AspectGetter = obj => ((BopBriefingFolder)obj).Inactive },
+			});
+			m_dgv.RebuildColumns();
 		}
 
-		protected override void RefreshDataSourceRowContent(DataRow dr, BopBriefingFolder element)
+		protected override void FormatRowInternal(FormatRowEventArgs e)
 		{
-			base.RefreshDataSourceRowContent(dr, element);
-
-			dr.SetField(GridColumn.Id, element.Guid);
-			dr.SetField(GridColumn.Name, element.Name);
-			dr.SetField(GridColumn.Coalition, element.CoalitionName);
-			dr.SetField(GridColumn.UnitTypes, string.Join(",", element.Kneeboards));
-			dr.SetField(GridColumn.PageCount, element.Pages.Count);
-			dr.SetField(GridColumn.Inactive, element.Inactive);
-		}
-
-		protected override void PostInitializeColumns()
-		{
-			base.PostInitializeColumns();
-
-			m_dgv.Columns[GridColumn.UnitTypes].HeaderText = "Unit types";
-			m_dgv.Columns[GridColumn.PageCount].HeaderText = "Pages count";
-
-			m_dgv.Columns[GridColumn.Id].Width = GridWidth.Small;
-			m_dgv.Columns[GridColumn.UnitTypes].Width = GridWidth.Large;
-		}
-
-		protected override DataGridViewCellStyle CellFormattingInternal(DataGridViewCell dgvc)
-		{
-			DataGridViewCellStyle cellStyle = base.CellFormattingInternal(dgvc);
-
-			DataGridViewColumn column = dgvc.OwningColumn;
-			BopBriefingFolder element = GetBoundElement(dgvc.OwningRow);
-
+			BopBriefingFolder element = (BopBriefingFolder)e.Model;
 			if (element.Inactive)
-				cellStyle.ForeColor = Color.Gray;
-
-			return cellStyle;
+				e.Item.ForeColor = Color.Gray;
 		}
-		#endregion
-
-		#region Events
 		#endregion
 	}
 }

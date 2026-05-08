@@ -29,11 +29,10 @@
 		private void InitializeComponent()
 		{
 			ScMain = new SplitContainer();
-			DgvGroups = new Zuby.ADGV.AdvancedDataGridView();
+			DgvGroups = new BrightIdeasSoftware.FastObjectListView();
 			((System.ComponentModel.ISupportInitialize)ScMain).BeginInit();
 			ScMain.Panel1.SuspendLayout();
 			ScMain.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)DgvGroups).BeginInit();
 			SuspendLayout();
 			// 
 			// ScMain
@@ -55,17 +54,13 @@
 			// 
 			// DgvGroups
 			// 
-			DgvGroups.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			DgvGroups.Dock = DockStyle.Fill;
-			DgvGroups.FilterAndSortEnabled = true;
-			DgvGroups.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvGroups.Location = new Point(0, 0);
 			DgvGroups.Margin = new Padding(4, 3, 4, 3);
 			DgvGroups.Name = "DgvGroups";
-			DgvGroups.RightToLeft = RightToLeft.No;
 			DgvGroups.Size = new Size(1137, 314);
-			DgvGroups.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvGroups.TabIndex = 0;
+			DgvGroups.View = System.Windows.Forms.View.Details;
 			// 
 			// FrmMissionGroups
 			// 
@@ -84,13 +79,12 @@
 			ScMain.Panel1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)ScMain).EndInit();
 			ScMain.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)DgvGroups).EndInit();
 			ResumeLayout(false);
 		}
 
 		#endregion
 
 		private System.Windows.Forms.SplitContainer ScMain;
-		private Zuby.ADGV.AdvancedDataGridView DgvGroups;
+		private BrightIdeasSoftware.FastObjectListView DgvGroups;
 	}
 }

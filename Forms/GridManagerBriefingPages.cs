@@ -1,7 +1,6 @@
-﻿using DcsBriefop.Data;
+using BrightIdeasSoftware;
+using DcsBriefop.Data;
 using DcsBriefop.DataBopBriefing;
-using System.Data;
-using Zuby.ADGV;
 
 namespace DcsBriefop.Forms
 {
@@ -16,44 +15,21 @@ namespace DcsBriefop.Forms
 		}
 		#endregion
 
-		#region Fields
-		#endregion
-
-		#region Properties
-		#endregion
-
 		#region CTOR
-		public GridManagerBriefingPages(AdvancedDataGridView dgv, IEnumerable<BopBriefingPage> briefingPages) : base(dgv, briefingPages) { }
+		public GridManagerBriefingPages(FastObjectListView dgv, IEnumerable<BopBriefingPage> briefingPages) : base(dgv, briefingPages) { }
 		#endregion
 
 		#region Methods
-		protected override void InitializeDataSourceColumns()
+		protected override void InitializeColumns()
 		{
-			base.InitializeDataSourceColumns();
-
-			m_dtSource.Columns.Add(GridColumn.Id, typeof(Guid));
-			m_dtSource.Columns.Add(GridColumn.Title, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Render, typeof(ElementBriefingPageRender));
+			m_dgv.AllColumns.AddRange(new OLVColumn[]
+			{
+				new OLVColumn { Text = "Id", Name = GridColumn.Id, Width = GridWidth.Small, AspectGetter = obj => ((BopBriefingPage)obj).Guid },
+				new OLVColumn { Text = "Title", Name = GridColumn.Title, Width = GridWidth.Large, AspectGetter = obj => ((BopBriefingPage)obj).Title },
+				new OLVColumn { Text = "Render", Name = GridColumn.Render, Width = GridWidth.Medium, AspectGetter = obj => ((BopBriefingPage)obj).Render },
+			});
+			m_dgv.RebuildColumns();
 		}
-
-		protected override void RefreshDataSourceRowContent(DataRow dr, BopBriefingPage element)
-		{
-			base.RefreshDataSourceRowContent(dr, element);
-
-			dr.SetField(GridColumn.Id, element.Guid);
-			dr.SetField(GridColumn.Title, element.Title);
-			dr.SetField(GridColumn.Render, element.Render);
-		}
-
-		protected override void PostInitializeColumns()
-		{
-			base.PostInitializeColumns();
-
-			m_dgv.Columns[GridColumn.Id].Width = GridWidth.Small;
-		}
-		#endregion
-
-		#region Events
 		#endregion
 	}
 }

@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 
 namespace DcsBriefop.Tools
 {
+	#pragma warning disable CS0649
+
 	internal class LotatcDrawingFile
 	{
 		public bool enable;

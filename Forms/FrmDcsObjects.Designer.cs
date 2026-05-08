@@ -28,23 +28,17 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DgvDcsObjects = new Zuby.ADGV.AdvancedDataGridView();
-			((System.ComponentModel.ISupportInitialize)DgvDcsObjects).BeginInit();
+			DgvDcsObjects = new BrightIdeasSoftware.FastObjectListView();
 			SuspendLayout();
-			// 
+			//
 			// DgvDcsObjects
-			// 
+			//
 			DgvDcsObjects.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			DgvDcsObjects.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			DgvDcsObjects.FilterAndSortEnabled = true;
-			DgvDcsObjects.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvDcsObjects.Location = new Point(12, 12);
 			DgvDcsObjects.Name = "DgvDcsObjects";
-			DgvDcsObjects.RightToLeft = RightToLeft.No;
-			DgvDcsObjects.RowTemplate.Height = 25;
 			DgvDcsObjects.Size = new Size(559, 596);
-			DgvDcsObjects.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvDcsObjects.TabIndex = 0;
+			DgvDcsObjects.View = System.Windows.Forms.View.Details;
 			// 
 			// FrmDcsObjects
 			// 
@@ -62,6 +56,6 @@
 
 		#endregion
 
-		private Zuby.ADGV.AdvancedDataGridView DgvDcsObjects;
+		private BrightIdeasSoftware.FastObjectListView DgvDcsObjects;
 	}
 }

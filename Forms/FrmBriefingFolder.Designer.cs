@@ -30,7 +30,7 @@
 		{
 			BtPageRemove = new Button();
 			BtPageAdd = new Button();
-			DgvPages = new Zuby.ADGV.AdvancedDataGridView();
+			DgvPages = new BrightIdeasSoftware.FastObjectListView();
 			LbPages = new Label();
 			LbBriefingImageSize = new Label();
 			UcImageSize = new UcImageSize();
@@ -56,7 +56,6 @@
 			LbHeader = new Label();
 			LbHtmlCss = new Label();
 			CbHtmlCss = new ComboBox();
-			((System.ComponentModel.ISupportInitialize)DgvPages).BeginInit();
 			((System.ComponentModel.ISupportInitialize)ScMain).BeginInit();
 			ScMain.Panel1.SuspendLayout();
 			ScMain.SuspendLayout();
@@ -90,16 +89,11 @@
 			// DgvPages
 			// 
 			DgvPages.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			DgvPages.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			DgvPages.FilterAndSortEnabled = false;
-			DgvPages.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvPages.Location = new Point(0, 19);
 			DgvPages.Name = "DgvPages";
-			DgvPages.RightToLeft = RightToLeft.No;
-			DgvPages.RowTemplate.Height = 25;
 			DgvPages.Size = new Size(310, 220);
-			DgvPages.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvPages.TabIndex = 39;
+			DgvPages.View = System.Windows.Forms.View.Details;
 			// 
 			// LbPages
 			// 
@@ -393,7 +387,6 @@
 			Text = "Briefing folder";
 			FormClosed += FrmBriefingFolder_FormClosed;
 			Shown += FrmBriefingFolder_Shown;
-			((System.ComponentModel.ISupportInitialize)DgvPages).EndInit();
 			ScMain.Panel1.ResumeLayout(false);
 			ScMain.Panel1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)ScMain).EndInit();
@@ -410,7 +403,7 @@
 
 		private Button BtPageRemove;
 		private Button BtPageAdd;
-		private Zuby.ADGV.AdvancedDataGridView DgvPages;
+		private BrightIdeasSoftware.FastObjectListView DgvPages;
 		private Label LbPages;
 		private Label LbBriefingImageSize;
 		private UcImageSize UcImageSize;

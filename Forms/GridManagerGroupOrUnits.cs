@@ -1,8 +1,7 @@
-﻿using DcsBriefop.Data;
+using BrightIdeasSoftware;
+using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
-using System.Data;
-using Zuby.ADGV;
 
 namespace DcsBriefop.Forms
 {
@@ -15,86 +14,47 @@ namespace DcsBriefop.Forms
 			public static readonly string DisplayName = "DisplayName";
 			public static readonly string Coalition = "Coalition";
 			public static readonly string Country = "Country";
-			public static readonly string GroupOrUnit = "Object";
+			public static readonly string GroupOrUnit = "GroupOrUnit";
 			public static readonly string Group = "Group";
 			public static readonly string Type = "Type";
-			public static readonly string ObjectClass = "Class";
+			public static readonly string ObjectClass = "ObjectClass";
 			public static readonly string Attributes = "Attributes";
 			public static readonly string Radio = "Radio";
 			public static readonly string Additional = "Additional";
 		}
 		#endregion
 
-		#region Fields
-		#endregion
-
-		#region Properties
-		#endregion
-
 		#region CTOR
-		public GridManagerGroupOrUnits(AdvancedDataGridView dgv, IEnumerable<BopGroupOrUnit> elements) : base(dgv, elements) { }
+		public GridManagerGroupOrUnits(FastObjectListView dgv, IEnumerable<BopGroupOrUnit> elements) : base(dgv, elements) { }
 		#endregion
 
 		#region Methods
-		protected override void InitializeDataSourceColumns()
+		protected override void InitializeColumns()
 		{
-			base.InitializeDataSourceColumns();
-
-			m_dtSource.Columns.Add(GridColumn.Id, typeof(int));
-			m_dtSource.Columns.Add(GridColumn.DisplayName, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Coalition, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Country, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.GroupOrUnit, typeof(ElementGroupOrUnit));
-			m_dtSource.Columns.Add(GridColumn.Group, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Type, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.ObjectClass, typeof(ElementGroupClass));
-			m_dtSource.Columns.Add(GridColumn.Attributes, typeof(ElementDcsObjectAttribute));
-			m_dtSource.Columns.Add(GridColumn.Radio, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Additional, typeof(string));
+			m_dgv.AllColumns.AddRange(new OLVColumn[]
+			{
+				new OLVColumn { Text = "Id", Name = GridColumn.Id, Width = GridWidth.Small, AspectGetter = obj => ((BopGroupOrUnit)obj).Id },
+				new OLVColumn { Text = "Display name", Name = GridColumn.DisplayName, Width = GridWidth.Large, AspectGetter = obj => ((BopGroupOrUnit)obj).DisplayName },
+				new OLVColumn { Text = "Coalition", Name = GridColumn.Coalition, Width = GridWidth.Small, AspectGetter = obj => ((BopGroupOrUnit)obj).Coalition },
+				new OLVColumn { Text = "Country", Name = GridColumn.Country, Width = GridWidth.Medium, AspectGetter = obj => ((BopGroupOrUnit)obj).Country },
+				new OLVColumn { Text = "Object", Name = GridColumn.GroupOrUnit, Width = GridWidth.Small, AspectGetter = obj => ((BopGroupOrUnit)obj).GroupOrUnit },
+				new OLVColumn { Text = "Group", Name = GridColumn.Group, Width = GridWidth.Medium, AspectGetter = obj => ((BopGroupOrUnit)obj).Group },
+				new OLVColumn { Text = "Type", Name = GridColumn.Type, Width = GridWidth.Medium, AspectGetter = obj => ((BopGroupOrUnit)obj).Type },
+				new OLVColumn { Text = "Class", Name = GridColumn.ObjectClass, Width = GridWidth.Medium, AspectGetter = obj => ((BopGroupOrUnit)obj).GroupClass },
+				new OLVColumn { Text = "Attributes", Name = GridColumn.Attributes, Width = GridWidth.Medium, AspectGetter = obj => ((BopGroupOrUnit)obj).Attributes },
+				new OLVColumn { Text = "Radio", Name = GridColumn.Radio, Width = GridWidth.Medium, AspectGetter = obj => ((BopGroupOrUnit)obj).Radio },
+				new OLVColumn { Text = "Additional", Name = GridColumn.Additional, Width = GridWidth.ExtraLarge, AspectGetter = obj => ((BopGroupOrUnit)obj).Additional },
+			});
+			m_dgv.RebuildColumns();
 		}
 
-		protected override void RefreshDataSourceRowContent(DataRow dr, BopGroupOrUnit element)
+		protected override void FormatRowInternal(FormatRowEventArgs e)
 		{
-			base.RefreshDataSourceRowContent(dr, element);
-
-			dr.SetField(GridColumn.Id, element.Id);
-			dr.SetField(GridColumn.DisplayName, element.DisplayName);
-			dr.SetField(GridColumn.Coalition, element.Coalition);
-			dr.SetField(GridColumn.Country, element.Country);
-			dr.SetField(GridColumn.GroupOrUnit, element.GroupOrUnit);
-			dr.SetField(GridColumn.Group, element.Group);
-			dr.SetField(GridColumn.Type, element.Type);
-			dr.SetField(GridColumn.ObjectClass, element.GroupClass);
-			dr.SetField(GridColumn.Attributes, element.Attributes);
-			dr.SetField(GridColumn.Radio, element.Radio);
-			dr.SetField(GridColumn.Additional, element.Additional);
-		}
-
-		protected override void PostInitializeColumns()
-		{
-			base.PostInitializeColumns();
-
-			m_dgv.Columns[GridColumn.Id].Width = GridWidth.Small;
-			m_dgv.Columns[GridColumn.Coalition].Width = GridWidth.Small;
-			m_dgv.Columns[GridColumn.GroupOrUnit].Width = GridWidth.Small;
-		}
-
-		protected override DataGridViewCellStyle CellFormattingInternal(DataGridViewCell dgvc)
-		{
-			DataGridViewCellStyle cellStyle = base.CellFormattingInternal(dgvc);
-
-			DataGridViewColumn column = dgvc.OwningColumn;
-			BopGroupOrUnit element = GetBoundElement(dgvc.OwningRow);
-
-			cellStyle.ForeColor = ToolsBriefop.GetCoalitionColor(element.Coalition);
+			BopGroupOrUnit element = (BopGroupOrUnit)e.Model;
+			e.Item.ForeColor = ToolsBriefop.GetCoalitionColor(element.Coalition);
 			if (element.GroupOrUnit == ElementGroupOrUnit.Group)
-				cellStyle.BackColor = Color.LightGray;
-
-			return cellStyle;
+				e.Item.BackColor = Color.LightGray;
 		}
-		#endregion
-
-		#region Events
 		#endregion
 	}
 }

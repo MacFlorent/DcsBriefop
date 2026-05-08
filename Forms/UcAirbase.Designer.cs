@@ -41,11 +41,10 @@
 			this.TbName = new System.Windows.Forms.TextBox();
 			this.LbId = new System.Windows.Forms.Label();
 			this.TbId = new System.Windows.Forms.TextBox();
-			this.DgvRadios = new Zuby.ADGV.AdvancedDataGridView();
+			this.DgvRadios = new BrightIdeasSoftware.FastObjectListView();
 			this.MapControl = new Mapsui.UI.WindowsForms.MapControl();
 			this.BtRadioAdd = new System.Windows.Forms.Button();
 			this.BtRadioRemove = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)(this.DgvRadios)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// CbMapMarker
@@ -163,17 +162,13 @@
 			// 
 			// DgvRadios
 			// 
-			this.DgvRadios.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.DgvRadios.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
-			this.DgvRadios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.DgvRadios.FilterAndSortEnabled = true;
-			this.DgvRadios.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
 			this.DgvRadios.Location = new System.Drawing.Point(84, 161);
 			this.DgvRadios.Name = "DgvRadios";
-			this.DgvRadios.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.DgvRadios.Size = new System.Drawing.Size(394, 324);
-			this.DgvRadios.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			this.DgvRadios.TabIndex = 105;
+			this.DgvRadios.View = System.Windows.Forms.View.Details;
 			//
 			// MapControl
 			//
@@ -229,7 +224,6 @@
 			this.Controls.Add(this.TbId);
 			this.Name = "UcAirbase";
 			this.Size = new System.Drawing.Size(1132, 488);
-			((System.ComponentModel.ISupportInitialize)(this.DgvRadios)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -249,7 +243,7 @@
 		private System.Windows.Forms.TextBox TbName;
 		private System.Windows.Forms.Label LbId;
 		private System.Windows.Forms.TextBox TbId;
-		private Zuby.ADGV.AdvancedDataGridView DgvRadios;
+		private BrightIdeasSoftware.FastObjectListView DgvRadios;
 		private Mapsui.UI.WindowsForms.MapControl MapControl;
 		private System.Windows.Forms.Button BtRadioAdd;
 		private System.Windows.Forms.Button BtRadioRemove;

@@ -37,7 +37,6 @@ namespace DcsBriefop.Forms
 
 			m_gridManagerBriefingParts = new GridManagerBriefingParts(DgvParts, m_bopBriefingPage.Parts);
 			m_gridManagerBriefingParts.SelectionChanged += SelectionChangedEvent;
-			DgvParts.FilterAndSortEnabled = false;
 			DgvParts.MultiSelect = false;
 
 			m_ucMap = new UcMap();

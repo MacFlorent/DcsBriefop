@@ -193,12 +193,12 @@ namespace DcsBriefop.Forms
 			MultiOrder(1);
 		}
 
-		private void DgvMultiAvailable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		private void DgvMultiAvailable_CellDoubleClick(object sender, EventArgs e)
 		{
 			MultiAdd();
 		}
 
-		private void DgvMultiSelected_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		private void DgvMultiSelected_CellDoubleClick(object sender, EventArgs e)
 		{
 			MultiRemove();
 		}
