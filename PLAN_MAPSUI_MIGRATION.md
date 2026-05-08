@@ -185,28 +185,27 @@ double dWorldY = viewport.CenterY - (dScreenY - viewport.Height / 2.0) * viewpor
 
 ---
 
-## Phase 4 — Offline Map Image Generation ⬜
+## Phase 4 — Offline Map Image Generation ✅ Done
 
-**Goal:** Rewrite `ToolsMap.GenerateMapImage()` to use BruTile tile fetching directly (no `GMapControl`). Output is `SKBitmap` instead of `Bitmap`.
+**Goal:** Rewrite `ToolsMap.GenerateMapImage()` to use BruTile tile fetching directly (no `GMapControl`). Output is `Bitmap` (internally SkiaSharp, converted at boundary).
 
-**Files to update:**
-- [Tools/ToolsMap.cs](Tools/ToolsMap.cs) — `GenerateMapImage` overloads + `DrawRouteBriefop`, `DrawRoute`, `DrawMarker` helpers
+**Files updated:**
+- [Tools/ToolsMap.cs](Tools/ToolsMap.cs) ✅ — new `GenerateMapImage(MizBopMap, ITileSource, IEnumerable<ILayer>, Size)` + core `GenerateMapImage(GeoPoint, int, ITileSource, IEnumerable<ILayer>, Size)`; `GetClosestLevelId`, `RenderOverlayLayers` helpers; old GMap overloads kept with `TODO Phase 5` comments
+- [DataBopBriefing/BopBriefingPage.cs](DataBopBriefing/BopBriefingPage.cs) ✅ — `BuildMapImage` rewritten to use `MapProviders.TryGetProviderOrDefault` + `GetMapAdditionalLayers`; `GetMapAdditionalOverlays` removed
 
-**Approach:**
-```csharp
-static SKBitmap GenerateMapImage(GeoPoint center, int iZoom, ITileSource tileSource,
-    IEnumerable<ILayer> overlayLayers, Size outputSize)
-{
-    // 1. BruTile: ITileSchema.GetTileInfos(extent, levelId) → List<TileInfo>
-    // 2. For each TileInfo: tileSource.GetTile(tileInfo) → byte[] → SKBitmap.Decode
-    // 3. For each overlayLayer: construct Mapsui.Viewport matching image extent,
-    //       call each feature's ISkiaSharpStyleRenderer.Draw(canvas, viewport, ...)
-}
-```
+**Verified BruTile 6.0.0 API facts:**
+- `ITileSchema.Resolutions` is `IDictionary<int, Resolution>` — level IDs are `int`, not `string`
+- `ITileSchema.GetTileInfos(Extent, int)` — second arg is `int` levelId
+- `ITileSource` has **no** `GetTile`/`GetTileAsync` — fetch is on `BruTile.Web.HttpTileSource`
+- `HttpTileSource.GetTileAsync(HttpClient, TileInfo, CancellationToken?)` — requires shared `HttpClient`
+- `HttpTileSource.GetTileAsync` **throws** `Exception("Set a User-Agent header...")` if the `HttpClient` has no `User-Agent` — always set one via `DefaultRequestHeaders.UserAgent.ParseAdd(...)`
+- `Resolution.UnitsPerPixel` — still present for level matching
+- `GetTileAsync` tasks must be **created and awaited inside `Task.Run`** when calling from a UI thread — the awaits inside `GetTileAsync` resume on `WindowsFormsSynchronizationContext` by default, which deadlocks against `GetResult()` blocking that same thread
 
-BruTile key types: `ITileSchema.GetTileInfos(Extent, string levelId)`, `ITileSource.GetTile(TileInfo) -> byte[]` (use `GetTileAsync` + `Task.WhenAll` to parallelise).
-
-Callers of `GenerateMapImage` in the briefing generation pipeline need updating to pass `ITileSource` instead of `GMapProvider`.
+**Verified Mapsui 5.0.2 API facts:**
+- `MapRenderer.Render(object, Viewport, IEnumerable<ILayer>, IEnumerable<IWidget>, RenderService, Color?)` — 6 params; not suitable for offline call without constructing widget/service infrastructure
+- Overlay layers rendered via direct `ISkiaStyleRenderer.Draw(canvas, viewport, layer, feature, style, null, 0)` — custom renderers don't use `RenderService`
+- `Mapsui.Styles.Color` and `Mapsui.Styles.Size` conflict with `System.Drawing` — resolve with `using Color = System.Drawing.Color` and `using Size = System.Drawing.Size` aliases
 
 ---
 
@@ -214,10 +213,18 @@ Callers of `GenerateMapImage` in the briefing generation pipeline need updating 
 
 **Goal:** Remove all remaining GMap.NET references, then remove the packages.
 
+**Forms — swap `GMapControl` for Mapsui `MapControl`:**
+- [Forms/UcGroup.cs](Forms/UcGroup.cs) + designer — embedded `GMapControl MapControl`; replace with `Mapsui.UI.WindowsForms.MapControl`; rewire overlays via `StaticOverlays`/`BuildStaticLayer`
+- [Forms/UcAirbase.cs](Forms/UcAirbase.cs) + designer — same as above
+- [Forms/UcGroupBase.cs](Forms/UcGroupBase.cs) — holds `protected GMapControl m_mapControl`; constructor parameter becomes `Mapsui.UI.WindowsForms.MapControl`
+- [Forms/UcGroupRoutePoints.cs](Forms/UcGroupRoutePoints.cs) — passes `GMapControl` to `UcGroupBase`; update signature
+- [Forms/UcGroupUnits.cs](Forms/UcGroupUnits.cs) — same
+- [Forms/UcGroupInformation.cs](Forms/UcGroupInformation.cs) — same
+
 **Stub cleanup in ToolsMap.cs (marked `TODO Phase 5`):**
 - Remove `InitializeGMaps()` + call sites in `Program.cs`, `FrmMain.cs`
-- Remove `InitializeMapControl(GMapControl,…)` + update `UcGroup.cs`, `UcAirbase.cs` (swap their `GMapControl` for Mapsui `MapControl`)
-- Remove `ForceRefresh(GMapControl)` + update `UcAirbase.cs`, `UcGroupUnits.cs`, `UcGroupRoutePoints.cs`, `UcGroupInformation.cs`
+- Remove `InitializeMapControl(GMapControl,…)` overload
+- Remove `ForceRefresh(GMapControl)` overload
 
 **Data model type substitutions** (`PointLatLng` → `GeoPoint`, `GMapOverlay` → `MemoryLayer`, remove `GMap.NET.*` usings):
 - [DataBopMission/BopGroup.cs](DataBopMission/BopGroup.cs)
@@ -226,11 +233,22 @@ Callers of `GenerateMapImage` in the briefing generation pipeline need updating 
 - [DataBopMission/BopCoalition.cs](DataBopMission/BopCoalition.cs)
 - [DataBopMission/BopAirbase.cs](DataBopMission/BopAirbase.cs)
 - [DataBopMission/BopGroupOrUnit.cs](DataBopMission/BopGroupOrUnit.cs)
+- [DataBopMission/BopMission.cs](DataBopMission/BopMission.cs) — `BuildCustomMapOverlay()` stub (remove after Phase 4)
 - [DataBopBriefing/BopBriefingPage.cs](DataBopBriefing/BopBriefingPage.cs)
 - [DataBopBriefing/BaseBopBriefingPart.cs](DataBopBriefing/BaseBopBriefingPart.cs)
 - [DataBopBriefing/BopBriefingPartWaypoints.cs](DataBopBriefing/BopBriefingPartWaypoints.cs)
 - [DataBopBriefing/BopBriefingPartGroups.cs](DataBopBriefing/BopBriefingPartGroups.cs)
 - [DataBopBriefing/BopBriefingPartAirbases.cs](DataBopBriefing/BopBriefingPartAirbases.cs)
+
+**Serialization cleanup:**
+- [JsonSerializers.cs](JsonSerializers.cs) — remove `GMapOverlayJsonConverter` (kept for backward-compat read of old JSON; safe to remove once old save files are no longer needed)
+- [DataMiz/BaseMizBopSerializable.cs](DataMiz/BaseMizBopSerializable.cs) — remove `m_converterGMapOverlay` registration
+- [DataMiz/MizBopMap.cs](DataMiz/MizBopMap.cs) — remove `BuildCustomMapOverlay()` stub (after Phase 4)
+
+**Old GMap map-object files to delete** (kept as Phase 4 stubs):
+- [Map/GMarkerBriefop.cs](Map/GMarkerBriefop.cs)
+- [Map/GLineBriefop.cs](Map/GLineBriefop.cs)
+- [Map/GTextBriefop.cs](Map/GTextBriefop.cs)
 
 After all substitutions: remove `GMap.NET.Core` and `GMap.NET.WinForms` from `DcsBriefop.csproj`.
 
@@ -245,12 +263,12 @@ Shared infra ──► Phase 1 (tiles) ✅
                  Phase 2 (markers) ✅
                      │
                      ▼
-                 Phase 3 (lines)  ✅              Phase 4 (offline gen) ⬜  ← next
+                 Phase 3 (lines)  ✅              Phase 4 (offline gen) ✅
                      │                           │
                      │                           │
                      └──────────┬────────────────┘
                                 ▼
-                            Phase 5 (cleanup + remove packages) ⬜
+                            Phase 5 (cleanup + remove packages) ⬜  ← next
 ```
 
 Phases 3 and 4 are independent and can be worked in parallel.

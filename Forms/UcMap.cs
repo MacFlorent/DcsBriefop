@@ -197,7 +197,7 @@ namespace DcsBriefop.Forms
 			{
 				m_draggedMarker.IsPressed = false;
 				m_draggedMarker = null;
-				RefreshCustomLayer();
+				DataToScreenLayers();
 			}
 		}
 

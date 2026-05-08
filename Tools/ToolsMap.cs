@@ -1,4 +1,8 @@
-﻿using CoordinateSharp;
+﻿using Color = System.Drawing.Color;
+using Size = System.Drawing.Size;
+using BruTile;
+using BruTile.Web;
+using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
@@ -8,7 +12,10 @@ using GMap.NET.WindowsForms;
 using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Rendering.Skia;
+using Mapsui.Rendering.Skia.SkiaStyles;
+using Mapsui.Styles;
 using Mapsui.UI.WindowsForms;
+using SkiaSharp;
 using System.Drawing.Drawing2D;
 using System.Net;
 
@@ -16,6 +23,17 @@ namespace DcsBriefop.Tools
 {
 	internal static class ToolsMap
 	{
+		#region Fields
+		private static readonly HttpClient s_tileHttpClient = BuildTileHttpClient();
+		#endregion
+
+		private static HttpClient BuildTileHttpClient()
+		{
+			HttpClient httpClient = new();
+			httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("DcsBriefop/1.0");
+			return httpClient;
+		}
+
 		#region MapControl
 		public static void InitializeMapControl(this MapControl mapControl, string sProviderName)
 		{
@@ -320,6 +338,116 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region Image Generation
+		public static Bitmap GenerateMapImage(MizBopMap mapData, ITileSource tileSource, IEnumerable<ILayer> overlayLayers, Size outputSize)
+		{
+			GeoPoint center = new(mapData.CenterLatitude, mapData.CenterLongitude);
+			return GenerateMapImage(center, (int)mapData.Zoom, tileSource, overlayLayers, outputSize);
+		}
+
+		public static Bitmap GenerateMapImage(GeoPoint center, int iZoom, ITileSource tileSource, IEnumerable<ILayer> overlayLayers, Size outputSize)
+		{
+			MPoint centerWorld = MapProjection.ToMPoint(center);
+			double dResolution = MapProjection.ZoomToResolution(iZoom);
+			double dHalfW = outputSize.Width / 2.0 * dResolution;
+			double dHalfH = outputSize.Height / 2.0 * dResolution;
+			double dWorldLeft = centerWorld.X - dHalfW;
+			double dWorldTop = centerWorld.Y + dHalfH;
+
+			BruTile.Extent worldExtent = new(centerWorld.X - dHalfW, centerWorld.Y - dHalfH, centerWorld.X + dHalfW, centerWorld.Y + dHalfH);
+			int iLevelId = GetClosestLevelId(tileSource.Schema, dResolution);
+			List<TileInfo> tileInfos = tileSource.Schema.GetTileInfos(worldExtent, iLevelId).ToList();
+
+			using SKBitmap skBitmap = new(outputSize.Width, outputSize.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
+			using SKCanvas canvas = new(skBitmap);
+			canvas.Clear(SKColors.LightGray);
+
+			// ITileSource has no GetTile in BruTile 6.0; HttpTileSource.GetTileAsync is the concrete async fetch method.
+			// Tasks must be created and awaited inside Task.Run so continuations run on thread-pool threads,
+			// not on the UI SynchronizationContext that is blocked by GetResult() (avoids deadlock).
+			if (tileSource is HttpTileSource httpSource)
+			{
+				byte[][] tileData = Task.Run(async () =>
+				{
+					Task<byte[]>[] tasks = tileInfos.Select(_ti => httpSource.GetTileAsync(s_tileHttpClient, _ti)).ToArray();
+					try { await Task.WhenAll(tasks).ConfigureAwait(false); } catch { }
+					return tasks.Select(_t => _t.IsCompletedSuccessfully ? _t.Result : null).ToArray();
+				}).GetAwaiter().GetResult();
+
+				for (int i = 0; i < tileInfos.Count; i++)
+				{
+					if (tileData[i] is null || tileData[i].Length == 0)
+						continue;
+
+					using SKBitmap tileBitmap = SKBitmap.Decode(tileData[i]);
+					if (tileBitmap is null)
+						continue;
+
+					BruTile.Extent e = tileInfos[i].Extent;
+					float fX = (float)((e.MinX - dWorldLeft) / dResolution);
+					float fY = (float)((dWorldTop - e.MaxY) / dResolution);
+					float fW = (float)((e.MaxX - e.MinX) / dResolution);
+					float fH = (float)((e.MaxY - e.MinY) / dResolution);
+					canvas.DrawBitmap(tileBitmap, new SKRect(fX, fY, fX + fW, fY + fH));
+				}
+			}
+
+			if (overlayLayers is not null)
+			{
+				Mapsui.Viewport viewport = new(centerWorld.X, centerWorld.Y, dResolution, 0, outputSize.Width, outputSize.Height);
+				RenderOverlayLayers(canvas, viewport, overlayLayers);
+			}
+
+			using SKImage skImage = SKImage.FromBitmap(skBitmap);
+			using SKData skData = skImage.Encode(SKEncodedImageFormat.Png, 100);
+			using MemoryStream ms = new(skData.ToArray());
+			return new Bitmap(ms);
+		}
+
+		private static int GetClosestLevelId(ITileSchema schema, double dResolution)
+		{
+			int iBestLevel = schema.Resolutions.Keys.First();
+			double dBestDiff = double.MaxValue;
+
+			foreach (KeyValuePair<int, Resolution> kvp in schema.Resolutions)
+			{
+				double dDiff = Math.Abs(kvp.Value.UnitsPerPixel - dResolution);
+				if (dDiff < dBestDiff)
+				{
+					dBestDiff = dDiff;
+					iBestLevel = kvp.Key;
+				}
+			}
+
+			return iBestLevel;
+		}
+
+		private static void RenderOverlayLayers(SKCanvas canvas, Mapsui.Viewport viewport, IEnumerable<ILayer> layers)
+		{
+			// Custom style renderers don't use RenderService; call them directly to avoid MapRenderer.Render parameter complexity
+			Dictionary<Type, ISkiaStyleRenderer> styleRenderers = new()
+			{
+				[typeof(BriefopMarkerStyle)] = new BriefopMarkerStyleRenderer(),
+				[typeof(BriefopLineStyle)] = new BriefopLineStyleRenderer(),
+				[typeof(BriefopLabelStyle)] = new BriefopLabelStyleRenderer(),
+			};
+
+			foreach (ILayer layer in layers)
+			{
+				if (layer is not MemoryLayer memoryLayer)
+					continue;
+
+				foreach (IFeature feature in memoryLayer.Features ?? [])
+				{
+					foreach (IStyle style in feature.Styles)
+					{
+						if (styleRenderers.TryGetValue(style.GetType(), out ISkiaStyleRenderer renderer))
+							renderer.Draw(canvas, viewport, layer, feature, style, null, 0);
+					}
+				}
+			}
+		}
+
+		// TODO Phase 5: remove — GMap-based overload replaced by ITileSource overload above
 		public static Bitmap GenerateMapImage(MizBopMap mapData, GMapProvider mapProvider, IEnumerable<GMapOverlay> additionalOverlays, Size outputSize)
 		{
 			List<GMapOverlay> overlays = new List<GMapOverlay> { mapData.BuildCustomMapOverlay() };

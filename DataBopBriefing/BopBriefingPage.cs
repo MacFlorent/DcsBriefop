@@ -1,10 +1,9 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.DataMiz;
+using DcsBriefop.Map;
 using DcsBriefop.net.Tools;
 using DcsBriefop.Tools;
-using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
 using HtmlTags;
 using PuppeteerSharp;
 using System.Text.RegularExpressions;
@@ -177,26 +176,10 @@ namespace DcsBriefop.DataBopBriefing
 		#endregion
 
 		#region Map
-		// TODO Phase 4: rewrite using Mapsui/BruTile tile fetching; replace GMapProvider with ITileSource
 		public Image BuildMapImage(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			GMapProvider mapProvider = GMapProviders.TryGetProvider(bopManager.BopMission.PreferencesMap.ProviderName);
-			return ToolsMap.GenerateMapImage(MapData, mapProvider, GetMapAdditionalOverlays(bopManager, bopBriefingFolder), bopBriefingFolder.ImageSize);
-		}
-
-		// TODO Phase 4: remove once BuildMapImage is migrated to use GetMapAdditionalLayers
-		public IEnumerable<GMapOverlay> GetMapAdditionalOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
-		{
-			List<GMapOverlay> additionalOverlays = new List<GMapOverlay>();
-
-			foreach (BaseBopBriefingPart bopBriefingPart in Parts)
-			{
-				IEnumerable<GMapOverlay> partOverlays = bopBriefingPart.BuildMapOverlays(bopManager, bopBriefingFolder);
-				if (partOverlays is not null)
-					additionalOverlays.AddRange(partOverlays);
-			}
-
-			return additionalOverlays;
+			MapProviders.MapProviderRecord provider = MapProviders.TryGetProviderOrDefault(bopManager.BopMission.PreferencesMap.ProviderName);
+			return ToolsMap.GenerateMapImage(MapData, provider.Factory(), GetMapAdditionalLayers(bopManager, bopBriefingFolder), bopBriefingFolder.ImageSize);
 		}
 
 		public IEnumerable<Mapsui.Layers.ILayer> GetMapAdditionalLayers(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
