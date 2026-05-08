@@ -17,7 +17,7 @@ Current target: `net10.0-windows`, WinForms
 
 **How:** Replace `HtmlImageRenderer.cs` — use `CoreWebView2.CapturePreviewAsync()` to render HTML to a stream.  
 **Risk:** WebView2 runtime must be present (it is on Win 10/11 by default; verify min OS requirement).  
-**Status:** TODO
+**Status:** ✅ Done — `PuppeteerSharp` removed, `Microsoft.Web.WebView2` 1.0.2849.39 added. `HtmlImageRenderer` rewritten as a static class using an off-screen `Form`/`WebView2` host; `BopBriefingPage.BuildHtmlImage` simplified to a one-liner.
 
 ---
 
@@ -53,7 +53,7 @@ Current target: `net10.0-windows`, WinForms
 4. **Offline generation** — Rewrite `ToolsMap.GenerateMapImage()` using BruTile tile fetching directly (no Mapsui control needed for this path).
 5. **Cleanup** — Remove `GMapOverlay`, `PointLatLng` from data/briefing layers; update JSON serializers.
 
-**Status:** TODO — pending decision on sequencing vs other items
+**Status:** ✅ Done — GMap.NET fully removed; all phases complete including offline map generation via BruTile, custom SkiaSharp renderers, and JSON serializer updates.
 
 ---
 
@@ -124,7 +124,7 @@ Current target: `net10.0-windows`, WinForms
 | `Newtonsoft.Json` | Keep for now | `System.Text.Json` (built-in) is faster, but migration requires auditing serialization attributes. Not urgent. |
 | `log4net` | ✅ Keep | Just upgraded to 3.3.1. Not worth migrating to Serilog now. |
 | `CommandLineParser` | Keep | `System.CommandLine` is the Microsoft alternative, but no functional gap here. |
-| `DG.AdvancedDataGridView` | ❌ Replace — see item 5 below | |
+| `DG.AdvancedDataGridView` | ❌ Replace — see item 5 | still in use |
 
 ---
 

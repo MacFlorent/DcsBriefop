@@ -1,67 +1,46 @@
-﻿using PuppeteerSharp;
-using DcsBriefop.Tools;
+using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.WinForms;
 
-namespace DcsBriefop.net.Tools
+namespace DcsBriefop.Tools
 {
-	public class HtmlImageRenderer : IDisposable
+	internal static class HtmlImageRenderer
 	{
-		private BrowserFetcher m_browserFetcher;
-
-		public HtmlImageRenderer()
+		public static async Task<Image> RenderImageAsync(string sHtml, Size size)
 		{
-			m_browserFetcher = new BrowserFetcher();
-		}
+			TaskCompletionSource tcsNavigation = new();
 
-		//ScreenshotStreamAsync
-		public async Task<byte[]> RenderImageDataAsync(string sHtml, ScreenshotOptions options, ViewPortOptions viewPortOptions)
-		{
-			byte[] resultBytes = null;
-			try
+			using Form hostForm = new()
 			{
-				// Download chrome (headless) browser (first time takes a while).
-				await m_browserFetcher.DownloadAsync();
+				FormBorderStyle = FormBorderStyle.None,
+				ShowInTaskbar = false,
+				StartPosition = FormStartPosition.Manual,
+				Width = size.Width,
+				Height = size.Height,
+				Location = new Point(-32000, -32000)
+			};
 
-				// Launch the browser and set the given html.
+			WebView2 webView = new() { Dock = DockStyle.Fill };
+			hostForm.Controls.Add(webView);
+			hostForm.Show();
 
-				//const browser = await puppeteer.launch({
-				//ignoreDefaultArgs: ['--disable-extensions'],
-				//await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true, Args = new[] { "--disable-extensions" } });
-				await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions { Headless = true });
-				await using var page = await browser.NewPageAsync();
-				await page.SetContentAsync(sHtml);
+			await webView.EnsureCoreWebView2Async();
 
-				if (viewPortOptions is object)
-				{
-					await page.SetViewportAsync(viewPortOptions);
-				}
-
-				resultBytes = await page.ScreenshotDataAsync(options);
-
-				await browser.CloseAsync();
-				return resultBytes;
-			}
-			catch (Exception ex)
+			webView.CoreWebView2.NavigationCompleted += (s, e) =>
 			{
-				Log.Exception(ex);
-				throw;
-			}
-		}
+				if (e.IsSuccess)
+					tcsNavigation.TrySetResult();
+				else
+					tcsNavigation.TrySetException(new Exception($"WebView2 navigation failed: {e.WebErrorStatus}"));
+			};
 
-		public async Task<Image> RenderImageAsync(string sHtml, ScreenshotOptions options, ViewPortOptions viewPortOptions)
-		{
-			Image resultImage = null;
-			byte[] byteArrayIn = await RenderImageDataAsync(sHtml, options, viewPortOptions);
-			using (var ms = new MemoryStream(byteArrayIn))
-			{
-				resultImage = Image.FromStream(ms);
-			}
+			webView.CoreWebView2.NavigateToString(sHtml);
+			await tcsNavigation.Task;
+			await Task.Delay(300);
 
-			return resultImage;
-		}
-
-		public void Dispose()
-		{
-			m_browserFetcher = null;
+			using MemoryStream ms = new();
+			await webView.CoreWebView2.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, ms);
+			ms.Seek(0, SeekOrigin.Begin);
+			return Image.FromStream(ms);
 		}
 	}
 }

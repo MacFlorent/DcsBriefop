@@ -35,7 +35,7 @@
     <PackageReference Include="Mapsui.WindowsForms" Version="5.0.2" />
     <PackageReference Include="ProjNet" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="PuppeteerSharp" Version="24.40.0" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2849.39" />
     <PackageReference Include="UnitsNet" Version="5.75.0" />
   </ItemGroup>
 

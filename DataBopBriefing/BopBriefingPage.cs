@@ -2,10 +2,8 @@
 using DcsBriefop.DataBopMission;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
-using DcsBriefop.net.Tools;
 using DcsBriefop.Tools;
 using HtmlTags;
-using PuppeteerSharp;
 using System.Text.RegularExpressions;
 
 namespace DcsBriefop.DataBopBriefing
@@ -90,17 +88,8 @@ namespace DcsBriefop.DataBopBriefing
 		#region Html
 		public async Task<Image> BuildHtmlImage(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			Image image = null;
 			string sHtml = BuildHtmlString(bopManager, bopBriefingFolder);
-			using (HtmlImageRenderer renderer = new())
-			{
-				ScreenshotOptions screenshotOptions = new() { Type = ScreenshotType.Png };
-				ViewPortOptions viewPortOptions = new() { Height = bopBriefingFolder.ImageSize.Height, Width = bopBriefingFolder.ImageSize.Width };
-
-				image = await renderer.RenderImageAsync(sHtml, screenshotOptions, viewPortOptions); // ConfigureAwait(false); https://devblogs.microsoft.com/dotnet/configureawait-faq/
-			}
-
-			return image;
+			return await HtmlImageRenderer.RenderImageAsync(sHtml, bopBriefingFolder.ImageSize);
 		}
 
 		public string BuildHtmlString(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
