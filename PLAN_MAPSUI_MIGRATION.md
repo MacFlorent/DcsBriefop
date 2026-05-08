@@ -106,18 +106,15 @@ double dWorldY = viewport.CenterY - (dScreenY - viewport.Height / 2.0) * viewpor
 - [Forms/FrmPreferences.cs](Forms/FrmPreferences.cs) ✅ — `TryGetEntry` / `MapProviderEntry`
 - [Forms/FrmMissionMaps.cs](Forms/FrmMissionMaps.cs) ✅ — `TryGetEntry` / `MapProviderEntry`
 
-**What was deferred (has TODO comments in code):**
-- `UcMap.DataToOverlay()` — no layers added yet; Phase 2 restores marker layer, Phase 3 restores static overlay layers
-- `UcMap.OverlayToData()` — stub; Phase 2 restores
-- `UcMap.StaticOverlays` property — still typed `IEnumerable<GMapOverlay>` so callers compile; Phase 3 changes the type to `IEnumerable<ILayer>`
-- `FrmTheatre.DisplayCurrentTheatre()` — theatre centre marker and airdrome markers removed; Phase 2 restores via `MemoryLayer`
-- Marker click/hover/drag in `UcMap` — all GMap events removed; Phase 2 wires `MapControl.Info` event
-- `UcMarkerDetail.cs` — untouched; still references `GMarkerBriefop` and `GMapControl`; Phase 2 updates its constructor
+**What was deferred (resolved in later phases):**
+- `UcMap.DataToOverlay()` — restored in Phase 2/3
+- `UcMap.StaticOverlays` property — changed to `IEnumerable<ILayer>` in Phase 3
+- `FrmTheatre.DisplayCurrentTheatre()` — airdrome markers restored in Phase 5; `MouseMove`/`MouseDoubleClick` → `MapPointerMoved`/`MapTapped` in Phase 5
+- Marker click/hover/drag in `UcMap` — wired in Phase 2 via `MapTapped`/`MapPointerMoved`/`MapPointerPressed`/`MapPointerReleased`
+- `UcMarkerDetail.cs` — updated in Phase 2
 
-**GMap stubs kept in ToolsMap.cs (TODO Phase 5 to remove):**
-- `InitializeGMaps()` — still called from `Program.cs` and `FrmMain.cs`
-- `InitializeMapControl(GMapControl, string/GMapProvider)` — still called from `UcGroup.cs`, `UcAirbase.cs`
-- `ForceRefresh(GMapControl)` — still called from `UcAirbase`, `UcGroupUnits`, `UcGroupRoutePoints`, `UcGroupInformation`
+**GMap stubs kept in ToolsMap.cs (removed in Phase 5):**
+- `InitializeGMaps()`, `InitializeMapControl(GMapControl,…)`, `ForceRefresh(GMapControl)` — all removed ✅
 
 ---
 
@@ -209,48 +206,63 @@ double dWorldY = viewport.CenterY - (dScreenY - viewport.Height / 2.0) * viewpor
 
 ---
 
-## Phase 5 — Cleanup ⬜
+## Phase 5 — Cleanup ✅ Done
 
 **Goal:** Remove all remaining GMap.NET references, then remove the packages.
 
-**Forms — swap `GMapControl` for Mapsui `MapControl`:**
-- [Forms/UcGroup.cs](Forms/UcGroup.cs) + designer — embedded `GMapControl MapControl`; replace with `Mapsui.UI.WindowsForms.MapControl`; rewire overlays via `StaticOverlays`/`BuildStaticLayer`
-- [Forms/UcAirbase.cs](Forms/UcAirbase.cs) + designer — same as above
-- [Forms/UcGroupBase.cs](Forms/UcGroupBase.cs) — holds `protected GMapControl m_mapControl`; constructor parameter becomes `Mapsui.UI.WindowsForms.MapControl`
-- [Forms/UcGroupRoutePoints.cs](Forms/UcGroupRoutePoints.cs) — passes `GMapControl` to `UcGroupBase`; update signature
-- [Forms/UcGroupUnits.cs](Forms/UcGroupUnits.cs) — same
-- [Forms/UcGroupInformation.cs](Forms/UcGroupInformation.cs) — same
+**Forms — swapped `GMapControl` for Mapsui `MapControl`:** ✅
+- [Forms/UcGroupBase.cs](Forms/UcGroupBase.cs) ✅ — `protected GMapControl m_mapControl` → `protected MapControl m_mapControl`; constructor parameter updated
+- [Forms/UcGroup.cs](Forms/UcGroup.cs) + designer ✅ — GMapControl replaced; designer rewritten to minimal Mapsui MapControl properties (Anchor, BackColor, Location, Name, Size, TabIndex)
+- [Forms/UcAirbase.cs](Forms/UcAirbase.cs) + designer ✅ — same pattern
+- [Forms/UcGroupRoutePoints.cs](Forms/UcGroupRoutePoints.cs) ✅ — `DataToScreenMap` rewritten; removes/adds `MemoryLayer`s; `CenterOnAndZoomTo`
+- [Forms/UcGroupUnits.cs](Forms/UcGroupUnits.cs) ✅ — same pattern; calls `GetUnitsLayer(selectedUnit?.Id)`
+- [Forms/UcGroupInformation.cs](Forms/UcGroupInformation.cs) ✅ — same pattern; adds both `GetPositionLayer()` and `GetRouteLayer()`
 
-**Stub cleanup in ToolsMap.cs (marked `TODO Phase 5`):**
-- Remove `InitializeGMaps()` + call sites in `Program.cs`, `FrmMain.cs`
-- Remove `InitializeMapControl(GMapControl,…)` overload
-- Remove `ForceRefresh(GMapControl)` overload
+**Stub cleanup in ToolsMap.cs:** ✅
+- Removed `InitializeGMaps()` + call sites in `Program.cs` and `FrmMain.cs`
+- Removed `InitializeMapControl(GMapControl,…)` overload
+- Removed `ForceRefresh(GMapControl)` overload
+- Removed old `GenerateMapImage(GMapProvider,…)` overloads
+- Removed internal `DrawRouteBriefop`, `DrawRoute`, `DrawMarker`, `TranslateGraphics` helpers
+- Removed `#region Miscellaneous` (`GetRectOfPoints`, `GetRectCenter`, `GetPointsCenter` — GMap types)
 
-**Data model type substitutions** (`PointLatLng` → `GeoPoint`, `GMapOverlay` → `MemoryLayer`, remove `GMap.NET.*` usings):
-- [DataBopMission/BopGroup.cs](DataBopMission/BopGroup.cs)
-- [DataBopMission/BopUnit.cs](DataBopMission/BopUnit.cs)
-- [DataBopMission/BopRoutePoint.cs](DataBopMission/BopRoutePoint.cs)
-- [DataBopMission/BopCoalition.cs](DataBopMission/BopCoalition.cs)
-- [DataBopMission/BopAirbase.cs](DataBopMission/BopAirbase.cs)
-- [DataBopMission/BopGroupOrUnit.cs](DataBopMission/BopGroupOrUnit.cs)
-- [DataBopMission/BopMission.cs](DataBopMission/BopMission.cs) — `BuildCustomMapOverlay()` stub (remove after Phase 4)
-- [DataBopBriefing/BopBriefingPage.cs](DataBopBriefing/BopBriefingPage.cs)
-- [DataBopBriefing/BaseBopBriefingPart.cs](DataBopBriefing/BaseBopBriefingPart.cs)
-- [DataBopBriefing/BopBriefingPartWaypoints.cs](DataBopBriefing/BopBriefingPartWaypoints.cs)
-- [DataBopBriefing/BopBriefingPartGroups.cs](DataBopBriefing/BopBriefingPartGroups.cs)
-- [DataBopBriefing/BopBriefingPartAirbases.cs](DataBopBriefing/BopBriefingPartAirbases.cs)
+**Data model type substitutions:** ✅
+- [DataBopMission/BopGroup.cs](DataBopMission/BopGroup.cs) ✅ — all overlay methods replaced with `GetLayer`, `GetPositionLayer`, `GetUnitsLayer`, `GetOrbitLayer`, `GetRouteLayer` → `MemoryLayer`
+- [DataBopMission/BopUnit.cs](DataBopMission/BopUnit.cs) ✅ — `GetMarkerBriefop` → `BriefopMarker`; `GetLayer` → `MemoryLayer`
+- [DataBopMission/BopRoutePoint.cs](DataBopMission/BopRoutePoint.cs) ✅ — `GetMarkerBriefop` → `BriefopMarker`
+- [DataBopMission/BopAirbase.cs](DataBopMission/BopAirbase.cs) ✅ — `GetLayer` → `MemoryLayer`; `GetMarkerBriefop` → `BriefopMarker`
+- [DataBopMission/BopGroupOrUnit.cs](DataBopMission/BopGroupOrUnit.cs) ✅ — `GetLayer` → `MemoryLayer`
+- [DataBopMission/BopMission.cs](DataBopMission/BopMission.cs) ✅ — removed `BuildCustomMapOverlay()` stub + commented-out GMap code
+- [DataBopBriefing/BaseBopBriefingPart.cs](DataBopBriefing/BaseBopBriefingPart.cs) ✅ — `BuildMapOverlays` → `BuildMapLayers() -> IEnumerable<ILayer>`
+- [DataBopBriefing/BopBriefingPage.cs](DataBopBriefing/BopBriefingPage.cs) ✅ — wired `BuildMapLayers` into `GetMapAdditionalLayers`
+- [DataBopBriefing/BopBriefingPartWaypoints.cs](DataBopBriefing/BopBriefingPartWaypoints.cs) ✅
+- [DataBopBriefing/BopBriefingPartGroups.cs](DataBopBriefing/BopBriefingPartGroups.cs) ✅
+- [DataBopBriefing/BopBriefingPartAirbases.cs](DataBopBriefing/BopBriefingPartAirbases.cs) ✅
 
-**Serialization cleanup:**
-- [JsonSerializers.cs](JsonSerializers.cs) — remove `GMapOverlayJsonConverter` (kept for backward-compat read of old JSON; safe to remove once old save files are no longer needed)
-- [DataMiz/BaseMizBopSerializable.cs](DataMiz/BaseMizBopSerializable.cs) — remove `m_converterGMapOverlay` registration
-- [DataMiz/MizBopMap.cs](DataMiz/MizBopMap.cs) — remove `BuildCustomMapOverlay()` stub (after Phase 4)
+**Serialization cleanup:** ✅
+- [JsonSerializers.cs](JsonSerializers.cs) ✅ — `GMapOverlayJsonConverter` removed; only `BriefopMarkerJsonConverter` remains
+- [DataMiz/BaseMizBopSerializable.cs](DataMiz/BaseMizBopSerializable.cs) ✅ — `m_converterGMapOverlay` registration removed
+- [DataMiz/MizBopMap.cs](DataMiz/MizBopMap.cs) ✅ — `BuildCustomMapOverlay()` stub removed
 
-**Old GMap map-object files to delete** (kept as Phase 4 stubs):
-- [Map/GMarkerBriefop.cs](Map/GMarkerBriefop.cs)
-- [Map/GLineBriefop.cs](Map/GLineBriefop.cs)
-- [Map/GTextBriefop.cs](Map/GTextBriefop.cs)
+**Old GMap map-object files deleted:** ✅
+- `Map/GMarkerBriefop.cs` ✅
+- `Map/GLineBriefop.cs` ✅
+- `Map/GTextBriefop.cs` ✅
 
-After all substitutions: remove `GMap.NET.Core` and `GMap.NET.WinForms` from `DcsBriefop.csproj`.
+**Packages removed from `DcsBriefop.csproj`:** ✅
+- `GMap.NET.WinForms` 2.1.7 removed (transitive `GMap.NET.Core`, `System.Data.SqlClient`, `EntityFramework`, `SQLite` removed automatically)
+
+**Bonus work completed in Phase 5:**
+- [Forms/FrmTheatre.cs](Forms/FrmTheatre.cs) ✅ — implemented deferred Phase 2 TODO: airdrome markers via `MemoryLayer` in `DisplayCurrentTheatre`; click-point waypoint marker on double-tap
+- [Forms/FrmTheatre.cs](Forms/FrmTheatre.cs) + designer ✅ — replaced WinForms `MouseDoubleClick` → `MapTapped` (GestureType.DoubleTap); `MouseMove` → `MapPointerMoved`; both now use `MapProjection.ToGeoPoint(e.WorldPosition)` consistent with `UcMap.cs`
+- [Map/BriefopLabelStyleRenderer.cs](Map/BriefopLabelStyleRenderer.cs) ✅ — fixed SkiaSharp CS0618 obsolete warnings: `SKPaint.TextSize/Typeface/MeasureText/GetFontMetrics` → `SKFont`; `DrawText(string,float,float,SKPaint)` → `DrawText(string,float,float,SKTextAlign,SKFont,SKPaint)`
+- [Map/BriefopMarkerStyleRenderer.cs](Map/BriefopMarkerStyleRenderer.cs) ✅ — same SKFont migration; `SKPaint.TextAlign` removed; align passed as `SKTextAlign.Center` in new `DrawText` overload
+- [Map/BriefopLineStyleRenderer.cs](Map/BriefopLineStyleRenderer.cs) ✅ — same SKFont migration; `SKPaint.FontSpacing` → `SKFont.Spacing`
+
+**Verified API facts (Phase 5):**
+- Mapsui WinForms `MapControl` does **not** reliably fire `MouseDoubleClick` or `MouseMove` — use `MapTapped` (with `GestureType.DoubleTap`/`SingleTap`) and `MapPointerMoved` instead; `e.WorldPosition` gives the map-space `MPoint` directly, no screen-to-world transform needed
+- For GMap-style Designer properties (`Bearing`, `CanDragMap`, `EmptyTileColor`, `HelperLineOption`, etc.) — simply omit; Mapsui has no equivalents; keep only layout properties (Anchor, BackColor, Location, Name, Size, TabIndex)
+- `SKFont` object initializer (`new SKFont { Size = …, Typeface = … }`) works in SkiaSharp 3.x — `SKFont` created from `SKTypeface.FromFamilyName(null)` uses the system default face
 
 ---
 
@@ -268,7 +280,7 @@ Shared infra ──► Phase 1 (tiles) ✅
                      │                           │
                      └──────────┬────────────────┘
                                 ▼
-                            Phase 5 (cleanup + remove packages) ⬜  ← next
+                            Phase 5 (cleanup + remove packages) ✅  COMPLETE
 ```
 
 Phases 3 and 4 are independent and can be worked in parallel.

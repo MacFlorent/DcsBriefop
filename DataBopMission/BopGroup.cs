@@ -3,8 +3,8 @@ using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.WindowsForms;
+using Mapsui;
+using Mapsui.Layers;
 using System.Text;
 
 namespace DcsBriefop.DataBopMission
@@ -207,55 +207,61 @@ namespace DcsBriefop.DataBopMission
 			return (routeTask as BopRouteTaskBeacon)?.Tacan;
 		}
 
-		public GMarkerBriefop GetMarkerBriefop(Color? color)
+		public BriefopMarker GetBriefopMarker(Color? color)
 		{
-			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree), MapMarker, color ?? ToolsBriefop.GetCoalitionColor(CoalitionName), ToStringDisplayName(), 1, 0);
+			GeoPoint pos = new(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree);
+			return BriefopMarker.NewFromTemplateName(pos, MapMarker, color ?? ToolsBriefop.GetCoalitionColor(CoalitionName), ToStringDisplayName(), 1, 0);
 		}
 
-		public GMapOverlay GetMapOverlay()
+		public MemoryLayer GetMapLayer()
 		{
-			BopRoutePoint orbitPoint = RoutePoints.Where(_rp => _rp.Tasks.OfType<BopRouteTaskOrbit>().Any()).FirstOrDefault();
+			BopRoutePoint orbitPoint = RoutePoints.FirstOrDefault(_rp => _rp.Tasks.OfType<BopRouteTaskOrbit>().Any());
 			if (orbitPoint is not null)
-				return GetMapOverlayOrbit();
+				return GetOrbitMapLayer();
 			else
-				return GetMapOverlayPosition();
+				return GetPositionMapLayer();
 		}
 
-		public GMapOverlay GetMapOverlayPosition()
+		public MemoryLayer GetPositionMapLayer()
 		{
-			GMapOverlay mapOverlay = new GMapOverlay();
-			mapOverlay.Markers.Add(GetMarkerBriefop(null));
-			return mapOverlay;
+			BriefopMarker marker = GetBriefopMarker(null);
+			PointFeature mapFeature = new(MapProjection.ToMPoint(marker.Position));
+			mapFeature.Styles.Add(new BriefopMarkerStyle(marker));
+			return new MemoryLayer { Style = null, Features = [mapFeature] };
 		}
 
-		public GMapOverlay GetMapOverlayUnits(int? iIdSelectedUnit)
+		public MemoryLayer GetUnitsMapLayer(int? iIdSelectedUnit)
 		{
 			Color color = ToolsBriefop.GetCoalitionColor(CoalitionName);
-			GMapOverlay mapOverlay = new GMapOverlay();
+			List<IFeature> mapFeatures = [];
 
 			BopUnit selectedUnit = Units.Where(_u => _u.Id == iIdSelectedUnit.GetValueOrDefault(0)).FirstOrDefault();
-			if (selectedUnit is object)
+			if (selectedUnit is not null)
 				color = ToolsImage.Lerp(color, Color.White, 0.5f);
 
 			foreach (BopUnit bopUnit in Units.Where(_u => _u != selectedUnit))
 			{
-				GMarkerBriefop marker = bopUnit.GetMarkerBriefop(color);
-				mapOverlay.Markers.Add(marker);
+				BriefopMarker marker = bopUnit.GetBriefopMarker(color);
+				PointFeature mapFeature = new(MapProjection.ToMPoint(marker.Position));
+				mapFeature.Styles.Add(new BriefopMarkerStyle(marker));
+				mapFeatures.Add(mapFeature);
 			}
 
-			if (selectedUnit is object)
+			if (selectedUnit is not null)
 			{
-				GMarkerBriefop marker = selectedUnit.GetMarkerBriefop(null);
-				mapOverlay.Markers.Add(marker);
+				BriefopMarker marker = selectedUnit.GetBriefopMarker(null);
+				PointFeature mapFeature = new(MapProjection.ToMPoint(marker.Position));
+				mapFeature.Styles.Add(new BriefopMarkerStyle(marker));
+				mapFeatures.Add(mapFeature);
 			}
 
-			return mapOverlay;
+			return new MemoryLayer { Style = null, Features = mapFeatures };
 		}
 
-		public GMapOverlay GetMapOverlayOrbit()
+		public MemoryLayer GetOrbitMapLayer()
 		{
-			GMapOverlay mapOverlay = new GMapOverlay();
-			List<PointLatLng> points = new List<PointLatLng>();
+			List<IFeature> mapFeatures = [];
+			List<GeoPoint> points = [];
 
 			bool bDone = false;
 			int iCount = 0;
@@ -267,27 +273,30 @@ namespace DcsBriefop.DataBopMission
 					break;
 				else if (points.Count <= 0 && bopRoutePoint.Tasks.OfType<BopRouteTaskOrbit>().FirstOrDefault() is BopRouteTaskOrbit bopRouteTaskOrbit)
 				{
-					PointLatLng p = new PointLatLng(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
-					GMarkerBriefop marker;
+					GeoPoint pos = new(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
+					BriefopMarker marker;
 					if (bopRouteTaskOrbit.Pattern == "Circle" || iCount == RoutePoints.Count)
 					{
-						marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Circle, ToolsBriefop.GetCoalitionColor(CoalitionName), ToStringDisplayName(), 2, 0);
+						marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Circle, ToolsBriefop.GetCoalitionColor(CoalitionName), ToStringDisplayName(), 2, 0);
 						bDone = true;
 					}
 					else
 					{
-						marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0);
+						marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Waypoint, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0);
 					}
-
-					mapOverlay.Markers.Add(marker);
-					points.Add(p);
+					PointFeature mapFeature = new(MapProjection.ToMPoint(pos));
+					mapFeature.Styles.Add(new BriefopMarkerStyle(marker));
+					mapFeatures.Add(mapFeature);
+					points.Add(pos);
 				}
 				else if (points.Count == 1)
 				{
-					PointLatLng p = new PointLatLng(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
-					GMarkerBriefop marker = GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.Waypoint, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0);
-					mapOverlay.Markers.Add(marker);
-					points.Add(p);
+					GeoPoint pos = new(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
+					BriefopMarker marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Waypoint, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0);
+					PointFeature feature = new(MapProjection.ToMPoint(pos));
+					feature.Styles.Add(new BriefopMarkerStyle(marker));
+					mapFeatures.Add(feature);
+					points.Add(pos);
 					bDone = true;
 				}
 			}
@@ -296,26 +305,27 @@ namespace DcsBriefop.DataBopMission
 			{
 				Color colorText = ToolsBriefop.GetCoalitionColor(CoalitionName);
 				Color colorLine = Color.FromArgb(70, colorText);
-
-				GLineBriefop route = GLineBriefop.NewLineFromTemplateName(points, ToStringDisplayName(), ElementMapTemplateLine.DashLine, colorLine, 3, colorText, ToStringDisplayName());
-				mapOverlay.Routes.Add(route);
+				BriefopLine line = BriefopLine.NewLineFromTemplateName(points, ElementMapTemplateLine.DashLine, colorLine, 3, colorText, ToStringDisplayName());
+				Mapsui.Nts.GeometryFeature lineFeature = line.ToGeometryFeature();
+				if (lineFeature is not null)
+					mapFeatures.Add(lineFeature);
 			}
 
-			return mapOverlay;
+			return new MemoryLayer { Style = null, Features = mapFeatures };
 		}
 
-		public GMapOverlay GetMapOverlayRoute(int? iSelectedPointNumber, ElementMapOverlayRouteDisplay options, ElementMeasurementSystem measurementSystem)
+		public MemoryLayer GetRouteMapLayer(int? iSelectedPointNumber, ElementMapOverlayRouteDisplay options, ElementMeasurementSystem measurementSystem)
 		{
-			GMapOverlay mapOverlay = new();
-			List<PointLatLng> points = new();
-			List<string> segmentLabels = new();
+			List<IFeature> mapFeatures = [];
+			List<GeoPoint> points = [];
+			List<string> segmentLabels = [];
 
 			foreach (BopRoutePoint bopRoutePoint in RoutePoints)
 			{
 				if (bopRoutePoint.Name != ElementGlobalData.BullseyeRoutePointName)
 				{
-					PointLatLng p = new PointLatLng(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
-					points.Add(p);
+					GeoPoint pos = new(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
+					points.Add(pos);
 					segmentLabels.Add($"{bopRoutePoint.GetTrack(true):000}°/{bopRoutePoint.GetDistance(measurementSystem):0}{ToolsMeasurement.DistanceUnit(measurementSystem)}");
 				}
 
@@ -324,21 +334,24 @@ namespace DcsBriefop.DataBopMission
 					|| (options & ElementMapOverlayRouteDisplay.NoMarkerFirstPoint) == 0)
 				{
 					Color colorPoint = ToolsBriefop.GetCoalitionColor(CoalitionName);
-					if (iSelectedPointNumber is object && iSelectedPointNumber.Value != bopRoutePoint.Number)
+					if (iSelectedPointNumber is not null && iSelectedPointNumber.Value != bopRoutePoint.Number)
 						colorPoint = ToolsImage.Lerp(colorPoint, Color.White, 0.5f);
 
-					GMarkerBriefop markerBriefop = bopRoutePoint.GetMarkerBriefop(colorPoint, options);
-					mapOverlay.Markers.Add(markerBriefop);
+					BriefopMarker briefopMarker = bopRoutePoint.GetBriefopMarker(colorPoint, options);
+					PointFeature mapFeature = new(MapProjection.ToMPoint(briefopMarker.Position));
+					mapFeature.Styles.Add(new BriefopMarkerStyle(briefopMarker));
+					mapFeatures.Add(mapFeature);
 				}
 			}
 
 			Color colorText = ToolsBriefop.GetCoalitionColor(CoalitionName);
 			Color colorLine = Color.FromArgb(70, colorText);
+			BriefopLine route = BriefopLine.NewRouteFromTemplateName(points, ElementMapTemplateLine.DashLine, colorLine, 5, colorText, segmentLabels);
+			Mapsui.Nts.GeometryFeature routeFeature = route.ToGeometryFeature();
+			if (routeFeature is not null)
+				mapFeatures.Add(routeFeature);
 
-			GLineBriefop route = GLineBriefop.NewRouteFromTemplateName(points, null, ElementMapTemplateLine.DashLine, colorLine, 5, colorText, segmentLabels);
-			mapOverlay.Routes.Add(route);
-
-			return mapOverlay;
+			return new MemoryLayer { Style = null, Features = mapFeatures };
 		}
 		#endregion
 

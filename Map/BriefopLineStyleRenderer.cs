@@ -14,13 +14,13 @@ namespace DcsBriefop.Map
 {
 	internal class BriefopLineStyleRenderer : ISkiaStyleRenderer
 	{
-		public bool Draw(SKCanvas canvas, Viewport viewport, ILayer layer, IFeature feature, IStyle style, RenderService renderService, long iteration)
+		public bool Draw(SKCanvas canvas, Viewport viewport, ILayer layer, IFeature mapFeature, IStyle style, RenderService renderService, long iteration)
 		{
-			if (feature is not GeometryFeature geometryFeature || style is not BriefopLineStyle lineStyle)
+			if (mapFeature is not GeometryFeature geometryMapFeature || style is not BriefopLineStyle lineStyle)
 				return false;
 
 			BriefopLine line = lineStyle.Line;
-			Coordinate[] coords = geometryFeature.Geometry?.Coordinates;
+			Coordinate[] coords = geometryMapFeature.Geometry?.Coordinates;
 			if (coords is null || coords.Length < 2)
 				return false;
 
@@ -130,17 +130,17 @@ namespace DcsBriefop.Map
 
 		private static void DrawPanel(SKCanvas canvas, BriefopLine line, SKPoint p1, SKPoint p2, string sText)
 		{
+			using SKFont textFont = new() { Size = 11f };
 			using SKPaint textPaint = new()
 			{
-				TextSize = 11f,
 				Color = line.TextColor == Color.Empty ? SKColors.Black : ToSKColor(line.TextColor),
 				IsAntialias = true,
 			};
 
-			float textW = string.IsNullOrEmpty(sText) ? 0f : textPaint.MeasureText(sText);
-			textPaint.GetFontMetrics(out SKFontMetrics fm);
+			float textW = string.IsNullOrEmpty(sText) ? 0f : textFont.MeasureText(sText);
+			textFont.GetFontMetrics(out SKFontMetrics fm);
 			float ascent = -fm.Ascent;
-			float textH = textPaint.FontSpacing;
+			float textH = textFont.Spacing;
 
 			float arrowLen = line.PanelArrow ? textH : 0f;
 			float totalW = textW + arrowLen;
@@ -188,7 +188,7 @@ namespace DcsBriefop.Map
 			canvas.Save();
 			canvas.Translate(centerX, centerY);
 			canvas.RotateDegrees(angleText);
-			canvas.DrawText(sText, -(textW / 2f) - offsetX, -textH / 2f + ascent, textPaint);
+			canvas.DrawText(sText, -(textW / 2f) - offsetX, -textH / 2f + ascent, SKTextAlign.Left, textFont, textPaint);
 			canvas.Restore();
 		}
 

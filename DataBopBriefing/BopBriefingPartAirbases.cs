@@ -1,8 +1,8 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
-using GMap.NET.WindowsForms;
 using HtmlTags;
+using Mapsui.Layers;
 using log4net;
 using System.Text;
 
@@ -95,15 +95,15 @@ namespace DcsBriefop.DataBopBriefing
 			return tags;
 		}
 
-		public override IEnumerable<GMapOverlay> BuildMapOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<ILayer> BuildMapLayers(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<GMapOverlay> partOverlays = new List<GMapOverlay>();
+			List<ILayer> layers = [];
 			foreach (BopAirbase bopAirbase in GetBopAirbases(bopManager.BopMission))
 			{
 				bopAirbase.FinalizeFromMiz();
-				partOverlays.Add(bopAirbase.GetMapOverlay(ToolsBriefop.GetCoalitionColor(bopBriefingFolder.CoalitionName)));
+				layers.Add(bopAirbase.GetMapLayer(ToolsBriefop.GetCoalitionColor(bopBriefingFolder.CoalitionName)));
 			}
-			return partOverlays;
+			return layers;
 		}
 
 		private IEnumerable<string> GetColumns()

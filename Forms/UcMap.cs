@@ -13,7 +13,7 @@ namespace DcsBriefop.Forms
 	{
 		#region Fields
 		private string m_sMapProviderName;
-		private MemoryLayer m_customLayer;
+		private MemoryLayer m_customMapLayer;
 		private BriefopMarker m_selectedMarker;
 		private BriefopMarker m_hoveredMarker;
 		private BriefopMarker m_draggedMarker;
@@ -58,46 +58,46 @@ namespace DcsBriefop.Forms
 				MapControl.Map.Navigator.CenterOnAndZoomTo(MapProjection.ToMPoint(MapData.CenterLatitude, MapData.CenterLongitude), MapProjection.ZoomToResolution((int)MapData.Zoom), 0, null);
 			}
 
-			DataToScreenLayers();
+			DataToScreenMapLayers();
 		}
 
-		private void DataToScreenLayers()
+		private void DataToScreenMapLayers()
 		{
-			foreach (MemoryLayer layer in MapControl.Map.Layers.OfType<MemoryLayer>().ToList())
-				MapControl.Map.Layers.Remove(layer);
+			foreach (MemoryLayer mapLayer in MapControl.Map.Layers.OfType<MemoryLayer>().ToList())
+				MapControl.Map.Layers.Remove(mapLayer);
 
 			if (StaticOverlays is not null)
 			{
-				foreach (ILayer staticLayer in StaticOverlays)
-					MapControl.Map.Layers.Add(staticLayer);
+				foreach (ILayer staticMapLayer in StaticOverlays)
+					MapControl.Map.Layers.Add(staticMapLayer);
 			}
 
-			m_customLayer = null;
+			m_customMapLayer = null;
 			m_hoveredMarker = null;
 			m_draggedMarker = null;
 
 			if (MapData is not null)
 			{
-				m_customLayer = MapData.BuildCustomLayer();
-				MapControl.Map.Layers.Add(m_customLayer);
+				m_customMapLayer = MapData.BuildCustomMapLayer();
+				MapControl.Map.Layers.Add(m_customMapLayer);
 			}
 		}
 
 		private BriefopMarker HitTestMarker(MPoint worldPoint)
 		{
-			if (m_customLayer is null)
+			if (m_customMapLayer is null)
 				return null;
 
 			double dResolution = MapControl.Map.Navigator.Viewport.Resolution;
-			foreach (PointFeature feature in m_customLayer.Features.OfType<PointFeature>())
+			foreach (PointFeature mapFeature in m_customMapLayer.Features.OfType<PointFeature>())
 			{
-				BriefopMarker marker = feature.Styles.OfType<BriefopMarkerStyle>().FirstOrDefault()?.Marker;
+				BriefopMarker marker = mapFeature.Styles.OfType<BriefopMarkerStyle>().FirstOrDefault()?.Marker;
 				if (marker is null)
 					continue;
 				double dWorldHalfW = marker.GetSizeWidth() / 2.0 * dResolution;
 				double dWorldHalfH = marker.GetSizeHeight() / 2.0 * dResolution;
-				if (Math.Abs(worldPoint.X - feature.Point.X) <= dWorldHalfW &&
-					Math.Abs(worldPoint.Y - feature.Point.Y) <= dWorldHalfH)
+				if (Math.Abs(worldPoint.X - mapFeature.Point.X) <= dWorldHalfW &&
+					Math.Abs(worldPoint.Y - mapFeature.Point.Y) <= dWorldHalfH)
 					return marker;
 			}
 			return null;
@@ -132,7 +132,7 @@ namespace DcsBriefop.Forms
 
 		private void RefreshCustomLayer()
 		{
-			m_customLayer?.DataHasChanged();
+			m_customMapLayer?.DataHasChanged();
 		}
 		#endregion
 
@@ -146,7 +146,7 @@ namespace DcsBriefop.Forms
 				if (toDelete == m_selectedMarker)
 					SelectMarker(null);
 				MapData.CustomMarkers.Remove(toDelete);
-				DataToScreenLayers();
+				DataToScreenMapLayers();
 				return true;
 			}
 			return base.ProcessCmdKey(ref msg, keyData);
@@ -197,7 +197,7 @@ namespace DcsBriefop.Forms
 			{
 				m_draggedMarker.IsPressed = false;
 				m_draggedMarker = null;
-				DataToScreenLayers();
+				DataToScreenMapLayers();
 			}
 		}
 
@@ -207,10 +207,10 @@ namespace DcsBriefop.Forms
 			{
 				m_draggedMarker.Position = MapProjection.ToGeoPoint(e.WorldPosition);
 				
-				PointFeature draggedFeature = m_customLayer.Features.OfType<PointFeature>().FirstOrDefault(_f => (_f.Styles.OfType<BriefopMarkerStyle>().FirstOrDefault()?.Marker) == m_draggedMarker);
-				draggedFeature?.Point.X = e.WorldPosition.X;
-				draggedFeature?.Point.Y = e.WorldPosition.Y;
-				draggedFeature?.Modified();
+				PointFeature draggedMapFeature = m_customMapLayer.Features.OfType<PointFeature>().FirstOrDefault(_f => (_f.Styles.OfType<BriefopMarkerStyle>().FirstOrDefault()?.Marker) == m_draggedMarker);
+				draggedMapFeature?.Point.X = e.WorldPosition.X;
+				draggedMapFeature?.Point.Y = e.WorldPosition.Y;
+				draggedMapFeature?.Modified();
 				RefreshCustomLayer();
 			}
 			else
@@ -239,7 +239,7 @@ namespace DcsBriefop.Forms
 				GeoPoint geoPoint = MapProjection.ToGeoPoint(e.WorldPosition);
 				BriefopMarker newMarker = BriefopMarker.NewFromTemplateName(geoPoint, ElementMapTemplateMarker.DefaultMark, null, "", 1, 0);
 				MapData.CustomMarkers.Add(newMarker);
-				DataToScreenLayers();
+				DataToScreenMapLayers();
 				CkAddMarker.Checked = false;
 				SelectMarker(newMarker);
 			}

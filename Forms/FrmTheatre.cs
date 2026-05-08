@@ -3,6 +3,8 @@ using DcsBriefop.Data;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
 using Mapsui;
+using Mapsui.Layers;
+using Mapsui.Manipulations;
 
 namespace DcsBriefop.Forms
 {
@@ -72,7 +74,19 @@ namespace DcsBriefop.Forms
 			TbMapDataStatic.Clear();
 			LbMapDataDynamic.Text = null;
 
-			// TODO Phase 2: add theatre centre marker and airdrome markers via Mapsui MemoryLayer
+			foreach (MemoryLayer layer in MapControl.Map.Layers.OfType<MemoryLayer>().ToList())
+				MapControl.Map.Layers.Remove(layer);
+
+			List<IFeature> features = [];
+			foreach (Airdrome airdrome in m_theatre.Airdromes)
+			{
+				GeoPoint pos = new(airdrome.Latitude, airdrome.Longitude);
+				BriefopMarker marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Airdrome, m_OverlayColor, airdrome.Name, 1, 0);
+				PointFeature feature = new(MapProjection.ToMPoint(marker.Position));
+				feature.Styles.Add(new BriefopMarkerStyle(marker));
+				features.Add(feature);
+			}
+			MapControl.Map.Layers.Add(new MemoryLayer { Style = null, Features = features });
 		}
 
 		private string GetStringCoordinates(Coordinate coordinate)
@@ -95,20 +109,29 @@ namespace DcsBriefop.Forms
 			DisplayCurrentTheatre();
 		}
 
-		private void MapControl_MouseMove(object sender, MouseEventArgs e)
+		private void MapControl_MapPointerMoved(object sender, MapEventArgs e)
 		{
-			GeoPoint geoPoint = MapProjection.ScreenToGeoPoint(MapControl.Map.Navigator.Viewport, e.X, e.Y);
+			GeoPoint geoPoint = MapProjection.ToGeoPoint(e.WorldPosition);
 			m_theatre.GetDcsXY(out double dDcX, out double dDcsY, geoPoint.Latitude, geoPoint.Longitude);
 			LbMapDataDynamic.Text = $"Lat={geoPoint.Latitude:F6} Lng={geoPoint.Longitude:F6}  {{X={dDcX:0.00}, Z(Y)={dDcsY:0.00}}}";
 		}
 
-		private void MapControl_MouseDoubleClick(object sender, MouseEventArgs e)
+		private void MapControl_MapTapped(object sender, MapEventArgs e)
 		{
-			GeoPoint geoPoint = MapProjection.ScreenToGeoPoint(MapControl.Map.Navigator.Viewport, e.X, e.Y);
+			if (e.GestureType != GestureType.DoubleTap)
+				return;
+
+			GeoPoint geoPoint = MapProjection.ToGeoPoint(e.WorldPosition);
 			Coordinate mapCoordinate = new Coordinate(geoPoint.Latitude, geoPoint.Longitude);
 			TbMapDataStatic.Text = GetStringCoordinates(mapCoordinate);
 
-			// TODO Phase 2: place a waypoint marker at this position via Mapsui MemoryLayer
+			foreach (MemoryLayer layer in MapControl.Map.Layers.OfType<MemoryLayer>().Where(_l => _l.Name == "ClickPoint").ToList())
+				MapControl.Map.Layers.Remove(layer);
+
+			BriefopMarker clickMarker = BriefopMarker.NewFromTemplateName(geoPoint, ElementMapTemplateMarker.Waypoint, m_OverlayColor, null, 1, 0);
+			PointFeature clickFeature = new(MapProjection.ToMPoint(clickMarker.Position));
+			clickFeature.Styles.Add(new BriefopMarkerStyle(clickMarker));
+			MapControl.Map.Layers.Add(new MemoryLayer { Name = "ClickPoint", Style = null, Features = [clickFeature] });
 		}
 
 		private void BtProjectionApply_Click(object sender, EventArgs e)

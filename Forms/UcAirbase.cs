@@ -2,7 +2,8 @@
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET;
+using Mapsui;
+using Mapsui.Layers;
 using System.ComponentModel;
 
 namespace DcsBriefop.Forms
@@ -75,10 +76,13 @@ namespace DcsBriefop.Forms
 
 		private void DataToScreenMap()
 		{
-			MapControl.Overlays.Clear();
-			MapControl.Overlays.Add(m_bopAirbase.GetMapOverlay(null));
-			MapControl.Position = new PointLatLng(m_bopAirbase.Coordinate.Latitude.DecimalDegree, m_bopAirbase.Coordinate.Longitude.DecimalDegree);
-			MapControl.ForceRefresh();
+			foreach (MemoryLayer mapLayer in MapControl.Map.Layers.OfType<MemoryLayer>().ToList())
+				MapControl.Map.Layers.Remove(mapLayer);
+
+			MapControl.Map.Layers.Add(m_bopAirbase.GetMapLayer(null));
+
+			MPoint center = MapProjection.ToMPoint(m_bopAirbase.Coordinate.Latitude.DecimalDegree, m_bopAirbase.Coordinate.Longitude.DecimalDegree);
+			MapControl.Map.Navigator.CenterOnAndZoomTo(center, MapProjection.ZoomToResolution((int)PreferencesManager.Preferences.Map.Zoom), 0, null);
 		}
 
 		public void ScreenToData()
@@ -103,7 +107,7 @@ namespace DcsBriefop.Forms
 
 		private void BtRadioAdd_Click(object sender, EventArgs e)
 		{
-			Radio radio = new Radio();
+			Radio radio = new();
 			radio.Normalize();
 			m_bopAirbase.Radios.Add(new BopAirbaseRadio() { Radio = radio, Default = false, Used = true });
 			m_gridManagerAirbaseRadios.Refresh();
@@ -112,7 +116,7 @@ namespace DcsBriefop.Forms
 		private void BtRadioRemove_Click(object sender, EventArgs e)
 		{
 			BopAirbaseRadio airbaseRadio = m_gridManagerAirbaseRadios.GetSelectedElements().FirstOrDefault();
-			if (airbaseRadio is object && !airbaseRadio.Default)
+			if (airbaseRadio is not null && !airbaseRadio.Default)
 				m_bopAirbase.Radios.Remove(airbaseRadio);
 
 			m_gridManagerAirbaseRadios.Refresh();

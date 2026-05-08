@@ -13,7 +13,6 @@ namespace DcsBriefop
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			InitializeCulture();
-			ToolsMap.InitializeGMaps();
 			//GlobalSettings.Default_EagerLoad = new EagerLoad(EagerLoadType.UTM_MGRS);
 
 			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);

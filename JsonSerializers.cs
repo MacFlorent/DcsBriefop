@@ -1,62 +1,10 @@
 using DcsBriefop.Data;
 using DcsBriefop.Map;
-using GMap.NET;
-using GMap.NET.WindowsForms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace DcsBriefop
 {
-	// TODO Phase 3: remove GMapOverlayJsonConverter once static overlays are migrated to Mapsui layers
-	internal class GMapOverlayJsonConverter : JsonConverter<GMapOverlay>
-	{
-		private static class JsonNode
-		{
-			public static readonly string Markers = "markers";
-			public static readonly string Routes = "routes";
-		}
-
-		public override void WriteJson(JsonWriter writer, GMapOverlay value, JsonSerializer serializer)
-		{
-			JObject jo = new JObject();
-			if (value.Markers is object && value.Markers.Count > 0)
-			{
-				JArray ja = new JArray();
-				foreach (var marker in value.Markers)
-				{
-					ja.Add(JToken.FromObject(marker, serializer));
-				}
-				jo[JsonNode.Markers] = ja;
-			}
-
-			if (value.Routes is object && value.Routes.Count > 0)
-			{
-				JArray ja = new JArray();
-				foreach (GMapRoute gmr in value.Routes)
-					ja.Add(JToken.FromObject(gmr, serializer));
-				jo[JsonNode.Routes] = ja;
-			}
-
-			jo.WriteTo(writer);
-		}
-
-		public override GMapOverlay ReadJson(JsonReader reader, Type objectType, GMapOverlay existingValue, bool hasExistingValue, JsonSerializer serializer)
-		{
-			GMapOverlay gmo = new GMapOverlay();
-
-			JToken token = JToken.Load(reader);
-			if (token.HasValues)
-			{
-				if (token[JsonNode.Routes] is object)
-				{
-					foreach (GMapRoute gmr in token[JsonNode.Routes].ToObject<List<GMapRoute>>(serializer))
-						gmo.Routes.Add(gmr);
-				}
-			}
-			return gmo;
-		}
-	}
-
 	internal class BriefopMarkerJsonConverter : JsonConverter<BriefopMarker>
 	{
 		private static class JsonNode

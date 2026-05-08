@@ -1,8 +1,8 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Tools;
-using GMap.NET.WindowsForms;
 using HtmlTags;
+using Mapsui.Layers;
 using System.Text;
 
 namespace DcsBriefop.DataBopBriefing
@@ -208,17 +208,15 @@ $$"""
 			return tags;
 		}
 
-		public override IEnumerable<GMapOverlay> BuildMapOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		public override IEnumerable<ILayer> BuildMapLayers(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<GMapOverlay> partOverlays = new();
 			BopGroup bopGroup = bopManager.BopMission.Groups.Where(_g => _g.Id == GroupId).FirstOrDefault();
 			if (bopGroup is not null)
 			{
-			bopGroup.FinalizeFromMiz();
-			partOverlays.Add(bopGroup.GetMapOverlayRoute(null, ElementMapOverlayRouteDisplay.PointLabelLight, bopBriefingFolder.MeasurementSystem));
+				bopGroup.FinalizeFromMiz();
+				return [bopGroup.GetRouteMapLayer(null, ElementMapOverlayRouteDisplay.PointLabelLight, bopBriefingFolder.MeasurementSystem)];
 			}
-
-			return partOverlays;
+			return null;
 		}
 
 		private IEnumerable<string> GetColumns()

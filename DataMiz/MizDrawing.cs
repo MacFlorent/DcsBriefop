@@ -16,7 +16,7 @@ namespace DcsBriefop.DataMiz
 
 		public bool Visible { get; set; }
 		public string Name { get; set; }
-		public List<MizDrawingObject> Objects { get; private set; } = new List<MizDrawingObject>();
+		public List<MizDrawingObject> Objects { get; private set; } = [];
 
 		public MizDrawingLayer(LsonDict lsd) : base(lsd) { }
 

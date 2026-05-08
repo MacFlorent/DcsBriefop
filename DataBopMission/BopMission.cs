@@ -35,9 +35,6 @@ namespace DcsBriefop.DataBopMission
 
 			Weather = new BopWeather(Miz, Theatre, Date);
 
-			//StaticMapOverlay = new GMapOverlay();
-			//ToolsMap.AddMizDrawingLayers(Theatre, StaticMapOverlay, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
-
 			Coalitions = new Dictionary<string, BopCoalition>
 			{
 				{ ElementCoalition.Red, new BopCoalition(Miz, Theatre, ElementCoalition.Red) },
@@ -135,9 +132,9 @@ namespace DcsBriefop.DataBopMission
 		#endregion
 
 		#region Methods
-		public MemoryLayer BuildStaticLayer()
+		public MemoryLayer BuildStaticMapLayer()
 		{
-			return ToolsMap.BuildMizDrawingLayer(Theatre, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
+			return ToolsMap.BuildMizDrawingMapLayer(Theatre, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
 		}
 
 		public void SetBullseyeRoutePoint()

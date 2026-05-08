@@ -31,11 +31,11 @@ namespace DcsBriefop.Map
 		#endregion
 
 		#region Methods
-		public PointFeature ToPointFeature()
+		public PointFeature ToMapFeature()
 		{
-			PointFeature feature = new(MapProjection.ToMPoint(Position));
-			feature.Styles.Add(new BriefopLabelStyle(this));
-			return feature;
+			PointFeature mapFeature = new(MapProjection.ToMPoint(Position));
+			mapFeature.Styles.Add(new BriefopLabelStyle(this));
+			return mapFeature;
 		}
 		#endregion
 	}

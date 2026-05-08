@@ -23,7 +23,7 @@ namespace DcsBriefop.DataBopBriefing
 		public bool MapIncludeBaseOverlays { get; set; } = true;
 		public int HtmlFontSize { get; set; } = 16;
 
-		public List<BaseBopBriefingPart> Parts { get; set; } = new List<BaseBopBriefingPart>();
+		public List<BaseBopBriefingPart> Parts { get; set; } = [];
 		public MizBopMap MapData { get; set; } = new MizBopMap();
 		#endregion
 
@@ -92,10 +92,10 @@ namespace DcsBriefop.DataBopBriefing
 		{
 			Image image = null;
 			string sHtml = BuildHtmlString(bopManager, bopBriefingFolder);
-			using (HtmlImageRenderer renderer = new HtmlImageRenderer())
+			using (HtmlImageRenderer renderer = new())
 			{
-				ScreenshotOptions screenshotOptions = new ScreenshotOptions() { Type = ScreenshotType.Png };
-				ViewPortOptions viewPortOptions = new ViewPortOptions() { Height = bopBriefingFolder.ImageSize.Height, Width = bopBriefingFolder.ImageSize.Width };
+				ScreenshotOptions screenshotOptions = new() { Type = ScreenshotType.Png };
+				ViewPortOptions viewPortOptions = new() { Height = bopBriefingFolder.ImageSize.Height, Width = bopBriefingFolder.ImageSize.Width };
 
 				image = await renderer.RenderImageAsync(sHtml, screenshotOptions, viewPortOptions); // ConfigureAwait(false); https://devblogs.microsoft.com/dotnet/configureawait-faq/
 			}
@@ -188,16 +188,21 @@ namespace DcsBriefop.DataBopBriefing
 
 			if (MapIncludeBaseOverlays)
 			{
-				layers.Add(bopManager.BopMission.BuildStaticLayer());
-				layers.Add(bopManager.BopMission.MapData.BuildCustomLayer());
+				layers.Add(bopManager.BopMission.BuildStaticMapLayer());
+				layers.Add(bopManager.BopMission.MapData.BuildCustomMapLayer());
 				if (bopManager.BopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName ?? "", out BopCoalition bopCoalition))
 				{
-					layers.Add(bopCoalition.BuildStaticLayer());
-					layers.Add(bopCoalition.MapData.BuildCustomLayer());
+					layers.Add(bopCoalition.BuildStaticMapLayer());
+					layers.Add(bopCoalition.MapData.BuildCustomMapLayer());
 				}
 			}
 
-			// TODO Phase 5: add bopBriefingPart.BuildMapLayers when briefing parts are migrated from GMapOverlay
+			foreach (BaseBopBriefingPart part in Parts)
+			{
+				IEnumerable<Mapsui.Layers.ILayer> partLayers = part.BuildMapLayers(bopManager, bopBriefingFolder);
+				if (partLayers is not null)
+					layers.AddRange(partLayers);
+			}
 
 			return layers;
 		}

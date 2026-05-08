@@ -30,7 +30,7 @@
 		{
 			this.LbCoalition = new System.Windows.Forms.Label();
 			this.LbClass = new System.Windows.Forms.Label();
-			this.MapControl = new GMap.NET.WindowsForms.GMapControl();
+			this.MapControl = new Mapsui.UI.WindowsForms.MapControl();
 			this.TcDetails = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -57,36 +57,17 @@
 			this.LbClass.TabIndex = 39;
 			this.LbClass.Text = "Class";
 			this.LbClass.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
+			//
 			// MapControl
-			// 
-			this.MapControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			//
+			this.MapControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.MapControl.Bearing = 0F;
-			this.MapControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.MapControl.CanDragMap = true;
-			this.MapControl.EmptyTileColor = System.Drawing.Color.Navy;
-			this.MapControl.GrayScaleMode = false;
-			this.MapControl.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-			this.MapControl.LevelsKeepInMemory = 5;
+			this.MapControl.BackColor = System.Drawing.Color.White;
 			this.MapControl.Location = new System.Drawing.Point(462, 84);
-			this.MapControl.MarkersEnabled = true;
-			this.MapControl.MaxZoom = 2;
-			this.MapControl.MinZoom = 2;
-			this.MapControl.MouseWheelZoomEnabled = true;
-			this.MapControl.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
 			this.MapControl.Name = "MapControl";
-			this.MapControl.NegativeMode = false;
-			this.MapControl.PolygonsEnabled = true;
-			this.MapControl.RetryLoadTile = 0;
-			this.MapControl.RoutesEnabled = true;
-			this.MapControl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-			this.MapControl.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-			this.MapControl.ShowTileGridLines = false;
 			this.MapControl.Size = new System.Drawing.Size(505, 666);
 			this.MapControl.TabIndex = 43;
-			this.MapControl.Zoom = 0D;
 			// 
 			// TcDetails
 			// 
@@ -150,7 +131,7 @@
 		#endregion
 		private System.Windows.Forms.Label LbCoalition;
 		private System.Windows.Forms.Label LbClass;
-		private GMap.NET.WindowsForms.GMapControl MapControl;
+		private Mapsui.UI.WindowsForms.MapControl MapControl;
 		private System.Windows.Forms.TabControl TcDetails;
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.TabPage tabPage2;

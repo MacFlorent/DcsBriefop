@@ -3,8 +3,8 @@ using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.WindowsForms;
+using Mapsui;
+using Mapsui.Layers;
 using System.Text;
 
 namespace DcsBriefop.DataBopMission
@@ -155,16 +155,18 @@ namespace DcsBriefop.DataBopMission
 				return ToolsMeasurement.AltitudeDisplay(AltitudeMeters.Value, measurementSystem);
 		}
 
-		public GMarkerBriefop GetMarkerBriefop(Color? color)
+		public BriefopMarker GetBriefopMarker(Color? color)
 		{
-			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree), MapMarker, color ?? ToolsBriefop.GetCoalitionColor(BopGroup.CoalitionName), ToStringDisplayName(), 1, 0);
+			GeoPoint pos = new(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree);
+			return BriefopMarker.NewFromTemplateName(pos, MapMarker, color ?? ToolsBriefop.GetCoalitionColor(BopGroup.CoalitionName), ToStringDisplayName(), 1, 0);
 		}
 
-		public GMapOverlay GetMapOverlay()
+		public MemoryLayer GetMapLayer()
 		{
-			GMapOverlay mapOverlay = new GMapOverlay();
-			mapOverlay.Markers.Add(GetMarkerBriefop(null));
-			return mapOverlay;
+			BriefopMarker marker = GetBriefopMarker(null);
+			PointFeature mapFeature = new(MapProjection.ToMPoint(marker.Position));
+			mapFeature.Styles.Add(new BriefopMarkerStyle(marker));
+			return new MemoryLayer { Style = null, Features = [mapFeature] };
 		}
 
 		#endregion

@@ -147,7 +147,7 @@ namespace DcsBriefop.Forms
 
 		private void ScreenToDataFromParent()
 		{
-			if (m_frmBriefingFolderParent is object)
+			if (m_frmBriefingFolderParent is not null)
 				m_frmBriefingFolderParent.ScreenToData();
 			else
 				ScreenToData();
@@ -192,7 +192,7 @@ namespace DcsBriefop.Forms
 		{
 			BaseBopBriefingPart newPart = m_bopBriefingPage.AddPart(partType);
 			m_gridManagerBriefingParts.Refresh();
-			if (m_bopBriefingPage.Parts.Count() == 1)
+			if (m_bopBriefingPage.Parts.Count == 1)
 				DataToScreenPart();
 			else
 				m_gridManagerBriefingParts.SelectRow(newPart);
@@ -240,7 +240,7 @@ namespace DcsBriefop.Forms
 
 			foreach (MasterData partType in MasterDataRepository.GetMasterDataList(MasterDataType.BriefingPartType))
 			{
-				menu.Items.AddMenuItem(partType.Label, (object _sender, EventArgs _e) => { AddPart((ElementBriefingPartType)partType.Id); });
+				menu.Items.AddMenuItem(partType.Label, (_sender, _e) => { AddPart((ElementBriefingPartType)partType.Id); });
 			}
 
 			if (menu.Items.Count > 0)

@@ -11,27 +11,30 @@ namespace DcsBriefop.Map
 {
 	internal class BriefopLabelStyleRenderer : ISkiaStyleRenderer
 	{
-		public bool Draw(SKCanvas canvas, Viewport viewport, ILayer layer, IFeature feature, IStyle style, RenderService renderService, long iteration)
+		public bool Draw(SKCanvas canvas, Viewport viewport, ILayer layer, IFeature mapFeature, IStyle style, RenderService renderService, long iteration)
 		{
-			if (feature is not PointFeature pointFeature || style is not BriefopLabelStyle labelStyle)
+			if (mapFeature is not PointFeature pointMapFeature || style is not BriefopLabelStyle labelStyle)
 				return false;
 
 			BriefopLabel label = labelStyle.Label;
 			if (string.IsNullOrEmpty(label.Text))
 				return true;
 
-			Mapsui.Manipulations.ScreenPosition sp = viewport.WorldToScreen(pointFeature.Point);
+			Mapsui.Manipulations.ScreenPosition sp = viewport.WorldToScreen(pointMapFeature.Point);
 
-			using SKPaint textPaint = new()
+			using SKFont font = new()
 			{
-				TextSize = label.FontSize,
-				Color = label.ForeColor == Color.Empty ? SKColors.Black : new SKColor(label.ForeColor.R, label.ForeColor.G, label.ForeColor.B, label.ForeColor.A),
-				IsAntialias = true,
+				Size = label.FontSize,
 				Typeface = string.IsNullOrEmpty(label.FontFamily) ? null : SKTypeface.FromFamilyName(label.FontFamily),
 			};
+			using SKPaint textPaint = new()
+			{
+				Color = label.ForeColor == Color.Empty ? SKColors.Black : new SKColor(label.ForeColor.R, label.ForeColor.G, label.ForeColor.B, label.ForeColor.A),
+				IsAntialias = true,
+			};
 
-			float textW = textPaint.MeasureText(label.Text);
-			textPaint.GetFontMetrics(out SKFontMetrics fm);
+			float textW = font.MeasureText(label.Text);
+			font.GetFontMetrics(out SKFontMetrics fm);
 			float ascent = -fm.Ascent;
 			float textH = ascent + fm.Descent;
 
@@ -53,7 +56,7 @@ namespace DcsBriefop.Map
 				canvas.DrawRect(bgRect, bgPaint);
 			}
 
-			canvas.DrawText(label.Text, 0f, -fm.Descent, textPaint);
+			canvas.DrawText(label.Text, 0f, -fm.Descent, SKTextAlign.Left, font, textPaint);
 
 			if (label.BorderThickness > 0 && label.ForeColor != Color.Empty)
 			{

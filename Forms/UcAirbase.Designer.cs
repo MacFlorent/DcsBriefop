@@ -42,7 +42,7 @@
 			this.LbId = new System.Windows.Forms.Label();
 			this.TbId = new System.Windows.Forms.TextBox();
 			this.DgvRadios = new Zuby.ADGV.AdvancedDataGridView();
-			this.MapControl = new GMap.NET.WindowsForms.GMapControl();
+			this.MapControl = new Mapsui.UI.WindowsForms.MapControl();
 			this.BtRadioAdd = new System.Windows.Forms.Button();
 			this.BtRadioRemove = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DgvRadios)).BeginInit();
@@ -174,35 +174,17 @@
 			this.DgvRadios.Size = new System.Drawing.Size(394, 324);
 			this.DgvRadios.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			this.DgvRadios.TabIndex = 105;
-			// 
+			//
 			// MapControl
-			// 
-			this.MapControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			//
+			this.MapControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.MapControl.Bearing = 0F;
-			this.MapControl.CanDragMap = true;
-			this.MapControl.EmptyTileColor = System.Drawing.Color.Navy;
-			this.MapControl.GrayScaleMode = false;
-			this.MapControl.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-			this.MapControl.LevelsKeepInMemory = 5;
+			this.MapControl.BackColor = System.Drawing.Color.White;
 			this.MapControl.Location = new System.Drawing.Point(484, 0);
-			this.MapControl.MarkersEnabled = true;
-			this.MapControl.MaxZoom = 2;
-			this.MapControl.MinZoom = 2;
-			this.MapControl.MouseWheelZoomEnabled = true;
-			this.MapControl.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
 			this.MapControl.Name = "MapControl";
-			this.MapControl.NegativeMode = false;
-			this.MapControl.PolygonsEnabled = true;
-			this.MapControl.RetryLoadTile = 0;
-			this.MapControl.RoutesEnabled = true;
-			this.MapControl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-			this.MapControl.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-			this.MapControl.ShowTileGridLines = false;
 			this.MapControl.Size = new System.Drawing.Size(648, 482);
 			this.MapControl.TabIndex = 106;
-			this.MapControl.Zoom = 0D;
 			// 
 			// BtRadioAdd
 			// 
@@ -268,7 +250,7 @@
 		private System.Windows.Forms.Label LbId;
 		private System.Windows.Forms.TextBox TbId;
 		private Zuby.ADGV.AdvancedDataGridView DgvRadios;
-		private GMap.NET.WindowsForms.GMapControl MapControl;
+		private Mapsui.UI.WindowsForms.MapControl MapControl;
 		private System.Windows.Forms.Button BtRadioAdd;
 		private System.Windows.Forms.Button BtRadioRemove;
 	}

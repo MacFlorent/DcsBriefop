@@ -26,7 +26,6 @@
     <PackageReference Include="CoordinateSharp" Version="3.4.1.1" />
     <PackageReference Include="CoordinateSharp.Magnetic" Version="2.1.5" />
     <PackageReference Include="DG.AdvancedDataGridView" Version="1.2.30115.18" />
-    <PackageReference Include="GMap.NET.WinForms" Version="2.1.7" />
     <PackageReference Include="HtmlTags" Version="10.0.0" />
     <PackageReference Include="log4net" Version="3.3.1" />
     <PackageReference Include="Mapsui" Version="5.0.2" />

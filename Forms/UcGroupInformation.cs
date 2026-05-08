@@ -2,8 +2,8 @@
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.WindowsForms;
+using Mapsui;
+using Mapsui.Layers;
 
 namespace DcsBriefop.Forms
 {
@@ -16,7 +16,7 @@ namespace DcsBriefop.Forms
 		#endregion
 		
 		#region CTOR
-		public UcGroupInformation(BriefopManager briefopManager, BopGroup bopGroup, GMapControl mapControl) : base (briefopManager, bopGroup, mapControl)
+		public UcGroupInformation(BriefopManager briefopManager, BopGroup bopGroup, Mapsui.UI.WindowsForms.MapControl mapControl) : base(briefopManager, bopGroup, mapControl)
 		{
 			InitializeComponent();
 
@@ -50,12 +50,14 @@ namespace DcsBriefop.Forms
 
 		public override void DataToScreenMap()
 		{
-			m_mapControl.Overlays.Clear();
-			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayPosition());
-			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayRoute(null, ElementMapOverlayRouteDisplay.NoMarkerFirstPoint, PreferencesManager.Preferences.Briefing.MeasurementSystem));
+			foreach (MemoryLayer mapLayer in m_mapControl.Map.Layers.OfType<MemoryLayer>().ToList())
+				m_mapControl.Map.Layers.Remove(mapLayer);
 
-			m_mapControl.Position = new PointLatLng(m_bopGroup.Coordinate.Latitude.DecimalDegree, m_bopGroup.Coordinate.Longitude.DecimalDegree);
-			m_mapControl.ForceRefresh();
+			m_mapControl.Map.Layers.Add(m_bopGroup.GetPositionMapLayer());
+			m_mapControl.Map.Layers.Add(m_bopGroup.GetRouteMapLayer(null, ElementMapOverlayRouteDisplay.NoMarkerFirstPoint, PreferencesManager.Preferences.Briefing.MeasurementSystem));
+
+			MPoint center = MapProjection.ToMPoint(m_bopGroup.Coordinate.Latitude.DecimalDegree, m_bopGroup.Coordinate.Longitude.DecimalDegree);
+			m_mapControl.Map.Navigator.CenterOnAndZoomTo(center, MapProjection.ZoomToResolution((int)PreferencesManager.Preferences.Map.Zoom), 0, null);
 		}
 
 		public override void ScreenToData()

@@ -115,7 +115,6 @@ namespace DcsBriefop.Forms
 			using FrmPreferences f = new FrmPreferences();
 			if (f.ShowDialog() == DialogResult.OK)
 			{
-				ToolsMap.InitializeGMaps();
 				BuildMenu();
 				DataToScreen();
 			}

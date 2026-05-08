@@ -10,9 +10,9 @@ namespace DcsBriefop.Map
 {
 	internal class BriefopMarkerStyleRenderer : ISkiaStyleRenderer
 	{
-		public bool Draw(SKCanvas canvas, Viewport viewport, ILayer layer, IFeature feature, IStyle style, RenderService renderService, long iteration)
+		public bool Draw(SKCanvas canvas, Viewport viewport, ILayer layer, IFeature mapFeature, IStyle style, RenderService renderService, long iteration)
 		{
-			if (feature is not PointFeature pointFeature || style is not BriefopMarkerStyle markerStyle)
+			if (mapFeature is not PointFeature pointMapFeature || style is not BriefopMarkerStyle markerStyle)
 				return false;
 
 			BriefopMarker marker = markerStyle.Marker;
@@ -20,7 +20,7 @@ namespace DcsBriefop.Map
 			if (skBitmap is null)
 				return false;
 
-			var screenPos = viewport.WorldToScreen(pointFeature.Point);
+			Mapsui.Manipulations.ScreenPosition screenPos = viewport.WorldToScreen(pointMapFeature.Point);
 			int sizeW = marker.GetSizeWidth();
 			int sizeH = marker.GetSizeHeight();
 			float centerX = (float)(screenPos.X + marker.GetOffsetX() + sizeW / 2.0);
@@ -35,17 +35,16 @@ namespace DcsBriefop.Map
 
 			if (!string.IsNullOrEmpty(marker.Label))
 			{
+				using SKFont textFont = new() { Size = 11f };
 				using SKPaint textPaint = new()
 				{
-					TextSize = 11f,
 					Color = new SKColor(
 						marker.TintColor?.R ?? 0,
 						marker.TintColor?.G ?? 0,
 						marker.TintColor?.B ?? 0),
 					IsAntialias = true,
-					TextAlign = SKTextAlign.Center,
 				};
-				canvas.DrawText(marker.Label, 0, sizeH / 2f + textPaint.TextSize, textPaint);
+				canvas.DrawText(marker.Label, 0, sizeH / 2f + textFont.Size, SKTextAlign.Center, textFont, textPaint);
 			}
 
 			if (marker.IsSelected || marker.IsHovered)

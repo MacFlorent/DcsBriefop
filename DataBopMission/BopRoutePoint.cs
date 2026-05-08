@@ -3,7 +3,6 @@ using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET;
 using System.Text;
 using static DcsBriefop.Tools.ToolsSpeeds;
 using UnitsNet;
@@ -252,7 +251,7 @@ namespace DcsBriefop.DataBopMission
 			return GetTasks(sTaskIds, iUnitId)?.OrderBy(_t => _t.Number).FirstOrDefault();
 		}
 
-		public GMarkerBriefop GetMarkerBriefop(Color color, ElementMapOverlayRouteDisplay options)
+		public BriefopMarker GetBriefopMarker(Color color, ElementMapOverlayRouteDisplay options)
 		{
 			string sLabel = "";
 			if ((options & ElementMapOverlayRouteDisplay.PointLabelFull) != 0)
@@ -260,7 +259,8 @@ namespace DcsBriefop.DataBopMission
 			else if ((options & ElementMapOverlayRouteDisplay.PointLabelLight) != 0)
 				sLabel = $"{Number}";
 
-			return GMarkerBriefop.NewFromTemplateName(new PointLatLng(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree), ElementMapTemplateMarker.Waypoint, color, sLabel, 1, 0);
+			GeoPoint pos = new(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree);
+			return BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Waypoint, color, sLabel, 1, 0);
 		}
 
 		public void SetYX(double dY, double dX)

@@ -82,8 +82,8 @@ namespace DcsBriefop.Forms
 			MapControl.Name = "MapControl";
 			MapControl.Size = new Size(1054, 567);
 			MapControl.TabIndex = 9;
-			MapControl.MouseDoubleClick += MapControl_MouseDoubleClick;
-			MapControl.MouseMove += MapControl_MouseMove;
+			MapControl.MapTapped += MapControl_MapTapped;
+			MapControl.MapPointerMoved += MapControl_MapPointerMoved;
 			//
 			// LbMapDataDynamic
 			//
