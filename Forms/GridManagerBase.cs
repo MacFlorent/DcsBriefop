@@ -18,7 +18,7 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Fields
-		protected FastObjectListView m_dgv;
+		protected FastObjectListView m_grid;
 		private ToolStrip m_searchStrip;
 		private ToolStripTextBox m_searchBox;
 		#endregion
@@ -26,21 +26,20 @@ namespace DcsBriefop.Forms
 		#region Properties
 		public List<string> ColumnsDisplayed { get; set; } = null;
 		public IEnumerable<T> Elements { get; set; }
-		public List<T> CheckedElements { get; set; }
 		#endregion
 
 		#region CTOR
-		public GridManagerBase(FastObjectListView dgv, IEnumerable<T> elements)
+		public GridManagerBase(FastObjectListView grid, IEnumerable<T> elements)
 		{
-			m_dgv = dgv;
+			m_grid = grid;
 			Elements = elements;
 
-			m_dgv.FullRowSelect = true;
-			m_dgv.ShowGroups = false;
-			m_dgv.MultiSelect = false;
-			m_dgv.UseFiltering = true;
-			m_dgv.FilterMenuBuildStrategy = new FilterMenuBuilder();
-			m_dgv.CellEditActivation = ObjectListView.CellEditActivateMode.None;
+			m_grid.FullRowSelect = true;
+			m_grid.ShowGroups = false;
+			m_grid.MultiSelect = false;
+			m_grid.UseFiltering = true;
+			m_grid.FilterMenuBuildStrategy = new FilterMenuBuilder();
+			m_grid.CellEditActivation = ObjectListView.CellEditActivateMode.None;
 
 			InitializeColumns();
 			InitializeContextMenu();
@@ -51,7 +50,6 @@ namespace DcsBriefop.Forms
 
 		#region Abstract / Virtual methods
 		protected abstract void InitializeColumns();
-
 		protected virtual void FormatRowInternal(FormatRowEventArgs e) { }
 		protected virtual void FormatCellInternal(FormatCellEventArgs e) { }
 		protected virtual void CellEditFinishedInternal(CellEditEventArgs e) { }
@@ -61,37 +59,19 @@ namespace DcsBriefop.Forms
 		#region Methods
 		public void Refresh()
 		{
-			m_dgv.SuspendDrawing();
+			m_grid.SuspendDrawing();
 			RemoveEvents();
 
-			m_dgv.ModelFilter = null;
-
-			if (CheckedElements is not null)
-			{
-				m_dgv.CheckBoxes = true;
-				m_dgv.CheckStateGetter = obj =>
-					CheckedElements.Contains((T)obj) ? CheckState.Checked : CheckState.Unchecked;
-				m_dgv.CheckStatePutter = (obj, value) =>
-				{
-					T element = (T)obj;
-					if (value == CheckState.Checked)
-					{
-						if (!CheckedElements.Contains(element))
-							CheckedElements.Add(element);
-					}
-					else
-					{
-						while (CheckedElements.Remove(element)) ;
-					}
-					return value;
-				};
-			}
+			m_grid.ModelFilter = null;
 
 			ApplyColumnsDisplayed();
-			m_dgv.SetObjects(Elements);
+			m_grid.SetObjects(Elements);
 
 			AssignEvents();
-			m_dgv.ResumeDrawing();
+			if (m_grid.GetItemCount() > 0 && m_grid.SelectedIndex < 0)
+				m_grid.SelectedIndex = 0;
+			
+			m_grid.ResumeDrawing();
 		}
 
 		private void ApplyColumnsDisplayed()
@@ -99,41 +79,45 @@ namespace DcsBriefop.Forms
 			if (ColumnsDisplayed is null)
 				return;
 
-			foreach (OLVColumn col in m_dgv.AllColumns)
+			foreach (OLVColumn col in m_grid.AllColumns)
 				col.IsVisible = false;
 
-			int iDisplayIndex = 0;
+			int iInsertAt = 0;
 			foreach (string sColumnName in ColumnsDisplayed)
 			{
-				OLVColumn col = m_dgv.AllColumns.FirstOrDefault(c => c.Name == sColumnName);
+				OLVColumn col = m_grid.AllColumns.FirstOrDefault(_c => _c.Name == sColumnName);
 				if (col is not null)
 				{
 					col.IsVisible = true;
-					col.DisplayIndex = iDisplayIndex++;
+					m_grid.AllColumns.Remove(col);
+					m_grid.AllColumns.Insert(iInsertAt++, col);
 				}
 			}
-			m_dgv.RebuildColumns();
+
+			m_grid.RebuildColumns();
 		}
 
-		public void RefreshDataSourceRows()
+		public void RefreshObjects()
 		{
 			if (Elements is not null)
-				m_dgv.RefreshObjects(Elements.ToList());
+				m_grid.RefreshObjects(Elements.ToList());
 		}
 
 		public IEnumerable<T> GetSelectedElements()
 		{
-			return m_dgv.SelectedObjects.Cast<T>();
+			return m_grid.SelectedObjects.Cast<T>();
 		}
 
 		public void SelectRow(T element)
 		{
-			m_dgv.SelectObject(element, true);
+			m_grid.SelectObject(element, true);
 		}
+		#endregion
 
+		#region Search bar
 		private void SetupSearchBar()
 		{
-			m_dgv.KeyDown += (s, e) =>
+			m_grid.KeyDown += (s, e) =>
 			{
 				if (e.Control && e.KeyCode == Keys.F)
 				{
@@ -145,24 +129,24 @@ namespace DcsBriefop.Forms
 
 		private void ShowSearchBar()
 		{
-			Control parent = m_dgv.Parent;
+			Control parent = m_grid.Parent;
 			if (parent is null)
 				return;
 
 			if (m_searchStrip is null)
 			{
 				m_searchStrip = new ToolStrip { GripStyle = ToolStripGripStyle.Hidden, AutoSize = false, Height = 27, Visible = false };
-				ToolStripLabel lbl = new ToolStripLabel("Search:");
+				ToolStripLabel lbl = new("Search:");
 				m_searchBox = new ToolStripTextBox { AutoSize = false, Width = 200 };
-				ToolStripButton btnClose = new ToolStripButton("✕") { DisplayStyle = ToolStripItemDisplayStyle.Text };
+				ToolStripButton btnClose = new("✕") { DisplayStyle = ToolStripItemDisplayStyle.Text };
 
-				m_searchStrip.Items.AddRange(new ToolStripItem[] { lbl, m_searchBox, btnClose });
+				m_searchStrip.Items.AddRange([lbl, m_searchBox, btnClose]);
 
 				m_searchBox.TextChanged += (s, e) =>
 				{
-					m_dgv.ModelFilter = string.IsNullOrEmpty(m_searchBox.Text)
+					m_grid.ModelFilter = string.IsNullOrEmpty(m_searchBox.Text)
 						? null
-						: TextMatchFilter.Contains(m_dgv, m_searchBox.Text);
+						: TextMatchFilter.Contains(m_grid, m_searchBox.Text);
 				};
 
 				m_searchBox.KeyDown += (s, e) =>
@@ -188,18 +172,18 @@ namespace DcsBriefop.Forms
 				return;
 
 			m_searchBox.Text = "";
-			m_dgv.ModelFilter = null;
+			m_grid.ModelFilter = null;
 			m_searchStrip.Visible = false;
-			m_dgv.Focus();
+			m_grid.Focus();
 		}
 		#endregion
 
 		#region Menus
 		private void InitializeContextMenu()
 		{
-			m_dgv.ContextMenuStrip = new ContextMenuStrip();
-			m_dgv.ContextMenuStrip.Opening += (object sender, CancelEventArgs e) =>
-				ContextMenuOpening(sender as ContextMenuStrip, m_dgv, e);
+			m_grid.ContextMenuStrip = new ContextMenuStrip();
+			m_grid.ContextMenuStrip.Opening += (object sender, CancelEventArgs e) =>
+				ContextMenuOpening(sender as ContextMenuStrip, m_grid, e);
 		}
 
 		protected virtual void ContextMenuOpening(ContextMenuStrip menu, FastObjectListView dgv, CancelEventArgs e) { }
@@ -217,20 +201,20 @@ namespace DcsBriefop.Forms
 
 		protected virtual void AssignEvents()
 		{
-			m_dgv.FormatRow += FormatRowEvent;
-			m_dgv.FormatCell += FormatCellEvent;
-			m_dgv.MouseDown += MouseDownEvent;
-			m_dgv.SelectionChanged += SelectionChangedEvent;
-			m_dgv.CellEditFinished += CellEditFinishedEvent;
+			m_grid.FormatRow += FormatRowEvent;
+			m_grid.FormatCell += FormatCellEvent;
+			m_grid.MouseDown += MouseDownEvent;
+			m_grid.SelectionChanged += SelectionChangedEvent;
+			m_grid.CellEditFinished += CellEditFinishedEvent;
 		}
 
 		protected virtual void RemoveEvents()
 		{
-			m_dgv.FormatRow -= FormatRowEvent;
-			m_dgv.FormatCell -= FormatCellEvent;
-			m_dgv.MouseDown -= MouseDownEvent;
-			m_dgv.SelectionChanged -= SelectionChangedEvent;
-			m_dgv.CellEditFinished -= CellEditFinishedEvent;
+			m_grid.FormatRow -= FormatRowEvent;
+			m_grid.FormatCell -= FormatCellEvent;
+			m_grid.MouseDown -= MouseDownEvent;
+			m_grid.SelectionChanged -= SelectionChangedEvent;
+			m_grid.CellEditFinished -= CellEditFinishedEvent;
 		}
 
 		private void SelectionChangedEvent(object sender, EventArgs e)
@@ -259,10 +243,10 @@ namespace DcsBriefop.Forms
 		{
 			if (e.Button == MouseButtons.Right)
 			{
-				OlvListViewHitTestInfo hti = m_dgv.OlvHitTest(e.X, e.Y);
+				OlvListViewHitTestInfo hti = m_grid.OlvHitTest(e.X, e.Y);
 				if (hti.Item is not null && !hti.Item.Selected)
 				{
-					m_dgv.DeselectAll();
+					m_grid.DeselectAll();
 					hti.Item.Selected = true;
 				}
 			}
@@ -274,14 +258,14 @@ namespace DcsBriefop.Forms
 
 		protected virtual void DisposeManaged()
 		{
-			m_dgv.ContextMenuStrip?.Dispose();
-			m_dgv.ContextMenuStrip = null;
+			m_grid.ContextMenuStrip?.Dispose();
+			m_grid.ContextMenuStrip = null;
 
 			m_searchStrip?.Dispose();
 			m_searchStrip = null;
 
-			m_dgv?.Dispose();
-			m_dgv = null;
+			m_grid?.Dispose();
+			m_grid = null;
 		}
 
 		private void Dispose(bool disposing)

@@ -3,7 +3,7 @@ using DcsBriefop.DataBopBriefing;
 
 namespace DcsBriefop.Forms
 {
-	internal class GridManagerBriefingFolders : GridManagerBase<BopBriefingFolder>
+	internal class GridManagerBriefingFolders(FastObjectListView dgv, IEnumerable<BopBriefingFolder> briefingFolders) : GridManagerBase<BopBriefingFolder>(dgv, briefingFolders)
 	{
 		#region Columns
 		public static class GridColumn
@@ -17,23 +17,19 @@ namespace DcsBriefop.Forms
 		}
 		#endregion
 
-		#region CTOR
-		public GridManagerBriefingFolders(FastObjectListView dgv, IEnumerable<BopBriefingFolder> briefingFolders) : base(dgv, briefingFolders) { }
-		#endregion
-
 		#region Methods
 		protected override void InitializeColumns()
 		{
-			m_dgv.AllColumns.AddRange(new OLVColumn[]
-			{
-				new OLVColumn { Text = "Id", Name = GridColumn.Id, Width = GridWidth.Small, AspectGetter = obj => ((BopBriefingFolder)obj).Guid },
-				new OLVColumn { Text = "Name", Name = GridColumn.Name, Width = GridWidth.Large, AspectGetter = obj => ((BopBriefingFolder)obj).Name },
-				new OLVColumn { Text = "Coalition", Name = GridColumn.Coalition, Width = GridWidth.Medium, AspectGetter = obj => ((BopBriefingFolder)obj).CoalitionName },
-				new OLVColumn { Text = "Unit types", Name = GridColumn.UnitTypes, Width = GridWidth.Large, AspectGetter = obj => string.Join(",", ((BopBriefingFolder)obj).Kneeboards) },
-				new OLVColumn { Text = "Pages count", Name = GridColumn.PageCount, Width = GridWidth.Medium, AspectGetter = obj => ((BopBriefingFolder)obj).Pages.Count },
-				new OLVColumn { Text = "Inactive", Name = GridColumn.Inactive, Width = GridWidth.Small, AspectGetter = obj => ((BopBriefingFolder)obj).Inactive },
-			});
-			m_dgv.RebuildColumns();
+			m_grid.AllColumns.AddRange(
+			[
+				new() { Text = "Id", Name = GridColumn.Id, Width = GridWidth.Small, AspectGetter = obj => ((BopBriefingFolder)obj).Guid },
+				new() { Text = "Name", Name = GridColumn.Name, Width = GridWidth.Large, AspectGetter = obj => ((BopBriefingFolder)obj).Name },
+				new() { Text = "Coalition", Name = GridColumn.Coalition, Width = GridWidth.Medium, AspectGetter = obj => ((BopBriefingFolder)obj).CoalitionName },
+				new() { Text = "Unit types", Name = GridColumn.UnitTypes, Width = GridWidth.Large, AspectGetter = obj => string.Join(",", ((BopBriefingFolder)obj).Kneeboards) },
+				new() { Text = "Pages count", Name = GridColumn.PageCount, Width = GridWidth.Medium, AspectGetter = obj => ((BopBriefingFolder)obj).Pages.Count },
+				new() { Text = "Inactive", Name = GridColumn.Inactive, Width = GridWidth.Small, AspectGetter = obj => ((BopBriefingFolder)obj).Inactive },
+			]);
+			m_grid.RebuildColumns();
 		}
 
 		protected override void FormatRowInternal(FormatRowEventArgs e)

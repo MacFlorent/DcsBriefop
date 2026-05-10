@@ -67,7 +67,7 @@ namespace DcsBriefop.Forms
 			LbBriefingDirectory.CenterInParentHorizontal();
 			ToolsStyle.ButtonOk(BtBriefingFolderAdd);
 			ToolsStyle.ButtonCancel(BtBriefingFolderDelete);
-			DgvBriefingFolders.MultiSelect = false;
+			GridBriefingFolders.MultiSelect = false;
 		}
 
 		private void SetImagePanel(Panel pn, string sImageName, string sImageExtension)
@@ -107,7 +107,7 @@ namespace DcsBriefop.Forms
 
 		private void DataToScreenFolders()
 		{
-			m_gridManagerBriefingFolders = new GridManagerBriefingFolders(DgvBriefingFolders, m_briefopManager.BopMission.BopBriefingFolders);
+			m_gridManagerBriefingFolders = new GridManagerBriefingFolders(GridBriefingFolders, m_briefopManager.BopMission.BopBriefingFolders);
 			m_gridManagerBriefingFolders.Refresh();
 		}
 

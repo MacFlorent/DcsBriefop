@@ -30,7 +30,7 @@
 		{
 			BtPageRemove = new Button();
 			BtPageAdd = new Button();
-			DgvPages = new BrightIdeasSoftware.FastObjectListView();
+			GridPages = new BrightIdeasSoftware.FastObjectListView();
 			LbPages = new Label();
 			LbBriefingImageSize = new Label();
 			UcImageSize = new UcImageSize();
@@ -88,12 +88,12 @@
 			// 
 			// DgvPages
 			// 
-			DgvPages.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			DgvPages.Location = new Point(0, 19);
-			DgvPages.Name = "DgvPages";
-			DgvPages.Size = new Size(310, 220);
-			DgvPages.TabIndex = 39;
-			DgvPages.View = System.Windows.Forms.View.Details;
+			GridPages.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			GridPages.Location = new Point(0, 19);
+			GridPages.Name = "DgvPages";
+			GridPages.Size = new Size(310, 220);
+			GridPages.TabIndex = 39;
+			GridPages.View = System.Windows.Forms.View.Details;
 			// 
 			// LbPages
 			// 
@@ -318,7 +318,7 @@
 			PnGridsPages.Controls.Add(BtPageRemove);
 			PnGridsPages.Controls.Add(BtPageOrderUp);
 			PnGridsPages.Controls.Add(BtPageAdd);
-			PnGridsPages.Controls.Add(DgvPages);
+			PnGridsPages.Controls.Add(GridPages);
 			PnGridsPages.Dock = DockStyle.Fill;
 			PnGridsPages.Location = new Point(3, 183);
 			PnGridsPages.Name = "PnGridsPages";
@@ -403,7 +403,7 @@
 
 		private Button BtPageRemove;
 		private Button BtPageAdd;
-		private BrightIdeasSoftware.FastObjectListView DgvPages;
+		private BrightIdeasSoftware.FastObjectListView GridPages;
 		private Label LbPages;
 		private Label LbBriefingImageSize;
 		private UcImageSize UcImageSize;

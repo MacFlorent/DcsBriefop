@@ -23,14 +23,14 @@ namespace DcsBriefop.Forms
 		#region Methods
 		protected override void InitializeColumns()
 		{
-			m_dgv.AllColumns.AddRange(new OLVColumn[]
+			m_grid.AllColumns.AddRange(new OLVColumn[]
 			{
 				new OLVColumn { Text = "Id", Name = GridColumn.Id, Width = GridWidth.Small, AspectGetter = obj => ((BopAirbase)obj).Id },
 				new OLVColumn { Text = "Type", Name = GridColumn.AirbaseType, Width = GridWidth.Medium, AspectGetter = obj => ((BopAirbase)obj).AirbaseType },
 				new OLVColumn { Text = "Name", Name = GridColumn.Name, Width = GridWidth.Large, AspectGetter = obj => ((BopAirbase)obj).Name },
 				new OLVColumn { Text = "Additional", Name = GridColumn.Additional, Width = GridWidth.ExtraLarge, AspectGetter = obj => ((BopAirbase)obj).ToStringAdditional() },
 			});
-			m_dgv.RebuildColumns();
+			m_grid.RebuildColumns();
 		}
 
 		protected override void FormatCellInternal(FormatCellEventArgs e)

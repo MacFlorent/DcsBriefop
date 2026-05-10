@@ -53,7 +53,7 @@
 			PnBriefingActions = new Panel();
 			BtBriefingGenerate = new Button();
 			BtBriefingAto = new Button();
-			DgvBriefingFolders = new BrightIdeasSoftware.FastObjectListView();
+			GridBriefingFolders = new BrightIdeasSoftware.FastObjectListView();
 			PnBackground = new Panel();
 			PnMission.SuspendLayout();
 			PnMissionTheatre.SuspendLayout();
@@ -236,7 +236,7 @@
 			PnBriefing.Controls.Add(PnBriefingPicture);
 			PnBriefing.Controls.Add(LbBriefingFolders);
 			PnBriefing.Controls.Add(PnBriefingActions);
-			PnBriefing.Controls.Add(DgvBriefingFolders);
+			PnBriefing.Controls.Add(GridBriefingFolders);
 			PnBriefing.Location = new Point(0, 257);
 			PnBriefing.Margin = new Padding(4, 3, 4, 3);
 			PnBriefing.Name = "PnBriefing";
@@ -356,13 +356,13 @@
 			// 
 			// DgvBriefingFolders
 			// 
-			DgvBriefingFolders.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			DgvBriefingFolders.Location = new Point(3, 167);
-			DgvBriefingFolders.Name = "DgvBriefingFolders";
-			DgvBriefingFolders.Size = new Size(1026, 142);
-			DgvBriefingFolders.TabIndex = 12;
-			DgvBriefingFolders.View = System.Windows.Forms.View.Details;
-			DgvBriefingFolders.DoubleClick += DgvBriefingFolders_CellDoubleClick;
+			GridBriefingFolders.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			GridBriefingFolders.Location = new Point(3, 167);
+			GridBriefingFolders.Name = "DgvBriefingFolders";
+			GridBriefingFolders.Size = new Size(1026, 142);
+			GridBriefingFolders.TabIndex = 12;
+			GridBriefingFolders.View = System.Windows.Forms.View.Details;
+			GridBriefingFolders.DoubleClick += DgvBriefingFolders_CellDoubleClick;
 			// 
 			// PnBackground
 			// 
@@ -417,7 +417,7 @@
 		private Button BtBriefingPackages;
 		private Panel PnMissionTheatre;
 		private Button BtBriefingAto;
-		private BrightIdeasSoftware.FastObjectListView DgvBriefingFolders;
+		private BrightIdeasSoftware.FastObjectListView GridBriefingFolders;
 		private Label LbBriefingFolders;
 		private Panel PnBriefingActions;
 		private Button BtBriefingGenerate;

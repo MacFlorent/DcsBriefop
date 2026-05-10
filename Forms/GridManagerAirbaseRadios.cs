@@ -23,15 +23,15 @@ namespace DcsBriefop.Forms
 		#region Methods
 		protected override void InitializeColumns()
 		{
-			m_dgv.AllColumns.AddRange(new OLVColumn[]
+			m_grid.AllColumns.AddRange(new OLVColumn[]
 			{
 				new OLVColumn { Text = "Radio", Name = GridColumn.Radio, Width = GridWidth.Medium, IsEditable = true, AspectGetter = obj => ((BopAirbaseRadio)obj).Radio?.ToString() },
 				new OLVColumn { Text = "Label", Name = GridColumn.Label, Width = GridWidth.Medium, IsEditable = true, AspectGetter = obj => ((BopAirbaseRadio)obj).Label },
 				new OLVColumn { Text = "Default", Name = GridColumn.Default, Width = GridWidth.Small, CheckBoxes = true, AspectGetter = obj => ((BopAirbaseRadio)obj).Default },
 				new OLVColumn { Text = "Used", Name = GridColumn.Used, Width = GridWidth.Small, CheckBoxes = true, IsEditable = true, AspectGetter = obj => ((BopAirbaseRadio)obj).Used },
 			});
-			m_dgv.RebuildColumns();
-			m_dgv.CellEditActivation = ObjectListView.CellEditActivateMode.DoubleClick;
+			m_grid.RebuildColumns();
+			m_grid.CellEditActivation = ObjectListView.CellEditActivateMode.DoubleClick;
 		}
 
 		protected override void CellEditFinishedInternal(CellEditEventArgs e)
@@ -53,20 +53,20 @@ namespace DcsBriefop.Forms
 				Radio radio = Radio.NewFromString(e.NewValue as string);
 				if (radio is not null && !radio.Equals(bopAirbaseRadio.Radio))
 					bopAirbaseRadio.Radio = radio;
-				m_dgv.RefreshObject(bopAirbaseRadio);
+				m_grid.RefreshObject(bopAirbaseRadio);
 			}
 		}
 
 		protected override void AssignEvents()
 		{
 			base.AssignEvents();
-			m_dgv.CellEditStarting += CellEditStartingEvent;
+			m_grid.CellEditStarting += CellEditStartingEvent;
 		}
 
 		protected override void RemoveEvents()
 		{
 			base.RemoveEvents();
-			m_dgv.CellEditStarting -= CellEditStartingEvent;
+			m_grid.CellEditStarting -= CellEditStartingEvent;
 		}
 
 		private void CellEditStartingEvent(object sender, CellEditEventArgs e)

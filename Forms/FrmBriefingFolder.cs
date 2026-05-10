@@ -33,7 +33,7 @@ namespace DcsBriefop.Forms
 			MasterDataRepository.FillCheckedListBox(MasterDataType.CoordinateDisplay, LstCoordinateDisplay);
 
 			BopBriefingStyle.FillCombo(CbHtmlCss, null);
-			m_gridManagerBriefingPages = new GridManagerBriefingPages(DgvPages, m_bopBriefingFolder.Pages);
+			m_gridManagerBriefingPages = new GridManagerBriefingPages(GridPages, m_bopBriefingFolder.Pages);
 			m_gridManagerBriefingPages.SelectionChanged += SelectionChangedEvent;
 		}
 
@@ -173,7 +173,7 @@ namespace DcsBriefop.Forms
 			using (new WaitDialog(this))
 			{
 				ScreenToDataDetail();
-				m_gridManagerBriefingPages.RefreshDataSourceRows();
+				m_gridManagerBriefingPages.RefreshObjects();
 				DataToScreenDetail();
 			}
 		}

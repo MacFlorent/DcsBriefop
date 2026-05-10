@@ -228,7 +228,7 @@ namespace DcsBriefop.Forms
 		private void SelectionChangedEvent(object sender, EventArgs e)
 		{
 			ScreenToDataPart();
-			m_gridManagerBriefingParts.RefreshDataSourceRows();
+			m_gridManagerBriefingParts.RefreshObjects();
 			DataToScreenPart();
 		}
 

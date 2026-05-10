@@ -4,7 +4,7 @@ using DcsBriefop.Tools;
 
 namespace DcsBriefop.Forms
 {
-	internal class GridManagerRoutePoints : GridManagerBase<BopRoutePoint>
+	internal class GridManagerRoutePoints(FastObjectListView dgv, IEnumerable<BopRoutePoint> routePoints) : GridManagerBase<BopRoutePoint>(dgv, routePoints)
 	{
 		#region Columns
 		public static class GridColumn
@@ -18,10 +18,7 @@ namespace DcsBriefop.Forms
 			public static readonly string Track = "Track";
 			public static readonly string Speed = "Speed";
 		}
-		#endregion
 
-		#region CTOR
-		public GridManagerRoutePoints(FastObjectListView dgv, IEnumerable<BopRoutePoint> routePoints) : base(dgv, routePoints) { }
 		#endregion
 
 		#region Methods
@@ -31,23 +28,23 @@ namespace DcsBriefop.Forms
 			string sDistanceUnit = ToolsMeasurement.DistanceUnit(PreferencesManager.Preferences.Briefing.MeasurementSystem);
 			string sSpeedUnit = ToolsMeasurement.SpeedUnit(PreferencesManager.Preferences.Briefing.MeasurementSystem);
 
-			m_dgv.AllColumns.AddRange(new OLVColumn[]
-			{
-				new OLVColumn { Text = "Number", Name = GridColumn.Number, Width = GridWidth.Small, AspectGetter = obj => ((BopRoutePoint)obj).Number },
-				new OLVColumn { Text = "Name", Name = GridColumn.Name, Width = GridWidth.Large, AspectGetter = obj => ((BopRoutePoint)obj).Name },
-				new OLVColumn { Text = "Type", Name = GridColumn.Type, Width = GridWidth.Medium, AspectGetter = obj => ((BopRoutePoint)obj).Type },
-				new OLVColumn { Text = "Action", Name = GridColumn.Action, Width = GridWidth.Medium, AspectGetter = obj => ((BopRoutePoint)obj).Action },
-				new OLVColumn { Text = $"Altitude ({sAltitudeUnit})", Name = GridColumn.Altitude, Width = GridWidth.Medium, AspectGetter = obj =>
+			m_grid.AllColumns.AddRange(
+			[
+				new() { Text = "Number", Name = GridColumn.Number, Width = GridWidth.Small, AspectGetter = obj => ((BopRoutePoint)obj).Number },
+				new() { Text = "Name", Name = GridColumn.Name, Width = GridWidth.Large, AspectGetter = obj => ((BopRoutePoint)obj).Name },
+				new() { Text = "Type", Name = GridColumn.Type, Width = GridWidth.Medium, AspectGetter = obj => ((BopRoutePoint)obj).Type },
+				new() { Text = "Action", Name = GridColumn.Action, Width = GridWidth.Medium, AspectGetter = obj => ((BopRoutePoint)obj).Action },
+				new() { Text = $"Altitude ({sAltitudeUnit})", Name = GridColumn.Altitude, Width = GridWidth.Medium, AspectGetter = obj =>
 				{
 					BopRoutePoint rp = (BopRoutePoint)obj;
 					return $"{rp.GetAltitude(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}";
 				}},
-				new OLVColumn { Text = $"Distance ({sDistanceUnit})", Name = GridColumn.Distance, Width = GridWidth.Medium, AspectGetter = obj =>
+				new() { Text = $"Distance ({sDistanceUnit})", Name = GridColumn.Distance, Width = GridWidth.Medium, AspectGetter = obj =>
 				{
 					BopRoutePoint rp = (BopRoutePoint)obj;
 					return $"{rp.GetDistance(PreferencesManager.Preferences.Briefing.MeasurementSystem):0}";
 				}},
-				new OLVColumn { Text = "Track", Name = GridColumn.Track, Width = GridWidth.Medium, AspectGetter = obj =>
+				new() { Text = "Track", Name = GridColumn.Track, Width = GridWidth.Medium, AspectGetter = obj =>
 				{
 					BopRoutePoint rp = (BopRoutePoint)obj;
 					double? dTrackTrue = rp.GetTrack(false);
@@ -56,13 +53,13 @@ namespace DcsBriefop.Forms
 						return $"{rp.GetTrack(true):000}°M / {rp.GetTrack(false):000}°T";
 					return "";
 				}},
-				new OLVColumn { Text = $"Speed ({sSpeedUnit})", Name = GridColumn.Speed, Width = GridWidth.ExtraLarge, AspectGetter = obj =>
+				new() { Text = $"Speed ({sSpeedUnit})", Name = GridColumn.Speed, Width = GridWidth.ExtraLarge, AspectGetter = obj =>
 				{
 					BopRoutePoint rp = (BopRoutePoint)obj;
 					return $"{rp.GetSpeedTrue(PreferencesManager.Preferences.Briefing.MeasurementSystem):0} TAS / {rp.GetSpeedCalibrated(PreferencesManager.Preferences.Briefing.MeasurementSystem):0} CAS / {rp.GetSpeedMach():0.00} M";
 				}},
-			});
-			m_dgv.RebuildColumns();
+			]);
+			m_grid.RebuildColumns();
 		}
 		#endregion
 	}

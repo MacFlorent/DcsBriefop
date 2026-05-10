@@ -73,21 +73,21 @@ namespace DcsBriefop.Forms
 
 			if (partGroupType == ElementBriefingPartGroupType.GroupsOnly)
 			{
-				gridColumns = new List<string>() { GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes };
+				gridColumns = [GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes];
 				availableElements = availableElements.Where(_gou => _gou.GroupOrUnit == ElementGroupOrUnit.Group).ToList();
 			}
 			else if (partGroupType == ElementBriefingPartGroupType.UnitsOnly)
 			{
-				gridColumns = new List<string>() { GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Group, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes };
+				gridColumns = [GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Group, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes];
 				availableElements = availableElements.Where(_gou => _gou.GroupOrUnit == ElementGroupOrUnit.Unit).ToList();
 			}
 			else
 			{
-				gridColumns = new List<string>() { GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.GroupOrUnit, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Group, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes };
+				gridColumns = [GridManagerGroupOrUnits.GridColumn.Coalition, GridManagerGroupOrUnits.GridColumn.GroupOrUnit, GridManagerGroupOrUnits.GridColumn.Id, GridManagerGroupOrUnits.GridColumn.DisplayName, GridManagerGroupOrUnits.GridColumn.Group, GridManagerGroupOrUnits.GridColumn.Type, GridManagerGroupOrUnits.GridColumn.Attributes];
 			}
 
 			m_gmMultiAvailable.Elements = availableElements;
-			m_gmMultiAvailable.ColumnsDisplayed = gridColumns.ToList();
+			m_gmMultiAvailable.ColumnsDisplayed = [.. gridColumns];
 			m_gmMultiAvailable.Refresh();
 		}
 

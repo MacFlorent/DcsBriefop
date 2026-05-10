@@ -3,7 +3,7 @@ using DcsBriefop.Data;
 
 namespace DcsBriefop.Forms
 {
-	internal class GridManagerDcsObjects : GridManagerBase<DcsObject>
+	internal class GridManagerDcsObjects(FastObjectListView dgv, IEnumerable<DcsObject> elements) : GridManagerBase<DcsObject>(dgv, elements)
 	{
 		#region Columns
 		public static class GridColumn
@@ -16,26 +16,23 @@ namespace DcsBriefop.Forms
 			public static readonly string Information = "Information";
 			public static readonly string MainInGroup = "MainInGroup";
 		}
-		#endregion
 
-		#region CTOR
-		public GridManagerDcsObjects(FastObjectListView dgv, IEnumerable<DcsObject> elements) : base(dgv, elements) { }
 		#endregion
 
 		#region Methods
 		protected override void InitializeColumns()
 		{
-			m_dgv.AllColumns.AddRange(new OLVColumn[]
-			{
-				new OLVColumn { Text = "Type", Name = GridColumn.TypeName, Width = GridWidth.Medium, AspectGetter = obj => ((DcsObject)obj).TypeName },
-				new OLVColumn { Text = "Name", Name = GridColumn.DisplayName, Width = GridWidth.Large, AspectGetter = obj => ((DcsObject)obj).DisplayName },
-				new OLVColumn { Text = "Class", Name = GridColumn.GroupClass, Width = GridWidth.Medium, AspectGetter = obj => ((DcsObject)obj).GroupClass },
-				new OLVColumn { Text = "Attributes", Name = GridColumn.Attributes, Width = GridWidth.Medium, AspectGetter = obj => ((DcsObject)obj).Attributes },
-				new OLVColumn { Text = "Marker", Name = GridColumn.MapMarker, Width = GridWidth.Medium, AspectGetter = obj => ((DcsObject)obj).MapMarker },
-				new OLVColumn { Text = "Information", Name = GridColumn.Information, Width = GridWidth.ExtraLarge, AspectGetter = obj => ((DcsObject)obj).Information },
-				new OLVColumn { Text = "Main in group", Name = GridColumn.MainInGroup, Width = GridWidth.Small, CheckBoxes = true, AspectGetter = obj => ((DcsObject)obj).MainInGroup },
-			});
-			m_dgv.RebuildColumns();
+			m_grid.AllColumns.AddRange(
+			[
+				new() { Text = "Type", Name = GridColumn.TypeName, Width = GridWidth.Medium, AspectGetter = obj => ((DcsObject)obj).TypeName },
+				new() { Text = "Name", Name = GridColumn.DisplayName, Width = GridWidth.Large, AspectGetter = obj => ((DcsObject)obj).DisplayName },
+				new() { Text = "Class", Name = GridColumn.GroupClass, Width = GridWidth.Medium, AspectGetter = obj => ((DcsObject)obj).GroupClass },
+				new() { Text = "Attributes", Name = GridColumn.Attributes, Width = GridWidth.Medium, AspectGetter = obj => ((DcsObject)obj).Attributes },
+				new() { Text = "Marker", Name = GridColumn.MapMarker, Width = GridWidth.Medium, AspectGetter = obj => ((DcsObject)obj).MapMarker },
+				new() { Text = "Information", Name = GridColumn.Information, Width = GridWidth.ExtraLarge, AspectGetter = obj => ((DcsObject)obj).Information },
+				new() { Text = "Main in group", Name = GridColumn.MainInGroup, Width = GridWidth.Small, CheckBoxes = true, AspectGetter = obj => ((DcsObject)obj).MainInGroup },
+			]);
+			m_grid.RebuildColumns();
 		}
 		#endregion
 	}
