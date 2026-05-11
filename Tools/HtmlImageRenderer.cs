@@ -35,6 +35,7 @@ namespace DcsBriefop.Tools
 
 			webView.CoreWebView2.NavigateToString(sHtml);
 			await tcsNavigation.Task;
+			await webView.CoreWebView2.ExecuteScriptAsync("document.documentElement.style.overflowX='hidden';document.body.style.overflowX='hidden';");
 			await Task.Delay(300);
 
 			using MemoryStream ms = new();

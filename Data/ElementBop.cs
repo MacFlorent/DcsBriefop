@@ -134,12 +134,10 @@
 
 	internal static class ElementMapValue
 	{
-		public static readonly int MinZoom = 1;
-		public static readonly int MaxZoom = 18;
 		public static readonly string OverlayStatic = "static";
 
-		public static readonly Font DefaultFont = new("Arial", 11);
-		public static readonly Pen PenSelected = new(Color.Blue, 1);
-		public static readonly Pen PenMouseOver = new(Color.CadetBlue, 1);
+		public static readonly Font DefaultFont = new("Arial", 12);
+		public static readonly SkiaSharp.SKColor SKColorSelected = new(0, 0, 255);
+		public static readonly SkiaSharp.SKColor SKColorMouseOver = new(95, 158, 160);
 	}
 }

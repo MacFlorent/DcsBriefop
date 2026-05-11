@@ -42,7 +42,7 @@ namespace DcsBriefop.DataBopMission
 				{ ElementCoalition.Neutral, new BopCoalition(Miz, Theatre, ElementCoalition.Neutral) }
 			};
 
-			Groups = new List<BopGroup>();
+			Groups = [];
 			foreach (MizCoalition mizCoalition in Miz.RootMission.Coalitions)
 			{
 				foreach (MizCountry mizCountry in mizCoalition.Countries)
@@ -66,7 +66,7 @@ namespace DcsBriefop.DataBopMission
 				}
 			}
 
-			Airbases = new List<BopAirbase>();
+			Airbases = [];
 			foreach (Airdrome airdrome in Theatre.Airdromes)
 			{
 				Airbases.Add(new BopAirbaseAirdrome(Miz, Theatre, airdrome));
@@ -121,7 +121,7 @@ namespace DcsBriefop.DataBopMission
 			{
 				Miz.MizBopCustom.MapData = new MizBopMap();
 				Airdrome firstAirdrome = Theatre.Airdromes.FirstOrDefault();
-				if (firstAirdrome is object)
+				if (firstAirdrome is not null)
 				{
 					Miz.MizBopCustom.MapData.CenterLatitude = firstAirdrome.Latitude;
 					Miz.MizBopCustom.MapData.CenterLongitude = firstAirdrome.Longitude;
@@ -134,7 +134,7 @@ namespace DcsBriefop.DataBopMission
 		#region Methods
 		public MemoryLayer BuildStaticMapLayer()
 		{
-			return ToolsMap.BuildMizDrawingMapLayer(Theatre, Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0).ToList());
+			return ToolsMap.BuildMizDrawingMapLayer(Theatre, [.. Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, ElementDrawingLayer.Common, true) == 0)]);
 		}
 
 		public void SetBullseyeRoutePoint()
@@ -147,7 +147,7 @@ namespace DcsBriefop.DataBopMission
 
 		public async Task<ListBopBriefingGeneratedFile> GenerateBriefingFiles(BriefopManager bopManager)
 		{
-			ListBopBriefingGeneratedFile files = new();
+			ListBopBriefingGeneratedFile files = [];
 			foreach (BopBriefingFolder folder in BopBriefingFolders.Where(_bf => !_bf.Inactive))
 			{
 				files.AddRange(await folder.GenerateFiles(bopManager));

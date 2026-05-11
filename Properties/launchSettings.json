@@ -2,7 +2,7 @@
   "profiles": {
     "DcsBriefop Batch": {
       "commandName": "Project",
-      "commandLineArgs": "batch -m D:\\Projects\\RotaAirshow_bop.miz -l INFO"
+      "commandLineArgs": "batch -m \"D:\\Projects\\DcsMissions\\VEAF-IMC-Day\\build\\VEAF-IMC-Day_mapsui.miz\" -l INFO"
     },
     "DcsBriefop App": {
       "commandName": "Project",

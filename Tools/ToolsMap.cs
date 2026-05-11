@@ -104,7 +104,7 @@ namespace DcsBriefop.Tools
 			float fFontSize = 11;
 			if (drawingObject.FontSize is not null)
 			{
-				fFontSize = (float)(drawingObject.FontSize.Value - 3);
+				fFontSize = drawingObject.FontSize.Value - 3;
 				if (fFontSize < 1)
 					fFontSize = 1;
 			}

@@ -2,13 +2,8 @@ using Mapsui.Styles;
 
 namespace DcsBriefop.Map
 {
-	internal class BriefopLabelStyle : BaseStyle
+	internal class BriefopLabelStyle(BriefopLabel label) : BaseStyle
 	{
-		public BriefopLabel Label { get; }
-
-		public BriefopLabelStyle(BriefopLabel label)
-		{
-			Label = label;
-		}
+		public BriefopLabel Label { get; } = label;
 	}
 }

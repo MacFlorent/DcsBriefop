@@ -1,3 +1,4 @@
+using DcsBriefop.Data;
 using Mapsui;
 using Mapsui.Extensions;
 using Mapsui.Layers;
@@ -35,7 +36,16 @@ namespace DcsBriefop.Map
 
 			if (!string.IsNullOrEmpty(marker.Label))
 			{
-				using SKFont textFont = new() { Size = 11f };
+				using SKTypeface typeface = SKTypeface.FromFamilyName(ElementMapValue.DefaultFont.FontFamily.Name);
+				using SKFont textFont = new() { Size = ElementMapValue.DefaultFont.Size, Typeface = typeface };
+				float textX = 0;
+				float textY = sizeH / 2f + textFont.Size;
+				using SKPaint shadowPaint = new()
+				{
+					Color = new SKColor(0, 0, 0, 120),
+					IsAntialias = true,
+				};
+				canvas.DrawText(marker.Label, textX + 1, textY + 1, SKTextAlign.Center, textFont, shadowPaint);
 				using SKPaint textPaint = new()
 				{
 					Color = new SKColor(
@@ -44,14 +54,15 @@ namespace DcsBriefop.Map
 						marker.TintColor?.B ?? 0),
 					IsAntialias = true,
 				};
-				canvas.DrawText(marker.Label, 0, sizeH / 2f + textFont.Size, SKTextAlign.Center, textFont, textPaint);
+				canvas.DrawText(marker.Label, textX, textY, SKTextAlign.Center, textFont, textPaint);
 			}
 
 			if (marker.IsSelected || marker.IsHovered)
 			{
 				SKColor borderColor = marker.IsSelected
-					? new SKColor(0, 0, 255)
-					: new SKColor(95, 158, 160); // CadetBlue
+					? ElementMapValue.SKColorSelected
+					: ElementMapValue.SKColorMouseOver;
+				
 				using SKPaint borderPaint = new()
 				{
 					Style = SKPaintStyle.Stroke,

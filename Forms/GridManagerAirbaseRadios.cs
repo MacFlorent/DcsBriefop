@@ -4,7 +4,7 @@ using DcsBriefop.DataBopMission;
 
 namespace DcsBriefop.Forms
 {
-	internal class GridManagerAirbaseRadios : GridManagerBase<BopAirbaseRadio>
+	internal class GridManagerAirbaseRadios(FastObjectListView dgv, IEnumerable<BopAirbaseRadio> airbaseRadios) : GridManagerBase<BopAirbaseRadio>(dgv, airbaseRadios)
 	{
 		#region Columns
 		public static class GridColumn
@@ -14,30 +14,27 @@ namespace DcsBriefop.Forms
 			public static readonly string Default = "Default";
 			public static readonly string Used = "Used";
 		}
-		#endregion
 
-		#region CTOR
-		public GridManagerAirbaseRadios(FastObjectListView dgv, IEnumerable<BopAirbaseRadio> airbaseRadios) : base(dgv, airbaseRadios) { }
 		#endregion
 
 		#region Methods
 		protected override void InitializeColumns()
 		{
-			m_grid.AllColumns.AddRange(new OLVColumn[]
-			{
-				new OLVColumn { Text = "Radio", Name = GridColumn.Radio, Width = GridWidth.Medium, IsEditable = true, AspectGetter = obj => ((BopAirbaseRadio)obj).Radio?.ToString() },
-				new OLVColumn { Text = "Label", Name = GridColumn.Label, Width = GridWidth.Medium, IsEditable = true, AspectGetter = obj => ((BopAirbaseRadio)obj).Label },
-				new OLVColumn { Text = "Default", Name = GridColumn.Default, Width = GridWidth.Small, CheckBoxes = true, AspectGetter = obj => ((BopAirbaseRadio)obj).Default },
-				new OLVColumn { Text = "Used", Name = GridColumn.Used, Width = GridWidth.Small, CheckBoxes = true, IsEditable = true, AspectGetter = obj => ((BopAirbaseRadio)obj).Used },
-			});
+			m_grid.AllColumns.AddRange(
+			[
+				new() { Text = "Radio", Name = GridColumn.Radio, Width = GridWidth.Medium, IsEditable = true, AspectGetter = obj => ((BopAirbaseRadio)obj).Radio?.ToString() },
+				new() { Text = "Label", Name = GridColumn.Label, Width = GridWidth.Medium, IsEditable = true, AspectGetter = obj => ((BopAirbaseRadio)obj).Label },
+				new() { Text = "Default", Name = GridColumn.Default, Width = GridWidth.Small, CheckBoxes = true, AspectGetter = obj => ((BopAirbaseRadio)obj).Default },
+				new() { Text = "Used", Name = GridColumn.Used, Width = GridWidth.Small, CheckBoxes = true, IsEditable = true, AspectGetter = obj => ((BopAirbaseRadio)obj).Used, AspectPutter = (obj, value) => ((BopAirbaseRadio)obj).Used = (bool)value },
+			]);
 			m_grid.RebuildColumns();
+			m_grid.UseSubItemCheckBoxes = true;
 			m_grid.CellEditActivation = ObjectListView.CellEditActivateMode.DoubleClick;
 		}
 
 		protected override void CellEditFinishedInternal(CellEditEventArgs e)
 		{
-			BopAirbaseRadio bopAirbaseRadio = e.RowObject as BopAirbaseRadio;
-			if (bopAirbaseRadio is null)
+			if (e.RowObject is not BopAirbaseRadio bopAirbaseRadio)
 				return;
 
 			if (e.Column.Name == GridColumn.Used)

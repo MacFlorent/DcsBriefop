@@ -185,11 +185,11 @@ namespace DcsBriefop.Forms
 			BriefingFolderDetail();
 		}
 
-		private void GenerateBriefing(ElementBriefingOutput briefingOutput)
+		private async void GenerateBriefing(ElementBriefingOutput briefingOutput)
 		{
 			using (new WaitDialog(ParentForm))
 			{
-				m_briefopManager.GenerateBriefing(briefingOutput);
+				await m_briefopManager.GenerateBriefing(briefingOutput);
 			}
 		}
 
