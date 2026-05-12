@@ -8,8 +8,7 @@ namespace DcsBriefop.Map
 	{
 		#region Fields
 		private MapTemplateMarker m_template;
-		private Bitmap m_bitmap;
-		private SKBitmap m_skBitmap;
+		private SKImage m_skImage;
 		#endregion
 
 		#region Properties
@@ -33,7 +32,7 @@ namespace DcsBriefop.Map
 			Label = sLabel;
 			Scale = iScale;
 			Angle = iAngle;
-			LoadBitmap();
+			LoadSkImage();
 		}
 
 		public static BriefopMarker NewFromTemplateName(GeoPoint position, string sTemplateName, Color? tintColor, string sLabel, int iScale, int iAngle)
@@ -56,32 +55,25 @@ namespace DcsBriefop.Map
 		public void LoadTemplate(string sTemplate)
 		{
 			m_template = MapTemplateMarker.GetTemplate(sTemplate);
-			LoadBitmap();
+			LoadSkImage();
 		}
 
-		public void LoadBitmap()
+		public void LoadSkImage()
 		{
-			m_bitmap?.Dispose();
-			m_skBitmap?.Dispose();
-			m_skBitmap = null;
+			m_skImage?.Dispose();
 
-			m_bitmap = m_template.GetBitmap();
+			Bitmap bitmap = m_template.GetBitmap();
 			if (TintColor is not null)
-				ToolsImage.ColorTint(ref m_bitmap, TintColor.Value);
+				ToolsImage.ColorTint(ref bitmap, TintColor.Value);
+
+			using MemoryStream ms = new();
+			bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+			ms.Position = 0;
+			m_skImage = SKImage.FromEncodedData(ms);
+			bitmap.Dispose();
 		}
 
-		public SKBitmap GetSkBitmap()
-		{
-			if (m_skBitmap is null && m_bitmap is not null)
-			{
-				using MemoryStream ms = new();
-				m_bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-				ms.Position = 0;
-				m_skBitmap = SKBitmap.Decode(ms);
-			}
-			return m_skBitmap;
-		}
-
+		public SKImage GetSkImage() => m_skImage;
 		public int GetSizeWidth() => m_template.SizeWidth * Scale;
 		public int GetSizeHeight() => m_template.SizeHeight * Scale;
 		public double GetOffsetX() => m_template.SizeWidth * Scale * m_template.OffsetWidth;

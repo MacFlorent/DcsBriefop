@@ -122,7 +122,7 @@ namespace DcsBriefop.Forms
 				return;
 
 			GeoPoint geoPoint = MapProjection.ToGeoPoint(e.WorldPosition);
-			Coordinate mapCoordinate = new Coordinate(geoPoint.Latitude, geoPoint.Longitude);
+			Coordinate mapCoordinate = new(geoPoint.Latitude, geoPoint.Longitude);
 			TbMapDataStatic.Text = GetStringCoordinates(mapCoordinate);
 
 			foreach (MemoryLayer layer in MapControl.Map.Layers.OfType<MemoryLayer>().Where(_l => _l.Name == "ClickPoint").ToList())

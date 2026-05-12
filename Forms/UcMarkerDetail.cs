@@ -47,7 +47,7 @@ namespace DcsBriefop.Forms
 			m_marker.Scale = (int)UdScale.Value;
 			m_marker.Angle = (int)UdAngle.Value;
 			m_marker.TintColor = UcTintColor.SelectedColor;
-			m_marker.LoadBitmap();
+			m_marker.LoadSkImage();
 			m_refreshMap?.Invoke();
 		}
 

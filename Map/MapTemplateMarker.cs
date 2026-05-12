@@ -51,7 +51,7 @@ namespace DcsBriefop.Map
 
 		#region Static
 		private static readonly MapTemplateMarker m_default;
-		private static Dictionary<string, MapTemplateMarker> m_templatesList = new();
+		private static Dictionary<string, MapTemplateMarker> m_templatesList = [];
 
 		static MapTemplateMarker()
 		{
@@ -101,7 +101,7 @@ namespace DcsBriefop.Map
 		{
 			try
 			{
-				MapTemplateMarker template = new MapTemplateMarker();
+				MapTemplateMarker template = new();
 				template.Name = Path.GetFileNameWithoutExtension(sTemplateString);
 				template.ImageName = sTemplateString;
 
@@ -152,7 +152,7 @@ namespace DcsBriefop.Map
 
 		public static MapTemplateMarker GetTemplateFromDcsMizFile(string sDcsMizFile)
 		{
-			MapTemplateMarker template = m_templatesList.Values.Where(_t => string.Equals(_t.DcsMizFileName, sDcsMizFile, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+			MapTemplateMarker template = m_templatesList.Values.FirstOrDefault(_t => string.Equals(_t.DcsMizFileName, sDcsMizFile, StringComparison.OrdinalIgnoreCase));
 			template ??= m_default;
 
 			return template;

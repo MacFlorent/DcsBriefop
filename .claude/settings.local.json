@@ -12,7 +12,9 @@
       "WebFetch(domain:mapsui.com)",
       "WebSearch",
       "Bash(dotnet build *)",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(cd \"D:\\\\Projects\\\\DotNet\\\\DcsBriefopOld\" && find . -type f -name \"*.cs\" | head -20)",
+      "Read(//d/Projects/DotNet/DcsBriefopOld/**)"
     ]
   }
 }

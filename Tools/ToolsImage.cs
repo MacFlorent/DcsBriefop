@@ -7,7 +7,7 @@ namespace DcsBriefop.Tools
 	internal static class ToolsImage
 	{
 		#region Bitmap
-		private static Dictionary<string, Bitmap> m_bitmapCache = new Dictionary<string, Bitmap>();
+		private static Dictionary<string, Bitmap> m_bitmapCache = new();
 		public static Bitmap GetCachedBitmap(string sBitmapName)
 		{
 			if (!m_bitmapCache.TryGetValue(sBitmapName, out Bitmap bmp))
@@ -33,12 +33,12 @@ namespace DcsBriefop.Tools
 
 		public static Bitmap ResizeImage(Image image, int width, int height)
 		{
-			var destRect = new Rectangle(0, 0, width, height);
-			var destImage = new Bitmap(width, height);
+			Rectangle destRect = new(0, 0, width, height);
+			Bitmap destImage = new(width, height);
 
 			destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
 
-			using (var graphics = Graphics.FromImage(destImage))
+			using (Graphics graphics = Graphics.FromImage(destImage))
 			{
 				graphics.CompositingMode = CompositingMode.SourceCopy;
 				graphics.CompositingQuality = CompositingQuality.HighQuality;
@@ -46,11 +46,9 @@ namespace DcsBriefop.Tools
 				graphics.SmoothingMode = SmoothingMode.HighQuality;
 				graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
-				using (var wrapMode = new ImageAttributes())
-				{
-					wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-					graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
-				}
+				using ImageAttributes wrapMode = new();
+				wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+				graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
 			}
 
 			return destImage;
@@ -59,20 +57,20 @@ namespace DcsBriefop.Tools
 		public static Bitmap SetImageOpacity(Image image, float opacity)
 		{
 			//create a Bitmap the size of the image provided  
-			Bitmap bmp = new Bitmap(image.Width, image.Height);
+			Bitmap bmp = new(image.Width, image.Height);
 
 			//create a graphics object from the image  
 			using (Graphics gfx = Graphics.FromImage(bmp))
 			{
 
 				//create a color matrix object  
-				ColorMatrix matrix = new ColorMatrix();
+				ColorMatrix matrix = new();
 
 				//set the opacity  
 				matrix.Matrix33 = opacity;
 
 				//create image attributes  
-				ImageAttributes attributes = new ImageAttributes();
+				ImageAttributes attributes = new();
 
 				//set the color(opacity) of the image  
 				attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
@@ -171,7 +169,6 @@ namespace DcsBriefop.Tools
 			bitmap.UnlockBits(bmpData);
 		}
 
-
 		public static float Lerp(this float start, float end, float amount)
 		{
 			if (amount > 1)
@@ -183,8 +180,7 @@ namespace DcsBriefop.Tools
 			float adjusted = difference * amount;
 			return start + adjusted;
 		}
-
-		public static Color Lerp(this Color color, Color colorTo, float amount)
+				public static Color Lerp(this Color color, Color colorTo, float amount)
 		{
 			// start colours as lerp-able floats
 			float sr = color.R, sg = color.G, sb = color.B;
@@ -237,106 +233,6 @@ namespace DcsBriefop.Tools
 			DrawString(g, new PointF(-(textSize.Width / 2), iVerticalOffset), sString, font, textSize, color, bDrawShadow);
 
 			g.Restore(state);
-		}
-		#endregion
-
-		#region Deprecated
-		private static Bitmap ColorTint(this Bitmap sourceBitmap, Color colorTint)
-		{
-			float fRedTint = colorTint.R / 255f;
-			float fGreenTint = colorTint.G / 255f;
-			float fBlueTint = colorTint.B / 255f;
-			float fAlphaTint = colorTint.A / 255f;
-
-			return sourceBitmap.ColorTintFromWhite(fBlueTint, fGreenTint, fRedTint, fAlphaTint);
-		}
-
-		private static Bitmap ColorTintFromWhite(this Bitmap sourceBitmap, float blueTint, float greenTint, float redTint, float alphaTint)
-		{
-			BitmapData sourceData = sourceBitmap.LockBits(new Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
-			byte[] pixelBuffer = new byte[sourceData.Stride * sourceData.Height];
-
-			System.Runtime.InteropServices.Marshal.Copy(sourceData.Scan0, pixelBuffer, 0, pixelBuffer.Length);
-			sourceBitmap.UnlockBits(sourceData);
-
-			float blue = 0;
-			float green = 0;
-			float red = 0;
-			float alpha = 0;
-
-			for (int k = 0; k + 4 < pixelBuffer.Length; k += 4)
-			{
-				blue = pixelBuffer[k] - (pixelBuffer[k]) * (1 - blueTint);
-				green = pixelBuffer[k + 1] - (pixelBuffer[k + 1]) * (1 - greenTint);
-				red = pixelBuffer[k + 2] - (pixelBuffer[k + 2]) * (1 - redTint);
-				alpha = pixelBuffer[k + 3] - (pixelBuffer[k + 3]) * (1 - alphaTint);
-
-				if (blue < 0)
-				{ blue = 0; }
-
-				if (green < 0)
-				{ green = 0; }
-
-				if (red < 0)
-				{ red = 0; }
-
-				if (alpha < 0)
-				{ alpha = 0; }
-
-				pixelBuffer[k] = (byte)blue;
-				pixelBuffer[k + 1] = (byte)green;
-				pixelBuffer[k + 2] = (byte)red;
-				pixelBuffer[k + 3] = (byte)alpha;
-			}
-
-			Bitmap resultBitmap = new Bitmap(sourceBitmap.Width, sourceBitmap.Height);
-			BitmapData resultData = resultBitmap.LockBits(new Rectangle(0, 0, resultBitmap.Width, resultBitmap.Height), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
-
-			System.Runtime.InteropServices.Marshal.Copy(pixelBuffer, 0, resultData.Scan0, pixelBuffer.Length);
-			resultBitmap.UnlockBits(resultData);
-
-			return resultBitmap;
-		}
-
-		private static Bitmap ColorTintFromBlack(this Bitmap sourceBitmap, float blueTint, float greenTint, float redTint)
-		{
-			BitmapData sourceData = sourceBitmap.LockBits(new Rectangle(0, 0, sourceBitmap.Width, sourceBitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
-			byte[] pixelBuffer = new byte[sourceData.Stride * sourceData.Height];
-
-			System.Runtime.InteropServices.Marshal.Copy(sourceData.Scan0, pixelBuffer, 0, pixelBuffer.Length);
-			sourceBitmap.UnlockBits(sourceData);
-
-			float blue = 0;
-			float green = 0;
-			float red = 0;
-
-			for (int k = 0; k + 4 < pixelBuffer.Length; k += 4)
-			{
-				blue = pixelBuffer[k] + (255 - pixelBuffer[k]) * blueTint;
-				green = pixelBuffer[k + 1] + (255 - pixelBuffer[k + 1]) * greenTint;
-				red = pixelBuffer[k + 2] + (255 - pixelBuffer[k + 2]) * redTint;
-
-				if (blue > 255)
-				{ blue = 255; }
-
-				if (green > 255)
-				{ green = 255; }
-
-				if (red > 255)
-				{ red = 255; }
-
-				pixelBuffer[k] = (byte)blue;
-				pixelBuffer[k + 1] = (byte)green;
-				pixelBuffer[k + 2] = (byte)red;
-			}
-
-			Bitmap resultBitmap = new Bitmap(sourceBitmap.Width, sourceBitmap.Height);
-			BitmapData resultData = resultBitmap.LockBits(new Rectangle(0, 0, resultBitmap.Width, resultBitmap.Height), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
-
-			System.Runtime.InteropServices.Marshal.Copy(pixelBuffer, 0, resultData.Scan0, pixelBuffer.Length);
-			resultBitmap.UnlockBits(resultData);
-
-			return resultBitmap;
 		}
 		#endregion
 	}
