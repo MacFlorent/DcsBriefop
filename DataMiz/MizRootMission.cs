@@ -28,8 +28,8 @@ namespace DcsBriefop.DataMiz
 		public string Theatre { get; set; }
 		public MizMap Map { get; set; }
 		public MizWeather Weather { get; set; }
-		public List<MizCoalition> Coalitions { get; set; } = new List<MizCoalition>();
-		public List<MizDrawingLayer> DrawingLayers { get; set; } = new List<MizDrawingLayer>();
+		public List<MizCoalition> Coalitions { get; set; } = [];
+		public List<MizDrawingLayer> DrawingLayers { get; set; } = [];
 
 		public MizRootMission(LsonDict lsd) : base(lsd) { }
 

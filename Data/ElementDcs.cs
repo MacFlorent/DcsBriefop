@@ -91,6 +91,7 @@
 		public static readonly string Oval = "oval";
 		public static readonly string Circle = "circle";
 		public static readonly string Free = "free";
+		public static readonly string Arrow = "arrow";
 	}
 
 	internal static class ElementTheatreName

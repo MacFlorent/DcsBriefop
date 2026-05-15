@@ -90,7 +90,7 @@ namespace DcsBriefop.Tools
 		{
 			Coordinate coordinate = theatre.GetCoordinate(drawingObject.MapX, drawingObject.MapY);
 			GeoPoint p = new(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
-			BriefopMarker marker = BriefopMarker.NewFromMizStyleName(p, drawingObject.File, ColorFromDcsString(drawingObject.ColorString), drawingObject.Name, drawingObject.Scale.GetValueOrDefault(1), (int)drawingObject.Angle.GetValueOrDefault(0));
+			BriefopMarker marker = BriefopMarker.NewFromMizStyleName(p, drawingObject.File, ColorFromDcsString(drawingObject.ColorString), null, drawingObject.Scale.GetValueOrDefault(1), (int)drawingObject.Angle.GetValueOrDefault(0));
 			PointFeature mapFeature = new(MapProjection.ToMPoint(marker.Position));
 			mapFeature.Styles.Add(new BriefopMarkerStyle(marker));
 			mapFeatures.Add(mapFeature);
@@ -109,7 +109,7 @@ namespace DcsBriefop.Tools
 					fFontSize = 1;
 			}
 
-			BriefopLabel label = new(p, drawingObject.Text, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), drawingObject.Font, fFontSize, drawingObject.Angle.GetValueOrDefault(0), drawingObject.BorderThickness.GetValueOrDefault(0));
+			BriefopLabel label = new(p, drawingObject.Text, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), drawingObject.Font, fFontSize, (int)drawingObject.Angle.GetValueOrDefault(0), drawingObject.BorderThickness.GetValueOrDefault(0));
 			mapFeatures.Add(label.ToMapFeature());
 		}
 
@@ -119,8 +119,28 @@ namespace DcsBriefop.Tools
 				AddMizDrawingObjectRectangle(theatre, mapFeatures, drawingObject);
 			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Free)
 				AddMizDrawingObjectLine(theatre, mapFeatures, drawingObject, true);
+			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Arrow)
+				AddMizDrawingObjectArrow(theatre, mapFeatures, drawingObject);
 			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Oval || drawingObject.PolygonMode == ElementDrawingPolygonMode.Circle)
 				AddMizDrawingObjectOval(theatre, mapFeatures, drawingObject);
+		}
+
+		private static void AddMizDrawingObjectArrow(Theatre theatre, List<IFeature> mapFeatures, MizDrawingObject drawingObject)
+		{
+			List<GeoPoint> points = [];
+			foreach (MizDrawingPoint point in drawingObject.Points)
+			{
+				double dY = drawingObject.MapY + point.Y;
+				double dX = drawingObject.MapX + point.X;
+				RotateDcsYX(out double dRotatedY, out double dRotatedX, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
+				Coordinate coordinate = theatre.GetCoordinate(dRotatedX, dRotatedY);
+				points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
+			}
+
+			BriefopLine line = BriefopLine.NewFromMizStyleName(points, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), true, ColorFromDcsString(drawingObject.FillColorString));
+			Mapsui.Nts.GeometryFeature feature = line.ToGeometryFeature();
+			if (feature is not null)
+				mapFeatures.Add(feature);
 		}
 
 		private static void AddMizDrawingObjectRectangle(Theatre theatre, List<IFeature> mapFeatures, MizDrawingObject drawingObject)

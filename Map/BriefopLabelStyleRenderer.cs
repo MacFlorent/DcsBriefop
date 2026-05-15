@@ -38,13 +38,15 @@ namespace DcsBriefop.Map
 			float ascent = -fm.Ascent;
 			float textH = ascent + fm.Descent;
 
+			const float padding = 4f;
+
 			canvas.Save();
 			canvas.Translate((float)sp.X, (float)sp.Y);
 			if (label.Angle != 0)
 				canvas.RotateDegrees(label.Angle);
 
 			// In DCS, textboxes are anchored at bottom-left; text body grows upward
-			SKRect bgRect = new(0f, -textH, textW, 0f);
+			SKRect bgRect = new(-padding, -(textH + padding), textW + padding, padding);
 
 			if (label.BackColor != Color.Empty)
 			{

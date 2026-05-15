@@ -7,7 +7,7 @@ namespace DcsBriefop.Tools
 	internal static class ToolsImage
 	{
 		#region Bitmap
-		private static Dictionary<string, Bitmap> m_bitmapCache = new();
+		private static Dictionary<string, Bitmap> m_bitmapCache = [];
 		public static Bitmap GetCachedBitmap(string sBitmapName)
 		{
 			if (!m_bitmapCache.TryGetValue(sBitmapName, out Bitmap bmp))
