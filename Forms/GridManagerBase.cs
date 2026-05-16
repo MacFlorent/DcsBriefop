@@ -70,7 +70,7 @@ namespace DcsBriefop.Forms
 			AssignEvents();
 			if (m_grid.GetItemCount() > 0 && m_grid.SelectedIndex < 0)
 				m_grid.SelectedIndex = 0;
-			
+
 			m_grid.ResumeDrawing();
 		}
 

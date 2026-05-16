@@ -50,6 +50,9 @@ namespace DcsBriefop.Forms
 
 		public override void DataToScreenMap()
 		{
+			if (!Visible)
+				return;
+				
 			foreach (MemoryLayer mapLayer in m_mapControl.Map.Layers.OfType<MemoryLayer>().ToList())
 				m_mapControl.Map.Layers.Remove(mapLayer);
 

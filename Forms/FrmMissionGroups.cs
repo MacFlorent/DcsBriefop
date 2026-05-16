@@ -58,10 +58,10 @@ namespace DcsBriefop.Forms
 			if (selectedBopGroups.Count() == 1)
 			{
 				BopGroup selectedBopGroup = selectedBopGroups.First();
-				m_ucGroup = new UcGroup(m_briefopManager, selectedBopGroup, iSelectedTabIndex);
-				m_ucGroup.DataToScreen();
+				m_ucGroup = new(m_briefopManager, selectedBopGroup, iSelectedTabIndex);
 				ScMain.Panel2.Controls.Add(m_ucGroup);
 				m_ucGroup.Dock = DockStyle.Fill;
+				m_ucGroup.DataToScreen();
 			}
 		}
 

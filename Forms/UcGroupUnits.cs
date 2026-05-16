@@ -1,7 +1,6 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Map;
-using DcsBriefop.Tools;
 using Mapsui;
 using Mapsui.Layers;
 
@@ -22,7 +21,7 @@ namespace DcsBriefop.Forms
 		{
 			InitializeComponent();
 
-			m_gridManagerUnits = new GridManagerUnits(DgvUnits, null);
+			m_gridManagerUnits = new(DgvUnits, null);
 			m_gridManagerUnits.ColumnsDisplayed = GridManagerUnits.ColumnsDisplayedGroup;
 			m_gridManagerUnits.SelectionChanged += SelectionChangedEvent;
 		}
@@ -50,10 +49,9 @@ namespace DcsBriefop.Forms
 				{
 					PnUnitDetail.Controls.Clear();
 				}
-				if (m_ucUnit is null)
-				{
-					m_ucUnit = new UcUnit(m_briefopManager, this);
-				}
+				
+				m_ucUnit ??= new UcUnit(m_briefopManager, this);
+				
 				if (PnUnitDetail.Controls.Count == 0)
 				{
 					PnUnitDetail.Controls.Add(m_ucUnit);
@@ -70,6 +68,9 @@ namespace DcsBriefop.Forms
 
 		public override void DataToScreenMap()
 		{
+			if (!Visible)
+				return;
+
 			BopUnit selectedBopUnit = m_gridManagerUnits.GetSelectedElements().FirstOrDefault();
 			Coordinate coordinate = selectedBopUnit?.Coordinate ?? m_bopGroup.Coordinate;
 
@@ -89,7 +90,7 @@ namespace DcsBriefop.Forms
 
 		public void ScreenToDataDetail()
 		{
-			m_ucUnit.ScreenToData();
+			m_ucUnit?.ScreenToData();
 		}
 		#endregion
 

@@ -2,7 +2,6 @@
 using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.Map;
-using DcsBriefop.Tools;
 using Mapsui;
 using Mapsui.Layers;
 
@@ -23,7 +22,7 @@ namespace DcsBriefop.Forms
 		{
 			InitializeComponent();
 
-			m_gridManagerRoutePoints = new GridManagerRoutePoints(DgvRoutePoints, null);
+			m_gridManagerRoutePoints = new(DgvRoutePoints, null);
 			m_gridManagerRoutePoints.SelectionChanged += SelectionChangedEvent;
 		}
 		#endregion
@@ -50,10 +49,9 @@ namespace DcsBriefop.Forms
 				{
 					PnRoutePointDetail.Controls.Clear();
 				}
-				if (m_ucRoutePoint is null)
-				{
-					m_ucRoutePoint = new UcRoutePoint(m_briefopManager);
-				}
+
+				m_ucRoutePoint ??= new UcRoutePoint(m_briefopManager);
+				
 				if (PnRoutePointDetail.Controls.Count == 0)
 				{
 					PnRoutePointDetail.Controls.Add(m_ucRoutePoint);
@@ -70,6 +68,9 @@ namespace DcsBriefop.Forms
 
 		public override void DataToScreenMap()
 		{
+			if (!Visible)
+				return;
+
 			BopRoutePoint selectedBopRoutePoint = m_gridManagerRoutePoints.GetSelectedElements().FirstOrDefault();
 			Coordinate coordinate = selectedBopRoutePoint?.Coordinate ?? m_bopGroup.Coordinate;
 
@@ -89,7 +90,7 @@ namespace DcsBriefop.Forms
 
 		public void ScreenToDataDetail()
 		{
-			m_ucRoutePoint.ScreenToData();
+			m_ucRoutePoint?.ScreenToData();
 		}
 		#endregion
 
