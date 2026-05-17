@@ -5,15 +5,6 @@ using Mapsui.Tiling.Layers;
 
 namespace DcsBriefop.Map
 {
-	internal static class ElementMapProviderName
-	{
-		public static readonly string OpenStreetMap = "OpenStreetMap";
-		public static readonly string ArcGISTopo = "ArcGIS Topo";
-		public static readonly string ArcGISPhysical = "ArcGIS Physical";
-		public static readonly string ArcGISShadedRelief = "ArcGIS Shaded Relief";
-		public static readonly string WmsDcs = "WMS DCS";
-	}
-
 	internal static class MapProviders
 	{
 		#region Types
@@ -21,20 +12,20 @@ namespace DcsBriefop.Map
 		#endregion
 
 		#region Fields
-		private static readonly List<MapProviderRecord> s_providers;
+		private static readonly List<MapProviderRecord> s_providers = [];
 		#endregion
 
 		#region CTOR
 		static MapProviders()
 		{
-			s_providers =
-			[
-				new(ElementMapProviderName.OpenStreetMap, () => KnownTileSources.Create(KnownTileSource.OpenStreetMap)),
-				new(ElementMapProviderName.ArcGISTopo, () => KnownTileSources.Create(KnownTileSource.EsriWorldTopo)),
-				new(ElementMapProviderName.ArcGISPhysical, () => KnownTileSources.Create(KnownTileSource.EsriWorldPhysical)),
-				new(ElementMapProviderName.ArcGISShadedRelief, () => KnownTileSources.Create(KnownTileSource.EsriWorldShadedRelief)),
-				new(ElementMapProviderName.WmsDcs, WMSProvider.CreateTileSource),
-			];
+			foreach (KnownTileSource s in Enum.GetValues<KnownTileSource>())
+				s_providers.Add(new(s.ToString(), () => KnownTileSources.Create(s)));
+
+			WMSProviderFlappie flappie = new();
+			s_providers.Add(new(flappie.Name, flappie.CreateTileSource));
+
+			XYZProviderOpenTopoMap openTopoMap = new();
+			s_providers.Add(new(openTopoMap.Name, openTopoMap.CreateTileSource));
 		}
 		#endregion
 

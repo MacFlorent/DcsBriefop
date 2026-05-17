@@ -61,7 +61,7 @@ namespace DcsBriefop.Data
 
 	internal class PreferencesMap
 	{
-		public string ProviderName { get; set; } = Map.ElementMapProviderName.OpenStreetMap;
+		public string ProviderName { get; set; } = BruTile.Predefined.KnownTileSource.OpenStreetMap.ToString();
 		public double Zoom { get; set; } = 9;
 
 		public void InitializeDefault() { }
