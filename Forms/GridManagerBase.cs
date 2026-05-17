@@ -36,7 +36,7 @@ namespace DcsBriefop.Forms
 
 			m_grid.FullRowSelect = true;
 			m_grid.ShowGroups = false;
-			m_grid.MultiSelect = false;
+			m_grid.MultiSelect = true;
 			m_grid.UseFiltering = true;
 			m_grid.FilterMenuBuildStrategy = new FilterMenuBuilder();
 			m_grid.CellEditActivation = ObjectListView.CellEditActivateMode.None;

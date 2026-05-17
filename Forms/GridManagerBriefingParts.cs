@@ -19,6 +19,7 @@ namespace DcsBriefop.Forms
 		#region Methods
 		protected override void InitializeColumns()
 		{
+			m_grid.MultiSelect = false;
 			m_grid.AllColumns.AddRange(
 			[
 				new() { Text = "Id", Name = GridColumn.Id, Width = GridWidth.Small, AspectGetter = obj => ((BaseBopBriefingPart)obj).Guid },
