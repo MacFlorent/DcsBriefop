@@ -1,4 +1,5 @@
-using Color = System.Drawing.Color;
+using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using Mapsui;
 using Mapsui.Extensions;
 using Mapsui.Layers;
@@ -8,7 +9,9 @@ using Mapsui.Rendering.Skia.SkiaStyles;
 using Mapsui.Styles;
 using NetTopologySuite.Geometries;
 using SkiaSharp;
+using SkiaSharp.Views.Desktop;
 using System.Drawing.Drawing2D;
+using Color = System.Drawing.Color;
 
 namespace DcsBriefop.Map
 {
@@ -24,9 +27,9 @@ namespace DcsBriefop.Map
 			if (coords is null || coords.Length < 2)
 				return false;
 
-			SKPoint[] screenPoints = [.. coords.Select(c =>
+			SKPoint[] screenPoints = [.. coords.Select(_c =>
 			{
-				Mapsui.Manipulations.ScreenPosition sp = viewport.WorldToScreen(new MPoint(c.X, c.Y));
+				Mapsui.Manipulations.ScreenPosition sp = viewport.WorldToScreen(new MPoint(_c.X, _c.Y));
 				return new SKPoint((float)sp.X, (float)sp.Y);
 			})];
 
@@ -59,7 +62,7 @@ namespace DcsBriefop.Map
 			using SKPaint paint = new()
 			{
 				Style = SKPaintStyle.Fill,
-				Color = ToSKColor(line.FillColor),
+				Color = line.FillColor.ToSKColor(),
 				IsAntialias = true,
 			};
 			canvas.DrawPath(path, paint);
@@ -83,7 +86,7 @@ namespace DcsBriefop.Map
 			using SKPaint paint = new()
 			{
 				Style = SKPaintStyle.Stroke,
-				Color = line.LineColor == Color.Empty ? SKColors.Black : ToSKColor(line.LineColor),
+				Color = line.LineColor == Color.Empty ? ElementMapValue.ForeColorDefault.ToSKColor() : line.LineColor.ToSKColor(),
 				StrokeWidth = line.Thickness,
 				IsAntialias = true,
 				StrokeCap = SKStrokeCap.Round,
@@ -130,10 +133,10 @@ namespace DcsBriefop.Map
 
 		private static void DrawPanel(SKCanvas canvas, BriefopLine line, SKPoint p1, SKPoint p2, string sText)
 		{
-			using SKFont textFont = new() { Size = 11f };
+			using SKFont textFont = ToolsImage.GetDefaultSKFont();
 			using SKPaint textPaint = new()
 			{
-				Color = line.TextColor == Color.Empty ? SKColors.Black : ToSKColor(line.TextColor),
+				Color = line.TextColor == Color.Empty ? ElementMapValue.ForeColorDefault.ToSKColor() : line.TextColor.ToSKColor(),
 				IsAntialias = true,
 			};
 
@@ -182,16 +185,17 @@ namespace DcsBriefop.Map
 
 			// Text with reading-direction correction
 			float angleText = angleDeg;
-			if (angleText < -90f) angleText += 180f;
-			else if (angleText > 90f) angleText -= 180f;
+			bool flipped = false;
+			if (angleText < -90f) { angleText += 180f; flipped = true; }
+			else if (angleText > 90f) { angleText -= 180f; flipped = true; }
 
 			canvas.Save();
 			canvas.Translate(centerX, centerY);
 			canvas.RotateDegrees(angleText);
-			canvas.DrawText(sText, -(textW / 2f) - offsetX, -textH / 2f + ascent, SKTextAlign.Left, textFont, textPaint);
+			// When flipped 180°, the X axis is inverted, so offsetX sign must flip too
+			float textCenterX = flipped ? -offsetX : offsetX;
+			canvas.DrawText(sText, textCenterX, -textH / 2f + ascent, SKTextAlign.Center, textFont, textPaint);
 			canvas.Restore();
 		}
-
-		private static SKColor ToSKColor(Color c) => new(c.R, c.G, c.B, c.A);
 	}
 }

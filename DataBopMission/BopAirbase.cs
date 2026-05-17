@@ -160,7 +160,7 @@ namespace DcsBriefop.DataBopMission
 		public BriefopMarker GetBriefopMarker(Color? color)
 		{
 			GeoPoint pos = new(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree);
-			return BriefopMarker.NewFromTemplateName(pos, MapMarker, color ?? Color.DarkGray, Name, 1, 0);
+			return BriefopMarker.NewFromTemplateName(pos, MapMarker, color ?? Color.DarkGray, Name, null, 0f, 1, 0);
 		}
 		#endregion
 

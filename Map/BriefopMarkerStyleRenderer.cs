@@ -7,6 +7,7 @@ using Mapsui.Rendering;
 using Mapsui.Rendering.Skia.SkiaStyles;
 using Mapsui.Styles;
 using SkiaSharp;
+using SkiaSharp.Views.Desktop;
 
 namespace DcsBriefop.Map
 {
@@ -23,30 +24,25 @@ namespace DcsBriefop.Map
 				return false;
 
 			Mapsui.Manipulations.ScreenPosition screenPos = viewport.WorldToScreen(pointMapFeature.Point);
-			int sizeW = marker.GetSizeWidth();
-			int sizeH = marker.GetSizeHeight();
-			float centerX = (float)(screenPos.X + marker.GetOffsetX() + sizeW / 2.0);
-			float centerY = (float)(screenPos.Y + marker.GetOffsetY() + sizeH / 2.0);
+			int iSizeW = marker.GetSizeWidth();
+			int iSizeH = marker.GetSizeHeight();
+			float fCenterX = (float)(screenPos.X + marker.GetOffsetX() + iSizeW / 2.0);
+			float fCenterY = (float)(screenPos.Y + marker.GetOffsetY() + iSizeH / 2.0);
 
 			canvas.Save();
-			canvas.Translate(centerX, centerY);
+			canvas.Translate(fCenterX, fCenterY);
 			if (marker.Angle != 0)
 				canvas.RotateDegrees(marker.Angle);
 
-			canvas.DrawImage(skImage, new SKRect(-sizeW / 2f, -sizeH / 2f, sizeW / 2f, sizeH / 2f), new SKSamplingOptions(SKCubicResampler.Mitchell));
+			canvas.DrawImage(skImage, new SKRect(-iSizeW / 2f, -iSizeH / 2f, iSizeW / 2f, iSizeH / 2f), new SKSamplingOptions(SKCubicResampler.Mitchell));
 
 			if (!string.IsNullOrEmpty(marker.Label))
 			{
-				using SKTypeface typeface = SKTypeface.FromFamilyName(ElementMapValue.DefaultFont.FontFamily.Name);
-				using SKFont textFont = new()
-				{
-					Size = ElementMapValue.DefaultFont.Size,
-					Typeface = typeface,
-					Edging = SKFontEdging.SubpixelAntialias,
-				};
+				using SKFont textFont = ToolsImage.GetSKFontOrDefault(marker.FontFamily, marker.FontSize);
+				textFont.Edging = SKFontEdging.SubpixelAntialias;
 
 				float textX = 0;
-				float textY = sizeH / 2f + textFont.Size + 1f;
+				float textY = iSizeH / 2f + textFont.Size + 1f;
 
 				/*
 				float textWidth = textFont.MeasureText(marker.Label);
@@ -60,12 +56,8 @@ namespace DcsBriefop.Map
 				using SKPaint bgPaint = new() { Color = new SKColor(0, 0, 0, 110), IsAntialias = true };
 				canvas.DrawRoundRect(bgRect, 4f, 4f, bgPaint);
 				*/
-				System.Drawing.Color textColor = System.Drawing.Color.FromArgb(
-					marker.TintColor?.R ?? 255,
-					marker.TintColor?.G ?? 255,
-					marker.TintColor?.B ?? 255);
-				System.Drawing.Color outlineColor = textColor.Lerp(
-					ToolsImage.PerceivedBrightness(textColor) > 128 ? System.Drawing.Color.Black : System.Drawing.Color.White, 0.8f);
+				System.Drawing.Color textColor = marker.TintColor ?? ElementMapValue.ForeColorDefault;
+				System.Drawing.Color outlineColor = textColor.GetContrastingColor();
 
 				using SKPaint outlinePaint = new()
 				{
@@ -87,9 +79,7 @@ namespace DcsBriefop.Map
 
 			if (marker.IsSelected || marker.IsHovered)
 			{
-				SKColor borderColor = marker.IsSelected
-					? ElementMapValue.SKColorSelected
-					: ElementMapValue.SKColorMouseOver;
+				SKColor borderColor = marker.IsSelected ? ElementMapValue.SelectedColor.ToSKColor() : ElementMapValue.MouseOverColor.ToSKColor();
 
 				using SKPaint glowPaint = new()
 				{
@@ -99,7 +89,7 @@ namespace DcsBriefop.Map
 					IsAntialias = true,
 					MaskFilter = SKMaskFilter.CreateBlur(SKBlurStyle.Normal, 4f),
 				};
-				canvas.DrawRect(-sizeW / 2f - 1f, -sizeH / 2f - 1f, sizeW + 2f, sizeH + 2f, glowPaint);
+				canvas.DrawRect(-iSizeW / 2f - 1f, -iSizeH / 2f - 1f, iSizeW + 2f, iSizeH + 2f, glowPaint);
 
 				using SKPaint borderPaint = new()
 				{
@@ -108,7 +98,7 @@ namespace DcsBriefop.Map
 					StrokeWidth = 1.5f,
 					IsAntialias = true,
 				};
-				canvas.DrawRect(-sizeW / 2f, -sizeH / 2f, sizeW, sizeH, borderPaint);
+				canvas.DrawRect(-iSizeW / 2f, -iSizeH / 2f, iSizeW, iSizeH, borderPaint);
 			}
 
 			canvas.Restore();

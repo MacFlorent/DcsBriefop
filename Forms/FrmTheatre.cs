@@ -81,7 +81,7 @@ namespace DcsBriefop.Forms
 			foreach (Airdrome airdrome in m_theatre.Airdromes)
 			{
 				GeoPoint pos = new(airdrome.Latitude, airdrome.Longitude);
-				BriefopMarker marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Airdrome, m_OverlayColor, airdrome.Name, 1, 0);
+				BriefopMarker marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Airdrome, m_OverlayColor, airdrome.Name, null, 0f, 1, 0);
 				PointFeature feature = new(MapProjection.ToMPoint(marker.Position));
 				feature.Styles.Add(new BriefopMarkerStyle(marker));
 				features.Add(feature);
@@ -128,7 +128,7 @@ namespace DcsBriefop.Forms
 			foreach (MemoryLayer layer in MapControl.Map.Layers.OfType<MemoryLayer>().Where(_l => _l.Name == "ClickPoint").ToList())
 				MapControl.Map.Layers.Remove(layer);
 
-			BriefopMarker clickMarker = BriefopMarker.NewFromTemplateName(geoPoint, ElementMapTemplateMarker.Waypoint, m_OverlayColor, null, 1, 0);
+			BriefopMarker clickMarker = BriefopMarker.NewFromTemplateName(geoPoint, ElementMapTemplateMarker.Waypoint, m_OverlayColor, null, null, 0f, 1, 0);
 			PointFeature clickFeature = new(MapProjection.ToMPoint(clickMarker.Position));
 			clickFeature.Styles.Add(new BriefopMarkerStyle(clickMarker));
 			MapControl.Map.Layers.Add(new MemoryLayer { Name = "ClickPoint", Style = null, Features = [clickFeature] });

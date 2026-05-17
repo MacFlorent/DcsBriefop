@@ -136,8 +136,11 @@
 	{
 		public static readonly string OverlayStatic = "static";
 
-		public static readonly Font DefaultFont = new("Arial", 12);
-		public static readonly SkiaSharp.SKColor SKColorSelected = new(0, 0, 255);
-		public static readonly SkiaSharp.SKColor SKColorMouseOver = new(95, 158, 160);
+		public static readonly string DefaultFontFamily = "Arial";
+		public static readonly float DefaultFontSize = 12f;
+		public static readonly Color SelectedColor = Color.Blue;
+		public static readonly Color MouseOverColor = Color.Yellow;
+		public static readonly Color ForeColorDefault = Color.Black;
+		public static readonly Color BackColorDefault = Color.White;
 	}
 }

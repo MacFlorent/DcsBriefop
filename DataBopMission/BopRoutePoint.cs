@@ -251,7 +251,7 @@ namespace DcsBriefop.DataBopMission
 			return GetTasks(sTaskIds, iUnitId)?.OrderBy(_t => _t.Number).FirstOrDefault();
 		}
 
-		public BriefopMarker GetBriefopMarker(Color color, ElementMapOverlayRouteDisplay options)
+		public BriefopMarker GetBriefopMarker(Color color, bool? bIsSelected, ElementMapOverlayRouteDisplay options)
 		{
 			string sLabel = "";
 			if ((options & ElementMapOverlayRouteDisplay.PointLabelFull) != 0)
@@ -259,8 +259,22 @@ namespace DcsBriefop.DataBopMission
 			else if ((options & ElementMapOverlayRouteDisplay.PointLabelLight) != 0)
 				sLabel = $"{Number}";
 
+			string sFontFamily = null;
+			float fFontSize = 0f;
+			if (bIsSelected is not null)
+			{
+				if (bIsSelected.Value)
+				{
+					fFontSize = ElementMapValue.DefaultFontSize + 2f;
+				}
+				else
+				{
+					fFontSize = ElementMapValue.DefaultFontSize - 2f;
+				}
+			}
+
 			GeoPoint pos = new(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree);
-			return BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Waypoint, color, sLabel, 1, 0);
+			return BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Waypoint, color, sLabel, sFontFamily, fFontSize, 1, 0);
 		}
 
 		public void SetYX(double dY, double dX)

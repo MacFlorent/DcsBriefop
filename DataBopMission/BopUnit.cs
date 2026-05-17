@@ -158,7 +158,7 @@ namespace DcsBriefop.DataBopMission
 		public BriefopMarker GetBriefopMarker(Color? color)
 		{
 			GeoPoint pos = new(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree);
-			return BriefopMarker.NewFromTemplateName(pos, MapMarker, color ?? ToolsBriefop.GetCoalitionColor(BopGroup.CoalitionName), ToStringDisplayName(), 1, 0);
+			return BriefopMarker.NewFromTemplateName(pos, MapMarker, color ?? ToolsBriefop.GetCoalitionColor(BopGroup.CoalitionName), ToStringDisplayName(), null, 0f, 1, 0);
 		}
 
 		public MemoryLayer GetMapLayer()

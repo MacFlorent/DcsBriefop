@@ -171,7 +171,7 @@ namespace DcsBriefop.DataBopMission
 
 		public virtual string ToStringLocalisation(ElementCoordinateDisplay coordinateDisplay, ElementMeasurementSystem? measurementSystem)
 		{
-			StringBuilder sb = new StringBuilder(Coordinate.ToString(coordinateDisplay));
+			StringBuilder sb = new(Coordinate.ToString(coordinateDisplay));
 			if (measurementSystem is not null && GroupClass == ElementGroupClass.Ground)
 			{
 				sb.AppendWithSeparator($"{GetAltitude(measurementSystem.Value):0}{ToolsMeasurement.AltitudeUnit(measurementSystem.Value)}", Environment.NewLine);
@@ -194,7 +194,7 @@ namespace DcsBriefop.DataBopMission
 			foreach (BopRoutePoint routePoint in RoutePoints)
 			{
 				routeTask = routePoint.GetRouteTask(sTaskIds, iUnitId);
-				if (routeTask is object)
+				if (routeTask is not null)
 					break;
 			}
 
@@ -203,14 +203,14 @@ namespace DcsBriefop.DataBopMission
 
 		public Tacan GetTacanFromRouteTask(int? iUnitId)
 		{
-			BopRouteTask routeTask = GetRouteTask(new List<string> { ElementRouteTaskAction.ActivateBeacon }, iUnitId);
+			BopRouteTask routeTask = GetRouteTask([ElementRouteTaskAction.ActivateBeacon], iUnitId);
 			return (routeTask as BopRouteTaskBeacon)?.Tacan;
 		}
 
 		public BriefopMarker GetBriefopMarker(Color? color)
 		{
 			GeoPoint pos = new(Coordinate.Latitude.DecimalDegree, Coordinate.Longitude.DecimalDegree);
-			return BriefopMarker.NewFromTemplateName(pos, MapMarker, color ?? ToolsBriefop.GetCoalitionColor(CoalitionName), ToStringDisplayName(), 1, 0);
+			return BriefopMarker.NewFromTemplateName(pos, MapMarker, color ?? ToolsBriefop.GetCoalitionColor(CoalitionName), ToStringDisplayName(), null, 0f, 1, 0);
 		}
 
 		public MemoryLayer GetMapLayer()
@@ -277,12 +277,12 @@ namespace DcsBriefop.DataBopMission
 					BriefopMarker marker;
 					if (bopRouteTaskOrbit.Pattern == "Circle" || iCount == RoutePoints.Count)
 					{
-						marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Circle, ToolsBriefop.GetCoalitionColor(CoalitionName), ToStringDisplayName(), 2, 0);
+						marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Circle, ToolsBriefop.GetCoalitionColor(CoalitionName), ToStringDisplayName(), null, 0f, 2, 0);
 						bDone = true;
 					}
 					else
 					{
-						marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Waypoint, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0);
+						marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Waypoint, ToolsBriefop.GetCoalitionColor(CoalitionName), null, null, 0f, 1, 0);
 					}
 					PointFeature mapFeature = new(MapProjection.ToMPoint(pos));
 					mapFeature.Styles.Add(new BriefopMarkerStyle(marker));
@@ -292,7 +292,7 @@ namespace DcsBriefop.DataBopMission
 				else if (points.Count == 1)
 				{
 					GeoPoint pos = new(bopRoutePoint.Coordinate.Latitude.DecimalDegree, bopRoutePoint.Coordinate.Longitude.DecimalDegree);
-					BriefopMarker marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Waypoint, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0);
+					BriefopMarker marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Waypoint, ToolsBriefop.GetCoalitionColor(CoalitionName), null, null, 0f, 1, 0);
 					PointFeature feature = new(MapProjection.ToMPoint(pos));
 					feature.Styles.Add(new BriefopMarkerStyle(marker));
 					mapFeatures.Add(feature);
@@ -333,11 +333,11 @@ namespace DcsBriefop.DataBopMission
 					|| iSelectedPointNumber.GetValueOrDefault(0) == bopRoutePoint.Number
 					|| (options & ElementMapOverlayRouteDisplay.NoMarkerFirstPoint) == 0)
 				{
-					Color colorPoint = ToolsBriefop.GetCoalitionColor(CoalitionName);
-					if (iSelectedPointNumber is not null && iSelectedPointNumber.Value != bopRoutePoint.Number)
-						colorPoint = ToolsImage.Lerp(colorPoint, Color.White, 0.5f);
+					bool? bIsSelected = null;
+					if (iSelectedPointNumber is not null)
+						bIsSelected = iSelectedPointNumber.Value == bopRoutePoint.Number;
 
-					BriefopMarker briefopMarker = bopRoutePoint.GetBriefopMarker(colorPoint, options);
+					BriefopMarker briefopMarker = bopRoutePoint.GetBriefopMarker(ToolsBriefop.GetCoalitionColor(CoalitionName), bIsSelected, options);
 					PointFeature mapFeature = new(MapProjection.ToMPoint(briefopMarker.Position));
 					mapFeature.Styles.Add(new BriefopMarkerStyle(briefopMarker));
 					mapFeatures.Add(mapFeature);

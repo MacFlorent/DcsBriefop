@@ -4,7 +4,6 @@ using Mapsui;
 using Mapsui.Nts;
 using NetTopologySuite.Geometries;
 using SkiaSharp;
-using System.Drawing.Drawing2D;
 
 namespace DcsBriefop.Map
 {

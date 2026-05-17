@@ -13,6 +13,8 @@ namespace DcsBriefop
 			public static readonly string Longitude = "lng";
 			public static readonly string Template = "template";
 			public static readonly string Label = "label";
+			public static readonly string FontFamily = "fontFamily";
+			public static readonly string FontSize = "fontSize";
 			public static readonly string Scale = "scale";
 			public static readonly string Angle = "angle";
 			public static readonly string Color = "color";
@@ -27,10 +29,12 @@ namespace DcsBriefop
 			jo.Add(new JProperty(JsonNode.Scale, value.Scale));
 			jo.Add(new JProperty(JsonNode.Angle, value.Angle));
 
-			if (value.TintColor is object)
+			if (value.TintColor is not null)
 				jo.Add(new JProperty(JsonNode.Color, ColorTranslator.ToHtml(value.TintColor.Value)));
 
 			jo.Add(new JProperty(JsonNode.Label, value.Label));
+			jo.Add(new JProperty(JsonNode.FontFamily, value.FontFamily));
+			jo.Add(new JProperty(JsonNode.FontSize, value.FontSize));
 
 			jo.WriteTo(writer);
 		}
@@ -45,12 +49,14 @@ namespace DcsBriefop
 			int iAngle = token[JsonNode.Angle].Value<int>();
 
 			Color? tintColor = null;
-			if (token[JsonNode.Color] is object)
+			if (token[JsonNode.Color] is not null)
 				tintColor = ColorTranslator.FromHtml(token[JsonNode.Color].Value<string>());
 
 			string sLabel = token[JsonNode.Label].Value<string>();
+			string sFontFamily = token[JsonNode.FontFamily]?.Value<string>();
+			float fFontSize = token[JsonNode.FontSize]?.Value<float>() ?? 0f;
 
-			return BriefopMarker.NewFromTemplateName(new GeoPoint(dLat, dLng), sMarkerType, tintColor, sLabel, iScale, iAngle);
+			return BriefopMarker.NewFromTemplateName(new GeoPoint(dLat, dLng), sMarkerType, tintColor, sLabel, sFontFamily, fFontSize, iScale, iAngle);
 		}
 	}
 }

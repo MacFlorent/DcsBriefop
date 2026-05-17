@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Properties;
+﻿using DcsBriefop.Data;
+using DcsBriefop.Properties;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
@@ -204,6 +205,8 @@ namespace DcsBriefop.Tools
 			c.G * c.G * .587 +
 			c.B * c.B * .114);
 		}
+
+		public static Color GetContrastingColor(this Color c) => c.Lerp(ToolsImage.PerceivedBrightness(c) > 128 ? System.Drawing.Color.Black : System.Drawing.Color.White, 0.8f);
 		#endregion
 
 		#region Draw
@@ -234,6 +237,18 @@ namespace DcsBriefop.Tools
 
 			g.Restore(state);
 		}
+		#endregion
+
+		#region Font
+		public static SkiaSharp.SKFont GetSKFontOrDefault(string sFontFamily, float fFontSize)
+		{
+			string sFamily = string.IsNullOrEmpty(sFontFamily) ? ElementMapValue.DefaultFontFamily : sFontFamily;
+			float fSize = fFontSize <= 0 ? ElementMapValue.DefaultFontSize : fFontSize;
+			SkiaSharp.SKTypeface typeface = SkiaSharp.SKTypeface.FromFamilyName(sFamily);
+			return new SkiaSharp.SKFont(typeface, fSize);
+		}
+
+		public static SkiaSharp.SKFont GetDefaultSKFont() => GetSKFontOrDefault(null, 0);
 		#endregion
 	}
 }

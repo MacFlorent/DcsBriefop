@@ -88,7 +88,7 @@ namespace DcsBriefop.DataBopMission
 			List<IFeature> mapFeatures = [];
 
 			GeoPoint bullseyePos = new(Bullseye.Latitude.DecimalDegree, Bullseye.Longitude.DecimalDegree);
-			BriefopMarker bullseyeMarker = BriefopMarker.NewFromTemplateName(bullseyePos, ElementMapTemplateMarker.Bullseye, ToolsBriefop.GetCoalitionColor(CoalitionName), null, 1, 0);
+			BriefopMarker bullseyeMarker = BriefopMarker.NewFromTemplateName(bullseyePos, ElementMapTemplateMarker.Bullseye, ToolsBriefop.GetCoalitionColor(CoalitionName), null, null, 0f, 1, 0);
 			PointFeature bullseyeMapFeature = new(MapProjection.ToMPoint(bullseyeMarker.Position));
 			bullseyeMapFeature.Styles.Add(new BriefopMarkerStyle(bullseyeMarker));
 			mapFeatures.Add(bullseyeMapFeature);
@@ -96,7 +96,7 @@ namespace DcsBriefop.DataBopMission
 			MemoryLayer drawingMapLayer = ToolsMap.BuildMizDrawingMapLayer(Theatre, [.. Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, CoalitionName, true) == 0)]);
 			mapFeatures.AddRange(drawingMapLayer.Features);
 
-			return new MemoryLayer($"Static_{CoalitionName}") { Style = null, Features = mapFeatures };
+			return new MemoryLayer($"{ElementMapValue.OverlayStatic}_{CoalitionName}") { Style = null, Features = mapFeatures };
 		}
 
 		public void UpdateBullseyeRoutePoint(BopRoutePoint bullseyeRoutePoint)

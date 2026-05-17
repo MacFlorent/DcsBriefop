@@ -1,4 +1,5 @@
-using Color = System.Drawing.Color;
+using DcsBriefop.Data;
+using DcsBriefop.Tools;
 using Mapsui;
 using Mapsui.Extensions;
 using Mapsui.Layers;
@@ -6,6 +7,8 @@ using Mapsui.Rendering;
 using Mapsui.Rendering.Skia.SkiaStyles;
 using Mapsui.Styles;
 using SkiaSharp;
+using SkiaSharp.Views.Desktop;
+using Color = System.Drawing.Color;
 
 namespace DcsBriefop.Map
 {
@@ -22,23 +25,19 @@ namespace DcsBriefop.Map
 
 			Mapsui.Manipulations.ScreenPosition sp = viewport.WorldToScreen(pointMapFeature.Point);
 
-			using SKFont font = new()
-			{
-				Size = label.FontSize,
-				Typeface = string.IsNullOrEmpty(label.FontFamily) ? null : SKTypeface.FromFamilyName(label.FontFamily),
-			};
+			using SKFont font = ToolsImage.GetSKFontOrDefault(label.FontFamily, label.FontSize);
 			using SKPaint textPaint = new()
 			{
-				Color = label.ForeColor == Color.Empty ? SKColors.Black : new SKColor(label.ForeColor.R, label.ForeColor.G, label.ForeColor.B, label.ForeColor.A),
+				Color = label.ForeColor == Color.Empty ? ElementMapValue.ForeColorDefault.ToSKColor() : label.ForeColor.ToSKColor(),
 				IsAntialias = true,
 			};
 
-			float textW = font.MeasureText(label.Text);
+			float fTextW = font.MeasureText(label.Text);
 			font.GetFontMetrics(out SKFontMetrics fm);
-			float ascent = -fm.Ascent;
-			float textH = ascent + fm.Descent;
+			float fAscent = -fm.Ascent;
+			float fTextH = fAscent + fm.Descent;
 
-			const float padding = 4f;
+			const float fPadding = 4f;
 
 			canvas.Save();
 			canvas.Translate((float)sp.X, (float)sp.Y);
@@ -46,14 +45,14 @@ namespace DcsBriefop.Map
 				canvas.RotateDegrees(label.Angle);
 
 			// In DCS, textboxes are anchored at bottom-left; text body grows upward
-			SKRect bgRect = new(-padding, -(textH + padding), textW + padding, padding);
+			SKRect bgRect = new(-fPadding, -(fTextH + fPadding), fTextW + fPadding, fPadding);
 
 			if (label.BackColor != Color.Empty)
 			{
 				using SKPaint bgPaint = new()
 				{
 					Style = SKPaintStyle.Fill,
-					Color = new SKColor(label.BackColor.R, label.BackColor.G, label.BackColor.B, label.BackColor.A),
+					Color = label.BackColor.ToSKColor(),
 				};
 				canvas.DrawRect(bgRect, bgPaint);
 			}

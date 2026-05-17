@@ -16,6 +16,8 @@ namespace DcsBriefop.Map
 		public string TemplateName => m_template?.Name;
 		public Color? TintColor { get; set; }
 		public string Label { get; set; }
+		public string FontFamily { get; }
+		public float FontSize { get; }
 		public int Scale { get; set; }
 		public int Angle { get; set; }
 		public bool IsHovered { get; set; }
@@ -24,30 +26,32 @@ namespace DcsBriefop.Map
 		#endregion
 
 		#region CTOR
-		private BriefopMarker(GeoPoint position, MapTemplateMarker template, Color? tintColor, string sLabel, int iScale, int iAngle)
+		private BriefopMarker(GeoPoint position, MapTemplateMarker template, Color? tintColor, string sLabel, string sFontFamily, float fFontSize, int iScale, int iAngle)
 		{
 			Position = position;
 			m_template = template;
 			TintColor = tintColor;
 			Label = sLabel;
+			FontFamily = string.IsNullOrEmpty(sFontFamily) ? ElementMapValue.DefaultFontFamily : sFontFamily;
+			FontSize = fFontSize <= 0 ? ElementMapValue.DefaultFontSize : fFontSize;
 			Scale = iScale;
 			Angle = iAngle;
 			LoadSkImage();
 		}
 
-		public static BriefopMarker NewFromTemplateName(GeoPoint position, string sTemplateName, Color? tintColor, string sLabel, int iScale, int iAngle)
+		public static BriefopMarker NewFromTemplateName(GeoPoint position, string sTemplateName, Color? tintColor, string sLabel, string sFontFamily, float fFontSize, int iScale, int iAngle)
 		{
-			return new BriefopMarker(position, MapTemplateMarker.GetTemplate(sTemplateName), tintColor, sLabel, iScale, iAngle);
+			return new BriefopMarker(position, MapTemplateMarker.GetTemplate(sTemplateName), tintColor, sLabel, sFontFamily, fFontSize, iScale, iAngle);
 		}
 
 		public static BriefopMarker NewFromMizStyleName(GeoPoint position, string sMizStyleName, Color? tintColor, string sLabel, int iScale, int iAngle)
 		{
-			return new BriefopMarker(position, MapTemplateMarker.GetTemplateFromDcsMizFile(sMizStyleName), tintColor, sLabel, iScale, iAngle);
+			return new BriefopMarker(position, MapTemplateMarker.GetTemplateFromDcsMizFile(sMizStyleName), tintColor, sLabel, null, 0f, iScale, iAngle);
 		}
 
 		public BriefopMarker NewCleanCopy()
 		{
-			return new BriefopMarker(Position, m_template, TintColor, Label, Scale, Angle);
+			return new BriefopMarker(Position, m_template, TintColor, Label, null, 0f, Scale, Angle);
 		}
 		#endregion
 

@@ -237,7 +237,7 @@ namespace DcsBriefop.Forms
 					return;
 
 				GeoPoint geoPoint = MapProjection.ToGeoPoint(e.WorldPosition);
-				BriefopMarker newMarker = BriefopMarker.NewFromTemplateName(geoPoint, ElementMapTemplateMarker.DefaultMark, null, "", 1, 0);
+				BriefopMarker newMarker = BriefopMarker.NewFromTemplateName(geoPoint, ElementMapTemplateMarker.DefaultMark, null, "", null, 0f, 1, 0);
 				MapData.CustomMarkers.Add(newMarker);
 				DataToScreenMapLayers();
 				CkAddMarker.Checked = false;
