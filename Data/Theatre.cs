@@ -1,6 +1,5 @@
 ﻿using DcsBriefop.Tools;
 using Newtonsoft.Json;
-using OSGeo.OSR;
 
 namespace DcsBriefop.Data
 {
@@ -17,10 +16,8 @@ namespace DcsBriefop.Data
 		{
 			Name = sName;
 
-			TheatreSpatialReference = new SpatialReference("");
-			string sProj4 = TheatreProjectionManager.GetProjection(Name);
-			if (!string.IsNullOrEmpty(sProj4))
-				TheatreSpatialReference.ImportFromProj4(TheatreProjectionManager.GetProjection(Name));
+			string sProj4 = TheatreProjectionManager.GetProjection(Name) ?? ElementGlobalData.DefaultProj4;
+			TheatreSpatialReference = new SpatialReference(sProj4);
 
 			InitializeAirdromes();
 		}
@@ -29,7 +26,7 @@ namespace DcsBriefop.Data
 		#region Methods
 		public Airdrome GetAirdrome(int iId)
 		{
-			return Airdromes.Where(_ad => _ad.Id == iId).FirstOrDefault();
+			return Airdromes.FirstOrDefault(_ad => _ad.Id == iId);
 		}
 
 		public CoordinateSharp.Coordinate GetCoordinate(double dDcsX, double dDcsY)
@@ -101,7 +98,7 @@ namespace DcsBriefop.Data
 				ToolsControls.ShowMessageBoxAndLogException("Failed to build airdrome data. Airdrome informations will not be available.", e);
 			}
 
-			Airdromes ??= new List<Airdrome>();
+			Airdromes ??= [];
 		}
 		#endregion
 	}

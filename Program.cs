@@ -13,8 +13,6 @@ namespace DcsBriefop
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			InitializeCulture();
-			ToolsMap.InitializeGMaps();
-			//GlobalSettings.Default_EagerLoad = new EagerLoad(EagerLoadType.UTM_MGRS);
 
 			Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
@@ -52,39 +50,49 @@ namespace DcsBriefop
 			Log.ApplicationStart();
 			Log.Info($"Starting batch verb for {optionsBatch.Miz}");
 
-			try
+			int exitCode = -1;
+			using Form batchForm = new() { ShowInTaskbar = false, WindowState = FormWindowState.Minimized };
+			batchForm.Load += async (_, _) =>
 			{
-				string sMizFilePath = optionsBatch.Miz;
-				if (!File.Exists(sMizFilePath) && Directory.Exists(sMizFilePath))
-					sMizFilePath = Directory.GetFiles(sMizFilePath, "*.miz").FirstOrDefault();
-
-				if (!File.Exists(sMizFilePath))
-					throw new ExceptionBop($"Miz file not found for batch verb [ {optionsBatch.Miz} ]");
-
-				Log.Info($"Reading miz file content {sMizFilePath}");
-				BriefopManager bopManager = new BriefopManager(sMizFilePath);
-				Log.Info("Saving updated data");
-				bopManager.MizSave(null);
-
-				if (optionsBatch.BriefingOutput.HasFlag(Data.ElementBriefingOutput.Miz))
+				try
 				{
-					Log.Info($"Generating kneeboard in Miz file");
-					bopManager.GenerateBriefing(Data.ElementBriefingOutput.Miz);
-				}
-				if (optionsBatch.BriefingOutput.HasFlag(Data.ElementBriefingOutput.Miz))
-				{
-					Log.Info($"Generating kneeboard in directory");
-					bopManager.GenerateBriefing(Data.ElementBriefingOutput.Directory);
-				}
+					string sMizFilePath = optionsBatch.Miz;
+					if (!File.Exists(sMizFilePath) && Directory.Exists(sMizFilePath))
+						sMizFilePath = Directory.GetFiles(sMizFilePath, "*.miz").FirstOrDefault();
 
-				Log.ApplicationEnd();
-				return 1;
-			}
-			catch(Exception ex)
-			{
-				Log.Exception(ex);
-				return -1;
-			}
+					if (!File.Exists(sMizFilePath))
+						throw new ExceptionBop($"Miz file not found for batch verb [ {optionsBatch.Miz} ]");
+
+					Log.Info($"Reading miz file content {sMizFilePath}");
+					BriefopManager bopManager = new BriefopManager(sMizFilePath);
+					Log.Info("Saving updated data");
+					bopManager.MizSave(null);
+
+					if (optionsBatch.BriefingOutput.HasFlag(Data.ElementBriefingOutput.Miz))
+					{
+						Log.Info($"Generating kneeboard in Miz file");
+						await bopManager.GenerateBriefing(Data.ElementBriefingOutput.Miz);
+					}
+					if (optionsBatch.BriefingOutput.HasFlag(Data.ElementBriefingOutput.Directory))
+					{
+						Log.Info($"Generating kneeboard in directory");
+						await bopManager.GenerateBriefing(Data.ElementBriefingOutput.Directory);
+					}
+
+					Log.ApplicationEnd();
+					exitCode = 1;
+				}
+				catch (Exception ex)
+				{
+					Log.Exception(ex);
+				}
+				finally
+				{
+					batchForm.Close();
+				}
+			};
+			Application.Run(batchForm);
+			return exitCode;
 		}
 
 		private static void InitializeCulture()

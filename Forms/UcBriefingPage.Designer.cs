@@ -56,7 +56,7 @@
 			CkDisplayTitle = new CheckBox();
 			TbTitle = new TextBox();
 			LbTitle = new Label();
-			DgvParts = new Zuby.ADGV.AdvancedDataGridView();
+			DgvParts = new BrightIdeasSoftware.FastObjectListView();
 			TcDetail.SuspendLayout();
 			TpMapDetail.SuspendLayout();
 			TpHtmlPreview.SuspendLayout();
@@ -70,7 +70,6 @@
 			ScMain.Panel2.SuspendLayout();
 			ScMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)NudHtmlFontSize).BeginInit();
-			((System.ComponentModel.ISupportInitialize)DgvParts).BeginInit();
 			SuspendLayout();
 			// 
 			// TcDetail
@@ -397,16 +396,12 @@
 			// DgvParts
 			// 
 			DgvParts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			DgvParts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			DgvParts.FilterAndSortEnabled = false;
-			DgvParts.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvParts.Location = new Point(4, 168);
 			DgvParts.Margin = new Padding(4, 3, 4, 3);
 			DgvParts.Name = "DgvParts";
-			DgvParts.RightToLeft = RightToLeft.No;
 			DgvParts.Size = new Size(215, 304);
-			DgvParts.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvParts.TabIndex = 0;
+			DgvParts.View = System.Windows.Forms.View.Details;
 			// 
 			// UcBriefingPage
 			// 
@@ -432,7 +427,6 @@
 			((System.ComponentModel.ISupportInitialize)ScMain).EndInit();
 			ScMain.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)NudHtmlFontSize).EndInit();
-			((System.ComponentModel.ISupportInitialize)DgvParts).EndInit();
 			ResumeLayout(false);
 		}
 
@@ -445,7 +439,7 @@
 		private SplitContainer ScMain;
 		private TextBox TbTitle;
 		private Label LbTitle;
-		private Zuby.ADGV.AdvancedDataGridView DgvParts;
+		private BrightIdeasSoftware.FastObjectListView DgvParts;
 		private CheckBox CkDisplayTitle;
 		private Panel PnImage;
 		private Label LbHeader;

@@ -28,25 +28,19 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DgvUnits = new Zuby.ADGV.AdvancedDataGridView();
+			DgvUnits = new BrightIdeasSoftware.FastObjectListView();
 			BtNormalizeDatalink = new Button();
 			BtNormalizeCallsign = new Button();
-			((System.ComponentModel.ISupportInitialize)DgvUnits).BeginInit();
 			SuspendLayout();
 			// 
 			// DgvUnits
 			// 
 			DgvUnits.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			DgvUnits.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			DgvUnits.FilterAndSortEnabled = true;
-			DgvUnits.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvUnits.Location = new Point(12, 12);
 			DgvUnits.Name = "DgvUnits";
-			DgvUnits.RightToLeft = RightToLeft.No;
-			DgvUnits.RowTemplate.Height = 25;
 			DgvUnits.Size = new Size(776, 404);
-			DgvUnits.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvUnits.TabIndex = 1;
+			DgvUnits.View = System.Windows.Forms.View.Details;
 			// 
 			// BtNormalizeDatalink
 			// 
@@ -82,13 +76,12 @@
 			ShowIcon = false;
 			Text = "Check and normalize mission data";
 			Shown += FrmDatalink_Shown;
-			((System.ComponentModel.ISupportInitialize)DgvUnits).EndInit();
 			ResumeLayout(false);
 		}
 
 		#endregion
 
-		private Zuby.ADGV.AdvancedDataGridView DgvUnits;
+		private BrightIdeasSoftware.FastObjectListView DgvUnits;
 		private Button BtNormalizeDatalink;
 		private Button BtNormalizeCallsign;
 	}

@@ -2,7 +2,6 @@
 using DcsBriefop.DataBopBriefing;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET.MapProviders;
 
 namespace DcsBriefop.Forms
 {
@@ -50,7 +49,7 @@ namespace DcsBriefop.Forms
 			CbMissionBullseyeWaypoint.SelectedValue = (int)m_preferences.Mission.BullseyeWaypoint;
 			CkMissionNoCallsignForPlayable.Checked = m_preferences.Mission.NoCallsignForPlayableFlights;
 
-			CbMapProvider.SelectedItem = GMapProviders.TryGetProvider(m_preferences.Map.ProviderName);
+			CbMapProvider.SelectedItem = MapProviders.TryGetProviderOrDefault(m_preferences.Map.ProviderName);
 			NudMapZoom.Value = (decimal)m_preferences.Map.Zoom;
 
 			CbBriefingWeatherDisplay.SelectedValue = (int)m_preferences.Briefing.WeatherDisplay;
@@ -83,7 +82,7 @@ namespace DcsBriefop.Forms
 			m_preferences.Mission.BullseyeWaypoint = (ElementBullseyeWaypoint)CbMissionBullseyeWaypoint.SelectedValue;
 			m_preferences.Mission.NoCallsignForPlayableFlights = CkMissionNoCallsignForPlayable.Checked;
 
-			m_preferences.Map.ProviderName = (CbMapProvider.SelectedItem as GMapProvider)?.Name;
+			m_preferences.Map.ProviderName = (CbMapProvider.SelectedItem as MapProviders.MapProviderRecord)?.Name;
 			m_preferences.Map.Zoom = (double)NudMapZoom.Value;
 
 			m_preferences.Briefing.WeatherDisplay = (ElementWeatherDisplay)CbBriefingWeatherDisplay.SelectedValue;
@@ -127,14 +126,12 @@ namespace DcsBriefop.Forms
 
 		private void BtApplicationWorkingDirectorySelect_Click(object sender, EventArgs e)
 		{
-			using (FolderBrowserDialog fbd = new FolderBrowserDialog())
-			{
-				fbd.SelectedPath = TbApplicationWorkingDirectory.Text;
+			using FolderBrowserDialog fbd = new();
+			fbd.SelectedPath = TbApplicationWorkingDirectory.Text;
 
-				if (fbd.ShowDialog() == DialogResult.OK)
-				{
-					TbApplicationWorkingDirectory.Text = fbd.SelectedPath;
-				}
+			if (fbd.ShowDialog() == DialogResult.OK)
+			{
+				TbApplicationWorkingDirectory.Text = fbd.SelectedPath;
 			}
 		}
 
@@ -158,20 +155,18 @@ namespace DcsBriefop.Forms
 
 		private void BtBriefingGenerationDirectory_Click(object sender, EventArgs e)
 		{
-			using (FolderBrowserDialog fbd = new FolderBrowserDialog())
-			{
-				fbd.SelectedPath = TbBriefingGenerationDirectory.Text;
+			using FolderBrowserDialog fbd = new();
+			fbd.SelectedPath = TbBriefingGenerationDirectory.Text;
 
-				if (fbd.ShowDialog() == DialogResult.OK)
-				{
-					TbBriefingGenerationDirectory.Text = fbd.SelectedPath;
-				}
+			if (fbd.ShowDialog() == DialogResult.OK)
+			{
+				TbBriefingGenerationDirectory.Text = fbd.SelectedPath;
 			}
 		}
 
 		private void BtBriefingGenerationDirectoryReset_MouseDown(object sender, MouseEventArgs e)
 		{
-			ContextMenuStrip menu = new ContextMenuStrip();
+			ContextMenuStrip menu = new();
 			menu.Items.Clear();
 
 			menu.Items.AddMenuItem("Default", (object _sender, EventArgs _e) => { TbBriefingGenerationDirectory.Text = ElementGlobalData.GenerateDirectoryNameDefault; });

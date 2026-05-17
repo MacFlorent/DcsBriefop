@@ -34,7 +34,7 @@
 			LbColumns = new Label();
 			LstColumns = new CheckedListBox();
 			TlpMulti = new TableLayoutPanel();
-			DgvMultiAvailable = new Zuby.ADGV.AdvancedDataGridView();
+			DgvMultiAvailable = new BrightIdeasSoftware.FastObjectListView();
 			PnMultiButtons = new Panel();
 			BtMultiAdd = new Button();
 			BtMultiDown = new Button();
@@ -44,11 +44,9 @@
 			BtMultiRemoveAll = new Button();
 			LbMultiAvailable = new Label();
 			LbMultiSelected = new Label();
-			DgvMultiSelected = new Zuby.ADGV.AdvancedDataGridView();
+			DgvMultiSelected = new BrightIdeasSoftware.FastObjectListView();
 			TlpMulti.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)DgvMultiAvailable).BeginInit();
 			PnMultiButtons.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)DgvMultiSelected).BeginInit();
 			SuspendLayout();
 			// 
 			// LbHeader
@@ -118,18 +116,13 @@
 			// 
 			// DgvMultiAvailable
 			// 
-			DgvMultiAvailable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			DgvMultiAvailable.Dock = DockStyle.Fill;
-			DgvMultiAvailable.FilterAndSortEnabled = true;
-			DgvMultiAvailable.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvMultiAvailable.Location = new Point(3, 23);
 			DgvMultiAvailable.Name = "DgvMultiAvailable";
-			DgvMultiAvailable.RightToLeft = RightToLeft.No;
-			DgvMultiAvailable.RowTemplate.Height = 25;
 			DgvMultiAvailable.Size = new Size(402, 485);
-			DgvMultiAvailable.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvMultiAvailable.TabIndex = 1;
-			DgvMultiAvailable.CellDoubleClick += DgvMultiAvailable_CellDoubleClick;
+			DgvMultiAvailable.View = System.Windows.Forms.View.Details;
+			DgvMultiAvailable.DoubleClick += DgvMultiAvailable_CellDoubleClick;
 			// 
 			// PnMultiButtons
 			// 
@@ -233,18 +226,13 @@
 			// 
 			// DgvMultiSelected
 			// 
-			DgvMultiSelected.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			DgvMultiSelected.Dock = DockStyle.Fill;
-			DgvMultiSelected.FilterAndSortEnabled = false;
-			DgvMultiSelected.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvMultiSelected.Location = new Point(471, 23);
 			DgvMultiSelected.Name = "DgvMultiSelected";
-			DgvMultiSelected.RightToLeft = RightToLeft.No;
-			DgvMultiSelected.RowTemplate.Height = 25;
 			DgvMultiSelected.Size = new Size(402, 485);
-			DgvMultiSelected.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvMultiSelected.TabIndex = 5;
-			DgvMultiSelected.CellDoubleClick += DgvMultiSelected_CellDoubleClick;
+			DgvMultiSelected.View = System.Windows.Forms.View.Details;
+			DgvMultiSelected.DoubleClick += DgvMultiSelected_CellDoubleClick;
 			// 
 			// UcBriefingPartAirbases
 			// 
@@ -259,9 +247,7 @@
 			Name = "UcBriefingPartAirbases";
 			Size = new Size(882, 665);
 			TlpMulti.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)DgvMultiAvailable).EndInit();
 			PnMultiButtons.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)DgvMultiSelected).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -281,9 +267,9 @@
 		public Button BtMultiUp;
 		public Button BtMultiAddAll;
 		public Button BtMultiRemoveAll;
-		private Zuby.ADGV.AdvancedDataGridView DgvMultiAvailable;
+		private BrightIdeasSoftware.FastObjectListView DgvMultiAvailable;
 		private Label LbMultiAvailable;
 		private Label LbMultiSelected;
-		private Zuby.ADGV.AdvancedDataGridView DgvMultiSelected;
+		private BrightIdeasSoftware.FastObjectListView DgvMultiSelected;
 	}
 }

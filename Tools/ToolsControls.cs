@@ -1,5 +1,4 @@
-﻿using DcsBriefop.Data;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace DcsBriefop.Tools
@@ -161,7 +160,7 @@ namespace DcsBriefop.Tools
 		#region ComboBox
 		public static void FillCombo(ComboBox cb, object dataSource, string sValueMember, string sDisplayMember, EventHandler selectedValueChanged)
 		{
-			if (selectedValueChanged is object)
+			if (selectedValueChanged is not null)
 				cb.SelectedValueChanged -= selectedValueChanged;
 
 			cb.Items.Clear();
@@ -172,7 +171,7 @@ namespace DcsBriefop.Tools
 
 			cb.DataSource = dataSource;
 
-			if (selectedValueChanged is object)
+			if (selectedValueChanged is not null)
 				cb.SelectedValueChanged += selectedValueChanged;
 		}
 		#endregion

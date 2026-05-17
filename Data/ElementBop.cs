@@ -122,7 +122,8 @@
 		public static readonly string BullseyeRoutePointName = "BULLS";
 		public static readonly string GenerateDirectoryNameDefault = "BriefopGenerated";
 		public static readonly string GenerateDirectoryNameVeaf = @"src\mission\KNEEBOARD";
-	}
+        public static readonly string DefaultProj4 = "+proj=longlat +datum=WGS84 +no_defs +type=crs";
+    }
 
 	internal static class ElementCoalitionColor
 	{
@@ -133,12 +134,13 @@
 
 	internal static class ElementMapValue
 	{
-		public static readonly int MinZoom = 1;
-		public static readonly int MaxZoom = 18;
 		public static readonly string OverlayStatic = "static";
 
-		public static readonly Font DefaultFont = new Font("Arial", 11);
-		public static readonly Pen PenSelected = new Pen(Color.Blue, 1);
-		public static readonly Pen PenMouseOver = new Pen(Color.CadetBlue, 1);
+		public static readonly string DefaultFontFamily = "Arial";
+		public static readonly float DefaultFontSize = 12f;
+		public static readonly Color SelectedColor = Color.Blue;
+		public static readonly Color MouseOverColor = Color.Yellow;
+		public static readonly Color ForeColorDefault = Color.Black;
+		public static readonly Color BackColorDefault = Color.White;
 	}
 }

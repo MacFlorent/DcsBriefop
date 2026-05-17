@@ -3,8 +3,7 @@ using DcsBriefop.DataBopMission;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
+using Mapsui.Layers;
 
 namespace DcsBriefop.Forms
 {
@@ -43,7 +42,7 @@ namespace DcsBriefop.Forms
 		{
 			CbMapProvider.SelectedValueChanged -= CbMapProvider_SelectedValueChanged;
 
-			CbMapProvider.SelectedItem = MapProviders.TryGetProvider(m_briefopManager.BopMission.PreferencesMap.ProviderName);
+			CbMapProvider.SelectedItem = MapProviders.TryGetProviderOrDefault(m_briefopManager.BopMission.PreferencesMap.ProviderName);
 
 			m_ucMap = new UcMap();
 			m_ucMap.Dock = DockStyle.Fill;
@@ -60,28 +59,28 @@ namespace DcsBriefop.Forms
 			string sCoalition = PnMapSelection.Controls.OfType<RadioButton>().Where(_rb => _rb.Checked).FirstOrDefault()?.Tag as string ?? "global";
 
 			MizBopMap mapData = null;
-			List<GMapOverlay> staticOverlays = new List<GMapOverlay>();
+			List<ILayer> staticLayers = [];
 			if (sCoalition is not null && m_briefopManager.BopMission.Coalitions.ContainsKey(sCoalition))
 			{
 				BopCoalition bopCoalition = m_briefopManager.BopMission.Coalitions[sCoalition];
 				mapData = bopCoalition.MapData;
-				staticOverlays.Add(bopCoalition.BuildStaticMapOverlay());
+				staticLayers.Add(bopCoalition.BuildStaticMapLayer());
 			}
 			else
 			{
 				mapData = m_briefopManager.BopMission.MapData;
-				staticOverlays.Add(m_briefopManager.BopMission.BuildStaticMapOverlay());
+				staticLayers.Add(m_briefopManager.BopMission.BuildStaticMapLayer());
 			}
 
 			m_ucMap.MapData = mapData;
-			m_ucMap.StaticOverlays = staticOverlays;
+			m_ucMap.StaticOverlays = staticLayers;
 			m_ucMap.MapProviderName = m_briefopManager.BopMission.PreferencesMap.ProviderName;
 			m_ucMap.DataToScreen();
 		}
 
 		private void ScreenToData()
 		{
-			m_briefopManager.BopMission.PreferencesMap.ProviderName = (CbMapProvider.SelectedItem as GMapProvider)?.Name;
+			m_briefopManager.BopMission.PreferencesMap.ProviderName = (CbMapProvider.SelectedItem as MapProviders.MapProviderRecord)?.Name;
 		}
 		#endregion
 

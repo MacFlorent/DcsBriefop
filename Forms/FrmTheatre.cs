@@ -1,10 +1,10 @@
-﻿using CoordinateSharp;
+using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.WindowsForms;
-using OSGeo.OSR;
+using Mapsui;
+using Mapsui.Layers;
+using Mapsui.Manipulations;
 
 namespace DcsBriefop.Forms
 {
@@ -13,11 +13,8 @@ namespace DcsBriefop.Forms
 		#region Fields
 		private BriefopManager m_briefopManager;
 		private Theatre m_theatre;
-		private GMapOverlay m_mapOverlay;
-		private GMapOverlay m_mapOverlayDynamic;
 		private Color m_OverlayColor = Color.OrangeRed;
 		#endregion
-
 
 		#region CTOR
 		public FrmTheatre(BriefopManager briefopManager)
@@ -27,11 +24,8 @@ namespace DcsBriefop.Forms
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			MapControl.InitializeMapControl(m_briefopManager?.BopMission.PreferencesMap.ProviderName ?? PreferencesManager.Preferences.Map.ProviderName);
-			m_mapOverlay = new GMapOverlay();
-			m_mapOverlayDynamic = new GMapOverlay();
-			MapControl.Overlays.Add(m_mapOverlay);
-			MapControl.Overlays.Add(m_mapOverlayDynamic);
+			string sProviderName = m_briefopManager?.BopMission.PreferencesMap.ProviderName ?? PreferencesManager.Preferences.Map.ProviderName;
+			MapControl.InitializeMapControl(sProviderName);
 
 			CbTheatre.ValueMember = "Value";
 			CbTheatre.DisplayMember = "Key";
@@ -63,7 +57,7 @@ namespace DcsBriefop.Forms
 				CbTheatre.Text = ElementTheatreName.Caucasus;
 			}
 
-			m_theatre = new Theatre(CbTheatre.SelectedValue as string);
+			m_theatre = new(CbTheatre.SelectedValue as string);
 			DisplayCurrentTheatre();
 
 			CbTheatre.SelectedIndexChanged += CbTheatre_SelectedIndexChanged;
@@ -74,20 +68,25 @@ namespace DcsBriefop.Forms
 			TbProjection.Text = m_theatre.TheatreSpatialReference.ToStringProj4();
 
 			Coordinate centerCoordinate = m_theatre.GetCoordinate(0, 0);
-			MapControl.Position = new PointLatLng(centerCoordinate.Latitude.DecimalDegree, centerCoordinate.Longitude.DecimalDegree);
-			MapControl.Zoom = 6;
-			m_mapOverlay.Clear();
-			m_mapOverlayDynamic.Clear();
+			MapControl.Map.Navigator.CenterOnAndZoomTo(
+				MapProjection.ToMPoint(centerCoordinate.Latitude.DecimalDegree, centerCoordinate.Longitude.DecimalDegree),
+				MapProjection.ZoomToResolution(6), 0, null);
 			TbMapDataStatic.Clear();
 			LbMapDataDynamic.Text = null;
 
-			m_mapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(new PointLatLng(centerCoordinate.Latitude.DecimalDegree, centerCoordinate.Longitude.DecimalDegree), ElementMapTemplateMarker.Mark, m_OverlayColor, "c", 1, 0));
+			foreach (MemoryLayer layer in MapControl.Map.Layers.OfType<MemoryLayer>().ToList())
+				MapControl.Map.Layers.Remove(layer);
 
-			foreach (Airdrome ad in m_theatre.Airdromes)
+			List<IFeature> features = [];
+			foreach (Airdrome airdrome in m_theatre.Airdromes)
 			{
-				GMarkerBriefop airdromeMarker = GMarkerBriefop.NewFromTemplateName(new PointLatLng(ad.Latitude, ad.Longitude), ElementMapTemplateMarker.Airdrome, m_OverlayColor, ad.Name, 1, 0);
-				m_mapOverlay.Markers.Add(airdromeMarker);
+				GeoPoint pos = new(airdrome.Latitude, airdrome.Longitude);
+				BriefopMarker marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Airdrome, m_OverlayColor, airdrome.Name, null, 0f, 1, 0);
+				PointFeature feature = new(MapProjection.ToMPoint(marker.Position));
+				feature.Styles.Add(new BriefopMarkerStyle(marker));
+				features.Add(feature);
 			}
+			MapControl.Map.Layers.Add(new MemoryLayer { Style = null, Features = features });
 		}
 
 		private string GetStringCoordinates(Coordinate coordinate)
@@ -110,35 +109,29 @@ namespace DcsBriefop.Forms
 			DisplayCurrentTheatre();
 		}
 
-		private void MapControl_MouseMove(object sender, MouseEventArgs e)
+		private void MapControl_MapPointerMoved(object sender, MapEventArgs e)
 		{
-			PointLatLng mapPoint = MapControl.FromLocalToLatLng(e.X, e.Y);
-			m_theatre.GetDcsXY(out double dDcX, out double dDcsY, mapPoint.Lat, mapPoint.Lng);
-			LbMapDataDynamic.Text = $"{mapPoint}  {{X={dDcX:0.00}, Z(Y)={dDcsY:0.00}}}";
+			GeoPoint geoPoint = MapProjection.ToGeoPoint(e.WorldPosition);
+			m_theatre.GetDcsXY(out double dDcX, out double dDcsY, geoPoint.Latitude, geoPoint.Longitude);
+			LbMapDataDynamic.Text = $"Lat={geoPoint.Latitude:F6} Lng={geoPoint.Longitude:F6}  {{X={dDcX:0.00}, Z(Y)={dDcsY:0.00}}}";
 		}
 
-		private void MapControl_MouseDoubleClick(object sender, MouseEventArgs e)
+		private void MapControl_MapTapped(object sender, MapEventArgs e)
 		{
-			PointLatLng mapPoint = MapControl.FromLocalToLatLng(e.X, e.Y);
-			Coordinate mapCoordinate = new Coordinate(mapPoint.Lat, mapPoint.Lng);
+			if (e.GestureType != GestureType.DoubleTap)
+				return;
 
-			m_mapOverlayDynamic.Markers.Clear();
-			m_mapOverlayDynamic.Markers.Add(GMarkerBriefop.NewFromTemplateName(new PointLatLng(mapCoordinate.Latitude.DecimalDegree, mapCoordinate.Longitude.DecimalDegree), ElementMapTemplateMarker.Waypoint, m_OverlayColor, "", 1, 0));
+			GeoPoint geoPoint = MapProjection.ToGeoPoint(e.WorldPosition);
+			Coordinate mapCoordinate = new(geoPoint.Latitude, geoPoint.Longitude);
 			TbMapDataStatic.Text = GetStringCoordinates(mapCoordinate);
-		}
 
-		private void MapControl_OnMarkerClick(GMapMarker item, MouseEventArgs e)
-		{
-			if (item is GMarkerBriefop markerBriefop && item.Overlay == m_mapOverlay)
-			{
-				Airdrome airdrome = m_theatre.Airdromes.Where(_a => _a.Name == markerBriefop.Label).FirstOrDefault();
-				if (airdrome is not null)
-				{
-					Coordinate adCoordinate = new Coordinate(airdrome.Latitude, airdrome.Longitude);
-					TbMapDataStatic.Text = $"{GetStringCoordinates(adCoordinate)} / {airdrome.Name}[{airdrome.Id}] {airdrome.Tacan}";
-				}
+			foreach (MemoryLayer layer in MapControl.Map.Layers.OfType<MemoryLayer>().Where(_l => _l.Name == "ClickPoint").ToList())
+				MapControl.Map.Layers.Remove(layer);
 
-			}
+			BriefopMarker clickMarker = BriefopMarker.NewFromTemplateName(geoPoint, ElementMapTemplateMarker.Waypoint, m_OverlayColor, null, null, 0f, 1, 0);
+			PointFeature clickFeature = new(MapProjection.ToMPoint(clickMarker.Position));
+			clickFeature.Styles.Add(new BriefopMarkerStyle(clickMarker));
+			MapControl.Map.Layers.Add(new MemoryLayer { Name = "ClickPoint", Style = null, Features = [clickFeature] });
 		}
 
 		private void BtProjectionApply_Click(object sender, EventArgs e)
@@ -147,9 +140,7 @@ namespace DcsBriefop.Forms
 			if (sCurrentProjString == TbProjection.Text)
 				return;
 
-			SpatialReference sr = new SpatialReference("");
-			sr.ImportFromProj4(TbProjection.Text);
-			m_theatre.TheatreSpatialReference = sr;
+			m_theatre.TheatreSpatialReference = new SpatialReference(TbProjection.Text);
 			DisplayCurrentTheatre();
 
 			TbProjection.Text = m_theatre.TheatreSpatialReference.ToStringProj4();

@@ -1,14 +1,14 @@
-﻿
+
 namespace DcsBriefop.Forms
 {
 	partial class UcMap
 	{
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -23,8 +23,8 @@ namespace DcsBriefop.Forms
 
 		#region Component Designer generated code
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
@@ -34,7 +34,7 @@ namespace DcsBriefop.Forms
 			CkAddMarker = new CheckBox();
 			BtAreaSet = new Button();
 			BtAreaRecall = new Button();
-			MapControl = new GMap.NET.WindowsForms.GMapControl();
+			MapControl = new Mapsui.UI.WindowsForms.MapControl();
 			SuspendLayout();
 			// 
 			// BtRefresh
@@ -97,39 +97,18 @@ namespace DcsBriefop.Forms
 			// 
 			// MapControl
 			// 
-			MapControl.Bearing = 0F;
-			MapControl.CanDragMap = true;
+			MapControl.AutoSize = true;
+			MapControl.BackColor = Color.White;
 			MapControl.Dock = DockStyle.Fill;
-			MapControl.EmptyTileColor = Color.Navy;
-			MapControl.GrayScaleMode = false;
-			MapControl.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-			MapControl.LevelsKeepInMemory = 5;
 			MapControl.Location = new Point(0, 0);
 			MapControl.Margin = new Padding(4, 3, 4, 3);
-			MapControl.MarkersEnabled = true;
-			MapControl.MaxZoom = 18;
-			MapControl.MinZoom = 2;
-			MapControl.MouseWheelZoomEnabled = true;
-			MapControl.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
 			MapControl.Name = "MapControl";
-			MapControl.NegativeMode = false;
-			MapControl.PolygonsEnabled = true;
-			MapControl.RetryLoadTile = 0;
-			MapControl.RoutesEnabled = true;
-			MapControl.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-			MapControl.SelectedAreaFillColor = Color.FromArgb(33, 65, 105, 225);
-			MapControl.ShowTileGridLines = false;
 			MapControl.Size = new Size(905, 497);
 			MapControl.TabIndex = 5;
-			MapControl.Zoom = 13D;
-			MapControl.OnMarkerClick += Map_OnMarkerClick;
-			MapControl.OnMarkerEnter += Map_OnMarkerEnter;
-			MapControl.OnMarkerLeave += Map_OnMarkerLeave;
-			MapControl.KeyUp += Map_KeyUp;
-			MapControl.MouseClick += Map_MouseClick;
-			MapControl.MouseDown += Map_MouseDown;
-			MapControl.MouseMove += Map_MouseMove;
-			MapControl.MouseUp += Map_MouseUp;
+			MapControl.MapPointerPressed += MapControl_MapPointerPressed;
+			MapControl.MapPointerMoved += MapControl_MapPointerMoved;
+			MapControl.MapPointerReleased += MapControl_MapPointerReleased;
+			MapControl.MapTapped += MapControl_MapTapped;
 			// 
 			// UcMap
 			// 
@@ -149,7 +128,7 @@ namespace DcsBriefop.Forms
 		}
 
 		#endregion
-		private GMap.NET.WindowsForms.GMapControl MapControl;
+		private Mapsui.UI.WindowsForms.MapControl MapControl;
 		private System.Windows.Forms.Button BtAreaRecall;
 		private System.Windows.Forms.Button BtAreaSet;
 		private System.Windows.Forms.CheckBox CkAddMarker;

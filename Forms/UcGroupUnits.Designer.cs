@@ -28,24 +28,19 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DgvUnits = new Zuby.ADGV.AdvancedDataGridView();
+			DgvUnits = new BrightIdeasSoftware.FastObjectListView();
 			PnUnitDetail = new Panel();
-			((System.ComponentModel.ISupportInitialize)DgvUnits).BeginInit();
 			SuspendLayout();
 			// 
 			// DgvUnits
 			// 
-			DgvUnits.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			DgvUnits.Dock = DockStyle.Fill;
-			DgvUnits.FilterAndSortEnabled = true;
-			DgvUnits.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvUnits.Location = new Point(0, 0);
 			DgvUnits.Margin = new Padding(4, 3, 4, 3);
 			DgvUnits.Name = "DgvUnits";
-			DgvUnits.RightToLeft = RightToLeft.No;
 			DgvUnits.Size = new Size(801, 276);
-			DgvUnits.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvUnits.TabIndex = 36;
+			DgvUnits.View = System.Windows.Forms.View.Details;
 			// 
 			// PnUnitDetail
 			// 
@@ -65,13 +60,12 @@
 			Margin = new Padding(4, 3, 4, 3);
 			Name = "UcGroupUnits";
 			Size = new Size(801, 610);
-			((System.ComponentModel.ISupportInitialize)DgvUnits).EndInit();
 			ResumeLayout(false);
 		}
 
 		#endregion
 
-		private Zuby.ADGV.AdvancedDataGridView DgvUnits;
+		private BrightIdeasSoftware.FastObjectListView DgvUnits;
 		private Panel PnUnitDetail;
 	}
 }

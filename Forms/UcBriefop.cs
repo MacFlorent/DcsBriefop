@@ -67,7 +67,7 @@ namespace DcsBriefop.Forms
 			LbBriefingDirectory.CenterInParentHorizontal();
 			ToolsStyle.ButtonOk(BtBriefingFolderAdd);
 			ToolsStyle.ButtonCancel(BtBriefingFolderDelete);
-			DgvBriefingFolders.MultiSelect = false;
+			GridBriefingFolders.MultiSelect = false;
 		}
 
 		private void SetImagePanel(Panel pn, string sImageName, string sImageExtension)
@@ -107,7 +107,7 @@ namespace DcsBriefop.Forms
 
 		private void DataToScreenFolders()
 		{
-			m_gridManagerBriefingFolders = new GridManagerBriefingFolders(DgvBriefingFolders, m_briefopManager.BopMission.BopBriefingFolders);
+			m_gridManagerBriefingFolders = new GridManagerBriefingFolders(GridBriefingFolders, m_briefopManager.BopMission.BopBriefingFolders);
 			m_gridManagerBriefingFolders.Refresh();
 		}
 
@@ -180,16 +180,16 @@ namespace DcsBriefop.Forms
 			DataToScreenFolders();
 		}
 
-		private void DgvBriefingFolders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		private void DgvBriefingFolders_CellDoubleClick(object sender, EventArgs e)
 		{
 			BriefingFolderDetail();
 		}
 
-		private void GenerateBriefing(ElementBriefingOutput briefingOutput)
+		private async void GenerateBriefing(ElementBriefingOutput briefingOutput)
 		{
 			using (new WaitDialog(ParentForm))
 			{
-				m_briefopManager.GenerateBriefing(briefingOutput);
+				await m_briefopManager.GenerateBriefing(briefingOutput);
 			}
 		}
 

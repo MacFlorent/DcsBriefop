@@ -53,7 +53,7 @@
 			PnBriefingActions = new Panel();
 			BtBriefingGenerate = new Button();
 			BtBriefingAto = new Button();
-			DgvBriefingFolders = new Zuby.ADGV.AdvancedDataGridView();
+			GridBriefingFolders = new BrightIdeasSoftware.FastObjectListView();
 			PnBackground = new Panel();
 			PnMission.SuspendLayout();
 			PnMissionTheatre.SuspendLayout();
@@ -62,7 +62,6 @@
 			PnBriefing.SuspendLayout();
 			PnBriefingPicture.SuspendLayout();
 			PnBriefingActions.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)DgvBriefingFolders).BeginInit();
 			PnBackground.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -237,7 +236,7 @@
 			PnBriefing.Controls.Add(PnBriefingPicture);
 			PnBriefing.Controls.Add(LbBriefingFolders);
 			PnBriefing.Controls.Add(PnBriefingActions);
-			PnBriefing.Controls.Add(DgvBriefingFolders);
+			PnBriefing.Controls.Add(GridBriefingFolders);
 			PnBriefing.Location = new Point(0, 257);
 			PnBriefing.Margin = new Padding(4, 3, 4, 3);
 			PnBriefing.Name = "PnBriefing";
@@ -357,18 +356,13 @@
 			// 
 			// DgvBriefingFolders
 			// 
-			DgvBriefingFolders.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			DgvBriefingFolders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			DgvBriefingFolders.FilterAndSortEnabled = true;
-			DgvBriefingFolders.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-			DgvBriefingFolders.Location = new Point(3, 167);
-			DgvBriefingFolders.Name = "DgvBriefingFolders";
-			DgvBriefingFolders.RightToLeft = RightToLeft.No;
-			DgvBriefingFolders.RowTemplate.Height = 25;
-			DgvBriefingFolders.Size = new Size(1026, 142);
-			DgvBriefingFolders.SortStringChangedInvokeBeforeDatasourceUpdate = true;
-			DgvBriefingFolders.TabIndex = 12;
-			DgvBriefingFolders.CellDoubleClick += DgvBriefingFolders_CellDoubleClick;
+			GridBriefingFolders.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			GridBriefingFolders.Location = new Point(3, 167);
+			GridBriefingFolders.Name = "DgvBriefingFolders";
+			GridBriefingFolders.Size = new Size(1026, 142);
+			GridBriefingFolders.TabIndex = 12;
+			GridBriefingFolders.View = System.Windows.Forms.View.Details;
+			GridBriefingFolders.DoubleClick += DgvBriefingFolders_CellDoubleClick;
 			// 
 			// PnBackground
 			// 
@@ -401,7 +395,6 @@
 			PnBriefingPicture.ResumeLayout(false);
 			PnBriefingPicture.PerformLayout();
 			PnBriefingActions.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)DgvBriefingFolders).EndInit();
 			PnBackground.ResumeLayout(false);
 			ResumeLayout(false);
 		}
@@ -424,7 +417,7 @@
 		private Button BtBriefingPackages;
 		private Panel PnMissionTheatre;
 		private Button BtBriefingAto;
-		private Zuby.ADGV.AdvancedDataGridView DgvBriefingFolders;
+		private BrightIdeasSoftware.FastObjectListView GridBriefingFolders;
 		private Label LbBriefingFolders;
 		private Panel PnBriefingActions;
 		private Button BtBriefingGenerate;

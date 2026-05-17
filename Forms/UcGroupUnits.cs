@@ -1,8 +1,8 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.DataBopMission;
-using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.WindowsForms;
+using DcsBriefop.Map;
+using Mapsui;
+using Mapsui.Layers;
 
 namespace DcsBriefop.Forms
 {
@@ -17,11 +17,11 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcGroupUnits(BriefopManager briefopManager, BopGroup bopGroup, GMapControl mapControl) : base(briefopManager, bopGroup, mapControl)
+		public UcGroupUnits(BriefopManager briefopManager, BopGroup bopGroup, Mapsui.UI.WindowsForms.MapControl mapControl) : base(briefopManager, bopGroup, mapControl)
 		{
 			InitializeComponent();
 
-			m_gridManagerUnits = new GridManagerUnits(DgvUnits, null);
+			m_gridManagerUnits = new(DgvUnits, null);
 			m_gridManagerUnits.ColumnsDisplayed = GridManagerUnits.ColumnsDisplayedGroup;
 			m_gridManagerUnits.SelectionChanged += SelectionChangedEvent;
 		}
@@ -49,10 +49,9 @@ namespace DcsBriefop.Forms
 				{
 					PnUnitDetail.Controls.Clear();
 				}
-				if (m_ucUnit is null)
-				{
-					m_ucUnit = new UcUnit(m_briefopManager, this);
-				}
+				
+				m_ucUnit ??= new UcUnit(m_briefopManager, this);
+				
 				if (PnUnitDetail.Controls.Count == 0)
 				{
 					PnUnitDetail.Controls.Add(m_ucUnit);
@@ -69,13 +68,19 @@ namespace DcsBriefop.Forms
 
 		public override void DataToScreenMap()
 		{
+			if (!Visible)
+				return;
+
 			BopUnit selectedBopUnit = m_gridManagerUnits.GetSelectedElements().FirstOrDefault();
 			Coordinate coordinate = selectedBopUnit?.Coordinate ?? m_bopGroup.Coordinate;
-			m_mapControl.Overlays.Clear();
-			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayUnits(selectedBopUnit?.Id));
 
-			m_mapControl.Position = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
-			m_mapControl.ForceRefresh();
+			foreach (MemoryLayer mapLayer in m_mapControl.Map.Layers.OfType<MemoryLayer>().ToList())
+				m_mapControl.Map.Layers.Remove(mapLayer);
+
+			m_mapControl.Map.Layers.Add(m_bopGroup.GetUnitsMapLayer(selectedBopUnit?.Id));
+
+			MPoint center = MapProjection.ToMPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+			m_mapControl.Map.Navigator.CenterOnAndZoomTo(center, MapProjection.ZoomToResolution((int)PreferencesManager.Preferences.Map.Zoom), 0, null);
 		}
 
 		public override void ScreenToData()
@@ -85,7 +90,7 @@ namespace DcsBriefop.Forms
 
 		public void ScreenToDataDetail()
 		{
-			m_ucUnit.ScreenToData();
+			m_ucUnit?.ScreenToData();
 		}
 		#endregion
 

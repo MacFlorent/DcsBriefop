@@ -66,7 +66,7 @@ namespace DcsBriefop.Forms
 			}
 		}
 
-		private void MizSave(string sMizFilePath)
+		private async void MizSave(string sMizFilePath)
 		{
 			if (m_briefopManager is null)
 				throw new ExceptionBop("No mission is currently loaded");
@@ -76,7 +76,7 @@ namespace DcsBriefop.Forms
 				m_briefopManager.MizSave(sMizFilePath);
 
 				if (PreferencesManager.Preferences.Briefing.GenerateOnSave)
-					m_briefopManager.GenerateBriefing(ElementBriefingOutput.Miz);
+					await m_briefopManager.GenerateBriefing(ElementBriefingOutput.Miz);
 				if (PreferencesManager.Preferences.Application.GenerateBatchCommandOnSave)
 					m_briefopManager.MizBatchCommand();
 			}
@@ -115,7 +115,6 @@ namespace DcsBriefop.Forms
 			using FrmPreferences f = new FrmPreferences();
 			if (f.ShowDialog() == DialogResult.OK)
 			{
-				ToolsMap.InitializeGMaps();
 				BuildMenu();
 				DataToScreen();
 			}

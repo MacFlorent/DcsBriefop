@@ -170,12 +170,9 @@ namespace DcsBriefop
 		#endregion
 
 		#region Briefing generation
-		public void GenerateBriefing(ElementBriefingOutput briefingOutput)
+		public async Task GenerateBriefing(ElementBriefingOutput briefingOutput)
 		{
-			Task<ListBopBriefingGeneratedFile> t = Task.Run(() => BopMission.GenerateBriefingFiles(this));
-			t.Wait();
-
-			using ListBopBriefingGeneratedFile files = t.Result;
+			using ListBopBriefingGeneratedFile files = await BopMission.GenerateBriefingFiles(this);
 			if (briefingOutput.HasFlag(ElementBriefingOutput.Miz))
 				GenerateBriefingMiz(files);
 			if (briefingOutput.HasFlag(ElementBriefingOutput.Directory))

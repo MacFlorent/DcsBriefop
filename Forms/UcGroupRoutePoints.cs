@@ -1,9 +1,9 @@
 ﻿using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
-using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.WindowsForms;
+using DcsBriefop.Map;
+using Mapsui;
+using Mapsui.Layers;
 
 namespace DcsBriefop.Forms
 {
@@ -18,11 +18,11 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region CTOR
-		public UcGroupRoutePoints(BriefopManager briefopManager, BopGroup bopGroup, GMapControl mapControl) : base(briefopManager, bopGroup, mapControl)
+		public UcGroupRoutePoints(BriefopManager briefopManager, BopGroup bopGroup, Mapsui.UI.WindowsForms.MapControl mapControl) : base(briefopManager, bopGroup, mapControl)
 		{
 			InitializeComponent();
 
-			m_gridManagerRoutePoints = new GridManagerRoutePoints(DgvRoutePoints, null);
+			m_gridManagerRoutePoints = new(DgvRoutePoints, null);
 			m_gridManagerRoutePoints.SelectionChanged += SelectionChangedEvent;
 		}
 		#endregion
@@ -49,10 +49,9 @@ namespace DcsBriefop.Forms
 				{
 					PnRoutePointDetail.Controls.Clear();
 				}
-				if (m_ucRoutePoint is null)
-				{
-					m_ucRoutePoint = new UcRoutePoint(m_briefopManager);
-				}
+
+				m_ucRoutePoint ??= new UcRoutePoint(m_briefopManager);
+				
 				if (PnRoutePointDetail.Controls.Count == 0)
 				{
 					PnRoutePointDetail.Controls.Add(m_ucRoutePoint);
@@ -69,13 +68,19 @@ namespace DcsBriefop.Forms
 
 		public override void DataToScreenMap()
 		{
+			if (!Visible)
+				return;
+
 			BopRoutePoint selectedBopRoutePoint = m_gridManagerRoutePoints.GetSelectedElements().FirstOrDefault();
 			Coordinate coordinate = selectedBopRoutePoint?.Coordinate ?? m_bopGroup.Coordinate;
-			m_mapControl.Overlays.Clear();
-			m_mapControl.Overlays.Add(m_bopGroup.GetMapOverlayRoute(selectedBopRoutePoint?.Number, ElementMapOverlayRouteDisplay.PointLabelLight, PreferencesManager.Preferences.Briefing.MeasurementSystem));
 
-			m_mapControl.Position = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
-			m_mapControl.ForceRefresh();
+			foreach (MemoryLayer mapLayer in m_mapControl.Map.Layers.OfType<MemoryLayer>().ToList())
+				m_mapControl.Map.Layers.Remove(mapLayer);
+
+			m_mapControl.Map.Layers.Add(m_bopGroup.GetRouteMapLayer(selectedBopRoutePoint?.Number, ElementMapOverlayRouteDisplay.PointLabelLight, PreferencesManager.Preferences.Briefing.MeasurementSystem));
+
+			MPoint center = MapProjection.ToMPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+			m_mapControl.Map.Navigator.CenterOnAndZoomTo(center, MapProjection.ZoomToResolution((int)PreferencesManager.Preferences.Map.Zoom), 0, null);
 		}
 
 		public override void ScreenToData()
@@ -85,7 +90,7 @@ namespace DcsBriefop.Forms
 
 		public void ScreenToDataDetail()
 		{
-			m_ucRoutePoint.ScreenToData();
+			m_ucRoutePoint?.ScreenToData();
 		}
 		#endregion
 

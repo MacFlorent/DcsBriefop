@@ -1,34 +1,34 @@
-﻿using DcsBriefop.DataMiz;
+using DcsBriefop.Data;
+using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET;
-using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
+using Mapsui;
+using Mapsui.Layers;
+using Mapsui.Manipulations;
 using System.ComponentModel;
-
-//https://stackoverflow.com/questions/9308673/how-to-draw-circle-on-the-map-using-gmap-net-in-c-sharp
-//http://www.independent-software.com/gmap-net-beginners-tutorial-maps-markers-polygons-routes-updated-for-vs2015-and-gmap1-7.html
-//https://icon-icons.com/fr/icone/bullseye/73647
 
 namespace DcsBriefop.Forms
 {
 	internal partial class UcMap : UserControl, ICustomStylable
 	{
 		#region Fields
-		private GMapProvider m_mapProvider;
-		private GMapOverlay m_mapOverlay;
-        #endregion
+		private string m_sMapProviderName;
+		private MemoryLayer m_customMapLayer;
+		private BriefopMarker m_selectedMarker;
+		private BriefopMarker m_hoveredMarker;
+		private BriefopMarker m_draggedMarker;
+		#endregion
 
-        #region Properties
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public MizBopMap MapData { get; set; }
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IEnumerable<GMapOverlay> StaticOverlays { get; set; }
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string MapProviderName
+		#region Properties
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+		public MizBopMap MapData { get; set; }
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+		public IEnumerable<ILayer> StaticOverlays { get; set; }
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+		public string MapProviderName
 		{
-			get { return m_mapProvider.Name; }
-			set { m_mapProvider = MapProviders.TryGetProvider(value); }
+			get { return m_sMapProviderName; }
+			set { m_sMapProviderName = value; }
 		}
 		#endregion
 
@@ -39,7 +39,6 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 
 			PnSelectionDetail.Visible = false;
-			MapControl.InitializeMapControl(MapControl.MapProvider);
 		}
 		#endregion
 
@@ -52,215 +51,203 @@ namespace DcsBriefop.Forms
 		#region Methods
 		public void DataToScreen()
 		{
-			MapControl.MapProvider = m_mapProvider;
+			MapControl.InitializeMapControl(m_sMapProviderName);
+
 			if (MapData is not null)
 			{
-				MapControl.Position = new PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
-				MapControl.Zoom = MapData.Zoom;
+				MapControl.Map.Navigator.CenterOnAndZoomTo(MapProjection.ToMPoint(MapData.CenterLatitude, MapData.CenterLongitude), MapProjection.ZoomToResolution((int)MapData.Zoom), 0, null);
 			}
-			
-			DataToOverlay();
+
+			DataToScreenMapLayers();
 		}
 
-		public void DataToOverlay()
+		private void DataToScreenMapLayers()
 		{
-			MapControl.Overlays.Clear();
-			m_mapOverlay = null;
+			foreach (MemoryLayer mapLayer in MapControl.Map.Layers.OfType<MemoryLayer>().ToList())
+				MapControl.Map.Layers.Remove(mapLayer);
 
 			if (StaticOverlays is not null)
 			{
-				foreach (GMapOverlay staticOverlay in StaticOverlays)
-				{
-					MapControl.Overlays.Add(staticOverlay);
-				}
+				foreach (ILayer staticMapLayer in StaticOverlays)
+					MapControl.Map.Layers.Add(staticMapLayer);
 			}
+
+			m_customMapLayer = null;
+			m_hoveredMarker = null;
+			m_draggedMarker = null;
 
 			if (MapData is not null)
 			{
-				m_mapOverlay = MapData.BuildCustomMapOverlay();
-				MapControl.Overlays.Add(m_mapOverlay);
-				MapControl.Position = new PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
-				MapControl.Zoom = MapData.Zoom;
+				m_customMapLayer = MapData.BuildCustomMapLayer();
+				MapControl.Map.Layers.Add(m_customMapLayer);
 			}
 		}
 
-		public void ScreenToData()
+		private BriefopMarker HitTestMarker(MPoint worldPoint)
 		{
-			OverlayToData();
-		}
+			if (m_customMapLayer is null)
+				return null;
 
-		public void OverlayToData()
-		{
-			MapData?.FromCustomMapOverlay(m_mapOverlay);
-		}
-
-		private void AddMarker(double dLat, double dLng)
-		{
-			PointLatLng p = new(dLat, dLng);
-			m_mapOverlay.Markers.Add(GMarkerBriefop.NewFromTemplateName(p, ElementMapTemplateMarker.DefaultMark, Color.Orange, null, 1, 0));
-			CkAddMarker.Checked = false;
-
-			OverlayToData();
-		}
-
-		private void DeleteMarker(GMarkerBriefop gmb)
-		{
-			if (gmb.Overlay == m_mapOverlay)
-				m_mapOverlay.Markers.Remove(gmb);
-
-			OverlayToData();
-		}
-
-		private void SelectMarker(GMarkerBriefop gmb)
-		{
-			gmb.IsSelected = true;
-
-			// display detail
-			PnSelectionDetail.Controls.Clear();
-			UcMarkerDetail ucDetail = new UcMarkerDetail(gmb, MapControl);
-			ucDetail.Dock = DockStyle.Fill;
-			PnSelectionDetail.Controls.Add(ucDetail);
-			PnSelectionDetail.Visible = true;
-		}
-
-		private void UnselectAll()
-		{
-			foreach (var marker in m_mapOverlay.Markers)
+			double dResolution = MapControl.Map.Navigator.Viewport.Resolution;
+			foreach (PointFeature mapFeature in m_customMapLayer.Features.OfType<PointFeature>())
 			{
-				if (marker is GMarkerBriefop markerBriefop)
-					markerBriefop.IsSelected = false;
+				BriefopMarker marker = mapFeature.Styles.OfType<BriefopMarkerStyle>().FirstOrDefault()?.Marker;
+				if (marker is null)
+					continue;
+				double dWorldHalfW = marker.GetSizeWidth() / 2.0 * dResolution;
+				double dWorldHalfH = marker.GetSizeHeight() / 2.0 * dResolution;
+				if (Math.Abs(worldPoint.X - mapFeature.Point.X) <= dWorldHalfW &&
+					Math.Abs(worldPoint.Y - mapFeature.Point.Y) <= dWorldHalfH)
+					return marker;
 			}
-
-			// hide detail
-			PnSelectionDetail.Controls.Clear();
-			PnSelectionDetail.Visible = false;
-
-			OverlayToData();
-		}
-
-		private GMarkerBriefop GetMarkerHovered()
-		{
-			foreach (var marker in m_mapOverlay.Markers)
-			{
-				if (marker is GMarkerBriefop markerBriefop && markerBriefop.IsHovered)
-					return markerBriefop;
-			}
-
 			return null;
 		}
 
-		private GMarkerBriefop GetMarkerPressed()
+		private void SelectMarker(BriefopMarker marker)
 		{
-			foreach (var marker in m_mapOverlay.Markers)
+			if (m_selectedMarker == marker)
+				return;
+
+			m_selectedMarker?.IsSelected = false;
+
+			m_selectedMarker = marker;
+
+			if (m_selectedMarker is not null)
 			{
-				if (marker is GMarkerBriefop markerBriefop && markerBriefop.IsPressed)
-					return markerBriefop;
+				m_selectedMarker.IsSelected = true;
+				PnSelectionDetail.Controls.Clear();
+				UcMarkerDetail ucDetail = new(m_selectedMarker, RefreshCustomLayer);
+				ucDetail.Dock = DockStyle.Fill;
+				PnSelectionDetail.Controls.Add(ucDetail);
+				PnSelectionDetail.Visible = true;
+			}
+			else
+			{
+				PnSelectionDetail.Controls.Clear();
+				PnSelectionDetail.Visible = false;
 			}
 
-			return null;
+			RefreshCustomLayer();
+		}
+
+		private void RefreshCustomLayer()
+		{
+			m_customMapLayer?.DataHasChanged();
 		}
 		#endregion
 
 		#region Events
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+		{
+			if (keyData == Keys.Delete && m_hoveredMarker is not null && MapData is not null)
+			{
+				BriefopMarker toDelete = m_hoveredMarker;
+				m_hoveredMarker = null;
+				if (toDelete == m_selectedMarker)
+					SelectMarker(null);
+				MapData.CustomMarkers.Remove(toDelete);
+				DataToScreenMapLayers();
+				return true;
+			}
+			return base.ProcessCmdKey(ref msg, keyData);
+		}
+
 		private void BtAreaSet_Click(object sender, System.EventArgs e)
 		{
-			MapData.CenterLatitude = MapControl.Position.Lat;
-			MapData.CenterLongitude = MapControl.Position.Lng;
-			MapData.Zoom = (int)MapControl.Zoom;
+			if (MapData is null)
+				return;
+
+			MPoint center = new(MapControl.Map.Navigator.Viewport.CenterX, MapControl.Map.Navigator.Viewport.CenterY);
+			GeoPoint geoPoint = MapProjection.ToGeoPoint(center);
+			MapData.CenterLatitude = geoPoint.Latitude;
+			MapData.CenterLongitude = geoPoint.Longitude;
+			MapData.Zoom = MapProjection.ResolutionToZoom(MapControl.Map.Navigator.Viewport.Resolution);
 		}
 
 		private void BtAreaRecall_Click(object sender, System.EventArgs e)
 		{
-			MapControl.Position = new PointLatLng(MapData.CenterLatitude, MapData.CenterLongitude);
-			MapControl.Zoom = MapData.Zoom;
-		}
-
-		private void Map_MouseDown(object sender, MouseEventArgs e)
-		{
-			if (GetMarkerHovered() is GMarkerBriefop gmbHovered)
-			{
-				gmbHovered.IsPressed = true;
-			}
-		}
-
-		private void Map_MouseUp(object sender, MouseEventArgs e)
-		{
-			foreach (var marker in m_mapOverlay.Markers)
-			{
-				if (marker is GMarkerBriefop markerBriefop)
-					markerBriefop.IsPressed = false;
-
-			}
-		}
-
-		private void Map_MouseClick(object sender, MouseEventArgs e)
-		{
-			if (e.Button == MouseButtons.Left)
-			{
-				if (CkAddMarker.Checked)
-					AddMarker(MapControl.FromLocalToLatLng(e.X, e.Y).Lat, MapControl.FromLocalToLatLng(e.X, e.Y).Lng);
-				else if (GetMarkerHovered() is null)
-					UnselectAll();
-			}
-		}
-
-		private void Map_KeyUp(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode == Keys.Delete)
-			{
-				GMarkerBriefop gmb = GetMarkerHovered();
-
-				if (gmb is object)
-				{
-					DeleteMarker(gmb);
-				}
-			}
-		}
-
-		private void Map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
-		{
-			CkAddMarker.Checked = false;
-
-			if (item.Overlay != m_mapOverlay)
+			if (MapData is null)
 				return;
 
-			UnselectAll();
-
-			if (item is GMarkerBriefop selectedGmb)
-				SelectMarker(selectedGmb);
-		}
-
-		private void Map_OnMarkerEnter(GMapMarker item)
-		{
-			if (item.Overlay == m_mapOverlay && item is GMarkerBriefop gmb)
-				gmb.IsHovered = true;
-
-		}
-
-		private void Map_OnMarkerLeave(GMapMarker item)
-		{
-			if (item is GMarkerBriefop gmb)
-				gmb.IsHovered = false;
-		}
-
-		private void Map_MouseMove(object sender, MouseEventArgs e)
-		{
-			if (e.Button == MouseButtons.Left)
-			{
-				if (GetMarkerPressed() is GMarkerBriefop gmb)
-				{
-					var pnew = MapControl.FromLocalToLatLng(e.X, e.Y);
-					gmb.Position = pnew;
-					OverlayToData();
-				}
-
-				MapControl.Refresh();
-			}
+			MapControl.Map.Navigator.CenterOnAndZoomTo(MapProjection.ToMPoint(MapData.CenterLatitude, MapData.CenterLongitude),	MapProjection.ZoomToResolution((int)MapData.Zoom), 0, null);
 		}
 
 		private void BtRefresh_Click(object sender, System.EventArgs e)
 		{
-			MapControl.ForceRefresh();
+			MapControl.Refresh();
+		}
+
+		private void MapControl_MapPointerPressed(object sender, MapEventArgs e)
+		{
+			if (!Control.MouseButtons.HasFlag(MouseButtons.Right))
+				return;
+
+			BriefopMarker marker = HitTestMarker(e.WorldPosition);
+			if (marker is not null)
+			{
+				m_draggedMarker = marker;
+				m_draggedMarker.IsPressed = true;
+				RefreshCustomLayer();
+			}
+		}
+
+		private void MapControl_MapPointerReleased(object sender, MapEventArgs e)
+		{
+			if (m_draggedMarker is not null)
+			{
+				m_draggedMarker.IsPressed = false;
+				m_draggedMarker = null;
+				DataToScreenMapLayers();
+			}
+		}
+
+		private void MapControl_MapPointerMoved(object sender, MapEventArgs e)
+		{
+			if (m_draggedMarker is not null)
+			{
+				m_draggedMarker.Position = MapProjection.ToGeoPoint(e.WorldPosition);
+				
+				PointFeature draggedMapFeature = m_customMapLayer.Features.OfType<PointFeature>().FirstOrDefault(_f => (_f.Styles.OfType<BriefopMarkerStyle>().FirstOrDefault()?.Marker) == m_draggedMarker);
+				draggedMapFeature?.Point.X = e.WorldPosition.X;
+				draggedMapFeature?.Point.Y = e.WorldPosition.Y;
+				draggedMapFeature?.Modified();
+				RefreshCustomLayer();
+			}
+			else
+			{
+				BriefopMarker hovered = HitTestMarker(e.WorldPosition);
+				if (hovered != m_hoveredMarker)
+				{
+					m_hoveredMarker?.IsHovered = false;
+					m_hoveredMarker = hovered;
+					m_hoveredMarker?.IsHovered = true;
+					RefreshCustomLayer();
+				}
+			}
+		}
+
+		private void MapControl_MapTapped(object sender, MapEventArgs e)
+		{
+			if (e.GestureType != GestureType.SingleTap)
+				return;
+
+			if (CkAddMarker.Checked)
+			{
+				if (MapData is null)
+					return;
+
+				GeoPoint geoPoint = MapProjection.ToGeoPoint(e.WorldPosition);
+				BriefopMarker newMarker = BriefopMarker.NewFromTemplateName(geoPoint, ElementMapTemplateMarker.DefaultMark, null, "", null, 0f, 1, 0);
+				MapData.CustomMarkers.Add(newMarker);
+				DataToScreenMapLayers();
+				CkAddMarker.Checked = false;
+				SelectMarker(newMarker);
+			}
+			else
+			{
+				BriefopMarker hit = HitTestMarker(e.WorldPosition);
+				SelectMarker(hit);
+			}
 		}
 		#endregion
 	}

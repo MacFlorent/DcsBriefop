@@ -1,6 +1,6 @@
 ﻿using DcsBriefop.Data;
-using GMap.NET.WindowsForms;
 using HtmlTags;
+using Mapsui.Layers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -33,7 +33,7 @@ namespace DcsBriefop.DataBopBriefing
 		public virtual string ToStringAdditional() { return null; }
 		public abstract IEnumerable<HtmlTag> BuildHtmlContent(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder);
 
-		public virtual IEnumerable<GMapOverlay> BuildMapOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder) { return null; }
+		public virtual IEnumerable<ILayer> BuildMapLayers(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder) { return null; }
 		#endregion
 
 		#region IEquatable

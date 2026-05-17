@@ -1,12 +1,9 @@
 ﻿using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.DataMiz;
-using DcsBriefop.net.Tools;
+using DcsBriefop.Map;
 using DcsBriefop.Tools;
-using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
 using HtmlTags;
-using PuppeteerSharp;
 using System.Text.RegularExpressions;
 
 namespace DcsBriefop.DataBopBriefing
@@ -24,7 +21,7 @@ namespace DcsBriefop.DataBopBriefing
 		public bool MapIncludeBaseOverlays { get; set; } = true;
 		public int HtmlFontSize { get; set; } = 16;
 
-		public List<BaseBopBriefingPart> Parts { get; set; } = new List<BaseBopBriefingPart>();
+		public List<BaseBopBriefingPart> Parts { get; set; } = [];
 		public MizBopMap MapData { get; set; } = new MizBopMap();
 		#endregion
 
@@ -91,17 +88,8 @@ namespace DcsBriefop.DataBopBriefing
 		#region Html
 		public async Task<Image> BuildHtmlImage(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			Image image = null;
 			string sHtml = BuildHtmlString(bopManager, bopBriefingFolder);
-			using (HtmlImageRenderer renderer = new HtmlImageRenderer())
-			{
-				ScreenshotOptions screenshotOptions = new ScreenshotOptions() { Type = ScreenshotType.Png };
-				ViewPortOptions viewPortOptions = new ViewPortOptions() { Height = bopBriefingFolder.ImageSize.Height, Width = bopBriefingFolder.ImageSize.Width };
-
-				image = await renderer.RenderImageAsync(sHtml, screenshotOptions, viewPortOptions); // ConfigureAwait(false); https://devblogs.microsoft.com/dotnet/configureawait-faq/
-			}
-
-			return image;
+			return await HtmlImageRenderer.RenderImageAsync(sHtml, bopBriefingFolder.ImageSize);
 		}
 
 		public string BuildHtmlString(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
@@ -179,33 +167,33 @@ namespace DcsBriefop.DataBopBriefing
 		#region Map
 		public Image BuildMapImage(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			GMapProvider mapProvider = GMapProviders.TryGetProvider(bopManager.BopMission.PreferencesMap.ProviderName);
-			return ToolsMap.GenerateMapImage(MapData, mapProvider, GetMapAdditionalOverlays(bopManager, bopBriefingFolder), bopBriefingFolder.ImageSize);
+			MapProviders.MapProviderRecord provider = MapProviders.TryGetProviderOrDefault(bopManager.BopMission.PreferencesMap.ProviderName);
+			return ToolsMap.GenerateMapImage(MapData, provider.Factory(), GetMapAdditionalLayers(bopManager, bopBriefingFolder), bopBriefingFolder.ImageSize);
 		}
 
-		public IEnumerable<GMapOverlay> GetMapAdditionalOverlays(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
+		public IEnumerable<Mapsui.Layers.ILayer> GetMapAdditionalLayers(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			List<GMapOverlay> additionalOverlays = new List<GMapOverlay>();
+			List<Mapsui.Layers.ILayer> layers = [];
 
 			if (MapIncludeBaseOverlays)
 			{
-				additionalOverlays.Add(bopManager.BopMission.BuildStaticMapOverlay());
-				additionalOverlays.Add(bopManager.BopMission.MapData.BuildCustomMapOverlay());
+				layers.Add(bopManager.BopMission.BuildStaticMapLayer());
+				layers.Add(bopManager.BopMission.MapData.BuildCustomMapLayer());
 				if (bopManager.BopMission.Coalitions.TryGetValue(bopBriefingFolder.CoalitionName ?? "", out BopCoalition bopCoalition))
 				{
-					additionalOverlays.Add(bopCoalition.BuildStaticMapOverlay());
-					additionalOverlays.Add(bopCoalition.MapData.BuildCustomMapOverlay());
+					layers.Add(bopCoalition.BuildStaticMapLayer());
+					layers.Add(bopCoalition.MapData.BuildCustomMapLayer());
 				}
 			}
 
-			foreach (BaseBopBriefingPart bopBriefingPart in Parts)
+			foreach (BaseBopBriefingPart part in Parts)
 			{
-				IEnumerable<GMapOverlay> partOverlays = bopBriefingPart.BuildMapOverlays(bopManager, bopBriefingFolder);
-				if (partOverlays is not null)
-					additionalOverlays.AddRange(partOverlays);
+				IEnumerable<Mapsui.Layers.ILayer> partLayers = part.BuildMapLayers(bopManager, bopBriefingFolder);
+				if (partLayers is not null)
+					layers.AddRange(partLayers);
 			}
 
-			return additionalOverlays;
+			return layers;
 		}
 		#endregion
 

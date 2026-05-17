@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <TargetFramework>net10.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.19041</TargetFramework>
     <Version>26.5.3.0</Version>
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
@@ -25,14 +25,17 @@
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
     <PackageReference Include="CoordinateSharp" Version="3.4.1.1" />
     <PackageReference Include="CoordinateSharp.Magnetic" Version="2.1.5" />
-    <PackageReference Include="DG.AdvancedDataGridView" Version="1.2.30115.18" />
-    <PackageReference Include="GDAL" Version="3.12.1" />
-    <PackageReference Include="GMap.NET.WinForms" Version="2.1.7" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3967.48" />
+    <PackageReference Include="ObjectListView.Repack.NET6Plus" Version="2.9.5" />
     <PackageReference Include="HtmlTags" Version="10.0.0" />
     <PackageReference Include="log4net" Version="3.3.1" />
-    <PackageReference Include="MaxRev.Gdal.WindowsRuntime.Minimal" Version="3.12.3.499" />
+    <PackageReference Include="Mapsui" Version="5.0.2" />
+    <PackageReference Include="Mapsui.Nts" Version="5.0.2" />
+    <PackageReference Include="Mapsui.Rendering.Skia" Version="5.0.2" />
+    <PackageReference Include="Mapsui.Tiling" Version="5.0.2" />
+    <PackageReference Include="Mapsui.WindowsForms" Version="5.0.2" />
+    <PackageReference Include="ProjNet" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="PuppeteerSharp" Version="24.40.0" />
     <PackageReference Include="UnitsNet" Version="5.75.0" />
   </ItemGroup>
 
@@ -75,9 +78,17 @@
     </None>
   </ItemGroup>
 
+  <!-- WebView2 ships a WPF assembly (lib_manual/net5.0-windows) that pulls in WindowsBase v5.0.0.0,
+       conflicting with the net10.0 framework's v4.0.0.0. This project is WinForms-only, so remove
+       the WPF assembly from the reference set before ResolveAssemblyReferences sees it. -->
+  <Target Name="RemoveWebView2WpfReference" AfterTargets="ResolvePackageAssets" BeforeTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <Reference Remove="@(Reference)" Condition="'%(Reference.Filename)' == 'Microsoft.Web.WebView2.Wpf'" />
+    </ItemGroup>
+  </Target>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec
-      Command="xcopy /I /Y $(SolutionDir)Resources\Markers $(TargetDir)\Markers&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Routes $(TargetDir)\Routes&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Resources $(TargetDir)\Resources&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Html $(TargetDir)\Html" />
+    <Exec Command="xcopy /I /Y $(SolutionDir)Resources\Markers $(TargetDir)\Markers&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Routes $(TargetDir)\Routes&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Resources $(TargetDir)\Resources&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Html $(TargetDir)\Html" />
   </Target>
 
 </Project>

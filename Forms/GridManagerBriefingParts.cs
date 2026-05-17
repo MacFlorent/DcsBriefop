@@ -1,11 +1,10 @@
-﻿using DcsBriefop.Data;
+using BrightIdeasSoftware;
+using DcsBriefop.Data;
 using DcsBriefop.DataBopBriefing;
-using System.Data;
-using Zuby.ADGV;
 
 namespace DcsBriefop.Forms
 {
-	internal class GridManagerBriefingParts : GridManagerBase<BaseBopBriefingPart>
+	internal class GridManagerBriefingParts(FastObjectListView dgv, IEnumerable<BaseBopBriefingPart> briefingParts) : GridManagerBase<BaseBopBriefingPart>(dgv, briefingParts)
 	{
 		#region Columns
 		public static class GridColumn
@@ -14,52 +13,26 @@ namespace DcsBriefop.Forms
 			public static readonly string PartName = "PartName";
 			public static readonly string Information = "Information";
 		}
-		#endregion
 
-		#region Fields
-		#endregion
-
-		#region Properties
-		#endregion
-
-		#region CTOR
-		public GridManagerBriefingParts(AdvancedDataGridView dgv, IEnumerable<BaseBopBriefingPart> briefingParts) : base(dgv, briefingParts) { }
 		#endregion
 
 		#region Methods
-		protected override void InitializeDataSourceColumns()
+		protected override void InitializeColumns()
 		{
-			base.InitializeDataSourceColumns();
-
-			m_dtSource.Columns.Add(GridColumn.Id, typeof(Guid));
-			m_dtSource.Columns.Add(GridColumn.PartName, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Information, typeof(string));
+			m_grid.MultiSelect = false;
+			m_grid.AllColumns.AddRange(
+			[
+				new() { Text = "Id", Name = GridColumn.Id, Width = GridWidth.Small, AspectGetter = obj => ((BaseBopBriefingPart)obj).Guid },
+				new() { Text = "Part name", Name = GridColumn.PartName, Width = GridWidth.Medium, AspectGetter = obj =>
+				{
+					BaseBopBriefingPart part = (BaseBopBriefingPart)obj;
+					MasterData partType = MasterDataRepository.GetById(MasterDataType.BriefingPartType, (int)part.PartType);
+					return partType?.Label ?? part.PartType.ToString();
+				}},
+				new() { Text = "Information", Name = GridColumn.Information, Width = GridWidth.ExtraLarge, AspectGetter = obj => ((BaseBopBriefingPart)obj).ToStringAdditional() },
+			]);
+			m_grid.RebuildColumns();
 		}
-
-		protected override void RefreshDataSourceRowContent(DataRow dr, BaseBopBriefingPart element)
-		{
-			base.RefreshDataSourceRowContent(dr, element);
-
-			MasterData partType = MasterDataRepository.GetById(MasterDataType.BriefingPartType, (int)element.PartType);
-			string sPartName = partType?.Label ?? element.PartType.ToString();
-
-			dr.SetField(GridColumn.Id, element.Guid);
-			dr.SetField(GridColumn.PartName, sPartName);
-			dr.SetField(GridColumn.Information, element.ToStringAdditional());
-		}
-
-
-		protected override void PostInitializeColumns()
-		{
-			base.PostInitializeColumns();
-
-			m_dgv.Columns[GridColumn.PartName].HeaderText = "Part name";
-
-			m_dgv.Columns[GridColumn.Id].Width = GridWidth.Small;
-		}
-		#endregion
-
-		#region Events
 		#endregion
 	}
 }

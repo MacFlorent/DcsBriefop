@@ -1,5 +1,6 @@
-﻿using DcsBriefop.Map;
-using GMap.NET.WindowsForms;
+using DcsBriefop.Map;
+using Mapsui;
+using Mapsui.Layers;
 
 namespace DcsBriefop.DataMiz
 {
@@ -8,30 +9,21 @@ namespace DcsBriefop.DataMiz
 		public double CenterLatitude { get; set; }
 		public double CenterLongitude { get; set; }
 		public double Zoom { get; set; }
-		public List<GMarkerBriefop> CustomMarkers { get; set; } = new();
+		public List<BriefopMarker> CustomMarkers { get; set; } = [];
 
-		public GMapOverlay BuildCustomMapOverlay()
+		public MemoryLayer BuildCustomMapLayer()
 		{
-			GMapOverlay customMapOverlay = new GMapOverlay();
-			foreach(GMarkerBriefop marker in CustomMarkers)
+			MemoryLayer layer = new("CustomMarkers") { Style = null };
+			List<IFeature> features = new();
+			foreach (BriefopMarker marker in CustomMarkers)
 			{
-				customMapOverlay.Markers.Add(marker.NewCleanCopy());
+				PointFeature mapFeature = new(MapProjection.ToMPoint(marker.Position));
+				mapFeature.Styles.Add(new BriefopMarkerStyle(marker));
+				features.Add(mapFeature);
 			}
-
-			return customMapOverlay;
+			layer.Features = features;
+			return layer;
 		}
 
-		public void FromCustomMapOverlay (GMapOverlay customMapOverlay)
-		{
-			CustomMarkers.Clear();
-
-			if (customMapOverlay is not null)
-			{
-				foreach (GMarkerBriefop marker in customMapOverlay.Markers.OfType<GMarkerBriefop>())
-				{
-					CustomMarkers.Add(marker.NewCleanCopy());
-				}
-			}
-		}
 	}
 }

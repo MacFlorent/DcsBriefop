@@ -1,10 +1,9 @@
-﻿using DcsBriefop.Data;
-using System.Data;
-using Zuby.ADGV;
+using BrightIdeasSoftware;
+using DcsBriefop.Data;
 
 namespace DcsBriefop.Forms
 {
-	internal class GridManagerDcsObjects : GridManagerBase<DcsObject>
+	internal class GridManagerDcsObjects(FastObjectListView dgv, IEnumerable<DcsObject> elements) : GridManagerBase<DcsObject>(dgv, elements)
 	{
 		#region Columns
 		public static class GridColumn
@@ -17,58 +16,24 @@ namespace DcsBriefop.Forms
 			public static readonly string Information = "Information";
 			public static readonly string MainInGroup = "MainInGroup";
 		}
-		#endregion
 
-		#region Fields
-		#endregion
-
-		#region Properties
-		#endregion
-
-		#region CTOR
-		public GridManagerDcsObjects(AdvancedDataGridView dgv, IEnumerable<DcsObject> elements) : base(dgv, elements) { }
 		#endregion
 
 		#region Methods
-		protected override void InitializeDataSourceColumns()
+		protected override void InitializeColumns()
 		{
-			base.InitializeDataSourceColumns();
-
-			m_dtSource.Columns.Add(GridColumn.TypeName, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.DisplayName, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.GroupClass, typeof(ElementGroupClass));
-			m_dtSource.Columns.Add(GridColumn.Attributes, typeof(ElementDcsObjectAttribute));
-			m_dtSource.Columns.Add(GridColumn.MapMarker, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.Information, typeof(string));
-			m_dtSource.Columns.Add(GridColumn.MainInGroup, typeof(bool));
+			m_grid.AllColumns.AddRange(
+			[
+				new() { Text = "Type", Name = GridColumn.TypeName, Width = GridWidth.Medium, AspectGetter = obj => ((DcsObject)obj).TypeName },
+				new() { Text = "Name", Name = GridColumn.DisplayName, Width = GridWidth.Large, AspectGetter = obj => ((DcsObject)obj).DisplayName },
+				new() { Text = "Class", Name = GridColumn.GroupClass, Width = GridWidth.Medium, AspectGetter = obj => ((DcsObject)obj).GroupClass },
+				new() { Text = "Attributes", Name = GridColumn.Attributes, Width = GridWidth.Medium, AspectGetter = obj => ((DcsObject)obj).Attributes },
+				new() { Text = "Marker", Name = GridColumn.MapMarker, Width = GridWidth.Medium, AspectGetter = obj => ((DcsObject)obj).MapMarker },
+				new() { Text = "Information", Name = GridColumn.Information, Width = GridWidth.ExtraLarge, AspectGetter = obj => ((DcsObject)obj).Information },
+				new() { Text = "Main in group", Name = GridColumn.MainInGroup, Width = GridWidth.Small, CheckBoxes = true, AspectGetter = obj => ((DcsObject)obj).MainInGroup },
+			]);
+			m_grid.RebuildColumns();
 		}
-
-		protected override void RefreshDataSourceRowContent(DataRow dr, DcsObject element)
-		{
-			base.RefreshDataSourceRowContent(dr, element);
-
-			dr.SetField(GridColumn.TypeName, element.TypeName);
-			dr.SetField(GridColumn.DisplayName, element.DisplayName);
-			dr.SetField(GridColumn.GroupClass, element.GroupClass);
-			dr.SetField(GridColumn.Attributes, element.Attributes);
-			dr.SetField(GridColumn.MapMarker, element.MapMarker);
-			dr.SetField(GridColumn.Information, element.Information);
-			dr.SetField(GridColumn.MainInGroup, element.MainInGroup);
-		}
-
-		protected override void PostInitializeColumns()
-		{
-			base.PostInitializeColumns();
-
-			m_dgv.Columns[GridColumn.TypeName].HeaderText = "Type";
-			m_dgv.Columns[GridColumn.DisplayName].HeaderText = "Name";
-			m_dgv.Columns[GridColumn.GroupClass].HeaderText = "Class";
-			m_dgv.Columns[GridColumn.MapMarker].HeaderText = "Marker";
-			m_dgv.Columns[GridColumn.MainInGroup].HeaderText = "Main in group";
-		}
-		#endregion
-
-		#region Events
 		#endregion
 	}
 }

@@ -1,210 +1,154 @@
-﻿using CoordinateSharp;
+﻿using Color = System.Drawing.Color;
+using Size = System.Drawing.Size;
+using BruTile;
+using BruTile.Web;
+using CoordinateSharp;
 using DcsBriefop.Data;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
-using GMap.NET;
-using GMap.NET.MapProviders;
-using GMap.NET.WindowsForms;
-using System.Drawing.Drawing2D;
-using System.Net;
+using Mapsui;
+using Mapsui.Layers;
+using Mapsui.Rendering.Skia;
+using Mapsui.Rendering.Skia.SkiaStyles;
+using Mapsui.Styles;
+using Mapsui.UI.WindowsForms;
+using SkiaSharp;
 
 namespace DcsBriefop.Tools
 {
 	internal static class ToolsMap
 	{
-		#region MapControl
-		public static void InitializeGMaps()
-		{
-			if (!string.IsNullOrEmpty(PreferencesManager.Preferences.Application.InternetProxyHost))
-			{
-				WebProxy proxy = new WebProxy(PreferencesManager.Preferences.Application.InternetProxyHost, PreferencesManager.Preferences.Application.InternetProxyPort.GetValueOrDefault(80));
-				if (!string.IsNullOrEmpty(PreferencesManager.Preferences.Application.InternetProxyUser))
-					proxy.Credentials = new NetworkCredential(PreferencesManager.Preferences.Application.InternetProxyUser, PreferencesManager.Preferences.Application.InternetProxyPassword);
-
-				GMapProvider.WebProxy = proxy;
-			}
-
-			GMaps.Instance.Mode = AccessMode.ServerOnly; // the program has trouble terminating all its threads in cached mode, don't know why, better stick to server only for now
-			GMapImageProxy.Enable();
-		}
-
-		public static void InitializeMapControl(this GMapControl mapControl, string sProvider)
-		{
-			if (string.IsNullOrEmpty(sProvider))
-				sProvider = PreferencesManager.Preferences.Map.ProviderName;
-
-			GMapProvider mapProvider = GMapProviders.TryGetProvider(sProvider);
-			mapControl.InitializeMapControl(mapProvider);
-		}
-
-		public static void InitializeMapControl(this GMapControl mapControl, GMapProvider mapProvider)
-		{
-			mapControl.MapProvider = mapProvider;
-			//mapControl.MapProvider = GMapProviders.BingMap;
-			mapControl.ShowCenter = false;
-			mapControl.MinZoom = ElementMapValue.MinZoom;
-			mapControl.MaxZoom = ElementMapValue.MaxZoom;
-			mapControl.Zoom = PreferencesManager.Preferences.Map.Zoom;
-		}
-
-		public static void ForceRefresh(this GMapControl mapControl)
-		{
-			mapControl.Refresh();
-			mapControl.Zoom += 1; mapControl.Zoom -= 1;
-		}
+		#region Fields
+		private static readonly HttpClient s_tileHttpClient = BuildTileHttpClient();
 		#endregion
 
-		#region Miscellaneous
-		public static RectLatLng? GetRectOfPoints(List<PointLatLng> points)
+		private static HttpClient BuildTileHttpClient()
 		{
-			RectLatLng? rect = null;
-
-			double left = double.MaxValue;
-			double top = double.MinValue;
-			double right = double.MinValue;
-			double bottom = double.MaxValue;
-
-			if (points.Count > 0)
-			{
-				foreach (var p in points)
-				{
-					// left
-					if (p.Lng < left)
-					{
-						left = p.Lng;
-					}
-
-					// top
-					if (p.Lat > top)
-					{
-						top = p.Lat;
-					}
-
-					// right
-					if (p.Lng > right)
-					{
-						right = p.Lng;
-					}
-
-					// bottom
-					if (p.Lat < bottom)
-					{
-						bottom = p.Lat;
-					}
-				}
-
-				rect = RectLatLng.FromLTRB(left, top, right, bottom);
-			}
-
-			return rect;
+			HttpClient httpClient = new();
+			httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("DcsBriefop/1.0");
+			return httpClient;
 		}
 
-		public static PointLatLng? GetRectCenter(RectLatLng? rect)
+		#region MapControl
+		public static void InitializeMapControl(this MapControl mapControl, string sProviderName)
 		{
-			if (rect is null)
-				return null;
-			else
-				return new PointLatLng(rect.Value.Lat - rect.Value.HeightLat / 2, rect.Value.Lng + rect.Value.WidthLng / 2);
+			if (string.IsNullOrEmpty(sProviderName))
+				sProviderName = PreferencesManager.Preferences.Map.ProviderName;
+
+			mapControl.Map.Layers.Clear();
+			mapControl.Map.Layers.Add(MapProviders.CreateTileLayer(sProviderName));
+
+			MapRenderer.RegisterStyleRenderer(typeof(BriefopMarkerStyle), new BriefopMarkerStyleRenderer());
+			MapRenderer.RegisterStyleRenderer(typeof(BriefopLineStyle), new BriefopLineStyleRenderer());
+			MapRenderer.RegisterStyleRenderer(typeof(BriefopLabelStyle), new BriefopLabelStyleRenderer());
 		}
 
-		public static PointLatLng? GetPointsCenter(List<PointLatLng> points)
-		{
-			if (points is null || points.Count <= 0)
-				return null;
-			else if (points.Count == 1)
-				return points[0];
-			else
-				return GetRectCenter(GetRectOfPoints(points));
-		}
 		#endregion
 
 		#region MizDrawings
-		public static void AddMizDrawingLayers(Theatre theatre, GMapOverlay overlay, List<MizDrawingLayer> drawingLayers)
+		public static MemoryLayer BuildMizDrawingMapLayer(Theatre theatre, List<MizDrawingLayer> drawingLayers)
 		{
+			List<IFeature> mapFeatures = [];
 			foreach (MizDrawingLayer drawingLayer in drawingLayers)
-			{
-				AddMizDrawingLayer(theatre, overlay, drawingLayer);
-			}
+				AddMizDrawingObjects(theatre, mapFeatures, drawingLayer);
+			return new MemoryLayer { Style = null, Features = mapFeatures };
 		}
 
-		public static void AddMizDrawingLayer(Theatre theatre, GMapOverlay overlay, MizDrawingLayer drawingLayer)
+		private static void AddMizDrawingObjects(Theatre theatre, List<IFeature> mapFeatures, MizDrawingLayer drawingLayer)
 		{
 			foreach (MizDrawingObject drawingObject in drawingLayer.Objects)
 			{
 				if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Line)
-					AddMizDrawingObjectLine(theatre, overlay, drawingObject, drawingObject.Closed.GetValueOrDefault(false));
+					AddMizDrawingObjectLine(theatre, mapFeatures, drawingObject, drawingObject.Closed.GetValueOrDefault(false));
 				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Icon)
-					AddMizDrawingObjectIcon(theatre, overlay, drawingObject);
+					AddMizDrawingObjectIcon(theatre, mapFeatures, drawingObject);
 				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.TextBox)
-					AddMizDrawingObjectText(theatre, overlay, drawingObject);
+					AddMizDrawingObjectText(theatre, mapFeatures, drawingObject);
 				else if (drawingObject.PrimitiveType == ElementDrawingPrimitive.Polygon)
-					AddMizDrawingObjectPolygon(theatre, overlay, drawingObject);
+					AddMizDrawingObjectPolygon(theatre, mapFeatures, drawingObject);
 			}
 		}
 
-		private static void AddMizDrawingObjectLine(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject, bool bClosed)
+		private static void AddMizDrawingObjectLine(Theatre theatre, List<IFeature> mapFeatures, MizDrawingObject drawingObject, bool bClosed)
 		{
-			List<PointLatLng> points = new List<PointLatLng>();
+			List<GeoPoint> points = [];
 			foreach (MizDrawingPoint point in drawingObject.Points)
 			{
 				double dY = drawingObject.MapY + point.Y;
 				double dX = drawingObject.MapX + point.X;
 				Coordinate coordinate = theatre.GetCoordinate(dX, dY);
-				PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
-				points.Add(p);
+				points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 			}
 
-			GLineBriefop line = GLineBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), bClosed, ColorFromDcsString(drawingObject.FillColorString));
-			overlay.Routes.Add(line);
+			BriefopLine line = BriefopLine.NewFromMizStyleName(points, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), bClosed, ColorFromDcsString(drawingObject.FillColorString));
+			Mapsui.Nts.GeometryFeature feature = line.ToGeometryFeature();
+			if (feature is not null)
+				mapFeatures.Add(feature);
 		}
 
-		private static void AddMizDrawingObjectIcon(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		private static void AddMizDrawingObjectIcon(Theatre theatre, List<IFeature> mapFeatures, MizDrawingObject drawingObject)
 		{
 			Coordinate coordinate = theatre.GetCoordinate(drawingObject.MapX, drawingObject.MapY);
-			PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
-
-			GMarkerBriefop marker = GMarkerBriefop.NewFromMizStyleName(p, drawingObject.File, ColorFromDcsString(drawingObject.ColorString), drawingObject.Name, drawingObject.Scale.GetValueOrDefault(1), drawingObject.Angle.GetValueOrDefault(0));
-			overlay.Markers.Add(marker);
+			GeoPoint p = new(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+			BriefopMarker marker = BriefopMarker.NewFromMizStyleName(p, drawingObject.File, ColorFromDcsString(drawingObject.ColorString), null, drawingObject.Scale.GetValueOrDefault(1), (int)drawingObject.Angle.GetValueOrDefault(0));
+			PointFeature mapFeature = new(MapProjection.ToMPoint(marker.Position));
+			mapFeature.Styles.Add(new BriefopMarkerStyle(marker));
+			mapFeatures.Add(mapFeature);
 		}
 
-		private static void AddMizDrawingObjectText(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		private static void AddMizDrawingObjectText(Theatre theatre, List<IFeature> mapFeatures, MizDrawingObject drawingObject)
 		{
 			Coordinate coordinate = theatre.GetCoordinate(drawingObject.MapX, drawingObject.MapY);
-			PointLatLng p = new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
+			GeoPoint p = new(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
 
 			float fFontSize = 11;
-			if (drawingObject.FontSize is object)
+			if (drawingObject.FontSize is not null)
 			{
 				fFontSize = drawingObject.FontSize.Value - 3;
 				if (fFontSize < 1)
 					fFontSize = 1;
 			}
-			Font font = new Font(drawingObject.Font, fFontSize);
 
-			GTextBriefop text = new GTextBriefop(p, drawingObject.Text, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), font, drawingObject.Angle.GetValueOrDefault(0), drawingObject.BorderThickness.GetValueOrDefault(0));
-			overlay.Markers.Add(text);
+			BriefopLabel label = new(p, drawingObject.Text, ColorFromDcsString(drawingObject.ColorString), ColorFromDcsString(drawingObject.FillColorString), drawingObject.Font, fFontSize, (int)drawingObject.Angle.GetValueOrDefault(0), drawingObject.BorderThickness.GetValueOrDefault(0));
+			mapFeatures.Add(label.ToMapFeature());
 		}
 
-		private static void AddMizDrawingObjectPolygon(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		private static void AddMizDrawingObjectPolygon(Theatre theatre, List<IFeature> mapFeatures, MizDrawingObject drawingObject)
 		{
-			//http://www.independent-software.com/gmap-net-tutorial-maps-markers-and-polygons.html/
-			//https://stackoverflow.com/questions/9308673/how-to-draw-circle-on-the-map-using-gmap-net-in-c-sharp
-
 			if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Rectangle)
-				AddMizDrawingObjectRectangle(theatre, overlay, drawingObject);
+				AddMizDrawingObjectRectangle(theatre, mapFeatures, drawingObject);
 			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Free)
-				AddMizDrawingObjectLine(theatre, overlay, drawingObject, true);
+				AddMizDrawingObjectLine(theatre, mapFeatures, drawingObject, true);
+			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Arrow)
+				AddMizDrawingObjectArrow(theatre, mapFeatures, drawingObject);
 			else if (drawingObject.PolygonMode == ElementDrawingPolygonMode.Oval || drawingObject.PolygonMode == ElementDrawingPolygonMode.Circle)
-				AddMizDrawingObjectOval(theatre, overlay, drawingObject);
+				AddMizDrawingObjectOval(theatre, mapFeatures, drawingObject);
 		}
 
-		private static void AddMizDrawingObjectRectangle(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		private static void AddMizDrawingObjectArrow(Theatre theatre, List<IFeature> mapFeatures, MizDrawingObject drawingObject)
+		{
+			List<GeoPoint> points = [];
+			foreach (MizDrawingPoint point in drawingObject.Points)
+			{
+				double dY = drawingObject.MapY + point.Y;
+				double dX = drawingObject.MapX + point.X;
+				RotateDcsYX(out double dRotatedY, out double dRotatedX, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
+				Coordinate coordinate = theatre.GetCoordinate(dRotatedX, dRotatedY);
+				points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
+			}
+
+			BriefopLine line = BriefopLine.NewFromMizStyleName(points, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), true, ColorFromDcsString(drawingObject.FillColorString));
+			Mapsui.Nts.GeometryFeature feature = line.ToGeometryFeature();
+			if (feature is not null)
+				mapFeatures.Add(feature);
+		}
+
+		private static void AddMizDrawingObjectRectangle(Theatre theatre, List<IFeature> mapFeatures, MizDrawingObject drawingObject)
 		{
 			double dHalfWidth = drawingObject.Width.GetValueOrDefault() / 2;
 			double dHalfHeight = drawingObject.Height.GetValueOrDefault() / 2;
 
-			List<PointLatLng> points = new List<PointLatLng>();
-
+			List<GeoPoint> points = [];
 			double dY, dX, dYRotated, dXRotated;
 			Coordinate coordinate;
 
@@ -212,33 +156,34 @@ namespace DcsBriefop.Tools
 			dX = drawingObject.MapX - dHalfHeight;
 			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
 			coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
-			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
+			points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			dY = drawingObject.MapY + dHalfWidth;
 			dX = drawingObject.MapX - dHalfHeight;
 			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
 			coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
-			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
+			points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			dY = drawingObject.MapY + dHalfWidth;
 			dX = drawingObject.MapX + dHalfHeight;
 			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
 			coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
-			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
+			points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
 			dY = drawingObject.MapY - dHalfWidth;
 			dX = drawingObject.MapX + dHalfHeight;
 			RotateDcsYX(out dYRotated, out dXRotated, dY, dX, drawingObject.MapY, drawingObject.MapX, drawingObject.Angle);
 			coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
-			points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
+			points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 
-			GLineBriefop route = GLineBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), true, ColorFromDcsString(drawingObject.FillColorString));
-			overlay.Routes.Add(route);
+			BriefopLine route = BriefopLine.NewFromMizStyleName(points, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), true, ColorFromDcsString(drawingObject.FillColorString));
+			Mapsui.Nts.GeometryFeature feature = route.ToGeometryFeature();
+			if (feature is not null)
+				mapFeatures.Add(feature);
 		}
 
-		private static void AddMizDrawingObjectOval(Theatre theatre, GMapOverlay overlay, MizDrawingObject drawingObject)
+		private static void AddMizDrawingObjectOval(Theatre theatre, List<IFeature> mapFeatures, MizDrawingObject drawingObject)
 		{
-			//https://www.mathopenref.com/coordcirclealgorithm.html
 			double dCenterY = (double)drawingObject.MapY;
 			double dCenterX = (double)drawingObject.MapX;
 
@@ -254,19 +199,21 @@ namespace DcsBriefop.Tools
 				dSquashRatio = 1;
 			}
 
-			List<PointLatLng> points = new List<PointLatLng>();
+			List<GeoPoint> points = [];
 			double dStep = 2 * Math.PI / 30;
 			for (double dAngle = 0d; dAngle < 2 * Math.PI; dAngle += dStep)
 			{
 				double dY = dCenterY + dSquashRatio * dRadius * Math.Cos(dAngle);
-				double dX = dCenterX - dRadius * Math.Sin(dAngle);    //note 2.
+				double dX = dCenterX - dRadius * Math.Sin(dAngle);
 				RotateDcsYX(out double dYRotated, out double dXRotated, dY, dX, dCenterY, dCenterX, drawingObject.Angle);
 				Coordinate coordinate = theatre.GetCoordinate(dXRotated, dYRotated);
-				points.Add(new PointLatLng(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
+				points.Add(new GeoPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree));
 			}
 
-			GLineBriefop route = GLineBriefop.NewFromMizStyleName(points, null, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), true, ColorFromDcsString(drawingObject.FillColorString));
-			overlay.Routes.Add(route);
+			BriefopLine route = BriefopLine.NewFromMizStyleName(points, drawingObject.Style, ColorFromDcsString(drawingObject.ColorString), drawingObject.Thickness.GetValueOrDefault(5), true, ColorFromDcsString(drawingObject.FillColorString));
+			Mapsui.Nts.GeometryFeature feature = route.ToGeometryFeature();
+			if (feature is not null)
+				mapFeatures.Add(feature);
 		}
 
 		private static void RotateDcsYX(out double dRotatedY, out double dRotatedX, double dY, double dX, double dCenterY, double dCenterX, double? dAngleDegrees)
@@ -303,203 +250,115 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region Image Generation
-		public static Bitmap GenerateMapImage(MizBopMap mapData, GMapProvider mapProvider, IEnumerable<GMapOverlay> additionalOverlays, Size outputSize)
+		public static Bitmap GenerateMapImage(MizBopMap mapData, ITileSource tileSource, IEnumerable<ILayer> overlayLayers, Size outputSize)
 		{
-			List<GMapOverlay> overlays = new List<GMapOverlay> { mapData.BuildCustomMapOverlay() };
-			if (additionalOverlays is not null && additionalOverlays.Any())
-				overlays.AddRange(additionalOverlays);
-
-			PointLatLng centerLatLng = new PointLatLng(mapData.CenterLatitude, mapData.CenterLongitude);
-			return GenerateMapImage(centerLatLng, (int)mapData.Zoom, mapProvider, overlays, outputSize);
+			GeoPoint center = new(mapData.CenterLatitude, mapData.CenterLongitude);
+			return GenerateMapImage(center, (int)mapData.Zoom, tileSource, overlayLayers, outputSize);
 		}
 
-		public static Bitmap GenerateMapImage(PointLatLng centerLatLng, int iZoom, GMapProvider mapProvider, List<GMapOverlay> overlays, Size outputSize)
+		public static Bitmap GenerateMapImage(GeoPoint center, int iZoom, ITileSource tileSource, IEnumerable<ILayer> overlayLayers, Size outputSize)
 		{
-			GPoint centerPoint = mapProvider.Projection.FromLatLngToPixel(centerLatLng, iZoom);
-			GPoint topLeft = new GPoint(centerPoint.X - outputSize.Width / 2, centerPoint.Y - outputSize.Height / 2);
-			GPoint bottomRight = new GPoint(topLeft.X + outputSize.Width, topLeft.Y + outputSize.Height);
+			MPoint centerWorld = MapProjection.ToMPoint(center);
+			double dResolution = MapProjection.ZoomToResolution(iZoom);
+			double dHalfW = outputSize.Width / 2.0 * dResolution;
+			double dHalfH = outputSize.Height / 2.0 * dResolution;
+			double dWorldLeft = centerWorld.X - dHalfW;
+			double dWorldTop = centerWorld.Y + dHalfH;
 
-			PointLatLng topLeftLatLng = mapProvider.Projection.FromPixelToLatLng(topLeft, iZoom);
-			PointLatLng bottomRightLatLng = mapProvider.Projection.FromPixelToLatLng(bottomRight, iZoom);
-			RectLatLng rectLatLng = RectLatLng.FromLTRB(topLeftLatLng.Lng, topLeftLatLng.Lat, bottomRightLatLng.Lng, bottomRightLatLng.Lat);
+			BruTile.Extent worldExtent = new(centerWorld.X - dHalfW, centerWorld.Y - dHalfH, centerWorld.X + dHalfW, centerWorld.Y + dHalfH);
+			int iLevelId = GetClosestLevelId(tileSource.Schema, dResolution);
+			List<TileInfo> tileInfos = [.. tileSource.Schema.GetTileInfos(worldExtent, iLevelId)];
 
-			List<GPoint> tileArea = new List<GPoint>();
-			tileArea.AddRange(mapProvider.Projection.GetAreaTileList(rectLatLng, iZoom, 1));
-			tileArea.TrimExcess();
+			using SKBitmap skBitmap = new(outputSize.Width, outputSize.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
+			using SKCanvas canvas = new(skBitmap);
+			canvas.Clear(SKColors.LightGray);
 
-			GPoint pxDelta = new GPoint(bottomRight.X - topLeft.X, bottomRight.Y - topLeft.Y);
-			GSize maxOfTiles = mapProvider.Projection.GetTileMatrixMaxXY(iZoom);
-
-			Bitmap bmpDestination = new Bitmap((int)(pxDelta.X), (int)(pxDelta.Y));
-
-			using (var gfx = Graphics.FromImage(bmpDestination))
+			// ITileSource has no GetTile in BruTile 6.0; HttpTileSource.GetTileAsync is the concrete async fetch method.
+			// Tasks must be created and awaited inside Task.Run so continuations run on thread-pool threads,
+			// not on the UI SynchronizationContext that is blocked by GetResult() (avoids deadlock).
+			if (tileSource is HttpTileSource httpSource)
 			{
-				gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-				gfx.SmoothingMode = SmoothingMode.HighQuality;
-
-				//get tiles &combine into one
-				lock (tileArea)
+				byte[][] tileData = Task.Run(async () =>
 				{
-					foreach (var p in tileArea)
-					{
-						foreach (var tp in mapProvider.Overlays)
-						{
-							Exception ex;
-							GMapImage tile;
+					Task<byte[]>[] tasks = [.. tileInfos.Select(_ti => httpSource.GetTileAsync(s_tileHttpClient, _ti))];
+					try { await Task.WhenAll(tasks).ConfigureAwait(false); } catch { }
+					return tasks.Select(_t => _t.IsCompletedSuccessfully ? _t.Result : null).ToArray();
+				}).GetAwaiter().GetResult();
 
-							// tile number inversion(BottomLeft -> TopLeft) for pergo maps
-							if (tp.InvertedAxisY)
-							{
-								tile = GMaps.Instance.GetImageFrom(tp, new GPoint(p.X, maxOfTiles.Height - p.Y), iZoom, out ex) as GMapImage;
-							}
-							else // ok
-							{
-								tile = GMaps.Instance.GetImageFrom(tp, p, iZoom, out ex) as GMapImage;
-							}
-
-							if (tile != null)
-							{
-								using (tile)
-								{
-									long x = p.X * mapProvider.Projection.TileSize.Width - topLeft.X;
-									long y = p.Y * mapProvider.Projection.TileSize.Width - topLeft.Y;
-									{
-										gfx.DrawImage(tile.Img, x, y, mapProvider.Projection.TileSize.Width, mapProvider.Projection.TileSize.Height);
-									}
-								}
-							}
-						}
-					}
-				}
-
-				foreach (GMapOverlay overlay in overlays)
+				for (int i = 0; i < tileInfos.Count; i++)
 				{
-					// draw routes
-					// we cannot use the route render method as there is too much private/internal data and interconnections with the MapControl to do so
-					// so we just redraw the lines specifically here
-					foreach (GMapRoute route in overlay.Routes.Where(_r => _r.IsVisible))
-					{
-						if (route.Points is object && route.Points.Count > 0)
-						{
-							if (route is GLineBriefop routeBriefop)
-							{
-								DrawRouteBriefop(gfx, mapProvider, iZoom, topLeft, routeBriefop);
-							}
-							else
-							{
-								DrawRoute(gfx, mapProvider, iZoom, topLeft, route);
-							}
-						}
-					}
+					if (tileData[i] is null || tileData[i].Length == 0)
+						continue;
 
-					//// draw polygons
-					//foreach (var r in overlay.Polygons)
-					//{
-					//	if (r.IsVisible)
-					//	{
-					//		using (var rp = new GraphicsPath())
-					//		{
-					//			for (int j = 0; j < r.Points.Count; j++)
-					//			{
-					//				var pr = r.Points[j];
-					//				var px = mapProvider.Projection.FromLatLngToPixel(pr.Lat, pr.Lng, iZoom);
+					using SKBitmap tileBitmap = SKBitmap.Decode(tileData[i]);
+					if (tileBitmap is null)
+						continue;
 
-					//				px.Offset(iPadding, iPadding);
-					//				px.Offset(-topLeft.X, -topLeft.Y);
-
-					//				var p2 = px;
-
-					//				if (j == 0)
-					//				{
-					//					rp.AddLine(p2.X, p2.Y, p2.X, p2.Y);
-					//				}
-					//				else
-					//				{
-					//					var p = rp.GetLastPoint();
-					//					rp.AddLine(p.X, p.Y, p2.X, p2.Y);
-					//				}
-					//			}
-
-					//			if (rp.PointCount > 0)
-					//			{
-					//				rp.CloseFigure();
-
-					//				gfx.FillPath(r.Fill, rp);
-
-					//				gfx.DrawPath(r.Stroke, rp);
-					//			}
-					//		}
-					//	}
-					//}
-
-
-					// draw markers
-					foreach (GMapMarker marker in overlay.Markers.Where(_m => _m.IsVisible))
-					{
-						DrawMarker(gfx, mapProvider, iZoom, topLeft, marker);
-					}
+					BruTile.Extent e = tileInfos[i].Extent;
+					float fX = (float)((e.MinX - dWorldLeft) / dResolution);
+					float fY = (float)((dWorldTop - e.MaxY) / dResolution);
+					float fW = (float)((e.MaxX - e.MinX) / dResolution);
+					float fH = (float)((e.MaxY - e.MinY) / dResolution);
+					canvas.DrawBitmap(tileBitmap, new SKRect(fX, fY, fX + fW, fY + fH));
 				}
-
-				gfx.ResetTransform();
 			}
 
-			return bmpDestination;
-		}
-
-		private static void TranslateGraphics(Graphics gfx, GPoint topLeft)
-		{
-			gfx.ResetTransform(); // need to reset before transforming, if not sometimes will be drawn in the wrong position
-			gfx.TranslateTransform(-topLeft.X, -topLeft.Y);
-		}
-
-		private static void DrawRouteBriefop(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GLineBriefop routeBriefop)
-		{
-			List<GPoint> gPoints = new List<GPoint>();
-			foreach (PointLatLng routePoint in routeBriefop.Points)
+			if (overlayLayers is not null)
 			{
-				GPoint routePointPixel = mapProvider.Projection.FromLatLngToPixel(routePoint.Lat, routePoint.Lng, iZoom);
-				gPoints.Add(routePointPixel);
+				Mapsui.Viewport viewport = new(centerWorld.X, centerWorld.Y, dResolution, 0, outputSize.Width, outputSize.Height);
+				RenderOverlayLayers(canvas, viewport, overlayLayers);
 			}
 
-			TranslateGraphics(gfx, topLeft);
-			routeBriefop.Render(gfx, gPoints);
+			using SKImage skImage = SKImage.FromBitmap(skBitmap);
+			using SKData skData = skImage.Encode(SKEncodedImageFormat.Png, 100);
+			using MemoryStream ms = new(skData.ToArray());
+			return new Bitmap(ms);
 		}
 
-		private static void DrawRoute(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GMapRoute route)
+		private static int GetClosestLevelId(ITileSchema schema, double dResolution)
 		{
-			using (GraphicsPath graphicsPath = new GraphicsPath())
+			int iBestLevel = schema.Resolutions.Keys.First();
+			double dBestDiff = double.MaxValue;
+
+			foreach (KeyValuePair<int, Resolution> kvp in schema.Resolutions)
 			{
-				GPoint? lastPointPixel = null;
-
-				foreach (PointLatLng routePoint in route.Points)
+				double dDiff = Math.Abs(kvp.Value.UnitsPerPixel - dResolution);
+				if (dDiff < dBestDiff)
 				{
-					GPoint routePointPixel = mapProvider.Projection.FromLatLngToPixel(routePoint.Lat, routePoint.Lng, iZoom);
-
-					if (lastPointPixel is object)
-					{
-						graphicsPath.AddLine(lastPointPixel.Value.X, lastPointPixel.Value.Y, routePointPixel.X, routePointPixel.Y);
-					}
-
-					lastPointPixel = routePointPixel;
+					dBestDiff = dDiff;
+					iBestLevel = kvp.Key;
 				}
+			}
 
-				if (graphicsPath.PointCount > 0)
+			return iBestLevel;
+		}
+
+		private static void RenderOverlayLayers(SKCanvas canvas, Mapsui.Viewport viewport, IEnumerable<ILayer> mapLayers)
+		{
+			// Custom style renderers don't use RenderService; call them directly to avoid MapRenderer.Render parameter complexity
+			Dictionary<Type, ISkiaStyleRenderer> styleRenderers = new()
+			{
+				[typeof(BriefopMarkerStyle)] = new BriefopMarkerStyleRenderer(),
+				[typeof(BriefopLineStyle)] = new BriefopLineStyleRenderer(),
+				[typeof(BriefopLabelStyle)] = new BriefopLabelStyleRenderer(),
+			};
+
+			foreach (ILayer mapLayer in mapLayers)
+			{
+				if (mapLayer is not MemoryLayer memoryMapLayer)
+					continue;
+
+				foreach (IFeature mapFeature in memoryMapLayer.Features ?? [])
 				{
-					TranslateGraphics(gfx, topLeft);
-					gfx.DrawPath(route.Stroke, graphicsPath);
+					foreach (IStyle style in mapFeature.Styles)
+					{
+						if (styleRenderers.TryGetValue(style.GetType(), out ISkiaStyleRenderer renderer))
+							renderer.Draw(canvas, viewport, mapLayer, mapFeature, style, null, 0);
+					}
 				}
 			}
 		}
 
-		private static void DrawMarker(Graphics gfx, GMapProvider mapProvider, int iZoom, GPoint topLeft, GMapMarker marker)
-		{
-			GPoint markerPointPixel = mapProvider.Projection.FromLatLngToPixel(marker.Position.Lat, marker.Position.Lng, iZoom);
-			TranslateGraphics(gfx, topLeft);
-			gfx.TranslateTransform(markerPointPixel.X, markerPointPixel.Y); // account for marker position within the global map as the render method will draw at this postion
-			gfx.TranslateTransform(-marker.LocalPosition.X, -marker.LocalPosition.Y); // account for (nullify) local position of relative to displayed map control if any, as it will be used in the render
-			gfx.TranslateTransform(marker.Offset.X, marker.Offset.Y); // account for marker offset positioning
-			marker.OnRender(gfx);
-		}
 		#endregion
 	}
 }

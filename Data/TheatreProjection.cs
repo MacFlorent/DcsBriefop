@@ -1,6 +1,5 @@
-﻿using DcsBriefop.Tools;
+using DcsBriefop.Tools;
 using Newtonsoft.Json;
-using OSGeo.OSR;
 
 namespace DcsBriefop.Data
 {
@@ -35,17 +34,13 @@ namespace DcsBriefop.Data
 			if (!string.IsNullOrEmpty(sJsonStream))
 				TheatreProjections = JsonConvert.DeserializeObject<List<TheatreProjection>>(sJsonStream);
 
-			string sBriefopProj4 = GetProjection("Briefop") ?? "+proj=longlat +datum=WGS84 +no_defs +type=crs";
-			BriefopSpatialReference = new SpatialReference("");
-			BriefopSpatialReference.ImportFromProj4(sBriefopProj4);
-
+			string sBriefopProj4 = GetProjection("Briefop") ?? ElementGlobalData.DefaultProj4;
+			BriefopSpatialReference = new SpatialReference(sBriefopProj4);
 		}
 
 		public static string GetProjection(string sTheatre)
 		{
 			return TheatreProjections.Where(_p => _p.Theatre == sTheatre).Select(_p => _p.Projection).FirstOrDefault();
 		}
-
 	}
 }
-

@@ -21,7 +21,7 @@ namespace DcsBriefop.Data
 	internal class PreferencesApplication
 	{
 		public string WorkingDirectory { get; set; }
-		public List<string> RecentMiz { get; set; } = new List<string>();
+		public List<string> RecentMiz { get; set; } = [];
 		public bool BackupBeforeOverwrite { get; set; } = true;
 		public bool GenerateBatchCommandOnSave { get; set; } = true;
 
@@ -61,7 +61,7 @@ namespace DcsBriefop.Data
 
 	internal class PreferencesMap
 	{
-		public string ProviderName { get; set; } = GMap.NET.MapProviders.BingMapProvider.Instance.Name;
+		public string ProviderName { get; set; } = Map.ElementMapProviderName.OpenStreetMap;
 		public double Zoom { get; set; } = 9;
 
 		public void InitializeDefault() { }

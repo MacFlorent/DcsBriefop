@@ -28,9 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DgvAirbases = new Zuby.ADGV.AdvancedDataGridView();
+			DgvAirbases = new BrightIdeasSoftware.FastObjectListView();
 			ScMain = new SplitContainer();
-			((System.ComponentModel.ISupportInitialize)DgvAirbases).BeginInit();
 			((System.ComponentModel.ISupportInitialize)ScMain).BeginInit();
 			ScMain.Panel1.SuspendLayout();
 			ScMain.SuspendLayout();
@@ -38,17 +37,13 @@
 			// 
 			// DgvAirbases
 			// 
-			DgvAirbases.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			DgvAirbases.Dock = DockStyle.Fill;
-			DgvAirbases.FilterAndSortEnabled = true;
-			DgvAirbases.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvAirbases.Location = new Point(0, 0);
 			DgvAirbases.Margin = new Padding(4, 3, 4, 3);
 			DgvAirbases.Name = "DgvAirbases";
-			DgvAirbases.RightToLeft = RightToLeft.No;
 			DgvAirbases.Size = new Size(931, 176);
-			DgvAirbases.SortStringChangedInvokeBeforeDatasourceUpdate = true;
 			DgvAirbases.TabIndex = 0;
+			DgvAirbases.View = System.Windows.Forms.View.Details;
 			// 
 			// ScMain
 			// 
@@ -80,7 +75,6 @@
 			Text = "Mission airbases";
 			FormClosed += FrmMissionAirbases_FormClosed;
 			Shown += FrmMissionAirbases_Shown;
-			((System.ComponentModel.ISupportInitialize)DgvAirbases).EndInit();
 			ScMain.Panel1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)ScMain).EndInit();
 			ScMain.ResumeLayout(false);
@@ -89,7 +83,7 @@
 
 		#endregion
 
-		private Zuby.ADGV.AdvancedDataGridView DgvAirbases;
+		private BrightIdeasSoftware.FastObjectListView DgvAirbases;
 		private System.Windows.Forms.SplitContainer ScMain;
 	}
 }

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"d:\\\\Projects\\\\DotNet\\\\DcsBriefop\" -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(dir \"d:\\\\Projects\\\\DotNet\\\\DcsBriefop\\\\Resources\\\\Html\\\\\")",
+      "Bash(grep -r \"//.*private\\\\|//.*TODO\\\\|^[[:space:]]*//\\\\s*\\\\\\(http\\\\|note\\\\\\)\" \"d:\\\\Projects\\\\DotNet\\\\DcsBriefop\\\\Map\" --include=\"*.cs\")",
+      "Bash(cat)",
+      "Read(//tmp/**)",
+      "Bash(dotnet run *)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:mapsui.com)",
+      "WebSearch",
+      "Bash(dotnet build *)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(cd \"D:\\\\Projects\\\\DotNet\\\\DcsBriefopOld\" && find . -type f -name \"*.cs\" | head -20)",
+      "Read(//d/Projects/DotNet/DcsBriefopOld/**)"
+    ]
+  }
+}

@@ -1,11 +1,10 @@
 ﻿using DcsBriefop.Data;
-using DcsBriefop.DataMiz;
 using DcsBriefop.Tools;
 using LsonLib;
 
 namespace DcsBriefop.DataMiz
 {
-	internal class MizDrawingLayer : BaseMiz
+	internal class MizDrawingLayer(LsonDict lsd) : BaseMiz(lsd)
 	{
 		private class LuaNode
 		{
@@ -16,9 +15,7 @@ namespace DcsBriefop.DataMiz
 
 		public bool Visible { get; set; }
 		public string Name { get; set; }
-		public List<MizDrawingObject> Objects { get; private set; } = new List<MizDrawingObject>();
-
-		public MizDrawingLayer(LsonDict lsd) : base(lsd) { }
+		public List<MizDrawingObject> Objects { get; private set; } = [];
 
 		public override void FromLua()
 		{
@@ -53,7 +50,7 @@ namespace DcsBriefop.DataMiz
 		}
 	}
 
-	internal class MizDrawingObject : BaseMiz
+	internal class MizDrawingObject(LsonDict lsd) : BaseMiz(lsd)
 	{
 		private class LuaNode
 		{
@@ -97,7 +94,7 @@ namespace DcsBriefop.DataMiz
 		public double MapX { get; set; }
 		public string ColorString { get; set; }
 
-		public int? Angle { get; set; }
+		public double? Angle { get; set; }
 		public string File { get; set; }
 		public int? Scale { get; set; }
 		public string Text { get; set; }
@@ -118,9 +115,7 @@ namespace DcsBriefop.DataMiz
 		public double? R2 { get; set; }
 		public double? Radius { get; set; }
 
-		public List<MizDrawingPoint> Points { get; private set; } = new List<MizDrawingPoint>();
-
-		public MizDrawingObject(LsonDict lsd) : base(lsd) { }
+		public List<MizDrawingPoint> Points { get; private set; } = [];
 
 		public override void FromLua()
 		{
@@ -132,7 +127,7 @@ namespace DcsBriefop.DataMiz
 			MapX = Lsd[LuaNode.MapX].GetDouble();
 			ColorString = Lsd[LuaNode.ColorString].GetString();
 
-			Angle = ToolsLson.IfExistsInt(Lsd, LuaNode.Angle);
+			Angle = ToolsLson.IfExistsDouble(Lsd, LuaNode.Angle);
 			File = ToolsLson.IfExistsString(Lsd, LuaNode.File);
 			Scale = ToolsLson.IfExistsInt(Lsd, LuaNode.Scale);
 			Text = ToolsLson.IfExistsString(Lsd, LuaNode.Text);
@@ -219,31 +214,32 @@ namespace DcsBriefop.DataMiz
 		{
 			string sLuaTemplate = GetLuaTemplate();
 			Dictionary<string, LsonValue> l = LsonVars.Parse(sLuaTemplate);
-			MizDrawingObject mizDrawingObject = new MizDrawingObject(l["template"].GetDict());
-
-			mizDrawingObject.Visible = true;
-			mizDrawingObject.Name = null;
-			mizDrawingObject.PrimitiveType = null;
-			mizDrawingObject.MapY = 0;
-			mizDrawingObject.ColorString = null;
-			mizDrawingObject.Angle = 0;
-			mizDrawingObject.File = null;
-			mizDrawingObject.Scale = 0;
-			mizDrawingObject.Text = null;
-			mizDrawingObject.FillColorString = null;
-			mizDrawingObject.Font = null;
-			mizDrawingObject.FontSize = null;
-			mizDrawingObject.BorderThickness = null;
-			mizDrawingObject.Closed = null;
-			mizDrawingObject.Thickness = null;
-			mizDrawingObject.Style = null;
-			mizDrawingObject.LineMode = null;
-			mizDrawingObject.PolygonMode = null;
-			mizDrawingObject.Height = null;
-			mizDrawingObject.Width = null;
-			mizDrawingObject.R1 = null;
-			mizDrawingObject.R2 = null;
-			mizDrawingObject.Radius = null;
+			MizDrawingObject mizDrawingObject = new(l["template"].GetDict())
+			{
+				Visible = true,
+				Name = null,
+				PrimitiveType = null,
+				MapY = 0,
+				ColorString = null,
+				Angle = 0d,
+				File = null,
+				Scale = 0,
+				Text = null,
+				FillColorString = null,
+				Font = null,
+				FontSize = null,
+				BorderThickness = null,
+				Closed = null,
+				Thickness = null,
+				Style = null,
+				LineMode = null,
+				PolygonMode = null,
+				Height = null,
+				Width = null,
+				R1 = null,
+				R2 = null,
+				Radius = null
+			};
 
 			mizDrawingObject.Points.Clear();
 
@@ -251,7 +247,7 @@ namespace DcsBriefop.DataMiz
 		}
 	}
 
-	internal class MizDrawingPoint : BaseMiz
+	internal class MizDrawingPoint(LsonDict lsd) : BaseMiz(lsd)
 	{
 		private class LuaNode
 		{
@@ -261,8 +257,6 @@ namespace DcsBriefop.DataMiz
 
 		public double Y { get; set; }
 		public double X { get; set; }
-
-		public MizDrawingPoint(LsonDict lsd) : base(lsd) { }
 
 		public override void FromLua()
 		{

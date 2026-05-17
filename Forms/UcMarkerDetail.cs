@@ -1,25 +1,21 @@
-﻿using DcsBriefop.Map;
-using GMap.NET.WindowsForms;
-using System;
-using System.Drawing;
-using System.Windows.Forms;
+using DcsBriefop.Map;
 
 namespace DcsBriefop.Forms
 {
-	public partial class UcMarkerDetail : UserControl
+	internal partial class UcMarkerDetail : UserControl
 	{
-		private GMarkerBriefop m_marker;
-		private GMapControl m_map;
+		private BriefopMarker m_marker;
+		private Action m_refreshMap;
 
 		public UcMarkerDetail()
 		{
 			InitializeComponent();
 		}
 
-		public UcMarkerDetail(GMarkerBriefop marker, GMapControl map) : this()
+		public UcMarkerDetail(BriefopMarker marker, Action refreshMap) : this()
 		{
 			m_marker = marker;
-			m_map = map;
+			m_refreshMap = refreshMap;
 
 			MapTemplateMarker.FillCombo(CbMarkerType, null);
 			DataToScreen();
@@ -32,11 +28,10 @@ namespace DcsBriefop.Forms
 			UdScale.ValueChanged -= UdScale_ValueChanged;
 			UdAngle.ValueChanged -= UdAngle_ValueChanged;
 
-			CbMarkerType.Text = m_marker.MarkerTemplate;
+			CbMarkerType.Text = m_marker.TemplateName;
 			TbLabel.Text = m_marker.Label;
 			UdScale.Value = m_marker.Scale;
 			UdAngle.Value = m_marker.Angle;
-
 			UcTintColor.SelectedColor = m_marker.TintColor;
 
 			UcTintColor.ColorChanged += UcTintColor_ColorChanged;
@@ -51,11 +46,9 @@ namespace DcsBriefop.Forms
 			m_marker.Label = TbLabel.Text;
 			m_marker.Scale = (int)UdScale.Value;
 			m_marker.Angle = (int)UdAngle.Value;
-
 			m_marker.TintColor = UcTintColor.SelectedColor;
-
-			m_marker.LoadBitmap();
-			m_map.Refresh();
+			m_marker.LoadSkImage();
+			m_refreshMap?.Invoke();
 		}
 
 		#region Events
@@ -83,6 +76,7 @@ namespace DcsBriefop.Forms
 		{
 			ScreenToData();
 		}
+
 		private void UcTintColor_ColorChanged(object sender, EventArgs e)
 		{
 			ScreenToData();
