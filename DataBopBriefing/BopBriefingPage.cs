@@ -18,7 +18,7 @@ namespace DcsBriefop.DataBopBriefing
 		public string Title { get; set; }
 		public bool DisplayTitle { get; set; }
 		public ElementBriefingPageRender Render { get; set; } = (ElementBriefingPageRender.Map | ElementBriefingPageRender.Html);
-		public bool MapIncludeBaseOverlays { get; set; } = true;
+		public bool MapIncludeBaseLayers { get; set; } = true;
 		public int HtmlFontSize { get; set; } = 16;
 
 		public List<BaseBopBriefingPart> Parts { get; set; } = [];
@@ -175,7 +175,7 @@ namespace DcsBriefop.DataBopBriefing
 		{
 			List<Mapsui.Layers.ILayer> layers = [];
 
-			if (MapIncludeBaseOverlays)
+			if (MapIncludeBaseLayers)
 			{
 				layers.Add(bopManager.BopMission.BuildStaticMapLayer());
 				layers.Add(bopManager.BopMission.MapData.BuildCustomMapLayer());

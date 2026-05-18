@@ -106,15 +106,15 @@ namespace DcsBriefop.Forms
 
 		private void DataToScreenMap()
 		{
-			CkMapIncludeBaseOverlays.CheckedChanged -= CkMapIncludeBaseOverlays_CheckedChanged;
+			CkMapIncludeBaseLayers.CheckedChanged -= CkMapIncludeBaseLayers_CheckedChanged;
 
-			CkMapIncludeBaseOverlays.Checked = m_bopBriefingPage.MapIncludeBaseOverlays;
+			CkMapIncludeBaseLayers.Checked = m_bopBriefingPage.MapIncludeBaseLayers;
 
 			m_ucMap.MapData = m_bopBriefingPage.MapData;
 			m_ucMap.MapProviderName = m_bopManager.BopMission.PreferencesMap.ProviderName;
 			DisplayCurrentMap();
 
-			CkMapIncludeBaseOverlays.CheckedChanged += CkMapIncludeBaseOverlays_CheckedChanged;
+			CkMapIncludeBaseLayers.CheckedChanged += CkMapIncludeBaseLayers_CheckedChanged;
 		}
 
 		public void ScreenToData()
@@ -141,7 +141,7 @@ namespace DcsBriefop.Forms
 
 		public void ScreenToDataMap()
 		{
-			m_bopBriefingPage.MapIncludeBaseOverlays = CkMapIncludeBaseOverlays.Checked;
+			m_bopBriefingPage.MapIncludeBaseLayers = CkMapIncludeBaseLayers.Checked;
 		}
 
 		private void ScreenToDataFromParent()
@@ -183,7 +183,7 @@ namespace DcsBriefop.Forms
 
 		public void DisplayCurrentMap()
 		{
-			m_ucMap.StaticOverlays = m_bopBriefingPage.GetMapAdditionalLayers(m_bopManager, m_bopBriefingFolder);
+			m_ucMap.StaticLayers = m_bopBriefingPage.GetMapAdditionalLayers(m_bopManager, m_bopBriefingFolder);
 			m_ucMap.DataToScreen();
 		}
 
@@ -263,7 +263,7 @@ namespace DcsBriefop.Forms
 			OrderPart(1);
 		}
 
-		private void CkMapIncludeBaseOverlays_CheckedChanged(object sender, EventArgs e)
+		private void CkMapIncludeBaseLayers_CheckedChanged(object sender, EventArgs e)
 		{
 			ScreenToDataMap();
 			DisplayCurrentMap();

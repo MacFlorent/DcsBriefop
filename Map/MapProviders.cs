@@ -13,12 +13,36 @@ namespace DcsBriefop.Map
 
 		#region Fields
 		private static readonly List<MapProviderRecord> s_providers = [];
+
+		// Providers that require API keys or have broken URLs or are overlays are excluded from the registry
+		private static readonly HashSet<KnownTileSource> s_excludedKnownSources =
+		[
+			KnownTileSource.BingAerial,
+			KnownTileSource.BingHybrid,
+			KnownTileSource.BingRoads,
+			KnownTileSource.BingAerialStaging,
+			KnownTileSource.BingHybridStaging,
+			KnownTileSource.BingRoadsStaging,
+			KnownTileSource.HereNormal,
+			KnownTileSource.HereSatellite,
+			KnownTileSource.HereHybrid,
+			KnownTileSource.HereTerrain,
+			KnownTileSource.StamenToner,
+			KnownTileSource.StamenTonerLite,
+			KnownTileSource.StamenWatercolor,
+			KnownTileSource.StamenTerrain,
+			KnownTileSource.OpenCycleMap,
+			KnownTileSource.OpenCycleMapTransport,
+			KnownTileSource.EsriWorldReferenceOverlay,
+			KnownTileSource.EsriWorldTransportation,
+			KnownTileSource.EsriWorldBoundariesAndPlaces,
+		];
 		#endregion
 
 		#region CTOR
 		static MapProviders()
 		{
-			foreach (KnownTileSource s in Enum.GetValues<KnownTileSource>())
+			foreach (KnownTileSource s in Enum.GetValues<KnownTileSource>().Where(_s => !s_excludedKnownSources.Contains(_s)))
 				s_providers.Add(new(s.ToString(), () => KnownTileSources.Create(s)));
 
 			WMSProviderFlappie flappie = new();
@@ -26,6 +50,18 @@ namespace DcsBriefop.Map
 
 			XYZProviderOpenTopoMap openTopoMap = new();
 			s_providers.Add(new(openTopoMap.Name, openTopoMap.CreateTileSource));
+
+			XYZProviderFaaVfrSectional faaVfrSectional = new();
+			s_providers.Add(new(faaVfrSectional.Name, faaVfrSectional.CreateTileSource));
+
+			XYZProviderFaaVfrTerminal faaVfrTerminal = new();
+			s_providers.Add(new(faaVfrTerminal.Name, faaVfrTerminal.CreateTileSource));
+
+			XYZProviderFaaIfrLow faaIfrLow = new();
+			s_providers.Add(new(faaIfrLow.Name, faaIfrLow.CreateTileSource));
+
+			XYZProviderFaaIfrHigh faaIfrHigh = new();
+			s_providers.Add(new(faaIfrHigh.Name, faaIfrHigh.CreateTileSource));
 		}
 		#endregion
 

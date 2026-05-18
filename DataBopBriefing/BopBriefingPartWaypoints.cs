@@ -214,7 +214,7 @@ $$"""
 			if (bopGroup is not null)
 			{
 				bopGroup.FinalizeFromMiz();
-				return [bopGroup.GetRouteMapLayer(null, ElementMapOverlayRouteDisplay.PointLabelLight, bopBriefingFolder.MeasurementSystem)];
+				return [bopGroup.GetRouteMapLayer(null, ElementMapLayerRouteDisplay.PointLabelLight, bopBriefingFolder.MeasurementSystem)];
 			}
 			return null;
 		}

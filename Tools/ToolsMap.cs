@@ -30,6 +30,25 @@ namespace DcsBriefop.Tools
 		}
 
 		#region MapControl
+		public static void ConfigureMapsui()
+		{
+			string sLogCaller = "Mapsui";
+
+			Mapsui.Logging.Logger.LogDelegate = (level, message, ex) =>
+			{
+				string sMessage = ex is not null ? $"{message} | {ex.Message}" : $"{message}";
+				switch (level)
+				{
+					case Mapsui.Logging.LogLevel.Debug: Log.Debug(sMessage, sLogCaller, -1, sLogCaller); break;
+					case Mapsui.Logging.LogLevel.Information: Log.Info(sMessage, sLogCaller, -1, sLogCaller); break;
+					case Mapsui.Logging.LogLevel.Warning: Log.Warning(sMessage, sLogCaller, -1, sLogCaller); break;
+					case Mapsui.Logging.LogLevel.Error: Log.Error(sMessage, sLogCaller, -1, sLogCaller); break;
+				}
+			};
+
+			Mapsui.Widgets.InfoWidgets.LoggingWidget.ShowLoggingInMap = Globals.Debug ? Mapsui.Widgets.ActiveMode.Yes : Mapsui.Widgets.ActiveMode.No;
+		}
+
 		public static void InitializeMapControl(this MapControl mapControl, string sProviderName)
 		{
 			if (string.IsNullOrEmpty(sProviderName))
@@ -43,6 +62,15 @@ namespace DcsBriefop.Tools
 			MapRenderer.RegisterStyleRenderer(typeof(BriefopLabelStyle), new BriefopLabelStyleRenderer());
 		}
 
+		public static void RefreshOverlayLayers(this MapControl mapControl, IEnumerable<string> enabledOverlayNames)
+		{
+			foreach (Mapsui.Tiling.Layers.TileLayer layer in mapControl.Map.Layers.OfType<Mapsui.Tiling.Layers.TileLayer>()
+				.Where(_l => _l.Name?.StartsWith("overlay:") == true).ToList())
+				mapControl.Map.Layers.Remove(layer);
+
+			foreach (MapOverlays.OverlayRecord overlay in MapOverlays.All.Where(_o => enabledOverlayNames?.Contains(_o.Name) == true))
+				mapControl.Map.Layers.Add(new Mapsui.Tiling.Layers.TileLayer(overlay.Factory()) { Name = $"overlay:{overlay.Name}" });
+		}
 		#endregion
 
 		#region MizDrawings
@@ -250,13 +278,13 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region Image Generation
-		public static Bitmap GenerateMapImage(MizBopMap mapData, ITileSource tileSource, IEnumerable<ILayer> overlayLayers, Size outputSize)
+		public static Bitmap GenerateMapImage(MizBopMap mapData, ITileSource tileSource, IEnumerable<ILayer> mapLayers, Size outputSize)
 		{
 			GeoPoint center = new(mapData.CenterLatitude, mapData.CenterLongitude);
-			return GenerateMapImage(center, (int)mapData.Zoom, tileSource, overlayLayers, outputSize);
+			return GenerateMapImage(center, (int)mapData.Zoom, tileSource, mapLayers, outputSize);
 		}
 
-		public static Bitmap GenerateMapImage(GeoPoint center, int iZoom, ITileSource tileSource, IEnumerable<ILayer> overlayLayers, Size outputSize)
+		public static Bitmap GenerateMapImage(GeoPoint center, int iZoom, ITileSource tileSource, IEnumerable<ILayer> mapLayers, Size outputSize)
 		{
 			MPoint centerWorld = MapProjection.ToMPoint(center);
 			double dResolution = MapProjection.ZoomToResolution(iZoom);
@@ -303,10 +331,10 @@ namespace DcsBriefop.Tools
 				}
 			}
 
-			if (overlayLayers is not null)
+			if (mapLayers is not null)
 			{
-				Mapsui.Viewport viewport = new(centerWorld.X, centerWorld.Y, dResolution, 0, outputSize.Width, outputSize.Height);
-				RenderOverlayLayers(canvas, viewport, overlayLayers);
+				Viewport viewport = new(centerWorld.X, centerWorld.Y, dResolution, 0, outputSize.Width, outputSize.Height);
+				RenderMapLayers(canvas, viewport, mapLayers);
 			}
 
 			using SKImage skImage = SKImage.FromBitmap(skBitmap);
@@ -333,7 +361,7 @@ namespace DcsBriefop.Tools
 			return iBestLevel;
 		}
 
-		private static void RenderOverlayLayers(SKCanvas canvas, Mapsui.Viewport viewport, IEnumerable<ILayer> mapLayers)
+		private static void RenderMapLayers(SKCanvas canvas, Mapsui.Viewport viewport, IEnumerable<ILayer> mapLayers)
 		{
 			// Custom style renderers don't use RenderService; call them directly to avoid MapRenderer.Render parameter complexity
 			Dictionary<Type, ISkiaStyleRenderer> styleRenderers = new()

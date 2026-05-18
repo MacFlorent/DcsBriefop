@@ -45,7 +45,7 @@ namespace DcsBriefop.Forms
 			BtRefresh.Name = "BtRefresh";
 			BtRefresh.Size = new Size(118, 27);
 			BtRefresh.TabIndex = 6;
-			BtRefresh.Text = "Refresh overlays";
+			BtRefresh.Text = "Refresh map";
 			BtRefresh.UseVisualStyleBackColor = true;
 			BtRefresh.Click += BtRefresh_Click;
 			// 
@@ -105,10 +105,10 @@ namespace DcsBriefop.Forms
 			MapControl.Name = "MapControl";
 			MapControl.Size = new Size(905, 497);
 			MapControl.TabIndex = 5;
+			MapControl.MapTapped += MapControl_MapTapped;
 			MapControl.MapPointerPressed += MapControl_MapPointerPressed;
 			MapControl.MapPointerMoved += MapControl_MapPointerMoved;
 			MapControl.MapPointerReleased += MapControl_MapPointerReleased;
-			MapControl.MapTapped += MapControl_MapTapped;
 			// 
 			// UcMap
 			// 

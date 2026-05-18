@@ -314,7 +314,7 @@ namespace DcsBriefop.DataBopMission
 			return new MemoryLayer { Style = null, Features = mapFeatures };
 		}
 
-		public MemoryLayer GetRouteMapLayer(int? iSelectedPointNumber, ElementMapOverlayRouteDisplay options, ElementMeasurementSystem measurementSystem)
+		public MemoryLayer GetRouteMapLayer(int? iSelectedPointNumber, ElementMapLayerRouteDisplay options, ElementMeasurementSystem measurementSystem)
 		{
 			List<IFeature> mapFeatures = [];
 			List<GeoPoint> points = [];
@@ -331,7 +331,7 @@ namespace DcsBriefop.DataBopMission
 
 				if (bopRoutePoint.Number > 0
 					|| iSelectedPointNumber.GetValueOrDefault(0) == bopRoutePoint.Number
-					|| (options & ElementMapOverlayRouteDisplay.NoMarkerFirstPoint) == 0)
+					|| (options & ElementMapLayerRouteDisplay.NoMarkerFirstPoint) == 0)
 				{
 					bool? bIsSelected = null;
 					if (iSelectedPointNumber is not null)

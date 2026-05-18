@@ -23,7 +23,7 @@ namespace DcsBriefop.Forms
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public MizBopMap MapData { get; set; }
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public IEnumerable<ILayer> StaticOverlays { get; set; }
+		public IEnumerable<ILayer> StaticLayers { get; set; }
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public string MapProviderName
 		{
@@ -66,9 +66,9 @@ namespace DcsBriefop.Forms
 			foreach (MemoryLayer mapLayer in MapControl.Map.Layers.OfType<MemoryLayer>().ToList())
 				MapControl.Map.Layers.Remove(mapLayer);
 
-			if (StaticOverlays is not null)
+			if (StaticLayers is not null)
 			{
-				foreach (ILayer staticMapLayer in StaticOverlays)
+				foreach (ILayer staticMapLayer in StaticLayers)
 					MapControl.Map.Layers.Add(staticMapLayer);
 			}
 

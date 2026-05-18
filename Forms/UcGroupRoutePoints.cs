@@ -77,7 +77,7 @@ namespace DcsBriefop.Forms
 			foreach (MemoryLayer mapLayer in m_mapControl.Map.Layers.OfType<MemoryLayer>().ToList())
 				m_mapControl.Map.Layers.Remove(mapLayer);
 
-			m_mapControl.Map.Layers.Add(m_bopGroup.GetRouteMapLayer(selectedBopRoutePoint?.Number, ElementMapOverlayRouteDisplay.PointLabelLight, PreferencesManager.Preferences.Briefing.MeasurementSystem));
+			m_mapControl.Map.Layers.Add(m_bopGroup.GetRouteMapLayer(selectedBopRoutePoint?.Number, ElementMapLayerRouteDisplay.PointLabelLight, PreferencesManager.Preferences.Briefing.MeasurementSystem));
 
 			MPoint center = MapProjection.ToMPoint(coordinate.Latitude.DecimalDegree, coordinate.Longitude.DecimalDegree);
 			m_mapControl.Map.Navigator.CenterOnAndZoomTo(center, MapProjection.ZoomToResolution((int)PreferencesManager.Preferences.Map.Zoom), 0, null);

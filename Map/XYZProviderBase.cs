@@ -9,12 +9,14 @@ namespace DcsBriefop.Map
 		#region Fields
 		public string Name { get; set; }
 		public string UrlTemplate { get; set; }
+		public int MinZoomLevel { get; set; } = 0;
+		public int MaxZoomLevel { get; set; } = 18;
 		#endregion
 
 		#region Methods
 		public ITileSource CreateTileSource()
 		{
-			return new HttpTileSource(new GlobalSphericalMercator(), new XyzUrlBuilder(UrlTemplate), Name, null, null, null);
+			return new HttpTileSource(new GlobalSphericalMercator(YAxis.OSM, MinZoomLevel, MaxZoomLevel), new XyzUrlBuilder(UrlTemplate), Name, null, null, null);
 		}
 		#endregion
 

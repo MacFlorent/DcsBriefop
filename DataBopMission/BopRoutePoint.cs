@@ -251,12 +251,12 @@ namespace DcsBriefop.DataBopMission
 			return GetTasks(sTaskIds, iUnitId)?.OrderBy(_t => _t.Number).FirstOrDefault();
 		}
 
-		public BriefopMarker GetBriefopMarker(Color color, bool? bIsSelected, ElementMapOverlayRouteDisplay options)
+		public BriefopMarker GetBriefopMarker(Color color, bool? bIsSelected, ElementMapLayerRouteDisplay options)
 		{
 			string sLabel = "";
-			if ((options & ElementMapOverlayRouteDisplay.PointLabelFull) != 0)
+			if ((options & ElementMapLayerRouteDisplay.PointLabelFull) != 0)
 				sLabel = ToStringDisplayName();
-			else if ((options & ElementMapOverlayRouteDisplay.PointLabelLight) != 0)
+			else if ((options & ElementMapLayerRouteDisplay.PointLabelLight) != 0)
 				sLabel = $"{Number}";
 
 			string sFontFamily = null;

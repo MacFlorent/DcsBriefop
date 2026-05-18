@@ -73,7 +73,7 @@ namespace DcsBriefop.Forms
 			}
 
 			m_ucMap.MapData = mapData;
-			m_ucMap.StaticOverlays = staticLayers;
+			m_ucMap.StaticLayers = staticLayers;
 			m_ucMap.MapProviderName = m_briefopManager.BopMission.PreferencesMap.ProviderName;
 			m_ucMap.DataToScreen();
 		}
