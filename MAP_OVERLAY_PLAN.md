@@ -47,6 +47,19 @@ Bing (6 entries), Here (4), Stamen (4), OpenCycleMap (2), and the three Esri ove
 | EsriWorldTransportation | `KnownTileSources.Create(...)` |
 | EsriWorldBoundariesAndPlaces | `KnownTileSources.Create(...)` |
 
+### OpenAIP API key — activation gate
+The OpenAIP overlay is only registered in `MapOverlays` (and therefore only appears in the UI)
+when `PreferencesMap.OpenAipApiKey` is non-empty. No key → no overlay in the list at all.
+`MapOverlays` must be re-initialized (or the OpenAIP entry conditionally added/removed) whenever
+the key changes — i.e. after preferences are saved.
+
+### OpenAIP attribution
+The OpenAIP license requires a visible attribution link in the application:
+> *Map data © [OpenAIP](https://www.openaip.net)*
+
+This must be shown whenever the OpenAIP overlay is active — e.g. a small label or status-bar
+entry on the map form that appears/disappears with the overlay toggle.
+
 ### Live map overlay flow
 `ToolsMap.RefreshOverlayLayers(MapControl, IEnumerable<string> enabledNames)`:
 - Removes all `TileLayer`s whose name starts with `"overlay:"`
@@ -91,21 +104,28 @@ public List<string> EnabledOverlayNames { get; set; } = [];
 public string OpenAipApiKey { get; set; } = string.Empty;
 ```
 
-### 2. Move OpenAIP API key out of FrmTheatre
-`OverlayProviderOpenAIP.ApiKey` is set to a hardcoded string in `FrmTheatre`'s constructor.
-Move it to `PreferencesMap.OpenAipApiKey` and wire `OverlayProviderOpenAIP.ApiKey` from preferences
-at startup and whenever preferences are saved.
+### 2. Move OpenAIP API key out of FrmTheatre + activation gate
+`OverlayProviderOpenAIP.ApiKey` is hardcoded in `FrmTheatre`'s constructor. Replace with:
+- Read from `PreferencesMap.OpenAipApiKey` at startup and after preferences are saved
+- `MapOverlays` only registers the OpenAIP entry when the key is non-empty; re-initialize
+  the registry (or add/remove the entry) after preferences change
+- Consequence: if no key is configured the overlay never appears in any overlay UI
 
 ### 3. FrmPreferences — overlay settings UI
-Add a section to `FrmPreferences` (and its designer):
-- `UcCheckedDropDown` (or `CheckedListBox`) of available overlays — bound to `EnabledOverlayNames`
-- `TextBox` for OpenAIP API key — enabled when OpenAIP overlay is checked
-- Save/load via `ScreenToData` / `DataToScreen`
+Add a map section to `FrmPreferences` (and its designer):
+- `TextBox` for OpenAIP API key
+- `UcCheckedDropDown` (or `CheckedListBox`) of available overlays — bound to `EnabledOverlayNames`;
+  OpenAIP only appears in this list if the key TextBox is non-empty
+- Attribution label: *"Map data © OpenAIP (openaip.net)"* — visible at all times in this section
+  as a reminder of the license requirement
+- Save/load via `ScreenToData` / `DataToScreen`; after save, re-initialize `MapOverlays` and
+  update `OverlayProviderOpenAIP.ApiKey`
 
 ### 4. FrmMissionMaps — overlay UI
 `FrmMissionMaps` has a map provider selector. Add the same `UcCheckedDropDown` overlay control
 that `FrmTheatre` uses. The enabled overlays come from `BopMission.PreferencesMap.EnabledOverlayNames`
 (per-mission override) rather than global preferences.
+Attribution label must also appear here when the OpenAIP overlay is active.
 
 ### 5. Image generation — tile overlay composite (`Tools/ToolsMap.cs`)
 `GenerateMapImage` currently only composites `MemoryLayer` (vector features). Overlay tile layers

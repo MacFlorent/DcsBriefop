@@ -1,3 +1,4 @@
+using System.Collections;
 using System.ComponentModel;
 
 namespace DcsBriefop.Forms
@@ -12,23 +13,34 @@ namespace DcsBriefop.Forms
 		private readonly ToolStripDropDown m_dropDown;
 		private readonly CheckedListBox m_checkedList;
 		private readonly ToolTip m_toolTip = new();
-		private string m_label = string.Empty;
+		private string m_sLabel = string.Empty;
 		#endregion
 
 		#region Properties
-		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+		[DefaultValue("")]
 		public string Label
 		{
-			get => m_label;
-			set { m_label = value; UpdateButton(); }
+			get => m_sLabel;
+			set { m_sLabel = value ?? string.Empty; UpdateButton(); }
 		}
 
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public CheckedListBox CheckedListBox => m_checkedList;
+		public IEnumerable<object> CheckedItems
+		{
+			get => m_checkedList.CheckedItems.Cast<object>();
+			set
+			{
+				m_checkedList.ItemCheck -= CheckedList_ItemCheck;
+				HashSet<object> checkedSet = value?.ToHashSet() ?? [];
+				for (int i = 0; i < m_checkedList.Items.Count; i++)
+					m_checkedList.SetItemChecked(i, checkedSet.Contains(m_checkedList.Items[i]));
 
-		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public IEnumerable<string> CheckedNames =>
-			m_checkedList.CheckedItems.Cast<object>().Select(_o => m_checkedList.GetItemText(_o));
+				UpdateButton();
+				m_checkedList.ItemCheck += CheckedList_ItemCheck;
+			}
+		}
+
+		public event EventHandler ItemCheckedChanged;
 		#endregion
 
 		#region CTOR
@@ -36,7 +48,6 @@ namespace DcsBriefop.Forms
 		{
 			m_checkedList = new CheckedListBox { CheckOnClick = true, BorderStyle = BorderStyle.None };
 			m_checkedList.ItemCheck += CheckedList_ItemCheck;
-			m_checkedList.DataSourceChanged += (_, _) => BeginInvoke(UpdateButton);
 
 			ToolStripControlHost host = new(m_checkedList) { Margin = Padding.Empty, Padding = Padding.Empty };
 			m_dropDown = new ToolStripDropDown { Padding = Padding.Empty };
@@ -51,17 +62,16 @@ namespace DcsBriefop.Forms
 		#endregion
 
 		#region Methods
-		public void UpdateButton()
+		private void UpdateButton()
 		{
 			int iCount = m_checkedList.CheckedItems.Count;
-			string sPrefix = string.IsNullOrEmpty(m_label) ? string.Empty : $"{m_label} ";
-			m_button.Text = iCount > 0 ? $"{sPrefix}({iCount}) ▾" : $"{sPrefix}▾";
+			m_button.Text = iCount > 0 ? $"{m_sLabel}({iCount}) ▾" : $"{m_sLabel}▾";
 
 			if (iCount > 0)
 			{
 				m_button.BackColor = s_colorCheckedBack;
 				m_button.ForeColor = s_colorCheckedFore;
-				m_toolTip.SetToolTip(m_button, string.Join(Environment.NewLine, CheckedNames));
+				m_toolTip.SetToolTip(m_button, string.Join(Environment.NewLine, CheckedItems.Select(_ci => m_checkedList.GetItemText(_ci))));
 			}
 			else
 			{
@@ -70,11 +80,24 @@ namespace DcsBriefop.Forms
 				m_toolTip.SetToolTip(m_button, null);
 			}
 		}
+
+		public void SetDataSource(IEnumerable dataSource, string sDisplayMember)
+		{
+			m_checkedList.ItemCheck -= CheckedList_ItemCheck;
+
+			m_checkedList.Items.Clear();
+			m_checkedList.DisplayMember = sDisplayMember;
+			if (dataSource is not null)
+				foreach (object item in dataSource)
+					m_checkedList.Items.Add(item);
+
+			UpdateButton();
+
+			m_checkedList.ItemCheck += CheckedList_ItemCheck;
+		}
 		#endregion
 
 		#region Events
-		public event EventHandler ItemCheckedChanged;
-
 		private void Button_Click(object sender, EventArgs e)
 		{
 			int iItemHeight = m_checkedList.ItemHeight;

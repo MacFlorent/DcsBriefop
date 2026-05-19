@@ -11,12 +11,9 @@ namespace DcsBriefop.Forms
 	internal partial class FrmTheatre : Form
 	{
 		#region Fields
-		private BriefopManager m_briefopManager;
+		private readonly Color m_LayerColor = Color.OrangeRed;
+		private readonly BriefopManager m_briefopManager;
 		private Theatre m_theatre;
-		private Color m_LayerColor = Color.OrangeRed;
-
-		private ComboBox m_cbMapProvider;
-		private UcCheckedDropDown m_dropDownOverlays;
 		#endregion
 
 		#region CTOR
@@ -29,7 +26,8 @@ namespace DcsBriefop.Forms
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			BuildProviderAndOverlayControls();
+			MapProviders.FillCombo(CbMapProvider, CbMapProvider_SelectedValueChanged);
+			MapOverlays.FillCheckDropDown(CddMapOverlays);
 
 			CbTheatre.ValueMember = "Value";
 			CbTheatre.DisplayMember = "Key";
@@ -46,41 +44,18 @@ namespace DcsBriefop.Forms
 			}.ToList();
 
 			string sProviderName = m_briefopManager?.BopMission.PreferencesMap.ProviderName ?? PreferencesManager.Preferences.Map.ProviderName;
-			MapControl.InitializeMapControl(sProviderName);
-		}
-
-		private void BuildProviderAndOverlayControls()
-		{
-			Label lbMapProvider = new() { Text = "Provider:", AutoSize = true, Location = new Point(244, 13) };
-			Controls.Add(lbMapProvider);
-			lbMapProvider.BringToFront();
-
-			m_cbMapProvider = new ComboBox { Location = new Point(308, 10), Size = new Size(180, 23), DropDownStyle = ComboBoxStyle.DropDownList };
-			MapProviders.FillCombo(m_cbMapProvider, CbMapProvider_SelectedValueChanged);
-			Controls.Add(m_cbMapProvider);
-			m_cbMapProvider.BringToFront();
-
-			Label lbOverlays = new() { Text = "Overlays:", AutoSize = true, Location = new Point(500, 13) };
-			Controls.Add(lbOverlays);
-			lbOverlays.BringToFront();
-
-			m_dropDownOverlays = new UcCheckedDropDown { Location = new Point(562, 8), Size = new Size(200, 23), Label = "Overlays" };
-			foreach (MapOverlays.OverlayRecord overlay in MapOverlays.All)
-				m_dropDownOverlays.CheckedListBox.Items.Add(overlay.Name, false);
-			m_dropDownOverlays.ItemCheckedChanged += DropDownOverlays_ItemCheckedChanged;
-			Controls.Add(m_dropDownOverlays);
-			m_dropDownOverlays.BringToFront();
+			MapControl.InitializeMapControl(sProviderName, null);
 		}
 		#endregion
 
 		#region Methods
 		private void DataToScreen()
 		{
-			m_cbMapProvider.SelectedValueChanged -= CbMapProvider_SelectedValueChanged;
+			CbMapProvider.SelectedValueChanged -= CbMapProvider_SelectedValueChanged;
 			CbTheatre.SelectedIndexChanged -= CbTheatre_SelectedIndexChanged;
 
 			string sProviderName = m_briefopManager?.BopMission.PreferencesMap.ProviderName ?? PreferencesManager.Preferences.Map.ProviderName;
-			m_cbMapProvider.SelectedItem = MapProviders.TryGetProviderOrDefault(sProviderName);
+			CbMapProvider.SelectedItem = MapProviders.TryGetProviderOrDefault(sProviderName);
 
 			if (m_briefopManager is not null)
 				CbTheatre.Text = m_briefopManager.BopMission.Theatre.Name;
@@ -90,7 +65,7 @@ namespace DcsBriefop.Forms
 			m_theatre = new(CbTheatre.SelectedValue as string);
 			DisplayCurrentTheatre();
 
-			m_cbMapProvider.SelectedValueChanged += CbMapProvider_SelectedValueChanged;
+			CbMapProvider.SelectedValueChanged += CbMapProvider_SelectedValueChanged;
 			CbTheatre.SelectedIndexChanged += CbTheatre_SelectedIndexChanged;
 		}
 
@@ -105,8 +80,13 @@ namespace DcsBriefop.Forms
 			TbMapDataStatic.Clear();
 			LbMapDataDynamic.Text = null;
 
-			foreach (MemoryLayer layer in MapControl.Map.Layers.OfType<MemoryLayer>().ToList())
-				MapControl.Map.Layers.Remove(layer);
+			DisplayCurrentAirdromes();
+		}
+
+		private void DisplayCurrentAirdromes()
+		{
+			string sName = "airdromes:";
+			MapControl.RemoveMemoryLayers(sName);
 
 			List<IFeature> features = [];
 			foreach (Airdrome airdrome in m_theatre.Airdromes)
@@ -117,7 +97,7 @@ namespace DcsBriefop.Forms
 				feature.Styles.Add(new BriefopMarkerStyle(marker));
 				features.Add(feature);
 			}
-			MapControl.Map.Layers.Add(new MemoryLayer { Style = null, Features = features });
+			MapControl.Map.Layers.Add(new MemoryLayer { Name = sName, Style = null, Features = features });
 		}
 
 		private string GetStringCoordinates(Coordinate coordinate)
@@ -125,8 +105,6 @@ namespace DcsBriefop.Forms
 			m_theatre.GetDcsXY(out double dDcX, out double dDcsY, coordinate);
 			return $"{coordinate.ToStringDMS()} / {coordinate.ToStringDDM()} / {coordinate.ToStringMGRS()} / X={dDcX:0.00} Z(Y)={dDcsY:0.00}";
 		}
-
-		private IEnumerable<string> GetEnabledOverlayNames() => m_dropDownOverlays.CheckedNames;
 		#endregion
 
 		#region Events
@@ -144,15 +122,14 @@ namespace DcsBriefop.Forms
 
 		private void CbMapProvider_SelectedValueChanged(object sender, EventArgs e)
 		{
-			string sProviderName = (m_cbMapProvider.SelectedItem as MapProviders.MapProviderRecord)?.Name;
-			MapControl.InitializeMapControl(sProviderName);
-			MapControl.RefreshOverlayLayers(GetEnabledOverlayNames());
-			DisplayCurrentTheatre();
+			string sProviderName = (CbMapProvider.SelectedItem as MapProviders.MapProviderRecord)?.Name;
+			MapControl.RefreshTileLayer(sProviderName);
 		}
 
-		private void DropDownOverlays_ItemCheckedChanged(object sender, EventArgs e)
+		private void CddMapOverlays_ItemCheckedChanged(object sender, EventArgs e)
 		{
-			MapControl.RefreshOverlayLayers(GetEnabledOverlayNames());
+			IEnumerable<string> checkedOverlaysames = CddMapOverlays.CheckedItems.Cast<MapOverlays.MapOverlayRecord>().Select(_r => _r.Name);
+			MapControl.RefreshOverlayLayers(checkedOverlaysames);
 		}
 
 		private void MapControl_MapPointerMoved(object sender, MapEventArgs e)

@@ -51,7 +51,7 @@ namespace DcsBriefop.Forms
 		#region Methods
 		public void DataToScreen()
 		{
-			MapControl.InitializeMapControl(m_sMapProviderName);
+			MapControl.InitializeMapControl(m_sMapProviderName, null);
 
 			if (MapData is not null)
 			{

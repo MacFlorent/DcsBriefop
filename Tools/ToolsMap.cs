@@ -1,6 +1,4 @@
-﻿using Color = System.Drawing.Color;
-using Size = System.Drawing.Size;
-using BruTile;
+﻿using BruTile;
 using BruTile.Web;
 using CoordinateSharp;
 using DcsBriefop.Data;
@@ -11,8 +9,12 @@ using Mapsui.Layers;
 using Mapsui.Rendering.Skia;
 using Mapsui.Rendering.Skia.SkiaStyles;
 using Mapsui.Styles;
+using Mapsui.Tiling.Layers;
 using Mapsui.UI.WindowsForms;
 using SkiaSharp;
+using static DcsBriefop.Map.MapProviders;
+using Color = System.Drawing.Color;
+using Size = System.Drawing.Size;
 
 namespace DcsBriefop.Tools
 {
@@ -20,6 +22,11 @@ namespace DcsBriefop.Tools
 	{
 		#region Fields
 		private static readonly HttpClient s_tileHttpClient = BuildTileHttpClient();
+		private static class LayerPrefix
+		{
+			public const string Tiles = "tiles:";
+			public const string Overlay = "overlay:";
+		}
 		#endregion
 
 		private static HttpClient BuildTileHttpClient()
@@ -49,27 +56,66 @@ namespace DcsBriefop.Tools
 			Mapsui.Widgets.InfoWidgets.LoggingWidget.ShowLoggingInMap = Globals.Debug ? Mapsui.Widgets.ActiveMode.Yes : Mapsui.Widgets.ActiveMode.No;
 		}
 
-		public static void InitializeMapControl(this MapControl mapControl, string sProviderName)
+		public static void InitializeMapControl(this MapControl mapControl, string sProviderName, IEnumerable<string> overlayNames)
 		{
-			if (string.IsNullOrEmpty(sProviderName))
-				sProviderName = PreferencesManager.Preferences.Map.ProviderName;
-
-			mapControl.Map.Layers.Clear();
-			mapControl.Map.Layers.Add(MapProviders.CreateTileLayer(sProviderName));
+			mapControl.RefreshTileLayer(sProviderName);
+			mapControl.RefreshOverlayLayers(overlayNames);
 
 			MapRenderer.RegisterStyleRenderer(typeof(BriefopMarkerStyle), new BriefopMarkerStyleRenderer());
 			MapRenderer.RegisterStyleRenderer(typeof(BriefopLineStyle), new BriefopLineStyleRenderer());
 			MapRenderer.RegisterStyleRenderer(typeof(BriefopLabelStyle), new BriefopLabelStyleRenderer());
 		}
 
-		public static void RefreshOverlayLayers(this MapControl mapControl, IEnumerable<string> enabledOverlayNames)
+		public static void RefreshTileLayer(this MapControl mapControl, string sProviderName)
 		{
-			foreach (Mapsui.Tiling.Layers.TileLayer layer in mapControl.Map.Layers.OfType<Mapsui.Tiling.Layers.TileLayer>()
-				.Where(_l => _l.Name?.StartsWith("overlay:") == true).ToList())
-				mapControl.Map.Layers.Remove(layer);
+			MapProviderRecord mapProvider = TryGetProviderOrDefault(sProviderName);
 
-			foreach (MapOverlays.OverlayRecord overlay in MapOverlays.All.Where(_o => enabledOverlayNames?.Contains(_o.Name) == true))
-				mapControl.Map.Layers.Add(new Mapsui.Tiling.Layers.TileLayer(overlay.Factory()) { Name = $"overlay:{overlay.Name}" });
+			mapControl.RemoveTileLayers(LayerPrefix.Tiles);
+			mapControl.Map.Layers.Add(new TileLayer(mapProvider.Factory()) { Name = $"{LayerPrefix.Tiles}{mapProvider.Name}" });
+			
+			mapControl.OrderLayers();
+		}
+
+		public static void RefreshOverlayLayers(this MapControl mapControl, IEnumerable<string> overlayNames)
+		{
+			mapControl.RemoveTileLayers(LayerPrefix.Overlay);
+
+			if (overlayNames is not null)
+			{
+				foreach (MapOverlays.MapOverlayRecord overlay in MapOverlays.All.Where(_o => overlayNames.Contains(_o.Name)))
+					mapControl.Map.Layers.Add(new TileLayer(overlay.Factory()) { Name = $"{LayerPrefix.Overlay}{overlay.Name}" });
+			}
+
+			mapControl.OrderLayers();
+		}
+
+		public static void OrderLayers(this MapControl mapControl)
+		{
+			List<ILayer> tiles = [.. mapControl.Map.Layers.OfType<TileLayer>().Where(_l => _l.Name?.StartsWith(LayerPrefix.Tiles) == true).Cast<ILayer>()];
+			List<ILayer> overlays = [.. mapControl.Map.Layers.OfType<TileLayer>().Where(_l => _l.Name?.StartsWith(LayerPrefix.Overlay) == true).Cast<ILayer>()];
+			List<ILayer> memory = [.. mapControl.Map.Layers.OfType<MemoryLayer>().Cast<ILayer>()];
+
+			int iIdx = 0;
+			foreach (ILayer layer in tiles.Concat(overlays).Concat(memory))
+				mapControl.Map.Layers.Move(iIdx++, layer);
+		}
+
+		public static void RemoveTileLayers(this MapControl mapControl, string sPrefix)
+		{
+			foreach (TileLayer layer in mapControl.Map.Layers.OfType<TileLayer>()
+							.Where(_l => string.IsNullOrWhiteSpace(sPrefix) || _l.Name?.StartsWith(sPrefix) == true).ToList())
+			{
+				mapControl.Map.Layers.Remove(layer);
+			}
+		}
+
+		public static void RemoveMemoryLayers(this MapControl mapControl, string sPrefix)
+		{
+			foreach (MemoryLayer layer in mapControl.Map.Layers.OfType<MemoryLayer>()
+							.Where(_l => string.IsNullOrWhiteSpace(sPrefix) || _l.Name?.StartsWith(sPrefix) == true).ToList())
+			{
+				mapControl.Map.Layers.Remove(layer);
+			}
 		}
 		#endregion
 

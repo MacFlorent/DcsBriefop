@@ -40,7 +40,7 @@ namespace DcsBriefop.Forms
 
 			m_gridManagerAirbaseRadios = new GridManagerAirbaseRadios(DgvRadios, m_bopAirbase.Radios);
 
-			MapControl.InitializeMapControl(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.ProviderName);
+			MapControl.InitializeMapControl(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.ProviderName, null);
 
 			MapTemplateMarker.FillCombo(CbMapMarker, CbMapMarker_SelectedValueChanged);
 
