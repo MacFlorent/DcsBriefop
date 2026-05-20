@@ -13,6 +13,7 @@ namespace DcsBriefop.Forms
 	{
 		#region Fields
 		private string m_sMapProviderName;
+		IEnumerable<string> m_mapOverlayNames;
 		private MemoryLayer m_customMapLayer;
 		private BriefopMarker m_selectedMarker;
 		private BriefopMarker m_hoveredMarker;
@@ -30,6 +31,12 @@ namespace DcsBriefop.Forms
 			get { return m_sMapProviderName; }
 			set { m_sMapProviderName = value; }
 		}
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+		public IEnumerable<string> MapOverlayNames
+		{
+			get { return m_mapOverlayNames; }
+			set { m_mapOverlayNames = value; }
+		}
 		#endregion
 
 		#region CTOR
@@ -39,6 +46,7 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ApplyStyle(this);
 
 			PnSelectionDetail.Visible = false;
+			MapControl.InitializeMapControl(m_sMapProviderName, null);
 		}
 		#endregion
 
@@ -51,14 +59,24 @@ namespace DcsBriefop.Forms
 		#region Methods
 		public void DataToScreen()
 		{
-			MapControl.InitializeMapControl(m_sMapProviderName, null);
+			DataToScreenMapBasemap();
+			DataToScreenMapOverlays();
+			DataToScreenMapLayers();
 
 			if (MapData is not null)
 			{
 				MapControl.Map.Navigator.CenterOnAndZoomTo(MapProjection.ToMPoint(MapData.CenterLatitude, MapData.CenterLongitude), MapProjection.ZoomToResolution((int)MapData.Zoom), 0, null);
 			}
+		}
 
-			DataToScreenMapLayers();
+		private void DataToScreenMapBasemap()
+		{
+			MapControl.ChangeBasemapLayer(m_sMapProviderName);
+		}
+
+		private void DataToScreenMapOverlays()
+		{
+			MapControl.ChangeOverlayLayers(m_mapOverlayNames);
 		}
 
 		private void DataToScreenMapLayers()

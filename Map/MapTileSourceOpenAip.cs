@@ -23,6 +23,11 @@ namespace DcsBriefop.Map
 		{
 			return new HttpTileSource(new GlobalSphericalMercator(YAxis.OSM, 7, 18), new OpenAIPUrlBuilder(ApiKey), Name, null, null, null);
 		}
+
+		public static void OpenAttributionLink()
+		{
+			System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://www.openaip.net") { UseShellExecute = true });
+		}
 		#endregion
 
 		#region OpenAIPUrlBuilder

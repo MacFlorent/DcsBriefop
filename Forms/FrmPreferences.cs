@@ -87,7 +87,7 @@ namespace DcsBriefop.Forms
 
 			m_preferences.Map.ProviderName = (CbMapProvider.SelectedItem as MapTileSource)?.Name;
 			m_preferences.Map.Zoom = (double)NudMapZoom.Value;
-			m_preferences.Map.OverlayNames = [.. CddMapOverlays.CheckedItemTexts ];
+			m_preferences.Map.OverlayNames = [.. CddMapOverlays.CheckedItemTexts];
 			m_preferences.Map.OpenAipApiKey = TbMapOpenAipKey.Text;
 
 			m_preferences.Briefing.WeatherDisplay = (ElementWeatherDisplay)CbBriefingWeatherDisplay.SelectedValue;
@@ -167,6 +167,11 @@ namespace DcsBriefop.Forms
 			{
 				TbBriefingGenerationDirectory.Text = fbd.SelectedPath;
 			}
+		}
+
+		private void LnkMapOpenAipAttribution_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			MapTileSourceOpenAip.OpenAttributionLink();
 		}
 
 		private void BtBriefingGenerationDirectoryReset_MouseDown(object sender, MouseEventArgs e)

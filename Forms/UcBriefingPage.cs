@@ -112,6 +112,8 @@ namespace DcsBriefop.Forms
 
 			m_ucMap.MapData = m_bopBriefingPage.MapData;
 			m_ucMap.MapProviderName = m_bopManager.BopMission.PreferencesMap.ProviderName;
+			m_ucMap.MapOverlayNames = m_bopManager.BopMission.PreferencesMap.OverlayNames;
+
 			DisplayCurrentMap();
 
 			CkMapIncludeBaseLayers.CheckedChanged += CkMapIncludeBaseLayers_CheckedChanged;

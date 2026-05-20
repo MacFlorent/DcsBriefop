@@ -51,6 +51,11 @@
 			CbMissionBullseyeWaypoint = new ComboBox();
 			CkMissionNoCallsignForPlayable = new CheckBox();
 			PnMap = new Panel();
+			CddMapOverlays = new UcCheckedDropDown();
+			LnkMapOpenAipAttribution = new LinkLabel();
+			LbMapOpenAipKey = new Label();
+			TbMapOpenAipKey = new TextBox();
+			LbMapOverlays = new Label();
 			NudMapZoom = new NumericUpDown();
 			CbMapProvider = new ComboBox();
 			LbMapZoom = new Label();
@@ -77,11 +82,6 @@
 			BtBriefingGenerationDirectory = new Button();
 			LbBriefingGenerationDirectory = new Label();
 			TbBriefingGenerationDirectory = new TextBox();
-			LbMapOverlays = new Label();
-			TbMapOpenAipKey = new TextBox();
-			LbMapOpenAipKey = new Label();
-			LnkMapOpenAip = new LinkLabel();
-			CddMapOverlays = new UcCheckedDropDown();
 			PnApplication.SuspendLayout();
 			PnMap.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)NudMapZoom).BeginInit();
@@ -333,7 +333,7 @@
 			PnMap.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			PnMap.BorderStyle = BorderStyle.FixedSingle;
 			PnMap.Controls.Add(CddMapOverlays);
-			PnMap.Controls.Add(LnkMapOpenAip);
+			PnMap.Controls.Add(LnkMapOpenAipAttribution);
 			PnMap.Controls.Add(LbMapOpenAipKey);
 			PnMap.Controls.Add(TbMapOpenAipKey);
 			PnMap.Controls.Add(LbMapOverlays);
@@ -347,6 +347,53 @@
 			PnMap.Name = "PnMap";
 			PnMap.Size = new Size(546, 167);
 			PnMap.TabIndex = 16;
+			// 
+			// CddMapOverlays
+			// 
+			CddMapOverlays.Location = new Point(114, 86);
+			CddMapOverlays.Name = "CddMapOverlays";
+			CddMapOverlays.Size = new Size(150, 23);
+			CddMapOverlays.TabIndex = 42;
+			// 
+			// LnkMapOpenAipAttribution
+			// 
+			LnkMapOpenAipAttribution.AutoSize = true;
+			LnkMapOpenAipAttribution.Location = new Point(114, 141);
+			LnkMapOpenAipAttribution.Name = "LnkMapOpenAipAttribution";
+			LnkMapOpenAipAttribution.Size = new Size(121, 15);
+			LnkMapOpenAipAttribution.TabIndex = 41;
+			LnkMapOpenAipAttribution.TabStop = true;
+			LnkMapOpenAipAttribution.Text = "Map data © OpenAIP";
+			LnkMapOpenAipAttribution.LinkClicked += LnkMapOpenAipAttribution_LinkClicked;
+			// 
+			// LbMapOpenAipKey
+			// 
+			LbMapOpenAipKey.AutoSize = true;
+			LbMapOpenAipKey.Location = new Point(14, 118);
+			LbMapOpenAipKey.Margin = new Padding(4, 0, 4, 0);
+			LbMapOpenAipKey.Name = "LbMapOpenAipKey";
+			LbMapOpenAipKey.Size = new Size(75, 15);
+			LbMapOpenAipKey.TabIndex = 40;
+			LbMapOpenAipKey.Text = "OpenAIP key";
+			// 
+			// TbMapOpenAipKey
+			// 
+			TbMapOpenAipKey.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbMapOpenAipKey.Location = new Point(114, 115);
+			TbMapOpenAipKey.Margin = new Padding(4, 3, 4, 3);
+			TbMapOpenAipKey.Name = "TbMapOpenAipKey";
+			TbMapOpenAipKey.Size = new Size(316, 23);
+			TbMapOpenAipKey.TabIndex = 39;
+			// 
+			// LbMapOverlays
+			// 
+			LbMapOverlays.AutoSize = true;
+			LbMapOverlays.Location = new Point(14, 91);
+			LbMapOverlays.Margin = new Padding(4, 0, 4, 0);
+			LbMapOverlays.Name = "LbMapOverlays";
+			LbMapOverlays.Size = new Size(52, 15);
+			LbMapOverlays.TabIndex = 38;
+			LbMapOverlays.Text = "Overlays";
 			// 
 			// NudMapZoom
 			// 
@@ -641,52 +688,6 @@
 			TbBriefingGenerationDirectory.Size = new Size(316, 23);
 			TbBriefingGenerationDirectory.TabIndex = 37;
 			// 
-			// LbMapOverlays
-			// 
-			LbMapOverlays.AutoSize = true;
-			LbMapOverlays.Location = new Point(14, 91);
-			LbMapOverlays.Margin = new Padding(4, 0, 4, 0);
-			LbMapOverlays.Name = "LbMapOverlays";
-			LbMapOverlays.Size = new Size(52, 15);
-			LbMapOverlays.TabIndex = 38;
-			LbMapOverlays.Text = "Overlays";
-			// 
-			// TbMapOpenAipKey
-			// 
-			TbMapOpenAipKey.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			TbMapOpenAipKey.Location = new Point(114, 115);
-			TbMapOpenAipKey.Margin = new Padding(4, 3, 4, 3);
-			TbMapOpenAipKey.Name = "TbMapOpenAipKey";
-			TbMapOpenAipKey.Size = new Size(316, 23);
-			TbMapOpenAipKey.TabIndex = 39;
-			// 
-			// LbMapOpenAipKey
-			// 
-			LbMapOpenAipKey.AutoSize = true;
-			LbMapOpenAipKey.Location = new Point(14, 118);
-			LbMapOpenAipKey.Margin = new Padding(4, 0, 4, 0);
-			LbMapOpenAipKey.Name = "LbMapOpenAipKey";
-			LbMapOpenAipKey.Size = new Size(75, 15);
-			LbMapOpenAipKey.TabIndex = 40;
-			LbMapOpenAipKey.Text = "OpenAIP key";
-			// 
-			// LnkMapOpenAip
-			// 
-			LnkMapOpenAip.AutoSize = true;
-			LnkMapOpenAip.Location = new Point(114, 141);
-			LnkMapOpenAip.Name = "LnkMapOpenAip";
-			LnkMapOpenAip.Size = new Size(140, 15);
-			LnkMapOpenAip.TabIndex = 41;
-			LnkMapOpenAip.TabStop = true;
-			LnkMapOpenAip.Text = "https://www.openaip.net";
-			// 
-			// CddMapOverlays
-			// 
-			CddMapOverlays.Location = new Point(114, 86);
-			CddMapOverlays.Name = "CddMapOverlays";
-			CddMapOverlays.Size = new Size(150, 23);
-			CddMapOverlays.TabIndex = 42;
-			// 
 			// FrmPreferences
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
@@ -772,7 +773,7 @@
 		private Label LbMapOpenAipKey;
 		private TextBox TbMapOpenAipKey;
 		private Label LbMapOverlays;
-		private LinkLabel LnkMapOpenAip;
+		private LinkLabel LnkMapOpenAipAttribution;
 		private UcCheckedDropDown CddMapOverlays;
 	}
 }

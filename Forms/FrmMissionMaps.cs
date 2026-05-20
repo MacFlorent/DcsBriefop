@@ -10,15 +10,14 @@ namespace DcsBriefop.Forms
 	internal partial class FrmMissionMaps : Form
 	{
 		#region Fields
-		private BriefopManager m_briefopManager;
-
+		private readonly BriefopManager m_bopManager;
 		private UcMap m_ucMap;
 		#endregion
 
 		#region CTOR
 		public FrmMissionMaps(BriefopManager briefopManager)
 		{
-			m_briefopManager = briefopManager;
+			m_bopManager = briefopManager;
 
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
@@ -28,11 +27,12 @@ namespace DcsBriefop.Forms
 			RbMapSelectionNeutral.Tag = ElementCoalition.Neutral;
 
 			MapTileSourceManager.FillComboBasemaps(CbMapProvider, CbMapProvider_SelectedValueChanged);
+			MapTileSourceManager.FillCheckDropDownOverlays(CddMapOverlays);
 		}
 
-		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
+		public static void CreateModal(BriefopManager bopManager, Form parentForm)
 		{
-			using FrmMissionMaps f = new(briefopManager);
+			using FrmMissionMaps f = new(bopManager);
 			f.ShowDialog(parentForm);
 		}
 		#endregion
@@ -42,45 +42,53 @@ namespace DcsBriefop.Forms
 		{
 			CbMapProvider.SelectedValueChanged -= CbMapProvider_SelectedValueChanged;
 
-			CbMapProvider.SelectedItem = MapTileSourceManager.TryGetBasemapOrDefault(m_briefopManager.BopMission.PreferencesMap.ProviderName);
+			CbMapProvider.SelectedItem = MapTileSourceManager.TryGetBasemapOrDefault(m_bopManager.BopMission.PreferencesMap.ProviderName);
+			CddMapOverlays.CheckedItemTexts = m_bopManager.BopMission.PreferencesMap.OverlayNames;
+			DisplayCurrentOverlays();
 
 			m_ucMap = new UcMap();
 			m_ucMap.Dock = DockStyle.Fill;
 			PnMap.Controls.Clear();
 			PnMap.Controls.Add(m_ucMap);
 
-			DataToScreenDetail();
+			DataToScreenMap();
 
 			CbMapProvider.SelectedValueChanged += CbMapProvider_SelectedValueChanged;
 		}
 
-		private void DataToScreenDetail()
+		private void DataToScreenMap()
 		{
 			string sCoalition = PnMapSelection.Controls.OfType<RadioButton>().Where(_rb => _rb.Checked).FirstOrDefault()?.Tag as string ?? "global";
 
 			MizBopMap mapData = null;
 			List<ILayer> staticLayers = [];
-			if (sCoalition is not null && m_briefopManager.BopMission.Coalitions.ContainsKey(sCoalition))
+			if (sCoalition is not null && m_bopManager.BopMission.Coalitions.TryGetValue(sCoalition, out BopCoalition bopCoalition))
 			{
-				BopCoalition bopCoalition = m_briefopManager.BopMission.Coalitions[sCoalition];
 				mapData = bopCoalition.MapData;
 				staticLayers.Add(bopCoalition.BuildStaticMapLayer());
 			}
 			else
 			{
-				mapData = m_briefopManager.BopMission.MapData;
-				staticLayers.Add(m_briefopManager.BopMission.BuildStaticMapLayer());
+				mapData = m_bopManager.BopMission.MapData;
+				staticLayers.Add(m_bopManager.BopMission.BuildStaticMapLayer());
 			}
 
 			m_ucMap.MapData = mapData;
 			m_ucMap.StaticLayers = staticLayers;
-			m_ucMap.MapProviderName = m_briefopManager.BopMission.PreferencesMap.ProviderName;
+			m_ucMap.MapProviderName = m_bopManager.BopMission.PreferencesMap.ProviderName;
+			m_ucMap.MapOverlayNames = m_bopManager.BopMission.PreferencesMap.OverlayNames;
 			m_ucMap.DataToScreen();
 		}
 
 		private void ScreenToData()
 		{
-			m_briefopManager.BopMission.PreferencesMap.ProviderName = (CbMapProvider.SelectedItem as MapTileSource)?.Name;
+			m_bopManager.BopMission.PreferencesMap.ProviderName = (CbMapProvider.SelectedItem as MapTileSource)?.Name;
+			m_bopManager.BopMission.PreferencesMap.OverlayNames = [.. CddMapOverlays.CheckedItemTexts];
+		}
+
+		private void DisplayCurrentOverlays()
+		{
+			LnkMapOpenAipAttribution.Visible = CddMapOverlays.CheckedItems.OfType<MapTileSourceOpenAip>().Any();
 		}
 		#endregion
 
@@ -98,13 +106,25 @@ namespace DcsBriefop.Forms
 
 		private void RbMapSelection_CheckedChanged(object sender, EventArgs e)
 		{
-			DataToScreenDetail();
+			DataToScreenMap();
 		}
 
 		private void CbMapProvider_SelectedValueChanged(object sender, EventArgs e)
 		{
 			ScreenToData();
-			DataToScreenDetail();
+			DataToScreenMap();
+		}
+
+		private void CddMapOverlays_ItemCheckedChanged(object sender, EventArgs e)
+		{
+			DisplayCurrentOverlays();
+			ScreenToData();
+			DataToScreenMap();
+		}
+
+		private void LnkMapOpenAipAttribution_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			MapTileSourceOpenAip.OpenAttributionLink();
 		}
 		#endregion
 
@@ -124,8 +144,8 @@ namespace DcsBriefop.Forms
 						using (new WaitDialog(this))
 						{
 							string sJson = File.ReadAllText(ofd.FileName);
-							ToolsLotatc.DrawingsFileJsonToMiz(sJson, m_briefopManager);
-							DataToScreenDetail();
+							ToolsLotatc.DrawingsFileJsonToMiz(sJson, m_bopManager);
+							DataToScreenMap();
 						}
 					}
 					catch (Exception ex)
