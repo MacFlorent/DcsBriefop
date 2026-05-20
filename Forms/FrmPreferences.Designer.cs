@@ -71,12 +71,17 @@
 			TpApplication = new TabPage();
 			TpMission = new TabPage();
 			TpBriefing = new TabPage();
+			LbBriefingHtmlCss = new Label();
+			CbBriefingHtmlCss = new ComboBox();
 			BtBriefingGenerationDirectoryReset = new Button();
 			BtBriefingGenerationDirectory = new Button();
 			LbBriefingGenerationDirectory = new Label();
 			TbBriefingGenerationDirectory = new TextBox();
-			LbBriefingHtmlCss = new Label();
-			CbBriefingHtmlCss = new ComboBox();
+			LbMapOverlays = new Label();
+			TbMapOpenAipKey = new TextBox();
+			LbMapOpenAipKey = new Label();
+			LnkMapOpenAip = new LinkLabel();
+			CddMapOverlays = new UcCheckedDropDown();
 			PnApplication.SuspendLayout();
 			PnMap.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)NudMapZoom).BeginInit();
@@ -327,6 +332,11 @@
 			// 
 			PnMap.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			PnMap.BorderStyle = BorderStyle.FixedSingle;
+			PnMap.Controls.Add(CddMapOverlays);
+			PnMap.Controls.Add(LnkMapOpenAip);
+			PnMap.Controls.Add(LbMapOpenAipKey);
+			PnMap.Controls.Add(TbMapOpenAipKey);
+			PnMap.Controls.Add(LbMapOverlays);
 			PnMap.Controls.Add(NudMapZoom);
 			PnMap.Controls.Add(CbMapProvider);
 			PnMap.Controls.Add(LbMapZoom);
@@ -335,7 +345,7 @@
 			PnMap.Location = new Point(4, 62);
 			PnMap.Margin = new Padding(4, 3, 4, 3);
 			PnMap.Name = "PnMap";
-			PnMap.Size = new Size(546, 99);
+			PnMap.Size = new Size(546, 167);
 			PnMap.TabIndex = 16;
 			// 
 			// NudMapZoom
@@ -427,7 +437,6 @@
 			UcBriefingImageSize.Location = new Point(140, 163);
 			UcBriefingImageSize.Margin = new Padding(4, 3, 4, 3);
 			UcBriefingImageSize.Name = "UcBriefingImageSize";
-			UcBriefingImageSize.SelectedSize = new Size(1, 1);
 			UcBriefingImageSize.Size = new Size(327, 27);
 			UcBriefingImageSize.TabIndex = 28;
 			// 
@@ -526,7 +535,7 @@
 			TpApplication.Location = new Point(4, 24);
 			TpApplication.Name = "TpApplication";
 			TpApplication.Padding = new Padding(3);
-			TpApplication.Size = new Size(560, 251);
+			TpApplication.Size = new Size(560, 273);
 			TpApplication.TabIndex = 0;
 			TpApplication.Text = "Application";
 			TpApplication.UseVisualStyleBackColor = true;
@@ -540,7 +549,7 @@
 			TpMission.Location = new Point(4, 24);
 			TpMission.Name = "TpMission";
 			TpMission.Padding = new Padding(3);
-			TpMission.Size = new Size(560, 251);
+			TpMission.Size = new Size(560, 273);
 			TpMission.TabIndex = 1;
 			TpMission.Text = "Mission";
 			TpMission.UseVisualStyleBackColor = true;
@@ -569,6 +578,25 @@
 			TpBriefing.TabIndex = 3;
 			TpBriefing.Text = "Briefing";
 			TpBriefing.UseVisualStyleBackColor = true;
+			// 
+			// LbBriefingHtmlCss
+			// 
+			LbBriefingHtmlCss.AutoSize = true;
+			LbBriefingHtmlCss.Location = new Point(9, 139);
+			LbBriefingHtmlCss.Margin = new Padding(4, 0, 4, 0);
+			LbBriefingHtmlCss.Name = "LbBriefingHtmlCss";
+			LbBriefingHtmlCss.Size = new Size(52, 15);
+			LbBriefingHtmlCss.TabIndex = 54;
+			LbBriefingHtmlCss.Text = "Css style";
+			// 
+			// CbBriefingHtmlCss
+			// 
+			CbBriefingHtmlCss.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			CbBriefingHtmlCss.FormattingEnabled = true;
+			CbBriefingHtmlCss.Location = new Point(140, 136);
+			CbBriefingHtmlCss.Name = "CbBriefingHtmlCss";
+			CbBriefingHtmlCss.Size = new Size(410, 23);
+			CbBriefingHtmlCss.TabIndex = 53;
 			// 
 			// BtBriefingGenerationDirectoryReset
 			// 
@@ -613,24 +641,51 @@
 			TbBriefingGenerationDirectory.Size = new Size(316, 23);
 			TbBriefingGenerationDirectory.TabIndex = 37;
 			// 
-			// LbBriefingHtmlCss
+			// LbMapOverlays
 			// 
-			LbBriefingHtmlCss.AutoSize = true;
-			LbBriefingHtmlCss.Location = new Point(9, 139);
-			LbBriefingHtmlCss.Margin = new Padding(4, 0, 4, 0);
-			LbBriefingHtmlCss.Name = "LbBriefingHtmlCss";
-			LbBriefingHtmlCss.Size = new Size(52, 15);
-			LbBriefingHtmlCss.TabIndex = 54;
-			LbBriefingHtmlCss.Text = "Css style";
+			LbMapOverlays.AutoSize = true;
+			LbMapOverlays.Location = new Point(14, 91);
+			LbMapOverlays.Margin = new Padding(4, 0, 4, 0);
+			LbMapOverlays.Name = "LbMapOverlays";
+			LbMapOverlays.Size = new Size(52, 15);
+			LbMapOverlays.TabIndex = 38;
+			LbMapOverlays.Text = "Overlays";
 			// 
-			// CbBriefingHtmlCss
+			// TbMapOpenAipKey
 			// 
-			CbBriefingHtmlCss.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			CbBriefingHtmlCss.FormattingEnabled = true;
-			CbBriefingHtmlCss.Location = new Point(140, 136);
-			CbBriefingHtmlCss.Name = "CbBriefingHtmlCss";
-			CbBriefingHtmlCss.Size = new Size(410, 23);
-			CbBriefingHtmlCss.TabIndex = 53;
+			TbMapOpenAipKey.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			TbMapOpenAipKey.Location = new Point(114, 115);
+			TbMapOpenAipKey.Margin = new Padding(4, 3, 4, 3);
+			TbMapOpenAipKey.Name = "TbMapOpenAipKey";
+			TbMapOpenAipKey.Size = new Size(316, 23);
+			TbMapOpenAipKey.TabIndex = 39;
+			// 
+			// LbMapOpenAipKey
+			// 
+			LbMapOpenAipKey.AutoSize = true;
+			LbMapOpenAipKey.Location = new Point(14, 118);
+			LbMapOpenAipKey.Margin = new Padding(4, 0, 4, 0);
+			LbMapOpenAipKey.Name = "LbMapOpenAipKey";
+			LbMapOpenAipKey.Size = new Size(75, 15);
+			LbMapOpenAipKey.TabIndex = 40;
+			LbMapOpenAipKey.Text = "OpenAIP key";
+			// 
+			// LnkMapOpenAip
+			// 
+			LnkMapOpenAip.AutoSize = true;
+			LnkMapOpenAip.Location = new Point(114, 141);
+			LnkMapOpenAip.Name = "LnkMapOpenAip";
+			LnkMapOpenAip.Size = new Size(140, 15);
+			LnkMapOpenAip.TabIndex = 41;
+			LnkMapOpenAip.TabStop = true;
+			LnkMapOpenAip.Text = "https://www.openaip.net";
+			// 
+			// CddMapOverlays
+			// 
+			CddMapOverlays.Location = new Point(114, 86);
+			CddMapOverlays.Name = "CddMapOverlays";
+			CddMapOverlays.Size = new Size(150, 23);
+			CddMapOverlays.TabIndex = 42;
 			// 
 			// FrmPreferences
 			// 
@@ -714,5 +769,10 @@
 		private Button BtBriefingGenerationDirectoryReset;
 		private Label LbBriefingHtmlCss;
 		private ComboBox CbBriefingHtmlCss;
+		private Label LbMapOpenAipKey;
+		private TextBox TbMapOpenAipKey;
+		private Label LbMapOverlays;
+		private LinkLabel LnkMapOpenAip;
+		private UcCheckedDropDown CddMapOverlays;
 	}
 }

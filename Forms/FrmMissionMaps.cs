@@ -27,7 +27,7 @@ namespace DcsBriefop.Forms
 			RbMapSelectionBlue.Tag = ElementCoalition.Blue;
 			RbMapSelectionNeutral.Tag = ElementCoalition.Neutral;
 
-			MapProviders.FillCombo(CbMapProvider, CbMapProvider_SelectedValueChanged);
+			MapTileSourceManager.FillComboBasemaps(CbMapProvider, CbMapProvider_SelectedValueChanged);
 		}
 
 		public static void CreateModal(BriefopManager briefopManager, Form parentForm)
@@ -42,7 +42,7 @@ namespace DcsBriefop.Forms
 		{
 			CbMapProvider.SelectedValueChanged -= CbMapProvider_SelectedValueChanged;
 
-			CbMapProvider.SelectedItem = MapProviders.TryGetProviderOrDefault(m_briefopManager.BopMission.PreferencesMap.ProviderName);
+			CbMapProvider.SelectedItem = MapTileSourceManager.TryGetBasemapOrDefault(m_briefopManager.BopMission.PreferencesMap.ProviderName);
 
 			m_ucMap = new UcMap();
 			m_ucMap.Dock = DockStyle.Fill;
@@ -80,7 +80,7 @@ namespace DcsBriefop.Forms
 
 		private void ScreenToData()
 		{
-			m_briefopManager.BopMission.PreferencesMap.ProviderName = (CbMapProvider.SelectedItem as MapProviders.MapProviderRecord)?.Name;
+			m_briefopManager.BopMission.PreferencesMap.ProviderName = (CbMapProvider.SelectedItem as MapTileSource)?.Name;
 		}
 		#endregion
 

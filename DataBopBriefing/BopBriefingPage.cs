@@ -167,8 +167,8 @@ namespace DcsBriefop.DataBopBriefing
 		#region Map
 		public Image BuildMapImage(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			MapProviders.MapProviderRecord provider = MapProviders.TryGetProviderOrDefault(bopManager.BopMission.PreferencesMap.ProviderName);
-			return ToolsMap.GenerateMapImage(MapData, provider.Factory(), GetMapAdditionalLayers(bopManager, bopBriefingFolder), bopBriefingFolder.ImageSize);
+			MapTileSource basemap = MapTileSourceManager.TryGetBasemapOrDefault(bopManager.BopMission.PreferencesMap.ProviderName);
+			return ToolsMap.GenerateMapImage(MapData, basemap.TileFactory(), GetMapAdditionalLayers(bopManager, bopBriefingFolder), bopBriefingFolder.ImageSize);
 		}
 
 		public IEnumerable<Mapsui.Layers.ILayer> GetMapAdditionalLayers(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)

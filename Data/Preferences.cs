@@ -63,6 +63,8 @@ namespace DcsBriefop.Data
 	{
 		public string ProviderName { get; set; } = BruTile.Predefined.KnownTileSource.OpenStreetMap.ToString();
 		public double Zoom { get; set; } = 9;
+		public List<string> OverlayNames { get; set; } = [];
+		public string OpenAipApiKey { get; set; } = string.Empty;
 
 		public void InitializeDefault() { }
 	}

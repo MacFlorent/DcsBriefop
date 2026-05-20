@@ -12,7 +12,6 @@ using Mapsui.Styles;
 using Mapsui.Tiling.Layers;
 using Mapsui.UI.WindowsForms;
 using SkiaSharp;
-using static DcsBriefop.Map.MapProviders;
 using Color = System.Drawing.Color;
 using Size = System.Drawing.Size;
 
@@ -24,7 +23,7 @@ namespace DcsBriefop.Tools
 		private static readonly HttpClient s_tileHttpClient = BuildTileHttpClient();
 		private static class LayerPrefix
 		{
-			public const string Tiles = "tiles:";
+			public const string Basemap = "basemap:";
 			public const string Overlay = "overlay:";
 		}
 		#endregion
@@ -58,40 +57,55 @@ namespace DcsBriefop.Tools
 
 		public static void InitializeMapControl(this MapControl mapControl, string sProviderName, IEnumerable<string> overlayNames)
 		{
-			mapControl.RefreshTileLayer(sProviderName);
-			mapControl.RefreshOverlayLayers(overlayNames);
+			mapControl.ChangeBasemapLayer(sProviderName);
+			mapControl.ChangeOverlayLayers(overlayNames);
 
 			MapRenderer.RegisterStyleRenderer(typeof(BriefopMarkerStyle), new BriefopMarkerStyleRenderer());
 			MapRenderer.RegisterStyleRenderer(typeof(BriefopLineStyle), new BriefopLineStyleRenderer());
 			MapRenderer.RegisterStyleRenderer(typeof(BriefopLabelStyle), new BriefopLabelStyleRenderer());
 		}
 
-		public static void RefreshTileLayer(this MapControl mapControl, string sProviderName)
+		public static void ChangeBasemapLayer(this MapControl mapControl, MapTileSource basemap)
 		{
-			MapProviderRecord mapProvider = TryGetProviderOrDefault(sProviderName);
+			mapControl.RemoveTileLayers(LayerPrefix.Basemap);
+			mapControl.Map.Layers.Add(new TileLayer(basemap.TileFactory()) { Name = $"{LayerPrefix.Basemap}{basemap.Name}" });
 
-			mapControl.RemoveTileLayers(LayerPrefix.Tiles);
-			mapControl.Map.Layers.Add(new TileLayer(mapProvider.Factory()) { Name = $"{LayerPrefix.Tiles}{mapProvider.Name}" });
-			
 			mapControl.OrderLayers();
 		}
 
-		public static void RefreshOverlayLayers(this MapControl mapControl, IEnumerable<string> overlayNames)
+		public static void ChangeBasemapLayer(this MapControl mapControl, string sProviderName)
+		{
+			MapTileSource basemap = MapTileSourceManager.TryGetBasemapOrDefault(sProviderName);
+			ChangeBasemapLayer(mapControl, basemap);
+		}
+
+		public static void ChangeOverlayLayers(this MapControl mapControl, IEnumerable<MapTileSource> overlays)
 		{
 			mapControl.RemoveTileLayers(LayerPrefix.Overlay);
 
-			if (overlayNames is not null)
+			if (overlays is not null)
 			{
-				foreach (MapOverlays.MapOverlayRecord overlay in MapOverlays.All.Where(_o => overlayNames.Contains(_o.Name)))
-					mapControl.Map.Layers.Add(new TileLayer(overlay.Factory()) { Name = $"{LayerPrefix.Overlay}{overlay.Name}" });
+				foreach (MapTileSource overlay in overlays)
+					mapControl.Map.Layers.Add(new TileLayer(overlay.TileFactory()) { Name = $"{LayerPrefix.Overlay}{overlay.Name}" });
 			}
 
 			mapControl.OrderLayers();
 		}
 
+		public static void ChangeOverlayLayers(this MapControl mapControl, IEnumerable<string> overlayNames)
+		{
+			List<MapTileSource> overlays = null;
+			if (overlayNames is not null)
+			{
+				overlays = [.. MapTileSourceManager.Overlays.Where(_o => overlayNames.Contains(_o.Name))];
+			}
+
+			ChangeOverlayLayers(mapControl, overlays);
+		}
+
 		public static void OrderLayers(this MapControl mapControl)
 		{
-			List<ILayer> tiles = [.. mapControl.Map.Layers.OfType<TileLayer>().Where(_l => _l.Name?.StartsWith(LayerPrefix.Tiles) == true).Cast<ILayer>()];
+			List<ILayer> tiles = [.. mapControl.Map.Layers.OfType<TileLayer>().Where(_l => _l.Name?.StartsWith(LayerPrefix.Basemap) == true).Cast<ILayer>()];
 			List<ILayer> overlays = [.. mapControl.Map.Layers.OfType<TileLayer>().Where(_l => _l.Name?.StartsWith(LayerPrefix.Overlay) == true).Cast<ILayer>()];
 			List<ILayer> memory = [.. mapControl.Map.Layers.OfType<MemoryLayer>().Cast<ILayer>()];
 

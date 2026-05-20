@@ -40,6 +40,22 @@ namespace DcsBriefop.Forms
 			}
 		}
 
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+		public IEnumerable<string> CheckedItemTexts
+		{
+			get => m_checkedList.CheckedItems.Cast<object>().Select(item => m_checkedList.GetItemText(item));
+			set
+			{
+				m_checkedList.ItemCheck -= CheckedList_ItemCheck;
+				HashSet<string> checkedSet = value?.Select(v => v?.ToString() ?? string.Empty).ToHashSet() ?? [];
+				for (int i = 0; i < m_checkedList.Items.Count; i++)
+					m_checkedList.SetItemChecked(i, checkedSet.Contains(m_checkedList.GetItemText(m_checkedList.Items[i])));
+
+				UpdateButton();
+				m_checkedList.ItemCheck += CheckedList_ItemCheck;
+			}
+		}
+
 		public event EventHandler ItemCheckedChanged;
 		#endregion
 
