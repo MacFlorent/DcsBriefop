@@ -8,17 +8,24 @@ namespace DcsBriefop.Map
 	{
 		// ArcGIS tile URL order is {z}/{y}/{x} (level/row/col).
 		// XyzUrlBuilder maps {y}→Row and {x}→Col, so the template below produces the correct path without any axis swap.
+		// Use YAxis.TMS for servers where y=0 is at the south pole (TMS convention), e.g. Flappie DCS maps.
 
 		#region Fields
 		private readonly string m_sUrlTemplate;
-		private readonly int m_iMinZoomLevel = 0;
-		private readonly int m_iMaxZoomLevel = 18;
+		private readonly YAxis m_yAxis;
+		private readonly int m_iMinZoomLevel;
+		private readonly int m_iMaxZoomLevel;
 		#endregion
 
 		#region CTOR
-		public MapTileSourceXyz(string sName, string sUrlTemplate) : base(sName, null)
+		public MapTileSourceXyz(string sName, string sUrlTemplate) : this(sName, sUrlTemplate, YAxis.OSM, 0, 18) { }
+
+		public MapTileSourceXyz(string sName, string sUrlTemplate, YAxis yAxis, int iMinZoomLevel, int iMaxZoomLevel) : base(sName, null)
 		{
 			m_sUrlTemplate = sUrlTemplate;
+			m_yAxis = yAxis;
+			m_iMinZoomLevel = iMinZoomLevel;
+			m_iMaxZoomLevel = iMaxZoomLevel;
 			TileFactory = CreateTileSource;
 		}
 		#endregion
@@ -26,7 +33,7 @@ namespace DcsBriefop.Map
 		#region Methods
 		private HttpTileSource CreateTileSource()
 		{
-			return new HttpTileSource(new GlobalSphericalMercator(YAxis.OSM, m_iMinZoomLevel, m_iMaxZoomLevel), new XyzUrlBuilder(m_sUrlTemplate), Name, null, null, null);
+			return new HttpTileSource(new GlobalSphericalMercator(m_yAxis, m_iMinZoomLevel, m_iMaxZoomLevel), new XyzUrlBuilder(m_sUrlTemplate), Name, null, null, null);
 		}
 		#endregion
 

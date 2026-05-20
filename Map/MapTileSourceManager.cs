@@ -88,7 +88,7 @@ namespace DcsBriefop.Map
 			foreach (KnownTileSource s in s_knownSourcesBasemaps)
 				s_basemaps.Add(new(s.ToString(), () => KnownTileSources.Create(s)));
 
-			s_basemaps.Add(new MapTileSourceWms("Flappie", "http://dcsmaps.com/cgi-bin/mapserv?map=CAUCASUS_MAPFILE", "LAYERS=Isolines,Rivers,Water,Railroad,Powerlines,Roads,LBridges,Tunnels,Bridges,Borders,Landmarks,Derricks,Obstacle,MGRS-grid,MGRS-37T,MGRS-38T,Cities,Towns,Airbases,DB,DME,NDB,TACAN,VOR"));
+			s_basemaps.Add(new MapTileSourceXyz("Flappie", "http://dcsmaps.com/caucasus/{z}/{x}/{y}.png", BruTile.YAxis.TMS, 8, 12));
 			s_basemaps.Add(new MapTileSourceXyz("OpenTopoMap", "https://tile.opentopomap.org/{z}/{x}/{y}.png"));
 			s_basemaps.Add(new MapTileSourceXyz("FAA VFR Sectional", "https://tiles.arcgis.com/tiles/ssFJjBXIUyZDrSYZ/arcgis/rest/services/VFR_Sectional/MapServer/tile/{z}/{y}/{x}"));
 			s_basemaps.Add(new MapTileSourceXyz("FAA VFR Terminal", "https://tiles.arcgis.com/tiles/ssFJjBXIUyZDrSYZ/arcgis/rest/services/VFR_Terminal/MapServer/tile/{z}/{y}/{x}"));
@@ -104,6 +104,7 @@ namespace DcsBriefop.Map
 				s_overlays.Add(new(s.ToString(), () => KnownTileSources.Create(s)));
 
 			s_overlays.Add(new MapTileSourceOpenAip());
+			s_overlays.Add(new MapTileSourceWms("Flappie Overlays", "http://dcsmaps.com/cgi-bin/mapserv?map=CAUCASUS_MAPFILE", "LAYERS=Isolines,Rivers,Water,Railroad,Powerlines,Roads,LBridges,Tunnels,Bridges,Borders,Landmarks,Derricks,Obstacle,MGRS-grid,MGRS-37T,MGRS-38T,Cities,Towns,Airbases,DB,DME,NDB,TACAN,VOR"));
 		}
 		#endregion
 
