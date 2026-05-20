@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Data;
+﻿using BruTile;
+using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
@@ -135,7 +136,7 @@ namespace DcsBriefop.DataBopBriefing
 
 		private HtmlTag BuildHtmlBodyHeader(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			HtmlTag tag = new HtmlTag("header");
+			HtmlTag tag = new("header");
 			tag.Add("h1").AppendText(Title);
 			return tag;
 		}
@@ -168,7 +169,8 @@ namespace DcsBriefop.DataBopBriefing
 		public Image BuildMapImage(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			MapTileSource basemap = MapTileSourceManager.TryGetBasemapOrDefault(bopManager.BopMission.PreferencesMap.ProviderName);
-			return ToolsMap.GenerateMapImage(MapData, basemap.TileFactory(), GetMapAdditionalLayers(bopManager, bopBriefingFolder), bopBriefingFolder.ImageSize);
+			IEnumerable<MapTileSource> overlays = MapTileSourceManager.Overlays.Where(_o => bopManager.BopMission.PreferencesMap.OverlayNames.Contains(_o.Name));
+			return ToolsMap.GenerateMapImage(MapData, basemap, overlays, GetMapAdditionalLayers(bopManager, bopBriefingFolder), bopBriefingFolder.ImageSize);
 		}
 
 		public IEnumerable<Mapsui.Layers.ILayer> GetMapAdditionalLayers(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)

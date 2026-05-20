@@ -110,6 +110,7 @@ namespace DcsBriefop.Forms
 		private void DisplayCurrentOverlays()
 		{
 			IEnumerable<MapTileSource> checkedOverlays = CddMapOverlays.CheckedItems.Cast<MapTileSource>();
+			LnkMapOpenAipAttribution.Visible = checkedOverlays.OfType<MapTileSourceOpenAip>().Any();
 			MapControl.ChangeOverlayLayers(checkedOverlays);
 		}
 
@@ -185,6 +186,12 @@ namespace DcsBriefop.Forms
 			m_theatre = new Theatre(CbTheatre.SelectedValue as string);
 			DisplayCurrentTheatre();
 		}
+
+		private void LnkMapOpenAipAttribution_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			MapTileSourceOpenAip.OpenAttributionLink();
+		}
 		#endregion
+
 	}
 }

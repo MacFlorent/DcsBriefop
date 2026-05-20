@@ -131,27 +131,25 @@ namespace DcsBriefop.Forms
 		#region POC LOTATC drawings
 		private void BtImportDrawingsFile_Click(object sender, EventArgs e)
 		{
-			using (OpenFileDialog ofd = new OpenFileDialog())
-			{
-				ofd.InitialDirectory = PreferencesManager.Preferences.Application.WorkingDirectory;
-				ofd.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*";
-				ofd.RestoreDirectory = true;
+			using OpenFileDialog ofd = new();
+			ofd.InitialDirectory = PreferencesManager.Preferences.Application.WorkingDirectory;
+			ofd.Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*";
+			ofd.RestoreDirectory = true;
 
-				if (ofd.ShowDialog() == DialogResult.OK)
+			if (ofd.ShowDialog() == DialogResult.OK)
+			{
+				try
 				{
-					try
+					using (new WaitDialog(this))
 					{
-						using (new WaitDialog(this))
-						{
-							string sJson = File.ReadAllText(ofd.FileName);
-							ToolsLotatc.DrawingsFileJsonToMiz(sJson, m_bopManager);
-							DataToScreenMap();
-						}
+						string sJson = File.ReadAllText(ofd.FileName);
+						ToolsLotatc.DrawingsFileJsonToMiz(sJson, m_bopManager);
+						DataToScreenMap();
 					}
-					catch (Exception ex)
-					{
-						ToolsControls.ShowMessageBoxAndLogException("Failed to import lotatc drawings file.", ex);
-					}
+				}
+				catch (Exception ex)
+				{
+					ToolsControls.ShowMessageBoxAndLogException("Failed to import lotatc drawings file.", ex);
 				}
 			}
 		}

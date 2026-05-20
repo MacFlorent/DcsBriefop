@@ -40,6 +40,7 @@ namespace DcsBriefop.Forms
 			CbMapProvider = new ComboBox();
 			LbMapProvider = new Label();
 			CddMapOverlays = new UcCheckedDropDown();
+			LnkMapOpenAipAttribution = new LinkLabel();
 			SuspendLayout();
 			// 
 			// CbTheatre
@@ -160,11 +161,25 @@ namespace DcsBriefop.Forms
 			CddMapOverlays.TabIndex = 12;
 			CddMapOverlays.ItemCheckedChanged += CddMapOverlays_ItemCheckedChanged;
 			// 
+			// LnkMapOpenAipAttribution
+			// 
+			LnkMapOpenAipAttribution.AutoSize = true;
+			LnkMapOpenAipAttribution.Location = new Point(638, 13);
+			LnkMapOpenAipAttribution.Margin = new Padding(4, 0, 4, 0);
+			LnkMapOpenAipAttribution.Name = "LnkMapOpenAipAttribution";
+			LnkMapOpenAipAttribution.Size = new Size(121, 15);
+			LnkMapOpenAipAttribution.TabIndex = 13;
+			LnkMapOpenAipAttribution.TabStop = true;
+			LnkMapOpenAipAttribution.Text = "Map data © OpenAIP";
+			LnkMapOpenAipAttribution.Visible = false;
+			LnkMapOpenAipAttribution.LinkClicked += LnkMapOpenAipAttribution_LinkClicked;
+			// 
 			// FrmTheatre
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(1078, 676);
+			Controls.Add(LnkMapOpenAipAttribution);
 			Controls.Add(CddMapOverlays);
 			Controls.Add(CbMapProvider);
 			Controls.Add(LbMapProvider);
@@ -199,5 +214,6 @@ namespace DcsBriefop.Forms
 		private ComboBox CbMapProvider;
 		private Label LbMapProvider;
 		private UcCheckedDropDown CddMapOverlays;
+		private LinkLabel LnkMapOpenAipAttribution;
 	}
 }

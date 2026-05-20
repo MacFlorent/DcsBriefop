@@ -338,13 +338,13 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region Image Generation
-		public static Bitmap GenerateMapImage(MizBopMap mapData, ITileSource tileSource, IEnumerable<ILayer> mapLayers, Size outputSize)
+		public static Bitmap GenerateMapImage(MizBopMap mapData, MapTileSource basemapSource, IEnumerable<MapTileSource> overlaySources, IEnumerable<ILayer> mapLayers, Size outputSize)
 		{
 			GeoPoint center = new(mapData.CenterLatitude, mapData.CenterLongitude);
-			return GenerateMapImage(center, (int)mapData.Zoom, tileSource, mapLayers, outputSize);
+			return GenerateMapImage(center, (int)mapData.Zoom, basemapSource, overlaySources, mapLayers, outputSize);
 		}
 
-		public static Bitmap GenerateMapImage(GeoPoint center, int iZoom, ITileSource tileSource, IEnumerable<ILayer> mapLayers, Size outputSize)
+		public static Bitmap GenerateMapImage(GeoPoint center, int iZoom, MapTileSource basemapSource, IEnumerable<MapTileSource> overlaySources, IEnumerable<ILayer> mapLayers, Size outputSize)
 		{
 			MPoint centerWorld = MapProjection.ToMPoint(center);
 			double dResolution = MapProjection.ZoomToResolution(iZoom);
@@ -353,42 +353,18 @@ namespace DcsBriefop.Tools
 			double dWorldLeft = centerWorld.X - dHalfW;
 			double dWorldTop = centerWorld.Y + dHalfH;
 
-			BruTile.Extent worldExtent = new(centerWorld.X - dHalfW, centerWorld.Y - dHalfH, centerWorld.X + dHalfW, centerWorld.Y + dHalfH);
-			int iLevelId = GetClosestLevelId(tileSource.Schema, dResolution);
-			List<TileInfo> tileInfos = [.. tileSource.Schema.GetTileInfos(worldExtent, iLevelId)];
+			Extent worldExtent = new(centerWorld.X - dHalfW, centerWorld.Y - dHalfH, centerWorld.X + dHalfW, centerWorld.Y + dHalfH);
 
 			using SKBitmap skBitmap = new(outputSize.Width, outputSize.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
 			using SKCanvas canvas = new(skBitmap);
 			canvas.Clear(SKColors.LightGray);
 
-			// ITileSource has no GetTile in BruTile 6.0; HttpTileSource.GetTileAsync is the concrete async fetch method.
-			// Tasks must be created and awaited inside Task.Run so continuations run on thread-pool threads,
-			// not on the UI SynchronizationContext that is blocked by GetResult() (avoids deadlock).
-			if (tileSource is HttpTileSource httpSource)
+			DrawTileLayer(canvas, basemapSource.TileFactory(), worldExtent, dWorldLeft, dWorldTop, dResolution);
+
+			if (overlaySources is not null)
 			{
-				byte[][] tileData = Task.Run(async () =>
-				{
-					Task<byte[]>[] tasks = [.. tileInfos.Select(_ti => httpSource.GetTileAsync(s_tileHttpClient, _ti))];
-					try { await Task.WhenAll(tasks).ConfigureAwait(false); } catch { }
-					return tasks.Select(_t => _t.IsCompletedSuccessfully ? _t.Result : null).ToArray();
-				}).GetAwaiter().GetResult();
-
-				for (int i = 0; i < tileInfos.Count; i++)
-				{
-					if (tileData[i] is null || tileData[i].Length == 0)
-						continue;
-
-					using SKBitmap tileBitmap = SKBitmap.Decode(tileData[i]);
-					if (tileBitmap is null)
-						continue;
-
-					BruTile.Extent e = tileInfos[i].Extent;
-					float fX = (float)((e.MinX - dWorldLeft) / dResolution);
-					float fY = (float)((dWorldTop - e.MaxY) / dResolution);
-					float fW = (float)((e.MaxX - e.MinX) / dResolution);
-					float fH = (float)((e.MaxY - e.MinY) / dResolution);
-					canvas.DrawBitmap(tileBitmap, new SKRect(fX, fY, fX + fW, fY + fH));
-				}
+				foreach (ITileSource overlayTileSource in overlaySources.Select(_o => _o.TileFactory()))
+					DrawTileLayer(canvas, overlayTileSource, worldExtent, dWorldLeft, dWorldTop, dResolution);
 			}
 
 			if (mapLayers is not null)
@@ -401,6 +377,42 @@ namespace DcsBriefop.Tools
 			using SKData skData = skImage.Encode(SKEncodedImageFormat.Png, 100);
 			using MemoryStream ms = new(skData.ToArray());
 			return new Bitmap(ms);
+		}
+
+		// ITileSource has no GetTile in BruTile 6.0; HttpTileSource.GetTileAsync is the concrete async fetch method.
+		// Tasks must be created and awaited inside Task.Run so continuations run on thread-pool threads,
+		// not on the UI SynchronizationContext that is blocked by GetResult() (avoids deadlock).
+		private static void DrawTileLayer(SKCanvas canvas, ITileSource tileSource, Extent worldExtent, double dWorldLeft, double dWorldTop, double dResolution)
+		{
+			if (tileSource is not HttpTileSource httpSource)
+				return;
+
+			int iLevelId = GetClosestLevelId(tileSource.Schema, dResolution);
+			List<TileInfo> tileInfos = [.. tileSource.Schema.GetTileInfos(worldExtent, iLevelId)];
+
+			byte[][] tileData = Task.Run(async () =>
+			{
+				Task<byte[]>[] tasks = [.. tileInfos.Select(_ti => httpSource.GetTileAsync(s_tileHttpClient, _ti))];
+				try { await Task.WhenAll(tasks).ConfigureAwait(false); } catch { }
+				return tasks.Select(_t => _t.IsCompletedSuccessfully ? _t.Result : null).ToArray();
+			}).GetAwaiter().GetResult();
+
+			for (int i = 0; i < tileInfos.Count; i++)
+			{
+				if (tileData[i] is null || tileData[i].Length == 0)
+					continue;
+
+				using SKBitmap tileBitmap = SKBitmap.Decode(tileData[i]);
+				if (tileBitmap is null)
+					continue;
+
+				Extent e = tileInfos[i].Extent;
+				float fX = (float)((e.MinX - dWorldLeft) / dResolution);
+				float fY = (float)((dWorldTop - e.MaxY) / dResolution);
+				float fW = (float)((e.MaxX - e.MinX) / dResolution);
+				float fH = (float)((e.MaxY - e.MinY) / dResolution);
+				canvas.DrawBitmap(tileBitmap, new SKRect(fX, fY, fX + fW, fY + fH));
+			}
 		}
 
 		private static int GetClosestLevelId(ITileSchema schema, double dResolution)
@@ -421,7 +433,7 @@ namespace DcsBriefop.Tools
 			return iBestLevel;
 		}
 
-		private static void RenderMapLayers(SKCanvas canvas, Mapsui.Viewport viewport, IEnumerable<ILayer> mapLayers)
+		private static void RenderMapLayers(SKCanvas canvas, Viewport viewport, IEnumerable<ILayer> mapLayers)
 		{
 			// Custom style renderers don't use RenderService; call them directly to avoid MapRenderer.Render parameter complexity
 			Dictionary<Type, ISkiaStyleRenderer> styleRenderers = new()
