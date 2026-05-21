@@ -46,7 +46,7 @@
 	}
 
 	[Flags]
-	internal enum ElementMapOverlayRouteDisplay
+	internal enum ElementMapLayerRouteDisplay
 	{
 		None = 0,
 		NoMarkerFirstPoint = 1,
@@ -134,7 +134,7 @@
 
 	internal static class ElementMapValue
 	{
-		public static readonly string OverlayStatic = "static";
+		public static readonly string MapLayerStatic = "static";
 
 		public static readonly string DefaultFontFamily = "Arial";
 		public static readonly float DefaultFontSize = 12f;

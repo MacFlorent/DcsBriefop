@@ -96,7 +96,7 @@ namespace DcsBriefop.DataBopMission
 			MemoryLayer drawingMapLayer = ToolsMap.BuildMizDrawingMapLayer(Theatre, [.. Miz.RootMission.DrawingLayers.Where(_dl => string.Compare(_dl.Name, CoalitionName, true) == 0)]);
 			mapFeatures.AddRange(drawingMapLayer.Features);
 
-			return new MemoryLayer($"{ElementMapValue.OverlayStatic}_{CoalitionName}") { Style = null, Features = mapFeatures };
+			return new MemoryLayer($"{ElementMapValue.MapLayerStatic}_{CoalitionName}") { Style = null, Features = mapFeatures };
 		}
 
 		public void UpdateBullseyeRoutePoint(BopRoutePoint bullseyeRoutePoint)

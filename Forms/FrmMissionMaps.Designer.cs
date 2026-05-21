@@ -32,6 +32,8 @@
 			BtImportDrawingsFile = new Button();
 			LbMapProvider = new Label();
 			CbMapProvider = new ComboBox();
+			CddMapOverlays = new UcCheckedDropDown();
+			LnkMapOpenAipAttribution = new LinkLabel();
 			PnMapSelection = new Panel();
 			LbMaps = new Label();
 			RbMapSelectionNeutral = new RadioButton();
@@ -48,6 +50,8 @@
 			PnTop.Controls.Add(BtImportDrawingsFile);
 			PnTop.Controls.Add(LbMapProvider);
 			PnTop.Controls.Add(CbMapProvider);
+			PnTop.Controls.Add(CddMapOverlays);
+			PnTop.Controls.Add(LnkMapOpenAipAttribution);
 			PnTop.Controls.Add(PnMapSelection);
 			PnTop.Dock = DockStyle.Top;
 			PnTop.Location = new Point(0, 0);
@@ -58,7 +62,7 @@
 			// 
 			// BtImportDrawingsFile
 			// 
-			BtImportDrawingsFile.Location = new Point(867, 15);
+			BtImportDrawingsFile.Location = new Point(1025, 12);
 			BtImportDrawingsFile.Name = "BtImportDrawingsFile";
 			BtImportDrawingsFile.Size = new Size(164, 27);
 			BtImportDrawingsFile.TabIndex = 7;
@@ -86,6 +90,29 @@
 			CbMapProvider.TabIndex = 5;
 			CbMapProvider.SelectedValueChanged += CbMapProvider_SelectedValueChanged;
 			// 
+			// CddMapOverlays
+			// 
+			CddMapOverlays.Label = "Overlays";
+			CddMapOverlays.Location = new Point(251, 16);
+			CddMapOverlays.Margin = new Padding(4, 3, 4, 3);
+			CddMapOverlays.Name = "CddMapOverlays";
+			CddMapOverlays.Size = new Size(150, 23);
+			CddMapOverlays.TabIndex = 9;
+			CddMapOverlays.ItemCheckedChanged += CddMapOverlays_ItemCheckedChanged;
+			// 
+			// LnkMapOpenAipAttribution
+			// 
+			LnkMapOpenAipAttribution.AutoSize = true;
+			LnkMapOpenAipAttribution.Location = new Point(251, 1);
+			LnkMapOpenAipAttribution.Margin = new Padding(4, 0, 4, 0);
+			LnkMapOpenAipAttribution.Name = "LnkMapOpenAipAttribution";
+			LnkMapOpenAipAttribution.Size = new Size(121, 15);
+			LnkMapOpenAipAttribution.TabIndex = 10;
+			LnkMapOpenAipAttribution.TabStop = true;
+			LnkMapOpenAipAttribution.Text = "Map data © OpenAIP";
+			LnkMapOpenAipAttribution.Visible = false;
+			LnkMapOpenAipAttribution.LinkClicked += LnkMapOpenAipAttribution_LinkClicked;
+			// 
 			// PnMapSelection
 			// 
 			PnMapSelection.AutoSize = true;
@@ -95,7 +122,7 @@
 			PnMapSelection.Controls.Add(RbMapSelectionGlobal);
 			PnMapSelection.Controls.Add(RbMapSelectionRed);
 			PnMapSelection.Controls.Add(RbMapSelectionBlue);
-			PnMapSelection.Location = new Point(251, 8);
+			PnMapSelection.Location = new Point(409, 5);
 			PnMapSelection.Margin = new Padding(4, 3, 4, 3);
 			PnMapSelection.Name = "PnMapSelection";
 			PnMapSelection.Size = new Size(609, 38);
@@ -208,5 +235,7 @@
 		private System.Windows.Forms.ComboBox CbMapProvider;
 		private System.Windows.Forms.Label LbMaps;
 		private Button BtImportDrawingsFile;
+		private UcCheckedDropDown CddMapOverlays;
+		private LinkLabel LnkMapOpenAipAttribution;
 	}
 }

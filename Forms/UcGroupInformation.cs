@@ -57,7 +57,7 @@ namespace DcsBriefop.Forms
 				m_mapControl.Map.Layers.Remove(mapLayer);
 
 			m_mapControl.Map.Layers.Add(m_bopGroup.GetPositionMapLayer());
-			m_mapControl.Map.Layers.Add(m_bopGroup.GetRouteMapLayer(null, ElementMapOverlayRouteDisplay.NoMarkerFirstPoint, PreferencesManager.Preferences.Briefing.MeasurementSystem));
+			m_mapControl.Map.Layers.Add(m_bopGroup.GetRouteMapLayer(null, ElementMapLayerRouteDisplay.NoMarkerFirstPoint, PreferencesManager.Preferences.Briefing.MeasurementSystem));
 
 			MPoint center = MapProjection.ToMPoint(m_bopGroup.Coordinate.Latitude.DecimalDegree, m_bopGroup.Coordinate.Longitude.DecimalDegree);
 			m_mapControl.Map.Navigator.CenterOnAndZoomTo(center, MapProjection.ZoomToResolution((int)PreferencesManager.Preferences.Map.Zoom), 0, null);

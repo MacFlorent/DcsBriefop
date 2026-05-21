@@ -11,9 +11,9 @@ namespace DcsBriefop.Forms
 	internal partial class FrmTheatre : Form
 	{
 		#region Fields
-		private BriefopManager m_briefopManager;
+		private readonly Color m_LayerColor = Color.OrangeRed;
+		private readonly BriefopManager m_briefopManager;
 		private Theatre m_theatre;
-		private Color m_OverlayColor = Color.OrangeRed;
 		#endregion
 
 		#region CTOR
@@ -24,8 +24,8 @@ namespace DcsBriefop.Forms
 			InitializeComponent();
 			ToolsStyle.ApplyStyle(this);
 
-			string sProviderName = m_briefopManager?.BopMission.PreferencesMap.ProviderName ?? PreferencesManager.Preferences.Map.ProviderName;
-			MapControl.InitializeMapControl(sProviderName);
+			MapTileSourceManager.FillComboBasemaps(CbMapProvider, CbMapProvider_SelectedValueChanged);
+			MapTileSourceManager.FillCheckDropDownOverlays(CddMapOverlays);
 
 			CbTheatre.ValueMember = "Value";
 			CbTheatre.DisplayMember = "Key";
@@ -40,26 +40,33 @@ namespace DcsBriefop.Forms
 				{ "Syria", ElementTheatreName.Syria},
 				{ "The Channel", ElementTheatreName.TheChannel},
 			}.ToList();
+
+			MapControl.InitializeMapControl(null, null);
 		}
 		#endregion
 
 		#region Methods
 		private void DataToScreen()
 		{
+			CbMapProvider.SelectedValueChanged -= CbMapProvider_SelectedValueChanged;
 			CbTheatre.SelectedIndexChanged -= CbTheatre_SelectedIndexChanged;
 
+			string sProviderName = m_briefopManager?.BopMission.PreferencesMap.ProviderName ?? PreferencesManager.Preferences.Map.ProviderName;
+			CbMapProvider.SelectedItem = MapTileSourceManager.TryGetBasemapOrDefault(sProviderName);
+			CddMapOverlays.CheckedItemTexts = m_briefopManager?.BopMission.PreferencesMap.OverlayNames ?? PreferencesManager.Preferences.Map.OverlayNames;
+
 			if (m_briefopManager is not null)
-			{
 				CbTheatre.Text = m_briefopManager.BopMission.Theatre.Name;
-			}
 			else
-			{
 				CbTheatre.Text = ElementTheatreName.Caucasus;
-			}
+
+			DisplayCurrentBasemap();
+			DisplayCurrentOverlays();
 
 			m_theatre = new(CbTheatre.SelectedValue as string);
 			DisplayCurrentTheatre();
 
+			CbMapProvider.SelectedValueChanged += CbMapProvider_SelectedValueChanged;
 			CbTheatre.SelectedIndexChanged += CbTheatre_SelectedIndexChanged;
 		}
 
@@ -74,19 +81,37 @@ namespace DcsBriefop.Forms
 			TbMapDataStatic.Clear();
 			LbMapDataDynamic.Text = null;
 
-			foreach (MemoryLayer layer in MapControl.Map.Layers.OfType<MemoryLayer>().ToList())
-				MapControl.Map.Layers.Remove(layer);
+			DisplayCurrentAirdromes();
+		}
+
+		private void DisplayCurrentAirdromes()
+		{
+			string sName = "airdromes:";
+			MapControl.RemoveMemoryLayers(sName);
 
 			List<IFeature> features = [];
 			foreach (Airdrome airdrome in m_theatre.Airdromes)
 			{
 				GeoPoint pos = new(airdrome.Latitude, airdrome.Longitude);
-				BriefopMarker marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Airdrome, m_OverlayColor, airdrome.Name, null, 0f, 1, 0);
+				BriefopMarker marker = BriefopMarker.NewFromTemplateName(pos, ElementMapTemplateMarker.Airdrome, m_LayerColor, airdrome.Name, null, 0f, 1, 0);
 				PointFeature feature = new(MapProjection.ToMPoint(marker.Position));
 				feature.Styles.Add(new BriefopMarkerStyle(marker));
 				features.Add(feature);
 			}
-			MapControl.Map.Layers.Add(new MemoryLayer { Style = null, Features = features });
+			MapControl.Map.Layers.Add(new MemoryLayer { Name = sName, Style = null, Features = features });
+		}
+
+		private void DisplayCurrentBasemap()
+		{
+			string sProviderName = (CbMapProvider.SelectedItem as MapTileSource)?.Name;
+			MapControl.ChangeBasemapLayer(sProviderName);
+		}
+
+		private void DisplayCurrentOverlays()
+		{
+			IEnumerable<MapTileSource> checkedOverlays = CddMapOverlays.CheckedItems.Cast<MapTileSource>();
+			LnkMapOpenAipAttribution.Visible = checkedOverlays.OfType<MapTileSourceOpenAip>().Any();
+			MapControl.ChangeOverlayLayers(checkedOverlays);
 		}
 
 		private string GetStringCoordinates(Coordinate coordinate)
@@ -109,6 +134,16 @@ namespace DcsBriefop.Forms
 			DisplayCurrentTheatre();
 		}
 
+		private void CbMapProvider_SelectedValueChanged(object sender, EventArgs e)
+		{
+			DisplayCurrentBasemap();
+		}
+
+		private void CddMapOverlays_ItemCheckedChanged(object sender, EventArgs e)
+		{
+			DisplayCurrentOverlays();
+		}
+
 		private void MapControl_MapPointerMoved(object sender, MapEventArgs e)
 		{
 			GeoPoint geoPoint = MapProjection.ToGeoPoint(e.WorldPosition);
@@ -128,7 +163,7 @@ namespace DcsBriefop.Forms
 			foreach (MemoryLayer layer in MapControl.Map.Layers.OfType<MemoryLayer>().Where(_l => _l.Name == "ClickPoint").ToList())
 				MapControl.Map.Layers.Remove(layer);
 
-			BriefopMarker clickMarker = BriefopMarker.NewFromTemplateName(geoPoint, ElementMapTemplateMarker.Waypoint, m_OverlayColor, null, null, 0f, 1, 0);
+			BriefopMarker clickMarker = BriefopMarker.NewFromTemplateName(geoPoint, ElementMapTemplateMarker.Waypoint, m_LayerColor, null, null, 0f, 1, 0);
 			PointFeature clickFeature = new(MapProjection.ToMPoint(clickMarker.Position));
 			clickFeature.Styles.Add(new BriefopMarkerStyle(clickMarker));
 			MapControl.Map.Layers.Add(new MemoryLayer { Name = "ClickPoint", Style = null, Features = [clickFeature] });
@@ -151,6 +186,12 @@ namespace DcsBriefop.Forms
 			m_theatre = new Theatre(CbTheatre.SelectedValue as string);
 			DisplayCurrentTheatre();
 		}
+
+		private void LnkMapOpenAipAttribution_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			MapTileSourceOpenAip.OpenAttributionLink();
+		}
 		#endregion
+
 	}
 }

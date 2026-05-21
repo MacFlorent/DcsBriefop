@@ -18,6 +18,7 @@ namespace DcsBriefop
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
 			OptionsCommon commandLineOptions = ToolsCommandLine.ParseCommandLine(args);
+			ToolsMap.ConfigureMapsui();
 			if (commandLineOptions is OptionsBatch optionsBatch)
 			{
 				return MainBatch(optionsBatch);

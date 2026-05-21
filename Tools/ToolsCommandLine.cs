@@ -30,14 +30,14 @@ namespace DcsBriefop.Tools
 	internal static class ToolsCommandLine
 	{
 		#region Fields
-		private static StringBuilder m_parserTextBuilder = new StringBuilder();
-		private static StringWriter m_parserTextWriter = new StringWriter(m_parserTextBuilder);
+		private static StringBuilder m_parserTextBuilder = new();
+		private static StringWriter m_parserTextWriter = new(m_parserTextBuilder);
 		#endregion
 
 		#region Methods
 		public static OptionsCommon ParseCommandLine(string[] args)
 		{
-			Parser parser = new Parser(config =>{	config.HelpWriter = m_parserTextWriter;	});
+			Parser parser = new(config =>{	config.HelpWriter = m_parserTextWriter;	});
 			return parser.ParseArguments<OptionsApp, OptionsBatch>(args)
 					 .MapResult(
 							 (OptionsApp o) => { ApplyOptionsApp(o); return o; },

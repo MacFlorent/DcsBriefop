@@ -31,7 +31,7 @@
 			TcDetail = new TabControl();
 			TpPartDetail = new TabPage();
 			TpMapDetail = new TabPage();
-			CkMapIncludeBaseOverlays = new CheckBox();
+			CkMapIncludeBaseLayers = new CheckBox();
 			PnMap = new Panel();
 			TpHtmlPreview = new TabPage();
 			PnImage = new Panel();
@@ -70,6 +70,7 @@
 			ScMain.Panel2.SuspendLayout();
 			ScMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)NudHtmlFontSize).BeginInit();
+			((System.ComponentModel.ISupportInitialize)DgvParts).BeginInit();
 			SuspendLayout();
 			// 
 			// TcDetail
@@ -97,7 +98,7 @@
 			// 
 			// TpMapDetail
 			// 
-			TpMapDetail.Controls.Add(CkMapIncludeBaseOverlays);
+			TpMapDetail.Controls.Add(CkMapIncludeBaseLayers);
 			TpMapDetail.Controls.Add(PnMap);
 			TpMapDetail.Location = new Point(4, 24);
 			TpMapDetail.Margin = new Padding(4, 3, 4, 3);
@@ -108,16 +109,16 @@
 			TpMapDetail.Text = "Map configuration";
 			TpMapDetail.UseVisualStyleBackColor = true;
 			// 
-			// CkMapIncludeBaseOverlays
+			// CkMapIncludeBaseLayers
 			// 
-			CkMapIncludeBaseOverlays.AutoSize = true;
-			CkMapIncludeBaseOverlays.Location = new Point(3, 2);
-			CkMapIncludeBaseOverlays.Name = "CkMapIncludeBaseOverlays";
-			CkMapIncludeBaseOverlays.Size = new Size(138, 19);
-			CkMapIncludeBaseOverlays.TabIndex = 4;
-			CkMapIncludeBaseOverlays.Text = "Include base overlays";
-			CkMapIncludeBaseOverlays.UseVisualStyleBackColor = true;
-			CkMapIncludeBaseOverlays.CheckedChanged += CkMapIncludeBaseOverlays_CheckedChanged;
+			CkMapIncludeBaseLayers.AutoSize = true;
+			CkMapIncludeBaseLayers.Location = new Point(3, 2);
+			CkMapIncludeBaseLayers.Name = "CkMapIncludeBaseLayers";
+			CkMapIncludeBaseLayers.Size = new Size(206, 19);
+			CkMapIncludeBaseLayers.TabIndex = 4;
+			CkMapIncludeBaseLayers.Text = "Include global and coalition layers";
+			CkMapIncludeBaseLayers.UseVisualStyleBackColor = true;
+			CkMapIncludeBaseLayers.CheckedChanged += CkMapIncludeBaseLayers_CheckedChanged;
 			// 
 			// PnMap
 			// 
@@ -389,7 +390,7 @@
 			LbTitle.Location = new Point(3, 39);
 			LbTitle.Margin = new Padding(4, 0, 4, 0);
 			LbTitle.Name = "LbTitle";
-			LbTitle.Size = new Size(29, 15);
+			LbTitle.Size = new Size(30, 15);
 			LbTitle.TabIndex = 1;
 			LbTitle.Text = "Title";
 			// 
@@ -399,9 +400,11 @@
 			DgvParts.Location = new Point(4, 168);
 			DgvParts.Margin = new Padding(4, 3, 4, 3);
 			DgvParts.Name = "DgvParts";
+			DgvParts.ShowGroups = false;
 			DgvParts.Size = new Size(215, 304);
 			DgvParts.TabIndex = 0;
-			DgvParts.View = System.Windows.Forms.View.Details;
+			DgvParts.View = View.Details;
+			DgvParts.VirtualMode = true;
 			// 
 			// UcBriefingPage
 			// 
@@ -427,6 +430,7 @@
 			((System.ComponentModel.ISupportInitialize)ScMain).EndInit();
 			ScMain.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)NudHtmlFontSize).EndInit();
+			((System.ComponentModel.ISupportInitialize)DgvParts).EndInit();
 			ResumeLayout(false);
 		}
 
@@ -451,7 +455,7 @@
 		private Button BtPartRemove;
 		private Button BtPartAdd;
 		private TabPage TpMapPreview;
-		private CheckBox CkMapIncludeBaseOverlays;
+		private CheckBox CkMapIncludeBaseLayers;
 		private Button BtHtmlPreviewRefresh;
 		private Button BtMapPreviewRefresh;
 		private Panel PnMapPreview;

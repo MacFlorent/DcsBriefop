@@ -1,4 +1,5 @@
-﻿using DcsBriefop.Data;
+﻿using BruTile;
+using DcsBriefop.Data;
 using DcsBriefop.DataBopMission;
 using DcsBriefop.DataMiz;
 using DcsBriefop.Map;
@@ -18,7 +19,7 @@ namespace DcsBriefop.DataBopBriefing
 		public string Title { get; set; }
 		public bool DisplayTitle { get; set; }
 		public ElementBriefingPageRender Render { get; set; } = (ElementBriefingPageRender.Map | ElementBriefingPageRender.Html);
-		public bool MapIncludeBaseOverlays { get; set; } = true;
+		public bool MapIncludeBaseLayers { get; set; } = true;
 		public int HtmlFontSize { get; set; } = 16;
 
 		public List<BaseBopBriefingPart> Parts { get; set; } = [];
@@ -135,7 +136,7 @@ namespace DcsBriefop.DataBopBriefing
 
 		private HtmlTag BuildHtmlBodyHeader(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			HtmlTag tag = new HtmlTag("header");
+			HtmlTag tag = new("header");
 			tag.Add("h1").AppendText(Title);
 			return tag;
 		}
@@ -167,15 +168,16 @@ namespace DcsBriefop.DataBopBriefing
 		#region Map
 		public Image BuildMapImage(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
-			MapProviders.MapProviderRecord provider = MapProviders.TryGetProviderOrDefault(bopManager.BopMission.PreferencesMap.ProviderName);
-			return ToolsMap.GenerateMapImage(MapData, provider.Factory(), GetMapAdditionalLayers(bopManager, bopBriefingFolder), bopBriefingFolder.ImageSize);
+			MapTileSource basemap = MapTileSourceManager.TryGetBasemapOrDefault(bopManager.BopMission.PreferencesMap.ProviderName);
+			IEnumerable<MapTileSource> overlays = MapTileSourceManager.Overlays.Where(_o => bopManager.BopMission.PreferencesMap.OverlayNames.Contains(_o.Name));
+			return ToolsMap.GenerateMapImage(MapData, basemap, overlays, GetMapAdditionalLayers(bopManager, bopBriefingFolder), bopBriefingFolder.ImageSize);
 		}
 
 		public IEnumerable<Mapsui.Layers.ILayer> GetMapAdditionalLayers(BriefopManager bopManager, BopBriefingFolder bopBriefingFolder)
 		{
 			List<Mapsui.Layers.ILayer> layers = [];
 
-			if (MapIncludeBaseOverlays)
+			if (MapIncludeBaseLayers)
 			{
 				layers.Add(bopManager.BopMission.BuildStaticMapLayer());
 				layers.Add(bopManager.BopMission.MapData.BuildCustomMapLayer());

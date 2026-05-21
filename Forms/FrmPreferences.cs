@@ -24,7 +24,8 @@ namespace DcsBriefop.Forms
 			ToolsStyle.ButtonOk(BtOk);
 			ToolsStyle.ButtonCancel(BtCancel);
 
-			MapProviders.FillCombo(CbMapProvider, null);
+			MapTileSourceManager.FillComboBasemaps(CbMapProvider, null);
+			MapTileSourceManager.FillCheckDropDownOverlays(CddMapOverlays);
 			MasterDataRepository.FillCombo(MasterDataType.WeatherDisplay, CbBriefingWeatherDisplay, null);
 			MasterDataRepository.FillCombo(MasterDataType.MeasurementSystem, CbBriefingMeasurementSystem, null);
 			MasterDataRepository.FillCombo(MasterDataType.BullseyeWaypoint, CbMissionBullseyeWaypoint, null);
@@ -49,8 +50,10 @@ namespace DcsBriefop.Forms
 			CbMissionBullseyeWaypoint.SelectedValue = (int)m_preferences.Mission.BullseyeWaypoint;
 			CkMissionNoCallsignForPlayable.Checked = m_preferences.Mission.NoCallsignForPlayableFlights;
 
-			CbMapProvider.SelectedItem = MapProviders.TryGetProviderOrDefault(m_preferences.Map.ProviderName);
+			CbMapProvider.SelectedItem = MapTileSourceManager.TryGetBasemapOrDefault(m_preferences.Map.ProviderName);
 			NudMapZoom.Value = (decimal)m_preferences.Map.Zoom;
+			CddMapOverlays.CheckedItemTexts = m_preferences.Map.OverlayNames;
+			TbMapOpenAipKey.Text = m_preferences.Map.OpenAipApiKey;
 
 			CbBriefingWeatherDisplay.SelectedValue = (int)m_preferences.Briefing.WeatherDisplay;
 			CbBriefingMeasurementSystem.SelectedValue = (int)m_preferences.Briefing.MeasurementSystem;
@@ -82,8 +85,10 @@ namespace DcsBriefop.Forms
 			m_preferences.Mission.BullseyeWaypoint = (ElementBullseyeWaypoint)CbMissionBullseyeWaypoint.SelectedValue;
 			m_preferences.Mission.NoCallsignForPlayableFlights = CkMissionNoCallsignForPlayable.Checked;
 
-			m_preferences.Map.ProviderName = (CbMapProvider.SelectedItem as MapProviders.MapProviderRecord)?.Name;
+			m_preferences.Map.ProviderName = (CbMapProvider.SelectedItem as MapTileSource)?.Name;
 			m_preferences.Map.Zoom = (double)NudMapZoom.Value;
+			m_preferences.Map.OverlayNames = [.. CddMapOverlays.CheckedItemTexts];
+			m_preferences.Map.OpenAipApiKey = TbMapOpenAipKey.Text;
 
 			m_preferences.Briefing.WeatherDisplay = (ElementWeatherDisplay)CbBriefingWeatherDisplay.SelectedValue;
 			m_preferences.Briefing.MeasurementSystem = (ElementMeasurementSystem)CbBriefingMeasurementSystem.SelectedValue;
@@ -162,6 +167,11 @@ namespace DcsBriefop.Forms
 			{
 				TbBriefingGenerationDirectory.Text = fbd.SelectedPath;
 			}
+		}
+
+		private void LnkMapOpenAipAttribution_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			MapTileSourceOpenAip.OpenAttributionLink();
 		}
 
 		private void BtBriefingGenerationDirectoryReset_MouseDown(object sender, MouseEventArgs e)

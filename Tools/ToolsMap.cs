@@ -1,6 +1,4 @@
-﻿using Color = System.Drawing.Color;
-using Size = System.Drawing.Size;
-using BruTile;
+﻿using BruTile;
 using BruTile.Web;
 using CoordinateSharp;
 using DcsBriefop.Data;
@@ -11,8 +9,11 @@ using Mapsui.Layers;
 using Mapsui.Rendering.Skia;
 using Mapsui.Rendering.Skia.SkiaStyles;
 using Mapsui.Styles;
+using Mapsui.Tiling.Layers;
 using Mapsui.UI.WindowsForms;
 using SkiaSharp;
+using Color = System.Drawing.Color;
+using Size = System.Drawing.Size;
 
 namespace DcsBriefop.Tools
 {
@@ -20,6 +21,11 @@ namespace DcsBriefop.Tools
 	{
 		#region Fields
 		private static readonly HttpClient s_tileHttpClient = BuildTileHttpClient();
+		private static class LayerPrefix
+		{
+			public const string Basemap = "basemap:";
+			public const string Overlay = "overlay:";
+		}
 		#endregion
 
 		private static HttpClient BuildTileHttpClient()
@@ -30,19 +36,101 @@ namespace DcsBriefop.Tools
 		}
 
 		#region MapControl
-		public static void InitializeMapControl(this MapControl mapControl, string sProviderName)
+		public static void ConfigureMapsui()
 		{
-			if (string.IsNullOrEmpty(sProviderName))
-				sProviderName = PreferencesManager.Preferences.Map.ProviderName;
+			string sLogCaller = "Mapsui";
 
-			mapControl.Map.Layers.Clear();
-			mapControl.Map.Layers.Add(MapProviders.CreateTileLayer(sProviderName));
+			Mapsui.Logging.Logger.LogDelegate = (level, message, ex) =>
+			{
+				string sMessage = ex is not null ? $"{message} | {ex.Message}" : $"{message}";
+				switch (level)
+				{
+					case Mapsui.Logging.LogLevel.Debug: Log.Debug(sMessage, sLogCaller, -1, sLogCaller); break;
+					case Mapsui.Logging.LogLevel.Information: Log.Info(sMessage, sLogCaller, -1, sLogCaller); break;
+					case Mapsui.Logging.LogLevel.Warning: Log.Warning(sMessage, sLogCaller, -1, sLogCaller); break;
+					case Mapsui.Logging.LogLevel.Error: Log.Error(sMessage, sLogCaller, -1, sLogCaller); break;
+				}
+			};
+
+			Mapsui.Widgets.InfoWidgets.LoggingWidget.ShowLoggingInMap = Globals.Debug ? Mapsui.Widgets.ActiveMode.Yes : Mapsui.Widgets.ActiveMode.No;
+		}
+
+		public static void InitializeMapControl(this MapControl mapControl, string sProviderName, IEnumerable<string> overlayNames)
+		{
+			mapControl.ChangeBasemapLayer(sProviderName);
+			mapControl.ChangeOverlayLayers(overlayNames);
 
 			MapRenderer.RegisterStyleRenderer(typeof(BriefopMarkerStyle), new BriefopMarkerStyleRenderer());
 			MapRenderer.RegisterStyleRenderer(typeof(BriefopLineStyle), new BriefopLineStyleRenderer());
 			MapRenderer.RegisterStyleRenderer(typeof(BriefopLabelStyle), new BriefopLabelStyleRenderer());
 		}
 
+		public static void ChangeBasemapLayer(this MapControl mapControl, MapTileSource basemap)
+		{
+			mapControl.RemoveTileLayers(LayerPrefix.Basemap);
+			mapControl.Map.Layers.Add(new TileLayer(basemap.TileFactory()) { Name = $"{LayerPrefix.Basemap}{basemap.Name}" });
+
+			mapControl.OrderLayers();
+		}
+
+		public static void ChangeBasemapLayer(this MapControl mapControl, string sProviderName)
+		{
+			MapTileSource basemap = MapTileSourceManager.TryGetBasemapOrDefault(sProviderName);
+			ChangeBasemapLayer(mapControl, basemap);
+		}
+
+		public static void ChangeOverlayLayers(this MapControl mapControl, IEnumerable<MapTileSource> overlays)
+		{
+			mapControl.RemoveTileLayers(LayerPrefix.Overlay);
+
+			if (overlays is not null)
+			{
+				foreach (MapTileSource overlay in overlays)
+					mapControl.Map.Layers.Add(new TileLayer(overlay.TileFactory()) { Name = $"{LayerPrefix.Overlay}{overlay.Name}" });
+			}
+
+			mapControl.OrderLayers();
+		}
+
+		public static void ChangeOverlayLayers(this MapControl mapControl, IEnumerable<string> overlayNames)
+		{
+			List<MapTileSource> overlays = null;
+			if (overlayNames is not null)
+			{
+				overlays = [.. MapTileSourceManager.Overlays.Where(_o => overlayNames.Contains(_o.Name))];
+			}
+
+			ChangeOverlayLayers(mapControl, overlays);
+		}
+
+		public static void OrderLayers(this MapControl mapControl)
+		{
+			List<ILayer> tiles = [.. mapControl.Map.Layers.OfType<TileLayer>().Where(_l => _l.Name?.StartsWith(LayerPrefix.Basemap) == true).Cast<ILayer>()];
+			List<ILayer> overlays = [.. mapControl.Map.Layers.OfType<TileLayer>().Where(_l => _l.Name?.StartsWith(LayerPrefix.Overlay) == true).Cast<ILayer>()];
+			List<ILayer> memory = [.. mapControl.Map.Layers.OfType<MemoryLayer>().Cast<ILayer>()];
+
+			int iIdx = 0;
+			foreach (ILayer layer in tiles.Concat(overlays).Concat(memory))
+				mapControl.Map.Layers.Move(iIdx++, layer);
+		}
+
+		public static void RemoveTileLayers(this MapControl mapControl, string sPrefix)
+		{
+			foreach (TileLayer layer in mapControl.Map.Layers.OfType<TileLayer>()
+							.Where(_l => string.IsNullOrWhiteSpace(sPrefix) || _l.Name?.StartsWith(sPrefix) == true).ToList())
+			{
+				mapControl.Map.Layers.Remove(layer);
+			}
+		}
+
+		public static void RemoveMemoryLayers(this MapControl mapControl, string sPrefix)
+		{
+			foreach (MemoryLayer layer in mapControl.Map.Layers.OfType<MemoryLayer>()
+							.Where(_l => string.IsNullOrWhiteSpace(sPrefix) || _l.Name?.StartsWith(sPrefix) == true).ToList())
+			{
+				mapControl.Map.Layers.Remove(layer);
+			}
+		}
 		#endregion
 
 		#region MizDrawings
@@ -250,13 +338,13 @@ namespace DcsBriefop.Tools
 		#endregion
 
 		#region Image Generation
-		public static Bitmap GenerateMapImage(MizBopMap mapData, ITileSource tileSource, IEnumerable<ILayer> overlayLayers, Size outputSize)
+		public static Bitmap GenerateMapImage(MizBopMap mapData, MapTileSource basemapSource, IEnumerable<MapTileSource> overlaySources, IEnumerable<ILayer> mapLayers, Size outputSize)
 		{
 			GeoPoint center = new(mapData.CenterLatitude, mapData.CenterLongitude);
-			return GenerateMapImage(center, (int)mapData.Zoom, tileSource, overlayLayers, outputSize);
+			return GenerateMapImage(center, (int)mapData.Zoom, basemapSource, overlaySources, mapLayers, outputSize);
 		}
 
-		public static Bitmap GenerateMapImage(GeoPoint center, int iZoom, ITileSource tileSource, IEnumerable<ILayer> overlayLayers, Size outputSize)
+		public static Bitmap GenerateMapImage(GeoPoint center, int iZoom, MapTileSource basemapSource, IEnumerable<MapTileSource> overlaySources, IEnumerable<ILayer> mapLayers, Size outputSize)
 		{
 			MPoint centerWorld = MapProjection.ToMPoint(center);
 			double dResolution = MapProjection.ZoomToResolution(iZoom);
@@ -265,54 +353,66 @@ namespace DcsBriefop.Tools
 			double dWorldLeft = centerWorld.X - dHalfW;
 			double dWorldTop = centerWorld.Y + dHalfH;
 
-			BruTile.Extent worldExtent = new(centerWorld.X - dHalfW, centerWorld.Y - dHalfH, centerWorld.X + dHalfW, centerWorld.Y + dHalfH);
-			int iLevelId = GetClosestLevelId(tileSource.Schema, dResolution);
-			List<TileInfo> tileInfos = [.. tileSource.Schema.GetTileInfos(worldExtent, iLevelId)];
+			Extent worldExtent = new(centerWorld.X - dHalfW, centerWorld.Y - dHalfH, centerWorld.X + dHalfW, centerWorld.Y + dHalfH);
 
 			using SKBitmap skBitmap = new(outputSize.Width, outputSize.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
 			using SKCanvas canvas = new(skBitmap);
 			canvas.Clear(SKColors.LightGray);
 
-			// ITileSource has no GetTile in BruTile 6.0; HttpTileSource.GetTileAsync is the concrete async fetch method.
-			// Tasks must be created and awaited inside Task.Run so continuations run on thread-pool threads,
-			// not on the UI SynchronizationContext that is blocked by GetResult() (avoids deadlock).
-			if (tileSource is HttpTileSource httpSource)
+			DrawTileLayer(canvas, basemapSource.TileFactory(), worldExtent, dWorldLeft, dWorldTop, dResolution);
+
+			if (overlaySources is not null)
 			{
-				byte[][] tileData = Task.Run(async () =>
-				{
-					Task<byte[]>[] tasks = [.. tileInfos.Select(_ti => httpSource.GetTileAsync(s_tileHttpClient, _ti))];
-					try { await Task.WhenAll(tasks).ConfigureAwait(false); } catch { }
-					return tasks.Select(_t => _t.IsCompletedSuccessfully ? _t.Result : null).ToArray();
-				}).GetAwaiter().GetResult();
-
-				for (int i = 0; i < tileInfos.Count; i++)
-				{
-					if (tileData[i] is null || tileData[i].Length == 0)
-						continue;
-
-					using SKBitmap tileBitmap = SKBitmap.Decode(tileData[i]);
-					if (tileBitmap is null)
-						continue;
-
-					BruTile.Extent e = tileInfos[i].Extent;
-					float fX = (float)((e.MinX - dWorldLeft) / dResolution);
-					float fY = (float)((dWorldTop - e.MaxY) / dResolution);
-					float fW = (float)((e.MaxX - e.MinX) / dResolution);
-					float fH = (float)((e.MaxY - e.MinY) / dResolution);
-					canvas.DrawBitmap(tileBitmap, new SKRect(fX, fY, fX + fW, fY + fH));
-				}
+				foreach (ITileSource overlayTileSource in overlaySources.Select(_o => _o.TileFactory()))
+					DrawTileLayer(canvas, overlayTileSource, worldExtent, dWorldLeft, dWorldTop, dResolution);
 			}
 
-			if (overlayLayers is not null)
+			if (mapLayers is not null)
 			{
-				Mapsui.Viewport viewport = new(centerWorld.X, centerWorld.Y, dResolution, 0, outputSize.Width, outputSize.Height);
-				RenderOverlayLayers(canvas, viewport, overlayLayers);
+				Viewport viewport = new(centerWorld.X, centerWorld.Y, dResolution, 0, outputSize.Width, outputSize.Height);
+				RenderMapLayers(canvas, viewport, mapLayers);
 			}
 
 			using SKImage skImage = SKImage.FromBitmap(skBitmap);
 			using SKData skData = skImage.Encode(SKEncodedImageFormat.Png, 100);
 			using MemoryStream ms = new(skData.ToArray());
 			return new Bitmap(ms);
+		}
+
+		// ITileSource has no GetTile in BruTile 6.0; HttpTileSource.GetTileAsync is the concrete async fetch method.
+		// Tasks must be created and awaited inside Task.Run so continuations run on thread-pool threads,
+		// not on the UI SynchronizationContext that is blocked by GetResult() (avoids deadlock).
+		private static void DrawTileLayer(SKCanvas canvas, ITileSource tileSource, Extent worldExtent, double dWorldLeft, double dWorldTop, double dResolution)
+		{
+			if (tileSource is not HttpTileSource httpSource)
+				return;
+
+			int iLevelId = GetClosestLevelId(tileSource.Schema, dResolution);
+			List<TileInfo> tileInfos = [.. tileSource.Schema.GetTileInfos(worldExtent, iLevelId)];
+
+			byte[][] tileData = Task.Run(async () =>
+			{
+				Task<byte[]>[] tasks = [.. tileInfos.Select(_ti => httpSource.GetTileAsync(s_tileHttpClient, _ti))];
+				try { await Task.WhenAll(tasks).ConfigureAwait(false); } catch { }
+				return tasks.Select(_t => _t.IsCompletedSuccessfully ? _t.Result : null).ToArray();
+			}).GetAwaiter().GetResult();
+
+			for (int i = 0; i < tileInfos.Count; i++)
+			{
+				if (tileData[i] is null || tileData[i].Length == 0)
+					continue;
+
+				using SKBitmap tileBitmap = SKBitmap.Decode(tileData[i]);
+				if (tileBitmap is null)
+					continue;
+
+				Extent e = tileInfos[i].Extent;
+				float fX = (float)((e.MinX - dWorldLeft) / dResolution);
+				float fY = (float)((dWorldTop - e.MaxY) / dResolution);
+				float fW = (float)((e.MaxX - e.MinX) / dResolution);
+				float fH = (float)((e.MaxY - e.MinY) / dResolution);
+				canvas.DrawBitmap(tileBitmap, new SKRect(fX, fY, fX + fW, fY + fH));
+			}
 		}
 
 		private static int GetClosestLevelId(ITileSchema schema, double dResolution)
@@ -333,7 +433,7 @@ namespace DcsBriefop.Tools
 			return iBestLevel;
 		}
 
-		private static void RenderOverlayLayers(SKCanvas canvas, Mapsui.Viewport viewport, IEnumerable<ILayer> mapLayers)
+		private static void RenderMapLayers(SKCanvas canvas, Viewport viewport, IEnumerable<ILayer> mapLayers)
 		{
 			// Custom style renderers don't use RenderService; call them directly to avoid MapRenderer.Render parameter complexity
 			Dictionary<Type, ISkiaStyleRenderer> styleRenderers = new()

@@ -14,7 +14,11 @@
       "Bash(dotnet build *)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(cd \"D:\\\\Projects\\\\DotNet\\\\DcsBriefopOld\" && find . -type f -name \"*.cs\" | head -20)",
-      "Read(//d/Projects/DotNet/DcsBriefopOld/**)"
+      "Read(//d/Projects/DotNet/DcsBriefopOld/**)",
+      "WebFetch(domain:docs.openaip.net)",
+      "Bash(Get-ChildItem -Path \"d:\\\\Projects\\\\DotNet\\\\DcsBriefop\\\\Map\" -File)",
+      "Bash(Select-Object FullName)",
+      "WebFetch(domain:dcsmaps.com)"
     ]
   }
 }
