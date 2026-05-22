@@ -1,8 +1,10 @@
 # DcsBriefop
 *DCS mission briefing construction*
 
-Requires .NET 7.0 Desktop Runtime and ASP.NET Core Runtime 7.0
-https://dotnet.microsoft.com/en-us/download/dotnet/7.0
+Requires **.NET 10.0 Desktop Runtime**
+https://dotnet.microsoft.com/en-us/download/dotnet/10.0
+
+Requires **Microsoft WebView2 Runtime** (pre-installed on Windows 11 and most Windows 10 machines; bootstrapper available at https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
 
 Thanks to Sharko and Tripack for testing.
 Thanks to Jed the for speed computation algorithm.
@@ -38,11 +40,20 @@ Depending on the group, DcsBriefop will list the units, the waypoints, the tasks
 It will also extract and normalize radionav data from the various sources in the mission file.
 
 #### Maps
-Here you will be able to see the map overlays for the mission and for the coalitions.
-The map provider for this mission can be selected here.
+Here you will be able to see the map overlays for the mission and for each coalition.
+
+A **map provider** (basemap tile source) can be selected for the mission: OpenStreetMap, Bing, ESRI Imagery, BKG, OpenTopoMap, and custom WMS or XYZ tile sources are supported.
+
+**Map overlays** can be layered on top of the basemap:
+- ESRI Reference Overlay
+- ESRI Transportation
+- ESRI Boundaries and Places
+- OpenAIP (requires an API key — see Preferences)
+
+Overlays can be configured independently for each coalition (Blue, Red, Neutral) and for the mission-wide view.
 
 #### Coms
-WIP
+WIP — this feature is not yet functional and its button is currently disabled.
 
 ### Briefing construction
 The briefing is built in three levels. The folder, which contains a series of pages, which are composed of parts.
@@ -68,10 +79,56 @@ The parts are :
 - Task (coalition task)
 - Paragrah (free paragraph)
 - Image (free image)
+- TableText (formatted text table)
 
 ### Saving and generating briefing
+When saving, DcsBriefop generates the briefing images and injects them back into the `.miz` file.
+Images can also be written to an output directory alongside the mission file (configurable in Preferences).
 
+By default, a backup of the original `.miz` is created before overwriting it (`.bak` extension).
+
+A companion `.cmd` batch file can be generated automatically on save, allowing the briefing to be regenerated later from the command line without opening the GUI.
 
 ## Preferences
 
+### Application
+- **Working directory** — default folder opened when loading a mission
+- **Recent files** — list of recently opened `.miz` files (up to 10)
+- **Backup before overwrite** — create a `.bak` copy of the mission before saving (default: on)
+- **Generate batch command on save** — write a `.cmd` file alongside the mission for command-line re-generation (default: on)
+- **Internet proxy** — host, port, and optional credentials for tile map requests behind a corporate proxy
+
+### Mission
+- **No callsign for playable flights** — hide callsigns for player-controlled flights (default: on)
+- **Bullseye waypoint** — whether to inject a bullseye waypoint into playable flights: *None*, *One* (first flight only), or *Last* (append as last waypoint)
+
+### Map
+- **Provider** — tile source used for the in-app map and briefing image generation (default: OpenStreetMap)
+- **Zoom** — default map zoom level
+- **Active overlays** — which overlay layers are enabled on top of the basemap
+- **OpenAIP API key** — required to use the OpenAIP airspace/airport overlay
+
+### Briefing
+- **Weather display** — *Plain* text or *METAR* format
+- **Measurement system** — *Metric*, *Imperial*, or *Hybrid*
+- **Coordinate display** — one or more of DMS, DDM, MGRS
+- **Image size** — pixel dimensions of the generated kneeboard images (default: 720 × 1085)
+- **Generate on save** — automatically regenerate briefing images when saving the mission (default: on)
+- **HTML output** — optionally generate an HTML index file alongside the images
+
 ## Command line usage
+DcsBriefop can be run headlessly to regenerate a briefing without opening the GUI.
+
+```
+DcsBriefop.exe [app]                    Launch the GUI (default when no verb is given)
+
+DcsBriefop.exe batch                    Process a mission file without UI
+  -m, --miz <path>                      Path to the .miz file or its containing folder (required)
+  -b, --briefing-output <targets>       Output destination(s): None | Miz | Directory (combinable)
+
+Common options:
+  -l, --loglevel <level>                Override the log4net logging level
+  -d, --debug                           Enable debug mode
+```
+
+The `GenerateBatchCommandOnSave` preference (on by default) writes a ready-to-use `.cmd` file next to the mission whenever you save, making it easy to schedule or script briefing updates.

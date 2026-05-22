@@ -47,7 +47,9 @@
 			DgvMultiSelected = new BrightIdeasSoftware.FastObjectListView();
 			CbPartGroupType = new ComboBox();
 			TlpMulti.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)DgvMultiAvailable).BeginInit();
 			PnMultiButtons.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)DgvMultiSelected).BeginInit();
 			SuspendLayout();
 			// 
 			// LbHeader
@@ -120,9 +122,11 @@
 			DgvMultiAvailable.Dock = DockStyle.Fill;
 			DgvMultiAvailable.Location = new Point(3, 23);
 			DgvMultiAvailable.Name = "DgvMultiAvailable";
+			DgvMultiAvailable.ShowGroups = false;
 			DgvMultiAvailable.Size = new Size(651, 530);
 			DgvMultiAvailable.TabIndex = 1;
-			DgvMultiAvailable.View = System.Windows.Forms.View.Details;
+			DgvMultiAvailable.View = View.Details;
+			DgvMultiAvailable.VirtualMode = true;
 			DgvMultiAvailable.DoubleClick += DgvMultiAvailable_CellDoubleClick;
 			// 
 			// PnMultiButtons
@@ -142,11 +146,12 @@
 			// BtMultiAdd
 			// 
 			BtMultiAdd.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			BtMultiAdd.Font = new Font("Segoe UI Emoji", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
 			BtMultiAdd.Location = new Point(0, 3);
 			BtMultiAdd.Name = "BtMultiAdd";
 			BtMultiAdd.Size = new Size(34, 23);
 			BtMultiAdd.TabIndex = 8;
-			BtMultiAdd.Text = ">";
+			BtMultiAdd.Text = "→";
 			BtMultiAdd.UseVisualStyleBackColor = true;
 			BtMultiAdd.Click += BtMultiAdd_Click;
 			// 
@@ -157,18 +162,19 @@
 			BtMultiDown.Name = "BtMultiDown";
 			BtMultiDown.Size = new Size(34, 23);
 			BtMultiDown.TabIndex = 13;
-			BtMultiDown.Text = "v";
+			BtMultiDown.Text = "▼";
 			BtMultiDown.UseVisualStyleBackColor = true;
 			BtMultiDown.Click += BtMultiDown_Click;
 			// 
 			// BtMultiRemove
 			// 
 			BtMultiRemove.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			BtMultiRemove.Font = new Font("Segoe UI Emoji", 9F, FontStyle.Bold);
 			BtMultiRemove.Location = new Point(0, 32);
 			BtMultiRemove.Name = "BtMultiRemove";
 			BtMultiRemove.Size = new Size(34, 23);
 			BtMultiRemove.TabIndex = 9;
-			BtMultiRemove.Text = "<";
+			BtMultiRemove.Text = "←";
 			BtMultiRemove.UseVisualStyleBackColor = true;
 			BtMultiRemove.Click += BtMultiRemove_Click;
 			// 
@@ -179,18 +185,19 @@
 			BtMultiUp.Name = "BtMultiUp";
 			BtMultiUp.Size = new Size(34, 23);
 			BtMultiUp.TabIndex = 12;
-			BtMultiUp.Text = "^";
+			BtMultiUp.Text = "▲";
 			BtMultiUp.UseVisualStyleBackColor = true;
 			BtMultiUp.Click += BtMultiUp_Click;
 			// 
 			// BtMultiAddAll
 			// 
 			BtMultiAddAll.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			BtMultiAddAll.Font = new Font("Segoe UI Emoji", 9F, FontStyle.Bold);
 			BtMultiAddAll.Location = new Point(0, 61);
 			BtMultiAddAll.Name = "BtMultiAddAll";
 			BtMultiAddAll.Size = new Size(34, 23);
 			BtMultiAddAll.TabIndex = 10;
-			BtMultiAddAll.Text = ">>";
+			BtMultiAddAll.Text = "⇉";
 			BtMultiAddAll.UseVisualStyleBackColor = true;
 			BtMultiAddAll.Visible = false;
 			BtMultiAddAll.Click += BtMultiAddAll_Click;
@@ -198,11 +205,12 @@
 			// BtMultiRemoveAll
 			// 
 			BtMultiRemoveAll.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			BtMultiRemoveAll.Font = new Font("Segoe UI Emoji", 9F, FontStyle.Bold);
 			BtMultiRemoveAll.Location = new Point(0, 90);
 			BtMultiRemoveAll.Name = "BtMultiRemoveAll";
 			BtMultiRemoveAll.Size = new Size(34, 23);
 			BtMultiRemoveAll.TabIndex = 11;
-			BtMultiRemoveAll.Text = "<<";
+			BtMultiRemoveAll.Text = "⇇";
 			BtMultiRemoveAll.UseVisualStyleBackColor = true;
 			BtMultiRemoveAll.Visible = false;
 			BtMultiRemoveAll.Click += BtMultiRemoveAll_Click;
@@ -232,9 +240,11 @@
 			DgvMultiSelected.Dock = DockStyle.Fill;
 			DgvMultiSelected.Location = new Point(700, 23);
 			DgvMultiSelected.Name = "DgvMultiSelected";
+			DgvMultiSelected.ShowGroups = false;
 			DgvMultiSelected.Size = new Size(432, 530);
 			DgvMultiSelected.TabIndex = 5;
-			DgvMultiSelected.View = System.Windows.Forms.View.Details;
+			DgvMultiSelected.View = View.Details;
+			DgvMultiSelected.VirtualMode = true;
 			DgvMultiSelected.DoubleClick += DgvMultiSelected_CellDoubleClick;
 			// 
 			// CbPartGroupType
@@ -260,7 +270,9 @@
 			Name = "UcBriefingPartGroups";
 			Size = new Size(1141, 710);
 			TlpMulti.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)DgvMultiAvailable).EndInit();
 			PnMultiButtons.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)DgvMultiSelected).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}

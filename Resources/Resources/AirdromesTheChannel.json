@@ -1,0 +1,194 @@
+[
+    {
+        "Id": 1,
+        "Name": "Abbeville Drucat",
+        "Latitude": 50.143451,
+        "Longitude": 1.831946,
+        "Radios": [
+            {
+                "Frequency": 250.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.25,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 14,
+        "Name": "Biggin Hill",
+        "Latitude": 51.326717,
+        "Longitude": 0.031103,
+        "Radios": [
+            {
+                "Frequency": 250.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 8,
+        "Name": "Detling",
+        "Latitude": 51.305042,
+        "Longitude": 0.599863,
+        "Radios": [
+            {
+                "Frequency": 250.6,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 4,
+        "Name": "Dunkirk Mardyck",
+        "Latitude": 51.029624,
+        "Longitude": 2.252449,
+        "Radios": [
+            {
+                "Frequency": 250.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 10,
+        "Name": "Eastchurch",
+        "Latitude": 51.390137,
+        "Longitude": 0.8469,
+        "Radios": [
+            {
+                "Frequency": 250.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.05,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 6,
+        "Name": "Hawkinge",
+        "Latitude": 51.111906,
+        "Longitude": 1.160257,
+        "Radios": [
+            {
+                "Frequency": 250.5,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 13,
+        "Name": "Headcorn",
+        "Latitude": 51.182612,
+        "Longitude": 0.689498,
+        "Radios": [
+            {
+                "Frequency": 250.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.15,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 12,
+        "Name": "High Halden",
+        "Latitude": 51.121641,
+        "Longitude": 0.693747,
+        "Radios": [
+            {
+                "Frequency": 250.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 7,
+        "Name": "Lympne",
+        "Latitude": 51.080665,
+        "Longitude": 1.017045,
+        "Radios": [
+            {
+                "Frequency": 250.55,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.55,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 5,
+        "Name": "Manston",
+        "Latitude": 51.34198,
+        "Longitude": 1.346141,
+        "Radios": [
+            {
+                "Frequency": 250.45,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.45,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "Merville Calonne",
+        "Latitude": 50.619514,
+        "Longitude": 2.638131,
+        "Radios": [
+            {
+                "Frequency": 250.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.3,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 3,
+        "Name": "Saint Omer Longuenesse",
+        "Latitude": 50.7287,
+        "Longitude": 2.231933,
+        "Radios": [
+            {
+                "Frequency": 250.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.35,
+                "Modulation": 0
+            }
+        ]
+    }
+]

@@ -1,0 +1,388 @@
+[
+    {
+        "Id": 19,
+        "Name": "Almirante Schroeders",
+        "Latitude": -53.60693,
+        "Longitude": -70.476206
+    },
+    {
+        "Id": 16,
+        "Name": "Comandante Luis Piedrabuena",
+        "Latitude": -49.994984,
+        "Longitude": -68.951448,
+        "Radios": [
+            {
+                "Frequency": 250.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 14,
+        "Name": "El Calafate",
+        "Latitude": -50.280244,
+        "Longitude": -72.052749,
+        "Radios": [
+            {
+                "Frequency": 250.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.95,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 23,
+        "Name": "Franco Bianco",
+        "Latitude": -52.736586,
+        "Longitude": -69.333789,
+        "Radios": [
+            {
+                "Frequency": 250.6,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 128.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 26,
+        "Name": "Gobernador Gregores",
+        "Latitude": -48.783169,
+        "Longitude": -70.147972,
+        "Radios": [
+            {
+                "Frequency": 250.7,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 24,
+        "Name": "Goose Green",
+        "Latitude": -51.819815,
+        "Longitude": -58.980164,
+        "Radios": [
+            {
+                "Frequency": 250.65,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 126.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 29,
+        "Name": "Gull Point",
+        "Latitude": -52.179394,
+        "Longitude": -58.860684
+    },
+    {
+        "Id": 25,
+        "Name": "Hipico Flying Club",
+        "Latitude": -48.756736,
+        "Longitude": -70.23128
+    },
+    {
+        "Id": 2,
+        "Name": "Mount Pleasant",
+        "Latitude": -51.820679,
+        "Longitude": -58.457737,
+        "Radios": [
+            {
+                "Frequency": 250.8,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 133.35,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 27,
+        "Name": "O'Higgins",
+        "Latitude": -48.469006,
+        "Longitude": -72.563329,
+        "Radios": [
+            {
+                "Frequency": 250.75,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.25,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 10,
+        "Name": "Pampa Guanaco",
+        "Latitude": -54.049979,
+        "Longitude": -68.808998,
+        "Radios": [
+            {
+                "Frequency": 250.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 1,
+        "Name": "Port Stanley",
+        "Latitude": -51.685912,
+        "Longitude": -57.777841,
+        "Radios": [
+            {
+                "Frequency": 250.45,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 18,
+        "Name": "Porvenir",
+        "Latitude": -53.253687,
+        "Longitude": -70.319301,
+        "Radios": [
+            {
+                "Frequency": 250.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 126.7,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 13,
+        "Name": "Puerto Natales",
+        "Latitude": -51.670708,
+        "Longitude": -72.528191,
+        "Radios": [
+            {
+                "Frequency": 250.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 128.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 15,
+        "Name": "Puerto Santa Cruz",
+        "Latitude": -50.01703,
+        "Longitude": -68.579085,
+        "Radios": [
+            {
+                "Frequency": 250.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 12,
+        "Name": "Puerto Williams",
+        "Latitude": -54.930991,
+        "Longitude": -67.626219,
+        "Radios": [
+            {
+                "Frequency": 250.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 9,
+        "Name": "Punta Arenas",
+        "Latitude": -53.005534,
+        "Longitude": -70.856917,
+        "Radios": [
+            {
+                "Frequency": 251.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.7,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 21,
+        "Name": "Rio Chico",
+        "Latitude": -51.669047,
+        "Longitude": -69.266067,
+        "Radios": [
+            {
+                "Frequency": 250.55,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 5,
+        "Name": "Rio Gallegos",
+        "Latitude": -51.608851,
+        "Longitude": -69.31226,
+        "Radios": [
+            {
+                "Frequency": 250.9,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 6,
+        "Name": "Rio Grande",
+        "Latitude": -53.777598,
+        "Longitude": -67.749881,
+        "Radios": [
+            {
+                "Frequency": 250.95,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.3,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 20,
+        "Name": "Rio Turbio",
+        "Latitude": -51.605055,
+        "Longitude": -72.219823,
+        "Radios": [
+            {
+                "Frequency": 250.5,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 3,
+        "Name": "San Carlos FOB",
+        "Latitude": -51.501283,
+        "Longitude": -59.004904,
+        "Radios": [
+            {
+                "Frequency": 250.85,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 134.35,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 11,
+        "Name": "San Julian",
+        "Latitude": -49.306694,
+        "Longitude": -67.802726,
+        "Radios": [
+            {
+                "Frequency": 250.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.05,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 17,
+        "Name": "Tolhuin",
+        "Latitude": -54.499616,
+        "Longitude": -67.172385,
+        "Radios": [
+            {
+                "Frequency": 250.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.15,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 7,
+        "Name": "Ushuaia",
+        "Latitude": -54.843308,
+        "Longitude": -68.295847,
+        "Radios": [
+            {
+                "Frequency": 251.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 8,
+        "Name": "Ushuaia Helo Port",
+        "Latitude": -54.822824,
+        "Longitude": -68.30419,
+        "Radios": [
+            {
+                "Frequency": 251.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.5,
+                "Modulation": 0
+            }
+        ]
+    }
+]

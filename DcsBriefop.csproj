@@ -5,7 +5,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <TargetFramework>net10.0-windows10.0.19041</TargetFramework>
-    <Version>26.5.3.0</Version>
+    <Version>26.5.22.0</Version>
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -89,6 +89,34 @@
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /I /Y $(SolutionDir)Resources\Markers $(TargetDir)\Markers&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Routes $(TargetDir)\Routes&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Resources $(TargetDir)\Resources&#xD;&#xA;xcopy /I /Y $(SolutionDir)Resources\Html $(TargetDir)\Html" />
+  </Target>
+
+  <Target Name="PublishResourcesAndZip" AfterTargets="Publish">
+    <PropertyGroup>
+      <_ReleasesDir>$(ProjectDir)bin\published_releases\</_ReleasesDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <_PublishMarkerFiles Include="$(SolutionDir)Resources\Markers\**\*" />
+      <_PublishRouteFiles Include="$(SolutionDir)Resources\Routes\**\*" />
+      <_PublishResourceFiles Include="$(SolutionDir)Resources\Resources\**\*" />
+      <_PublishHtmlFiles Include="$(SolutionDir)Resources\Html\**\*" />
+      <_PublishLooseFiles Include="$(SolutionDir)Resources\*.*" />
+      <_ExcludedFiles Include="$(PublishDir)**\*.log" />
+      <_ExcludedFiles Include="$(PublishDir)**\*.pdb" />
+      <_ExcludedFiles Include="$(PublishDir)*.xml" />
+    </ItemGroup>
+
+    <Delete Files="@(_ExcludedFiles)" />
+    <Exec Command="powershell -NoProfile -Command &quot;Get-ChildItem -Path '$(PublishDir)runtimes' -Directory | Where-Object Name -NotLike 'win-*' | Remove-Item -Recurse -Force&quot;" Condition="Exists('$(PublishDir)runtimes')" />
+
+    <Copy SourceFiles="@(_PublishMarkerFiles)" DestinationFolder="$(PublishDir)Markers\%(RecursiveDir)" />
+    <Copy SourceFiles="@(_PublishRouteFiles)" DestinationFolder="$(PublishDir)Routes\%(RecursiveDir)" />
+    <Copy SourceFiles="@(_PublishResourceFiles)" DestinationFolder="$(PublishDir)Resources\%(RecursiveDir)" />
+    <Copy SourceFiles="@(_PublishHtmlFiles)" DestinationFolder="$(PublishDir)Html\%(RecursiveDir)" />
+    <Copy SourceFiles="@(_PublishLooseFiles)" DestinationFolder="$(PublishDir)" />
+
+    <MakeDir Directories="$(_ReleasesDir)" />
+    <ZipDirectory SourceDirectory="$(PublishDir)" DestinationFile="$(_ReleasesDir)DcsBriefop_$(Version).zip" Overwrite="true" />
   </Target>
 
 </Project>

@@ -1,31 +1,486 @@
 [
-  {"Id": 1, "Name": "Aba Musa Island", "Latitude": 25.875, "Longitude": 55.021, "Radios": [ { "Frequency": 250.4, "Modulation": 0 }, { "Frequency": 122.9, "Modulation": 0 } ]},
-  {"Id": 22, "Name": "Abu Dhabi Intl", "Latitude": 24.465, "Longitude": 54.639, "Radios": [ { "Frequency": 250.55, "Modulation": 0 }, { "Frequency": 119.2, "Modulation": 0 } ]},
-  {"Id": 25, "Name": "Al Ain Intl", "Latitude": 24.277, "Longitude": 55.612, "Radios": [ { "Frequency": 250.7, "Modulation": 0 }, { "Frequency": 119.85, "Modulation": 0 } ]},
-  {"Id": 4, "Name": "Al Dhafra AFB", "Latitude": 24.258, "Longitude": 54.534, "Radios": [ { "Frequency": 251.1, "Modulation": 0 }, { "Frequency": 126.5, "Modulation": 0 } ], "Tacan": { "Channel": 96, "Mode": "X" }},
-  {"Id": 6, "Name": "Al Maktoum Intl", "Latitude": 24.889, "Longitude": 55.175, "Radios": [ { "Frequency": 251.2, "Modulation": 0 }, { "Frequency": 118.6, "Modulation": 0 } ]},
-  {"Id": 12, "Name": "Al Minhad AFB", "Latitude": 25.027, "Longitude": 55.384, "Radios": [ { "Frequency": 250.1, "Modulation": 0 }, { "Frequency": 118.55, "Modulation": 0 } ], "Tacan": { "Channel": 99, "Mode": "X" }},
-  {"Id": 23, "Name": "Al-Bateen ", "Latitude": 24.434, "Longitude": 54.451, "Radios": [ { "Frequency": 250.6, "Modulation": 0 }, { "Frequency": 119.9, "Modulation": 0 } ]},
-  {"Id": 2, "Name": "Bandar Abbas Intl", "Latitude": 27.204, "Longitude": 56.37, "Radios": [ { "Frequency": 251, "Modulation": 0 }, { "Frequency": 118.1, "Modulation": 0 } ], "Tacan": { "Channel": 78, "Mode": "X" }},
-  {"Id": 3, "Name": "Bandar Lengeh", "Latitude": 26.531, "Longitude": 54.813, "Radios": [ { "Frequency": 251.05, "Modulation": 0 }, { "Frequency": 121.7, "Modulation": 0 } ]},
-  {"Id": 21, "Name": "Bander-e-Jask", "Latitude": 25.65, "Longitude": 57.792, "Radios": [ { "Frequency": 250.5, "Modulation": 0 }, { "Frequency": 118.15, "Modulation": 0 } ], "Tacan": { "Channel": 110, "Mode": "X" }},
-  {"Id": 5, "Name": "Dubai Intl", "Latitude": 25.248, "Longitude": 55.379, "Radios": [ { "Frequency": 251.15, "Modulation": 0 }, { "Frequency": 118.75, "Modulation": 0 } ]},
-  {"Id": 7, "Name": "Fujairah Intl", "Latitude": 25.106, "Longitude": 56.34, "Radios": [ { "Frequency": 251.25, "Modulation": 0 }, { "Frequency": 124.6, "Modulation": 0 } ]},
-  {"Id": 9, "Name": "Havadarya", "Latitude": 27.16, "Longitude": 56.183, "Radios": [ { "Frequency": 251.3, "Modulation": 0 }, { "Frequency": 123.15, "Modulation": 0 } ], "Tacan": { "Channel": 47, "Mode": "X" }},
-  {"Id": 27, "Name": "Jiroft", "Latitude": 28.731, "Longitude": 57.664, "Radios": [ { "Frequency": 250.85, "Modulation": 0 }, { "Frequency": 136, "Modulation": 0 } ]},
-  {"Id": 18, "Name": "Kerman", "Latitude": 30.258, "Longitude": 56.958, "Radios": [ { "Frequency": 250.3, "Modulation": 0 }, { "Frequency": 118.25, "Modulation": 0 } ], "Tacan": { "Channel": 97, "Mode": "X" }},
-  {"Id": 10, "Name": "Khasab", "Latitude": 26.18, "Longitude": 56.243, "Radios": [ { "Frequency": 250, "Modulation": 0 }, { "Frequency": 124.35, "Modulation": 0 } ]},
-  {"Id": 24, "Name": "Kish Intl", "Latitude": 26.529, "Longitude": 53.965, "Radios": [ { "Frequency": 250.65, "Modulation": 0 }, { "Frequency": 121.65, "Modulation": 0 } ], "Tacan": { "Channel": 112, "Mode": "X" }},
-  {"Id": 11, "Name": "Lar", "Latitude": 27.675, "Longitude": 54.368, "Radios": [ { "Frequency": 250.05, "Modulation": 0 }, { "Frequency": 127.35, "Modulation": 0 } ]},
-  {"Id": 26, "Name": "Lavan Island", "Latitude": 26.815, "Longitude": 53.341, "Radios": [ { "Frequency": 250.75, "Modulation": 0 }, { "Frequency": 128.55, "Modulation": 0 } ]},
-  {"Id": 29, "Name": "Liwa AFB", "Latitude": 23.661, "Longitude": 53.812, "Radios": [ { "Frequency": 250.95, "Modulation": 0 }, { "Frequency": 119.3, "Modulation": 0 } ], "Tacan": { "Channel": 121, "Mode": "X" }},
-  {"Id": 13, "Name": "Qeshm Island", "Latitude": 26.766, "Longitude": 55.918, "Radios": [ { "Frequency": 250.15, "Modulation": 0 }, { "Frequency": 118.05, "Modulation": 0 } ]},
-  {"Id": 28, "Name": "Ras Al Khaimah Intl", "Latitude": 25.602, "Longitude": 55.942, "Radios": [ { "Frequency": 250.9, "Modulation": 0 }, { "Frequency": 121.6, "Modulation": 0 } ]},
-  {"Id": 20, "Name": "Sas Al Nakheel", "Latitude": 24.448, "Longitude": 54.514, "Radios": [ { "Frequency": 250.45, "Modulation": 0 }, { "Frequency": 128.9, "Modulation": 0 } ]},
-  {"Id": 14, "Name": "Sharjah Intl", "Latitude": 25.323, "Longitude": 55.531, "Radios": [ { "Frequency": 250.2, "Modulation": 0 }, { "Frequency": 118.6, "Modulation": 0 } ]},
-  {"Id": 19, "Name": "Shiraz Intl", "Latitude": 29.533, "Longitude": 52.61, "Radios": [ { "Frequency": 250.35, "Modulation": 0 }, { "Frequency": 121.9, "Modulation": 0 } ], "Tacan": { "Channel": 94, "Mode": "X" }},
-  {"Id": 17, "Name": "Sir Abu Nuayr", "Latitude": 25.216, "Longitude": 54.237, "Radios": [ { "Frequency": 250.8, "Modulation": 0 }, { "Frequency": 118, "Modulation": 0 } ]},
-  {"Id": 15, "Name": "Sirri Island ", "Latitude": 25.903, "Longitude": 54.548, "Radios": [ { "Frequency": 250.25, "Modulation": 0 }, { "Frequency": 135.05, "Modulation": 0 } ]},
-  {"Id": 8, "Name": "Tunb Island AFB", "Latitude": 26.251, "Longitude": 55.311},
-  {"Id": 16, "Name": "Tunb Kochak", "Latitude": 26.243, "Longitude": 55.149, "Tacan": { "Channel": 89, "Mode": "X" }}  
+    {
+        "Id": 22,
+        "Name": "Abu Dhabi Intl",
+        "Latitude": 24.453708,
+        "Longitude": 54.654268,
+        "Radios": [
+            {
+                "Frequency": 250.55,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 1,
+        "Name": "Abu Musa Island",
+        "Latitude": 25.875991,
+        "Longitude": 55.032918,
+        "Radios": [
+            {
+                "Frequency": 250.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.9,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 25,
+        "Name": "Al Ain Intl",
+        "Latitude": 24.261428,
+        "Longitude": 55.609245,
+        "Radios": [
+            {
+                "Frequency": 250.7,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.85,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 4,
+        "Name": "Al Dhafra AFB",
+        "Latitude": 24.248288,
+        "Longitude": 54.547699,
+        "Radios": [
+            {
+                "Frequency": 251.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 126.5,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 96,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 6,
+        "Name": "Al Maktoum Intl",
+        "Latitude": 24.897057,
+        "Longitude": 55.160239,
+        "Radios": [
+            {
+                "Frequency": 251.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 12,
+        "Name": "Al Minhad AFB",
+        "Latitude": 25.026881,
+        "Longitude": 55.365758,
+        "Radios": [
+            {
+                "Frequency": 250.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.55,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 99,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 23,
+        "Name": "Al-Bateen",
+        "Latitude": 24.428077,
+        "Longitude": 54.45858,
+        "Radios": [
+            {
+                "Frequency": 250.6,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.9,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "Bandar Abbas Intl",
+        "Latitude": 27.217687,
+        "Longitude": 56.378962,
+        "Radios": [
+            {
+                "Frequency": 251.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.1,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 78,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 3,
+        "Name": "Bandar Lengeh",
+        "Latitude": 26.532264,
+        "Longitude": 54.824667,
+        "Radios": [
+            {
+                "Frequency": 251.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.7,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 21,
+        "Name": "Bandar-e-Jask",
+        "Latitude": 25.654673,
+        "Longitude": 57.801436,
+        "Radios": [
+            {
+                "Frequency": 250.5,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.15,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 110,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 5,
+        "Name": "Dubai Intl",
+        "Latitude": 25.256376,
+        "Longitude": 55.365261,
+        "Radios": [
+            {
+                "Frequency": 251.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.75,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 7,
+        "Name": "Fujairah Intl",
+        "Latitude": 25.11094,
+        "Longitude": 56.327351,
+        "Radios": [
+            {
+                "Frequency": 251.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 124.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 9,
+        "Name": "Havadarya",
+        "Latitude": 27.158224,
+        "Longitude": 56.172019,
+        "Radios": [
+            {
+                "Frequency": 251.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 123.15,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 47,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 27,
+        "Name": "Jiroft",
+        "Latitude": 28.723517,
+        "Longitude": 57.675095,
+        "Radios": [
+            {
+                "Frequency": 250.85,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 136.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 18,
+        "Name": "Kerman",
+        "Latitude": 30.27311,
+        "Longitude": 56.951551,
+        "Radios": [
+            {
+                "Frequency": 250.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.25,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 97,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 10,
+        "Name": "Khasab",
+        "Latitude": 26.169826,
+        "Longitude": 56.24017,
+        "Radios": [
+            {
+                "Frequency": 250.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 124.35,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 24,
+        "Name": "Kish Intl",
+        "Latitude": 26.528148,
+        "Longitude": 53.981049,
+        "Radios": [
+            {
+                "Frequency": 250.65,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.65,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 112,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 11,
+        "Name": "Lar",
+        "Latitude": 27.674732,
+        "Longitude": 54.383145,
+        "Radios": [
+            {
+                "Frequency": 250.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 127.35,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 26,
+        "Name": "Lavan Island",
+        "Latitude": 26.811108,
+        "Longitude": 53.353293,
+        "Radios": [
+            {
+                "Frequency": 250.75,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 128.55,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 29,
+        "Name": "Liwa AFB",
+        "Latitude": 23.650775,
+        "Longitude": 53.824429,
+        "Radios": [
+            {
+                "Frequency": 250.95,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.3,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 121,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 13,
+        "Name": "Qeshm Island",
+        "Latitude": 26.754669,
+        "Longitude": 55.902384,
+        "Radios": [
+            {
+                "Frequency": 250.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.05,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 28,
+        "Name": "Ras Al Khaimah Intl",
+        "Latitude": 25.613494,
+        "Longitude": 55.938797,
+        "Radios": [
+            {
+                "Frequency": 250.9,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 20,
+        "Name": "Sas Al Nakheel",
+        "Latitude": 24.441109,
+        "Longitude": 54.517023,
+        "Radios": [
+            {
+                "Frequency": 250.45,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 128.9,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 14,
+        "Name": "Sharjah Intl",
+        "Latitude": 25.330675,
+        "Longitude": 55.518263,
+        "Radios": [
+            {
+                "Frequency": 250.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 19,
+        "Name": "Shiraz Intl",
+        "Latitude": 29.54091,
+        "Longitude": 52.591074,
+        "Radios": [
+            {
+                "Frequency": 250.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.9,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 94,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 17,
+        "Name": "Sir Abu Nuayr",
+        "Latitude": 25.216871,
+        "Longitude": 54.23365,
+        "Radios": [
+            {
+                "Frequency": 250.8,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 15,
+        "Name": "Sirri Island",
+        "Latitude": 25.909603,
+        "Longitude": 54.539254,
+        "Radios": [
+            {
+                "Frequency": 250.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 135.05,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 8,
+        "Name": "Tunb Island AFB",
+        "Latitude": 26.258888,
+        "Longitude": 55.315782
+    },
+    {
+        "Id": 16,
+        "Name": "Tunb Kochak",
+        "Latitude": 26.243322,
+        "Longitude": 55.145568,
+        "Tacan": {
+            "Channel": 89,
+            "Mode": "X"
+        }
+    }
 ]

@@ -46,6 +46,8 @@
 			TbName = new TextBox();
 			LbName = new Label();
 			ScMain = new SplitContainer();
+			LbHtmlCss = new Label();
+			CbHtmlCss = new ComboBox();
 			CkInactive = new CheckBox();
 			TlGrids = new TableLayoutPanel();
 			PnGridUnitTypes = new Panel();
@@ -54,8 +56,7 @@
 			BtPageOrderDown = new Button();
 			BtPageOrderUp = new Button();
 			LbHeader = new Label();
-			LbHtmlCss = new Label();
-			CbHtmlCss = new ComboBox();
+			((System.ComponentModel.ISupportInitialize)GridPages).BeginInit();
 			((System.ComponentModel.ISupportInitialize)ScMain).BeginInit();
 			ScMain.Panel1.SuspendLayout();
 			ScMain.SuspendLayout();
@@ -86,14 +87,16 @@
 			BtPageAdd.UseVisualStyleBackColor = true;
 			BtPageAdd.Click += BtPageAdd_Click;
 			// 
-			// DgvPages
+			// GridPages
 			// 
 			GridPages.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			GridPages.Location = new Point(0, 19);
-			GridPages.Name = "DgvPages";
+			GridPages.Name = "GridPages";
+			GridPages.ShowGroups = false;
 			GridPages.Size = new Size(310, 220);
 			GridPages.TabIndex = 39;
-			GridPages.View = System.Windows.Forms.View.Details;
+			GridPages.View = View.Details;
+			GridPages.VirtualMode = true;
 			// 
 			// LbPages
 			// 
@@ -121,7 +124,6 @@
 			UcImageSize.Location = new Point(12, 280);
 			UcImageSize.Margin = new Padding(4, 3, 4, 3);
 			UcImageSize.Name = "UcImageSize";
-			UcImageSize.SelectedSize = new Size(1, 1);
 			UcImageSize.Size = new Size(299, 27);
 			UcImageSize.TabIndex = 36;
 			// 
@@ -266,6 +268,24 @@
 			ScMain.SplitterWidth = 5;
 			ScMain.TabIndex = 2;
 			// 
+			// LbHtmlCss
+			// 
+			LbHtmlCss.AutoSize = true;
+			LbHtmlCss.Location = new Point(13, 236);
+			LbHtmlCss.Margin = new Padding(4, 0, 4, 0);
+			LbHtmlCss.Name = "LbHtmlCss";
+			LbHtmlCss.Size = new Size(50, 15);
+			LbHtmlCss.TabIndex = 52;
+			LbHtmlCss.Text = "css style";
+			// 
+			// CbHtmlCss
+			// 
+			CbHtmlCss.FormattingEnabled = true;
+			CbHtmlCss.Location = new Point(139, 233);
+			CbHtmlCss.Name = "CbHtmlCss";
+			CbHtmlCss.Size = new Size(174, 23);
+			CbHtmlCss.TabIndex = 51;
+			// 
 			// CkInactive
 			// 
 			CkInactive.AutoSize = true;
@@ -332,7 +352,7 @@
 			BtPageOrderDown.Name = "BtPageOrderDown";
 			BtPageOrderDown.Size = new Size(26, 23);
 			BtPageOrderDown.TabIndex = 47;
-			BtPageOrderDown.Text = "v";
+			BtPageOrderDown.Text = "▼";
 			BtPageOrderDown.UseVisualStyleBackColor = true;
 			BtPageOrderDown.Click += BtPageOrderDown_Click;
 			// 
@@ -343,7 +363,7 @@
 			BtPageOrderUp.Name = "BtPageOrderUp";
 			BtPageOrderUp.Size = new Size(26, 23);
 			BtPageOrderUp.TabIndex = 46;
-			BtPageOrderUp.Text = "^";
+			BtPageOrderUp.Text = "▲";
 			BtPageOrderUp.UseVisualStyleBackColor = true;
 			BtPageOrderUp.Click += BtPageOrderUp_Click;
 			// 
@@ -357,24 +377,6 @@
 			LbHeader.Text = "Folder";
 			LbHeader.TextAlign = ContentAlignment.MiddleCenter;
 			// 
-			// LbHtmlCss
-			// 
-			LbHtmlCss.AutoSize = true;
-			LbHtmlCss.Location = new Point(13, 236);
-			LbHtmlCss.Margin = new Padding(4, 0, 4, 0);
-			LbHtmlCss.Name = "LbHtmlCss";
-			LbHtmlCss.Size = new Size(50, 15);
-			LbHtmlCss.TabIndex = 52;
-			LbHtmlCss.Text = "css style";
-			// 
-			// CbHtmlCss
-			// 
-			CbHtmlCss.FormattingEnabled = true;
-			CbHtmlCss.Location = new Point(139, 233);
-			CbHtmlCss.Name = "CbHtmlCss";
-			CbHtmlCss.Size = new Size(174, 23);
-			CbHtmlCss.TabIndex = 51;
-			// 
 			// FrmBriefingFolder
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
@@ -387,6 +389,7 @@
 			Text = "Briefing folder";
 			FormClosed += FrmBriefingFolder_FormClosed;
 			Shown += FrmBriefingFolder_Shown;
+			((System.ComponentModel.ISupportInitialize)GridPages).EndInit();
 			ScMain.Panel1.ResumeLayout(false);
 			ScMain.Panel1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)ScMain).EndInit();

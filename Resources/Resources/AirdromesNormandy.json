@@ -1,0 +1,1426 @@
+[
+    {
+        "Id": 75,
+        "Name": "Abbeville Drucat",
+        "Latitude": 50.138133,
+        "Longitude": 1.837893,
+        "Radios": [
+            {
+                "Frequency": 253.5,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.05,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 85,
+        "Name": "Alderney",
+        "Latitude": 49.706759,
+        "Longitude": -2.214594,
+        "Radios": [
+            {
+                "Frequency": 254.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.05,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 59,
+        "Name": "Amiens-Glisy",
+        "Latitude": 49.872011,
+        "Longitude": 2.390358,
+        "Radios": [
+            {
+                "Frequency": 252.6,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.8,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 32,
+        "Name": "Argentan",
+        "Latitude": 48.768762,
+        "Longitude": -0.030445,
+        "Radios": [
+            {
+                "Frequency": 251.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 65,
+        "Name": "Avranches Le Val-Saint-Pere",
+        "Latitude": 48.668148,
+        "Longitude": -1.380639,
+        "Radios": [
+            {
+                "Frequency": 252.95,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.15,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 15,
+        "Name": "Azeville",
+        "Latitude": 49.480991,
+        "Longitude": -1.317616,
+        "Radios": [
+            {
+                "Frequency": 250.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.35,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 34,
+        "Name": "Barville",
+        "Latitude": 48.480139,
+        "Longitude": 0.313983,
+        "Radios": [
+            {
+                "Frequency": 251.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 20,
+        "Name": "Bazenville",
+        "Latitude": 49.303964,
+        "Longitude": -0.564728,
+        "Radios": [
+            {
+                "Frequency": 250.55,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.7,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 67,
+        "Name": "Beaumont-le-Roger",
+        "Latitude": 49.096381,
+        "Longitude": 0.796926,
+        "Radios": [
+            {
+                "Frequency": 253.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.25,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 44,
+        "Name": "Beauvais-Tille",
+        "Latitude": 49.454163,
+        "Longitude": 2.113238,
+        "Radios": [
+            {
+                "Frequency": 251.85,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.05,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 90,
+        "Name": "Bembridg",
+        "Latitude": 50.678471,
+        "Longitude": -1.110802,
+        "Radios": [
+            {
+                "Frequency": 360.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 123.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 22,
+        "Name": "Beny-sur-Mer",
+        "Latitude": 49.298021,
+        "Longitude": -0.426621,
+        "Radios": [
+            {
+                "Frequency": 250.65,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.8,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 69,
+        "Name": "Bernay Saint Martin",
+        "Latitude": 49.104433,
+        "Longitude": 0.598438,
+        "Radios": [
+            {
+                "Frequency": 253.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.35,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 14,
+        "Name": "Beuzeville",
+        "Latitude": 49.420546,
+        "Longitude": -1.298552,
+        "Radios": [
+            {
+                "Frequency": 250.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.3,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 71,
+        "Name": "Biggin Hill",
+        "Latitude": 51.33001,
+        "Longitude": 0.03165,
+        "Radios": [
+            {
+                "Frequency": 253.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 134.8,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 10,
+        "Name": "Biniville",
+        "Latitude": 49.436721,
+        "Longitude": -1.46897,
+        "Radios": [
+            {
+                "Frequency": 250.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 68,
+        "Name": "Broglie",
+        "Latitude": 49.015629,
+        "Longitude": 0.49886,
+        "Radios": [
+            {
+                "Frequency": 253.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.3,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 5,
+        "Name": "Brucheville",
+        "Latitude": 49.368674,
+        "Longitude": -1.215765,
+        "Radios": [
+            {
+                "Frequency": 252.65,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.85,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 11,
+        "Name": "Cardonville",
+        "Latitude": 49.351013,
+        "Longitude": -1.050997,
+        "Radios": [
+            {
+                "Frequency": 250.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 19,
+        "Name": "Carpiquet",
+        "Latitude": 49.175126,
+        "Longitude": -0.454461,
+        "Radios": [
+            {
+                "Frequency": 250.45,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 27,
+        "Name": "Chailey",
+        "Latitude": 50.952521,
+        "Longitude": -0.047401,
+        "Radios": [
+            {
+                "Frequency": 250.9,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.05,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 13,
+        "Name": "Chippelle",
+        "Latitude": 49.241917,
+        "Longitude": -0.97165,
+        "Radios": [
+            {
+                "Frequency": 250.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 40,
+        "Name": "Conches",
+        "Latitude": 48.93481,
+        "Longitude": 0.961308,
+        "Radios": [
+            {
+                "Frequency": 251.65,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.85,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 45,
+        "Name": "Cormeilles-en-Vexin",
+        "Latitude": 49.09328,
+        "Longitude": 2.035435,
+        "Radios": [
+            {
+                "Frequency": 251.9,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 46,
+        "Name": "Creil",
+        "Latitude": 49.252764,
+        "Longitude": 2.505931,
+        "Radios": [
+            {
+                "Frequency": 251.95,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.15,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 3,
+        "Name": "Cretteville",
+        "Latitude": 49.336592,
+        "Longitude": -1.379356,
+        "Radios": [
+            {
+                "Frequency": 251.6,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.8,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 7,
+        "Name": "Cricqueville-en-Bessin",
+        "Latitude": 49.364575,
+        "Longitude": -1.006884,
+        "Radios": [
+            {
+                "Frequency": 253.75,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.7,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 54,
+        "Name": "Deanland",
+        "Latitude": 50.884349,
+        "Longitude": 0.161353,
+        "Radios": [
+            {
+                "Frequency": 252.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.55,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 62,
+        "Name": "Deauville",
+        "Latitude": 49.364267,
+        "Longitude": 0.157245,
+        "Radios": [
+            {
+                "Frequency": 252.8,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 73,
+        "Name": "Detling",
+        "Latitude": 51.305788,
+        "Longitude": 0.601579,
+        "Radios": [
+            {
+                "Frequency": 253.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.45,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 12,
+        "Name": "Deux Jumeaux",
+        "Latitude": 49.347327,
+        "Longitude": -0.980809,
+        "Radios": [
+            {
+                "Frequency": 250.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.15,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 49,
+        "Name": "Dinan-Trelivan",
+        "Latitude": 48.443383,
+        "Longitude": -2.103121,
+        "Radios": [
+            {
+                "Frequency": 252.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.3,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 79,
+        "Name": "Dunkirk-Mardyck",
+        "Latitude": 51.030384,
+        "Longitude": 2.256982,
+        "Radios": [
+            {
+                "Frequency": 253.7,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 132.45,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 81,
+        "Name": "Eastchurch",
+        "Latitude": 51.390358,
+        "Longitude": 0.847936,
+        "Radios": [
+            {
+                "Frequency": 253.85,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.25,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 35,
+        "Name": "Essay",
+        "Latitude": 48.520544,
+        "Longitude": 0.257691,
+        "Radios": [
+            {
+                "Frequency": 251.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.55,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 26,
+        "Name": "Evreux",
+        "Latitude": 49.023804,
+        "Longitude": 1.21326,
+        "Radios": [
+            {
+                "Frequency": 250.85,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 52,
+        "Name": "Farnborough",
+        "Latitude": 51.278719,
+        "Longitude": -0.77468,
+        "Radios": [
+            {
+                "Frequency": 252.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.45,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 51,
+        "Name": "Fecamp-Benouville",
+        "Latitude": 49.746304,
+        "Longitude": 0.356102,
+        "Radios": [
+            {
+                "Frequency": 252.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 64,
+        "Name": "Flers",
+        "Latitude": 48.749217,
+        "Longitude": -0.595621,
+        "Radios": [
+            {
+                "Frequency": 252.9,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 31,
+        "Name": "Ford",
+        "Latitude": 50.818497,
+        "Longitude": -0.59117,
+        "Radios": [
+            {
+                "Frequency": 251.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.35,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 53,
+        "Name": "Friston",
+        "Latitude": 50.761749,
+        "Longitude": 0.171492,
+        "Radios": [
+            {
+                "Frequency": 252.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 29,
+        "Name": "Funtington",
+        "Latitude": 50.868196,
+        "Longitude": -0.869079,
+        "Radios": [
+            {
+                "Frequency": 251.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.15,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 33,
+        "Name": "Goulet",
+        "Latitude": 48.749692,
+        "Longitude": -0.111457,
+        "Radios": [
+            {
+                "Frequency": 251.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.45,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 66,
+        "Name": "Gravesend",
+        "Latitude": 51.418056,
+        "Longitude": 0.396748,
+        "Radios": [
+            {
+                "Frequency": 253.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 83,
+        "Name": "Guernsey",
+        "Latitude": 49.435785,
+        "Longitude": -2.595957,
+        "Radios": [
+            {
+                "Frequency": 254.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.25,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 47,
+        "Name": "Guyancourt",
+        "Latitude": 48.758745,
+        "Longitude": 2.079925,
+        "Radios": [
+            {
+                "Frequency": 252.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 36,
+        "Name": "Hauterive",
+        "Latitude": 48.499941,
+        "Longitude": 0.200091,
+        "Radios": [
+            {
+                "Frequency": 251.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 82,
+        "Name": "Hawkinge",
+        "Latitude": 51.111742,
+        "Longitude": 1.15806,
+        "Radios": [
+            {
+                "Frequency": 253.9,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.8,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 86,
+        "Name": "Headcorn",
+        "Latitude": 51.182858,
+        "Longitude": 0.6887,
+        "Radios": [
+            {
+                "Frequency": 254.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 78,
+        "Name": "High Halden",
+        "Latitude": 51.124641,
+        "Longitude": 0.705641,
+        "Radios": [
+            {
+                "Frequency": 253.65,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.65,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 89,
+        "Name": "Holmsley South",
+        "Latitude": 50.790069,
+        "Longitude": -1.700979,
+        "Radios": [
+            {
+                "Frequency": 254.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 84,
+        "Name": "Jersey",
+        "Latitude": 49.207677,
+        "Longitude": -2.199688,
+        "Radios": [
+            {
+                "Frequency": 254.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 43,
+        "Name": "Kenley",
+        "Latitude": 51.304183,
+        "Longitude": -0.096943,
+        "Radios": [
+            {
+                "Frequency": 251.8,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 25,
+        "Name": "Lantheuil",
+        "Latitude": 49.271457,
+        "Longitude": -0.538403,
+        "Radios": [
+            {
+                "Frequency": 250.8,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.95,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 80,
+        "Name": "Lashenden",
+        "Latitude": 51.156294,
+        "Longitude": 0.644352,
+        "Radios": [
+            {
+                "Frequency": 253.8,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.75,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 17,
+        "Name": "Le Molay",
+        "Latitude": 49.261537,
+        "Longitude": -0.881665,
+        "Radios": [
+            {
+                "Frequency": 250.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 8,
+        "Name": "Lessay",
+        "Latitude": 49.202167,
+        "Longitude": -1.508343,
+        "Radios": [
+            {
+                "Frequency": 253.95,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.85,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "Lignerolles",
+        "Latitude": 49.175104,
+        "Longitude": -0.788931,
+        "Radios": [
+            {
+                "Frequency": 251.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 18,
+        "Name": "Longues-sur-Mer",
+        "Latitude": 49.342662,
+        "Longitude": -0.70616,
+        "Radios": [
+            {
+                "Frequency": 250.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.55,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 48,
+        "Name": "Lonrai",
+        "Latitude": 48.467673,
+        "Longitude": 0.037384,
+        "Radios": [
+            {
+                "Frequency": 252.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.25,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 37,
+        "Name": "Lymington",
+        "Latitude": 50.762479,
+        "Longitude": -1.514305,
+        "Radios": [
+            {
+                "Frequency": 251.45,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.65,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 74,
+        "Name": "Lympne",
+        "Latitude": 51.082915,
+        "Longitude": 1.019371,
+        "Radios": [
+            {
+                "Frequency": 253.45,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 72,
+        "Name": "Manston",
+        "Latitude": 51.342411,
+        "Longitude": 1.34618,
+        "Radios": [
+            {
+                "Frequency": 253.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.25,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 4,
+        "Name": "Maupertus",
+        "Latitude": 49.649802,
+        "Longitude": -1.466956,
+        "Radios": [
+            {
+                "Frequency": 252.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.35,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 6,
+        "Name": "Meautis",
+        "Latitude": 49.283189,
+        "Longitude": -1.300239,
+        "Radios": [
+            {
+                "Frequency": 253.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 77,
+        "Name": "Merville Calonne",
+        "Latitude": 50.620596,
+        "Longitude": 2.653471,
+        "Radios": [
+            {
+                "Frequency": 253.6,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 28,
+        "Name": "Needs Oar Point",
+        "Latitude": 50.771664,
+        "Longitude": -1.43453,
+        "Radios": [
+            {
+                "Frequency": 250.95,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 88,
+        "Name": "Northolt",
+        "Latitude": 51.552791,
+        "Longitude": -0.419285,
+        "Radios": [
+            {
+                "Frequency": 254.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 39,
+        "Name": "Odiham",
+        "Latitude": 51.234422,
+        "Longitude": -0.941727,
+        "Radios": [
+            {
+                "Frequency": 251.55,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.75,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 57,
+        "Name": "Orly",
+        "Latitude": 48.73514,
+        "Longitude": 2.391826,
+        "Radios": [
+            {
+                "Frequency": 252.5,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.7,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 16,
+        "Name": "Picauville",
+        "Latitude": 49.396374,
+        "Longitude": -1.411155,
+        "Radios": [
+            {
+                "Frequency": 250.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 56,
+        "Name": "Poix",
+        "Latitude": 49.818859,
+        "Longitude": 1.977265,
+        "Radios": [
+            {
+                "Frequency": 252.45,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.65,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 60,
+        "Name": "Ronai",
+        "Latitude": 48.823384,
+        "Longitude": -0.161215,
+        "Radios": [
+            {
+                "Frequency": 252.7,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.9,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 61,
+        "Name": "Rouen-Boos",
+        "Latitude": 49.38723,
+        "Longitude": 1.178984,
+        "Radios": [
+            {
+                "Frequency": 252.75,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.95,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 23,
+        "Name": "Rucqueville",
+        "Latitude": 49.251425,
+        "Longitude": -0.58031,
+        "Radios": [
+            {
+                "Frequency": 250.7,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.85,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 1,
+        "Name": "Saint Pierre du Mont",
+        "Latitude": 49.390508,
+        "Longitude": -0.957074,
+        "Radios": [
+            {
+                "Frequency": 250.5,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.65,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 70,
+        "Name": "Saint-Andre-de-lEure",
+        "Latitude": 48.891284,
+        "Longitude": 1.268338,
+        "Radios": [
+            {
+                "Frequency": 253.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.45,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 63,
+        "Name": "Saint-Aubin",
+        "Latitude": 49.885015,
+        "Longitude": 1.080429,
+        "Radios": [
+            {
+                "Frequency": 252.85,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.05,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 76,
+        "Name": "Saint-Omer Wizernes",
+        "Latitude": 50.728845,
+        "Longitude": 2.232303,
+        "Radios": [
+            {
+                "Frequency": 253.55,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.55,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 87,
+        "Name": "Saint-Pol-Bryas",
+        "Latitude": 50.396662,
+        "Longitude": 2.350691,
+        "Radios": [
+            {
+                "Frequency": 254.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.15,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 21,
+        "Name": "Sainte-Croix-sur-Mer",
+        "Latitude": 49.320276,
+        "Longitude": -0.517246,
+        "Radios": [
+            {
+                "Frequency": 250.6,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.75,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 9,
+        "Name": "Sainte-Laurent-sur-Mer",
+        "Latitude": 49.364463,
+        "Longitude": -0.873488,
+        "Radios": [
+            {
+                "Frequency": 254.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.9,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 24,
+        "Name": "Sommervieu",
+        "Latitude": 49.300228,
+        "Longitude": -0.670951,
+        "Radios": [
+            {
+                "Frequency": 250.75,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.9,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 58,
+        "Name": "Stoney Cross",
+        "Latitude": 50.914793,
+        "Longitude": -1.653211,
+        "Radios": [
+            {
+                "Frequency": 252.55,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.75,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 30,
+        "Name": "Tangmere",
+        "Latitude": 50.84576,
+        "Longitude": -0.701897,
+        "Radios": [
+            {
+                "Frequency": 251.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.3,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 55,
+        "Name": "Triqueville",
+        "Latitude": 49.336215,
+        "Longitude": 0.45828,
+        "Radios": [
+            {
+                "Frequency": 252.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 42,
+        "Name": "Villacoublay",
+        "Latitude": 48.767349,
+        "Longitude": 2.205032,
+        "Radios": [
+            {
+                "Frequency": 251.75,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.95,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 38,
+        "Name": "Vrigny",
+        "Latitude": 48.672283,
+        "Longitude": -0.002161,
+        "Radios": [
+            {
+                "Frequency": 251.5,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.7,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 41,
+        "Name": "West Malling",
+        "Latitude": 51.27036,
+        "Longitude": 0.404697,
+        "Radios": [
+            {
+                "Frequency": 251.7,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.9,
+                "Modulation": 0
+            }
+        ]
+    }
+]

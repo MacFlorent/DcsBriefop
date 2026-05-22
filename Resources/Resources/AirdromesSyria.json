@@ -1,62 +1,1970 @@
 [
-  {"Id": 1, "Name": "Abu al-Duhur", "Latitude": 35.731, "Longitude": 37.119, "Radios": [ { "Frequency": 250.45, "Modulation": 0 }, { "Frequency": 122.2, "Modulation": 0 } ]},
-  {"Id": 2, "Name": "Adana Sakirpasa", "Latitude": 36.988, "Longitude": 35.291, "Radios": [ { "Frequency": 251, "Modulation": 0 }, { "Frequency": 121.1, "Modulation": 0 } ]},
-  {"Id": 44, "Name": "Akrotiri", "Latitude": 34.59, "Longitude": 32.988, "Radios": [ { "Frequency": 251.75, "Modulation": 0 }, { "Frequency": 128, "Modulation": 0 } ], "Tacan": { "Channel": 107, "Mode": "X" }},
-  {"Id": 3, "Name": "Al Qusayr", "Latitude": 34.567, "Longitude": 36.585, "Radios": [ { "Frequency": 251.55, "Modulation": 0 }, { "Frequency": 119.2, "Modulation": 0 } ]},
-  {"Id": 9, "Name": "Al-Dumayr", "Latitude": 33.604, "Longitude": 36.736, "Radios": [ { "Frequency": 252.75, "Modulation": 0 }, { "Frequency": 120.3, "Modulation": 0 } ]},
-  {"Id": 27, "Name": "Aleppo", "Latitude": 36.182, "Longitude": 37.21, "Radios": [ { "Frequency": 250.85, "Modulation": 0 }, { "Frequency": 119.1, "Modulation": 0 } ]},
-  {"Id": 4, "Name": "An Nasiriyah", "Latitude": 33.926, "Longitude": 36.875, "Radios": [ { "Frequency": 252.05, "Modulation": 0 }, { "Frequency": 122.3, "Modulation": 0 } ]},
-  {"Id": 21, "Name": "Bassel Al-Assad", "Latitude": 35.411, "Longitude": 35.948, "Radios": [ { "Frequency": 250.55, "Modulation": 0 }, { "Frequency": 118.1, "Modulation": 0 } ]},
-  {"Id": 6, "Name": "Beirut-Rafic Hariri", "Latitude": 33.837, "Longitude": 35.487, "Radios": [ { "Frequency": 252.6, "Modulation": 0 }, { "Frequency": 118.9, "Modulation": 0 } ]},
-  {"Id": 7, "Name": "Damascus", "Latitude": 33.415, "Longitude": 36.504, "Radios": [ { "Frequency": 252.65, "Modulation": 0 }, { "Frequency": 118.5, "Modulation": 0 } ]},
-  {"Id": 42, "Name": "Deir ez-Zor", "Latitude": 35.286, "Longitude": 40.176, "Radios": [ { "Frequency": 251.7, "Modulation": 0 }, { "Frequency": 118.1, "Modulation": 0 } ]},
-  {"Id": 49, "Name": "Ercan", "Latitude": 35.155, "Longitude": 33.502, "Radios": [ { "Frequency": 252, "Modulation": 0 }, { "Frequency": 120.2, "Modulation": 0 } ]},
-  {"Id": 10, "Name": "Eyn Shemer", "Latitude": 32.442, "Longitude": 35.002, "Radios": [ { "Frequency": 250, "Modulation": 0 }, { "Frequency": 123.4, "Modulation": 0 } ]},
-  {"Id": 11, "Name": "Gaziantep", "Latitude": 36.951, "Longitude": 37.464, "Radios": [ { "Frequency": 250.05, "Modulation": 0 }, { "Frequency": 121.1, "Modulation": 0 } ]},
-  {"Id": 41, "Name": "Gazipasa", "Latitude": 36.299, "Longitude": 32.298, "Radios": [ { "Frequency": 251.65, "Modulation": 0 }, { "Frequency": 119.25, "Modulation": 0 } ]},
-  {"Id": 50, "Name": "Gecitkale", "Latitude": 35.236, "Longitude": 33.721, "Radios": [ { "Frequency": 252.1, "Modulation": 0 }, { "Frequency": 120, "Modulation": 0 } ]},
-  {"Id": 53, "Name": "H3", "Latitude": 32.936, "Longitude": 39.746, "Radios": [ { "Frequency": 252.25, "Modulation": 0 }, { "Frequency": 122, "Modulation": 0 } ]},
-  {"Id": 54, "Name": "H3 Northwest", "Latitude": 33.076, "Longitude": 39.596},
-  {"Id": 55, "Name": "H3 Southwest", "Latitude": 32.743, "Longitude": 39.602},
-  {"Id": 12, "Name": "H4", "Latitude": 32.539, "Longitude": 38.195, "Radios": [ { "Frequency": 250.1, "Modulation": 0 }, { "Frequency": 122.6, "Modulation": 0 } ]},
-  {"Id": 13, "Name": "Haifa Airport", "Latitude": 32.815, "Longitude": 35.042, "Radios": [ { "Frequency": 250.15, "Modulation": 0 }, { "Frequency": 127.8, "Modulation": 0 } ]},
-  {"Id": 14, "Name": "Hama", "Latitude": 35.116, "Longitude": 36.725, "Radios": [ { "Frequency": 250.2, "Modulation": 0 }, { "Frequency": 118.05, "Modulation": 0 } ]},
-  {"Id": 15, "Name": "Hatay", "Latitude": 36.371, "Longitude": 36.298, "Radios": [ { "Frequency": 250.25, "Modulation": 0 }, { "Frequency": 128.5, "Modulation": 0 } ]},
-  {"Id": 16, "Name": "Incirlik", "Latitude": 36.994, "Longitude": 35.413, "Radios": [ { "Frequency": 360.1, "Modulation": 0 }, { "Frequency": 122.1, "Modulation": 0 } ], "Tacan": { "Channel": 21, "Mode": "X" }},
-  {"Id": 17, "Name": "Jirah", "Latitude": 36.094, "Longitude": 37.951, "Radios": [ { "Frequency": 250.3, "Modulation": 0 }, { "Frequency": 118.1, "Modulation": 0 } ]},
-  {"Id": 18, "Name": "Khalkhalah", "Latitude": 33.063, "Longitude": 36.56, "Radios": [ { "Frequency": 250.35, "Modulation": 0 }, { "Frequency": 122.5, "Modulation": 0 } ]},
-  {"Id": 19, "Name": "King Hussein", "Latitude": 32.349, "Longitude": 36.27, "Radios": [ { "Frequency": 250.4, "Modulation": 0 }, { "Frequency": 118.3, "Modulation": 0 } ]},
-  {"Id": 45, "Name": "Kingsfield", "Latitude": 35.015, "Longitude": 33.717, "Radios": [ { "Frequency": 251.8, "Modulation": 0 }, { "Frequency": 121, "Modulation": 0 } ]},
-  {"Id": 20, "Name": "Kiryat Shmona", "Latitude": 33.212, "Longitude": 35.592, "Radios": [ { "Frequency": 250.5, "Modulation": 0 }, { "Frequency": 118.4, "Modulation": 0 } ]},
-  {"Id": 31, "Name": "Kuweires", "Latitude": 36.189, "Longitude": 37.57, "Radios": [ { "Frequency": 251.1, "Modulation": 0 }, { "Frequency": 120.5, "Modulation": 0 } ]},
-  {"Id": 47, "Name": "Larnaca", "Latitude": 34.873, "Longitude": 33.623, "Radios": [ { "Frequency": 251.9, "Modulation": 0 }, { "Frequency": 121.2, "Modulation": 0 } ]},
-  {"Id": 23, "Name": "Marj Ruhayyil", "Latitude": 36.279, "Longitude": 36.447, "Radios": [ { "Frequency": 250.65, "Modulation": 0 }, { "Frequency": 120.8, "Modulation": 0 } ]},
-  {"Id": 24, "Name": "Megiddo", "Latitude": 32.598, "Longitude": 35.22, "Radios": [ { "Frequency": 250.7, "Modulation": 0 }, { "Frequency": 119.9, "Modulation": 0 } ]},
-  {"Id": 25, "Name": "Mezzeh", "Latitude": 33.483, "Longitude": 36.235, "Radios": [ { "Frequency": 250.75, "Modulation": 0 }, { "Frequency": 120.7, "Modulation": 0 } ]},
-  {"Id": 26, "Name": "Minakh", "Latitude": 36.523, "Longitude": 37.034, "Radios": [ { "Frequency": 250.8, "Modulation": 0 }, { "Frequency": 120.6, "Modulation": 0 } ]},
-  {"Id": 43, "Name": "Nicosia", "Latitude": 35.151, "Longitude": 33.276},
-  {"Id": 28, "Name": "Palmyra", "Latitude": 34.558, "Longitude": 38.331, "Radios": [ { "Frequency": 250.9, "Modulation": 0 }, { "Frequency": 121.9, "Modulation": 0 } ]},
-  {"Id": 46, "Name": "Paphos", "Latitude": 34.718, "Longitude": 32.485, "Radios": [ { "Frequency": 251.85, "Modulation": 0 }, { "Frequency": 119.9, "Modulation": 0 } ], "Tacan": { "Channel": 79, "Mode": "X" }},
-  {"Id": 30, "Name": "Ramat David", "Latitude": 32.666, "Longitude": 35.165, "Radios": [ { "Frequency": 251.05, "Modulation": 0 }, { "Frequency": 118.6, "Modulation": 0 } ], "Tacan": { "Channel": 84, "Mode": "X" }},
-  {"Id": 32, "Name": "Rayak", "Latitude": 33.843, "Longitude": 35.977, "Radios": [ { "Frequency": 251.15, "Modulation": 0 }, { "Frequency": 124.4, "Modulation": 0 } ]},
-  {"Id": 33, "Name": "Rene Mouawad", "Latitude": 34.584, "Longitude": 35.999, "Radios": [ { "Frequency": 251.2, "Modulation": 0 }, { "Frequency": 121, "Modulation": 0 } ]},
-  {"Id": 34, "Name": "Rosh Pina", "Latitude": 36.979, "Longitude": 35.573, "Radios": [ { "Frequency": 251.25, "Modulation": 0 }, { "Frequency": 118.45, "Modulation": 0 } ]},
-  {"Id": 56, "Name": "Ruwayshid", "Latitude": 32.405, "Longitude": 39.13, "Radios": [ { "Frequency": 252.3, "Modulation": 0 }, { "Frequency": 122.1, "Modulation": 0 } ]},
-  {"Id": 57, "Name": "Sanliurfa", "Latitude": 37.448, "Longitude": 38.898, "Radios": [ { "Frequency": 252.35, "Modulation": 0 }, { "Frequency": 118.4, "Modulation": 0 } ]},
-  {"Id": 35, "Name": "Sayqal", "Latitude": 33.68, "Longitude": 37.202, "Radios": [ { "Frequency": 251.3, "Modulation": 0 }, { "Frequency": 120.4, "Modulation": 0 } ]},
-  {"Id": 36, "Name": "Shayrat", "Latitude": 34.494, "Longitude": 36.894, "Radios": [ { "Frequency": 251.35, "Modulation": 0 }, { "Frequency": 120.2, "Modulation": 0 } ]},
-  {"Id": 37, "Name": "Tabqa", "Latitude": 35.756, "Longitude": 38.551, "Radios": [ { "Frequency": 251.4, "Modulation": 0 }, { "Frequency": 118.5, "Modulation": 0 } ]},
-  {"Id": 5, "Name": "Tha'lah", "Latitude": 32.698, "Longitude": 36.403, "Radios": [ { "Frequency": 252.45, "Modulation": 0 }, { "Frequency": 122.4, "Modulation": 0 } ]},
-  {"Id": 39, "Name": "Tiyas", "Latitude": 34.523, "Longitude": 37.646, "Radios": [ { "Frequency": 251.5, "Modulation": 0 }, { "Frequency": 120.5, "Modulation": 0 } ]},
-  {"Id": 40, "Name": "Wujah Al Hajar", "Latitude": 34.287, "Longitude": 35.684, "Radios": [ { "Frequency": 251.6, "Modulation": 0 }, { "Frequency": 121.5, "Modulation": 0 } ]},
-  {"Id": 62, "Name": "At Tanf", "Latitude": 33.506, "Longitude": 38.615, "Radios": [ { "Frequency": 252.55, "Modulation": 0 }, { "Frequency": 121.1, "Modulation": 0 } ]},
-  {"Id": 58, "Name": "Kharab Ishk", "Latitude": 36.547, "Longitude": 38.588, "Radios": [ { "Frequency": 252.4, "Modulation": 0 }, { "Frequency": 122.2, "Modulation": 0 } ]},
-  {"Id": 48, "Name": "Lakatamia", "Latitude": 35.104, "Longitude": 33.321, "Radios": [ { "Frequency": 251.95, "Modulation": 0 }, { "Frequency": 120.2, "Modulation": 0 } ]},
-  {"Id": 22, "Name": "Marj as Sultan North", "Latitude": 33.5, "Longitude": 36.466, "Radios": [ { "Frequency": 250.6, "Modulation": 0 }, { "Frequency": 122.7, "Modulation": 0 } ]},
-  {"Id": 8, "Name": "Marj as Sultan South", "Latitude": 33.487, "Longitude": 36.475, "Radios": [ { "Frequency": 252.7, "Modulation": 0 }, { "Frequency": 122.9, "Modulation": 0 } ]},
-  {"Id": 52, "Name": "Naqoura", "Latitude": 33.108, "Longitude": 35.127, "Radios": [ { "Frequency": 252.2, "Modulation": 0 }, { "Frequency": 122, "Modulation": 0 } ]},
-  {"Id": 51, "Name": "Pinarbashi", "Latitude": 35.274, "Longitude": 33.268, "Radios": [ { "Frequency": 252.15, "Modulation": 0 }, { "Frequency": 121, "Modulation": 0 } ]},
-  {"Id": 29, "Name": "Qabr as Sitt", "Latitude": 33.459, "Longitude": 36.357, "Radios": [ { "Frequency": 250.95, "Modulation": 0 }, { "Frequency": 122.6, "Modulation": 0 } ]},
-  {"Id": 38, "Name": "Taftanaz", "Latitude": 35.973, "Longitude": 36.786, "Radios": [ { "Frequency": 251.45, "Modulation": 0 }, { "Frequency": 122.8, "Modulation": 0 } ]},
-  {"Id": 59, "Name": "Tal Siman", "Latitude": 36.262, "Longitude": 38.928, "Radios": [ { "Frequency": 252.5, "Modulation": 0 }, { "Frequency": 121.9, "Modulation": 0 } ]}  
+    {
+        "Id": 1,
+        "Name": "Abu al-Duhur",
+        "Latitude": 35.732306,
+        "Longitude": 37.104128,
+        "Radios": [
+            {
+                "Frequency": 250.5,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "Adana Sakirpasa",
+        "Latitude": 36.981885,
+        "Longitude": 35.280006,
+        "Radios": [
+            {
+                "Frequency": 251.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 44,
+        "Name": "Akrotiri",
+        "Latitude": 34.590373,
+        "Longitude": 32.987777,
+        "Radios": [
+            {
+                "Frequency": 252.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 128.0,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 107,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 3,
+        "Name": "Al Qusayr",
+        "Latitude": 34.569276,
+        "Longitude": 36.571454,
+        "Radios": [
+            {
+                "Frequency": 251.8,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 9,
+        "Name": "Al-Dumayr",
+        "Latitude": 33.609701,
+        "Longitude": 36.749152,
+        "Radios": [
+            {
+                "Frequency": 253.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.3,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 27,
+        "Name": "Aleppo",
+        "Latitude": 36.180618,
+        "Longitude": 37.224367,
+        "Radios": [
+            {
+                "Frequency": 251.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 4,
+        "Name": "An Nasiriyah",
+        "Latitude": 33.918607,
+        "Longitude": 36.86584,
+        "Radios": [
+            {
+                "Frequency": 252.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.3,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 63,
+        "Name": "At Tanf",
+        "Latitude": 33.50645,
+        "Longitude": 38.614884,
+        "Radios": [
+            {
+                "Frequency": 252.9,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 21,
+        "Name": "Bassel Al-Assad",
+        "Latitude": 35.40167,
+        "Longitude": 35.950384,
+        "Radios": [
+            {
+                "Frequency": 250.6,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 6,
+        "Name": "Beirut-Rafic Hariri",
+        "Latitude": 33.827268,
+        "Longitude": 35.487687,
+        "Radios": [
+            {
+                "Frequency": 253.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.9,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 221,
+        "Name": "Ben Gurion",
+        "Latitude": 32.006079,
+        "Longitude": 34.882423,
+        "Radios": [
+            {
+                "Frequency": 250.7,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 134.6,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 82,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 7,
+        "Name": "Damascus",
+        "Latitude": 33.425508,
+        "Longitude": 36.518512,
+        "Radios": [
+            {
+                "Frequency": 253.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 42,
+        "Name": "Deir ez-Zor",
+        "Latitude": 35.285432,
+        "Longitude": 40.176061,
+        "Radios": [
+            {
+                "Frequency": 251.95,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 49,
+        "Name": "Ercan",
+        "Latitude": 35.155149,
+        "Longitude": 33.501695,
+        "Radios": [
+            {
+                "Frequency": 252.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 10,
+        "Name": "Eyn Shemer",
+        "Latitude": 32.440932,
+        "Longitude": 35.006998,
+        "Radios": [
+            {
+                "Frequency": 250.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 123.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 11,
+        "Name": "Gaziantep",
+        "Latitude": 36.948128,
+        "Longitude": 37.478344,
+        "Radios": [
+            {
+                "Frequency": 250.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 41,
+        "Name": "Gazipasa",
+        "Latitude": 36.298922,
+        "Longitude": 32.297628,
+        "Radios": [
+            {
+                "Frequency": 251.9,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.25,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 50,
+        "Name": "Gecitkale",
+        "Latitude": 35.236011,
+        "Longitude": 33.720895,
+        "Radios": [
+            {
+                "Frequency": 252.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 53,
+        "Name": "H3",
+        "Latitude": 32.936195,
+        "Longitude": 39.745813,
+        "Radios": [
+            {
+                "Frequency": 252.5,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 54,
+        "Name": "H3 Northwest",
+        "Latitude": 33.075956,
+        "Longitude": 39.596579,
+        "Radios": [
+            {
+                "Frequency": 252.55,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 55,
+        "Name": "H3 Southwest",
+        "Latitude": 32.743448,
+        "Longitude": 39.602205,
+        "Radios": [
+            {
+                "Frequency": 252.6,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 12,
+        "Name": "H4",
+        "Latitude": 32.539283,
+        "Longitude": 38.195079,
+        "Radios": [
+            {
+                "Frequency": 250.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 13,
+        "Name": "Haifa",
+        "Latitude": 32.810748,
+        "Longitude": 35.04354,
+        "Radios": [
+            {
+                "Frequency": 250.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 127.8,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 14,
+        "Name": "Hama",
+        "Latitude": 35.118044,
+        "Longitude": 36.712379,
+        "Radios": [
+            {
+                "Frequency": 250.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.05,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 15,
+        "Name": "Hatay",
+        "Latitude": 36.36232,
+        "Longitude": 36.287422,
+        "Radios": [
+            {
+                "Frequency": 250.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 128.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 222,
+        "Name": "Hatzor",
+        "Latitude": 31.760397,
+        "Longitude": 34.725255,
+        "Radios": [
+            {
+                "Frequency": 250.75,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 125.75,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 106,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 100,
+        "Name": "Helipad_100",
+        "Latitude": 34.627049,
+        "Longitude": 38.242949
+    },
+    {
+        "Id": 101,
+        "Name": "Helipad_101",
+        "Latitude": 35.98784,
+        "Longitude": 37.414272
+    },
+    {
+        "Id": 102,
+        "Name": "Helipad_102",
+        "Latitude": 33.394596,
+        "Longitude": 36.359739
+    },
+    {
+        "Id": 103,
+        "Name": "Helipad_103",
+        "Latitude": 33.455405,
+        "Longitude": 36.087091
+    },
+    {
+        "Id": 104,
+        "Name": "Helipad_104",
+        "Latitude": 33.74569,
+        "Longitude": 36.803543
+    },
+    {
+        "Id": 105,
+        "Name": "Helipad_105",
+        "Latitude": 33.429514,
+        "Longitude": 36.118745
+    },
+    {
+        "Id": 106,
+        "Name": "Helipad_106",
+        "Latitude": 33.457617,
+        "Longitude": 36.130844
+    },
+    {
+        "Id": 107,
+        "Name": "Helipad_107",
+        "Latitude": 33.444788,
+        "Longitude": 36.309884
+    },
+    {
+        "Id": 108,
+        "Name": "Helipad_108",
+        "Latitude": 33.181959,
+        "Longitude": 36.572013
+    },
+    {
+        "Id": 109,
+        "Name": "Helipad_109",
+        "Latitude": 33.707949,
+        "Longitude": 36.672864
+    },
+    {
+        "Id": 110,
+        "Name": "Helipad_110",
+        "Latitude": 33.411661,
+        "Longitude": 36.191734
+    },
+    {
+        "Id": 111,
+        "Name": "Helipad_111",
+        "Latitude": 33.353465,
+        "Longitude": 36.484825
+    },
+    {
+        "Id": 112,
+        "Name": "Helipad_112",
+        "Latitude": 32.624007,
+        "Longitude": 35.379087
+    },
+    {
+        "Id": 113,
+        "Name": "Helipad_113",
+        "Latitude": 32.945547,
+        "Longitude": 35.204643
+    },
+    {
+        "Id": 114,
+        "Name": "Helipad_114",
+        "Latitude": 33.010471,
+        "Longitude": 35.662957
+    },
+    {
+        "Id": 115,
+        "Name": "Helipad_115",
+        "Latitude": 32.762867,
+        "Longitude": 35.302697
+    },
+    {
+        "Id": 116,
+        "Name": "Helipad_116",
+        "Latitude": 32.983324,
+        "Longitude": 35.72711
+    },
+    {
+        "Id": 117,
+        "Name": "Helipad_117",
+        "Latitude": 36.848222,
+        "Longitude": 34.721373
+    },
+    {
+        "Id": 119,
+        "Name": "Helipad_119",
+        "Latitude": 33.207394,
+        "Longitude": 35.571165
+    },
+    {
+        "Id": 120,
+        "Name": "Helipad_120",
+        "Latitude": 35.00429,
+        "Longitude": 34.059131
+    },
+    {
+        "Id": 121,
+        "Name": "Helipad_121",
+        "Latitude": 35.343964,
+        "Longitude": 33.194806
+    },
+    {
+        "Id": 122,
+        "Name": "Helipad_122",
+        "Latitude": 35.333284,
+        "Longitude": 33.324346
+    },
+    {
+        "Id": 123,
+        "Name": "Helipad_123",
+        "Latitude": 35.146529,
+        "Longitude": 36.753378
+    },
+    {
+        "Id": 124,
+        "Name": "Helipad_124",
+        "Latitude": 35.144324,
+        "Longitude": 33.353882
+    },
+    {
+        "Id": 125,
+        "Name": "Helipad_125",
+        "Latitude": 37.052941,
+        "Longitude": 35.278848
+    },
+    {
+        "Id": 126,
+        "Name": "Helipad_126",
+        "Latitude": 35.516699,
+        "Longitude": 35.791235
+    },
+    {
+        "Id": 127,
+        "Name": "Helipad_127",
+        "Latitude": 35.95595,
+        "Longitude": 38.989263
+    },
+    {
+        "Id": 128,
+        "Name": "Helipad_128",
+        "Latitude": 34.974999,
+        "Longitude": 33.847998
+    },
+    {
+        "Id": 129,
+        "Name": "Helipad_129",
+        "Latitude": 36.576166,
+        "Longitude": 36.19892
+    },
+    {
+        "Id": 130,
+        "Name": "Helipad_130",
+        "Latitude": 32.570588,
+        "Longitude": 35.846153
+    },
+    {
+        "Id": 131,
+        "Name": "Helipad_131",
+        "Latitude": 33.892996,
+        "Longitude": 35.523027
+    },
+    {
+        "Id": 132,
+        "Name": "Helipad_132",
+        "Latitude": 32.833474,
+        "Longitude": 34.986785
+    },
+    {
+        "Id": 133,
+        "Name": "Helipad_133",
+        "Latitude": 35.12802,
+        "Longitude": 33.378603
+    },
+    {
+        "Id": 134,
+        "Name": "Helipad_134",
+        "Latitude": 32.785536,
+        "Longitude": 34.980603
+    },
+    {
+        "Id": 135,
+        "Name": "Helipad_135",
+        "Latitude": 34.707989,
+        "Longitude": 32.981915
+    },
+    {
+        "Id": 136,
+        "Name": "Helipad_136",
+        "Latitude": 34.921449,
+        "Longitude": 33.604271
+    },
+    {
+        "Id": 137,
+        "Name": "Helipad_137",
+        "Latitude": 34.78798,
+        "Longitude": 32.44528
+    },
+    {
+        "Id": 138,
+        "Name": "Helipad_138",
+        "Latitude": 37.011605,
+        "Longitude": 35.352592
+    },
+    {
+        "Id": 139,
+        "Name": "Helipad_139",
+        "Latitude": 33.528229,
+        "Longitude": 36.298248
+    },
+    {
+        "Id": 140,
+        "Name": "Helipad_140",
+        "Latitude": 35.116772,
+        "Longitude": 36.761856
+    },
+    {
+        "Id": 141,
+        "Name": "Helipad_141",
+        "Latitude": 35.560507,
+        "Longitude": 35.744414
+    },
+    {
+        "Id": 142,
+        "Name": "Helipad_142",
+        "Latitude": 36.21602,
+        "Longitude": 37.156712
+    },
+    {
+        "Id": 143,
+        "Name": "Helipad_143",
+        "Latitude": 35.146097,
+        "Longitude": 33.3141
+    },
+    {
+        "Id": 144,
+        "Name": "Helipad_144",
+        "Latitude": 36.999064,
+        "Longitude": 35.329559
+    },
+    {
+        "Id": 145,
+        "Name": "Helipad_145",
+        "Latitude": 33.046853,
+        "Longitude": 39.608339
+    },
+    {
+        "Id": 146,
+        "Name": "Helipad_146",
+        "Latitude": 32.746107,
+        "Longitude": 35.87959
+    },
+    {
+        "Id": 147,
+        "Name": "Helipad_147",
+        "Latitude": 33.138224,
+        "Longitude": 35.504537
+    },
+    {
+        "Id": 148,
+        "Name": "Helipad_148",
+        "Latitude": 33.173722,
+        "Longitude": 35.275311
+    },
+    {
+        "Id": 149,
+        "Name": "Helipad_149",
+        "Latitude": 32.75794,
+        "Longitude": 35.897852
+    },
+    {
+        "Id": 150,
+        "Name": "Helipad_150",
+        "Latitude": 33.804145,
+        "Longitude": 36.149846
+    },
+    {
+        "Id": 151,
+        "Name": "Helipad_151",
+        "Latitude": 33.709881,
+        "Longitude": 35.966698
+    },
+    {
+        "Id": 152,
+        "Name": "Helipad_152",
+        "Latitude": 34.264351,
+        "Longitude": 36.483222
+    },
+    {
+        "Id": 153,
+        "Name": "Helipad_153",
+        "Latitude": 34.365203,
+        "Longitude": 36.512112
+    },
+    {
+        "Id": 154,
+        "Name": "Helipad_154",
+        "Latitude": 33.203768,
+        "Longitude": 35.353058
+    },
+    {
+        "Id": 155,
+        "Name": "Helipad_155",
+        "Latitude": 33.262178,
+        "Longitude": 35.418498
+    },
+    {
+        "Id": 156,
+        "Name": "Helipad_156",
+        "Latitude": 33.427553,
+        "Longitude": 35.934889
+    },
+    {
+        "Id": 157,
+        "Name": "Helipad_157",
+        "Latitude": 33.305878,
+        "Longitude": 35.540964
+    },
+    {
+        "Id": 158,
+        "Name": "Helipad_158",
+        "Latitude": 37.050695,
+        "Longitude": 37.38983
+    },
+    {
+        "Id": 159,
+        "Name": "Helipad_159",
+        "Latitude": 35.338798,
+        "Longitude": 40.129427
+    },
+    {
+        "Id": 160,
+        "Name": "Helipad_160",
+        "Latitude": 34.558056,
+        "Longitude": 38.278748
+    },
+    {
+        "Id": 161,
+        "Name": "Helipad_161",
+        "Latitude": 35.960658,
+        "Longitude": 38.041776
+    },
+    {
+        "Id": 162,
+        "Name": "Helipad_162",
+        "Latitude": 36.194001,
+        "Longitude": 37.097927
+    },
+    {
+        "Id": 163,
+        "Name": "Helipad_163",
+        "Latitude": 31.719399,
+        "Longitude": 35.797812
+    },
+    {
+        "Id": 164,
+        "Name": "Helipad_164",
+        "Latitude": 33.893458,
+        "Longitude": 35.567333
+    },
+    {
+        "Id": 165,
+        "Name": "Helipad_165",
+        "Latitude": 34.692108,
+        "Longitude": 32.960268
+    },
+    {
+        "Id": 166,
+        "Name": "Helipad_166",
+        "Latitude": 31.881649,
+        "Longitude": 36.00978
+    },
+    {
+        "Id": 167,
+        "Name": "Helipad_167",
+        "Latitude": 33.455981,
+        "Longitude": 36.235228
+    },
+    {
+        "Id": 168,
+        "Name": "Helipad_168",
+        "Latitude": 32.16534,
+        "Longitude": 34.845362
+    },
+    {
+        "Id": 169,
+        "Name": "Helipad_169",
+        "Latitude": 32.82105,
+        "Longitude": 34.990642
+    },
+    {
+        "Id": 170,
+        "Name": "Helipad_170",
+        "Latitude": 32.708162,
+        "Longitude": 35.302076
+    },
+    {
+        "Id": 171,
+        "Name": "Helipad_171",
+        "Latitude": 33.523602,
+        "Longitude": 36.354867
+    },
+    {
+        "Id": 172,
+        "Name": "Helipad_172",
+        "Latitude": 34.72074,
+        "Longitude": 36.732967
+    },
+    {
+        "Id": 173,
+        "Name": "Helipad_173",
+        "Latitude": 36.206243,
+        "Longitude": 36.152401
+    },
+    {
+        "Id": 174,
+        "Name": "Helipad_174",
+        "Latitude": 34.883778,
+        "Longitude": 35.886966
+    },
+    {
+        "Id": 175,
+        "Name": "Helipad_175",
+        "Latitude": 32.181805,
+        "Longitude": 34.978768
+    },
+    {
+        "Id": 176,
+        "Name": "Helipad_176",
+        "Latitude": 31.99319,
+        "Longitude": 35.890023
+    },
+    {
+        "Id": 177,
+        "Name": "Helipad_177",
+        "Latitude": 35.328835,
+        "Longitude": 40.105461
+    },
+    {
+        "Id": 178,
+        "Name": "Helipad_178",
+        "Latitude": 35.194105,
+        "Longitude": 40.081764
+    },
+    {
+        "Id": 179,
+        "Name": "Helipad_179",
+        "Latitude": 35.191099,
+        "Longitude": 39.90297
+    },
+    {
+        "Id": 180,
+        "Name": "Helipad_180",
+        "Latitude": 35.337805,
+        "Longitude": 39.76084
+    },
+    {
+        "Id": 181,
+        "Name": "Helipad_181",
+        "Latitude": 34.602758,
+        "Longitude": 37.901716
+    },
+    {
+        "Id": 182,
+        "Name": "Helipad_182",
+        "Latitude": 37.02812,
+        "Longitude": 35.351901
+    },
+    {
+        "Id": 184,
+        "Name": "Helipad_184",
+        "Latitude": 35.791042,
+        "Longitude": 37.726268
+    },
+    {
+        "Id": 185,
+        "Name": "Helipad_185",
+        "Latitude": 34.65768,
+        "Longitude": 38.289161
+    },
+    {
+        "Id": 186,
+        "Name": "Helipad_186",
+        "Latitude": 32.467857,
+        "Longitude": 35.023209
+    },
+    {
+        "Id": 187,
+        "Name": "Helipad_187",
+        "Latitude": 34.669694,
+        "Longitude": 38.298284
+    },
+    {
+        "Id": 189,
+        "Name": "Helipad_189",
+        "Latitude": 33.27497,
+        "Longitude": 36.27019
+    },
+    {
+        "Id": 190,
+        "Name": "Helipad_190",
+        "Latitude": 33.251736,
+        "Longitude": 36.270972
+    },
+    {
+        "Id": 191,
+        "Name": "Helipad_191",
+        "Latitude": 33.28116,
+        "Longitude": 36.264183
+    },
+    {
+        "Id": 192,
+        "Name": "Helipad_192",
+        "Latitude": 37.019719,
+        "Longitude": 35.34361
+    },
+    {
+        "Id": 193,
+        "Name": "Helipad_193",
+        "Latitude": 32.999346,
+        "Longitude": 35.407542
+    },
+    {
+        "Id": 194,
+        "Name": "Helipad_194",
+        "Latitude": 32.084786,
+        "Longitude": 34.781245
+    },
+    {
+        "Id": 195,
+        "Name": "Helipad_195",
+        "Latitude": 33.182911,
+        "Longitude": 35.234251
+    },
+    {
+        "Id": 196,
+        "Name": "Helipad_196",
+        "Latitude": 32.143485,
+        "Longitude": 34.815281
+    },
+    {
+        "Id": 197,
+        "Name": "Helipad_197",
+        "Latitude": 31.747503,
+        "Longitude": 34.935721
+    },
+    {
+        "Id": 198,
+        "Name": "Helipad_198",
+        "Latitude": 32.0876,
+        "Longitude": 34.919761
+    },
+    {
+        "Id": 199,
+        "Name": "Helipad_199",
+        "Latitude": 32.761123,
+        "Longitude": 35.400593
+    },
+    {
+        "Id": 200,
+        "Name": "Helipad_200",
+        "Latitude": 32.476518,
+        "Longitude": 36.063329
+    },
+    {
+        "Id": 201,
+        "Name": "Helipad_201",
+        "Latitude": 32.484175,
+        "Longitude": 36.065887
+    },
+    {
+        "Id": 202,
+        "Name": "Helipad_202",
+        "Latitude": 32.586732,
+        "Longitude": 35.924607
+    },
+    {
+        "Id": 203,
+        "Name": "Helipad_203",
+        "Latitude": 33.313847,
+        "Longitude": 38.702709
+    },
+    {
+        "Id": 204,
+        "Name": "Helipad_204",
+        "Latitude": 33.153759,
+        "Longitude": 35.196448
+    },
+    {
+        "Id": 205,
+        "Name": "Helipad_205",
+        "Latitude": 33.132564,
+        "Longitude": 35.393307
+    },
+    {
+        "Id": 206,
+        "Name": "Helipad_206",
+        "Latitude": 33.182843,
+        "Longitude": 35.495829
+    },
+    {
+        "Id": 207,
+        "Name": "Helipad_207",
+        "Latitude": 33.169388,
+        "Longitude": 35.187009
+    },
+    {
+        "Id": 208,
+        "Name": "Helipad_208",
+        "Latitude": 33.265524,
+        "Longitude": 35.216251
+    },
+    {
+        "Id": 209,
+        "Name": "Helipad_209",
+        "Latitude": 32.075858,
+        "Longitude": 36.144587
+    },
+    {
+        "Id": 210,
+        "Name": "Helipad_210",
+        "Latitude": 33.732974,
+        "Longitude": 36.509039
+    },
+    {
+        "Id": 211,
+        "Name": "Helipad_211",
+        "Latitude": 32.11399,
+        "Longitude": 36.106201
+    },
+    {
+        "Id": 212,
+        "Name": "Helipad_212",
+        "Latitude": 32.825222,
+        "Longitude": 35.996227
+    },
+    {
+        "Id": 213,
+        "Name": "Helipad_213",
+        "Latitude": 32.587032,
+        "Longitude": 35.399849
+    },
+    {
+        "Id": 214,
+        "Name": "Helipad_214",
+        "Latitude": 32.438261,
+        "Longitude": 36.019166
+    },
+    {
+        "Id": 215,
+        "Name": "Helipad_215",
+        "Latitude": 33.552185,
+        "Longitude": 36.447207
+    },
+    {
+        "Id": 216,
+        "Name": "Helipad_216",
+        "Latitude": 33.234722,
+        "Longitude": 36.148784
+    },
+    {
+        "Id": 219,
+        "Name": "Helipad_219",
+        "Latitude": 33.035233,
+        "Longitude": 35.138647
+    },
+    {
+        "Id": 224,
+        "Name": "Helipad_224",
+        "Latitude": 34.927537,
+        "Longitude": 35.99203
+    },
+    {
+        "Id": 69,
+        "Name": "Helipad_69",
+        "Latitude": 34.924215,
+        "Longitude": 33.603722
+    },
+    {
+        "Id": 70,
+        "Name": "Helipad_70",
+        "Latitude": 34.830847,
+        "Longitude": 33.478191
+    },
+    {
+        "Id": 71,
+        "Name": "Helipad_71",
+        "Latitude": 35.311947,
+        "Longitude": 33.290077
+    },
+    {
+        "Id": 72,
+        "Name": "Helipad_72",
+        "Latitude": 35.267204,
+        "Longitude": 33.495894
+    },
+    {
+        "Id": 73,
+        "Name": "Helipad_73",
+        "Latitude": 35.093867,
+        "Longitude": 33.88578
+    },
+    {
+        "Id": 74,
+        "Name": "Helipad_74",
+        "Latitude": 35.084005,
+        "Longitude": 33.897191
+    },
+    {
+        "Id": 76,
+        "Name": "Helipad_76",
+        "Latitude": 32.961879,
+        "Longitude": 35.550067
+    },
+    {
+        "Id": 77,
+        "Name": "Helipad_77",
+        "Latitude": 32.982102,
+        "Longitude": 35.514712
+    },
+    {
+        "Id": 78,
+        "Name": "Helipad_78",
+        "Latitude": 32.981168,
+        "Longitude": 35.515168
+    },
+    {
+        "Id": 79,
+        "Name": "Helipad_79",
+        "Latitude": 32.882232,
+        "Longitude": 35.718988
+    },
+    {
+        "Id": 80,
+        "Name": "Helipad_80",
+        "Latitude": 32.937677,
+        "Longitude": 35.568728
+    },
+    {
+        "Id": 82,
+        "Name": "Helipad_82",
+        "Latitude": 32.805606,
+        "Longitude": 35.401592
+    },
+    {
+        "Id": 83,
+        "Name": "Helipad_83",
+        "Latitude": 32.808126,
+        "Longitude": 35.425282
+    },
+    {
+        "Id": 84,
+        "Name": "Helipad_84",
+        "Latitude": 32.606246,
+        "Longitude": 34.973019
+    },
+    {
+        "Id": 85,
+        "Name": "Helipad_85",
+        "Latitude": 32.823077,
+        "Longitude": 35.436181
+    },
+    {
+        "Id": 86,
+        "Name": "Helipad_86",
+        "Latitude": 32.994809,
+        "Longitude": 35.484072
+    },
+    {
+        "Id": 87,
+        "Name": "Helipad_87",
+        "Latitude": 33.017099,
+        "Longitude": 35.704507
+    },
+    {
+        "Id": 89,
+        "Name": "Helipad_89",
+        "Latitude": 35.338551,
+        "Longitude": 36.074308
+    },
+    {
+        "Id": 92,
+        "Name": "Helipad_92",
+        "Latitude": 35.789131,
+        "Longitude": 37.724785
+    },
+    {
+        "Id": 93,
+        "Name": "Helipad_93",
+        "Latitude": 33.27904,
+        "Longitude": 36.08532
+    },
+    {
+        "Id": 94,
+        "Name": "Helipad_94",
+        "Latitude": 34.644829,
+        "Longitude": 36.743643
+    },
+    {
+        "Id": 95,
+        "Name": "Helipad_95",
+        "Latitude": 36.060355,
+        "Longitude": 37.343139
+    },
+    {
+        "Id": 96,
+        "Name": "Helipad_96",
+        "Latitude": 36.050691,
+        "Longitude": 37.332313
+    },
+    {
+        "Id": 97,
+        "Name": "Helipad_97",
+        "Latitude": 33.386339,
+        "Longitude": 36.272711
+    },
+    {
+        "Id": 98,
+        "Name": "Helipad_98",
+        "Latitude": 33.415748,
+        "Longitude": 36.284515
+    },
+    {
+        "Id": 99,
+        "Name": "Helipad_99",
+        "Latitude": 34.610936,
+        "Longitude": 38.252986
+    },
+    {
+        "Id": 66,
+        "Name": "Herzliya",
+        "Latitude": 32.179374,
+        "Longitude": 34.837941,
+        "Radios": [
+            {
+                "Frequency": 253.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 16,
+        "Name": "Incirlik",
+        "Latitude": 37.002048,
+        "Longitude": 35.426089,
+        "Radios": [
+            {
+                "Frequency": 360.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.1,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 21,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 17,
+        "Name": "Jirah",
+        "Latitude": 36.096872,
+        "Longitude": 37.936536,
+        "Radios": [
+            {
+                "Frequency": 250.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 18,
+        "Name": "Khalkhalah",
+        "Latitude": 33.078369,
+        "Longitude": 36.5411,
+        "Radios": [
+            {
+                "Frequency": 250.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 59,
+        "Name": "Kharab Ishk",
+        "Latitude": 36.546869,
+        "Longitude": 38.587487,
+        "Radios": [
+            {
+                "Frequency": 252.75,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 65,
+        "Name": "King Abdullah II",
+        "Latitude": 32.00551,
+        "Longitude": 36.223695,
+        "Radios": [
+            {
+                "Frequency": 253.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 19,
+        "Name": "King Hussein Air College",
+        "Latitude": 32.35668,
+        "Longitude": 36.259855,
+        "Radios": [
+            {
+                "Frequency": 250.45,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.3,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 45,
+        "Name": "Kingsfield",
+        "Latitude": 35.014806,
+        "Longitude": 33.717033,
+        "Radios": [
+            {
+                "Frequency": 252.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 20,
+        "Name": "Kiryat Shmona",
+        "Latitude": 33.215815,
+        "Longitude": 35.595835,
+        "Radios": [
+            {
+                "Frequency": 250.55,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 31,
+        "Name": "Kuweires",
+        "Latitude": 36.187494,
+        "Longitude": 37.581495,
+        "Radios": [
+            {
+                "Frequency": 251.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 48,
+        "Name": "Lakatamia",
+        "Latitude": 35.104606,
+        "Longitude": 33.321655,
+        "Radios": [
+            {
+                "Frequency": 252.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 47,
+        "Name": "Larnaca",
+        "Latitude": 34.873174,
+        "Longitude": 33.623249,
+        "Radios": [
+            {
+                "Frequency": 252.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 23,
+        "Name": "Marj Ruhayyil",
+        "Latitude": 33.288761,
+        "Longitude": 36.455438,
+        "Radios": [
+            {
+                "Frequency": 250.9,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.8,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 22,
+        "Name": "Marj as Sultan North",
+        "Latitude": 33.50028,
+        "Longitude": 36.467149,
+        "Radios": [
+            {
+                "Frequency": 250.85,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.7,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 8,
+        "Name": "Marj as Sultan South",
+        "Latitude": 33.487222,
+        "Longitude": 36.475394,
+        "Radios": [
+            {
+                "Frequency": 253.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.9,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 67,
+        "Name": "Marka",
+        "Latitude": 31.972763,
+        "Longitude": 35.991746,
+        "Radios": [
+            {
+                "Frequency": 253.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 24,
+        "Name": "Megiddo",
+        "Latitude": 32.597107,
+        "Longitude": 35.230082,
+        "Radios": [
+            {
+                "Frequency": 250.95,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.9,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 25,
+        "Name": "Mezzeh",
+        "Latitude": 33.477795,
+        "Longitude": 36.224216,
+        "Radios": [
+            {
+                "Frequency": 251.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.7,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 26,
+        "Name": "Minakh",
+        "Latitude": 36.521376,
+        "Longitude": 37.041337,
+        "Radios": [
+            {
+                "Frequency": 251.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 68,
+        "Name": "Muwaffaq Salti",
+        "Latitude": 31.817617,
+        "Longitude": 36.778686,
+        "Radios": [
+            {
+                "Frequency": 253.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 52,
+        "Name": "Naqoura",
+        "Latitude": 33.107905,
+        "Longitude": 35.127286,
+        "Radios": [
+            {
+                "Frequency": 252.45,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 223,
+        "Name": "Palmachim",
+        "Latitude": 31.900441,
+        "Longitude": 34.692149,
+        "Radios": [
+            {
+                "Frequency": 250.8,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.25,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 28,
+        "Name": "Palmyra",
+        "Latitude": 34.55729,
+        "Longitude": 38.316705,
+        "Radios": [
+            {
+                "Frequency": 251.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.9,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 46,
+        "Name": "Paphos",
+        "Latitude": 34.718152,
+        "Longitude": 32.484789,
+        "Radios": [
+            {
+                "Frequency": 252.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.9,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 79,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 51,
+        "Name": "Pinarbashi",
+        "Latitude": 35.273829,
+        "Longitude": 33.268239,
+        "Radios": [
+            {
+                "Frequency": 252.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 64,
+        "Name": "Prince Hassan",
+        "Latitude": 32.160735,
+        "Longitude": 37.149403,
+        "Radios": [
+            {
+                "Frequency": 252.95,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 29,
+        "Name": "Qabr as Sitt",
+        "Latitude": 33.458735,
+        "Longitude": 36.357718,
+        "Radios": [
+            {
+                "Frequency": 251.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 30,
+        "Name": "Ramat David",
+        "Latitude": 32.666411,
+        "Longitude": 35.184166,
+        "Radios": [
+            {
+                "Frequency": 251.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.6,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 84,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 32,
+        "Name": "Rayak",
+        "Latitude": 33.851123,
+        "Longitude": 35.987324,
+        "Radios": [
+            {
+                "Frequency": 251.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 124.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 33,
+        "Name": "Rene Mouawad",
+        "Latitude": 34.5893,
+        "Longitude": 36.011449,
+        "Radios": [
+            {
+                "Frequency": 251.45,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 34,
+        "Name": "Rosh Pina",
+        "Latitude": 32.982648,
+        "Longitude": 35.570738,
+        "Radios": [
+            {
+                "Frequency": 251.5,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.45,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 57,
+        "Name": "Ruwayshid",
+        "Latitude": 32.404967,
+        "Longitude": 39.130518,
+        "Radios": [
+            {
+                "Frequency": 252.65,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 58,
+        "Name": "Sanliurfa",
+        "Latitude": 37.448071,
+        "Longitude": 38.898378,
+        "Radios": [
+            {
+                "Frequency": 252.7,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 35,
+        "Name": "Sayqal",
+        "Latitude": 33.679842,
+        "Longitude": 37.217112,
+        "Radios": [
+            {
+                "Frequency": 251.55,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 36,
+        "Name": "Shayrat",
+        "Latitude": 34.490202,
+        "Longitude": 36.907613,
+        "Radios": [
+            {
+                "Frequency": 251.6,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 37,
+        "Name": "Tabqa",
+        "Latitude": 35.754721,
+        "Longitude": 38.566448,
+        "Radios": [
+            {
+                "Frequency": 251.65,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 38,
+        "Name": "Taftanaz",
+        "Latitude": 35.974105,
+        "Longitude": 36.781442,
+        "Radios": [
+            {
+                "Frequency": 251.7,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 122.8,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 60,
+        "Name": "Tal Siman",
+        "Latitude": 36.262422,
+        "Longitude": 38.928313,
+        "Radios": [
+            {
+                "Frequency": 252.85,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.9,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 220,
+        "Name": "Tel Nof",
+        "Latitude": 31.838354,
+        "Longitude": 34.832634,
+        "Radios": [
+            {
+                "Frequency": 250.65,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 128.1,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 87,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 5,
+        "Name": "Tha'lah",
+        "Latitude": 32.704004,
+        "Longitude": 36.413775,
+        "Radios": [
+            {
+                "Frequency": 252.8,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 39,
+        "Name": "Tiyas",
+        "Latitude": 34.522629,
+        "Longitude": 37.630123,
+        "Radios": [
+            {
+                "Frequency": 251.75,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 40,
+        "Name": "Wujah Al Hajar",
+        "Latitude": 34.281337,
+        "Longitude": 35.680106,
+        "Radios": [
+            {
+                "Frequency": 251.85,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 120.5,
+                "Modulation": 0
+            }
+        ]
+    }
 ]

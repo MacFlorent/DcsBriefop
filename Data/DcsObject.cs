@@ -39,7 +39,7 @@ namespace DcsBriefop.Data
 		#region Fields
 		private DcsObjectJsonCustom m_objectJsonCustom;
 		private List<DcsObjectJsonCustom> m_objectsJsonCustom;
-		private List<string> m_lsonRawAttributes = new List<string>();
+		private List<string> m_lsonRawAttributes = [];
 		private string m_rawDisplayName;
 		#endregion
 
@@ -229,8 +229,8 @@ namespace DcsBriefop.Data
 	#region DcsObjectManager
 	internal static class DcsObjectManager
 	{
-		public static List<DcsObject> DcsObjects { get; set; } = new List<DcsObject>();
-		private static List<DcsObjectJsonCustom> m_objectsJsonCustom = new List<DcsObjectJsonCustom>();
+		public static List<DcsObject> DcsObjects { get; set; } = [];
+		private static List<DcsObjectJsonCustom> m_objectsJsonCustom = [];
 
 		static DcsObjectManager()
 		{
@@ -273,7 +273,7 @@ namespace DcsBriefop.Data
 
 		public static DcsObject GetObject(string sType)
 		{
-			return DcsObjects.Where(_u => _u.TypeName == sType).FirstOrDefault();
+			return DcsObjects.FirstOrDefault(_u => _u.TypeName == sType);
 		}
 	}
 	#endregion

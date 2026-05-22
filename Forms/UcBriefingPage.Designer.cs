@@ -276,7 +276,7 @@
 			BtPartOrderDown.Name = "BtPartOrderDown";
 			BtPartOrderDown.Size = new Size(26, 23);
 			BtPartOrderDown.TabIndex = 45;
-			BtPartOrderDown.Text = "v";
+			BtPartOrderDown.Text = "▼";
 			BtPartOrderDown.UseVisualStyleBackColor = true;
 			BtPartOrderDown.Click += BtPartOrderDown_Click;
 			// 
@@ -287,7 +287,7 @@
 			BtPartOrderUp.Name = "BtPartOrderUp";
 			BtPartOrderUp.Size = new Size(26, 23);
 			BtPartOrderUp.TabIndex = 44;
-			BtPartOrderUp.Text = "^";
+			BtPartOrderUp.Text = "▲";
 			BtPartOrderUp.UseVisualStyleBackColor = true;
 			BtPartOrderUp.Click += BtPartOrderUp_Click;
 			// 

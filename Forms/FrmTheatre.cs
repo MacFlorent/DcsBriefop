@@ -36,6 +36,7 @@ namespace DcsBriefop.Forms
 				{ "Marianas", ElementTheatreName.Marianas},
 				{ "Nevada", ElementTheatreName.Nevada},
 				{ "Normandy", ElementTheatreName.Normandy},
+				{ "Persian Gulf", ElementTheatreName.PersianGulf},
 				{ "Sinai", ElementTheatreName.Sinai},
 				{ "Syria", ElementTheatreName.Syria},
 				{ "The Channel", ElementTheatreName.TheChannel},

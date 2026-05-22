@@ -1,0 +1,912 @@
+[
+    {
+        "Id": 26,
+        "Name": "Abu Rudeis",
+        "Latitude": 28.899536,
+        "Longitude": 33.202337,
+        "Radios": [
+            {
+                "Frequency": 250.9,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "Abu Suwayr",
+        "Latitude": 30.575386,
+        "Longitude": 32.09627,
+        "Radios": [
+            {
+                "Frequency": 251.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.85,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 44,
+        "Name": "Al Bahr al Ahmar",
+        "Latitude": 26.556378,
+        "Longitude": 33.121031,
+        "Radios": [
+            {
+                "Frequency": 251.9,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 4,
+        "Name": "Al Ismailiyah",
+        "Latitude": 30.598815,
+        "Longitude": 32.234582,
+        "Radios": [
+            {
+                "Frequency": 252.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 31,
+        "Name": "Al Khatatbah",
+        "Latitude": 30.312375,
+        "Longitude": 30.874447,
+        "Radios": [
+            {
+                "Frequency": 251.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.95,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 14,
+        "Name": "Al Mansurah",
+        "Latitude": 30.965201,
+        "Longitude": 31.431509,
+        "Radios": [
+            {
+                "Frequency": 250.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.25,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 32,
+        "Name": "Al Rahmaniyah Air Base",
+        "Latitude": 31.043422,
+        "Longitude": 30.664376,
+        "Radios": [
+            {
+                "Frequency": 251.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.05,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 3,
+        "Name": "As Salihiyah",
+        "Latitude": 30.795111,
+        "Longitude": 32.042546,
+        "Radios": [
+            {
+                "Frequency": 251.65,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.35,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 15,
+        "Name": "AzZaqaziq",
+        "Latitude": 30.594823,
+        "Longitude": 31.664577,
+        "Radios": [
+            {
+                "Frequency": 250.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.3,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 27,
+        "Name": "Baluza",
+        "Latitude": 30.99977,
+        "Longitude": 32.552221,
+        "Radios": [
+            {
+                "Frequency": 250.95,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.75,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 24,
+        "Name": "Ben-Gurion",
+        "Latitude": 32.007029,
+        "Longitude": 34.8931,
+        "Radios": [
+            {
+                "Frequency": 250.8,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 134.6,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 82,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 33,
+        "Name": "Beni Suef",
+        "Latitude": 29.197907,
+        "Longitude": 31.019001,
+        "Radios": [
+            {
+                "Frequency": 251.3,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 127.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 16,
+        "Name": "Bilbeis Air Base",
+        "Latitude": 30.398675,
+        "Longitude": 31.60728,
+        "Radios": [
+            {
+                "Frequency": 250.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.35,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 28,
+        "Name": "Bir Hasanah",
+        "Latitude": 30.194637,
+        "Longitude": 33.412829,
+        "Radios": [
+            {
+                "Frequency": 251.0,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.8,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 34,
+        "Name": "Birma Air Base",
+        "Latitude": 30.837038,
+        "Longitude": 30.936019,
+        "Radios": [
+            {
+                "Frequency": 251.35,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.15,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 35,
+        "Name": "Borg El Arab International Airport",
+        "Latitude": 30.916902,
+        "Longitude": 29.693893,
+        "Radios": [
+            {
+                "Frequency": 251.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.1,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 17,
+        "Name": "Cairo International Airport",
+        "Latitude": 30.108988,
+        "Longitude": 31.43482,
+        "Radios": [
+            {
+                "Frequency": 250.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.1,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 110,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 18,
+        "Name": "Cairo West",
+        "Latitude": 30.108373,
+        "Longitude": 30.895657,
+        "Radios": [
+            {
+                "Frequency": 250.45,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 131.2,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 114,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 48,
+        "Name": "Damascus Intl",
+        "Latitude": 33.395471,
+        "Longitude": 36.510202,
+        "Radios": [
+            {
+                "Frequency": 226.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 1,
+        "Name": "Difarsuwar Airfield",
+        "Latitude": 30.425742,
+        "Longitude": 32.335384,
+        "Radios": [
+            {
+                "Frequency": 250.55,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.45,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 52,
+        "Name": "Ein Shamer",
+        "Latitude": 32.440849,
+        "Longitude": 35.007511,
+        "Radios": [
+            {
+                "Frequency": 227.85,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 124.55,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 29,
+        "Name": "El Arish",
+        "Latitude": 31.037878,
+        "Longitude": 33.819091,
+        "Radios": [
+            {
+                "Frequency": 251.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 30,
+        "Name": "El Gora",
+        "Latitude": 31.073011,
+        "Longitude": 34.14836,
+        "Radios": [
+            {
+                "Frequency": 251.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 36,
+        "Name": "El Minya",
+        "Latitude": 28.101047,
+        "Longitude": 30.729653,
+        "Radios": [
+            {
+                "Frequency": 251.45,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 6,
+        "Name": "Fayed",
+        "Latitude": 30.329071,
+        "Longitude": 32.267488,
+        "Radios": [
+            {
+                "Frequency": 252.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.7,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 37,
+        "Name": "Gebel El Basur Air Base",
+        "Latitude": 30.538232,
+        "Longitude": 30.552675,
+        "Radios": [
+            {
+                "Frequency": 251.5,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.25,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 7,
+        "Name": "Hatzerim",
+        "Latitude": 31.238604,
+        "Longitude": 34.658504,
+        "Radios": [
+            {
+                "Frequency": 252.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.75,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 96,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 20,
+        "Name": "Hatzor",
+        "Latitude": 31.760479,
+        "Longitude": 34.725331,
+        "Radios": [
+            {
+                "Frequency": 250.6,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.55,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 106,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 38,
+        "Name": "Hurghada International Airport",
+        "Latitude": 27.176465,
+        "Longitude": 33.791691,
+        "Radios": [
+            {
+                "Frequency": 251.55,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 19,
+        "Name": "Inshas Airbase",
+        "Latitude": 30.334249,
+        "Longitude": 31.446579,
+        "Radios": [
+            {
+                "Frequency": 250.5,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 39,
+        "Name": "Jiyanklis Air Base",
+        "Latitude": 30.822325,
+        "Longitude": 30.192399,
+        "Radios": [
+            {
+                "Frequency": 251.6,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.3,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 12,
+        "Name": "Kedem",
+        "Latitude": 31.260615,
+        "Longitude": 34.639945,
+        "Radios": [
+            {
+                "Frequency": 250.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.15,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 55,
+        "Name": "Khalkhalah Air Base",
+        "Latitude": 33.078937,
+        "Longitude": 36.540704,
+        "Radios": [
+            {
+                "Frequency": 227.9,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 128.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 11,
+        "Name": "Kibrit Air Base",
+        "Latitude": 30.243534,
+        "Longitude": 32.491179,
+        "Radios": [
+            {
+                "Frequency": 250.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.05,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 55,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 54,
+        "Name": "King Feisal Air Base",
+        "Latitude": 30.343686,
+        "Longitude": 36.147409,
+        "Radios": [
+            {
+                "Frequency": 227.95,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 129.2,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 40,
+        "Name": "Kom Awshim",
+        "Latitude": 29.553644,
+        "Longitude": 30.893503,
+        "Radios": [
+            {
+                "Frequency": 251.7,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 51,
+        "Name": "Megiddo",
+        "Latitude": 32.597143,
+        "Longitude": 35.230212,
+        "Radios": [
+            {
+                "Frequency": 225.9,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 123.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 5,
+        "Name": "Melez",
+        "Latitude": 30.409932,
+        "Longitude": 33.149742,
+        "Radios": [
+            {
+                "Frequency": 252.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.65,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 49,
+        "Name": "Mezzeh Air Base",
+        "Latitude": 33.477649,
+        "Longitude": 36.223628,
+        "Radios": [
+            {
+                "Frequency": 227.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 126.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 8,
+        "Name": "Nevatim",
+        "Latitude": 31.208343,
+        "Longitude": 35.012075,
+        "Radios": [
+            {
+                "Frequency": 252.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 132.4,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 10,
+        "Name": "Ovda",
+        "Latitude": 29.940817,
+        "Longitude": 34.934128,
+        "Radios": [
+            {
+                "Frequency": 250.05,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 129.9,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 88,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 21,
+        "Name": "Palmachim",
+        "Latitude": 31.901788,
+        "Longitude": 34.692886,
+        "Radios": [
+            {
+                "Frequency": 250.65,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.6,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 45,
+        "Name": "Quwaysina",
+        "Latitude": 30.579003,
+        "Longitude": 31.129037,
+        "Radios": [
+            {
+                "Frequency": 251.95,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.55,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 46,
+        "Name": "Rafic Hariri Intl",
+        "Latitude": 33.824474,
+        "Longitude": 35.483232
+    },
+    {
+        "Id": 50,
+        "Name": "Ramat David",
+        "Latitude": 32.666468,
+        "Longitude": 35.184092,
+        "Radios": [
+            {
+                "Frequency": 251.1,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 9,
+        "Name": "Ramon Airbase",
+        "Latitude": 30.777574,
+        "Longitude": 34.666146,
+        "Radios": [
+            {
+                "Frequency": 252.25,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.8,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 105,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 41,
+        "Name": "Ramon International Airport",
+        "Latitude": 29.727039,
+        "Longitude": 35.014024,
+        "Radios": [
+            {
+                "Frequency": 251.75,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.0,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 22,
+        "Name": "Sde Dov",
+        "Latitude": 32.114672,
+        "Longitude": 34.782279,
+        "Radios": [
+            {
+                "Frequency": 250.7,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.65,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 42,
+        "Name": "Sharm El Sheikh International Airport",
+        "Latitude": 27.978735,
+        "Longitude": 34.393277,
+        "Radios": [
+            {
+                "Frequency": 251.8,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.9,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 25,
+        "Name": "St Catherine",
+        "Latitude": 28.685165,
+        "Longitude": 34.062628,
+        "Radios": [
+            {
+                "Frequency": 250.85,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 124.5,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 53,
+        "Name": "Taba International Airport",
+        "Latitude": 29.588024,
+        "Longitude": 34.778285,
+        "Radios": [
+            {
+                "Frequency": 227.15,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 121.9,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 47,
+        "Name": "Tabuk",
+        "Latitude": 28.371022,
+        "Longitude": 36.606148,
+        "Radios": [
+            {
+                "Frequency": 229.4,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 125.9,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 104,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 23,
+        "Name": "Tel Nof",
+        "Latitude": 31.836021,
+        "Longitude": 34.817828,
+        "Radios": [
+            {
+                "Frequency": 250.75,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.7,
+                "Modulation": 0
+            }
+        ],
+        "Tacan": {
+            "Channel": 87,
+            "Mode": "X"
+        }
+    },
+    {
+        "Id": 43,
+        "Name": "Wadi Abu Rish",
+        "Latitude": 28.971017,
+        "Longitude": 31.698667,
+        "Radios": [
+            {
+                "Frequency": 251.85,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 119.45,
+                "Modulation": 0
+            }
+        ]
+    },
+    {
+        "Id": 13,
+        "Name": "Wadi al Jandali",
+        "Latitude": 30.072551,
+        "Longitude": 31.8333,
+        "Radios": [
+            {
+                "Frequency": 250.2,
+                "Modulation": 0
+            },
+            {
+                "Frequency": 118.9,
+                "Modulation": 0
+            }
+        ]
+    }
+]
