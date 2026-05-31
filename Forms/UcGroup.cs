@@ -44,7 +44,7 @@ namespace DcsBriefop.Forms
 
 			TcDetails.SelectedIndexChanged += TcDetails_SelectedIndexChanged;
 
-			MapControl.InitializeMapControl(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.ProviderName, null);
+			MapControl.InitializeMapControl(m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.ProviderName, m_briefopManager.BopMission.Miz.MizBopCustom.PreferencesMap.OverlayNames);
 		}
 		#endregion
 
