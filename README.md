@@ -18,7 +18,7 @@ In addition to the data available in the mission, DcsBriefop manages additional 
 DcsBriefop works with the static data of a DCS miz file, and as such cannot intepret and use dynamically scripted informations.
 
 ## Usage
-![image](https://user-images.githubusercontent.com/5670081/229312737-814e4882-48ea-42df-90c6-d0e22d1b48ff.png)
+<img width="1416" height="705" alt="image" src="https://github.com/user-attachments/assets/db48f997-c9b9-4d77-9473-a8131bc369f1" />
 
 DcsBriefop is split into two main parts.
 The **mission configuration** part allows to consult, modify and enrich the data present in the DCS mission file.
@@ -57,7 +57,7 @@ WIP — this feature is not yet functional and its button is currently disabled.
 
 ### Briefing construction
 The briefing is built in three levels. The folder, which contains a series of pages, which are composed of parts.
-![image](https://user-images.githubusercontent.com/5670081/229313315-cb0756e3-6f05-425d-a983-d1e0783152c3.png)
+<img width="1287" height="795" alt="image" src="https://github.com/user-attachments/assets/ca5baa1d-3c80-4275-96b3-81bad155304f" />
 
 #### Briefing folders
 The briefing folder is a grouping entity that defines some global parameters to be used for the pages it contains, and can be affected to one or more kneeboard aircraft types.
