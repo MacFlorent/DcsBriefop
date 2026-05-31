@@ -284,10 +284,36 @@ namespace LsonLib
                 ConsumeWhitespace();
                 return result;
             }
+            else if (Cur >= 'A' && Cur <= 'Z' || Cur >= 'a' && Cur <= 'z' || Cur == '_')
+            {
+                return (LsonString) parseVar(); // FGA - bare identifier key e.g. coalition = { ... }
+            }
             else
             {
                 return dict.Count + 1;
             }
+        }
+
+        private string parseVar()
+        {
+            int index = Pos;
+            while (index < Lson.Length)
+            {
+                char c = Lson[index];
+                if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < '0' || c > '9') && c != '_')
+                    break;
+                index++;
+            }
+            string word = Lson.Substring(Pos, index - Pos);
+            if (word.Length == 0)
+                throw new LsonParseException(this, "Expected a variable name.");
+            Pos = index;
+            ConsumeWhitespace();
+            if (Cur != '=')
+                throw new LsonParseException(this, "Expected '=' after variable name \"{0}\".".Fmt(word));
+            Pos++;
+            ConsumeWhitespace();
+            return word;
         }
 
         public LsonString ParseString()
@@ -454,25 +480,7 @@ namespace LsonLib
                 if (Cur == null)
                     break;
 
-                var index = Pos;
-                while (true)
-                {
-                    if (index >= Lson.Length) break;
-                    var c = Lson[index];
-                    if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < '0' || c > '9') && (c != '_')) break;
-                    index++;
-                }
-                var word = Lson.Substring(Pos, index - Pos);
-                if (word.Length == 0)
-                    throw new LsonParseException(this, "Expected a variable name.");
-                Pos += word.Length;
-                ConsumeWhitespace();
-                if (Cur != '=')
-                    throw new LsonParseException(this, "Expected an = after variable name.");
-                Pos++;
-                ConsumeWhitespace();
-
-                result.Add(word, ParseValue());
+                result.Add(parseVar(), ParseValue());
             }
             return result;
         }
@@ -1065,7 +1073,7 @@ namespace LsonLib
                 sb.AppendLine();
                 for (int i = 0; i <= indentation; i++)
                     sb.Append('\t');
-                // FG modified - keep implicit indexes for DCS
+                // FGA modified - keep implicit indexes for DCS
                 //if (kvp.Key.Equals((LsonNumber) implicitIndex))
                 //{
                 //    LsonValue.AppendIndented(kvp.Value, sb, indentation + 1);
