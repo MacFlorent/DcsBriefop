@@ -1,3 +1,5 @@
+#Requires -Version 7
+
 <#
 .SYNOPSIS
     Starts a DcsBriefop release: sets the version, commits, tags and pushes.
@@ -56,9 +58,14 @@ if ($sBranch -ne 'master') {
     Fail "Releases are made from 'master' (current branch: '$sBranch')."
 }
 
-# Local tags are refreshed from origin so a tag pushed elsewhere is not reused.
-try { Invoke-Git fetch --tags --quiet origin | Out-Null }
-catch { Fail "Could not fetch tags from origin.`n$_" }
+# Refresh master and tags from origin: a tag pushed elsewhere is not reused, and a release
+# is never committed on top of a stale master (its push would be rejected).
+try { Invoke-Git fetch --tags --quiet origin master | Out-Null }
+catch { Fail "Could not fetch from origin.`n$_" }
+$iBehind = [int](Invoke-Git rev-list --count HEAD..origin/master)
+if ($iBehind -gt 0) {
+    Fail "Local master is $iBehind commit(s) behind origin/master. Pull first."
+}
 
 if (-not $Version) {
     $sDate = Get-Date -Format 'yy.M.d'
@@ -96,14 +103,13 @@ try {
     $sDone = "commit 'release $Version'"
     Invoke-Git tag $sTag | Out-Null
     $sDone += " and tag '$sTag'"
-    Invoke-Git push --quiet origin master | Out-Null
-    $sDone += ', pushed master'
-    Invoke-Git push --quiet origin $sTag | Out-Null
+    # Atomic: master and the tag are pushed together or not at all.
+    Invoke-Git push --atomic --quiet origin master $sTag | Out-Null
 }
 catch {
     Write-Host "ERROR: $_" -ForegroundColor Red
     Write-Host "Done locally before the failure: $sDone." -ForegroundColor Yellow
-    Write-Host "Fix the problem, then finish with: git push origin master; git push origin $sTag" -ForegroundColor Yellow
+    Write-Host "Nothing was pushed. Fix the problem, then finish with: git push --atomic origin master $sTag" -ForegroundColor Yellow
     Write-Host "Or undo with: git tag -d $sTag; git reset --hard HEAD~1 (only if the commit was not pushed)" -ForegroundColor Yellow
     exit 1
 }

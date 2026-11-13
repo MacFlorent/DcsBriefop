@@ -140,9 +140,9 @@ Versions are `Y.M.D.N` (date of the release, `N` = subrelease for several releas
 From an up-to-date `master` with no pending changes, run:
 
 ```
-.elease.ps1            # version = today, first free subrelease
-.elease.ps1 26.11.13.1 # or an explicit version
-.elease.ps1 -WhatIf    # show the version that would be used, change nothing
+.\release.ps1            # version = today, first free subrelease
+.\release.ps1 26.11.13.1 # or an explicit version
+.\release.ps1 -WhatIf    # show the version that would be used, change nothing
 ```
 
 The script sets `<Version>` in `DcsBriefop.csproj`, commits, tags `v<version>` and pushes. The tag starts the GitHub `Release` workflow, which publishes the application on a clean runner and creates the GitHub Release with `DcsBriefop_<version>.zip` attached.
