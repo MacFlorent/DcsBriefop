@@ -1894,7 +1894,8 @@ namespace LsonLib
         /// <summary>Converts the current LSON value to a LSON string that parses back to this value.</summary>
         public override void AppendIndented(StringBuilder sb, int indentation = 0)
         {
-            sb.Append(double.IsNaN(_double) ? _long.ToString() : _double.ToString("R", CultureInfo.InvariantCulture));
+            // FGA: lowercase exponent ("3e-05", not "3E-05"); both are valid Lua, but veaf-tools' parser rejects the capital E
+            sb.Append(double.IsNaN(_double) ? _long.ToString() : _double.ToString("R", CultureInfo.InvariantCulture).Replace('E', 'e'));
         }
     }
 
