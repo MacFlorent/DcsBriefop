@@ -1,0 +1,50 @@
+name: Release
+
+# Started by pushing a tag v<Version> (see release.ps1). Builds on a clean runner and
+# publishes a GitHub Release with the zip produced by the PublishResourcesAndZip target.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Check tag matches version
+        run: |
+          $sTag = $env:GITHUB_REF_NAME
+          [xml]$xProject = Get-Content -Raw DcsBriefop.csproj
+          $sVersion = ([string]$xProject.Project.PropertyGroup.Version).Trim()
+          if ("v$sVersion" -ne $sTag) {
+            Write-Error "Tag '$sTag' does not match csproj version '$sVersion' (expected tag 'v$sVersion')."
+            exit 1
+          }
+          "VERSION=$sVersion" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Publish
+        run: |
+          dotnet publish DcsBriefop.sln -c Release -p:PublishProfile=FolderProfile
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $sZip = "bin/published_releases/DcsBriefop_$env:VERSION.zip"
+          if (-not (Test-Path $sZip)) {
+            Write-Error "Release zip not found: $sZip"
+            exit 1
+          }
+          "ZIP=$sZip" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create $env:GITHUB_REF_NAME $env:ZIP --title "DcsBriefop $env:VERSION" --generate-notes
