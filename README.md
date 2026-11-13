@@ -132,3 +132,17 @@ Common options:
 ```
 
 The `GenerateBatchCommandOnSave` preference (on by default) writes a ready-to-use `.cmd` file next to the mission whenever you save, making it easy to schedule or script briefing updates.
+
+## Releasing
+
+Versions are `Y.M.D.N` (date of the release, `N` = subrelease for several releases on the same day). They identify a build, nothing more.
+
+From an up-to-date `master` with no pending changes, run:
+
+```
+.elease.ps1            # version = today, first free subrelease
+.elease.ps1 26.11.13.1 # or an explicit version
+.elease.ps1 -WhatIf    # show the version that would be used, change nothing
+```
+
+The script sets `<Version>` in `DcsBriefop.csproj`, commits, tags `v<version>` and pushes. The tag starts the GitHub `Release` workflow, which publishes the application on a clean runner and creates the GitHub Release with `DcsBriefop_<version>.zip` attached.
